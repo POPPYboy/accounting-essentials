@@ -259,11 +259,12 @@ class CourseMindMap {
 
         window.addEventListener('mousemove', e => {
             const rect = this.canvas.getBoundingClientRect();
-            this.mouse.x = e.clientX - rect.left;
-            this.mouse.y = e.clientY - rect.top;
+            const dpr = window.devicePixelRatio || 1;
+            this.mouse.x = (e.clientX - rect.left) * dpr;
+            this.mouse.y = (e.clientY - rect.top) * dpr;
             this.isMouseOver = (
-                this.mouse.x >= 0 && this.mouse.x <= this.width &&
-                this.mouse.y >= 0 && this.mouse.y <= this.height
+                this.mouse.x >= 0 && this.mouse.x <= this.width * dpr &&
+                this.mouse.y >= 0 && this.mouse.y <= this.height * dpr
             );
         });
 
@@ -289,10 +290,10 @@ class CourseMindMap {
                 const mdx = this.mouse.x - n.x;
                 const mdy = this.mouse.y - n.y;
                 const mdist = Math.sqrt(mdx * mdx + mdy * mdy);
-                if (mdist < 100) {
-                    const force = (100 - mdist) * 0.05;
-                    n.vx -= mdx * force * 0.02;
-                    n.vy -= mdy * force * 0.02;
+                if (mdist < 150) {
+                    const force = (150 - mdist) / 150;
+                    n.vx -= mdx * force * 0.08;
+                    n.vy -= mdy * force * 0.08;
                 }
             }
 
