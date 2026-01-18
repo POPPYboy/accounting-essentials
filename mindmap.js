@@ -186,7 +186,7 @@ class CourseMindMap {
 
         // Dynamic Calculation for Balanced Distribution
         const totalChapters = data.children.reduce((acc, part) => acc + (part.children ? part.children.length : 0), 0);
-        const marginX = 80; // Side padding to prevent clipping
+        const marginX = 50; // Side padding to prevent clipping
         const usableWidth = this.width - (marginX * 2);
         const chapStep = usableWidth / (totalChapters - 1 || 1);
 
@@ -230,8 +230,8 @@ class CourseMindMap {
         const node = {
             id, label, type, url,
             tx, ty, // Home target
-            x: tx + (Math.random() - 0.5) * 50, // Start with random offset for entry animation
-            y: ty + (Math.random() - 0.5) * 50,
+            x: tx + (Math.random() - 0.5) * 20, // Start with random offset for entry animation
+            y: ty + (Math.random() - 0.5) * 10,
             vx: 0, vy: 0,
             width, height,
             scale: 1,
