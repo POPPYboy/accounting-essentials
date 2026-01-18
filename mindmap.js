@@ -187,7 +187,7 @@ class CourseMindMap {
         // Dynamic Calculation for Balanced Distribution using percentage-based spacing
         // This ensures nodes always fit within screen bounds
         const totalChapters = data.children.reduce((acc, part) => acc + (part.children ? part.children.length : 0), 0);
-        const marginX = this.width * 0.12; // 12% margin on each side
+        const marginX = this.width * 0.18; // 18% margin on each side (larger to fit 8 chapters)
         const usableWidth = this.width - (marginX * 2);
         const chapStep = usableWidth / (totalChapters - 1 || 1);
 
