@@ -158,8 +158,14 @@ class CourseMindMap {
     resize() {
         this.width = this.container.clientWidth;
         this.height = this.container.clientHeight;
-        this.canvas.width = this.width;
-        this.canvas.height = this.height;
+        
+        // Handle high-DPI displays (Retina) for crisp text
+        const dpr = window.devicePixelRatio || 1;
+        this.canvas.width = this.width * dpr;
+        this.canvas.height = this.height * dpr;
+        
+        // Scale the context to match the device pixel ratio
+        this.ctx.scale(dpr, dpr);
     }
 
     initData() {
@@ -304,7 +310,9 @@ class CourseMindMap {
     }
 
     draw() {
-        this.ctx.clearRect(0, 0, this.width, this.height);
+        // Clear using actual pixel dimensions
+        const dpr = window.devicePixelRatio || 1;
+        this.ctx.clearRect(0, 0, this.width * dpr, this.height * dpr);
 
         // Draw Connections
         this.ctx.lineWidth = 1.5;
@@ -352,6 +360,11 @@ class CourseMindMap {
             this.ctx.font = `bold ${12 * n.scale}px "Inter", sans-serif`;
             this.ctx.textAlign = 'center';
             this.ctx.textBaseline = 'middle';
+            
+            // Improve text rendering quality
+            this.ctx.imageSmoothingEnabled = true;
+            this.ctx.imageSmoothingQuality = 'high';
+            
             this.ctx.fillText(n.label, n.x, n.y);
 
             this.ctx.restore();

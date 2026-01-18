@@ -32,8 +32,14 @@ class BackgroundParticles {
     resize() {
         this.width = window.innerWidth;
         this.height = window.innerHeight;
-        this.canvas.width = this.width;
-        this.canvas.height = this.height;
+        
+        // Handle high-DPI displays (Retina) for crisp rendering
+        const dpr = window.devicePixelRatio || 1;
+        this.canvas.width = this.width * dpr;
+        this.canvas.height = this.height * dpr;
+        
+        // Scale the context to match the device pixel ratio
+        this.ctx.scale(dpr, dpr);
     }
 
     initParticles() {
@@ -90,7 +96,9 @@ class BackgroundParticles {
     }
 
     draw() {
-        this.ctx.clearRect(0, 0, this.width, this.height);
+        // Clear using actual pixel dimensions
+        const dpr = window.devicePixelRatio || 1;
+        this.ctx.clearRect(0, 0, this.width * dpr, this.height * dpr);
         this.ctx.fillStyle = this.theme.particle;
 
         this.particles.forEach((p, i) => {
