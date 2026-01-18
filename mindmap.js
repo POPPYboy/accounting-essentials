@@ -174,19 +174,19 @@ class CourseMindMap {
 
         const data = this.data;
 
-        // Layout Constants (Optimized for Full Page with larger text)
+        // Layout Constants (Optimized for Full Page - compact layout)
         const Y_ROOT = 100;
-        const Y_PART = 220;
-        const Y_CHAP = 340;
-        const Y_SEC_START = 430;
-        const Y_SEC_GAP = 40;
+        const Y_PART = 180;
+        const Y_CHAP = 260;
+        const Y_SEC_START = 320;
+        const Y_SEC_GAP = 26;
 
         // Create Root Node
         const rootNode = this.createNode('root', 'COURSE START', 'root', this.width / 2, Y_ROOT, 'index.html');
 
         // Dynamic Calculation for Balanced Distribution
         const totalChapters = data.children.reduce((acc, part) => acc + (part.children ? part.children.length : 0), 0);
-        const marginX = 100; // Side padding to prevent clipping
+        const marginX = 80; // Side padding to prevent clipping
         const usableWidth = this.width - (marginX * 2);
         const chapStep = usableWidth / (totalChapters - 1 || 1);
 
@@ -222,10 +222,10 @@ class CourseMindMap {
     }
 
     createNode(id, label, type, tx, ty, url = null) {
-        this.ctx.font = 'bold 13px "Inter", sans-serif';
+        this.ctx.font = 'bold 11px "Inter", sans-serif';
         const metrics = this.ctx.measureText(label);
-        const width = metrics.width + 36;
-        const height = 30;
+        const width = metrics.width + 24;
+        const height = 24;
 
         const node = {
             id, label, type, url,
@@ -357,7 +357,7 @@ class CourseMindMap {
             // Text
             this.ctx.shadowBlur = 0;
             this.ctx.fillStyle = this.theme.text;
-            this.ctx.font = `bold ${12 * n.scale}px "Inter", sans-serif`;
+            this.ctx.font = `bold ${10 * n.scale}px "Inter", sans-serif`;
             this.ctx.textAlign = 'center';
             this.ctx.textBaseline = 'middle';
             
