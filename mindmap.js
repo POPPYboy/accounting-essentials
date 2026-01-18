@@ -194,7 +194,7 @@ class CourseMindMap {
         // Calculate offset to center the entire mindmap including node widths
         // Last chapter right edge = marginX + (totalChapters-1) * chapStep + maxNodeWidth/2
         const maxNodeWidth = 220; // Approximate max width for long chapter titles
-        const shiftOffset = maxNodeWidth / 2; // Shift left by half max node width
+        const shiftOffset = maxNodeWidth * 0.8; // Shift left by 80% of max node width
 
         let globalChapIndex = 0;
 
