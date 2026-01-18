@@ -174,12 +174,12 @@ class CourseMindMap {
 
         const data = this.data;
 
-        // Layout Constants (Optimized for Full Page)
+        // Layout Constants (Optimized for Full Page with larger text)
         const Y_ROOT = 100;
-        const Y_PART = 200;
-        const Y_CHAP = 300;
-        const Y_SEC_START = 380;
-        const Y_SEC_GAP = 32;
+        const Y_PART = 220;
+        const Y_CHAP = 340;
+        const Y_SEC_START = 430;
+        const Y_SEC_GAP = 40;
 
         // Create Root Node
         const rootNode = this.createNode('root', 'COURSE START', 'root', this.width / 2, Y_ROOT, 'index.html');
@@ -224,8 +224,8 @@ class CourseMindMap {
     createNode(id, label, type, tx, ty, url = null) {
         this.ctx.font = 'bold 13px "Inter", sans-serif';
         const metrics = this.ctx.measureText(label);
-        const width = metrics.width + 28;
-        const height = 26;
+        const width = metrics.width + 36;
+        const height = 30;
 
         const node = {
             id, label, type, url,
