@@ -184,9 +184,10 @@ class CourseMindMap {
         // Create Root Node
         const rootNode = this.createNode('root', 'COURSE START', 'root', this.width / 2, Y_ROOT, 'index.html');
 
-        // Dynamic Calculation for Balanced Distribution
+        // Dynamic Calculation for Balanced Distribution using percentage-based spacing
+        // This ensures nodes always fit within screen bounds
         const totalChapters = data.children.reduce((acc, part) => acc + (part.children ? part.children.length : 0), 0);
-        const marginX = 150; // Larger margin to reduce horizontal spread
+        const marginX = this.width * 0.12; // 12% margin on each side
         const usableWidth = this.width - (marginX * 2);
         const chapStep = usableWidth / (totalChapters - 1 || 1);
 
@@ -230,8 +231,8 @@ class CourseMindMap {
         const node = {
             id, label, type, url,
             tx, ty, // Home target
-            x: tx + (Math.random() - 0.5) * 20, // Start with random offset for entry animation
-            y: ty + (Math.random() - 0.5) * 10,
+            x: tx, // No random offset to prevent overflow
+            y: ty,
             vx: 0, vy: 0,
             width, height,
             scale: 1,
