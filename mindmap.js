@@ -190,6 +190,11 @@ class CourseMindMap {
         const marginX = this.width * 0.18; // 18% margin on each side (larger to fit 8 chapters)
         const usableWidth = this.width - (marginX * 2);
         const chapStep = usableWidth / (totalChapters - 1 || 1);
+        
+        // Calculate offset to center the entire mindmap including node widths
+        // Last chapter right edge = marginX + (totalChapters-1) * chapStep + maxNodeWidth/2
+        const maxNodeWidth = 220; // Approximate max width for long chapter titles
+        const shiftOffset = maxNodeWidth / 2; // Shift left by half max node width
 
         let globalChapIndex = 0;
 
@@ -199,13 +204,13 @@ class CourseMindMap {
             // Calculate part center based on its chapters' horizontal range
             const startX = marginX + globalChapIndex * chapStep;
             const endX = marginX + (globalChapIndex + partChapters.length - 1) * chapStep;
-            const partX = (startX + endX) / 2;
+            const partX = (startX + endX) / 2 - shiftOffset; // Shift left to center
 
             const partNode = this.createNode(part.id, part.title, 'part', partX, Y_PART, part.url);
             this.connect(rootNode, partNode);
 
             partChapters.forEach((chap, j) => {
-                const chapX = marginX + globalChapIndex * chapStep;
+                const chapX = marginX + globalChapIndex * chapStep - shiftOffset; // Shift left to center
                 const chapNode = this.createNode(chap.id, chap.title, 'chapter', chapX, Y_CHAP, chap.url);
                 this.connect(partNode, chapNode);
 
