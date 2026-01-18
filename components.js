@@ -3,6 +3,122 @@
  * Reusable logic for learning interactions
  */
 
+/**
+ * Background Particle System
+ * Floating particles with mouse-responsive constellation effects
+ */
+class BackgroundParticles {
+    constructor(canvasId) {
+        this.canvas = document.getElementById(canvasId);
+        if (!this.canvas) return;
+        this.ctx = this.canvas.getContext('2d');
+        this.particles = [];
+        this.mouse = { x: -1000, y: -1000 };
+        this.isMouseOver = false;
+
+        this.theme = {
+            particle: 'rgba(26, 35, 126, 0.12)', // Light navy particles
+            line: 'rgba(26, 35, 126, 0.05)'   // Faint constellation lines
+        };
+
+        this.resize();
+        this.initParticles();
+        this.bindEvents();
+
+        this.animate = this.animate.bind(this);
+        requestAnimationFrame(this.animate);
+    }
+
+    resize() {
+        this.width = window.innerWidth;
+        this.height = window.innerHeight;
+        this.canvas.width = this.width;
+        this.canvas.height = this.height;
+    }
+
+    initParticles() {
+        this.particles = [];
+        const count = Math.min(150, (this.width * this.height) / 10000);
+        for (let i = 0; i < count; i++) {
+            this.particles.push({
+                x: Math.random() * this.width,
+                y: Math.random() * this.height,
+                vx: (Math.random() - 0.5) * 0.3,
+                vy: (Math.random() - 0.5) * 0.3,
+                size: Math.random() * 2 + 1,
+            });
+        }
+    }
+
+    bindEvents() {
+        window.addEventListener('resize', () => {
+            this.resize();
+            this.initParticles();
+        });
+
+        window.addEventListener('mousemove', e => {
+            this.mouse.x = e.clientX;
+            this.mouse.y = e.clientY;
+            this.isMouseOver = true;
+        });
+    }
+
+    update() {
+        this.particles.forEach(p => {
+            p.x += p.vx;
+            p.y += p.vy;
+
+            if (this.isMouseOver) {
+                const dx = this.mouse.x - p.x;
+                const dy = this.mouse.y - p.y;
+                const dist = Math.sqrt(dx * dx + dy * dy);
+                if (dist < 150) {
+                    const force = (150 - dist) / 150;
+                    p.vx -= dx * force * 0.005;
+                    p.vy -= dy * force * 0.005;
+                }
+            }
+
+            if (p.x < 0) p.x = this.width;
+            if (p.x > this.width) p.x = 0;
+            if (p.y < 0) p.y = this.height;
+            if (p.y > this.height) p.y = 0;
+
+            p.vx *= 0.99;
+            p.vy *= 0.99;
+        });
+    }
+
+    draw() {
+        this.ctx.clearRect(0, 0, this.width, this.height);
+        this.ctx.fillStyle = this.theme.particle;
+
+        this.particles.forEach((p, i) => {
+            this.ctx.beginPath();
+            this.ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+            this.ctx.fill();
+
+            for (let j = i + 1; j < this.particles.length; j++) {
+                const p2 = this.particles[j];
+                const dist = Math.sqrt((p.x - p2.x) ** 2 + (p.y - p2.y) ** 2);
+                if (dist < 80) {
+                    this.ctx.strokeStyle = `rgba(26, 35, 126, ${0.1 * (1 - dist / 80)})`;
+                    this.ctx.beginPath();
+                    this.ctx.moveTo(p.x, p.y);
+                    this.ctx.lineTo(p2.x, p2.y);
+                    this.ctx.stroke();
+                }
+            }
+        });
+    }
+
+    animate() {
+        this.update();
+        this.draw();
+        requestAnimationFrame(this.animate);
+    }
+}
+
 class InteractiveSystem {
     init() {
         this.bindFlipCards();
@@ -153,6 +269,10 @@ class InteractiveSystem {
 
 // Initialize on page load
 document.addEventListener('DOMContentLoaded', () => {
+    // Initialize background particles
+    new BackgroundParticles('global-bg-canvas');
+
+    // Initialize interactive system
     const system = new InteractiveSystem();
     system.init();
 });

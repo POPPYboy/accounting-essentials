@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Interactive Course Mind Map - Accounting Essentials">
+    <title>Course Mind Map | ACCOUNTING ESSENTIALS</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+
+<body style="height: 100vh; overflow: hidden; display: flex; flex-direction: column;">
+    <canvas id="global-bg-canvas"
+        style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; background: var(--bg-light); pointer-events: none;"></canvas>
+
+    <header style="flex-shrink: 0;">
+        <div class="container nav-container">
+            <a href="index.html" class="logo">ACCOUNTING<span>ESSENTIALS</span></a>
+            <nav class="nav-links">
+                <a href="mindmap.html" class="active" style="color: var(--primary); font-weight: 700;">Mind Map</a>
+                <a href="Part1/part1.html">Part 1</a>
+                <a href="part2/part2.html">Part 2</a>
+                <a href="part3/part3.html">Part 3</a>
+            </nav>
+        </div>
+    </header>
+
+    <main style="flex-grow: 1; position: relative; overflow: hidden;">
+        <div id="mindmap-canvas-container" style="width: 100%; height: 100%;"></div>
+    </main>
+
+    <footer
+        style="padding: 1rem 0; background: rgba(0,0,0,0.05); color: #888; font-size: 0.8rem; text-align: center; flex-shrink: 0;">
+        <div class="container">
+            <p>&copy; 2025 Accounting Essentials. S-A Program, SISU</p>
+        </div>
+    </footer>
+
+    <script src="mindmap.js"></script>
+    <script src="components.js"></script>
+</body>
+
+</html>
