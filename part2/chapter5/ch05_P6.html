@@ -1,0 +1,656 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>P6 (App 5A): Periodic Sales | ACCOUNTING ESSENTIALS</title>
+    <link rel="stylesheet" href="../../styles.css">
+    <style>
+        .sale-comparison {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+        .sale-system {
+            background: var(--bg-light);
+            border-radius: var(--radius-md);
+            padding: 1.5rem;
+            border: 2px solid #ddd;
+        }
+        .sale-system.perpetual {
+            border-color: var(--success);
+        }
+        .sale-system.periodic {
+            border-color: var(--warning);
+        }
+        .sale-system h4 {
+            margin-top: 0;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid;
+        }
+        .sale-system.perpetual h4 {
+            color: var(--success);
+            border-color: var(--success);
+        }
+        .sale-system.periodic h4 {
+            color: var(--warning);
+            border-color: var(--warning);
+        }
+        .journal-entry-box {
+            background: #f5f5f5;
+            border-radius: var(--radius-sm);
+            padding: 1rem;
+            margin: 0.75rem 0;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9rem;
+        }
+        .journal-entry-box .debit {
+            color: var(--primary);
+            font-weight: 600;
+        }
+        .journal-entry-box .credit {
+            color: var(--secondary);
+            font-weight: 600;
+        }
+        .journal-entry-box .no-entry {
+            color: var(--error);
+            font-weight: 600;
+            font-style: italic;
+        }
+        .equation-visual {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 1rem;
+            margin: 2rem 0;
+            flex-wrap: wrap;
+        }
+        .equation-box {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            color: var(--white);
+            padding: 1.5rem 2rem;
+            border-radius: var(--radius-sm);
+            text-align: center;
+            min-width: 150px;
+        }
+        .equation-box .label {
+            font-size: 0.8rem;
+            color: var(--secondary-light);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        .equation-box .value {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-top: 0.5rem;
+        }
+        .equation-operator {
+            font-size: 2rem;
+            color: var(--secondary);
+            font-weight: 700;
+        }
+        .pros-cons-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+        .pros-cons-card {
+            background: var(--bg-light);
+            border-radius: var(--radius-md);
+            padding: 1.5rem;
+            border-left: 4px solid;
+        }
+        .pros-card {
+            border-color: var(--success);
+        }
+        .cons-card {
+            border-color: var(--error);
+        }
+        .pros-card h4 {
+            color: var(--success);
+            margin-top: 0;
+        }
+        .cons-card h4 {
+            color: var(--error);
+            margin-top: 0;
+        }
+        .pros-card ul, .cons-card ul {
+            margin: 0;
+            padding-left: 1.25rem;
+        }
+        .pros-card li, .cons-card li {
+            margin: 0.5rem 0;
+        }
+    </style>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-50MTQPVR7D"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-50MTQPVR7D');
+</script>
+
+</head>
+
+<body>
+    <header>
+        <div class="container nav-container">
+            <a href="../../index.html" class="logo">ACCOUNTING<span>ESSENTIALS</span></a>
+            <nav class="nav-links">
+                <a href="../../index.html">Home</a>
+                <a href="../../Part1/part1.html">Part 1</a>
+                <a href="../../part2/part2.html">Part 2</a>
+                <a href="../../part3/part3.html">Part 3</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container">
+        <div class="breadcrumbs">
+            <a href="../../index.html">Home</a> <span>/</span> <a href="../../part2/part2.html">Part 2</a> <span>/</span> <a href="ch05.html">Chapter 5</a> <span>/</span> P6
+        </div>
+
+        <article class="animate-fade-in">
+            <div class="kp-header">
+                <h1 style="border-left: 8px solid var(--primary-light); padding-left: 1rem; margin: 2rem 0;">Periodic Sales (App 5A)</h1>
+            </div>
+
+            <!-- Learning Objectives -->
+            <section class="kp-section">
+                <h2>🎯 Learning Objectives</h2>
+                <div class="learning-objectives">
+                    <ul>
+                        <li>Understand how sales are recorded in a periodic inventory system</li>
+                        <li>Distinguish between perpetual and periodic sales recording</li>
+                        <li>Explain why the cost entry is deferred until period-end</li>
+                        <li>Calculate cost of goods sold using the periodic formula</li>
+                        <li>Analyze the trade-offs between perpetual and periodic systems</li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- Background & Principles -->
+            <section class="kp-section">
+                <h2>📚 Background & Principles</h2>
+                <p>In a periodic sales system, only the revenue side of each sale is recorded at the time of sale. The cost of goods sold and inventory reduction entries are deferred until year-end when physical inventory counts are performed.</p>
+
+                <div class="concept-card" style="margin: 1.5rem 0;">
+                    <strong>Core Principle:</strong> The periodic system separates revenue recognition from cost recognition. Revenue is recorded immediately upon sale, but COGS is calculated at period-end using the formula: Beginning Inventory + Net Purchases + Freight-In - Ending Inventory.
+                </div>
+
+                <p>This "half-story" approach simplifies daily transactions but delays cost information until year-end. The inventory reduction is captured through the physical count rather than individual transaction entries.</p>
+
+                <div class="professional-tip">
+                    <strong>💡 Key Insight:</strong> Think of periodic sales as only recording the "happy" part of the transaction (we made money!) and deferring the "sad" part (we gave up inventory) until later. The year-end count tells the complete story.
+                </div>
+            </section>
+
+            <!-- Key Concepts -->
+            <section class="kp-section">
+                <h2>🔑 Key Concepts</h2>
+                <div class="key-concepts-grid">
+                    <div class="concept-card">
+                        <strong>Revenue Entry Only</strong>
+                        <p>In periodic systems, sales generate only one entry: Debit Cash/AR, Credit Sales Revenue. The cost entry is deferred.</p>
+                    </div>
+
+                    <div class="concept-card">
+                        <strong>Deferred Cost Recognition</strong>
+                        <p>COGS is not recorded with each sale. Instead, it's calculated at period-end using beginning inventory, purchases, and ending inventory.</p>
+                    </div>
+
+                    <div class="concept-card">
+                        <strong>Physical Count Dependency</strong>
+                        <p>The periodic system relies entirely on year-end inventory counting to determine what was sold and what remains.</p>
+                    </div>
+
+                    <div class="concept-card">
+                        <strong>Hidden Shrinkage</strong>
+                        <p>Inventory theft, damage, or errors are included in COGS because they reduce ending inventory, inflating the cost figure.</p>
+                    </div>
+
+                    <div class="concept-card">
+                        <strong>Simplified Transactions</strong>
+                        <p>Daily sales recording is faster since only one entry per transaction is needed instead of two.</p>
+                    </div>
+
+                    <div class="concept-card">
+                        <strong>Delayed Financial Information</strong>
+                        <p>Gross profit and COGS are unknown until year-end physical count, limiting interim financial analysis.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Deep Dive -->
+            <section class="kp-section">
+                <h2>🔍 Deep Dive</h2>
+                <p>Explore periodic sales at different levels of depth:</p>
+
+                <div class="depth-toggle">
+                    <button class="depth-btn active" onclick="setDepth('A')">Depth A: Foundational</button>
+                    <button class="depth-btn" onclick="setDepth('B')">Depth B: Standard</button>
+                    <button class="depth-btn" onclick="setDepth('C')">Depth C: Advanced</button>
+                </div>
+
+                <!-- Depth A -->
+                <div id="depth-A" class="depth-content active">
+                    <h3>🟢 Foundational Level</h3>
+                    <p>Understanding the "Half-Story" sale concept.</p>
+
+                    <div class="worked-example">
+                        <h4>The Half-Story Sale</h4>
+                        <p><strong>Analogy: The Lazy Cashier</strong></p>
+                        <p>Imagine a store where the cashier only records HOW MUCH customers pay, but doesn't track WHAT they bought or how much it cost.</p>
+
+                        <div class="example-step">
+                            <strong>At the Register (Periodic):</strong>
+                            <p>"That will be $100." → You charge their card and record the sale.</p>
+                            <p>"What did they buy?" → You don't care. You don't record the inventory reduction.</p>
+                        </div>
+                        <div class="example-step">
+                            <strong>At Year-End:</strong>
+                            <p>Someone counts the shelves. "We started with 500 items, now we have 400. So we sold 100."</p>
+                            <p>Then they calculate: "Those 100 items cost us $600. Our profit was $10,000 - $600 = $9,400."</p>
+                        </div>
+                    </div>
+
+                    <div style="background: var(--bg-dark); color: var(--white); padding: 2rem; border-radius: var(--radius-md); text-align: center; margin: 2rem 0;">
+                        <h3 style="color: var(--secondary-light);">The Key Difference</h3>
+                        <div style="display: flex; justify-content: center; gap: 2rem; margin-top: 1rem; flex-wrap: wrap;">
+                            <div>
+                                <div style="font-size: 0.9rem; color: var(--text-muted);">Perpetual</div>
+                                <div style="font-size: 1.2rem; font-weight: 700; color: var(--success);">2 Entries</div>
+                            </div>
+                            <div>
+                                <div style="font-size: 0.9rem; color: var(--text-muted);">Periodic</div>
+                                <div style="font-size: 1.2rem; font-weight: 700; color: var(--warning);">1 Entry</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Depth B -->
+                <div id="depth-B" class="depth-content">
+                    <h3>🟡 Standard Level</h3>
+                    <p>Journal entry comparison and system trade-offs.</p>
+
+                    <div class="worked-example">
+                        <h4>Journal Entry Comparison</h4>
+                        <p><strong>Scenario:</strong> Sold merchandise for $1,500 (cost $900) on credit.</p>
+
+                        <div class="sale-comparison">
+                            <div class="sale-system perpetual">
+                                <h4>🔄 Perpetual System</h4>
+                                <p><strong>Entry 1: Revenue</strong></p>
+                                <div class="journal-entry-box">
+                                    <span class="debit">Debit: Accounts Receivable</span> $1,500<br>
+                                    <span class="credit">Credit: Sales Revenue</span> $1,500
+                                </div>
+                                <p><strong>Entry 2: Cost (IMMEDIATE)</strong></p>
+                                <div class="journal-entry-box">
+                                    <span class="debit">Debit: Cost of Goods Sold</span> $900<br>
+                                    <span class="credit">Credit: Inventory</span> $900
+                                </div>
+                                <p style="color: var(--success); font-weight: 600;">✓ Real-time COGS & Inventory</p>
+                            </div>
+                            <div class="sale-system periodic">
+                                <h4>📅 Periodic System</h4>
+                                <p><strong>Entry 1: Revenue</strong></p>
+                                <div class="journal-entry-box">
+                                    <span class="debit">Debit: Accounts Receivable</span> $1,500<br>
+                                    <span class="credit">Credit: Sales Revenue</span> $1,500
+                                </div>
+                                <p><strong>Entry 2: Cost</strong></p>
+                                <div class="journal-entry-box">
+                                    <span class="no-entry">NO ENTRY MADE NOW</span>
+                                </div>
+                                <p style="color: var(--warning); font-weight: 600;">⚠ Deferred until year-end</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="worked-example">
+                        <h4>When Does the Cost Entry Happen?</h4>
+                        <p><strong>In Periodic System:</strong></p>
+                        <p>The combined closing entry at year-end accounts for all sales, purchases, and inventory changes at once.</p>
+                        <div class="journal-entry-box">
+                            <span class="debit">Debit: Cost of Goods Sold</span> [Calculated]<br>
+                            <span class="debit">Debit: Sales Returns & Allowances</span> [Returns]<br>
+                            <span class="debit">Debit: Sales Discounts</span> [Discounts]<br>
+                            <span class="credit">Credit: Purchases</span> [Net Purchases]<br>
+                            <span class="credit">Credit: Inventory (Ending)</span> [Physical Count]<br>
+                            <span class="credit">Credit: Sales Revenue</span> [Total Sales]
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Depth C -->
+                <div id="depth-C" class="depth-content">
+                    <h3>🔴 Advanced Level</h3>
+                    <p>Complex analysis and system selection considerations.</p>
+
+                    <div class="worked-example">
+                        <h4>COGS Calculation in Periodic System</h4>
+                        <p><strong>Given:</strong> Beginning Inventory $20,000, Net Purchases $75,000, Freight-In $2,500, Ending Inventory $18,000</p>
+
+                        <div class="equation-visual">
+                            <div class="equation-box">
+                                <div class="label">Beginning</div>
+                                <div class="value">$20,000</div>
+                            </div>
+                            <div class="equation-operator">+</div>
+                            <div class="equation-box">
+                                <div class="label">Net Purchases</div>
+                                <div class="value">$75,000</div>
+                            </div>
+                            <div class="equation-operator">+</div>
+                            <div class="equation-box">
+                                <div class="label">Freight</div>
+                                <div class="value">$2,500</div>
+                            </div>
+                            <div class="equation-operator">−</div>
+                            <div class="equation-box">
+                                <div class="label">Ending</div>
+                                <div class="value">$18,000</div>
+                            </div>
+                            <div class="equation-operator">=</div>
+                            <div class="equation-box" style="background: linear-gradient(135deg, var(--success) 0%, #1e8449 100%);">
+                                <div class="label">COGS</div>
+                                <div class="value">$79,500</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="worked-example">
+                        <h4>Shrinkage Impact Analysis</h4>
+                        <p><strong>Scenario:</strong> Beginning Inventory $25,000, Purchases $100,000, Physical Count Ending $22,000, but "Book" should be $24,000 (theft/loss of $2,000).</p>
+
+                        <div class="example-step">
+                            <strong>Calculated COGS:</strong>
+                            <p>Beginning + Purchases - Ending = $25,000 + $100,000 - $22,000 = $103,000</p>
+                        </div>
+                        <div class="example-step">
+                            <strong>The "Hidden" Problem:</strong>
+                            <p>The $2,000 shrinkage is included in COGS as an expense, but it looks like normal cost of goods sold. Management may not realize there's a theft problem.</p>
+                        </div>
+                        <div class="example-step">
+                            <strong>Perpetual System Would Show:</strong>
+                            <p>Real-time tracking would reveal the missing inventory BEFORE year-end, allowing investigation and prevention.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Interactive Calculator -->
+            <section class="kp-section">
+                <h2>🎨 Interactive: Periodic COGS Calculator</h2>
+                <p>Calculate cost of goods sold using the periodic system formula.</p>
+
+                <div class="simulator-container">
+                    <div class="card-grid" style="grid-template-columns: repeat(2, 1fr); gap: 1rem;">
+                        <div class="input-group">
+                            <label>Beginning Inventory ($)</label>
+                            <input type="number" id="cogs-beg" value="20000" oninput="calcCOGS()">
+                        </div>
+                        <div class="input-group">
+                            <label>Net Purchases ($)</label>
+                            <input type="number" id="cogs-purch" value="75000" oninput="calcCOGS()">
+                        </div>
+                        <div class="input-group">
+                            <label>Freight-In ($)</label>
+                            <input type="number" id="cogs-frt" value="2500" oninput="calcCOGS()">
+                        </div>
+                        <div class="input-group">
+                            <label>Ending Inventory - Physical Count ($)</label>
+                            <input type="number" id="cogs-end" value="18000" oninput="calcCOGS()">
+                        </div>
+                    </div>
+
+                    <div style="margin-top: 2rem; padding: 2rem; background: linear-gradient(135deg, var(--success) 0%, #1e8449 100%); color: var(--white); border-radius: var(--radius-md); text-align: center;">
+                        <span style="font-size: 0.9rem; color: var(--secondary-light); text-transform: uppercase; letter-spacing: 1px;">Cost of Goods Sold</span>
+                        <div id="cogs-result" style="font-size: 3rem; font-weight: 900;">$79,500</div>
+                        <p style="margin-top: 1rem; font-size: 0.9rem; color: rgba(255,255,255,0.8);">
+                            Available for Sale: <span id="cogs-avail">$97,500</span> − Ending: <span id="cogs-end-disp">$18,000</span>
+                        </p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- System Comparison -->
+            <section class="kp-section">
+                <h2>⚖️ Perpetual vs Periodic: Sales Comparison</h2>
+
+                <div class="pros-cons-grid">
+                    <div class="pros-cons-card pros-card">
+                        <h4>✅ Periodic System Advantages</h4>
+                        <ul>
+                            <li>Simpler daily transactions (one entry per sale)</li>
+                            <li>Lower implementation and maintenance costs</li>
+                            <li>Less data entry burden during operations</li>
+                            <li>Suitable for small businesses with manual systems</li>
+                            <li>Works well for low-value or homogeneous inventory</li>
+                        </ul>
+                    </div>
+                    <div class="pros-cons-card cons-card">
+                        <h4>⚠️ Periodic System Disadvantages</h4>
+                        <ul>
+                            <li>No real-time inventory information</li>
+                            <li>COGS and gross profit unknown until year-end</li>
+                            <li>Inventory shrinkage hidden in COGS figure</li>
+                            <li>Delayed detection of theft or errors</li>
+                            <li>Limited interim financial analysis capability</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="concept-card" style="margin-top: 2rem;">
+                    <strong>📊 Decision Framework:</strong> Choose periodic system if your business has: (1) low transaction volume, (2) low-value items, (3) manual accounting processes, or (4) limited technology resources. Choose perpetual system if you need: (1) real-time inventory tracking, (2) immediate COGS information, (3) theft detection, or (4) sophisticated inventory management.
+                </div>
+            </section>
+
+            <!-- Common Misconceptions -->
+            <section class="kp-section">
+                <h2>🚫 Common Misconceptions & Professional Tips</h2>
+
+                <div class="misconception-alert">
+                    <strong>❌ Misconception 1:</strong> "Periodic systems don't track inventory at all."
+                    <br><br>
+                    <strong>✅ Reality:</strong> Periodic systems DO track inventory—they just do it differently. Purchases are recorded, and physical counts determine ending inventory. COGS is calculated rather than accumulated transaction-by-transaction.
+                </div>
+
+                <div class="misconception-alert">
+                    <strong>❌ Misconception 2:</strong> "Periodic systems don't record COGS."
+                    <br><br>
+                    <strong>✅ Reality:</strong> Periodic systems DO record COGS, but at year-end as a single summary entry, not as individual entries for each sale. The total COGS figure is calculated using the inventory equation.
+                </div>
+
+                <div class="misconception-alert">
+                    <strong>❌ Misconception 3:</strong> "Periodic systems are always worse than perpetual."
+                    <br><br>
+                    <strong>✅ Reality:</strong> For small retailers, periodic systems may be more cost-effective. The "best" system depends on business needs, not technical superiority. Many businesses successfully use periodic systems for specific product lines.
+                </div>
+
+                <div class="professional-tip">
+                    <strong>💡 Professional Tip #1:</strong> Even in periodic systems, maintain a purchases journal to track all acquisitions. This aids in vendor analysis and audit preparation.
+                </div>
+
+                <div class="professional-tip">
+                    <strong>💡 Professional Tip #2:</strong> Conduct cycle counts (partial physical counts) throughout the year in periodic systems. While not used for financial statements, they help identify issues early.
+                </div>
+
+                <div class="professional-tip">
+                    <strong>💡 Professional Tip #3:</strong> Document your year-end inventory counting procedures thoroughly. Inconsistent counts between years or locations raise audit concerns.
+                </div>
+            </section>
+
+            <!-- Memory Aids -->
+            <section class="kp-section">
+                <h2>🧠 Memory Aids & Quick Reference</h2>
+
+                <div class="memory-aid-card">
+                    <strong>⚡ Quick Recall: Periodic COGS Formula</strong>
+                    <p><strong>COGS = Beginning + Net Purchases + Freight-In − Ending</strong></p>
+                    <p>Remember: Only ONE entry per sale (the revenue entry). The cost entry comes at year-end.</p>
+                </div>
+
+                <div class="key-concepts-grid">
+                    <div class="concept-card">
+                        <strong>💵 Sales Entry</strong>
+                        <p>Dr: Cash/AR, Cr: Sales (recorded immediately)</p>
+                    </div>
+
+                    <div class="concept-card">
+                        <strong>📦 Cost Entry</strong>
+                        <p>Deferred until year-end physical count</p>
+                    </div>
+
+                    <div class="concept-card">
+                        <strong>🔢 COGS Calculation</strong>
+                        <p>Beginning + Purchases + Freight - Ending = COGS</p>
+                    </div>
+
+                    <div class="concept-card">
+                        <strong>⚠️ Shrinkage</strong>
+                        <p>Hidden in COGS as difference between book and physical</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Glossary -->
+            <section class="kp-section">
+                <h2>📖 Glossary</h2>
+                <div class="key-concepts-grid">
+                    <div class="concept-card">
+                        <strong>Periodic Inventory System</strong>
+                        <p>Inventory system where inventory is not updated continuously. Balance determined by physical count at period-end.</p>
+                    </div>
+
+                    <div class="concept-card">
+                        <strong>Revenue Recognition (Sales)</strong>
+                        <p>Recording the sale entry at time of transfer. In periodic: only the sales portion, not cost portion.</p>
+                    </div>
+
+                    <div class="concept-card">
+                        <strong>Cost Recognition Deferral</strong>
+                        <p>Postponing the COGS entry until year-end when inventory is physically counted.</p>
+                    </div>
+
+                    <div class="concept-card">
+                        <strong>Physical Inventory Count</strong>
+                        <p>Year-end process of counting actual inventory on hand to determine ending inventory balance.</p>
+                    </div>
+
+                    <div class="concept-card">
+                        <strong>Inventory Shrinkage</strong>
+                        <p>Difference between book inventory and physical count due to theft, damage, or errors.</p>
+                    </div>
+
+                    <div class="concept-card">
+                        <strong>Cost of Goods Available</strong>
+                        <p>Beginning Inventory + Net Purchases + Freight-In. Total cost of goods available for sale during period.</p>
+                    </div>
+
+                    <div class="concept-card">
+                        <strong>Deferred Cost Entry</strong>
+                        <p>The COGS and inventory adjustment entry made only at period-end in periodic systems.</p>
+                    </div>
+
+                    <div class="concept-card">
+                        <strong>System Trade-off</strong>
+                        <p>The balance between simplicity (periodic) and real-time information (perpetual) in inventory management.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Final Knowledge Check -->
+            <section class="interactive-section">
+                <h2>🎯 Final Knowledge Check</h2>
+                <p>Test your understanding of Periodic Sales:</p>
+
+                <div class="quiz-container" data-success-text="Excellent! You've mastered periodic sales concepts." data-explanation="In a periodic system, only the revenue portion of a sale is recorded at the time of sale. The cost entry (Dr: COGS, Cr: Inventory) is deferred until year-end when physical inventory counts are performed.">
+                    <div class="input-group">
+                        <p><strong>Question 1:</strong> In a periodic system, when a sale is made, how many journal entries are created?</p>
+                        <label><input type="radio" name="q1" value="correct" data-correct="true"> One (revenue entry only)</label><br>
+                        <label><input type="radio" name="q1" value="incorrect1" data-correct="false"> Two (revenue and cost)</label><br>
+                        <label><input type="radio" name="q1" value="incorrect2" data-correct="false"> Three (revenue, cost, and inventory)</label>
+                    </div>
+
+                    <div class="input-group">
+                        <p><strong>Question 2:</strong> When is the Cost of Goods Sold entry recorded in a periodic system?</p>
+                        <label><input type="radio" name="q2" value="incorrect1" data-correct="false"> At the time of each sale</label><br>
+                        <label><input type="radio" name="q2" value="incorrect2" data-correct="false"> Monthly</label><br>
+                        <label><input type="radio" name="q2" value="correct" data-correct="true"> At year-end (period-end)</label>
+                    </div>
+
+                    <div class="input-group">
+                        <p><strong>Question 3:</strong> What is included in "Cost of Goods Available for Sale"?</p>
+                        <label><input type="radio" name="q3" value="incorrect1" data-correct="false"> Beginning Inventory only</label><br>
+                        <label><input type="radio" name="q3" value="incorrect2" data-correct="false"> Purchases only</label><br>
+                        <label><input type="radio" name="q3" value="correct" data-correct="true"> Beginning Inventory + Net Purchases + Freight-In</label>
+                    </div>
+
+                    <div class="input-group">
+                        <p><strong>Question 4:</strong> Inventory shrinkage in a periodic system:</p>
+                        <label><input type="radio" name="q4" value="incorrect1" data-correct="false"> Is recorded as a separate expense</label><br>
+                        <label><input type="radio" name="q4" value="incorrect2" data-correct="false"> Is detected immediately when it occurs</label><br>
+                        <label><input type="radio" name="q4" value="correct" data-correct="true"> Is hidden in the COGS figure</label>
+                    </div>
+
+                    <div class="input-group">
+                        <p><strong>Question 5:</strong> The periodic system is characterized by:</p>
+                        <label><input type="radio" name="q5" value="incorrect1" data-correct="false"> Real-time inventory tracking</label><br>
+                        <label><input type="radio" name="q5" value="correct" data-correct="true"> Simpler daily transactions and deferred cost recording</label><br>
+                        <label><input type="radio" name="q5" value="incorrect2" data-correct="false"> Immediate COGS calculation</label>
+                    </div>
+
+                    <button class="btn btn-primary quiz-submit">Submit Answers</button>
+                    <div class="feedback"></div>
+                    <button class="quiz-retry">Try Again</button>
+                </div>
+            </section>
+
+            <!-- Navigation -->
+            <nav class="kp-navigation" style="display: flex; justify-content: space-between; margin-top: 4rem; padding-bottom: 2rem;">
+                <a href="ch05_P5.html" class="btn" style="background: #eee;">← Previous: Periodic Purchases</a>
+                <a href="ch05.html" class="btn" style="background: var(--info); color: white;">Chapter 5 Hub</a>
+                <a href="ch05_P7.html" class="btn btn-primary">Next: Periodic Worksheet →</a>
+            </nav>
+        </article>
+    </main>
+
+    <footer style="margin-top: 5rem; padding: 2rem 0; border-top: 1px solid #ddd; text-align: center; color: #888;">
+        <p>Accounting Essentials | Chapter 5 | Procedure 6</p>
+    </footer>
+
+    <script src="../../components-enhanced.js"></script>
+    <script>
+        function setDepth(depth) {
+            document.querySelectorAll('.depth-btn').forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+
+            document.querySelectorAll('.depth-content').forEach(content => content.classList.remove('active'));
+            document.getElementById(`depth-${depth}`).classList.add('active');
+        }
+
+        function calcCOGS() {
+            const beg = parseFloat(document.getElementById('cogs-beg').value) || 0;
+            const purch = parseFloat(document.getElementById('cogs-purch').value) || 0;
+            const frt = parseFloat(document.getElementById('cogs-frt').value) || 0;
+            const end = parseFloat(document.getElementById('cogs-end').value) || 0;
+
+            const available = beg + purch + frt;
+            const cogs = available - end;
+
+            document.getElementById('cogs-avail').textContent = '$' + available.toLocaleString();
+            document.getElementById('cogs-end-disp').textContent = '$' + end.toLocaleString();
+            document.getElementById('cogs-result').textContent = '$' + cogs.toLocaleString();
+        }
+    </script>
+</body>
+
+</html>

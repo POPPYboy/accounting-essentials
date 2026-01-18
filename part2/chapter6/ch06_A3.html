@@ -1,0 +1,631 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>A3: LCM and IFRS | ACCOUNTING ESSENTIALS</title>
+    <link rel="stylesheet" href="../../styles.css">
+    <style>
+        .lcm-visual {
+            display: flex;
+            gap: 2rem;
+            justify-content: center;
+            margin: 2rem 0;
+            flex-wrap: wrap;
+        }
+        .lcm-box {
+            background: var(--bg-light);
+            border-radius: var(--radius-md);
+            padding: 1.5rem;
+            text-align: center;
+            min-width: 180px;
+            border: 3px solid;
+        }
+        .lcm-box.cost {
+            border-color: var(--primary);
+        }
+        .lcm-box.market {
+            border-color: var(--secondary);
+        }
+        .lcm-box.result {
+            border-color: var(--warning);
+            background: linear-gradient(135deg, #fff8e1 0%, #ffecb3 100%);
+        }
+        .lcm-box h4 {
+            margin: 0 0 0.5rem 0;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+        }
+        .lcm-box.cost h4 { color: var(--primary); }
+        .lcm-box.market h4 { color: var(--secondary); }
+        .lcm-box.result h4 { color: var(--warning); }
+        .lcm-box .value {
+            font-size: 2rem;
+            font-weight: 900;
+        }
+        .lcm-box.result .value {
+            font-size: 2.5rem;
+        }
+        .gaap-ifrs-comparison {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+        .standard-card {
+            background: var(--bg-light);
+            border-radius: var(--radius-md);
+            padding: 1.5rem;
+            border: 2px solid;
+        }
+        .standard-card.gaap {
+            border-color: var(--primary);
+        }
+        .standard-card.ifrs {
+            border-color: var(--success);
+        }
+        .standard-card h4 {
+            margin: 0 0 1rem 0;
+            font-size: 1.2rem;
+        }
+        .standard-card.gaap h4 {
+            color: var(--primary);
+        }
+        .standard-card.ifrs h4 {
+            color: var(--success);
+        }
+        .standard-card ul {
+            margin: 0;
+            padding-left: 1.25rem;
+        }
+        .standard-card li {
+            margin: 0.5rem 0;
+        }
+        .writeoff-visual {
+            background: #ffebee;
+            border-radius: var(--radius-sm);
+            padding: 1.5rem;
+            margin: 1rem 0;
+            border-left: 4px solid var(--error);
+        }
+        .writeup-visual {
+            background: #e8f5e9;
+            border-radius: var(--radius-sm);
+            padding: 1.5rem;
+            margin: 1rem 0;
+            border-left: 4px solid var(--success);
+        }
+        .comparison-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1.5rem 0;
+        }
+        .comparison-table th, .comparison-table td {
+            padding: 1rem;
+            text-align: left;
+            border-bottom: 1px solid #e0e0e0;
+        }
+        .comparison-table th {
+            background: var(--primary);
+            color: var(--white);
+        }
+        .comparison-table tr:nth-child(even) {
+            background: var(--bg-light);
+        }
+    </style>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-50MTQPVR7D"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-50MTQPVR7D');
+</script>
+
+</head>
+
+<body>
+    <header>
+        <div class="container nav-container">
+            <a href="../../index.html" class="logo">ACCOUNTING<span>ESSENTIALS</span></a>
+            <nav class="nav-links">
+                <a href="../../index.html">Home</a>
+                <a href="../../Part1/part1.html">Part 1</a>
+                <a href="../../part2/part2.html">Part 2</a>
+                <a href="../../part3/part3.html">Part 3</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container">
+        <div class="breadcrumbs">
+            <a href="../../index.html">Home</a> <span>/</span> <a href="../../part2/part2.html">Part 2</a> <span>/</span> <a href="ch06.html">Chapter 6</a> <span>/</span> A3
+        </div>
+
+        <article class="animate-fade-in">
+            <div class="kp-header">
+                <h1 style="border-left: 8px solid var(--info); padding-left: 1rem; margin: 2rem 0;">Lower of Cost or Market (LCM)</h1>
+            </div>
+
+            <!-- Learning Objectives -->
+            <section class="kp-section">
+                <h2>🎯 Learning Objectives</h2>
+                <div class="learning-objectives">
+                    <ul>
+                        <li>Understand the conservatism principle underlying LCM inventory valuation</li>
+                        <li>Calculate inventory value using the Lower of Cost or Market rule</li>
+                        <li>Distinguish between U.S. GAAP and IFRS treatment of inventory write-downs</li>
+                        <li>Record journal entries for inventory write-downs and reversals</li>
+                        <li>Analyze the impact of LCM on financial statements and ratios</li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- Background & Principles -->
+            <section class="kp-section">
+                <h2>📚 Background & Principles</h2>
+                <p>Lower of Cost or Market (LCM) requires inventory to be reported at the lower of its historical cost or its current replacement cost (market value). This conservative approach prevents overstatement of inventory assets when market conditions have deteriorated.</p>
+
+                <div class="concept-card" style="margin: 1.5rem 0;">
+                    <strong>Core Principle:</strong> Under the conservatism principle, when inventory value has declined, companies must recognize the loss immediately rather than waiting for eventual sale. This ensures financial statements don't overstate asset values.
+                </div>
+
+                <p>"Market" in LCM typically means replacement cost—the amount that would be paid to replace the inventory today. However, market cannot exceed net realizable value (selling price minus selling costs) or be below net realizable value minus a normal profit margin.</p>
+
+                <div class="professional-tip">
+                    <strong>💡 Key Insight:</strong> LCM is like a "safety net" for inventory valuation. If the market crashes below what you paid, you must recognize the loss NOW, not when you eventually sell at a loss. This prevents misleading investors about asset values.
+                </div>
+            </section>
+
+            <!-- Key Concepts -->
+            <section class="kp-section">
+                <h2>🔑 Key Concepts</h2>
+                <div class="key-concepts-grid">
+                    <div class="concept-card">
+                        <strong>Historical Cost</strong>
+                        <p>Original purchase price or production cost of inventory. The baseline for LCM comparison.</p>
+                    </div>
+
+                    <div class="concept-card">
+                        <strong>Market (Replacement Cost)</strong>
+                        <p>Current cost to replace inventory. "Market" in LCM means replacement cost, not selling price.</p>
+                    </div>
+
+                    <div class="concept-card">
+                        <strong>Conservatism Principle</strong>
+                        <p>Accounting principle that when in doubt, prefer to understate rather than overstate assets and income.</p>
+                    </div>
+
+                    <div class="concept-card">
+                        <strong>Inventory Write-Down</strong>
+                        <p>Reducing inventory from cost to lower market value, recording a loss immediately.</p>
+                    </div>
+
+                    <div class="concept-card">
+                        <strong>Net Realizable Value (NRV)</strong>
+                        <p>Estimated selling price minus completion and disposal costs. Ceiling for "market" value.</p>
+                    </div>
+
+                    <div class="concept-card">
+                        <strong>LCM Floor and Ceiling</strong>
+                        <p>Market must be ≥ NRV - Profit Margin and ≤ NRV. These constrain the replacement cost range.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Deep Dive -->
+            <section class="kp-section">
+                <h2>🔍 Deep Dive</h2>
+                <p>Explore LCM at different levels of depth:</p>
+
+                <div class="depth-toggle">
+                    <button class="depth-btn active" onclick="setDepth('A')">Depth A: Foundational</button>
+                    <button class="depth-btn" onclick="setDepth('B')">Depth B: Standard</button>
+                    <button class="depth-btn" onclick="setDepth('C')">Depth C: Advanced</button>
+                </div>
+
+                <!-- Depth A -->
+                <div id="depth-A" class="depth-content active">
+                    <h3>🟢 Foundational Level</h3>
+                    <p>Understanding the "Tech Gadget" rule.</p>
+
+                    <div class="worked-example">
+                        <h4>The Declining Value Problem</h4>
+                        <p><strong>Analogy: The Outdated Smartphone</strong></p>
+                        <p>You bought 100 smartphones at $500 each ($50,000 total). Then a new model was released.</p>
+
+                        <div class="example-step">
+                            <strong>The Problem:</strong>
+                            <p>Now customers only want to pay $400 for your old model. Your "market" value dropped.</p>
+                        </div>
+                        <div class="example-step">
+                            <strong>The LCM Decision:</strong>
+                            <p>Cost = $500, Market = $400 → Report at $400 (the LOWER amount)</p>
+                        </div>
+                        <div class="example-step">
+                            <strong>The Impact:</strong>
+                            <p>Take a $100 × 100 = $10,000 loss NOW, even before selling any phones.</p>
+                        </div>
+                    </div>
+
+                    <div class="lcm-visual">
+                        <div class="lcm-box cost">
+                            <h4>Historical Cost</h4>
+                            <div class="value">$1,000</div>
+                        </div>
+                        <div class="days-operator" style="font-size: 2rem; color: var(--text-muted);">vs</div>
+                        <div class="lcm-box market">
+                            <h4>Market Value</h4>
+                            <div class="value">$900</div>
+                        </div>
+                        <div class="days-operator" style="font-size: 2rem; color: var(--text-muted);">→</div>
+                        <div class="lcm-box result">
+                            <h4>LCM Value</h4>
+                            <div class="value">$900</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Depth B -->
+                <div id="depth-B" class="depth-content">
+                    <h3>🟡 Standard Level</h3>
+                    <p>Calculation and journal entries.</p>
+
+                    <div class="worked-example">
+                        <h4>LCM Calculation</h4>
+                        <p><strong>Scenario:</strong> Item has cost $1,000, replacement cost $900, NRV $1,200, NRV minus 20% margin $800.</p>
+
+                        <div class="example-step">
+                            <strong>Step 1: Determine "Market" Range</strong>
+                            <p>Ceiling = NRV = $1,200</p>
+                            <p>Floor = NRV - Profit Margin = $800</p>
+                            <p>Replacement Cost = $900 (within range)</p>
+                        </div>
+                        <div class="example-step">
+                            <strong>Step 2: Apply LCM Rule</strong>
+                            <p>Cost = $1,000, Market = $900</p>
+                            <p>Lower = $900</p>
+                        </div>
+                        <div class="example-step">
+                            <strong>Step 3: Record Write-Down</strong>
+                            <div class="writeoff-visual">
+                                <strong>Journal Entry:</strong><br>
+                                Debit: Loss on Inventory Write-Down $100<br>
+                                Credit: Inventory $100
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="worked-example">
+                        <h4>Per-Item vs. Total Inventory</h4>
+                        <p><strong>LCM can be applied:</strong></p>
+                        <p>1. <strong>Item-by-item:</strong> Each inventory item valued separately (most common, most conservative)</p>
+                        <p>2. <strong>Category:</strong> By product line or department</p>
+                        <p>3. <strong>Total inventory:</strong> Entire inventory as one pool (least conservative)</p>
+                    </div>
+                </div>
+
+                <!-- Depth C -->
+                <div id="depth-C" class="depth-content">
+                    <h3>🔴 Advanced Level</h3>
+                    <p>GAAP vs. IFRS differences and reversals.</p>
+
+                    <div class="gaap-ifrs-comparison">
+                        <div class="standard-card gaap">
+                            <h4>🇺🇸 U.S. GAAP (Conservatism)</h4>
+                            <ul>
+                                <li>Write-downs are <strong>PERMANENT</strong></li>
+                                <li>Once reduced, inventory value CANNOT be increased</li>
+                                <li>Even if market recovers, stays at lower value</li>
+                                <li>Journal Entry: Loss to Inventory</li>
+                            </ul>
+                        </div>
+                        <div class="standard-card ifrs">
+                            <h4>🌍 IFRS (Recovery Allowed)</h4>
+                            <ul>
+                                <li>Write-downs can be <strong>REVERSED</strong></li>
+                                <li>If market recovers, can write back up</li>
+                                <li>Reversal limited to original write-down amount</li>
+                                <li>Journal Entry: Inventory to Recovery of Loss</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="worked-example">
+                        <h4>IFRS Reversal Example</h4>
+                        <p><strong>Year 1:</strong> Cost $1,000, Market $700 → Write down $300</p>
+                        <div class="writeoff-visual">
+                            <strong>Entry:</strong> Dr Loss $300, Cr Inventory $300
+                        </div>
+
+                        <p><strong>Year 2:</strong> Market recovers to $850</p>
+                        <div class="writeup-visual">
+                            <strong>Entry:</strong> Dr Inventory $150, Cr Recovery of Loss $150<br>
+                            <small>(Cannot exceed original $300 write-down)</small>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Interactive Calculator -->
+            <section class="kp-section">
+                <h2>🎨 Interactive: LCM Calculator</h2>
+                <p>Compare historical cost with current market value to determine inventory valuation.</p>
+
+                <div class="simulator-container">
+                    <div class="card-grid" style="grid-template-columns: repeat(2, 1fr); gap: 1rem;">
+                        <div class="input-group">
+                            <label>Historical Cost ($)</label>
+                            <input type="number" id="lcm-cost" value="1000" oninput="calcLCM()">
+                        </div>
+                        <div class="input-group">
+                            <label>Replacement Cost ($)</label>
+                            <input type="number" id="lcm-mkt" value="900" oninput="calcLCM()">
+                        </div>
+                    </div>
+
+                    <div class="lcm-visual">
+                        <div class="lcm-box cost">
+                            <h4>Historical Cost</h4>
+                            <div class="value" id="lcm-cost-val">$1,000</div>
+                        </div>
+                        <div class="days-operator" style="font-size: 2rem; color: var(--text-muted);">vs</div>
+                        <div class="lcm-box market">
+                            <h4>Market Value</h4>
+                            <div class="value" id="lcm-mkt-val">$900</div>
+                        </div>
+                        <div class="days-operator" style="font-size: 2rem; color: var(--text-muted);">→</div>
+                        <div class="lcm-box result">
+                            <h4>LCM Value</h4>
+                            <div class="value" id="lcm-res">$900</div>
+                        </div>
+                    </div>
+
+                    <div id="lcm-action" style="padding: 1.5rem; background: var(--bg-light); border-radius: var(--radius-sm); text-align: center;">
+                        <p style="margin: 0; font-weight: 600; color: var(--error);">WRITE-DOWN REQUIRED: $100</p>
+                    </div>
+
+                    <div style="margin-top: 2rem;">
+                        <h4 style="margin-bottom: 1rem;">GAAP vs IFRS Treatment</h4>
+                        <table class="comparison-table">
+                            <thead>
+                                <tr>
+                                    <th>Scenario</th>
+                                    <th>U.S. GAAP</th>
+                                    <th>IFRS</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Market drops below cost</td>
+                                    <td>Write down to market. <strong>Permanent.</strong></td>
+                                    <td>Write down to market. <strong>Reversal allowed.</strong></td>
+                                </tr>
+                                <tr>
+                                    <td>Market later recovers</td>
+                                    <td>No change. Stays at lower value.</td>
+                                    <td>Can write back up (to original cost).</td>
+                                </tr>
+                                <tr>
+                                    <td>Recovery exceeds write-down</td>
+                                    <td>N/A - cannot recover</td>
+                                    <td>Reversal limited to original write-down</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Common Misconceptions -->
+            <section class="kp-section">
+                <h2>🚫 Common Misconceptions & Professional Tips</h2>
+
+                <div class="misconception-alert">
+                    <strong>❌ Misconception 1:</strong> "Market means selling price."
+                    <br><br>
+                    <strong>✅ Reality:</strong> In LCM, "market" means replacement cost—the cost to buy or produce the same item today. It's not what customers pay, but what you would pay to replace it.
+                </div>
+
+                <div class="misconception-alert">
+                    <strong>❌ Misconception 2:</strong> "LCM write-downs are optional."
+                    <br><br>
+                    <strong>✅ Reality:</strong> LCM is a REQUIRED accounting rule. Companies must evaluate inventory at least annually and write down any items where market value has declined below cost.
+                </div>
+
+                <div class="misconception-alert">
+                    <strong>❌ Misconception 3:</strong> "IFRS allows writing inventory UP to any value."
+                    <br><br>
+                    <strong>✅ Reality:</strong> IFRS reversals are limited to the original write-down amount. You can never report inventory above its original historical cost.
+                </div>
+
+                <div class="professional-tip">
+                    <strong>💡 Professional Tip #1:</strong> Document LCM calculations thoroughly. Auditors will examine whether you've properly identified items where market has declined and applied the rule correctly.
+                </div>
+
+                <div class="professional-tip">
+                    <strong>💡 Professional Tip #2:</strong> For industries with rapid obsolescence (tech, fashion), LCM analysis should be done more frequently than annually. Quarterly reviews may be necessary.
+                </div>
+
+                <div class="professional-tip">
+                    <strong>💡 Professional Tip #3:</strong> Consider the NRV floor constraint. If replacement cost is below NRV minus normal profit, you must use the floor, not the lower replacement cost.
+                </div>
+            </section>
+
+            <!-- Memory Aids -->
+            <section class="kp-section">
+                <h2>🧠 Memory Aids & Quick Reference</h2>
+
+                <div class="memory-aid-card">
+                    <strong>⚡ Quick Recall: LCM Rule</strong>
+                    <p><strong>LCM = Lower of (Cost OR Market)</strong></p>
+                    <p><strong>Where Market = Replacement Cost, constrained by:</strong></p>
+                    <p>Floor: NRV - Normal Profit Margin</p>
+                    <p>Ceiling: Net Realizable Value (NRV)</p>
+                </div>
+
+                <div class="key-concepts-grid">
+                    <div class="concept-card">
+                        <strong>📊 Write-Down Entry</strong>
+                        <p>Dr: Loss on Inventory, Cr: Inventory</p>
+                    </div>
+
+                    <div class="concept-card">
+                        <strong>🇺🇸 GAAP Rule</strong>
+                        <p>Write-downs are permanent. No reversals allowed.</p>
+                    </div>
+
+                    <div class="concept-card">
+                        <strong>🌍 IFRS Rule</strong>
+                        <p>Reversals allowed up to original write-down amount.</p>
+                    </div>
+
+                    <div class="concept-card">
+                        <strong>📦 Market Constraints</strong>
+                        <p>Floor ≤ Market ≤ Ceiling</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Glossary -->
+            <section class="kp-section">
+                <h2>📖 Glossary</h2>
+                <div class="key-concepts-grid">
+                    <div class="concept-card">
+                        <strong>Lower of Cost or Market (LCM)</strong>
+                        <p>Inventory valuation rule requiring inventory to be reported at lower of historical cost or current replacement cost.</p>
+                    </div>
+
+                    <div class="concept-card">
+                        <strong>Historical Cost</strong>
+                        <p>Original purchase or production cost of inventory. The amount originally paid or incurred.</p>
+                    </div>
+
+                    <div class="concept-card">
+                        <strong>Replacement Cost</strong>
+                        <p>Current cost to acquire or produce identical inventory. The meaning of "market" in LCM.</p>
+                    </div>
+
+                    <div class="concept-card">
+                        <strong>Net Realizable Value (NRV)</strong>
+                        <p>Estimated selling price minus estimated completion and disposal costs. Acts as ceiling for market value.</p>
+                    </div>
+
+                    <div class="concept-card">
+                        <strong>Inventory Write-Down</strong>
+                        <p>Reduction of inventory from cost to lower market value, recognized as a loss in the current period.</p>
+                    </div>
+
+                    <div class="concept-card">
+                        <strong>Conservatism Principle</strong>
+                        <p>Accounting principle preferring understatement over overstatement when uncertainty exists.</p>
+                    </div>
+
+                    <div class="concept-card">
+                        <strong>IFRS Inventory Reversal</strong>
+                        <p>Under IFRS, write-downs can be reversed if market value recovers, limited to original write-down amount.</p>
+                    </div>
+
+                    <div class="concept-card">
+                        <strong>NRV Floor</strong>
+                        <p>Lower constraint on "market" value: NRV minus normal profit margin. Prevents excessive write-ups.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Final Knowledge Check -->
+            <section class="interactive-section">
+                <h2>🎯 Final Knowledge Check</h2>
+                <p>Test your understanding of LCM:</p>
+
+                <div class="quiz-container" data-success-text="Excellent! You've mastered LCM inventory valuation." data-explanation="LCM requires reporting inventory at the lower of historical cost or replacement cost. Under GAAP, write-downs are permanent; under IFRS, they can be reversed if value recovers.">
+                    <div class="input-group">
+                        <p><strong>Question 1:</strong> Inventory has cost of $1,000 and replacement cost of $850. What is the LCM value?</p>
+                        <label><input type="radio" name="q1" value="incorrect1" data-correct="false"> $1,000</label><br>
+                        <label><input type="radio" name="q1" value="correct" data-correct="true"> $850</label><br>
+                        <label><input type="radio" name="q1" value="incorrect2" data-correct="false"> Average of $925</label>
+                    </div>
+
+                    <div class="input-group">
+                        <p><strong>Question 2:</strong> Under U.S. GAAP, if inventory is written down due to LCM:</p>
+                        <label><input type="radio" name="q2" value="incorrect1" data-correct="false"> The write-down can be reversed if value recovers</label><br>
+                        <label><input type="radio" name="q2" value="correct" data-correct="true"> The write-down is permanent and cannot be reversed</label><br>
+                        <label><input type="radio" name="q2" value="incorrect2" data-correct="false"> The inventory must be written off completely</label>
+                    </div>
+
+                    <div class="input-group">
+                        <p><strong>Question 3:</strong> In LCM, "market" means:</p>
+                        <label><input type="radio" name="q3" value="incorrect1" data-correct="false"> Selling price to customers</label><br>
+                        <label><input type="radio" name="q3" value="correct" data-correct="true"> Replacement cost (cost to replace inventory)</label><br>
+                        <label><input type="radio" name="q3" value="incorrect2" data-correct="false"> Original purchase price</label>
+                    </div>
+
+                    <div class="input-group">
+                        <p><strong>Question 4:</strong> Which constraint limits "market" from being too low?</p>
+                        <label><input type="radio" name="q4" value="incorrect1" data-correct="false"> The ceiling (NRV)</label><br>
+                        <label><input type="radio" name="q4" value="incorrect2" data-correct="false"> Historical cost</label><br>
+                        <label><input type="radio" name="q4" value="correct" data-correct="true"> The floor (NRV minus normal profit)</label>
+                    </div>
+
+                    <div class="input-group">
+                        <p><strong>Question 5:</strong> Under IFRS, inventory written down by $200 can be reversed by up to:</p>
+                        <label><input type="radio" name="q5" value="incorrect1" data-correct="false"> Any amount if value recovered enough</label><br>
+                        <label><input type="radio" name="q5" value="correct" data-correct="true"> $200 (the original write-down amount)</label><br>
+                        <label><input type="radio" name="q5" value="incorrect2" data-correct="false"> $100 only</label>
+                    </div>
+
+                    <button class="btn btn-primary quiz-submit">Submit Answers</button>
+                    <div class="feedback"></div>
+                    <button class="quiz-retry">Try Again</button>
+                </div>
+            </section>
+
+            <!-- Navigation -->
+            <nav class="kp-navigation" style="display: flex; justify-content: space-between; margin-top: 4rem; padding-bottom: 2rem;">
+                <a href="ch06_A2.html" class="btn" style="background: #eee;">← Previous: Days' Sales in Inventory</a>
+                <a href="ch06.html" class="btn" style="background: var(--info); color: white;">Chapter 6 Hub</a>
+                <a href="ch06_INTERACTIVE.html" class="btn btn-primary">Next: Interactive Inventory Flow →</a>
+            </nav>
+        </article>
+    </main>
+
+    <footer style="margin-top: 5rem; padding: 2rem 0; border-top: 1px solid #ddd; text-align: center; color: #888;">
+        <p>Accounting Essentials | Chapter 6 | Analysis 3</p>
+    </footer>
+
+    <script src="../../components-enhanced.js"></script>
+    <script>
+        function setDepth(depth) {
+            document.querySelectorAll('.depth-btn').forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+
+            document.querySelectorAll('.depth-content').forEach(content => content.classList.remove('active'));
+            document.getElementById(`depth-${depth}`).classList.add('active');
+        }
+
+        function calcLCM() {
+            const cost = parseFloat(document.getElementById('lcm-cost').value) || 0;
+            const mkt = parseFloat(document.getElementById('lcm-mkt').value) || 0;
+
+            const lcm = Math.min(cost, mkt);
+
+            document.getElementById('lcm-cost-val').textContent = '$' + cost.toLocaleString();
+            document.getElementById('lcm-mkt-val').textContent = '$' + mkt.toLocaleString();
+            document.getElementById('lcm-res').textContent = '$' + lcm.toLocaleString();
+
+            const action = document.getElementById('lcm-action');
+            if (mkt < cost) {
+                const diff = cost - mkt;
+                action.innerHTML = `<p style="margin: 0; font-weight: 600; color: var(--error);">WRITE-DOWN REQUIRED: $${diff.toLocaleString()}</p>`;
+            } else if (mkt > cost) {
+                action.innerHTML = `<p style="margin: 0; font-weight: 600; color: var(--success);">NO ADJUSTMENT: Market value is at or above cost</p>`;
+            } else {
+                action.innerHTML = `<p style="margin: 0; font-weight: 600; color: var(--warning);">AT COST: No write-down needed</p>`;
+            }
+        }
+    </script>
+</body>
+
+</html>

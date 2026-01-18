@@ -1,0 +1,1364 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>C1: Inventory Basics | ACCOUNTING ESSENTIALS</title>
+    <link rel="stylesheet" href="../../styles.css">
+    <style>
+        /* Additional styles for comprehensive knowledge point */
+        .warehouse-rules {
+            display: flex;
+            gap: 1.5rem;
+            margin: 2rem 0;
+            flex-wrap: wrap;
+        }
+        
+        .warehouse-rule {
+            flex: 1;
+            min-width: 250px;
+            padding: 1.5rem;
+            background: var(--white);
+            border: 3px solid var(--primary);
+            border-radius: var(--radius-md);
+            text-align: center;
+            transition: var(--transition);
+        }
+        
+        .warehouse-rule:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-lg);
+        }
+        
+        .warehouse-rule.transit { border-color: var(--info); }
+        .warehouse-rule.consignment { border-color: var(--success); }
+        .warehouse-rule.damaged { border-color: var(--error); }
+        
+        .rule-icon {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .rule-title {
+            font-weight: 700;
+            font-size: 1.1rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .warehouse-rule.transit .rule-title { color: var(--info); }
+        .warehouse-rule.consignment .rule-title { color: var(--success); }
+        .warehouse-rule.damaged .rule-title { color: var(--error); }
+        
+        .timeline-inventory {
+            position: relative;
+            padding: 2rem 0;
+        }
+        
+        .timeline-inventory::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: var(--primary);
+            transform: translateY(-50%);
+        }
+        
+        .timeline-item-inventory {
+            display: flex;
+            align-items: center;
+            margin-bottom: 2rem;
+            position: relative;
+        }
+        
+        .timeline-marker-inventory {
+            width: 44px;
+            height: 44px;
+            background: var(--primary);
+            color: var(--white);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            z-index: 1;
+            margin-right: 1.5rem;
+            border: 3px solid var(--white);
+            box-shadow: var(--shadow);
+        }
+        
+        .timeline-content-inventory {
+            flex: 1;
+            background: var(--white);
+            padding: 1.5rem;
+            border: 2px solid var(--primary);
+            border-radius: var(--radius-md);
+        }
+        
+        .cost-components {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin: 2rem 0;
+        }
+        
+        .cost-card {
+            padding: 1.5rem;
+            background: var(--white);
+            border-radius: var(--radius-md);
+            border-left: 4px solid var(--primary);
+        }
+        
+        .cost-card.included { border-left-color: var(--success); }
+        .cost-card.excluded { border-left-color: var(--error); }
+        
+        .cost-title {
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+        
+        .cost-card.included .cost-title { color: var(--success); }
+        .cost-card.excluded .cost-title { color: var(--error); }
+        
+        .count-checklist {
+            background: var(--bg-light);
+            padding: 2rem;
+            border-radius: var(--radius-md);
+            margin: 2rem 0;
+        }
+        
+        .checklist-item {
+            display: flex;
+            align-items: center;
+            padding: 0.75rem 0;
+            border-bottom: 1px solid var(--border-color);
+        }
+        
+        .checklist-item:last-child {
+            border-bottom: none;
+        }
+        
+        .checklist-box {
+            width: 24px;
+            height: 24px;
+            border: 2px solid var(--primary);
+            border-radius: var(--radius-sm);
+            margin-right: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+        
+        .checklist-box:hover {
+            background: var(--primary-light);
+        }
+        
+        .checklist-box.checked {
+            background: var(--success);
+            border-color: var(--success);
+            color: var(--white);
+        }
+        
+        .fob-diagram {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 1rem;
+            margin: 2rem 0;
+            padding: 2rem;
+            background: var(--bg-light);
+            border-radius: var(--radius-md);
+        }
+        
+        .fob-step {
+            padding: 1.5rem;
+            background: var(--white);
+            border: 3px solid var(--primary);
+            border-radius: var(--radius-md);
+            text-align: center;
+            min-width: 140px;
+        }
+        
+        .fob-step.shipping {
+            border-color: var(--info);
+            background: var(--info-light);
+        }
+        
+        .fob-step.destination {
+            border-color: var(--success);
+            background: var(--success-light);
+        }
+        
+        .fob-arrow {
+            font-size: 2rem;
+            color: var(--primary);
+        }
+
+        /* Location Card Styles */
+        .scenario-display {
+            display: flex;
+            gap: 1.5rem;
+            margin: 1.5rem 0;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .location-card {
+            flex: 1;
+            min-width: 200px;
+            padding: 1.5rem;
+            background: var(--white);
+            border: 3px solid var(--border-color);
+            border-radius: var(--radius-md);
+            text-align: center;
+            cursor: pointer;
+            transition: var(--transition);
+            position: relative;
+            z-index: 10;
+        }
+
+        .location-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-md);
+            border-color: var(--primary);
+        }
+
+        .location-card.highlight {
+            border-color: var(--primary);
+            background: var(--primary-light);
+            transform: scale(1.05);
+        }
+
+        .location-card.correct {
+            border-color: var(--success);
+            background: var(--success-light);
+        }
+
+        .location-card.incorrect {
+            border-color: var(--error);
+            background: var(--error-light);
+        }
+
+        .location-icon {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .location-name {
+            font-weight: 700;
+            font-size: 1.1rem;
+            margin-bottom: 0.5rem;
+            color: var(--primary);
+        }
+
+        .location-desc {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            margin-bottom: 0.5rem;
+        }
+
+        .location-status {
+            display: none;
+            padding: 0.5rem 1rem;
+            border-radius: var(--radius-sm);
+            font-weight: 600;
+            font-size: 0.85rem;
+        }
+
+        .location-status.owned {
+            background: var(--success);
+            color: var(--white);
+        }
+
+        .location-status.not-owned {
+            background: var(--error);
+            color: var(--white);
+        }
+
+        .location-status.transit {
+            background: var(--info);
+            color: var(--white);
+        }
+    </style>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-50MTQPVR7D"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-50MTQPVR7D');
+</script>
+
+</head>
+
+<body>
+    <header>
+        <div class="container nav-container">
+            <a href="../../index.html" class="logo">ACCOUNTING<span>ESSENTIALS</span></a>
+            <nav class="nav-links">
+                <a href="../../index.html">Home</a>
+                <a href="../../Part1/part1.html">Part 1</a>
+                <a href="../../part2/part2.html">Part 2</a>
+                <a href="../../part3/part3.html">Part 3</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container">
+        <div class="breadcrumbs">
+            <a href="../../index.html">Home</a> <span>/</span> <a href="../../part2/part2.html">Part 2</a>
+            <span>/</span> <a href="ch06.html">Chapter 6</a> <span>/</span> C1
+        </div>
+
+        <article class="animate-fade-in">
+            <div class="kp-header">
+                <h1 style="border-left: 8px solid var(--primary); padding-left: 1rem; margin: 2rem 0;">Inventory Basics</h1>
+            </div>
+
+            <!-- Learning Objectives -->
+            <section class="kp-section">
+                <h2>🎯 Learning Objectives</h2>
+                <div class="learning-objectives">
+                    <ul>
+                        <li>Identify goods that should be included in inventory</li>
+                        <li>Understand ownership criteria (FOB shipping point vs. destination)</li>
+                        <li>Identify goods that should be excluded from inventory</li>
+                        <li>Determine all costs that should be included in inventory cost</li>
+                        <li>Apply the lower of cost or market (LCM) rule</li>
+                        <li>Prepare for physical inventory counts and understand internal controls</li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- Background & Principles -->
+            <section class="kp-section">
+                <h2>📚 Background & Principles</h2>
+                <p>Inventory is often the largest current asset for merchandising companies, and accurate inventory accounting is crucial for financial statements. The fundamental question is: <strong>What items belong in inventory, and at what cost?</strong></p>
+
+                <div class="concept-card" style="margin: 1.5rem 0;">
+                    <strong>Core Principle:</strong> Inventory includes all goods owned by the company and held for sale, regardless of location. Cost includes all expenditures necessary to bring goods to a salable condition and location.
+                </div>
+
+                <div class="professional-tip">
+                    <strong>💡 Key Insight:</strong> The "Warehouse Rules" help determine ownership. Goods on a truck (FOB shipping point) belong to the buyer. Goods in someone else's store (consignment) still belong to the owner until sold.
+                </div>
+
+                <h3 style="margin-top: 2rem;">The Warehouse Rules</h3>
+                <div class="warehouse-rules" style="margin-top: 1rem;">
+                    <div class="warehouse-rule transit">
+                        <div class="rule-icon">🚚</div>
+                        <div class="rule-title">Rule 1: Goods in Transit</div>
+                        <p style="font-size: 0.9rem;"><strong>FOB Shipping Point:</strong></p>
+                        <p style="font-size: 0.85rem;">Buyer owns goods as soon as they leave seller's dock. The truck is YOUR inventory moving to you.</p>
+                        <p style="font-size: 0.85rem; margin-top: 0.5rem;"><em>Owner changes at shipping point.</em></p>
+                    </div>
+                    
+                    <div class="warehouse-rule transit">
+                        <div class="rule-icon">🏠</div>
+                        <div class="rule-title">Rule 1: Goods in Transit</div>
+                        <p style="font-size: 0.9rem;"><strong>FOB Destination:</strong></p>
+                        <p style="font-size: 0.85rem;">Seller owns goods until they reach buyer's location. The truck is THEIR inventory delivering to you.</p>
+                        <p style="font-size: 0.85rem; margin-top: 0.5rem;"><em>Owner changes at destination.</em></p>
+                    </div>
+                    
+                    <div class="warehouse-rule consignment">
+                        <div class="rule-icon">🏪</div>
+                        <div class="rule-title">Rule 2: Consigned Goods</div>
+                        <p style="font-size: 0.9rem;"><strong>Consignee (holder) ≠ Owner</strong></p>
+                        <p style="font-size: 0.85rem;">Goods held by another business remain owned by the shipper (consignor) until sold. The retailer never owns consignment goods.</p>
+                        <p style="font-size: 0.85rem; margin-top: 0.5rem;"><em>Only the owner counts these in inventory.</em></p>
+                    </div>
+                    
+                    <div class="warehouse-rule damaged">
+                        <div class="rule-icon">🗑️</div>
+                        <div class="rule-title">Rule 3: Damaged/Obsolete</div>
+                        <p style="font-size: 0.9rem;"><strong>Unsold ≠ Inventory</strong></p>
+                        <p style="font-size: 0.85rem;">Broken, damaged, or obsolete items are not inventory—they're a loss. If damaged goods can be sold at a discount, value at Net Realizable Value (NRV).</p>
+                        <p style="font-size: 0.85rem; margin-top: 0.5rem;"><em>Only marketable goods count.</em></p>
+                    </div>
+                </div>
+
+                <div class="fob-diagram" style="margin-top: 2rem;">
+                    <div class="fob-step">
+                        <div style="font-size: 2rem;">🏭</div>
+                        <div><strong>Seller</strong></div>
+                        <div style="font-size: 0.8rem; color: var(--text-muted);">Factory</div>
+                    </div>
+                    <div class="fob-arrow">→</div>
+                    <div class="fob-step shipping">
+                        <div style="font-size: 2rem;">🚚</div>
+                        <div><strong>In Transit</strong></div>
+                        <div style="font-size: 0.8rem; color: var(--text-muted);">FOB Shipping Point</div>
+                    </div>
+                    <div class="fob-arrow">→</div>
+                    <div class="fob-step destination">
+                        <div style="font-size: 2rem;">🏪</div>
+                        <div><strong>Buyer</strong></div>
+                        <div style="font-size: 0.8rem; color: var(--text-muted);">Store</div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Key Concepts -->
+            <section class="kp-section">
+                <h2>🔑 Key Concepts</h2>
+                <div class="key-concepts-grid">
+                    <div class="concept-card">
+                        <strong>Merchandise Inventory</strong>
+                        <p>Goods held for sale by a merchandising company. Includes all goods owned, regardless of location, that have not yet been sold.</p>
+                    </div>
+
+                    <div class="concept-card">
+                        <strong>FOB (Free On Board)</strong>
+                        <p>Shipping term indicating when ownership transfers. FOB Shipping Point = ownership transfers at shipping; FOB Destination = ownership transfers at delivery.</p>
+                    </div>
+
+                    <div class="concept-card">
+                        <strong>Consignment</strong>
+                        <p>Arrangement where goods are held by another party for sale. Consignor (owner) includes goods in inventory; consignee (holder) does not.</p>
+                    </div>
+
+                    <div class="concept-card">
+                        <strong>Net Realizable Value (NRV)</strong>
+                        <p>Estimated selling price minus estimated completion and disposal costs. Used to value damaged or obsolete inventory.</p>
+                    </div>
+
+                    <div class="concept-card">
+                        <strong>Inventory Cost</strong>
+                        <p>All expenditures necessary to acquire goods and bring them to a salable condition and location. Includes purchase price, freight, insurance, etc.</p>
+                    </div>
+
+                    <div class="concept-card">
+                        <strong>Physical Inventory Count</strong>
+                        <p>The process of counting, weighing, or measuring all inventory on hand. Essential for accurate financial statements and internal control.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Deep Dive -->
+            <section class="kp-section">
+                <h2>🔍 Deep Dive</h2>
+                <p>Explore inventory basics at different levels of depth:</p>
+
+                <div class="depth-toggle">
+                    <button class="depth-btn active" onclick="setDepth('A')">Depth A: Foundational</button>
+                    <button class="depth-btn" onclick="setDepth('B')">Depth B: Standard</button>
+                    <button class="depth-btn" onclick="setDepth('C')">Depth C: Advanced</button>
+                </div>
+
+                <!-- Depth A: Foundational -->
+                <div id="depth-A" class="depth-content active">
+                    <h3>🟢 Foundational Level</h3>
+                    <p>Understanding what belongs in inventory and basic cost principles.</p>
+
+                    <div class="worked-example">
+                        <h4>The Birthday Party Analogy</h4>
+                        <p><strong>Question:</strong> You're planning a birthday party. Which items are "inventory" (yours to use)?</p>
+
+                        <div class="example-step">
+                            <strong>Item 1: Party supplies you bought</strong>
+                            <p>YES - You own them, they're for the party. These are your inventory.</p>
+                        </div>
+
+                        <div class="example-step">
+                            <strong>Item 2: Cake you ordered but hasn't arrived yet</strong>
+                            <p>DEPENDS - If it's FOB Shipping Point, it belongs to you as soon as it leaves the bakery (even though it hasn't arrived).</p>
+                        </div>
+
+                        <div class="example-step">
+                            <strong>Item 3: Decorations you're holding for a friend</strong>
+                            <p>NO - They're not yours, even though they're in your hands. Your friend owns them.</p>
+                        </div>
+
+                        <div class="example-step">
+                            <strong>Item 4: Broken balloon from yesterday</strong>
+                            <p>NO - It's garbage, not inventory. You wouldn't count broken items as part of your party supplies.</p>
+                        </div>
+                    </div>
+
+                    <div class="concept-card" style="margin-top: 1.5rem;">
+                        <strong>💡 Memory Hook:</strong> Inventory belongs to YOU if: (1) You paid for it AND (2) It's for resale. If it's for personal use, in someone else's store, or broken—it's NOT inventory.
+                    </div>
+                </div>
+
+                <!-- Depth B: Standard -->
+                <div id="depth-B" class="depth-content">
+                    <h3>🟡 Standard Level</h3>
+                    <p>Understanding inventory costs and physical count procedures.</p>
+
+                    <div class="worked-example">
+                        <h4>What Costs Belong in Inventory?</h4>
+                        <p>Inventory cost includes MORE than just the invoice price. It includes ALL necessary costs to get goods ready for sale.</p>
+
+                        <div class="cost-components" style="margin-top: 1rem;">
+                            <div class="cost-card included">
+                                <div class="cost-title">✅ Include in Inventory Cost</div>
+                                <ul style="font-size: 0.85rem; padding-left: 1rem; margin: 0;">
+                                    <li>Invoice price (after discounts)</li>
+                                    <li>Freight-in / Shipping costs</li>
+                                    <li>Insurance during transit</li>
+                                    <li>Import duties and tariffs</li>
+                                    <li>Sales taxes (non-recoverable)</li>
+                                    <li>Storage costs before sale</li>
+                                    <li>Assembly/Preparation costs</li>
+                                </ul>
+                            </div>
+
+                            <div class="cost-card excluded">
+                                <div class="cost-title">❌ Exclude from Inventory Cost</div>
+                                <ul style="font-size: 0.85rem; padding-left: 1rem; margin: 0;">
+                                    <li>Purchase discounts taken</li>
+                                    <li>Freight-out (shipping to customers)</li>
+                                    <li>Advertising costs</li>
+                                    <li>Administrative overhead</li>
+                                    <li>Interest on inventory loans</li>
+                                    <li>Damaged goods (write off)</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="worked-example" style="margin-top: 2rem;">
+                        <h4>Inventory Cost Calculator</h4>
+                        <p>Calculate the total cost to include in inventory:</p>
+
+                        <div class="simulator-container" style="background: var(--bg-light);">
+                            <div class="card-grid" style="grid-template-columns: repeat(2, 1fr); gap: 1rem;">
+                                <div class="input-group">
+                                    <label>Invoice Price ($)</label>
+                                    <input type="number" id="inv-price" value="1000" oninput="calcInvCosts()">
+                                </div>
+                                <div class="input-group">
+                                    <label>Less: Purchase Discounts ($)</label>
+                                    <input type="number" id="inv-discount" value="20" oninput="calcInvCosts()">
+                                </div>
+                                <div class="input-group">
+                                    <label>Freight-In ($)</label>
+                                    <input type="number" id="inv-freight" value="50" oninput="calcInvCosts()">
+                                </div>
+                                <div class="input-group">
+                                    <label>Insurance During Transit ($)</label>
+                                    <input type="number" id="inv-ins" value="15" oninput="calcInvCosts()">
+                                </div>
+                                <div class="input-group">
+                                    <label>Import Duties ($)</label>
+                                    <input type="number" id="inv-duties" value="30" oninput="calcInvCosts()">
+                                </div>
+                                <div class="input-group">
+                                    <label>Storage Before Sale ($)</label>
+                                    <input type="number" id="inv-storage" value="10" oninput="calcInvCosts()">
+                                </div>
+                            </div>
+
+                            <div style="margin-top: 1.5rem; padding-top: 1rem; border-top: 2px dashed var(--border-color); text-align: center;">
+                                <span style="font-weight: bold; color: var(--primary);">Total Inventory Cost: </span>
+                                <span id="inv-total" style="font-size: 1.8rem; font-weight: 800; color: var(--success);">$1,085</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="worked-example" style="margin-top: 2rem;">
+                        <h4>Physical Inventory Count Checklist</h4>
+                        <p>Internal control requires a physical count at least once a year. Use this checklist:</p>
+
+                        <div class="count-checklist">
+                            <div class="checklist-item">
+                                <div class="checklist-box" onclick="toggleCheck(this)">✓</div>
+                                <div>Pre-numbered inventory tags prepared</div>
+                            </div>
+                            <div class="checklist-item">
+                                <div class="checklist-box" onclick="toggleCheck(this)">✓</div>
+                                <div>Counting teams trained and supervised</div>
+                            </div>
+                            <div class="checklist-item">
+                                <div class="checklist-box" onclick="toggleCheck(this)">✓</div>
+                                <div>Counters do NOT have inventory custody responsibilities</div>
+                            </div>
+                            <div class="checklist-item">
+                                <div class="checklist-box" onclick="toggleCheck(this)">✓</div>
+                                <div>Operations halted during count (no receiving or shipping)</div>
+                            </div>
+                            <div class="checklist-item">
+                                <div class="checklist-box" onclick="toggleCheck(this)">✓</div>
+                                <div>Goods in transit identified and ownership confirmed</div>
+                            </div>
+                            <div class="checklist-item">
+                                <div class="checklist-box" onclick="toggleCheck(this)">✓</div>
+                                <div>Consigned goods identified and separated (not counted)</div>
+                            </div>
+                            <div class="checklist-item">
+                                <div class="checklist-box" onclick="toggleCheck(this)">✓</div>
+                                <div>Damaged/obsolete goods identified and excluded</div>
+                            </div>
+                            <div class="checklist-item">
+                                <div class="checklist-box" onclick="toggleCheck(this)">✓</div>
+                                <div>Second count performed for verification</div>
+                            </div>
+                            <div class="checklist-item">
+                                <div class="checklist-box" onclick="toggleCheck(this)">✓</div>
+                                <div>Counts reconciled with perpetual records (if applicable)</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Depth C: Advanced -->
+                <div id="depth-C" class="depth-content">
+                    <h3>🔴 Advanced Level</h3>
+                    <p>Understanding LCM rule, valuation methods, and complex scenarios.</p>
+
+                    <div class="worked-example">
+                        <h4>Lower of Cost or Market (LCM) Rule</h4>
+                        <p>Inventory should be reported at the lower of its cost OR its current market value. This is a conservatism principle—if inventory value has declined, recognize the loss immediately.</p>
+
+                        <div class="decision-tree">
+                            <div class="decision-node-inventory" onclick="this.classList.toggle('expanded')">
+                                <div class="decision-question-inventory">What is "Market Value" in LCM?</div>
+                                <div class="decision-answer-inventory">
+                                    <strong>Market Value = Replacement Cost</strong><br>
+                                    NOT selling price, NOT net realizable value. Market value is what it would cost to REPLACE the inventory today (current purchase price from supplier).<br><br>
+                                    <strong>Example:</strong> Item cost $100, replacement cost now $85 → Use $85 (lower). Item cost $100, replacement cost now $110 → Use $100 (cost is lower).
+                                </div>
+                            </div>
+
+                            <div class="decision-node-inventory" onclick="this.classList.toggle('expanded')">
+                                <div class="decision-question-inventory">How to Apply LCM by Item vs. Category</div>
+                                <div class="decision-answer-inventory">
+                                    <strong>By Individual Item:</strong> Apply LCM to each item separately.<br>
+                                    Item A: Cost $10, Market $8 → Use $8<br>
+                                    Item B: Cost $15, Market $18 → Use $15<br>
+                                    Total: $8 + $15 = $23<br><br>
+                                    <strong>By Category:</strong> Apply LCM to total cost and total market by category.<br>
+                                    Electronics Total Cost: $1,000, Market: $950 → Use $950<br>
+                                    Clothing Total Cost: $800, Market: $850 → Use $800<br>
+                                    Total: $950 + $800 = $1,750
+                                </div>
+                            </div>
+
+                            <div class="decision-node-inventory" onclick="this.classList.toggle('expanded')">
+                                <div class="decision-question-inventory">Recording LCM Adjustments</div>
+                                <div class="decision-answer-inventory">
+                                    <strong>Journal Entry:</strong><br>
+                                    If inventory needs to be written down from cost to market:<br>
+                                    <strong>Dr</strong> Cost of Goods Sold $X<br>
+                                    <strong>Cr</strong> Inventory $X<br><br>
+                                    <strong>Effect:</strong> Reduces inventory asset, increases COGS (reduces income), reflects the loss in the period of decline.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="worked-example" style="margin-top: 2rem;">
+                        <h4>Inventory Valuation Methods Comparison</h4>
+                        <p>Different methods assign costs to COGS and ending inventory differently:</p>
+
+                        <div class="inventory-valuation">
+                            <div class="valuation-card fifo">
+                                <div class="valuation-icon">📦</div>
+                                <div class="valuation-name">FIFO</div>
+                                <p style="font-size: 0.85rem;">First-In, First-Out</p>
+                                <p style="font-size: 0.8rem; margin-top: 0.5rem;">Oldest costs → COGS<br>Newest costs → Ending Inventory</p>
+                            </div>
+
+                            <div class="valuation-card lifo">
+                                <div class="valuation-icon">📦</div>
+                                <div class="valuation-name">LIFO</div>
+                                <p style="font-size: 0.85rem;">Last-In, First-Out</p>
+                                <p style="font-size: 0.8rem; margin-top: 0.5rem;">Newest costs → COGS<br>Oldest costs → Ending Inventory</p>
+                            </div>
+
+                            <div class="valuation-card weighted">
+                                <div class="valuation-icon">⚖️</div>
+                                <div class="valuation-name">Weighted Avg</div>
+                                <p style="font-size: 0.85rem;">Average Cost</p>
+                                <p style="font-size: 0.8rem; margin-top: 0.5rem;">All costs averaged<br>Same cost for COGS & Ending</p>
+                            </div>
+                        </div>
+
+                        <table class="financial-table" style="font-size: 0.9rem; margin-top: 1rem;">
+                            <thead>
+                                <tr>
+                                    <th>Scenario</th>
+                                    <th>FIFO</th>
+                                    <th>LIFO</th>
+                                    <th>Weighted Avg</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><strong>Rising Prices (Inflation)</strong></td>
+                                    <td style="color: var(--success);">Lower COGS, Higher NI</td>
+                                    <td style="color: var(--error);">Higher COGS, Lower NI</td>
+                                    <td>Between</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Falling Prices (Deflation)</strong></td>
+                                    <td style="color: var(--error);">Higher COGS, Lower NI</td>
+                                    <td style="color: var(--success);">Lower COGS, Higher NI</td>
+                                    <td>Between</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Ending Inventory Value</strong></td>
+                                    <td>Higher (newer costs)</td>
+                                    <td>Lower (older costs)</td>
+                                    <td>Moderate</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div class="professional-tip" style="margin-top: 1.5rem;">
+                        <strong>💡 Professional Insight:</strong> The choice of inventory valuation method (FIFO, LIFO, Weighted Average) affects:
+                        <ul style="margin-top: 0.5rem;">
+                            <li><strong>Financial statements:</strong> COGS, Net Income, Inventory value</li>
+                            <li><strong>Taxes:</strong> During inflation, LIFO provides tax advantages (lower income = lower taxes)</li>
+                            <li><strong>Financial ratios:</strong> Inventory turnover, current ratio, gross margin all affected</li>
+                            <li><strong>Credit agreements:</strong> Loan covenants may restrict method changes</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Interactive Inventory Explorer -->
+            <section class="kp-section">
+                <h2>🎨 Interactive: Inventory Ownership Explorer</h2>
+                <p>Explore inventory ownership rules through interactive scenarios. Click tabs to learn different concepts!</p>
+
+                <div class="inventory-explorer">
+                    <!-- Tab Navigation -->
+                    <div class="explorer-tabs">
+                        <button class="explorer-tab active" data-tab="ownership">🏷️ Ownership Rules</button>
+                        <button class="explorer-tab" data-tab="fob">🚚 FOB Shipping</button>
+                        <button class="explorer-tab" data-tab="costs">💰 Inventory Costs</button>
+                        <button class="explorer-tab" data-tab="quiz">🎯 Challenge Quiz</button>
+                    </div>
+
+                    <!-- Tab 1: Ownership Rules -->
+                    <div id="tab-ownership" class="explorer-content active">
+                        <h3 style="margin-bottom: 1rem;">Click on each location to determine ownership</h3>
+                        <p style="margin-bottom: 1.5rem; color: var(--text-muted);">Scenario: TechMart bought 100 laptops from Supplier Inc. The shipment is in transit on Dec 31. Terms: FOB Shipping Point.</p>
+                        
+                        <div class="scenario-display">
+                            <div class="location-card" onclick="checkOwnership(this, 'supplier')">
+                                <div class="location-icon">🏭</div>
+                                <div class="location-name">Supplier's Warehouse</div>
+                                <div class="location-desc" style="font-size: 0.85rem; color: var(--text-muted);">Goods left here on Dec 28</div>
+                                <div class="location-status" style="display: none;"></div>
+                            </div>
+                            <div class="location-card" onclick="checkOwnership(this, 'transit')">
+                                <div class="location-icon">🚚</div>
+                                <div class="location-name">In Transit</div>
+                                <div class="location-desc" style="font-size: 0.85rem; color: var(--text-muted);">On the truck Dec 28-31</div>
+                                <div class="location-status" style="display: none;"></div>
+                            </div>
+                            <div class="location-card" onclick="checkOwnership(this, 'mart')">
+                                <div class="location-icon">🏪</div>
+                                <div class="location-name">TechMart Store</div>
+                                <div class="location-desc" style="font-size: 0.85rem; color: var(--text-muted);">Goods arrive Jan 2</div>
+                                <div class="location-status" style="display: none;"></div>
+                            </div>
+                        </div>
+
+                        <div class="concept-card" style="margin-top: 1.5rem;">
+                            <strong>💡 Key Rule:</strong> With <strong>FOB Shipping Point</strong>, ownership transfers when goods leave the seller's dock. Even though goods haven't arrived, they're YOUR inventory once they're on the truck!
+                        </div>
+                    </div>
+                    
+                    <!-- Tab 2: FOB Shipping -->
+                    <div id="tab-fob" class="explorer-content">
+                        <h3 style="margin-bottom: 1rem;">Understanding FOB Terms</h3>
+                        
+                        <div class="fob-toggle">
+                            <button class="fob-btn active" onclick="setFobMode('shipping', event)">FOB Shipping Point</button>
+                            <button class="fob-btn" onclick="setFobMode('destination', event)">FOB Destination</button>
+                        </div>
+
+                        <div class="fob-visual">
+                            <div class="fob-point seller">
+                                <div class="icon">🏭</div>
+                                <div class="label">Seller<br>Factory</div>
+                            </div>
+                            <div class="fob-goods">
+                                <div class="box">📦</div>
+                                <div class="owner-label" id="fob-owner-label">Buyer Owns</div>
+                            </div>
+                            <div class="fob-arrow-large">→</div>
+                            <div class="fob-point buyer">
+                                <div class="icon">🏪</div>
+                                <div class="label">Buyer<br>Store</div>
+                            </div>
+                        </div>
+
+                        <div id="fob-explanation" class="concept-card" style="margin-top: 1.5rem;">
+                            <strong>📦 FOB Shipping Point:</strong> Buyer owns goods as soon as they leave the seller's location. The seller is NOT responsible for goods in transit—they're YOUR inventory on the truck!
+                        </div>
+
+                        <div class="memory-aid-card" style="margin-top: 1.5rem;">
+                            <strong>🧠 Memory Hook:</strong>
+                            <p style="margin-top: 0.5rem;"><strong>Shipping Point = Ship Owner's</strong> (buyer owns in transit)</p>
+                            <p style="margin-top: 0.5rem;"><strong>Destination = Delivered Buyer's</strong> (seller owns in transit)</p>
+                        </div>
+                    </div>
+
+                    <!-- Tab 3: Inventory Costs -->
+                    <div id="tab-costs" class="explorer-content">
+                        <h3 style="margin-bottom: 1rem;">Build the Inventory Cost</h3>
+                        <p style="margin-bottom: 1.5rem;">Click on costs that should be <strong>INCLUDED</strong> in inventory value:</p>
+                        
+                        <div class="cost-builder">
+                            <div class="cost-pool included">
+                                <h4>✅ Include in Inventory</h4>
+                                <div class="cost-item" onclick="selectCost(this, true)" data-correct="true">
+                                    <div class="cost-checkbox">✓</div>
+                                    <div>Invoice Price ($1,000)</div>
+                                </div>
+                                <div class="cost-item" onclick="selectCost(this, true)" data-correct="true">
+                                    <div class="cost-checkbox">✓</div>
+                                    <div>Freight-In ($50)</div>
+                                </div>
+                                <div class="cost-item" onclick="selectCost(this, true)" data-correct="true">
+                                    <div class="cost-checkbox">✓</div>
+                                    <div>Import Duties ($30)</div>
+                                </div>
+                                <div class="cost-item" onclick="selectCost(this, true)" data-correct="true">
+                                    <div class="cost-checkbox">✓</div>
+                                    <div>Insurance During Transit ($15)</div>
+                                </div>
+                            </div>
+
+                            <div class="cost-pool excluded">
+                                <h4>❌ Exclude from Inventory</h4>
+                                <div class="cost-item" onclick="selectCost(this, false)" data-correct="false">
+                                    <div class="cost-checkbox">✗</div>
+                                    <div>Purchase Discounts ($20)</div>
+                                </div>
+                                <div class="cost-item" onclick="selectCost(this, false)" data-correct="false">
+                                    <div class="cost-checkbox">✗</div>
+                                    <div>Freight-Out to Customers</div>
+                                </div>
+                                <div class="cost-item" onclick="selectCost(this, false)" data-correct="false">
+                                    <div class="cost-checkbox">✗</div>
+                                    <div>Advertising Costs</div>
+                                </div>
+                                <div class="cost-item" onclick="selectCost(this, false)" data-correct="false">
+                                    <div class="cost-checkbox">✗</div>
+                                    <div>Administrative Salaries</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="cost-result">
+                            <div>Total Inventory Cost:</div>
+                            <div class="score" id="cost-score">$1,095</div>
+                            <div style="font-size: 0.9rem; opacity: 0.8; margin-top: 0.5rem;">($1,000 + $50 + $30 + $15 = $1,095)</div>
+                        </div>
+                    </div>
+
+                    <!-- Tab 4: Challenge Quiz -->
+                    <div id="tab-quiz" class="explorer-content">
+                        <div class="progress-bar">
+                            <div class="progress-fill" id="quiz-progress" style="width: 0%"></div>
+                        </div>
+
+                        <div class="scenario-quiz" id="quiz-container">
+                            <!-- Question 1 -->
+                            <div class="scenario-card" data-question="1">
+                                <div class="scenario-title">
+                                    <div class="scenario-number">1</div>
+                                    Goods shipped FOB Destination on Dec 30 arrive Jan 3. Who owns them on Dec 31?
+                                </div>
+                                <div class="scenario-options">
+                                    <div class="scenario-option" onclick="checkScenario(this, 'a', false)">
+                                        <div class="scenario-radio"></div>
+                                        <div>Buyer (they're almost there)</div>
+                                    </div>
+                                    <div class="scenario-option" onclick="checkScenario(this, 'b', true)">
+                                        <div class="scenario-radio"></div>
+                                        <div>Seller (FOB Destination = seller owns until delivery)</div>
+                                    </div>
+                                    <div class="scenario-option" onclick="checkScenario(this, 'c', false)">
+                                        <div class="scenario-radio"></div>
+                                        <div>Split between both companies</div>
+                                    </div>
+                                </div>
+                                <div class="scenario-explanation">
+                                    <strong>✓ Correct!</strong> With FOB Destination, ownership transfers only when goods arrive at the buyer's location. Seller still owns goods in transit.
+                                </div>
+                            </div>
+
+                            <!-- Question 2 -->
+                            <div class="scenario-card" data-question="2" style="display: none;">
+                                <div class="scenario-title">
+                                    <div class="scenario-number">2</div>
+                                    Retailer holds consignor's jewelry. Who includes in inventory?
+                                </div>
+                                <div class="scenario-options">
+                                    <div class="scenario-option" onclick="checkScenario(this, 'a', false)">
+                                        <div class="scenario-radio"></div>
+                                        <div>Retailer (they're holding the goods)</div>
+                                    </div>
+                                    <div class="scenario-option" onclick="checkScenario(this, 'b', true)">
+                                        <div class="scenario-radio"></div>
+                                        <div>Consignor/shipper (goods belong to owner until sold)</div>
+                                    </div>
+                                    <div class="scenario-option" onclick="checkScenario(this, 'c', false)">
+                                        <div class="scenario-radio"></div>
+                                        <div>Neither (only count when sold)</div>
+                                    </div>
+                                </div>
+                                <div class="scenario-explanation">
+                                    <strong>✓ Correct!</strong> Consigned goods are owned by the consignor (shipper), not the consignee (holder). The retailer never owns consignment goods.
+                                </div>
+                            </div>
+
+                            <!-- Question 3 -->
+                            <div class="scenario-card" data-question="3" style="display: none;">
+                                <div class="scenario-title">
+                                    <div class="scenario-number">3</div>
+                                    Which cost is inventoriable (included in inventory cost)?
+                                </div>
+                                <div class="scenario-options">
+                                    <div class="scenario-option" onclick="checkScenario(this, 'a', false)">
+                                        <div class="scenario-radio"></div>
+                                        <div>Freight-out to customers (selling expense)</div>
+                                    </div>
+                                    <div class="scenario-option" onclick="checkScenario(this, 'b', true)">
+                                        <div class="scenario-radio"></div>
+                                        <div>Freight-in from supplier (get goods ready for sale)</div>
+                                    </div>
+                                    <div class="scenario-option" onclick="checkScenario(this, 'c', false)">
+                                        <div class="scenario-radio"></div>
+                                        <div>CEO's salary (administrative overhead)</div>
+                                    </div>
+                                </div>
+                                <div class="scenario-explanation">
+                                    <strong>✓ Correct!</strong> Freight-in is inventoriable because it's necessary to get goods to your location ready for sale. Freight-out is a selling expense.
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="explore-result" id="quiz-result">
+                            <h3>🎉 Congratulations!</h3>
+                            <p>You've mastered inventory ownership rules!</p>
+                            <button class="btn btn-primary" style="margin-top: 1rem;" onclick="resetQuiz()">Try Again</button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Common Misconceptions -->
+            <section class="kp-section">
+                <h2>🚫 Common Misconceptions & Professional Tips</h2>
+
+                <div class="misconception-alert">
+                    <strong>❌ Misconception 1:</strong> "Goods in my store are always my inventory."
+                    <br><br>
+                    <strong>✅ Reality:</strong> Not true! Consigned goods in your store belong to the consignor, not you. You only hold them—they're their inventory until sold.
+                </div>
+
+                <div class="misconception-alert">
+                    <strong>❌ Misconception 2:</strong> "All shipping costs are period expenses."
+                    <br><br>
+                    <strong>✅ Reality:</strong> Freight-IN (shipping to get goods to your store) is inventoriable cost. Freight-OUT (shipping to customers) is a selling expense. The timing and purpose matter.
+                </div>
+
+                <div class="misconception-alert">
+                    <strong>❌ Misconception 3:</strong> "Market value means selling price."
+                    <br><br>
+                    <strong>✅ Reality:</strong> For LCM, "market value" means <strong>replacement cost</strong>—what it would cost to buy the same item today from suppliers. Not what you can sell it for.
+                </div>
+
+                <div class="misconception-alert">
+                    <strong>❌ Misconception 4:</strong> "Physical counts aren't needed if we use perpetual inventory."
+                    <br><br>
+                    <strong>✅ Reality:</strong> Perpetual systems need periodic counts to verify accuracy. Theft, damage, and recording errors create discrepancies between records and actual inventory. Counts are essential for internal control regardless of system type.
+                </div>
+
+                <div class="professional-tip">
+                    <strong>💡 Professional Tip #1:</strong> The most common inventory fraud is "ghost inventory"—recording inventory that doesn't exist to inflate assets. Proper counts, segregation of duties, and independent verification prevent this.
+                </div>
+
+                <div class="professional-tip">
+                    <strong>💡 Professional Tip #2:</strong> When goods are damaged, don't just guess the value. Estimate selling price minus completion costs (repairs, packaging) minus disposal costs. Document your estimates for audit trail.
+                </div>
+
+                <div class="professional-tip">
+                    <strong>💡 Professional Tip #3:</strong> FOB terms have significant financial implications. Document shipping terms on all invoices and ensure accounting follows the ownership transfer point.
+                </div>
+            </section>
+
+            <!-- Memory Aids -->
+            <section class="kp-section">
+                <h2>🧠 Memory Aids & Quick Reference</h2>
+
+                <div class="memory-aid-card">
+                    <strong>⚡ Quick Recall: FOB Ownership Transfer</strong>
+                    <p style="margin-top: 1rem;"><strong>Shipping Point = Ship Owner's</strong></p>
+                    <p style="margin-top: 0.5rem;">FOB Shipping Point: Ownership transfers when goods LEAVE the shipper.</p>
+                    <p style="margin-top: 0.5rem;"><strong>Destination = Buyer's</strong></p>
+                    <p style="margin-top: 0.5rem;">FOB Destination: Ownership transfers when goods ARRIVE at buyer.</p>
+                </div>
+
+                <div class="memory-aid-card">
+                    <strong>⚡ Quick Recall: Inventory Cost Inclusion</strong>
+                    <p style="margin-top: 1rem;"><strong>COST = Purchase Price + Get Ready Costs</strong></p>
+                    <p style="margin-top: 0.5rem;"><strong>Include:</strong> Invoice, Freight, Insurance, Duties, Storage</p>
+                    <p style="margin-top: 0.5rem;"><strong>Exclude:</strong> Discounts taken, Freight-out, Admin costs</p>
+                </div>
+
+                <div class="key-concepts-grid" style="margin-top: 2rem;">
+                    <div class="concept-card">
+                        <strong>📋 Ownership Checklist</strong>
+                        <p>✓ Goods in transit (check FOB terms)</p>
+                        <p>✓ Consigned goods (owner ≠ holder)</p>
+                        <p>✓ Damaged goods (exclude or write down)</p>
+                        <p>✓ Third-party locations (who owns?)</p>
+                    </div>
+
+                    <div class="concept-card">
+                        <strong>📊 LCM Rule</strong>
+                        <p>Market = Replacement Cost</p>
+                        <p>Use LOWER of Cost OR Market</p>
+                        <p>Apply to individual items or categories</p>
+                        <p>Write down if market < cost</p>
+                    </div>
+
+                    <div class="concept-card">
+                        <strong>🎯 Count Best Practices</strong>
+                        <p>Count at least annually</p>
+                        <p>Segregate counting duties</p>
+                        <p>Use pre-numbered tags</p>
+                        <p>Supervise and verify</p>
+                    </div>
+
+                    <div class="concept-card">
+                        <strong>⚖️ Valuation Methods</strong>
+                        <p>FIFO: Oldest → COGS, Newest → Ending</p>
+                        <p>LIFO: Newest → COGS, Oldest → Ending</p>
+                        <p>Weighted: Average for both</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Glossary -->
+            <section class="kp-section">
+                <h2>📖 Glossary</h2>
+                <div class="key-concepts-grid">
+                    <div class="concept-card">
+                        <strong>Merchandise Inventory</strong>
+                        <p>Goods held for sale by a merchandising company. Includes all goods owned regardless of location that have not yet been sold.</p>
+                    </div>
+
+                    <div class="concept-card">
+                        <strong>FOB (Free On Board)</strong>
+                        <p>Shipping term indicating point of ownership transfer. FOB Shipping Point: buyer owns in transit. FOB Destination: seller owns in transit.</p>
+                    </div>
+
+                    <div class="concept-card">
+                        <strong>Consignment</strong>
+                        <p>Arrangement where goods are held for sale by a party other than the owner. Consignor owns; consignee holds but doesn't own.</p>
+                    </div>
+
+                    <div class="concept-card">
+                        <strong>Net Realizable Value (NRV)</strong>
+                        <p>Estimated selling price minus estimated completion costs and disposal costs. Used for damaged/obsolete inventory valuation.</p>
+                    </div>
+
+                    <div class="concept-card">
+                        <strong>Lower of Cost or Market (LCM)</strong>
+                        <p>Inventory valuation rule requiring inventory to be reported at the lower of its cost or current market (replacement) value.</p>
+                    </div>
+
+                    <div class="concept-card">
+                        <strong>Inventory Cost</strong>
+                        <p>All expenditures necessary to acquire goods and prepare them for sale, including purchase price, freight, insurance, duties, etc.</p>
+                    </div>
+
+                    <div class="concept-card">
+                        <strong>Physical Inventory Count</strong>
+                        <p>The process of counting, weighing, or measuring all inventory on hand at a specific date. Essential for accurate financial statements.</p>
+                    </div>
+
+                    <div class="concept-card">
+                        <strong>Freight-In</strong>
+                        <p>Shipping costs to bring goods to the buyer's location. These costs are inventoriable (included in inventory cost).</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Final Knowledge Check -->
+            <section class="interactive-section">
+                <h2>🎯 Final Knowledge Check</h2>
+                <p>Test your understanding of Inventory Basics:</p>
+
+                <div class="quiz-container" data-success-text="Excellent! You've mastered inventory basics." data-explanation="Inventory includes goods owned and held for sale. Ownership transfers based on FOB terms (shipping point vs destination). Consigned goods belong to the consignor, not the holder. Inventory cost includes all expenditures necessary to bring goods to a salable condition and location.">
+                    <div class="input-group">
+                        <p><strong>Question 1:</strong> Goods shipped FOB Shipping Point on Dec 30 arrive Jan 2. Who includes them in Dec 31 inventory?</p>
+                        <label><input type="radio" name="q1" value="a" data-correct="true"> Buyer (ownership transferred Dec 30)</label><br><br>
+                        <label><input type="radio" name="q1" value="b" data-correct="false"> Seller (still in transit)</label><br><br>
+                        <label><input type="radio" name="q1" value="c" data-correct="false"> Both split the cost</label>
+                    </div>
+
+                    <div class="input-group">
+                        <p><strong>Question 2:</strong> Goods held on consignment at a retailer belong to:</p>
+                        <label><input type="radio" name="q2" value="a" data-correct="false"> The retailer</label><br><br>
+                        <label><input type="radio" name="q2" value="b" data-correct="true"> The consignor (shipper/owner)</label><br><br>
+                        <label><input type="radio" name="q2" value="c" data-correct="false"> No one until sold</label>
+                    </div>
+
+                    <div class="input-group">
+                        <p><strong>Question 3:</strong> Which cost is inventoriable (included in inventory cost)?</p>
+                        <label><input type="radio" name="q3" value="a" data-correct="false"> Freight-out to customers</label><br><br>
+                        <label><input type="radio" name="q3" value="b" data-correct="true"> Freight-in from supplier</label><br><br>
+                        <label><input type="radio" name="q3" value="c" data-correct="false"> Administrative salaries</label>
+                    </div>
+
+                    <div class="input-group">
+                        <p><strong>Question 4:</strong> In LCM, "market" refers to:</p>
+                        <label><input type="radio" name="q4" value="a" data-correct="false"> Selling price to customers</label><br><br>
+                        <label><input type="radio" name="q4" value="b" data-correct="false"> Net realizable value</label><br><br>
+                        <label><input type="radio" name="q4" value="c" data-correct="true"> Replacement cost</label>
+                    </div>
+
+                    <div class="input-group">
+                        <p><strong>Question 5:</strong> Damaged goods that can be sold should be valued at:</p>
+                        <label><input type="radio" name="q5" value="a" data-correct="false"> Original cost</label><br><br>
+                        <label><input type="radio" name="q5" value="b" data-correct="true"> Net Realizable Value (selling price minus costs)</label><br><br>
+                        <label><input type="radio" name="q5" value="c" data-correct="false"> Whatever the manager decides</label>
+                    </div>
+
+                    <button class="btn btn-primary quiz-submit">Submit All Answers</button>
+                    <div class="feedback"></div>
+                    <button class="quiz-retry">Try Again</button>
+                </div>
+            </section>
+
+            <!-- Navigation -->
+            <nav class="kp-navigation" style="display: flex; justify-content: space-between; margin-top: 4rem; padding-bottom: 2rem;">
+                <a href="ch06.html" class="btn" style="background: #eee;">← Chapter 6 Hub</a>
+                <a href="ch06_A1.html" class="btn btn-primary">Next: Inventory Turnover →</a>
+            </nav>
+        </article>
+    </main>
+
+    <footer style="margin-top: 5rem; padding: 2rem 0; border-top: 1px solid #ddd; text-align: center; color: #888;">
+        <p>Accounting Essentials | Chapter 6 | Concept 1</p>
+    </footer>
+
+    <script src="../../components-enhanced.js"></script>
+    <script>
+        function setDepth(depth) {
+            document.querySelectorAll('.depth-btn').forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+
+            document.querySelectorAll('.depth-content').forEach(content => content.classList.remove('active'));
+            document.getElementById(`depth-${depth}`).classList.add('active');
+        }
+
+        function toggleCheck(element) {
+            element.classList.toggle('checked');
+        }
+
+        function calcInvCosts() {
+            const price = parseFloat(document.getElementById('inv-price').value) || 0;
+            const discount = parseFloat(document.getElementById('inv-discount').value) || 0;
+            const freight = parseFloat(document.getElementById('inv-freight').value) || 0;
+            const ins = parseFloat(document.getElementById('inv-ins').value) || 0;
+            const duties = parseFloat(document.getElementById('inv-duties').value) || 0;
+            const storage = parseFloat(document.getElementById('inv-storage').value) || 0;
+
+            const total = (price - discount) + freight + ins + duties + storage;
+            document.getElementById('inv-total').textContent = '$' + total.toLocaleString();
+        }
+
+        function checkQuiz() {
+            // Quiz checking logic
+            const q1 = document.querySelector('input[name="quiz1"]:checked');
+            const q2 = document.querySelector('input[name="quiz2"]:checked');
+            const q3 = document.querySelector('input[name="quiz3"]:checked');
+            
+            if (q1 && q1.value === 'b') {
+                const feedback = q1.parentElement.querySelector('.quiz-feedback');
+                feedback.textContent = '✓ Correct! Company A owns goods in transit FOB Shipping Point.';
+                feedback.style.background = 'var(--success-light)';
+                feedback.style.display = 'block';
+            }
+        }
+
+        // Interactive Inventory Explorer Functions
+        let currentQuizQuestion = 1;
+        let correctAnswers = 0;
+
+        function showExplorerTab(tabName, event) {
+            // Ensure event is valid
+            if (!event) {
+                console.error('Event is undefined');
+                return;
+            }
+
+            // Update tab buttons
+            document.querySelectorAll('.explorer-tab').forEach(tab => {
+                tab.classList.remove('active');
+            });
+
+            if (event && event.target) {
+                event.target.classList.add('active');
+            }
+
+            // Hide all content panels
+            document.querySelectorAll('.explorer-content').forEach(panel => {
+                panel.classList.remove('active');
+            });
+
+            // Show selected panel
+            const targetPanel = document.getElementById('tab-' + tabName);
+            if (targetPanel) {
+                targetPanel.classList.add('active');
+            }
+        }
+
+        function checkOwnership(element, location) {
+            const status = element.querySelector('.location-status');
+            status.style.display = 'block';
+
+            if (location === 'supplier') {
+                status.className = 'location-status not-owned';
+                status.textContent = '✗ Not Owned - Goods already left';
+            } else if (location === 'transit') {
+                status.className = 'location-status owned';
+                status.textContent = '✓ Owned - FOB Shipping Point transfers ownership';
+            } else if (location === 'mart') {
+                status.className = 'location-status transit';
+                status.textContent = '→ Not yet arrived (but already owned!)';
+            }
+
+            // Add visual feedback
+            element.classList.add('highlight');
+        }
+
+         function setFobMode(mode, event) {
+             // Ensure event is valid
+             if (!event) {
+                 console.error('Event is undefined');
+                 return;
+             }
+
+             // Update button states
+             document.querySelectorAll('.fob-btn').forEach(btn => {
+                 btn.classList.remove('active');
+             });
+
+             if (event && event.target) {
+                 event.target.classList.add('active');
+             }
+
+             // Update explanation
+             const explanation = document.getElementById('fob-explanation');
+             const ownerLabel = document.getElementById('fob-owner-label');
+
+             if (mode === 'shipping') {
+                 explanation.innerHTML = '<strong>📦 FOB Shipping Point:</strong> Buyer owns goods as soon as they leave the seller\'s location. The seller is NOT responsible for goods in transit—they\'re YOUR inventory on the truck!';
+                 ownerLabel.textContent = 'Buyer Owns';
+             } else {
+                 explanation.innerHTML = '<strong>🏠 FOB Destination:</strong> Seller owns goods until they arrive at the buyer\'s location. The seller IS responsible for goods in transit—they\'re NOT your inventory yet!';
+                 ownerLabel.textContent = 'Seller Owns';
+             }
+         }
+        }
+
+        function selectCost(element, shouldInclude) {
+            const isCorrect = element.dataset.correct === 'true';
+
+            // Reset siblings
+            element.parentElement.querySelectorAll('.cost-item').forEach(item => {
+                item.classList.remove('selected', 'rejected');
+            });
+
+            if (isCorrect === shouldInclude) {
+                element.classList.add('selected');
+            } else {
+                element.classList.add('rejected');
+            }
+        }
+
+        function checkScenario(element, answer, isCorrect) {
+            // Reset all options in this question
+            const card = element.closest('.scenario-card');
+            card.querySelectorAll('.scenario-option').forEach(opt => {
+                opt.classList.remove('selected', 'correct', 'incorrect');
+            });
+
+            // Mark selected
+            element.classList.add('selected');
+
+            // Show result
+            const explanation = card.querySelector('.scenario-explanation');
+            explanation.classList.add('show');
+
+            if (isCorrect === true) {
+                element.classList.add('correct');
+                correctAnswers++;
+            } else {
+                element.classList.add('incorrect');
+                // Show correct answer
+                card.querySelectorAll('.scenario-option').forEach(opt => {
+                    if (opt.onclick.toString().includes('true')) {
+                        opt.classList.add('correct');
+                    }
+                });
+            }
+
+            // Update progress
+            const progress = (correctAnswers / 3) * 100;
+            document.getElementById('quiz-progress').style.width = progress + '%';
+
+            // Show next question after delay
+            setTimeout(() => {
+                if (currentQuizQuestion < 3) {
+                    currentQuizQuestion++;
+                    showNextQuestion();
+                } else {
+                    showQuizResult();
+                }
+            }, 2000);
+        }
+
+        function showNextQuestion() {
+            document.querySelectorAll('.scenario-card').forEach(card => {
+                card.style.display = 'none';
+            });
+            const nextCard = document.querySelector(`.scenario-card[data-question="${currentQuizQuestion}"]`);
+            if (nextCard) {
+                nextCard.style.display = 'block';
+            }
+        }
+
+        function showQuizResult() {
+            document.getElementById('quiz-container').style.display = 'none';
+            document.getElementById('quiz-result').classList.add('show');
+        }
+
+        function resetQuiz() {
+            currentQuizQuestion = 1;
+            correctAnswers = 0;
+            document.getElementById('quiz-progress').style.width = '0%';
+            document.getElementById('quiz-container').style.display = 'block';
+            document.getElementById('quiz-result').classList.remove('show');
+
+            document.querySelectorAll('.scenario-card').forEach((card, index) => {
+                card.style.display = index === 0 ? 'block' : 'none';
+                card.querySelectorAll('.scenario-option').forEach(opt => {
+                    opt.classList.remove('selected', 'correct', 'incorrect');
+                });
+                card.querySelector('.scenario-explanation').classList.remove('show');
+            });
+        }
+    </script>
+</body>
+
+</html>

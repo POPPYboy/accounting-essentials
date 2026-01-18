@@ -1,0 +1,836 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>P7 (App 5A): Periodic Worksheet | ACCOUNTING ESSENTIALS</title>
+    <link rel="stylesheet" href="../../styles.css">
+    <style>
+        .worksheet-flow {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 1rem;
+            margin: 2rem 0;
+            flex-wrap: wrap;
+        }
+        .worksheet-step {
+            background: var(--bg-light);
+            border-radius: var(--radius-md);
+            padding: 1.5rem;
+            text-align: center;
+            min-width: 200px;
+            border: 2px solid;
+            transition: transform 0.3s ease;
+        }
+        .worksheet-step:hover {
+            transform: translateY(-5px);
+        }
+        .worksheet-step.step-1 {
+            border-color: var(--error);
+        }
+        .worksheet-step.step-2 {
+            border-color: var(--success);
+        }
+        .worksheet-step h4 {
+            margin: 0 0 0.5rem 0;
+            font-size: 1rem;
+        }
+        .worksheet-step.step-1 h4 {
+            color: var(--error);
+        }
+        .worksheet-step.step-2 h4 {
+            color: var(--success);
+        }
+        .worksheet-step p {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            margin: 0;
+        }
+        .worksheet-entry {
+            background: #f5f5f5;
+            border-radius: var(--radius-sm);
+            padding: 1rem;
+            margin: 0.75rem 0;
+            font-family: 'Courier New', monospace;
+            font-size: 0.85rem;
+        }
+        .worksheet-entry .debit {
+            color: var(--primary);
+            font-weight: 600;
+        }
+        .worksheet-entry .credit {
+            color: var(--secondary);
+            font-weight: 600;
+        }
+        .worksheet-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1.5rem 0;
+            font-size: 0.85rem;
+        }
+        .worksheet-table th, .worksheet-table td {
+            padding: 0.75rem;
+            text-align: center;
+            border: 1px solid #e0e0e0;
+        }
+        .worksheet-table th {
+            background: var(--primary);
+            color: var(--white);
+        }
+        .worksheet-table .account-col {
+            text-align: left;
+            min-width: 150px;
+        }
+        .worksheet-table .dr-col {
+            background: #e3f2fd;
+        }
+        .worksheet-table .cr-col {
+            background: #fce4ec;
+        }
+        .worksheet-table .subtotal {
+            font-weight: 600;
+            background: var(--bg-light);
+        }
+        .adj-highlight {
+            background: #fff9c4;
+            font-weight: 600;
+        }
+        .worksheet-controls {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+            flex-wrap: wrap;
+        }
+        .worksheet-controls .btn {
+            min-width: 140px;
+        }
+        .worksheet-controls .btn.active {
+            background: var(--primary);
+            color: var(--white);
+        }
+    </style>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-50MTQPVR7D"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-50MTQPVR7D');
+</script>
+
+</head>
+
+<body>
+    <header>
+        <div class="container nav-container">
+            <a href="../../index.html" class="logo">ACCOUNTING<span>ESSENTIALS</span></a>
+            <nav class="nav-links">
+                <a href="../../index.html">Home</a>
+                <a href="../../Part1/part1.html">Part 1</a>
+                <a href="../../part2/part2.html">Part 2</a>
+                <a href="../../part3/part3.html">Part 3</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container">
+        <div class="breadcrumbs">
+            <a href="../../index.html">Home</a> <span>/</span> <a href="../../part2/part2.html">Part 2</a> <span>/</span> <a href="ch05.html">Chapter 5</a> <span>/</span> P7
+        </div>
+
+        <article class="animate-fade-in">
+            <div class="kp-header">
+                <h1 style="border-left: 8px solid var(--primary-light); padding-left: 1rem; margin: 2rem 0;">Periodic Worksheet (App 5A)</h1>
+            </div>
+
+            <!-- Learning Objectives -->
+            <section class="kp-section">
+                <h2>🎯 Learning Objectives</h2>
+                <div class="learning-objectives">
+                    <ul>
+                        <li>Understand the purpose of the periodic inventory worksheet</li>
+                        <li>Prepare adjusting entries for beginning and ending inventory</li>
+                        <li>Complete the worksheet columns (adjustments, income statement, balance sheet)</li>
+                        <li>Calculate net income or loss using worksheet totals</li>
+                        <li>Prepare closing entries from worksheet information</li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- Background & Principles -->
+            <section class="kp-section">
+                <h2>📚 Background & Principles</h2>
+                <p>The periodic worksheet helps organize the year-end adjusting and closing process for merchandising companies. It reconciles the beginning inventory (frozen since Jan 1) with the physical count ending inventory.</p>
+
+                <div class="concept-card" style="margin: 1.5rem 0;">
+                    <strong>Core Principle:</strong> The worksheet uses the "Wipe and Replace" method for inventory: (1) Remove beginning inventory (credit old balance, debit Income Summary), then (2) Add ending inventory (debit new balance, credit Income Summary).
+                </div>
+
+                <p>The worksheet columns track how inventory adjustments flow through to the Income Summary, enabling calculation of net income before formal journal entries are posted.</p>
+
+                <div class="professional-tip">
+                    <strong>💡 Key Insight:</strong> The worksheet is like a financial "dress rehearsal." It shows you what your financial statements will look like before you actually make the adjusting and closing entries in the ledger.
+                </div>
+            </section>
+
+            <!-- Key Concepts -->
+            <section class="kp-section">
+                <h2>🔑 Key Concepts</h2>
+                <div class="key-concepts-grid">
+                    <div class="concept-card">
+                        <strong>Beginning Inventory Adjustment</strong>
+                        <p>Removing the Jan 1 inventory balance to Income Summary. Credit Inventory, Debit Income Summary.</p>
+                    </div>
+
+                    <div class="concept-card">
+                        <strong>Ending Inventory Adjustment</strong>
+                        <p>Recording the physical count ending inventory. Debit Inventory, Credit Income Summary.</p>
+                    </div>
+
+                    <div class="concept-card">
+                        <strong>Income Summary Balance</strong>
+                        <p>After both adjustments, Income Summary shows the net effect: Beginning Inventory + Net Purchases - Ending Inventory = COGS.</p>
+                    </div>
+
+                    <div class="concept-card">
+                        <strong>Worksheet Columns</strong>
+                        <p>Unadjusted Trial Balance → Adjustments → Adjusted Trial Balance → Income Statement → Balance Sheet.</p>
+                    </div>
+
+                    <div class="concept-card">
+                        <strong>Wipe and Replace</strong>
+                        <p>Two-step process: Credit old inventory (wipe), then Debit new inventory (replace).</p>
+                    </div>
+
+                    <div class="concept-card">
+                        <strong>Net Income Calculation</strong>
+                        <p>Income Statement column totals: Revenue (Cr) - Expenses (Dr) = Net Income (if Credit > Debit).</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Deep Dive -->
+            <section class="kp-section">
+                <h2>🔍 Deep Dive</h2>
+                <p>Explore periodic worksheets at different levels of depth:</p>
+
+                <div class="depth-toggle">
+                    <button class="depth-btn active" onclick="setDepth('A')">Depth A: Foundational</button>
+                    <button class="depth-btn" onclick="setDepth('B')">Depth B: Standard</button>
+                    <button class="depth-btn" onclick="setDepth('C')">Depth C: Advanced</button>
+                </div>
+
+                <!-- Depth A -->
+                <div id="depth-A" class="depth-content active">
+                    <h3>🟢 Foundational Level</h3>
+                    <p>Understanding the "Whiteboard Wipe" concept.</p>
+
+                    <div class="worked-example">
+                        <h4>The Whiteboard Analogy</h4>
+                        <p><strong>Analogy: Fixing a Mistake on the Whiteboard</strong></p>
+                        <p>Imagine the Inventory account is a number written on a whiteboard on January 1st that you CAN'T erase during the year.</p>
+
+                        <div class="example-step">
+                            <strong>The Problem:</strong>
+                            <p>On December 31st, you count your actual inventory and it's different from what's on the whiteboard. You need to fix it.</p>
+                        </div>
+                        <div class="example-step">
+                            <strong>Step 1: Wipe (Remove old number)</strong>
+                            <p>Credit Inventory $10,000 (removes the old number)</p>
+                            <p>Debit Income Summary $10,000 (temporarily holds the old amount)</p>
+                        </div>
+                        <div class="example-step">
+                            <strong>Step 2: Replace (Write new number)</strong>
+                            <p>Debit Inventory $12,000 (writes the new count)</p>
+                            <p>Credit Income Summary $12,000 (adjusts for the difference)</p>
+                        </div>
+                    </div>
+
+                    <div class="worksheet-flow">
+                        <div class="worksheet-step step-1">
+                            <h4>🚫 Wipe Old</h4>
+                            <p>Credit Inventory</p>
+                            <p><strong>Entry:</strong></p>
+                            <p>Dr: IS $10,000</p>
+                            <p>Cr: Inv $10,000</p>
+                        </div>
+                        <div class="worksheet-step step-2">
+                            <h4>✅ Write New</h4>
+                            <p>Debit Inventory</p>
+                            <p><strong>Entry:</strong></p>
+                            <p>Dr: Inv $12,000</p>
+                            <p>Cr: IS $12,000</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Depth B -->
+                <div id="depth-B" class="depth-content">
+                    <h3>🟡 Standard Level</h3>
+                    <p>Completing the worksheet columns step by step.</p>
+
+                    <div class="worked-example">
+                        <h4>Worksheet Column Logic</h4>
+                        <p><strong>Given:</strong> Beginning Inventory $10,000, Ending Inventory (physical count) $12,000</p>
+
+                        <table class="worksheet-table">
+                            <thead>
+                                <tr>
+                                    <th class="account-col">Account</th>
+                                    <th colspan="2" class="dr-col">Adjustments</th>
+                                    <th colspan="2">Income Statement</th>
+                                </tr>
+                                <tr>
+                                    <th></th>
+                                    <th class="dr-col">Dr</th>
+                                    <th>Cr</th>
+                                    <th class="dr-col">Dr</th>
+                                    <th>Cr</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><strong>Inventory (Beg)</strong></td>
+                                    <td></td>
+                                    <td class="adj-highlight">$10,000</td>
+                                    <td class="subtotal">$10,000</td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Income Summary</strong></td>
+                                    <td class="adj-highlight">$10,000</td>
+                                    <td class="adj-highlight">$12,000</td>
+                                    <td></td>
+                                    <td class="subtotal">$12,000</td>
+                                </tr>
+                                <tr class="subtotal">
+                                    <td colspan="2">Net Effect on IS</td>
+                                    <td></td>
+                                    <td><strong>$10,000</strong></td>
+                                    <td><strong>$12,000</strong></td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                        <div class="worksheet-entry">
+                            <strong>Interpretation:</strong> Income Summary has a $2,000 credit balance ($12,000 - $10,000), which represents the reduction in COGS from having more ending inventory than beginning.
+                        </div>
+                    </div>
+
+                    <div class="worked-example">
+                        <h4>Full Closing Process</h4>
+                        <p><strong>Step 1: Close Revenue to Income Summary</strong></p>
+                        <div class="worksheet-entry">
+                            <span class="debit">Debit: Sales Revenue</span> [Total]<br>
+                            <span class="credit">Credit: Income Summary</span> [Total]
+                        </div>
+
+                        <p><strong>Step 2: Close Expenses to Income Summary</strong></p>
+                        <div class="worksheet-entry">
+                            <span class="debit">Debit: Income Summary</span> [Total Expenses]<br>
+                            <span class="credit">Credit: Each Expense Account</span> [Individual amounts]
+                        </div>
+
+                        <p><strong>Step 3: Close Income Summary to Retained Earnings</strong></p>
+                        <div class="worksheet-entry">
+                            <span class="debit">Debit: Income Summary</span> [Net Income]<br>
+                            <span class="credit">Credit: Retained Earnings</span> [Net Income]
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Depth C -->
+                <div id="depth-C" class="depth-content">
+                    <h3>🔴 Advanced Level</h3>
+                    <p>Complete worksheet with multiple accounts and analysis.</p>
+
+                    <div class="worked-example">
+                        <h4>Full Periodic Worksheet Example</h4>
+                        <p><strong>Given Trial Balance (partial):</strong> Sales $150,000, Purchases $80,000, Purchase Returns $3,000, Freight-In $2,500, Beginning Inventory $10,000, Expenses $25,000, Ending Inventory $12,000</p>
+
+                        <table class="worksheet-table">
+                            <thead>
+                                <tr>
+                                    <th class="account-col">Account</th>
+                                    <th>Unadjusted Dr</th>
+                                    <th>Unadjusted Cr</th>
+                                    <th class="dr-col">Adj Dr</th>
+                                    <th>Adj Cr</th>
+                                    <th>Adj Dr</th>
+                                    <th>Adj Cr</th>
+                                    <th class="dr-col">IS Dr</th>
+                                    <th>IS Cr</th>
+                                    <th>BS Dr</th>
+                                    <th>BS Cr</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Inventory</td>
+                                    <td>$10,000</td>
+                                    <td></td>
+                                    <td></td>
+                                    <td class="adj-highlight">$10,000</td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td class="adj-highlight">$12,000</td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td>Purchases</td>
+                                    <td>$80,000</td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td>$80,000</td>
+                                    <td></td>
+                                    <td class="adj-highlight">$80,000</td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td>Purchase Returns</td>
+                                    <td></td>
+                                    <td>$3,000</td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td>$3,000</td>
+                                    <td></td>
+                                    <td class="adj-highlight">$3,000</td>
+                                    <td></td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td>Freight-In</td>
+                                    <td>$2,500</td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td>$2,500</td>
+                                    <td></td>
+                                    <td class="adj-highlight">$2,500</td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td>Sales</td>
+                                    <td></td>
+                                    <td>$150,000</td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td>$150,000</td>
+                                    <td></td>
+                                    <td class="adj-highlight">$150,000</td>
+                                    <td></td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td>Expenses</td>
+                                    <td>$25,000</td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td>$25,000</td>
+                                    <td></td>
+                                    <td class="adj-highlight">$25,000</td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td>Income Summary</td>
+                                    <td></td>
+                                    <td></td>
+                                    <td class="adj-highlight">$10,000</td>
+                                    <td class="adj-highlight">$12,000</td>
+                                    <td>$10,000</td>
+                                    <td>$12,000</td>
+                                    <td>$10,000</td>
+                                    <td class="adj-highlight">$12,000</td>
+                                    <td></td>
+                                    <td></td>
+                                </tr>
+                                <tr class="subtotal">
+                                    <td><strong>TOTALS</strong></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td><strong>$117,500</strong></td>
+                                    <td><strong>$165,000</strong></td>
+                                    <td></td>
+                                    <td></td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                        <div class="worksheet-entry">
+                            <strong>Net Income = $165,000 - $117,500 = $47,500</strong>
+                            <p>Check: Sales $150,000 + Purchase Returns $3,000 - Purchases $80,000 - Freight-In $2,500 - Expenses $25,000 + Beginning $10,000 - Ending $12,000 = $42,500 (Note: COGS = Beg + Net Purch + Freight - End = $10,000 + $77,000 + $2,500 - $12,000 = $77,500; Net Income = $150,000 - $77,500 - $25,000 = $47,500)</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Interactive Worksheet -->
+            <section class="kp-section">
+                <h2>🎨 Interactive: Periodic Worksheet Simulator</h2>
+                <p>Click through the steps to see how inventory adjustments flow through the worksheet.</p>
+
+                <div class="simulator-container">
+                    <div class="worksheet-controls">
+                        <button class="btn btn-outline active" id="btn-step0" onclick="showStep(0)">Initial State</button>
+                        <button class="btn btn-outline" id="btn-step1" onclick="showStep(1)">Step 1: Wipe Old</button>
+                        <button class="btn btn-outline" id="btn-step2" onclick="showStep(2)">Step 2: Write New</button>
+                        <button class="btn btn-outline" id="btn-step3" onclick="showStep(3)">Complete</button>
+                    </div>
+
+                    <table class="worksheet-table">
+                        <thead>
+                            <tr>
+                                <th class="account-col">Account</th>
+                                <th colspan="2">Adjustments</th>
+                                <th colspan="2">Income Statement</th>
+                                <th colspan="2">Balance Sheet</th>
+                            </tr>
+                            <tr>
+                                <th></th>
+                                <th class="dr-col">Dr</th>
+                                <th>Cr</th>
+                                <th class="dr-col">Dr</th>
+                                <th>Cr</th>
+                                <th class="dr-col">Dr</th>
+                                <th>Cr</th>
+                            </tr>
+                        </thead>
+                        <tbody id="worksheet-body">
+                            <tr>
+                                <td><strong>Inventory (Beg: $10,000)</strong></td>
+                                <td id="inv-dr">-</td>
+                                <td id="inv-cr">-</td>
+                                <td id="inv-is-dr">-</td>
+                                <td id="inv-is-cr">-</td>
+                                <td id="inv-bs-dr">-</td>
+                                <td id="inv-bs-cr">-</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Income Summary</strong></td>
+                                <td id="is-dr">-</td>
+                                <td id="is-cr">-</td>
+                                <td id="is-is-dr">-</td>
+                                <td id="is-is-cr">-</td>
+                                <td id="is-bs-dr">-</td>
+                                <td id="is-bs-cr">-</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Sales Revenue</strong></td>
+                                <td>-</td>
+                                <td>-</td>
+                                <td>-</td>
+                                <td id="sales-cr">$150,000</td>
+                                <td>-</td>
+                                <td>-</td>
+                            </tr>
+                            <tr>
+                                <td><strong>COGS / Purchases</strong></td>
+                                <td>-</td>
+                                <td>-</td>
+                                <td id="cogs-dr">$77,500</td>
+                                <td>-</td>
+                                <td>-</td>
+                                <td>-</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Expenses</strong></td>
+                                <td>-</td>
+                                <td>-</td>
+                                <td id="exp-dr">$25,000</td>
+                                <td>-</td>
+                                <td>-</td>
+                                <td>-</td>
+                            </tr>
+                        </tbody>
+                        <tfoot>
+                            <tr class="subtotal">
+                                <td><strong>TOTALS</strong></td>
+                                <td id="total-dr">-</td>
+                                <td id="total-cr">-</td>
+                                <td id="total-is-dr">-</td>
+                                <td id="total-is-cr">-</td>
+                                <td id="total-bs-dr">-</td>
+                                <td id="total-bs-cr">-</td>
+                            </tr>
+                        </tfoot>
+                    </table>
+
+                    <div id="step-explanation" style="background: var(--bg-light); padding: 1rem; border-radius: var(--radius-sm); margin-top: 1rem;">
+                        <strong>Step 0 - Initial State:</strong> The worksheet starts with the unadjusted trial balance. Beginning inventory shows $10,000 (from Jan 1).
+                    </div>
+                </div>
+            </section>
+
+            <!-- Common Misconceptions -->
+            <section class="kp-section">
+                <h2>🚫 Common Misconceptions & Professional Tips</h2>
+
+                <div class="misconception-alert">
+                    <strong>❌ Misconception 1:</strong> "The Inventory account is adjusted directly."
+                    <br><br>
+                    <strong>✅ Reality:</strong> The Inventory adjustments go through Income Summary. You Credit Inventory to remove the old balance, then Debit Inventory to establish the new balance. Income Summary captures the net effect.
+                </div>
+
+                <div class="misconception-alert">
+                    <strong>❌ Misconception 2:</strong> "Beginning inventory appears on the balance sheet."
+                    <br><br>
+                    <strong>✅ Reality:</strong> Beginning inventory is REMOVED from the worksheet (credited) and flows through Income Summary as part of COGS. Only Ending Inventory appears on the Balance Sheet.
+                </div>
+
+                <div class="misconception-alert">
+                    <strong>❌ Misconception 3:</strong> "The worksheet replaces the financial statements."
+                    <br><br>
+                    <strong>✅ Reality:</strong> The worksheet is a WORKING DOCUMENT that helps prepare statements. The formal Income Statement and Balance Sheet are prepared using the final worksheet figures, but the worksheet itself is not a published statement.
+                </div>
+
+                <div class="professional-tip">
+                    <strong>💡 Professional Tip #1:</strong> Always verify that the adjustments column balances (Dr = Cr) before proceeding to income statement columns.
+                </div>
+
+                <div class="professional-tip">
+                    <strong>💡 Professional Tip #2:</strong> The difference between Income Statement Debit and Credit columns should equal the difference between Balance Sheet Debit and Credit columns (net income or loss).
+                </div>
+
+                <div class="professional-tip">
+                    <strong>💡 Professional Tip #3:</strong> Use the worksheet to identify errors early. If columns don't balance, trace each number back to its source.
+                </div>
+            </section>
+
+            <!-- Memory Aids -->
+            <section class="kp-section">
+                <h2>🧠 Memory Aids & Quick Reference</h2>
+
+                <div class="memory-aid-card">
+                    <strong>⚡ Quick Recall: Wipe and Replace</strong>
+                    <p><strong>Step 1 (Wipe):</strong> Credit Inventory (Beg), Debit Income Summary</p>
+                    <p><strong>Step 2 (Replace):</strong> Debit Inventory (End), Credit Income Summary</p>
+                    <p><strong>Net Effect:</strong> Income Summary shows Beginning - Ending = effect on COGS</p>
+                </div>
+
+                <div class="key-concepts-grid">
+                    <div class="concept-card">
+                        <strong>🚫 Wipe Old</strong>
+                        <p>Cr: Inventory (Beg), Dr: Income Summary</p>
+                    </div>
+
+                    <div class="concept-card">
+                        <strong>✅ Write New</strong>
+                        <p>Dr: Inventory (End), Cr: Income Summary</p>
+                    </div>
+
+                    <div class="concept-card">
+                        <strong>📊 Worksheet Flow</strong>
+                        <p>TB → Adjustments → IS → BS</p>
+                    </div>
+
+                    <div class="concept-card">
+                        <strong>💰 Net Income Check</strong>
+                        <p>IS Cr - IS Dr = BS Dr - BS Cr</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Glossary -->
+            <section class="kp-section">
+                <h2>📖 Glossary</h2>
+                <div class="key-concepts-grid">
+                    <div class="concept-card">
+                        <strong>Periodic Worksheet</strong>
+                        <p>Work sheet tool used to organize adjusting and closing entries for merchandising companies using periodic inventory.</p>
+                    </div>
+
+                    <div class="concept-card">
+                        <strong>Wipe and Replace</strong>
+                        <p>Two-step inventory adjustment: Credit old beginning balance to remove it, then Debit new ending balance.</p>
+                    </div>
+
+                    <div class="concept-card">
+                        <strong>Income Summary Account</strong>
+                        <p>Temporary account that captures the net effect of inventory adjustments and is closed to Retained Earnings.</p>
+                    </div>
+
+                    <div class="concept-card">
+                        <strong>Adjustments Column</strong>
+                        <p>Worksheet column for recording adjusting entries, including inventory adjustments.</p>
+                    </div>
+
+                    <div class="concept-card">
+                        <strong>Income Statement Column</strong>
+                        <p>Worksheet column accumulating revenue and expense balances for net income calculation.</p>
+                    </div>
+
+                    <div class="concept-card">
+                        <strong>Balance Sheet Column</strong>
+                        <p>Worksheet column for asset, liability, and equity balances after adjustments.</p>
+                    </div>
+
+                    <div class="concept-card">
+                        <strong>Net Income Verification</strong>
+                        <p>Mathematical check: (IS Cr - IS Dr) must equal (BS Dr - BS Cr).</p>
+                    </div>
+
+                    <div class="concept-card">
+                        <strong>Worksheet Balancing</strong>
+                        <p>Ensuring total debits equal total credits in each worksheet column pair.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Final Knowledge Check -->
+            <section class="interactive-section">
+                <h2>🎯 Final Knowledge Check</h2>
+                <p>Test your understanding of Periodic Worksheets:</p>
+
+                <div class="quiz-container" data-success-text="Excellent! You've mastered periodic worksheets." data-explanation="The Wipe and Replace method: Step 1 Credit Inventory (remove beginning) and Debit Income Summary; Step 2 Debit Inventory (add ending) and Credit Income Summary. This properly adjusts for the change in inventory levels.">
+                    <div class="input-group">
+                        <p><strong>Question 1:</strong> What is the first step in the "Wipe and Replace" inventory adjustment?</p>
+                        <label><input type="radio" name="q1" value="incorrect1" data-correct="false"> Debit Inventory to add ending balance</label><br>
+                        <label><input type="radio" name="q1" value="correct" data-correct="true"> Credit Inventory to remove beginning balance</label><br>
+                        <label><input type="radio" name="q1" value="incorrect2" data-correct="false"> Credit Income Summary to reduce expenses</label>
+                    </div>
+
+                    <div class="input-group">
+                        <p><strong>Question 2:</strong> Beginning inventory appears in which worksheet column?</p>
+                        <label><input type="radio" name="q2" value="correct" data-correct="true"> Income Statement (as part of COGS calculation)</label><br>
+                        <label><input type="radio" name="q2" value="incorrect1" data-correct="false"> Balance Sheet (as ending inventory)</label><br>
+                        <label><input type="radio" name="q2" value="incorrect2" data-correct="false"> Adjustments column only</label>
+                    </div>
+
+                    <div class="input-group">
+                        <p><strong>Question 3:</strong> After both adjustments, the Income Summary balance represents:</p>
+                        <label><input type="radio" name="q3" value="incorrect1" data-correct="false"> Total sales for the period</label><br>
+                        <label><input type="radio" name="q3" value="incorrect2" data-correct="false"> Total purchases for the period</label><br>
+                        <label><input type="radio" name="q3" value="correct" data-correct="true"> Beginning Inventory - Ending Inventory (effect on COGS)</label>
+                    </div>
+
+                    <div class="input-group">
+                        <p><strong>Question 4:</strong> The difference between IS Dr and IS Cr columns equals:</p>
+                        <label><input type="radio" name="q4" value="incorrect1" data-correct="false"> Total assets minus total liabilities</label><br>
+                        <label><input type="radio" name="q4" value="incorrect2" data-correct="false"> Beginning inventory plus purchases</label><br>
+                        <label><input type="radio" name="q4" value="correct" data-correct="true"> The difference between BS Dr and BS Cr (net income/loss)</label>
+                    </div>
+
+                    <div class="input-group">
+                        <p><strong>Question 5:</strong> Ending inventory appears on the:</p>
+                        <label><input type="radio" name="q5" value="incorrect1" data-correct="false"> Income Statement only</label><br>
+                        <label><input type="radio" name="q5" value="incorrect2" data-correct="false"> Income Statement as an expense</label><br>
+                        <label><input type="radio" name="q5" value="correct" data-correct="true"> Balance Sheet as an asset</label>
+                    </div>
+
+                    <button class="btn btn-primary quiz-submit">Submit Answers</button>
+                    <div class="feedback"></div>
+                    <button class="quiz-retry">Try Again</button>
+                </div>
+            </section>
+
+            <!-- Navigation -->
+            <nav class="kp-navigation" style="display: flex; justify-content: space-between; margin-top: 4rem; padding-bottom: 2rem;">
+                <a href="ch05_P6.html" class="btn" style="background: #eee;">← Previous: Periodic Sales</a>
+                <a href="ch05.html" class="btn" style="background: var(--info); color: white;">Chapter 5 Hub</a>
+                <a href="../../part2/part2.html" class="btn btn-primary">Part 2 Overview →</a>
+            </nav>
+        </article>
+    </main>
+
+    <footer style="margin-top: 5rem; padding: 2rem 0; border-top: 1px solid #ddd; text-align: center; color: #888;">
+        <p>Accounting Essentials | Chapter 5 | Procedure 7</p>
+    </footer>
+
+    <script src="../../components-enhanced.js"></script>
+    <script>
+        function setDepth(depth) {
+            document.querySelectorAll('.depth-btn').forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+
+            document.querySelectorAll('.depth-content').forEach(content => content.classList.remove('active'));
+            document.getElementById(`depth-${depth}`).classList.add('active');
+        }
+
+        function showStep(step) {
+            // Update button states
+            document.querySelectorAll('.worksheet-controls .btn').forEach((btn, idx) => {
+                btn.classList.toggle('active', idx === step);
+            });
+
+            // Reset all cells
+            const cells = ['inv-dr', 'inv-cr', 'inv-is-dr', 'inv-is-cr', 'inv-bs-dr', 'inv-bs-cr',
+                          'is-dr', 'is-cr', 'is-is-dr', 'is-is-cr', 'is-bs-dr', 'is-bs-cr',
+                          'sales-cr', 'cogs-dr', 'exp-dr',
+                          'total-dr', 'total-cr', 'total-is-dr', 'total-is-cr', 'total-bs-dr', 'total-bs-cr'];
+            cells.forEach(id => {
+                const el = document.getElementById(id);
+                if (el) el.textContent = '-';
+            });
+
+            const explanations = [
+                "Step 0 - Initial State: The worksheet starts with the unadjusted trial balance. Beginning inventory shows $10,000 (from Jan 1).",
+                "Step 1 - Wipe Old: Credit Inventory $10,000 to remove beginning balance. Debit Income Summary $10,000 to capture it temporarily.",
+                "Step 2 - Write New: Debit Inventory $12,000 to add ending balance (physical count). Credit Income Summary $12,000 to adjust.",
+                "Complete: Income Summary now shows net effect. COGS calculated as: Beginning $10,000 + Net Purchases $77,000 + Freight $2,500 - Ending $12,000 = $77,500. Net Income = $150,000 - $77,500 - $25,000 = $47,500."
+            ];
+
+            if (step === 0) {
+                document.getElementById('total-is-dr').textContent = '$102,500';
+                document.getElementById('total-is-cr').textContent = '$150,000';
+                document.getElementById('total-bs-dr').textContent = '$35,000';
+                document.getElementById('sales-cr').textContent = '$150,000';
+                document.getElementById('cogs-dr').textContent = '$0';
+                document.getElementById('exp-dr').textContent = '$25,000';
+            } else if (step === 1) {
+                document.getElementById('inv-cr').textContent = '$10,000';
+                document.getElementById('is-dr').textContent = '$10,000';
+                document.getElementById('inv-is-dr').textContent = '$10,000';
+                document.getElementById('is-is-dr').textContent = '$10,000';
+                document.getElementById('total-dr').textContent = '$10,000';
+                document.getElementById('total-cr').textContent = '$10,000';
+            } else if (step === 2) {
+                document.getElementById('inv-dr').textContent = '$12,000';
+                document.getElementById('is-cr').textContent = '$12,000';
+                document.getElementById('inv-bs-dr').textContent = '$12,000';
+                document.getElementById('is-is-cr').textContent = '$12,000';
+                document.getElementById('total-dr').textContent = '$12,000';
+                document.getElementById('total-cr').textContent = '$12,000';
+            } else if (step === 3) {
+                document.getElementById('inv-cr').textContent = '$10,000';
+                document.getElementById('inv-dr').textContent = '$12,000';
+                document.getElementById('is-dr').textContent = '$10,000';
+                document.getElementById('is-cr').textContent = '$12,000';
+                document.getElementById('inv-bs-dr').textContent = '$12,000';
+                document.getElementById('is-is-dr').textContent = '$10,000';
+                document.getElementById('is-is-cr').textContent = '$12,000';
+                document.getElementById('sales-cr').textContent = '$150,000';
+                document.getElementById('cogs-dr').textContent = '$77,500';
+                document.getElementById('exp-dr').textContent = '$25,000';
+                document.getElementById('total-dr').textContent = '$10,000';
+                document.getElementById('total-cr').textContent = '$12,000';
+                document.getElementById('total-is-dr').textContent = '$117,500';
+                document.getElementById('total-is-cr').textContent = '$165,000';
+                document.getElementById('total-bs-dr').textContent = '$12,000';
+                document.getElementById('total-bs-cr').textContent = '$47,500';
+            }
+
+            document.getElementById('step-explanation').innerHTML = `<strong>${explanations[step]}</strong>`;
+        }
+    </script>
+</body>
+
+</html>

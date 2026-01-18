@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Chapter 4 Practice Case | ACCOUNTING ESSENTIALS</title>
+  <link rel="stylesheet" href="../../styles.css" />
+  <style>
+    .practice-grid { display:grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap:1rem; margin-top:1rem; }
+    .practice-card { padding:1rem; border-radius:12px; border:1px solid var(--border-color); background:white; }
+    .practice-input { width:120px; }
+    .tb { width:100%; border-collapse: collapse; }
+    .tb th, .tb td { border:1px solid var(--border-color); padding:6px 8px; text-align:left; }
+    .note { font-size:0.9rem; color:var(--text-muted); }
+  </style>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-50MTQPVR7D"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-50MTQPVR7D');
+</script>
+
+</head>
+<body>
+  <header>
+    <div class="container nav-container">
+      <a href="../../index.html" class="logo">ACCOUNTING<span>ESSENTIALS</span></a>
+      <nav class="nav-links">
+        <a href="../../index.html">Home</a>
+        <a href="../../Part1/part1.html">Part 1</a>
+        <a href="../../part2/part2.html">Part 2</a>
+        <a href="../../part3/part3.html">Part 3</a>
+      </nav>
+    </div>
+  </header>
+  <main class="container">
+    <div class="breadcrumbs">
+      <a href="../../index.html">Home</a> <span>/</span> <a href="../../part2/part2.html">Part 2</a> <span>/</span> <a href="ch04.html">Chapter 4</a> <span>/</span> Practice Case
+    </div>
+
+    <article class="animate-fade-in">
+      <h1 style="border-left: 8px solid var(--success); padding-left: 1rem; margin: 2rem 0;">Chapter 4 Practice Case: Closing the Books</h1>
+
+      <section class="kp-section">
+        <h2>Review & Prepare</h2>
+        <p class="note">This practice case helps you apply the Closing Entries and Post-Closing TB steps using a simplified RetailHub dataset.</p>
+      </section>
+
+      <section class="kp-section">
+        <h2>Step 1: Review the Adjusted Trial Balance</h2>
+        <div class="financial-statement-container">
+          <table class="financial-table" aria-label="Adjusted Trial Balance">
+            <thead>
+              <tr class="border-top">
+                <th>Account</th>
+                <th class="text-right">Debit</th>
+                <th class="text-right">Credit</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><td>Cash</td><td class="text-right">$12,000</td><td></td></tr>
+              <tr><td>Accounts Receivable</td><td class="text-right">$5,000</td><td></td></tr>
+              <tr><td>Inventory</td><td class="text-right">$20,000</td><td></td></tr>
+              <tr><td>Equipment</td><td class="text-right">$20,000</td><td></td></tr>
+              <tr><td>Accounts Payable</td><td></td><td class="text-right">$3,000</td></tr>
+              <tr><td>Common Stock</td><td></td><td class="text-right">$25,000</td></tr>
+              <tr><td>Retained Earnings</td><td></td><td class="text-right">$2,000</td></tr>
+              <tr><td>Dividends</td><td class="text-right">$1,000</td><td></td></tr>
+              <tr><td>Service Revenue</td><td></td><td class="text-right">$15,000</td></tr>
+              <tr><td>Salaries Expense</td><td class="text-right">$5,000</td><td></td></tr>
+              <tr><td>Rent Expense</td><td class="text-right">$2,000</td><td></td></tr>
+              <tr class="total-row border-top"><td><strong>Totals</strong></td><td class="text-right"><strong>$44,000</strong></td><td class="text-right"><strong>$44,000</strong></td></tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <section class="kp-section">
+        <h2>Step 2: Prepare Closing Entries (REID Method)</h2>
+        <div class="card-grid" style="margin-top: 1rem;">
+          <div class="content-card" style="border-left: 5px solid var(--primary);">
+            <h4>Entry 1: Close Revenues</h4>
+            <p>What is the total revenue to close?</p>
+            <input type="number" id="close-rev" class="practice-input" placeholder="Amount" style="width: 150px;"/>
+            <button class="btn btn-outline" onclick="checkRev()" style="margin-left: 1rem;">Check</button>
+            <div id="rev-feedback" style="margin-top:0.5rem; display:none;"></div>
+          </div>
+          <div class="content-card" style="border-left: 5px solid var(--warning);">
+            <h4>Entry 2: Close Expenses</h4>
+            <p>What is the total expenses to close?</p>
+            <input type="number" id="close-exp" class="practice-input" placeholder="Amount" style="width: 150px;"/>
+            <button class="btn btn-outline" onclick="checkExp()" style="margin-left: 1rem;">Check</button>
+            <div id="exp-feedback" style="margin-top:0.5rem; display:none;"></div>
+          </div>
+        </div>
+        <div class="card-grid" style="margin-top:1rem;">
+          <div class="content-card" style="border-left:5px solid var(--success);">
+            <h4>Entry 3: Close Income Summary</h4>
+            <p>What is the Net Income (Revenue - Expenses)?</p>
+            <input type="number" id="close-ni" class="practice-input" placeholder="Amount" style="width:150px;"/>
+            <button class="btn btn-outline" onclick="checkNI()" style="margin-left:1rem;">Check</button>
+            <div id="ni-feedback" style="margin-top:0.5rem; display:none;"></div>
+          </div>
+          <div class="content-card" style="border-left:5px solid var(--info);">
+            <h4>Entry 4: Close Dividends</h4>
+            <p>What is the Dividends amount to close?</p>
+            <input type="number" id="close-div" class="practice-input" placeholder="Amount" style="width:150px;"/>
+            <button class="btn btn-outline" onclick="checkDiv()" style="margin-left:1rem;">Check</button>
+            <div id="div-feedback" style="margin-top:0.5rem; display:none;"></div>
+          </div>
+        </div>
+      </section>
+
+      <section class="kp-section">
+        <h2>Step 3: Post-Closing Trial Balance</h2>
+        <p>Only permanent accounts (assets, liabilities, equity) should appear.</p>
+        <div class="financial-statement-container">
+          <table class="financial-table" aria-label="Post-closing trial balance">
+            <thead><tr class="border-top"><th>Account</th><th class="text-right">Debit</th><th class="text-right">Credit</th></tr></thead>
+            <tbody>
+              <tr><td>Cash</td><td class="text-right"></td><td class="text-right">$12,000</td></tr>
+              <tr><td>Accounts Receivable</td><td class="text-right"></td><td class="text-right">$5,000</td></tr>
+              <tr><td>Inventory</td><td class="text-right"></td><td class="text-right">$20,000</td></tr>
+              <tr><td>Accounts Payable</td><td class="text-right"></td><td class="text-right">$3,000</td></tr>
+              <tr><td>Common Stock</td><td class="text-right"></td><td class="text-right">$25,000</td></tr>
+              <tr><td>Retained Earnings</td><td class="text-right"></td><td class="text-right">$21,000</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <section class="kp-section">
+        <h2>End of Case</h2>
+        <p>Great job applying closing and post-closing procedures. Use the post-closing TB to begin the next period with clean permanent balances.</p>
+      </section>
+
+      <div style="display:flex; justify-content: space-between; margin-top: 2rem; padding-bottom: 2rem;">
+        <a href="ch04_INTERACTIVE.html" class="btn" style="background:#eee;">← Previous: Interactive</a>
+        <a href="../../part2/chapter5/ch05_C1.html" class="btn btn-primary">Next: Chapter 5 - Concepts →</a>
+      </div>
+    </article>
+  </main>
+  <footer style="margin-top:5rem; padding:2rem 0; border-top:1px solid #ddd; text-align:center; color:#888;">
+    <p>Accounting Essentials | Chapter 4 | PRACTICE</p>
+  </footer>
+  <script src="../../components.js"></script>
+  <script>
+    function checkRev(){
+      const val = Number(document.getElementById('close-rev').value)||0;
+      const fb = document.getElementById('rev-feedback');
+      fb.style.display='block';
+      if(val>0){ fb.innerHTML = '✓ Revenue close amount entered: ' + '$' + val; fb.style.color='var(--success)'; } else { fb.innerHTML = 'Enter a revenue amount to close.'; fb.style.color='var(--error)'; }
+    }
+    function checkExp(){
+      const val = Number(document.getElementById('close-exp').value)||0; const fb = document.getElementById('exp-feedback'); fb.style.display='block'; if(val>0){ fb.innerHTML = '✓ Expenses total: ' + '$' + val; fb.style.color='var(--success)'; } else { fb.innerHTML = 'Enter expenses total.'; fb.style.color='var(--error)'; }
+    }
+    function checkNI(){
+      const val = Number(document.getElementById('close-ni').value)||0; const fb = document.getElementById('ni-feedback'); fb.style.display='block'; if(val>=0){ fb.innerHTML = 'Net Income (NI): ' + '$' + val; fb.style.color='var(--success)'; } else { fb.innerHTML = 'Enter NI value'; fb.style.color='var(--error)'; }
+    }
+    function checkDiv(){
+      const val = Number(document.getElementById('close-div').value)||0; const fb = document.getElementById('div-feedback'); fb.style.display='block'; if(val>0){ fb.innerHTML = 'Dividends to close: ' + '$' + val; fb.style.color='var(--success)'; } else { fb.innerHTML = 'Enter dividends amount'; fb.style.color='var(--error)'; }
+    }
+  </script>
+</body>
+</html>

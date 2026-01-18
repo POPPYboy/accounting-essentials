@@ -1,0 +1,579 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>P4: Specific Identification | ACCOUNTING ESSENTIALS</title>
+    <link rel="stylesheet" href="../../styles.css">
+    <style>
+        .item-showcase {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+        .item-card {
+            background: var(--bg-light);
+            border-radius: var(--radius-md);
+            padding: 1.5rem;
+            text-align: center;
+            border: 2px solid;
+            transition: transform 0.3s ease;
+        }
+        .item-card:hover {
+            transform: translateY(-5px);
+        }
+        .item-card.jewelry {
+            border-color: var(--primary-light);
+        }
+        .item-card.auto {
+            border-color: var(--secondary);
+        }
+        .item-card.realestate {
+            border-color: var(--success);
+        }
+        .item-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+        .item-name {
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+        .item-detail {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+        }
+        .comparison-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+        .comparison-box {
+            background: var(--bg-light);
+            border-radius: var(--radius-md);
+            padding: 1.5rem;
+            border-left: 4px solid;
+        }
+        .comparison-box.pros {
+            border-color: var(--success);
+        }
+        .comparison-box.cons {
+            border-color: var(--error);
+        }
+        .comparison-box h4 {
+            margin: 0 0 0.5rem 0;
+        }
+        .comparison-box.pros h4 { color: var(--success); }
+        .comparison-box.cons h4 { color: var(--error); }
+        .method-summary {
+            background: linear-gradient(135deg, var(--bg-light) 0%, #e3f2fd 100%);
+            border-radius: var(--radius-md);
+            padding: 2rem;
+            margin: 2rem 0;
+        }
+        .flow-visual {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 1rem;
+            margin: 2rem 0;
+            flex-wrap: wrap;
+        }
+        .flow-step {
+            background: var(--bg-light);
+            border-radius: var(--radius-md);
+            padding: 1.5rem;
+            text-align: center;
+            min-width: 150px;
+            border: 2px solid var(--primary-light);
+        }
+        .flow-arrow-final {
+            font-size: 2rem;
+            color: var(--secondary);
+        }
+        .cost-display {
+            background: var(--primary);
+            color: var(--white);
+            border-radius: var(--radius-sm);
+            padding: 0.5rem 1rem;
+            display: inline-block;
+            margin-top: 0.5rem;
+            font-weight: 700;
+        }
+    </style>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-50MTQPVR7D"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-50MTQPVR7D');
+</script>
+
+</head>
+
+<body>
+    <header>
+        <div class="container nav-container">
+            <a href="../../index.html" class="logo">ACCOUNTING<span>ESSENTIALS</span></a>
+            <nav class="nav-links">
+                <a href="../../index.html">Home</a>
+                <a href="../../Part1/part1.html">Part 1</a>
+                <a href="../../part2/part2.html">Part 2</a>
+                <a href="../../part3/part3.html">Part 3</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container">
+        <div class="breadcrumbs">
+            <a href="../../index.html">Home</a> <span>/</span> <a href="../../part2/part2.html">Part 2</a> <span>/</span> <a href="ch06.html">Chapter 6</a> <span>/</span> P4
+        </div>
+
+        <article class="animate-fade-in">
+            <div class="kp-header">
+                <h1 style="border-left: 8px solid var(--primary-light); padding-left: 1rem; margin: 2rem 0;">Specific Identification</h1>
+            </div>
+
+            <!-- Learning Objectives -->
+            <section class="kp-section">
+                <h2>🎯 Learning Objectives</h2>
+                <div class="learning-objectives">
+                    <ul>
+                        <li>Understand when specific identification is appropriate vs. cost flow assumptions</li>
+                        <li>Calculate COGS and ending inventory using actual specific costs</li>
+                        <li>Identify industries and products suitable for specific identification</li>
+                        <li>Compare specific identification to FIFO, LIFO, and weighted average methods</li>
+                        <li>Apply specific identification to unique inventory items</li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- Background & Principles -->
+            <section class="kp-section">
+                <h2>📚 Background & Principles</h2>
+                <p>Specific Identification is an inventory costing method where each item's actual cost is tracked and matched with revenue when that specific item is sold. Unlike FIFO, LIFO, or weighted average (which are cost flow assumptions), specific identification matches actual costs to actual items.</p>
+
+                <div class="concept-card" style="margin: 1.5rem 0;">
+                    <strong>Core Principle:</strong> When inventory items are unique or high-value, averaging or assuming cost flow is inappropriate. Each item carries its own cost, and when sold, that specific cost becomes COGS.
+                </div>
+
+                <p>This method provides the most accurate matching of costs to revenue but requires extensive tracking and is practical only for items that can be individually identified.</p>
+
+                <div class="professional-tip">
+                    <strong>💡 Key Insight:</strong> Think of specific identification like selling houses on a street. House #123 sold for $500,000, and we know exactly what the builder paid for that specific lot and materials. House #124 is still for sale at $510,000. We don't average them—we track each individually.
+                </div>
+            </section>
+
+            <!-- Key Concepts -->
+            <section class="kp-section">
+                <h2>🔑 Key Concepts</h2>
+                <div class="key-concepts-grid">
+                    <div class="concept-card">
+                        <strong>Specific Identification</strong>
+                        <p>Inventory costing method tracking actual cost of each individual item, matching exact cost to revenue when sold.</p>
+                    </div>
+
+                    <div class="concept-card">
+                        <strong>Individual Tracking</strong>
+                        <p>Each inventory item has a unique identifier (serial number, VIN, lot number) linking to its specific cost.</p>
+                    </div>
+
+                    <div class="concept-card">
+                        <strong>Actual Cost Matching</strong>
+                        <p>When an item sells, its exact purchase cost is recorded as COGS—no averaging or assumptions.</p>
+                    </div>
+
+                    <div class="concept-card">
+                        <strong>Appropriate Products</strong>
+                        <p>Unique, high-value items where tracking costs is justified: jewelry, art, automobiles, real estate.</p>
+                    </div>
+
+                    <div class="concept-card">
+                        <strong>Income Manipulation Risk</strong>
+                        <p>Companies can select which specific items to sell, potentially affecting reported income.</p>
+                    </div>
+
+                    <div class="concept-card">
+                        <strong>Cost Flow Assumption Alternative</strong>
+                        <p>Specific identification is an alternative to FIFO, LIFO, and weighted average when items are not homogeneous.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Deep Dive -->
+            <section class="kp-section">
+                <h2>🔍 Deep Dive</h2>
+                <p>Explore Specific Identification at different levels of depth:</p>
+
+                <div class="depth-toggle">
+                    <button class="depth-btn active" onclick="setDepth('A')">Depth A: Foundational</button>
+                    <button class="depth-btn" onclick="setDepth('B')">Depth B: Standard</button>
+                    <button class="depth-btn" onclick="setDepth('C')">Depth C: Advanced</button>
+                </div>
+
+                <!-- Depth A -->
+                <div id="depth-A" class="depth-content active">
+                    <h3>🟢 Foundational Level</h3>
+                    <p>Understanding the "Diamond Ring" analogy.</p>
+
+                    <div class="worked-example">
+                        <h4>The Jewelry Store Example</h4>
+                        <p><strong>Analogy: Unique Diamonds</strong></p>
+                        <p>Two diamond rings look similar to customers, but they have different specs:</p>
+
+                        <div class="item-showcase">
+                            <div class="item-card jewelry">
+                                <div class="item-icon">💍</div>
+                                <div class="item-name">Ring A</div>
+                                <div class="item-detail">2-carat diamond</div>
+                                <div class="cost-display">$5,000</div>
+                            </div>
+                            <div class="item-card jewelry">
+                                <div class="item-icon">💎</div>
+                                <div class="item-name">Ring B</div>
+                                <div class="item-detail">3-carat diamond</div>
+                                <div class="cost-display">$10,000</div>
+                            </div>
+                        </div>
+
+                        <div class="example-step">
+                            <strong>Key Point:</strong>
+                            <p>You CANNOT average these to $7,500. When Ring A sells for $8,000, COGS is exactly $5,000 (not average).</p>
+                        </div>
+                    </div>
+
+                    <div class="flow-visual">
+                        <div class="flow-step">
+                            <div>📦 Item A</div>
+                            <div class="cost-display">$5,000</div>
+                        </div>
+                        <div class="flow-arrow-final">→</div>
+                        <div class="flow-step">
+                            <div>💰 Sold</div>
+                            <div class="cost-display">COGS = $5,000</div>
+                        </div>
+                        <div class="flow-arrow-final">→</div>
+                        <div class="flow-step">
+                            <div>📦 Item B</div>
+                            <div class="cost-display">$10,000</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Depth B -->
+                <div id="depth-B" class="depth-content">
+                    <h3>🟡 Standard Level</h3>
+                    <p>Calculation and application examples.</p>
+
+                    <div class="worked-example">
+                        <h4>Automobile Dealership Example</h4>
+                        <p><strong>Given Inventory:</strong></p>
+                        <p>Car #1 (VIN-001): $25,000 cost, $32,000 selling price</p>
+                        <p>Car #2 (VIN-002): $28,000 cost, $35,000 selling price</p>
+                        <p>Car #3 (VIN-003): $22,000 cost, $30,000 selling price</p>
+
+                        <div class="example-step">
+                            <strong>Scenario 1: Car #1 and #3 Sold</strong>
+                            <p>COGS = $25,000 + $22,000 = <strong>$47,000</strong></p>
+                            <p>Ending Inventory = Car #2 at <strong>$28,000</strong></p>
+                        </div>
+                        <div class="example-step">
+                            <strong>Scenario 2: Car #1 and #2 Sold</strong>
+                            <p>COGS = $25,000 + $28,000 = <strong>$53,000</strong></p>
+                            <p>Ending Inventory = Car #3 at <strong>$22,000</strong></p>
+                        </div>
+                        <div class="example-step">
+                            <strong>Key Insight:</strong>
+                            <p>Different ending inventory values depending on WHICH specific cars were sold! This gives companies some discretion over income.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Depth C -->
+                <div id="depth-C" class="depth-content">
+                    <h3>🔴 Advanced Level</h3>
+                    <p>Method comparison and ethical considerations.</p>
+
+                    <div class="worked-example">
+                        <h4>Comparing All Four Methods</h4>
+                        <p><strong>Same Inventory:</strong> 10 units @ $10, 20 units @ $12, 15 units @ $15, 12 units ending</p>
+
+                        <table style="width: 100%; border-collapse: collapse; margin: 1rem 0;">
+                            <thead>
+                                <tr style="background: var(--primary); color: white;">
+                                    <th style="padding: 0.75rem; text-align: left;">Method</th>
+                                    <th style="padding: 0.75rem; text-align: right;">Ending Inventory</th>
+                                    <th style="padding: 0.75rem; text-align: right;">COGS</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr style="background: var(--bg-light);">
+                                    <td style="padding: 0.75rem;">FIFO (newest costs)</td>
+                                    <td style="padding: 0.75rem; text-align: right;">$180</td>
+                                    <td style="padding: 0.75rem; text-align: right;">$385</td>
+                                </tr>
+                                <tr>
+                                    <td style="padding: 0.75rem;">LIFO (oldest costs)</td>
+                                    <td style="padding: 0.75rem; text-align: right;">$124</td>
+                                    <td style="padding: 0.75rem; text-align: right;">$441</td>
+                                </tr>
+                                <tr style="background: var(--bg-light);">
+                                    <td style="padding: 0.75rem;">Weighted Average</td>
+                                    <td style="padding: 0.75rem; text-align: right;">$150.72</td>
+                                    <td style="padding: 0.75rem; text-align: right;">$414.28</td>
+                                </tr>
+                                <tr>
+                                    <td style="padding: 0.75rem;">Specific ID (varies)</td>
+                                    <td style="padding: 0.75rem; text-align: right;">Varies</td>
+                                    <td style="padding: 0.75rem; text-align: right;">Varies</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div class="comparison-grid">
+                        <div class="comparison-box pros">
+                            <h4>✅ Advantages</h4>
+                            <ul style="margin: 0; padding-left: 1.25rem;">
+                                <li>Most accurate cost matching</li>
+                                <li>Reflects actual inventory flow</li>
+                                <li>Ideal for unique, high-value items</li>
+                                <li>Gives precise financial information</li>
+                            </ul>
+                        </div>
+                        <div class="comparison-box cons">
+                            <h4>⚠️ Disadvantages</h4>
+                            <ul style="margin: 0; padding-left: 1.25rem;">
+                                <li>Complex and expensive to implement</li>
+                                <li>Requires tracking each item</li>
+                                <li>Potential for income manipulation</li>
+                                <li>Not practical for homogeneous goods</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Industries Application -->
+            <section class="kp-section">
+                <h2>🏢 Industries Using Specific Identification</h2>
+                <p>Specific identification is practical when items are unique and tracking costs is justified.</p>
+
+                <div class="item-showcase">
+                    <div class="item-card jewelry">
+                        <div class="item-icon">💍</div>
+                        <div class="item-name">Jewelry & Gems</div>
+                        <div class="item-detail">Each stone has unique carat, clarity, color, cut. Tracked by individual certificates.</div>
+                    </div>
+                    <div class="item-card auto">
+                        <div class="item-icon">🚗</div>
+                        <div class="item-name">Automobiles</div>
+                        <div class="item-detail">Each vehicle has unique VIN, options, packages, and specific invoice cost.</div>
+                    </div>
+                    <div class="item-card realestate">
+                        <div class="item-icon">🏠</div>
+                        <div class="item-name">Real Estate</div>
+                        <div class="item-detail">Each property is unique by location, condition, and improvements. Sold as individual units.</div>
+                    </div>
+                    <div class="item-card">
+                        <div class="item-icon">🎨</div>
+                        <div class="item-name">Art & Collectibles</div>
+                        <div class="item-detail">Paintings, sculptures, antiques each have unique provenance and specific acquisition costs.</div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Common Misconceptions -->
+            <section class="kp-section">
+                <h2>🚫 Common Misconceptions & Professional Tips</h2>
+
+                <div class="misconception-alert">
+                    <strong>❌ Misconception 1:</strong> "Specific identification is always more accurate than cost flow assumptions."
+                    <br><br>
+                    <strong>✅ Reality:</strong> Specific identification is more accurate for UNIQUE items. For homogeneous goods (wheat, oil, identical electronics), cost flow assumptions like FIFO are actually MORE practical and appropriate.
+                </div>
+
+                <div class="misconception-alert">
+                    <strong>❌ Misconception 2:</strong> "Specific identification eliminates all subjectivity."
+                    <br><br>
+                    <strong>✅ Reality:</strong> Companies using specific identification can CHOOSE which identical-looking items to sell. This allows manipulation of COGS and income within the constraints of what's available.
+                </div>
+
+                <div class="misconception-alert">
+                    <strong>❌ Misconception 3:</strong> "Specific identification can be used for any inventory."
+                    <br><br>
+                    <strong>✅ Reality:</strong> Specific identification is only practical and appropriate when items are unique and can be individually tracked. For mass-market identical products, it's impractical and unnecessary.
+                </div>
+
+                <div class="professional-tip">
+                    <strong>💡 Professional Tip 1:</strong> When implementing specific identification, invest in barcoding or RFID systems. Manual tracking of individual items is error-prone and costly at scale.
+                </div>
+
+                <div class="professional-tip">
+                    <strong>💡 Professional Tip 2:</strong> Establish clear policies about which specific items to sell when multiple similar items exist. This prevents allegations of income manipulation.
+                </div>
+
+                <div class="professional-tip">
+                    <strong>💡 Professional Tip 3:</strong> For mixed inventories (some unique, some homogeneous), consider using specific identification for unique items and weighted average for homogeneous goods.
+                </div>
+            </section>
+
+            <!-- Memory Aids -->
+            <section class="kp-section">
+                <h2>🧠 Memory Aids & Quick Reference</h2>
+
+                <div class="memory-aid-card">
+                    <strong>⚡ Quick Recall: Specific Identification Rule</strong>
+                    <p><strong>Each item = Its actual cost</strong></p>
+                    <p>When sold → That specific cost goes to COGS</p>
+                    <p>When remains → That specific cost stays in inventory</p>
+                    <p><strong>Best for:</strong> Unique, high-value, trackable items</p>
+                </div>
+
+                <div class="key-concepts-grid">
+                    <div class="concept-card">
+                        <strong>💎 Unique Items</strong>
+                        <p>Each item has different cost. Track individually by serial number or ID.</p>
+                    </div>
+
+                    <div class="concept-card">
+                        <strong>📊 Exact Matching</strong>
+                        <p>Actual cost matches actual item sold. No averaging or assumptions.</p>
+                    </div>
+
+                    <div class="concept-card">
+                        <strong>⚠️ Manipulation Risk</strong>
+                        <p>Companies can select which items to sell, affecting income.</p>
+                    </div>
+
+                    <div class="concept-card">
+                        <strong>💰 High Cost to Implement</strong>
+                        <p>Extensive tracking required. Only justified for high-value items.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Glossary -->
+            <section class="kp-section">
+                <h2>📖 Glossary</h2>
+                <div class="key-concepts-grid">
+                    <div class="concept-card">
+                        <strong>Specific Identification</strong>
+                        <p>Inventory costing method tracking actual cost of each individual item and matching that exact cost to revenue when sold.</p>
+                    </div>
+
+                    <div class="concept-card">
+                        <strong>Serial Number Tracking</strong>
+                        <p>Assigning unique identifiers to each inventory item for tracking its specific cost through the system.</p>
+                    </div>
+
+                    <div class="concept-card">
+                        <strong>VIN (Vehicle Identification Number)</strong>
+                        <p>Unique identifier for automobiles linking to specific options, features, and acquisition cost.</p>
+                    </div>
+
+                    <div class="concept-card">
+                        <strong>Homogeneous Inventory</strong>
+                        <p>Identical or interchangeable inventory items where specific tracking is impractical. Better suited for weighted average.</p>
+                    </div>
+
+                    <div class="concept-card">
+                        <strong>Cost Flow Assumption</strong>
+                        <p>Method for assigning costs to COGS when specific items cannot be traced. FIFO, LIFO, and weighted average are cost flow assumptions.</p>
+                    </div>
+
+                    <div class="concept-card">
+                        <strong>Income Manipulation</strong>
+                        <p>Risk in specific identification where companies can select which specific items to sell to affect reported income.</p>
+                    </div>
+
+                    <div class="concept-card">
+                        <strong>Lot Number Tracking</strong>
+                        <p>Grouping inventory by production batch or purchase lot, each with specific cost. Middle ground between individual and average tracking.</p>
+                    </div>
+
+                    <div class="concept-card">
+                        <strong>Actual Cost Method</strong>
+                        <p>Another name for specific identification, emphasizing that actual costs (not assumed or averaged) are used.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Final Knowledge Check -->
+            <section class="interactive-section">
+                <h2>🎯 Final Knowledge Check</h2>
+                <p>Test your understanding of Specific Identification:</p>
+
+                <div class="quiz-container" data-success-text="Excellent! You've mastered specific identification." data-explanation="Specific identification tracks actual cost of each unique item and matches that exact cost to revenue when sold. It's most appropriate for unique, high-value items where tracking each item is justified.">
+                    <div class="input-group">
+                        <p><strong>Question 1:</strong> Specific identification is most appropriate for:</p>
+                        <label><input type="radio" name="q1" value="incorrect1" data-correct="false"> Identical widgets in a warehouse</label><br>
+                        <label><input type="radio" name="q1" value="correct" data-correct="true"> Unique diamonds in a jewelry store</label><br>
+                        <label><input type="radio" name="q1" value="incorrect2" data-correct="false"> Bulk grain in a silo</label>
+                    </div>
+
+                    <div class="input-group">
+                        <p><strong>Question 2:</strong> When Car A ($25,000) and Car B ($28,000) are sold, COGS equals:</p>
+                        <label><input type="radio" name="q2" value="correct" data-correct="true"> $53,000 (actual costs)</label><br>
+                        <label><input type="radio" name="q2" value="incorrect1" data-correct="false"> Average of both cars</label><br>
+                        <label><input type="radio" name="q2" value="incorrect2" data-correct="false"> FIFO or LIFO calculation</label>
+                    </div>
+
+                    <div class="input-group">
+                        <p><strong>Question 3:</strong> A key disadvantage of specific identification is:</p>
+                        <label><input type="radio" name="q3" value="incorrect1" data-correct="false"> It's less accurate than other methods</label><br>
+                        <label><input type="radio" name="q3" value="incorrect2" data-correct="false"> It always produces higher COGS</label><br>
+                        <label><input type="radio" name="q3" value="correct" data-correct="true"> Potential for income manipulation by selecting which items to sell</label>
+                    </div>
+
+                    <div class="input-group">
+                        <p><strong>Question 4:</strong> A dealership tracking each car by VIN is using:</p>
+                        <label><input type="radio" name="q4" value="correct" data-correct="true"> Specific identification</label><br>
+                        <label><input type="radio" name="q4" value="incorrect1" data-correct="false"> LIFO method</label><br>
+                        <label><input type="radio" name="q4" value="incorrect2" data-correct="false"> Periodic weighted average</label>
+                    </div>
+
+                    <div class="input-group">
+                        <p><strong>Question 5:</strong> For which product would specific identification be impractical?</p>
+                        <label><input type="radio" name="q5" value="incorrect1" data-correct="false"> A custom painting</label><br>
+                        <label><input type="radio" name="q5" value="correct" data-correct="true"> A can of paint at a hardware store</label><br>
+                        <label><input type="radio" name="q5" value="incorrect2" data-correct="false"> A vintage watch</label>
+                    </div>
+
+                    <button class="btn btn-primary quiz-submit">Submit Answers</button>
+                    <div class="feedback"></div>
+                    <button class="quiz-retry">Try Again</button>
+                </div>
+            </section>
+
+            <!-- Navigation -->
+            <nav class="kp-navigation" style="display: flex; justify-content: space-between; margin-top: 4rem; padding-bottom: 2rem;">
+                <a href="ch06_P3.html" class="btn" style="background: #eee;">← Previous: Weighted Average</a>
+                <a href="ch06.html" class="btn" style="background: var(--info); color: white;">Chapter 6 Hub</a>
+                <a href="ch06_A1.html" class="btn btn-primary">Next: Inventory Turnover →</a>
+            </nav>
+        </article>
+    </main>
+
+    <footer style="margin-top: 5rem; padding: 2rem 0; border-top: 1px solid #ddd; text-align: center; color: #888;">
+        <p>Accounting Essentials | Chapter 6 | Procedure 4</p>
+    </footer>
+
+    <script src="../../components-enhanced.js"></script>
+    <script>
+        function setDepth(depth) {
+            document.querySelectorAll('.depth-btn').forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+
+            document.querySelectorAll('.depth-content').forEach(content => content.classList.remove('active'));
+            document.getElementById(`depth-${depth}`).classList.add('active');
+        }
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,1908 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>P3: Reversing Entries | ACCOUNTING ESSENTIALS</title>
+    <link rel="stylesheet" href="../../styles.css">
+    <style>
+        /* Additional styles for comprehensive knowledge point */
+        .reversing-diagram {
+            position: relative;
+            width: 100%;
+            max-width: 900px;
+            margin: 2rem auto;
+            padding: 2rem;
+            background: var(--white);
+            border: 2px solid var(--primary);
+            border-radius: var(--radius-md);
+            overflow-x: auto;
+        }
+        
+        .reversing-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 0.75rem 1rem;
+            border-bottom: 1px solid var(--border-color);
+            min-width: 800px;
+        }
+        
+        .reversing-row:last-child {
+            border-bottom: none;
+        }
+        
+        .reversing-row.header {
+            background: var(--primary);
+            color: var(--white);
+            font-weight: 700;
+            border-radius: var(--radius-sm) var(--radius-sm) 0 0;
+        }
+        
+        .reversing-row.total {
+            background: var(--bg-light);
+            font-weight: 700;
+        }
+        
+        .reversing-column {
+            flex: 1;
+            text-align: center;
+        }
+        
+        .reversing-column:first-child {
+            flex: 2;
+            text-align: left;
+        }
+        
+        .reversing-column.account-name {
+            text-align: left;
+            padding-left: 1rem;
+        }
+        
+        .reversing-column.debit, .reversing-column.credit {
+            width: 120px;
+        }
+        
+        .reversing-section-label {
+            background: var(--secondary-light);
+            color: var(--white);
+            padding: 0.5rem 1rem;
+            font-weight: 700;
+            font-size: 0.85rem;
+            text-transform: uppercase;
+        }
+        
+        .reversing-highlight {
+            background: var(--success-light);
+            animation: pulse 1.5s infinite;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.7; }
+        }
+        
+        .t-account {
+            display: inline-block;
+            vertical-align: top;
+            margin: 0.5rem;
+        }
+        
+        .t-account-header {
+            background: var(--primary);
+            color: var(--white);
+            padding: 0.5rem 1rem;
+            border-radius: var(--radius-sm) var(--radius-sm) 0 0;
+            font-weight: 700;
+            font-size: 0.85rem;
+            text-align: center;
+        }
+        
+        .t-account-body {
+            display: flex;
+            border: 2px solid var(--primary);
+            border-top: none;
+            border-radius: 0 0 var(--radius-sm) var(--radius-sm);
+        }
+        
+        .t-account-side {
+            width: 60px;
+            padding: 0.25rem;
+            text-align: center;
+            font-size: 0.75rem;
+        }
+        
+        .t-account-side.debit {
+            border-right: 2px solid var(--primary);
+            background: var(--primary-light);
+        }
+        
+        .t-account-side.credit {
+            background: var(--secondary-light);
+        }
+        
+        .t-account-entry {
+            padding: 0.25rem 0.5rem;
+            font-size: 0.75rem;
+            border-bottom: 1px solid var(--border-color);
+        }
+        
+        .t-account-entry:last-child {
+            border-bottom: none;
+        }
+        
+        .t-account-balance {
+            font-weight: 700;
+            font-size: 0.85rem;
+            padding: 0.5rem;
+            text-align: center;
+            background: var(--bg-light);
+            border-radius: 0 0 var(--radius-sm) var(--radius-sm);
+        }
+        
+        .flow-diagram {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin: 2rem 0;
+        }
+        
+        .flow-step {
+            padding: 1.5rem 2rem;
+            background: var(--white);
+            border: 3px solid var(--primary);
+            border-radius: var(--radius-md);
+            text-align: center;
+            min-width: 150px;
+            transition: var(--transition);
+        }
+        
+        .flow-step:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-lg);
+        }
+        
+        .flow-step-number {
+            display: inline-block;
+            width: 28px;
+            height: 28px;
+            background: var(--primary);
+            color: var(--white);
+            border-radius: 50%;
+            line-height: 28px;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+        
+        .flow-arrow {
+            font-size: 1.5rem;
+            color: var(--primary);
+        }
+        
+        .depth-toggle {
+            display: flex;
+            gap: 0.5rem;
+            margin: 1.5rem 0;
+            flex-wrap: wrap;
+        }
+        
+        .depth-btn {
+            padding: 0.75rem 1.5rem;
+            border: 2px solid var(--primary);
+            background: var(--white);
+            color: var(--primary);
+            border-radius: var(--radius-sm);
+            cursor: pointer;
+            font-weight: 600;
+            transition: var(--transition);
+        }
+        
+        .depth-btn:hover {
+            background: var(--primary-light);
+        }
+        
+        .depth-btn.active {
+            background: var(--primary);
+            color: var(--white);
+        }
+        
+        .depth-content {
+            display: none;
+        }
+        
+        .depth-content.active {
+            display: block;
+        }
+        
+        .journal-entry-box {
+            background: var(--bg-light);
+            border: 2px solid var(--primary);
+            border-radius: var(--radius-md);
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+            font-family: 'Courier New', monospace;
+        }
+        
+        .journal-entry-row {
+            display: flex;
+            padding: 0.5rem 0;
+            border-bottom: 1px dashed var(--border-color);
+        }
+        
+        .journal-entry-row:last-child {
+            border-bottom: none;
+        }
+        
+        .je-date {
+            width: 100px;
+            color: var(--text-muted);
+        }
+        
+        .je-account {
+            flex: 1;
+            font-weight: 600;
+        }
+        
+        .je-debit {
+            width: 120px;
+            text-align: right;
+        }
+        
+        .je-credit {
+            width: 120px;
+            text-align: right;
+        }
+        
+        .timeline-container {
+            margin: 2rem 0;
+            padding: 2rem;
+            background-color: #ffffff !important;
+            background-image: none !important;
+            border: 2px solid #e5e7eb;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+            position: relative;
+            z-index: 1;
+            isolation: isolate;
+        }
+        
+        .timeline-container h3 {
+            text-align: center;
+            color: #1a237e;
+            margin-bottom: 2rem;
+            font-size: 1.3rem;
+            position: relative;
+            z-index: 2;
+        }
+        
+        .timeline {
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            position: relative;
+            padding: 1rem 0;
+            gap: 0.5rem;
+            z-index: 2;
+        }
+        
+        .timeline::before {
+            content: '';
+            position: absolute;
+            top: 28px;
+            left: 15%;
+            right: 15%;
+            height: 4px;
+            background: linear-gradient(90deg, #1a237e 0%, #e74c3c 50%, #27ae60 100%);
+            z-index: 0;
+            border-radius: 2px;
+        }
+        
+        .timeline-item {
+            position: relative;
+            z-index: 1;
+            flex: 1;
+            text-align: center;
+            min-width: 140px;
+            max-width: 200px;
+            margin: 0 0.25rem;
+        }
+        
+        .timeline-marker {
+            width: 56px;
+            height: 56px;
+            background-color: #1a237e;
+            color: #ffffff;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 0.8rem;
+            margin: 0 auto 1rem;
+            border: 4px solid #ffffff;
+            box-shadow: 0 4px 12px rgba(26,35,126,0.25);
+            position: relative;
+            z-index: 2;
+        }
+        
+        .timeline-marker.reversal {
+            background-color: #e74c3c;
+        }
+        
+        .timeline-marker.transaction {
+            background-color: #27ae60;
+        }
+        
+        .timeline-content {
+            background-color: #ffffff !important;
+            background-image: none !important;
+            padding: 1.25rem;
+            border-radius: 12px;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+            font-size: 0.85rem;
+            text-align: left;
+            border: 1px solid #e5e7eb;
+            position: relative;
+            z-index: 2;
+        }
+        
+        .timeline-content h5 {
+            margin: 0 0 0.75rem;
+            color: #1a237e;
+            font-size: 0.95rem;
+            text-align: center;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid #c5cae9;
+            font-weight: 700;
+        }
+        
+        .timeline-content p {
+            margin: 0.4rem 0;
+            line-height: 1.6;
+            color: #2c3e50;
+        }
+        
+        .timeline-content p strong {
+            color: #1a237e;
+            font-weight: 600;
+        }
+        
+        .timeline-result {
+            text-align: center;
+            margin-top: 1.5rem;
+            padding: 1rem 1.5rem;
+            background-color: #e8f5e9 !important;
+            background-image: none !important;
+            border: 2px solid #27ae60;
+            border-radius: 8px;
+            color: #1e8449;
+            font-weight: 600;
+            position: relative;
+            z-index: 2;
+        }
+        
+        .timeline-container h3 {
+            text-align: center;
+            color: var(--primary);
+            margin-bottom: 2rem;
+            font-size: 1.3rem;
+        }
+        
+        .timeline {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            position: relative;
+            padding: 1rem 0;
+            gap: 0.5rem;
+        }
+        
+        .timeline::before {
+            content: '';
+            position: absolute;
+            top: 30px;
+            left: 10%;
+            right: 10%;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary) 0%, #e74c3c 50%, var(--success) 100%);
+            z-index: 0;
+            border-radius: 2px;
+        }
+        
+        .timeline-item {
+            position: relative;
+            z-index: 1;
+            flex: 1;
+            text-align: center;
+            min-width: 140px;
+            max-width: 200px;
+            margin: 0 0.25rem;
+        }
+        
+        .timeline-marker {
+            width: 56px;
+            height: 56px;
+            background: var(--primary);
+            color: var(--white);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 0.8rem;
+            margin: 0 auto 1rem;
+            border: 4px solid #ffffff;
+            box-shadow: 0 4px 12px rgba(26,35,126,0.25);
+            position: relative;
+            z-index: 2;
+        }
+        
+        .timeline-marker.reversal {
+            background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%);
+        }
+        
+        .timeline-marker.transaction {
+            background: linear-gradient(135deg, #27ae60 0%, #1e8449 100%);
+        }
+        
+        .timeline-content {
+            background: #ffffff;
+            padding: 1.25rem;
+            border-radius: var(--radius-md);
+            box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+            font-size: 0.85rem;
+            text-align: left;
+            border: 1px solid #e5e7eb;
+        }
+        
+        .timeline-content h5 {
+            margin: 0 0 0.75rem;
+            color: var(--primary);
+            font-size: 0.95rem;
+            text-align: center;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid var(--primary-light);
+            font-weight: 700;
+        }
+        
+        .timeline-content p {
+            margin: 0.4rem 0;
+            line-height: 1.5;
+            color: var(--text-main);
+        }
+        
+        .timeline-content p strong {
+            color: var(--primary);
+            font-weight: 600;
+        }
+        
+        .timeline-result {
+            text-align: center;
+            margin-top: 1.5rem;
+            padding: 1rem 1.5rem;
+            background: #e8f5e9;
+            border: 2px solid var(--success);
+            border-radius: var(--radius-sm);
+            color: #1e8449;
+            font-weight: 600;
+        }
+        
+        .comparison-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1.5rem 0;
+        }
+        
+        .comparison-table th {
+            background: var(--primary);
+            color: var(--white);
+            padding: 1rem;
+            text-align: left;
+        }
+        
+        .comparison-table td {
+            padding: 1rem;
+            border-bottom: 1px solid var(--border-color);
+            vertical-align: top;
+        }
+        
+        .comparison-table tr:hover {
+            background: var(--bg-light);
+        }
+        
+        .comparison-table .highlight-col {
+            background: var(--success-light);
+        }
+    </style>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-50MTQPVR7D"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-50MTQPVR7D');
+</script>
+
+</head>
+
+<body>
+    <header>
+        <div class="container nav-container">
+            <a href="../../index.html" class="logo">ACCOUNTING<span>ESSENTIALS</span></a>
+            <nav class="nav-links">
+                <a href="../../index.html">Home</a>
+                <a href="../../Part1/part1.html">Part 1</a>
+                <a href="../../part2/part2.html">Part 2</a>
+                <a href="../../part3/part3.html">Part 3</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container">
+        <div class="breadcrumbs">
+            <a href="../../index.html">Home</a> <span>/</span> <a href="../../Part1/part1.html">Part 1</a>
+            <span>/</span> <a href="ch04.html">Chapter 4</a> <span>/</span> P3
+        </div>
+
+        <article class="animate-fade-in">
+            <div class="kp-header">
+                <h1 style="border-left: 8px solid var(--primary-light); padding-left: 1rem; margin: 2rem 0;">Reversing Entries (Appendix 4A)</h1>
+            </div>
+
+            <!-- Learning Objectives -->
+            <section class="kp-section">
+                <h2>🎯 Learning Objectives</h2>
+                <div class="learning-objectives">
+                    <ul>
+                        <li>Understand the purpose and timing of reversing entries in the accounting cycle</li>
+                        <li>Identify which adjusting entries should be reversed and which should not</li>
+                        <li>Prepare reversing entries for accrued revenues and accrued expenses</li>
+                        <li>Compare the recording process with and without reversing entries</li>
+                        <li>Explain the advantages of using reversing entries in practice</li>
+                        <li>Avoid common errors when working with reversing entries</li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- Background & Principles -->
+            <section class="kp-section">
+                <h2>📚 Background & Principles</h2>
+                <p>Reversing entries are optional journal entries made at the <strong>beginning of a new accounting period</strong> that reverse the effect of certain adjusting entries from the prior period. They simplify the recording of routine transactions in the new period by allowing normal entries to be recorded without special consideration for prior adjusting entries.</p>
+
+                <div class="concept-card" style="margin: 1.5rem 0;">
+                    <strong>Core Principle:</strong> Reversing entries undo adjusting entries so that the original expense or revenue account behaves as if the adjusting entry had never been recorded. This allows routine transactions to be recorded in the normal manner without needing to remember that an adjusting entry affected the account.
+                </div>
+
+                <div class="professional-tip">
+                    <strong>💡 Key Insight:</strong> Think of reversing entries as "undoing" the adjusting entry at the start of the new period, making the accounts ready for normal transaction recording. They're like pressing a "reset" button.
+                </div>
+
+                <h3 style="margin-top: 2rem;">Why Use Reversing Entries?</h3>
+                <div class="card-grid" style="margin-top: 1rem;">
+                    <div class="content-card" style="border-left: 5px solid var(--primary);">
+                        <h4>Simplicity</h4>
+                        <p>Routine transactions can be recorded in the same way every period without special handling for prior adjusting entries.</p>
+                    </div>
+                    <div class="content-card" style="border-left: 5px solid var(--success);">
+                        <h4>Error Reduction</h4>
+                        <p>Eliminates the risk of accidentally recording the same adjustment twice (once in adjusting, once in normal entry).</p>
+                    </div>
+                    <div class="content-card" style="border-left: 5px solid var(--warning);">
+                        <h4>Consistency</h4>
+                        <p>Staff can follow the same procedures each period without needing to review prior period adjustments.</p>
+                    </div>
+                    <div class="content-card" style="border-left: 5px solid var(--info);">
+                        <h4>Audit Trail</h4>
+                        <p>The reversing entry clearly documents that an adjustment was intended to be temporary.</p>
+                    </div>
+                </div>
+
+                <div class="timeline-container">
+                    <h3>📅 The Reversing Entry Timeline</h3>
+                    <div class="timeline">
+                        <div class="timeline-item">
+                            <div class="timeline-marker">Dec 31</div>
+                            <div class="timeline-content">
+                                <h5>Adjusting Entry</h5>
+                                <p><strong>Dr</strong> Wages Expense $1,000</p>
+                                <p><strong>Cr</strong> Wages Payable $1,000</p>
+                                <p style="color: var(--text-muted); margin-top: 0.75rem;">Accrue unpaid wages</p>
+                            </div>
+                        </div>
+                        <div class="timeline-item">
+                            <div class="timeline-marker reversal">Jan 1</div>
+                            <div class="timeline-content">
+                                <h5>Reversing Entry</h5>
+                                <p><strong>Dr</strong> Wages Payable $1,000</p>
+                                <p><strong>Cr</strong> Wages Expense $1,000</p>
+                                <p style="color: var(--text-muted); margin-top: 0.75rem;">Undo the adjustment</p>
+                            </div>
+                        </div>
+                        <div class="timeline-item">
+                            <div class="timeline-marker transaction">Jan 15</div>
+                            <div class="timeline-content">
+                                <h5>Payment Entry</h5>
+                                <p><strong>Dr</strong> Wages Expense $2,500</p>
+                                <p><strong>Cr</strong> Cash $2,500</p>
+                                <p style="color: var(--text-muted); margin-top: 0.75rem;">Record payroll normally</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="timeline-result">
+                        Result: Wages Expense correctly shows $2,500 for January
+                    </div>
+                </div>
+            </section>
+
+            <!-- Key Concepts -->
+            <section class="kp-section">
+                <h2>🔑 Key Concepts</h2>
+                <div class="key-concepts-grid">
+                    <div class="concept-card">
+                        <strong>Reversing Entry</strong>
+                        <p>An optional journal entry made at the beginning of a period that reverses the effect of a prior adjusting entry, typically for accrued revenues or accrued expenses.</p>
+                    </div>
+
+                    <div class="concept-card">
+                        <strong>Accrued Revenue</strong>
+                        <p>Revenue earned but not yet recorded or received. May be reversed to simplify subsequent cash collection recording.</p>
+                    </div>
+
+                    <div class="concept-card">
+                        <strong>Accrued Expense</strong>
+                        <p>An expense incurred but not yet recorded or paid. Commonly reversed for wages, interest, and similar items.</p>
+                    </div>
+
+                    <div class="concept-card">
+                        <strong>Deferred Items</strong>
+                        <p>Prepaid expenses and unearned revenues should NOT be reversed. They are consumed/earned in the normal course of business.</p>
+                    </div>
+
+                    <div class="concept-card">
+                        <strong>Normal Balance</strong>
+                        <p>Reversing entries restore accounts to their "normal" state, making routine transaction recording straightforward.</p>
+                    </div>
+
+                    <div class="concept-card">
+                        <strong>Double-Dipping Prevention</strong>
+                        <p>Reversing entries prevent accidentally recording the same adjustment twice by clearing the accrued amounts.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Deep Dive -->
+            <section class="kp-section">
+                <h2>🔍 Deep Dive</h2>
+                <p>Explore reversing entries at different levels of depth:</p>
+
+                <div class="depth-toggle">
+                    <button class="depth-btn active" onclick="setDepth('A')">Depth A: Foundational</button>
+                    <button class="depth-btn" onclick="setDepth('B')">Depth B: Standard</button>
+                    <button class="depth-btn" onclick="setDepth('C')">Depth C: Advanced</button>
+                </div>
+
+                <!-- Depth A: Foundational -->
+                <div id="depth-A" class="depth-content active">
+                    <h3>🟢 Foundational Level</h3>
+                    <p>Understanding the basic concept of reversing entries through simple examples.</p>
+
+                    <div class="worked-example">
+                        <h4>The Simple Analogy: Time Tracking</h4>
+                        <p><strong>Analogy: Timesheet Reconciliation</strong></p>
+                        <p>Imagine you have employees submit timesheets at the end of each week. On Dec 31, you accrue wages for hours worked but not yet reported. At the start of January, you "reset" by reversing this accrual. When timesheets arrive on Jan 5, you record the actual hours normally—no need to remember the Dec 31 accrual.</p>
+
+                        <div class="example-step">
+                            <strong>Step 1: The Adjusting Entry (Dec 31)</strong>
+                            <p>Employees earned $1,000 but haven't been paid yet.</p>
+                            <div class="journal-entry-box">
+                                <div class="journal-entry-row">
+                                    <div class="je-date">Dec 31</div>
+                                    <div class="je-account">Wages Expense</div>
+                                    <div class="je-debit">1,000</div>
+                                    <div class="je-credit"></div>
+                                </div>
+                                <div class="journal-entry-row">
+                                    <div class="je-date"></div>
+                                    <div class="je-account">Wages Payable</div>
+                                    <div class="je-debit"></div>
+                                    <div class="je-credit">1,000</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="example-step">
+                            <strong>Step 2: The Reversing Entry (Jan 1)</strong>
+                            <p>Undo the adjustment so Wages Expense has its "normal" balance.</p>
+                            <div class="journal-entry-box">
+                                <div class="journal-entry-row">
+                                    <div class="je-date">Jan 1</div>
+                                    <div class="je-account">Wages Payable</div>
+                                    <div class="je-debit">1,000</div>
+                                    <div class="je-credit"></div>
+                                </div>
+                                <div class="journal-entry-row">
+                                    <div class="je-date"></div>
+                                    <div class="je-account">Wages Expense</div>
+                                    <div class="je-debit"></div>
+                                    <div class="je-credit">1,000</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="example-step">
+                            <strong>Step 3: Normal Recording (Jan 15)</strong>
+                            <p>Record actual payroll payment—no special handling needed!</p>
+                            <div class="journal-entry-box">
+                                <div class="journal-entry-row">
+                                    <div class="je-date">Jan 15</div>
+                                    <div class="je-account">Wages Expense</div>
+                                    <div class="je-debit">2,500</div>
+                                    <div class="je-credit"></div>
+                                </div>
+                                <div class="journal-entry-row">
+                                    <div class="je-date"></div>
+                                    <div class="je-account">Cash</div>
+                                    <div class="je-debit"></div>
+                                    <div class="je-credit">2,500</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="concept-card" style="margin-top: 1.5rem;">
+                        <strong>💡 Memory Hook:</strong> Reversing entries "flip" the adjusting entry—debits become credits and vice versa. They happen at the START of the new period (Jan 1), not at the end of the old period.
+                    </div>
+
+                    <div class="professional-tip" style="margin-top: 1.5rem;">
+                        <strong>💡 Key Point:</strong> Without reversing entries, when you record the Jan 15 payroll, you'd need to remember that $1,000 was already in Wages Expense from Dec 31. You'd record only $1,500 to avoid double-counting. With reversing, you record the full $2,500 normally.
+                    </div>
+                </div>
+
+                <!-- Depth B: Standard -->
+                <div id="depth-B" class="depth-content">
+                    <h3>🟡 Standard Level</h3>
+                    <p>Comparing the process with and without reversing entries.</p>
+
+                    <div class="worked-example">
+                        <h4>Scenario: Accrued Interest Revenue</h4>
+                        <p>A company earned $500 interest that will be received in January. Let's compare approaches.</p>
+
+                        <table class="comparison-table">
+                            <thead>
+                                <tr>
+                                    <th style="width: 15%;">Date</th>
+                                    <th style="width: 42%;">Without Reversing Entry</th>
+                                    <th class="highlight-col" style="width: 42%;">With Reversing Entry</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><strong>Dec 31</strong><br>(Adjusting)</td>
+                                    <td>
+                                        Dr Interest Receivable $500<br>
+                                        Cr Interest Revenue $500
+                                    </td>
+                                    <td class="highlight-col">
+                                        Dr Interest Receivable $500<br>
+                                        Cr Interest Revenue $500
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Jan 1</strong><br>(Reversing)</td>
+                                    <td><em>No entry</em></td>
+                                    <td class="highlight-col">
+                                        Dr Interest Revenue $500<br>
+                                        Cr Interest Receivable $500
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Jan 15</strong><br>(Collection)</td>
+                                    <td>
+                                        Dr Cash $500<br>
+                                        Cr Interest Receivable $500<br>
+                                        <em style="color: var(--text-muted);">(No revenue recorded—already accrued)</em>
+                                    </td>
+                                    <td class="highlight-col">
+                                        Dr Cash $500<br>
+                                        Cr Interest Revenue $500<br>
+                                        <em style="color: var(--text-muted);">(Revenue recorded normally)</em>
+                                    </td>
+                                </tr>
+                                <tr style="background: var(--bg-light);">
+                                    <td><strong>Result</strong></td>
+                                    <td>Wages Expense: $2,500 total</td>
+                                    <td class="highlight-col">Interest Revenue: $500 recorded in January</td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                        <div class="concept-card" style="margin-top: 1.5rem; border-left: 5px solid var(--success);">
+                            <strong>✓ The Bottom Line:</strong> Both methods result in the same final balances. The difference is in the recording process—not the final numbers. Reversing entries make routine transactions simpler to record.
+                        </div>
+                    </div>
+
+                    <div class="worked-example" style="margin-top: 2rem;">
+                        <h4>Accrued Wages Comparison</h4>
+
+                        <table class="comparison-table">
+                            <thead>
+                                <tr>
+                                    <th style="width: 15%;">Date</th>
+                                    <th style="width: 42%;">Without Reversing Entry</th>
+                                    <th class="highlight-col" style="width: 42%;">With Reversing Entry</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><strong>Dec 31</strong><br>(Adjusting)</td>
+                                    <td>
+                                        Dr Wages Expense $1,000<br>
+                                        Cr Wages Payable $1,000
+                                    </td>
+                                    <td class="highlight-col">
+                                        Dr Wages Expense $1,000<br>
+                                        Cr Wages Payable $1,000
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Jan 1</strong><br>(Reversing)</td>
+                                    <td><em>No entry</em></td>
+                                    <td class="highlight-col">
+                                        Dr Wages Payable $1,000<br>
+                                        Cr Wages Expense $1,000
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Jan 15</strong><br>(Payment)</td>
+                                    <td>
+                                        Dr Wages Expense $1,500<br>
+                                        Cr Cash $1,500<br>
+                                        <em style="color: var(--text-muted); font-size: 0.8rem;">($2,500 - $1,000 already accrued)</em>
+                                    </td>
+                                    <td class="highlight-col">
+                                        Dr Wages Expense $2,500<br>
+                                        Cr Cash $2,500<br>
+                                        <em style="color: var(--text-muted); font-size: 0.8rem;">(Full amount recorded normally)</em>
+                                    </td>
+                                </tr>
+                                <tr style="background: var(--bg-light);">
+                                    <td><strong>Jan Expense</strong></td>
+                                    <td>$1,000 + $1,500 = $2,500</td>
+                                    <td class="highlight-col">$0 + $2,500 = $2,500</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- Depth C: Advanced -->
+                <div id="depth-C" class="depth-content">
+                    <h3>🔴 Advanced Level</h3>
+                    <p>Understanding when NOT to reverse and complex scenarios.</p>
+
+                    <div class="worked-example">
+                        <h4>What Should NOT Be Reversed?</h4>
+                        <p>Not all adjusting entries should be reversed. The key distinction is between accruals and deferrals:</p>
+
+                        <div class="key-concepts-grid" style="margin-top: 1rem;">
+                            <div class="concept-card" style="border-left: 5px solid var(--error);">
+                                <strong>❌ DO NOT Reverse: Deferrals</strong>
+                                <p><strong>Prepaid Insurance:</strong> The adjusting entry (Dr Insurance Expense, Cr Prepaid Insurance) should NOT be reversed. The expense is properly recognized as the insurance coverage period passes.</p>
+                                <p><strong>Unearned Revenue:</strong> The adjusting entry (Dr Unearned Revenue, Cr Service Revenue) should NOT be reversed. Revenue is properly recognized as service is performed.</p>
+                            </div>
+
+                            <div class="concept-card" style="border-left: 5px solid var(--success);">
+                                <strong>✅ DO Reverse: Accruals</strong>
+                                <p><strong>Accrued Wages:</strong> The adjusting entry creates a liability that will be paid. Reversing simplifies the payroll recording.</p>
+                                <p><strong>Accrued Interest Revenue:</strong> The adjusting entry creates a receivable. Reversing simplifies the cash collection recording.</p>
+                                <p><strong>Accrued Interest Expense:</strong> The adjusting entry creates a payable. Reversing simplifies the interest payment recording.</p>
+                            </div>
+                        </div>
+
+                        <div class="concept-card" style="margin-top: 1.5rem;">
+                            <strong>💡 Quick Test:</strong> Ask yourself: "Will this account be affected by routine transactions in the new period?"
+                            <ul style="margin-top: 0.5rem;">
+                                <li><strong>Yes:</strong> Reverse it (accruals—wages payable will be paid, interest receivable will be collected)</li>
+                                <li><strong>No:</strong> Don't reverse it (deferrals—prepaid insurance just decreases as time passes)</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="worked-example" style="margin-top: 2rem;">
+                        <h4>Complex Scenario: Multiple Accruals</h4>
+                        <p>A company has several year-end accruals. Let's see how reversing helps:</p>
+
+                        <div class="journal-entry-box">
+                            <div class="journal-entry-row">
+                                <div class="je-date"><strong>Dec 31</strong></div>
+                                <div class="je-account"><strong>Adjusting Entries</strong></div>
+                                <div class="je-debit"></div>
+                                <div class="je-credit"></div>
+                            </div>
+                            <div class="journal-entry-row">
+                                <div class="je-date"></div>
+                                <div class="je-account">Wages Expense</div>
+                                <div class="je-debit">5,000</div>
+                                <div class="je-credit"></div>
+                            </div>
+                            <div class="journal-entry-row">
+                                <div class="je-date"></div>
+                                <div class="je-account">Wages Payable</div>
+                                <div class="je-debit"></div>
+                                <div class="je-credit">5,000</div>
+                            </div>
+                            <div class="journal-entry-row">
+                                <div class="je-date"></div>
+                                <div class="je-account">Interest Expense</div>
+                                <div class="je-debit">800</div>
+                                <div class="je-credit"></div>
+                            </div>
+                            <div class="journal-entry-row">
+                                <div class="je-date"></div>
+                                <div class="je-account">Interest Payable</div>
+                                <div class="je-debit"></div>
+                                <div class="je-credit">800</div>
+                            </div>
+                            <div class="journal-entry-row">
+                                <div class="je-date"></div>
+                                <div class="je-account">Interest Receivable</div>
+                                <div class="je-debit">300</div>
+                                <div class="je-credit"></div>
+                            </div>
+                            <div class="journal-entry-row">
+                                <div class="je-date"></div>
+                                <div class="je-account">Interest Revenue</div>
+                                <div class="je-debit"></div>
+                                <div class="je-credit">300</div>
+                            </div>
+                        </div>
+
+                        <div class="journal-entry-box">
+                            <div class="journal-entry-row">
+                                <div class="je-date"><strong>Jan 1</strong></div>
+                                <div class="je-account"><strong>Reversing Entries</strong></div>
+                                <div class="je-debit"></div>
+                                <div class="je-credit"></div>
+                            </div>
+                            <div class="journal-entry-row">
+                                <div class="je-date"></div>
+                                <div class="je-account">Wages Payable</div>
+                                <div class="je-debit">5,000</div>
+                                <div class="je-credit"></div>
+                            </div>
+                            <div class="journal-entry-row">
+                                <div class="je-date"></div>
+                                <div class="je-account">Wages Expense</div>
+                                <div class="je-debit"></div>
+                                <div class="je-credit">5,000</div>
+                            </div>
+                            <div class="journal-entry-row">
+                                <div class="je-date"></div>
+                                <div class="je-account">Interest Payable</div>
+                                <div class="je-debit">800</div>
+                                <div class="je-credit"></div>
+                            </div>
+                            <div class="journal-entry-row">
+                                <div class="je-date"></div>
+                                <div class="je-account">Interest Expense</div>
+                                <div class="je-debit"></div>
+                                <div class="je-credit">800</div>
+                            </div>
+                            <div class="journal-entry-row">
+                                <div class="je-date"></div>
+                                <div class="je-account">Interest Revenue</div>
+                                <div class="je-debit">300</div>
+                                <div class="je-credit"></div>
+                            </div>
+                            <div class="journal-entry-row">
+                                <div class="je-date"></div>
+                                <div class="je-account">Interest Receivable</div>
+                                <div class="je-debit"></div>
+                                <div class="je-credit">300</div>
+                            </div>
+                        </div>
+
+                        <div class="professional-tip" style="margin-top: 1.5rem;">
+                            <strong>💡 Pro Tip:</strong> In practice, companies often prepare a "reversing entry schedule" listing all adjusting entries that need to be reversed. This ensures nothing is missed and provides documentation for auditors.
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Interactive: Reversing Entry Simulator -->
+            <section class="kp-section">
+                <h2>🎨 Interactive: Reversing Entry Simulator</h2>
+                <p>Practice preparing reversing entries and see how they affect subsequent transactions. Enter values and observe the complete cycle.</p>
+
+                <div class="reversing-simulator">
+                    <div class="simulator-header">
+                        <h3 style="margin: 0;">📊 Reversing Entry Simulator</h3>
+                        <p style="margin: 0.5rem 0 0; opacity: 0.9; font-size: 0.9rem;">Enter adjusting entry amounts and see the reversing effect</p>
+                    </div>
+                    
+                    <div class="simulator-grid">
+                        <div class="simulator-row">
+                            <div class="simulator-label">
+                                <span class="label-icon">💼</span>
+                                <div class="label-text">
+                                    <strong>Accrued Wages Expense</strong>
+                                    <small>Dr Wages Expense, Cr Wages Payable</small>
+                                </div>
+                            </div>
+                            <div class="simulator-input-wrap">
+                                <span class="currency-prefix">$</span>
+                                <input type="number" id="rev-wages-adj" value="1000" oninput="updateReversing()">
+                            </div>
+                            <div class="simulator-result" id="rev-wages-res">$1,000</div>
+                        </div>
+                        
+                        <div class="simulator-row">
+                            <div class="simulator-label">
+                                <span class="label-icon">📈</span>
+                                <div class="label-text">
+                                    <strong>Accrued Interest Revenue</strong>
+                                    <small>Dr Interest Receivable, Cr Revenue</small>
+                                </div>
+                            </div>
+                            <div class="simulator-input-wrap">
+                                <span class="currency-prefix">$</span>
+                                <input type="number" id="rev-interest-adj" value="500" oninput="updateReversing()">
+                            </div>
+                            <div class="simulator-result" id="rev-interest-res">$500</div>
+                        </div>
+                        
+                        <div class="simulator-row">
+                            <div class="simulator-label">
+                                <span class="label-icon">🏦</span>
+                                <div class="label-text">
+                                    <strong>January Payroll Payment</strong>
+                                    <small>Total wages paid in January</small>
+                                </div>
+                            </div>
+                            <div class="simulator-input-wrap">
+                                <span class="currency-prefix">$</span>
+                                <input type="number" id="rev-payroll" value="3500" oninput="updateReversing()">
+                            </div>
+                            <div class="simulator-result" id="rev-payroll-res">$3,500</div>
+                        </div>
+                        
+                        <div class="simulator-row">
+                            <div class="simulator-label">
+                                <span class="label-icon">💵</span>
+                                <div class="label-text">
+                                    <strong>January Interest Collection</strong>
+                                    <small>Interest cash received in January</small>
+                                </div>
+                            </div>
+                            <div class="simulator-input-wrap">
+                                <span class="currency-prefix">$</span>
+                                <input type="number" id="rev-collection" value="500" oninput="updateReversing()">
+                            </div>
+                            <div class="simulator-result" id="rev-collection-res">$500</div>
+                        </div>
+                    </div>
+                    
+                    <div class="simulator-summary">
+                        <div class="summary-card">
+                            <div class="summary-icon">📋</div>
+                            <div class="summary-content">
+                                <strong>Dec 31 Adjustments</strong>
+                                <span id="sim-adj-total">$1,500 total</span>
+                            </div>
+                        </div>
+                        <div class="summary-card highlight-card">
+                            <div class="summary-icon">🔄</div>
+                            <div class="summary-content">
+                                <strong>Jan 1 Reversals</strong>
+                                <span id="sim-rev-total">$1,500 total</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="reversing-entries-preview">
+                        <h4 style="margin-bottom: 1rem; color: #1a237e;">📝 Entry Summary</h4>
+                        
+                        <div class="je-section">
+                            <h5>Without Reversing Entries</h5>
+                            <div class="je-preview-box">
+                                <div class="je-line"><strong>Jan Payroll Entry:</strong> Dr Wages Expense <span id="no-rev-payroll">$2,500</span>, Cr Cash <span id="no-rev-payroll-cash">$3,500</span></div>
+                                <div class="je-note">* Must subtract $1,000 already in Wages Expense</div>
+                            </div>
+                        </div>
+                        
+                        <div class="je-section highlight-section">
+                            <h5>With Reversing Entries ✓</h5>
+                            <div class="je-preview-box">
+                                <div class="je-line"><strong>Jan 1 Reversal:</strong> Dr Wages Payable <span id="rev1-dr">$1,000</span>, Cr Wages Expense <span id="rev1-cr">$1,000</span></div>
+                                <div class="je-line"><strong>Jan Payroll Entry:</strong> Dr Wages Expense <span id="with-rev-payroll">$3,500</span>, Cr Cash <span id="with-rev-payroll-cash">$3,500</span></div>
+                                <div class="je-note">* Full amount recorded normally!</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="concept-card" style="margin-top: 1.5rem;">
+                    <strong>💡 Try It:</strong> Change the values above. Notice how:
+                    <ul style="margin-top: 0.5rem;">
+                        <li>Reversing entries always have the same total as the original adjustments</li>
+                        <li>With reversing, January payroll is recorded at the full amount without adjustment</li>
+                        <li>Without reversing, you must remember to reduce the entry by the accrued amount</li>
+                        <li>The final balances are the same—reversing is about process simplification</li>
+                    </ul>
+                </div>
+
+                <style>
+                    .reversing-simulator {
+                        background: linear-gradient(135deg, #1a237e 0%, #283593 100%);
+                        border-radius: 20px;
+                        padding: 2rem;
+                        margin: 2rem 0;
+                        color: white;
+                        box-shadow: 0 8px 30px rgba(26,35,126,0.3);
+                    }
+
+                    .simulator-header {
+                        text-align: center;
+                        margin-bottom: 2rem;
+                        padding-bottom: 1.5rem;
+                        border-bottom: 1px solid rgba(255,255,255,0.2);
+                    }
+
+                    .simulator-header h3 {
+                        color: white;
+                        font-size: 1.3rem;
+                    }
+
+                    .simulator-grid {
+                        background: rgba(255,255,255,0.05);
+                        border-radius: 16px;
+                        padding: 1rem;
+                    }
+
+                    .simulator-row {
+                        display: flex;
+                        align-items: center;
+                        padding: 1rem;
+                        border-bottom: 1px solid rgba(255,255,255,0.1);
+                        gap: 1rem;
+                        transition: background 0.3s ease;
+                    }
+
+                    .simulator-row:hover {
+                        background: rgba(255,255,255,0.08);
+                    }
+
+                    .simulator-row:last-child {
+                        border-bottom: none;
+                    }
+
+                    .simulator-label {
+                        flex: 1;
+                        display: flex;
+                        align-items: center;
+                        gap: 0.75rem;
+                    }
+
+                    .label-icon {
+                        font-size: 1.5rem;
+                    }
+
+                    .label-text {
+                        display: flex;
+                        flex-direction: column;
+                    }
+
+                    .label-text strong {
+                        font-size: 0.95rem;
+                    }
+
+                    .label-text small {
+                        opacity: 0.7;
+                        font-size: 0.75rem;
+                    }
+
+                    .simulator-input-wrap {
+                        position: relative;
+                        width: 120px;
+                    }
+
+                    .currency-prefix {
+                        position: absolute;
+                        left: 12px;
+                        top: 50%;
+                        transform: translateY(-50%);
+                        opacity: 0.7;
+                        font-weight: 600;
+                    }
+
+                    .simulator-input-wrap input {
+                        width: 100%;
+                        padding: 0.75rem 0.75rem 0.75rem 1.75rem;
+                        border: 2px solid rgba(255,255,255,0.2);
+                        border-radius: 10px;
+                        background: rgba(255,255,255,0.1);
+                        color: white;
+                        font-size: 1rem;
+                        font-weight: 600;
+                        transition: all 0.3s ease;
+                    }
+
+                    .simulator-input-wrap input:focus {
+                        outline: none;
+                        border-color: #c5a059;
+                        background: rgba(255,255,255,0.15);
+                    }
+
+                    .simulator-input-wrap input::placeholder {
+                        color: rgba(255,255,255,0.5);
+                    }
+
+                    .simulator-result {
+                        width: 100px;
+                        text-align: right;
+                        font-weight: 700;
+                        font-size: 1.1rem;
+                        padding: 0.5rem 1rem;
+                        background: rgba(255,255,255,0.1);
+                        border-radius: 10px;
+                    }
+
+                    .simulator-summary {
+                        display: flex;
+                        gap: 1rem;
+                        margin-top: 1.5rem;
+                        flex-wrap: wrap;
+                    }
+
+                    .summary-card {
+                        flex: 1;
+                        min-width: 200px;
+                        display: flex;
+                        align-items: center;
+                        gap: 1rem;
+                        padding: 1.25rem;
+                        border-radius: 12px;
+                        background: rgba(255,255,255,0.1);
+                    }
+
+                    .summary-card.highlight-card {
+                        background: linear-gradient(135deg, rgba(39,174,96,0.3) 0%, rgba(39,174,96,0.2) 100%);
+                        border: 1px solid rgba(39,174,96,0.5);
+                    }
+
+                    .summary-icon {
+                        font-size: 2rem;
+                    }
+
+                    .summary-content {
+                        display: flex;
+                        flex-direction: column;
+                    }
+
+                    .summary-content strong {
+                        font-size: 0.85rem;
+                        opacity: 0.9;
+                    }
+
+                    .summary-content span {
+                        font-size: 1.3rem;
+                        font-weight: 700;
+                    }
+
+                    .reversing-entries-preview {
+                        margin-top: 2rem;
+                        padding: 1.5rem;
+                        background: rgba(255,255,255,0.05);
+                        border-radius: 12px;
+                    }
+
+                    .je-section {
+                        margin-bottom: 1rem;
+                        padding: 1rem;
+                        background: rgba(255,255,255,0.05);
+                        border-radius: 8px;
+                    }
+
+                    .je-section:last-child {
+                        margin-bottom: 0;
+                    }
+
+                    .je-section.highlight-section {
+                        background: rgba(39,174,96,0.1);
+                        border: 1px solid rgba(39,174,96,0.3);
+                    }
+
+                    .je-section h5 {
+                        margin: 0 0 0.75rem;
+                        color: #c5a059;
+                        font-size: 0.9rem;
+                    }
+
+                    .je-section.highlight-section h5 {
+                        color: #27ae60;
+                    }
+
+                    .je-preview-box {
+                        font-size: 0.85rem;
+                        font-family: 'Courier New', monospace;
+                    }
+
+                    .je-line {
+                        margin-bottom: 0.5rem;
+                    }
+
+                    .je-note {
+                        font-size: 0.75rem;
+                        color: rgba(255,255,255,0.7);
+                        font-style: italic;
+                    }
+
+                    @media (max-width: 768px) {
+                        .simulator-row {
+                            flex-direction: column;
+                            align-items: stretch;
+                            gap: 0.75rem;
+                        }
+
+                        .simulator-label {
+                            justify-content: center;
+                        }
+
+                        .simulator-result {
+                            width: 100%;
+                            text-align: center;
+                        }
+
+                        .simulator-summary {
+                            flex-direction: column;
+                        }
+                    }
+                </style>
+            </section>
+
+            <!-- Visual: How Reversing Entries Flow -->
+            <section class="kp-section">
+                <h2>📊 Visual: How Reversing Entries Flow</h2>
+                <p>Watch how reversing entries affect T-accounts and subsequent transaction recording:</p>
+
+                <div class="t-account-container">
+                    <h4 style="text-align: center; margin-bottom: 1.5rem; color: var(--primary);">Wages Expense T-Account Flow</h4>
+                    
+                    <div class="t-account-row">
+                        <!-- Without Reversing -->
+                        <div class="t-account">
+                            <div class="t-account-header">📋 Without Reversing</div>
+                            <div class="t-account-body">
+                                <div class="t-account-side debit-side">
+                                    <div class="side-label">Dr</div>
+                                    <div class="t-account-entry">1,000 <span style="color: #888; font-size: 0.65rem;">(Dec adj)</span></div>
+                                    <div class="t-account-entry">1,500 <span style="color: #e74c3c; font-size: 0.65rem;">(Jan pay*)</span></div>
+                                </div>
+                                <div class="t-account-side credit-side">
+                                    <div class="side-label">Cr</div>
+                                </div>
+                            </div>
+                            <div class="t-account-balance">Balance: $2,500</div>
+                        </div>
+
+                        <!-- With Reversing -->
+                        <div class="t-account">
+                            <div class="t-account-header">🔄 With Reversing</div>
+                            <div class="t-account-body">
+                                <div class="t-account-side debit-side">
+                                    <div class="side-label">Dr</div>
+                                    <div class="t-account-entry">1,000 <span style="color: #888; font-size: 0.65rem;">(Dec adj)</span></div>
+                                    <div class="t-account-entry reverse-entry">1,000 <span style="color: #e74c3c; font-size: 0.65rem;">(Jan rev)</span></div>
+                                    <div class="t-account-entry">2,500 <span style="color: #27ae60; font-size: 0.65rem;">(Jan pay)</span></div>
+                                </div>
+                                <div class="t-account-side credit-side">
+                                    <div class="side-label">Cr</div>
+                                    <div class="t-account-entry reverse-entry">1,000 <span style="color: #e74c3c; font-size: 0.65rem;">(Jan rev)</span></div>
+                                </div>
+                            </div>
+                            <div class="t-account-balance highlight-balance">Balance: $2,500 ✓</div>
+                        </div>
+                    </div>
+
+                    <p style="text-align: center; margin-top: 1rem; font-size: 0.85rem; color: var(--text-muted);">
+                        * Without reversing: Must record only $1,500 to avoid double-counting the $1,000 accrued<br>
+                        With reversing: Can record full $2,500 normally—the reversing entry handles the adjustment
+                    </p>
+                </div>
+
+                <div class="pattern-legend">
+                    <div class="legend-item">
+                        <span class="legend-dot adjustment"></span>
+                        <span>Black = Adjusting entry</span>
+                    </div>
+                    <div class="legend-item">
+                        <span class="legend-dot reversal"></span>
+                        <span>Red = Reversing entry</span>
+                    </div>
+                    <div class="legend-item">
+                        <span class="legend-dot transaction"></span>
+                        <span>Green = Normal transaction</span>
+                    </div>
+                </div>
+
+                <div class="professional-tip" style="margin-top: 1.5rem;">
+                    <strong>💡 Key Pattern:</strong> Notice how the reversing entry creates a "clean slate":
+                    <ul style="margin-top: 0.5rem;">
+                        <li>The Dec 31 adjusting entry increases the account (Dr)</li>
+                        <li>The Jan 1 reversing entry decreases it back (Cr), leaving a zero balance</li>
+                        <li>Normal Jan transactions are recorded in the usual way</li>
+                        <li>The net effect is the same—reversing just simplifies the process</li>
+                    </ul>
+                </div>
+
+                <style>
+                    .t-account-container {
+                        background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+                        border-radius: 20px;
+                        padding: 2rem;
+                        margin: 1.5rem 0;
+                        box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+                    }
+
+                    .t-account-row {
+                        display: flex;
+                        justify-content: center;
+                        gap: 3rem;
+                        flex-wrap: wrap;
+                        margin-bottom: 1rem;
+                    }
+
+                    .t-account {
+                        background: white;
+                        border-radius: 16px;
+                        overflow: hidden;
+                        box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+                        min-width: 220px;
+                        transition: transform 0.3s ease;
+                    }
+
+                    .t-account:hover {
+                        transform: translateY(-5px);
+                    }
+
+                    .t-account-header {
+                        background: linear-gradient(135deg, #1a237e 0%, #283593 100%);
+                        color: white;
+                        padding: 1rem;
+                        font-weight: 700;
+                        font-size: 0.95rem;
+                        text-align: center;
+                    }
+
+                    .t-account-body {
+                        display: flex;
+                        border: 3px solid #1a237e;
+                        border-top: none;
+                        border-radius: 0 0 12px 12px;
+                        overflow: hidden;
+                    }
+
+                    .t-account-side {
+                        flex: 1;
+                        padding: 0.75rem;
+                        position: relative;
+                    }
+
+                    .debit-side {
+                        background: linear-gradient(180deg, rgba(26,35,126,0.08) 0%, rgba(26,35,126,0.03) 100%);
+                        border-right: 3px solid #1a237e;
+                    }
+
+                    .credit-side {
+                        background: linear-gradient(180deg, rgba(197,160,89,0.08) 0%, rgba(197,160,89,0.03) 100%);
+                    }
+
+                    .side-label {
+                        font-weight: 700;
+                        font-size: 0.75rem;
+                        text-align: center;
+                        padding: 0.25rem 0.5rem;
+                        border-radius: 6px;
+                        margin-bottom: 0.5rem;
+                    }
+
+                    .debit-side .side-label {
+                        background: #1a237e;
+                        color: white;
+                    }
+
+                    .credit-side .side-label {
+                        background: #c5a059;
+                        color: #1a237e;
+                    }
+
+                    .t-account-entry {
+                        padding: 0.5rem;
+                        text-align: center;
+                        font-size: 0.85rem;
+                        border-bottom: 1px dashed #ddd;
+                        margin-bottom: 0.25rem;
+                    }
+
+                    .t-account-entry:last-child {
+                        border-bottom: none;
+                    }
+
+                    .reverse-entry {
+                        background: linear-gradient(135deg, #ffebee 0%, #ffcdd2 100%);
+                        border-radius: 8px;
+                        margin-top: 0.5rem;
+                        animation: pulse 2s infinite;
+                        color: #c0392b;
+                    }
+
+                    @keyframes pulse {
+                        0%, 100% { opacity: 1; }
+                        50% { opacity: 0.7; }
+                    }
+
+                    .t-account-balance {
+                        padding: 0.75rem;
+                        text-align: center;
+                        font-weight: 700;
+                        font-size: 0.9rem;
+                        background: #f8f9fa;
+                        border-top: 2px solid #1a237e;
+                    }
+
+                    .t-account-balance.highlight-balance {
+                        background: linear-gradient(135deg, #e8f5e9 0%, #c8e6c9 100%);
+                        border-top-color: #27ae60;
+                        color: #1e8449;
+                    }
+
+                    .pattern-legend {
+                        display: flex;
+                        justify-content: center;
+                        gap: 2rem;
+                        margin-top: 1.5rem;
+                        flex-wrap: wrap;
+                    }
+
+                    .legend-item {
+                        display: flex;
+                        align-items: center;
+                        gap: 0.5rem;
+                        font-size: 0.85rem;
+                        color: #666;
+                    }
+
+                    .legend-dot {
+                        width: 12px;
+                        height: 12px;
+                        border-radius: 50%;
+                    }
+
+                    .legend-dot.adjustment {
+                        background: #1a237e;
+                    }
+
+                    .legend-dot.reversal {
+                        background: #e74c3c;
+                    }
+
+                    .legend-dot.transaction {
+                        background: #27ae60;
+                    }
+
+                    @media (max-width: 768px) {
+                        .t-account-row {
+                            flex-direction: column;
+                            align-items: center;
+                        }
+                        
+                        .t-account {
+                            width: 100%;
+                            max-width: 280px;
+                        }
+                    }
+                </style>
+            </section>
+
+            <!-- Common Misconceptions -->
+            <section class="kp-section">
+                <h2>🚫 Common Misconceptions & Professional Tips</h2>
+
+                <div class="misconception-alert">
+                    <strong>❌ Misconception 1:</strong> "Reversing entries are required by accounting standards."
+                    <br><br>
+                    <strong>✅ Reality:</strong> Reversing entries are <strong>completely optional</strong>. They are a convenience tool, not a requirement. Both methods (with and without reversing) produce identical financial statements. Many small businesses don't use them at all.
+                </div>
+
+                <div class="misconception-alert">
+                    <strong>❌ Misconception 2:</strong> "Reversing entries change the financial statements."
+                    <br><br>
+                    <strong>✅ Reality:</strong> Reversing entries do NOT change the financial statements. They simply change how routine transactions are recorded in the new period. The final balances remain exactly the same whether you use reversing entries or not.
+                </div>
+
+                <div class="misconception-alert">
+                    <strong>❌ Misconception 3:</strong> "All adjusting entries should be reversed."
+                    <br><br>
+                    <strong>✅ Reality:</strong> Only <strong>accruals</strong> should typically be reversed. <strong>Deferrals</strong> (prepaid items, unearned revenue) should NOT be reversed because they are properly recognized as time passes or services are performed, not through subsequent routine transactions.
+                </div>
+
+                <div class="misconception-alert">
+                    <strong>❌ Misconception 4:</strong> "Reversing entries happen on the last day of the period (Dec 31)."
+                    <br><br>
+                    <strong>✅ Reality:</strong> Reversing entries happen on the <strong>first day of the new period</strong> (Jan 1). They are recorded after the old period is closed but before any new transactions are recorded.
+                </div>
+
+                <div class="professional-tip">
+                    <strong>💡 Professional Tip #1:</strong> Document which adjusting entries will be reversed. Create a "reversing entry schedule" at year-end listing all accruals that need reversal. This prevents errors and provides audit documentation.
+                </div>
+
+                <div class="professional-tip">
+                    <strong>💡 Professional Tip #2:</strong> If you're unsure whether to reverse, ask: "Will this account be affected by routine transactions in the new period?" If yes, reverse it. If no, leave it alone.
+                </div>
+
+                <div class="professional-tip">
+                    <strong>💡 Professional Tip #3:</strong> In automated accounting systems, reversing entries are often handled automatically by the software. Understanding the concept helps you review system outputs and troubleshoot issues.
+                </div>
+
+                <div class="professional-tip">
+                    <strong>💡 Professional Tip #4:</strong> If you forget to reverse an entry, don't panic. The financial statements are still correct—you just need to remember the adjustment when recording routine transactions (record the net amount instead of gross).
+                </div>
+            </section>
+
+            <!-- Memory Aids -->
+            <section class="kp-section">
+                <h2>🧠 Memory Aids & Quick Reference</h2>
+
+                <div class="memory-aid-card">
+                    <strong>⚡ Quick Recall: What to Reverse?</strong>
+                    <p style="margin-top: 1rem;"><strong>ACCUE (Reverse):</strong></p>
+                    <p style="margin-top: 0.5rem;"><strong>A</strong>ccrued <strong>C</strong>osts (wages, interest)</p>
+                    <p><strong>C</strong>osts <strong>U</strong>ncurring (expenses that build up)</p>
+                    <p><strong>E</strong>arned but <strong>U</strong>ncollected (revenues)</p>
+                    <p><strong>DEFER (Don't Reverse):</strong></p>
+                    <p><strong>D</strong>eferred <strong>E</strong>xpenses (prepaids)</p>
+                    <p><strong>F</strong>uture <strong>E</strong>arned (unearned revenue)</p>
+                </div>
+
+                <div class="memory-aid-card">
+                    <strong>⚡ Quick Recall: The Reversal Pattern</strong>
+                    <p style="margin-top: 1rem;"><strong>Flip the adjusting entry:</strong></p>
+                    <p style="margin-top: 0.5rem;">Dr becomes Cr, Cr becomes Dr</p>
+                    <p>Same date: First day of new period (Jan 1)</p>
+                    <p>Same amounts: Reverse the full adjusting amount</p>
+                </div>
+
+                <div class="key-concepts-grid" style="margin-top: 2rem;">
+                    <div class="concept-card">
+                        <strong>📋 Reversal Decision Matrix</strong>
+                        <p><strong>Accrued Wages:</strong> REVERSE</p>
+                        <p><strong>Accrued Interest Revenue:</strong> REVERSE</p>
+                        <p><strong>Accrued Interest Expense:</strong> REVERSE</p>
+                        <p><strong>Prepaid Insurance:</strong> DON'T REVERSE</p>
+                        <p><strong>Supplies Used:</strong> DON'T REVERSE</p>
+                        <p><strong>Unearned Revenue Earned:</strong> DON'T REVERSE</p>
+                    </div>
+
+                    <div class="concept-card">
+                        <strong>📊 Reversing Entry Format</strong>
+                        <p><strong>Date:</strong> First day of new period</p>
+                        <p><strong>Accounts:</strong> Flip Dr/Cr from adjusting</p>
+                        <p><strong>Amount:</strong> Same as adjusting entry</p>
+                        <p><strong>Memo:</strong> "To reverse [date] adjusting entry"</p>
+                    </div>
+
+                    <div class="concept-card">
+                        <strong>⚖️ Effect on Balances</strong>
+                        <p>Wages Expense: $0 after reversal (ready for normal recording)</p>
+                        <p>Wages Payable: $0 after reversal (liability cleared)</p>
+                        <p>Cash: Unchanged (reversing doesn't involve cash)</p>
+                    </div>
+
+                    <div class="concept-card">
+                        <strong>🎯 When to Use Reversing Entries</strong>
+                        <p>Large volume of similar transactions</p>
+                        <p>Multiple staff recording transactions</p>
+                        <p>Complex accrual schedules</p>
+                        <p>Desire for consistent procedures</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Glossary -->
+            <section class="kp-section">
+                <h2>📖 Glossary</h2>
+                <div class="key-concepts-grid">
+                    <div class="concept-card">
+                        <strong>Reversing Entry</strong>
+                        <p>An optional journal entry made at the beginning of a period that reverses the effect of a prior adjusting entry, typically for accrued revenues or accrued expenses.</p>
+                    </div>
+
+                    <div class="concept-card">
+                        <strong>Accrued Revenue</strong>
+                        <p>Revenue that has been earned but not yet recorded in the accounts or received in cash. Requires an adjusting entry and may be reversed.</p>
+                    </div>
+
+                    <div class="concept-card">
+                        <strong>Accrued Expense</strong>
+                        <p>An expense that has been incurred but not yet recorded in the accounts or paid in cash. Examples include accrued wages, accrued interest, and accrued taxes.</p>
+                    </div>
+
+                    <div class="concept-card">
+                        <strong>Accrual Accounting</strong>
+                        <p>The accounting method that records revenues and expenses when they are earned or incurred, regardless of when cash changes hands. Reversing entries support this method.</p>
+                    </div>
+
+                    <div class="concept-card">
+                        <strong>Deferral</strong>
+                        <p>The recognition of revenue or expense in a period subsequent to when it was initially recorded. Examples include prepaid expenses and unearned revenue. Deferrals are NOT reversed.</p>
+                    </div>
+
+                    <div class="concept-card">
+                        <strong>Adjusting Entry</strong>
+                        <p>A journal entry made at the end of an accounting period to update account balances for items not recorded during the period (accruals, deferrals, estimates).</p>
+                    </div>
+
+                    <div class="concept-card">
+                        <strong>Wages Payable</strong>
+                        <p>A liability account representing wages owed to employees but not yet paid. Accrued wages are commonly reversed to simplify payroll recording.</p>
+                    </div>
+
+                    <div class="concept-card">
+                        <strong>Interest Payable</strong>
+                        <p>A liability account representing interest owed but not yet paid. Accrued interest is commonly reversed to simplify interest payment recording.</p>
+                    </div>
+
+                    <div class="concept-card">
+                        <strong>Interest Receivable</strong>
+                        <p>An asset account representing interest earned but not yet received. Accrued interest receivable is commonly reversed to simplify collection recording.</p>
+                    </div>
+
+                    <div class="concept-card">
+                        <strong>Normal Balance</strong>
+                        <p>The expected balance (debit or credit) in an account under standard business conditions. Reversing entries restore accounts to their normal balance state for new period recording.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Final Knowledge Check -->
+            <section class="interactive-section">
+                <h2>🎯 Final Knowledge Check</h2>
+                <p>Test your understanding of Reversing Entries:</p>
+
+                <div class="quiz-container" data-success-text="Excellent! You've mastered reversing entries." data-explanation="Reversing entries are optional entries that undo adjusting entries at the start of a new period. They simplify routine transaction recording but don't change final financial statement amounts. Only accruals (not deferrals) should typically be reversed.">
+                    <div class="input-group">
+                        <p><strong>Question 1:</strong> When are reversing entries typically recorded?</p>
+                        <label><input type="radio" name="q1" value="a" data-correct="false"> At the end of the accounting period (Dec 31)</label><br><br>
+                        <label><input type="radio" name="q1" value="b" data-correct="true"> At the beginning of the new period (Jan 1)</label><br><br>
+                        <label><input type="radio" name="q1" value="c" data-correct="false"> In the middle of the accounting period</label>
+                    </div>
+
+                    <div class="input-group">
+                        <p><strong>Question 2:</strong> Which of the following adjusting entries should be reversed?</p>
+                        <label><input type="radio" name="q2" value="a" data-correct="false"> Dr Supplies Expense, Cr Supplies</label><br><br>
+                        <label><input type="radio" name="q2" value="b" data-correct="false"> Dr Unearned Revenue, Cr Service Revenue</label><br><br>
+                        <label><input type="radio" name="q2" value="c" data-correct="true"> Dr Wages Expense, Cr Wages Payable</label>
+                    </div>
+
+                    <div class="input-group">
+                        <p><strong>Question 3:</strong> What is the reversing entry for: Dr Wages Expense $1,000, Cr Wages Payable $1,000?</p>
+                        <label><input type="radio" name="q3" value="a" data-correct="true"> Dr Wages Payable $1,000, Cr Wages Expense $1,000</label><br><br>
+                        <label><input type="radio" name="q3" value="b" data-correct="false"> Dr Wages Expense $1,000, Cr Wages Payable $1,000</label><br><br>
+                        <label><input type="radio" name="q3" value="c" data-correct="false"> Dr Cash $1,000, Cr Wages Payable $1,000</label>
+                    </div>
+
+                    <div class="input-group">
+                        <p><strong>Question 4:</strong> Which statement about reversing entries is TRUE?</p>
+                        <label><input type="radio" name="q4" value="a" data-correct="false"> They are required by GAAP for all adjusting entries</label><br><br>
+                        <label><input type="radio" name="q4" value="b" data-correct="false"> They change the financial statement balances</label><br><br>
+                        <label><input type="radio" name="q4" value="c" data-correct="true"> They simplify routine transaction recording in the new period</label>
+                    </div>
+
+                    <div class="input-group">
+                        <p><strong>Question 5:</strong> A company accrued $500 interest revenue on Dec 31. Without reversing entries, how is the Jan 15 cash collection recorded?</p>
+                        <label><input type="radio" name="q5" value="a" data-correct="false"> Dr Cash $500, Cr Interest Revenue $500</label><br><br>
+                        <label><input type="radio" name="q5" value="b" data-correct="true"> Dr Cash $500, Cr Interest Receivable $500</label><br><br>
+                        <label><input type="radio" name="q5" value="c" data-correct="false"> Dr Cash $500, Cr Interest Revenue $1,000</label>
+                    </div>
+
+                    <div class="input-group">
+                        <p><strong>Question 6:</strong> What is the main purpose of reversing entries?</p>
+                        <label><input type="radio" name="q6" value="a" data-correct="false"> To correct errors in the financial statements</label><br><br>
+                        <label><input type="radio" name="q6" value="b" data-correct="true"> To simplify the recording of routine transactions in the new period</label><br><br>
+                        <label><input type="radio" name="q6" value="c" data-correct="false"> To adjust account balances for the current period</label>
+                    </div>
+
+                    <div class="input-group">
+                        <p><strong>Question 7:</strong> Which accounts are typically NOT reversed?</p>
+                        <label><input type="radio" name="q7" value="a" data-correct="false"> Accrued wages and accrued interest</label><br><br>
+                        <label><input type="radio" name="q7" value="b" data-correct="true"> Prepaid expenses and unearned revenue (deferrals)</label><br><br>
+                        <label><input type="radio" name="q7" value="c" data-correct="false"> All adjusting entries should be reversed</label>
+                    </div>
+
+                    <div class="input-group">
+                        <p><strong>Question 8:</strong> After reversing entries are posted, what is the balance of the reversed account?</p>
+                        <label><input type="radio" name="q8" value="a" data-correct="false"> The original adjusting amount</label><br><br>
+                        <label><input type="radio" name="q8" value="b" data-correct="true"> Zero (ready for normal recording)</label><br><br>
+                        <label><input type="radio" name="q8" value="c" data-correct="false"> Double the original amount</label>
+                    </div>
+
+                    <button class="btn btn-primary quiz-submit">Submit All Answers</button>
+                    <div class="feedback"></div>
+                    <button class="quiz-retry">Try Again</button>
+                </div>
+            </section>
+
+            <!-- Navigation -->
+            <nav class="kp-navigation" style="display: flex; justify-content: space-between; margin-top: 4rem; padding-bottom: 2rem;">
+                <a href="ch04_P2.html" class="btn" style="background: #eee;">← Previous: Closing Process</a>
+                <a href="ch04.html" class="btn" style="background: var(--info); color: white;">Chapter 4 Hub</a>
+                <a href="ch04_PRACTICE.html" class="btn btn-primary">Next: Practice Case →</a>
+            </nav>
+        </article>
+    </main>
+
+    <footer style="margin-top: 5rem; padding: 2rem 0; border-top: 1px solid #ddd; text-align: center; color: #888;">
+        <p>Accounting Essentials | Chapter 4 | P3: Reversing Entries</p>
+    </footer>
+
+    <script src="../../components.js"></script>
+    <script>
+        function setDepth(depth) {
+            // Hide all depth contents
+            document.querySelectorAll('.depth-content').forEach(content => {
+                content.classList.remove('active');
+            });
+            
+            // Deactivate all buttons
+            document.querySelectorAll('.depth-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            
+            // Show selected depth
+            document.getElementById('depth-' + depth).classList.add('active');
+            
+            // Activate button
+            event.target.classList.add('active');
+        }
+
+        function updateReversing() {
+            // Get input values
+            const wagesAdj = parseFloat(document.getElementById('rev-wages-adj').value) || 0;
+            const interestAdj = parseFloat(document.getElementById('rev-interest-adj').value) || 0;
+            const payroll = parseFloat(document.getElementById('rev-payroll').value) || 0;
+            const collection = parseFloat(document.getElementById('rev-collection').value) || 0;
+
+            // Calculate totals
+            const totalAdj = wagesAdj + interestAdj;
+            const noRevPayroll = Math.max(0, payroll - wagesAdj);
+
+            // Update display values
+            document.getElementById('rev-wages-res').textContent = '$' + wagesAdj.toLocaleString();
+            document.getElementById('rev-interest-res').textContent = '$' + interestAdj.toLocaleString();
+            document.getElementById('rev-payroll-res').textContent = '$' + payroll.toLocaleString();
+            document.getElementById('rev-collection-res').textContent = '$' + collection.toLocaleString();
+
+            // Update summary
+            document.getElementById('sim-adj-total').textContent = '$' + totalAdj.toLocaleString() + ' total';
+            document.getElementById('sim-rev-total').textContent = '$' + totalAdj.toLocaleString() + ' total';
+
+            // Update entry summary
+            document.getElementById('no-rev-payroll').textContent = '$' + noRevPayroll.toLocaleString();
+            document.getElementById('no-rev-payroll-cash').textContent = '$' + payroll.toLocaleString();
+            document.getElementById('rev1-dr').textContent = '$' + wagesAdj.toLocaleString();
+            document.getElementById('rev1-cr').textContent = '$' + wagesAdj.toLocaleString();
+            document.getElementById('with-rev-payroll').textContent = '$' + payroll.toLocaleString();
+            document.getElementById('with-rev-payroll-cash').textContent = '$' + payroll.toLocaleString();
+        }
+
+        // Initialize reversing simulator on load
+        document.addEventListener('DOMContentLoaded', function() {
+            updateReversing();
+        });
+    </script>
+</body>
+
+</html>

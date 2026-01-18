@@ -1,0 +1,872 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>P1: Transaction Analysis | ACCOUNTING ESSENTIALS</title>
+    <link rel="stylesheet" href="../../styles.css">
+    <style>
+        .learning-objectives ul {
+            list-style: none;
+            padding-left: 0;
+        }
+        .learning-objectives li {
+            padding: 0.8rem 0 0.8rem 2.5rem;
+            position: relative;
+            margin: 0.5rem 0;
+            background: var(--bg-light);
+            border-radius: var(--radius-sm);
+            cursor: default;
+        }
+        .learning-objectives li:before {
+            content: "✓";
+            position: absolute;
+            left: 1rem;
+            color: var(--success);
+            font-weight: 800;
+        }
+        /* Arrow highlighting in tables */
+        .arrow-up {
+            color: var(--success);
+            font-weight: 800;
+            font-size: 1.2em;
+        }
+        .arrow-down {
+            color: var(--error);
+            font-weight: 800;
+            font-size: 1.2em;
+        }
+    </style>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-50MTQPVR7D"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-50MTQPVR7D');
+</script>
+
+</head>
+
+<body>
+    <header>
+        <div class="container nav-container">
+            <a href="../../index.html" class="logo">ACCOUNTING<span>ESSENTIALS</span></a>
+            <nav class="nav-links">
+                <a href="../../index.html">Home</a>
+                <a href="../part1.html">Part 1</a>
+                <a href="../../part2/part2.html">Part 2</a>
+                <a href="../../part3/part3.html">Part 3</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container">
+        <div class="breadcrumbs">
+            <a href="../../index.html">Home</a> <span>/</span> <a href="../part1.html">Part 1</a> <span>/</span> <a href="ch01.html">Chapter 1</a> <span>/</span> P1
+        </div>
+
+        <article class="animate-fade-in">
+            <div class="kp-header">
+                <h1 style="border-left: 8px solid var(--primary-light); padding-left: 1rem; margin: 2rem 0;">Transaction Analysis</h1>
+            </div>
+
+            <!-- Learning Objectives -->
+            <section class="kp-section">
+                <h2>🎯 Learning Objectives</h2>
+                <div class="learning-objectives">
+                    <ul>
+                        <li>Apply the 3-Step Golden Rules for analyzing business transactions</li>
+                        <li>Identify which accounts are affected by each transaction</li>
+                        <li>Classify accounts as Assets, Liabilities, or Equity</li>
+                        <li>Determine the direction of the effect (increase or decrease)</li>
+                        <li>Verify that the accounting equation remains balanced after each transaction</li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- Background & Principles -->
+            <section class="kp-section">
+                <h2>📚 Background & Principles</h2>
+                <p>Transaction analysis is the <strong>foundation of accounting</strong>. Every business transaction must be analyzed before it can be recorded. The key principle is that <strong>every transaction affects at least two accounts</strong>, ensuring the accounting equation always stays in balance.</p>
+
+                <div class="key-concepts-grid">
+                    <div class="concept-card">
+                        <strong>🔍 The 3-Step Process</strong>
+                        <p>Every transaction follows: Identify → Classify → Balance. This systematic approach ensures accuracy.</p>
+                    </div>
+                    <div class="concept-card">
+                        <strong>⚖️ Dual Effect Principle</strong>
+                        <p>Every transaction affects at least two accounts. This is the basis of double-entry bookkeeping.</p>
+                    </div>
+                    <div class="concept-card">
+                        <strong>✅ Equation Must Balance</strong>
+                        <p>After recording any transaction: Assets = Liabilities + Equity. Always verify your work!</p>
+                    </div>
+                    <div class="concept-card">
+                        <strong>📋 Real-World Application</strong>
+                        <p>The FastForward case study demonstrates all major transaction patterns you'll encounter.</p>
+                    </div>
+                </div>
+
+                <div class="professional-tip" style="margin-top: 2rem;">
+                    <strong>💡 Core Principle:</strong> Think of the accounting equation as a <strong>verification tool</strong>. After analyzing a transaction, always check that Assets still equal Liabilities plus Equity. If not, you've made an error!
+                </div>
+            </section>
+
+            <!-- Key Concepts -->
+            <section class="kp-section">
+                <h2>🔑 The 3-Step Golden Rules</h2>
+                <p>Analyzing transactions is like solving a puzzle. Here's the systematic approach used by professional accountants:</p>
+
+                <!-- Step Visualization -->
+                <div style="display: flex; justify-content: center; gap: 0; margin: 2rem 0; flex-wrap: wrap;">
+                    <div style="background: linear-gradient(135deg, var(--primary), var(--primary-light)); color: white; padding: 1.5rem 2rem; border-radius: var(--radius-md) 0 0 var(--radius-md); text-align: center; min-width: 150px;">
+                        <div style="font-size: 2.5rem; font-weight: 800;">1</div>
+                        <div style="font-weight: 600; margin-top: 0.5rem;">IDENTIFY</div>
+                        <div style="font-size: 0.85rem; opacity: 0.9; margin-top: 0.5rem;">What accounts<br>are involved?</div>
+                    </div>
+                    <div style="display: flex; align-items: center; background: var(--primary-light); color: white; font-size: 1.5rem; padding: 0 0.5rem;">→</div>
+                    <div style="background: linear-gradient(135deg, var(--secondary), var(--secondary-light)); color: white; padding: 1.5rem 2rem; text-align: center; min-width: 150px;">
+                        <div style="font-size: 2.5rem; font-weight: 800;">2</div>
+                        <div style="font-weight: 600; margin-top: 0.5rem;">CLASSIFY</div>
+                        <div style="font-size: 0.85rem; opacity: 0.9; margin-top: 0.5rem;">Asset, Liability,<br>or Equity?</div>
+                    </div>
+                    <div style="display: flex; align-items: center; background: var(--success); color: white; font-size: 1.5rem; padding: 0 0.5rem;">→</div>
+                    <div style="background: linear-gradient(135deg, var(--success), #58d68d); color: white; padding: 1.5rem 2rem; border-radius: 0 var(--radius-md) var(--radius-md) 0; text-align: center; min-width: 150px;">
+                        <div style="font-size: 2.5rem; font-weight: 800;">3</div>
+                        <div style="font-weight: 600; margin-top: 0.5rem;">BALANCE</div>
+                        <div style="font-size: 0.85rem; opacity: 0.9; margin-top: 0.5rem;">Verify the<br>equation!</div>
+                    </div>
+                </div>
+
+                <!-- Worked Example with Side-by-Side Layout -->
+                <div class="worked-example" style="margin-top: 2rem;">
+                    <h4 style="text-align: center; margin-bottom: 1.5rem;">📝 Worked Example: Buying a Delivery Van for $20,000 Cash</h4>
+                    
+                    <!-- Transaction Scenario -->
+                    <div style="background: var(--bg-light); padding: 1.5rem; border-radius: var(--radius-sm); margin-bottom: 2rem; text-align: center;">
+                        <div style="display: inline-flex; align-items: center; gap: 1rem; flex-wrap: wrap; justify-content: center;">
+                            <span style="background: var(--primary-light); color: white; padding: 0.8rem 1.5rem; border-radius: var(--radius-sm); font-weight: 600;">💵 Cash</span>
+                            <span style="font-size: 1.5rem; color: var(--text-muted);">→</span>
+                            <span style="background: var(--primary-light); color: white; padding: 0.8rem 1.5rem; border-radius: var(--radius-sm); font-weight: 600;">🚐 Equipment</span>
+                            <span style="font-size: 1rem; color: var(--text-muted);">($20,000)</span>
+                        </div>
+                    </div>
+
+                    <!-- Step-by-Step Analysis -->
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem;">
+                        <!-- Step 1 -->
+                        <div style="background: linear-gradient(to bottom, var(--primary), var(--primary-light)); color: white; padding: 1.5rem; border-radius: var(--radius-md);">
+                            <div style="display: flex; align-items: center; gap: 0.75rem; margin-bottom: 1rem;">
+                                <span style="font-size: 1.5rem; font-weight: 800;">1</span>
+                                <span style="font-weight: 600; font-size: 1.1rem;">IDENTIFY</span>
+                            </div>
+                            <p style="margin-bottom: 0.75rem;"><strong>What accounts?</strong></p>
+                            <p style="background: rgba(255,255,255,0.2); padding: 0.75rem; border-radius: var(--radius-sm); margin: 0;">
+                                <strong>Cash</strong> (paying)<br>
+                                <strong>Equipment/Van</strong> (receiving)
+                            </p>
+                        </div>
+
+                        <!-- Step 2 -->
+                        <div style="background: linear-gradient(to bottom, var(--secondary), var(--secondary-light)); color: white; padding: 1.5rem; border-radius: var(--radius-md);">
+                            <div style="display: flex; align-items: center; gap: 0.75rem; margin-bottom: 1rem;">
+                                <span style="font-size: 1.5rem; font-weight: 800;">2</span>
+                                <span style="font-weight: 600; font-size: 1.1rem;">CLASSIFY</span>
+                            </div>
+                            <p style="margin-bottom: 0.75rem;"><strong>What types?</strong></p>
+                            <div style="background: rgba(255,255,255,0.2); padding: 0.75rem; border-radius: var(--radius-sm); margin: 0;">
+                                <div style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.5rem;">
+                                    <span style="background: rgba(255,255,255,0.3); padding: 0.25rem 0.5rem; border-radius: 4px; font-size: 0.85rem;">Cash ↓</span>
+                                    <span style="font-size: 0.9rem;">= Asset</span>
+                                </div>
+                                <div style="display: flex; align-items: center; gap: 0.5rem;">
+                                    <span style="background: rgba(255,255,255,0.3); padding: 0.25rem 0.5rem; border-radius: 4px; font-size: 0.85rem;">Equipment ↑</span>
+                                    <span style="font-size: 0.9rem;">= Asset</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Step 3 -->
+                        <div style="background: linear-gradient(to bottom, var(--success), #58d68d); color: white; padding: 1.5rem; border-radius: var(--radius-md);">
+                            <div style="display: flex; align-items: center; gap: 0.75rem; margin-bottom: 1rem;">
+                                <span style="font-size: 1.5rem; font-weight: 800;">3</span>
+                                <span style="font-weight: 600; font-size: 1.1rem;">BALANCE</span>
+                            </div>
+                            <p style="margin-bottom: 0.75rem;"><strong>Equation check:</strong></p>
+                            <div style="background: rgba(255,255,255,0.2); padding: 0.75rem; border-radius: var(--radius-sm); margin: 0; text-align: center;">
+                                <div style="font-size: 1.1rem; margin-bottom: 0.5rem;">
+                                    Assets: <strong style="color: #ffd700;">+$20,000</strong> − <strong style="color: #ff6b6b;">$20,000</strong>
+                                </div>
+                                <div style="font-size: 1.3rem; font-weight: 700;">= $0 Net Change ✓</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="professional-tip" style="margin-top: 2rem;">
+                    <strong>💡 Key Insight:</strong> This is an <strong>Asset Exchange</strong> transaction. One asset is traded for another. Total assets don't change, but the composition does!
+                </div>
+            </section>
+
+            <!-- Four Transaction Patterns -->
+            <section class="kp-section">
+                <h2>📊 The Four Transaction Patterns</h2>
+                <p>Every business transaction falls into one of these four patterns. Mastering these patterns makes analysis quick and systematic:</p>
+
+                <div class="card-grid">
+                    <div class="content-card pattern-card" style="border-top: 4px solid var(--success);">
+                        <h3 style="color: var(--success);">1. Asset Source</h3>
+                        <p><strong>Example:</strong> Owner invests cash in the business</p>
+                        <p style="font-size: 1.2rem; font-weight: 700; margin: 1rem 0;">Assets ↑ and Equity ↑</p>
+                        <p><strong>Logic:</strong> The business acquires an asset, and the source is the owner's investment (equity).</p>
+                        <div class="misconception-alert" style="margin-top: 1rem;">
+                            <strong>Mnemonic:</strong> "Investment IN = Assets UP, Equity UP"
+                        </div>
+                    </div>
+
+                    <div class="content-card pattern-card" style="border-top: 4px solid var(--primary);">
+                        <h3 style="color: var(--primary);">2. Asset Exchange</h3>
+                        <p><strong>Example:</strong> Buy supplies with cash</p>
+                        <p style="font-size: 1.2rem; font-weight: 700; margin: 1rem 0;">One Asset ↑ and Another Asset ↓</p>
+                        <p><strong>Logic:</strong> Trading one asset for another. Total assets unchanged.</p>
+                        <div class="misconception-alert" style="margin-top: 1rem;">
+                            <strong>Mnemonic:</strong> "Trade IN, Trade OUT — net zero"
+                        </div>
+                    </div>
+
+                    <div class="content-card pattern-card" style="border-top: 4px solid var(--error);">
+                        <h3 style="color: var(--error);">3. Asset Use</h3>
+                        <p><strong>Example:</strong> Pay rent with cash</p>
+                        <p style="font-size: 1.2rem; font-weight: 700; margin: 1rem 0;">Assets ↓ and Equity ↓</p>
+                        <p><strong>Logic:</strong> Using assets to operate the business reduces both assets and owner's claim (equity).</p>
+                        <div class="misconception-alert" style="margin-top: 1rem;">
+                            <strong>Mnemonic:</strong> "Pay OUT, Equity DOWN"
+                        </div>
+                    </div>
+
+                    <div class="content-card pattern-card" style="border-top: 4px solid var(--info);">
+                        <h3 style="color: var(--info);">4. Claims Exchange</h3>
+                        <p><strong>Example:</strong> Buy equipment on credit</p>
+                        <p style="font-size: 1.2rem; font-weight: 700; margin: 1rem 0;">Assets ↑ and Liabilities ↑</p>
+                        <p><strong>Logic:</strong> Acquiring an asset financed by a creditor (liability) instead of owner (equity).</p>
+                        <div class="misconception-alert" style="margin-top: 1rem;">
+                            <strong>Mnemonic:</strong> "Credit BUY = Assets UP, Liabilities UP"
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Common Transaction Types -->
+            <section class="kp-section">
+                <h2>📋 Common Transaction Examples</h2>
+                
+                <div class="table-scroll">
+                    <table class="financial-table">
+                        <thead>
+                            <tr>
+                                <th>Transaction Type</th>
+                                <th>Account Increases</th>
+                                <th>Account Decreases</th>
+                                <th>Effect on Equation</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>Owner investment</strong></td>
+                                <td>Cash (A)</td>
+                                <td>—</td>
+                                <td>Assets <span class="arrow-up">↑</span>, Equity <span class="arrow-up">↑</span></td>
+                            </tr>
+                            <tr>
+                                <td><strong>Purchase equipment (cash)</strong></td>
+                                <td>Equipment (A)</td>
+                                <td>Cash (A)</td>
+                                <td>Assets exchange</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Purchase on credit</strong></td>
+                                <td>Equipment (A)</td>
+                                <td>—</td>
+                                <td>Assets <span class="arrow-up">↑</span>, Liabilities <span class="arrow-up">↑</span></td>
+                            </tr>
+                            <tr>
+                                <td><strong>Service revenue (cash)</strong></td>
+                                <td>Cash (A)</td>
+                                <td>—</td>
+                                <td>Assets <span class="arrow-up">↑</span>, Equity <span class="arrow-up">↑</span></td>
+                            </tr>
+                            <tr>
+                                <td><strong>Service revenue (credit)</strong></td>
+                                <td>Accounts Receivable (A)</td>
+                                <td>—</td>
+                                <td>Assets <span class="arrow-up">↑</span>, Equity <span class="arrow-up">↑</span></td>
+                            </tr>
+                            <tr>
+                                <td><strong>Pay expenses</strong></td>
+                                <td>—</td>
+                                <td>Cash (A)</td>
+                                <td>Assets <span class="arrow-down">↓</span>, Equity <span class="arrow-down">↓</span></td>
+                            </tr>
+                            <tr>
+                                <td><strong>Pay accounts payable</strong></td>
+                                <td>—</td>
+                                <td>Cash (A)</td>
+                                <td>Assets <span class="arrow-down">↓</span>, Liabilities <span class="arrow-down">↓</span></td>
+                            </tr>
+                            <tr>
+                                <td><strong>Collect accounts receivable</strong></td>
+                                <td>Cash (A)</td>
+                                <td>Accounts Receivable (A)</td>
+                                <td>Assets exchange</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Owner withdrawal</strong></td>
+                                <td>—</td>
+                                <td>Cash (A)</td>
+                                <td>Assets <span class="arrow-down">↓</span>, Equity <span class="arrow-down">↓</span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- The FastForward Case -->
+            <section class="kp-section">
+                <h2>📝 The FastForward Case: 11 Key Transactions</h2>
+                <p>Following the textbook story, here are the first 11 transactions for FastForward. Notice how the accounting equation <strong>ALWAYS stays in balance</strong> after every single transaction:</p>
+
+                <div class="table-scroll">
+                    <table class="transaction-table financial-table">
+                        <thead>
+                            <tr style="background: var(--primary); color: white;">
+                                <th rowspan="2" style="vertical-align: middle;">Event</th>
+                                <th colspan="4" style="border-bottom: 2px solid white;">Assets</th>
+                                <th rowspan="2" style="vertical-align: middle;">=</th>
+                                <th rowspan="2" style="vertical-align: middle;">Liab.</th>
+                                <th rowspan="2" style="vertical-align: middle;">+</th>
+                                <th colspan="4" style="border-bottom: 2px solid white;">Equity</th>
+                            </tr>
+                            <tr style="font-size: 0.8rem; background: var(--primary); color: white;">
+                                <th>Cash</th>
+                                <th>A/R</th>
+                                <th>Supplies</th>
+                                <th>Equip.</th>
+                                <th>A/P</th>
+                                <th>Capital</th>
+                                <th>Withdraw</th>
+                                <th>Revenues</th>
+                                <th>Expenses</th>
+                            </tr>
+                        </thead>
+                        <tbody style="font-size: 0.9rem;">
+                            <tr>
+                                <td><strong>1. Investment</strong></td>
+                                <td style="color: var(--success);">+$30,000</td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td>=</td>
+                                <td></td>
+                                <td>+</td>
+                                <td style="color: var(--success);">+$30,000</td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td><strong>2. Buy Equipment</strong></td>
+                                <td style="color: var(--error);">-$26,000</td>
+                                <td></td>
+                                <td></td>
+                                <td style="color: var(--success);">+$26,000</td>
+                                <td>=</td>
+                                <td></td>
+                                <td>+</td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td><strong>3. Buy Supplies</strong></td>
+                                <td></td>
+                                <td></td>
+                                <td style="color: var(--success);">+$7,100</td>
+                                <td></td>
+                                <td>=</td>
+                                <td style="color: var(--info);">+$7,100</td>
+                                <td>+</td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td><strong>4. Service Revenue</strong></td>
+                                <td style="color: var(--success);">+$4,200</td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td>=</td>
+                                <td></td>
+                                <td>+</td>
+                                <td></td>
+                                <td></td>
+                                <td style="color: var(--success);">+$4,200</td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td><strong>5. Service Revenue</strong></td>
+                                <td></td>
+                                <td style="color: var(--success);">+$1,900</td>
+                                <td></td>
+                                <td></td>
+                                <td>=</td>
+                                <td></td>
+                                <td>+</td>
+                                <td></td>
+                                <td></td>
+                                <td style="color: var(--success);">+$1,900</td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td><strong>6. Pay Rent</strong></td>
+                                <td style="color: var(--error);">-$1,000</td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td>=</td>
+                                <td></td>
+                                <td>+</td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td style="color: var(--error);">-$1,000</td>
+                            </tr>
+                            <tr>
+                                <td><strong>7. Pay Salary</strong></td>
+                                <td style="color: var(--error);">-$700</td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td>=</td>
+                                <td></td>
+                                <td>+</td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td style="color: var(--error);">-$700</td>
+                            </tr>
+                            <tr>
+                                <td><strong>8. Pay A/P</strong></td>
+                                <td style="color: var(--error);">-$900</td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td>=</td>
+                                <td style="color: var(--error);">-$900</td>
+                                <td>+</td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td><strong>9. Collect A/R</strong></td>
+                                <td style="color: var(--success);">+$400</td>
+                                <td style="color: var(--error);">-$400</td>
+                                <td></td>
+                                <td></td>
+                                <td>=</td>
+                                <td></td>
+                                <td>+</td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td><strong>10. Withdrawal</strong></td>
+                                <td style="color: var(--error);">-$200</td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td>=</td>
+                                <td></td>
+                                <td>+</td>
+                                <td></td>
+                                <td style="color: var(--error);">-$200</td>
+                                <td></td>
+                                <td></td>
+                            </tr>
+                            <tr style="background: var(--bg-light); font-weight: 700;">
+                                <td><strong>Ending Balances</strong></td>
+                                <td><strong>$5,800</strong></td>
+                                <td><strong>$1,500</strong></td>
+                                <td><strong>$7,100</strong></td>
+                                <td><strong>$26,000</strong></td>
+                                <td><strong>=</strong></td>
+                                <td><strong>$6,200</strong></td>
+                                <td><strong>+</strong></td>
+                                <td><strong>$30,000</strong></td>
+                                <td><strong>-$200</strong></td>
+                                <td><strong>$6,100</strong></td>
+                                <td><strong>-$1,700</strong></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="worked-example" style="margin-top: 2rem;">
+                    <h4>Verification: Does the Equation Balance?</h4>
+                    
+                    <div class="example-step">
+                        <strong>Step 1: Calculate Total Assets</strong>
+                        <p>Cash ($5,800) + A/R ($1,500) + Supplies ($7,100) + Equipment ($26,000) = <strong>$40,400</strong></p>
+                    </div>
+
+                    <div class="example-step">
+                        <strong>Step 2: Calculate Total Liabilities + Equity</strong>
+                        <p>Liabilities ($6,200) + Equity ($30,000 - $200 + $6,100 - $1,700) = $6,200 + $34,200 = <strong>$40,400</strong></p>
+                    </div>
+
+                    <div class="professional-tip">
+                        <strong>✅ VERIFIED:</strong> Assets ($40,400) = Liabilities + Equity ($40,400) — The equation is in balance!
+                    </div>
+                </div>
+            </section>
+
+            <!-- Interactive Transaction Analyzer -->
+            <section class="kp-section">
+                <h2>🧮 Interactive Transaction Analyzer</h2>
+                <p>Practice analyzing transactions by entering the effects below. The equation must stay balanced!</p>
+
+                <div class="simulator-container" id="transaction-analyzer">
+                    <div class="equation-display" style="margin-bottom: 2rem;">
+                        <div style="display: flex; align-items: center; justify-content: center; gap: 1rem; flex-wrap: wrap;">
+                            <div style="min-width: 150px;">
+                                <label style="display: block; font-weight: 600; margin-bottom: 0.5rem;">Cash Change</label>
+                                <input type="number" id="trans-cash" class="impact-input" data-part="asset" placeholder="+$ or -$">
+                            </div>
+                            <div style="min-width: 150px;">
+                                <label style="display: block; font-weight: 600; margin-bottom: 0.5rem;">A/R Change</label>
+                                <input type="number" id="trans-ar" class="impact-input" data-part="asset" placeholder="+$ or -$">
+                            </div>
+                            <div style="min-width: 150px;">
+                                <label style="display: block; font-weight: 600; margin-bottom: 0.5rem;">Liability Change</label>
+                                <input type="number" id="trans-liab" class="impact-input" data-part="liability" placeholder="+$ or -$">
+                            </div>
+                            <div style="min-width: 150px;">
+                                <label style="display: block; font-weight: 600; margin-bottom: 0.5rem;">Equity Change</label>
+                                <input type="number" id="trans-equity" class="impact-input" data-part="equity" placeholder="+$ or -$">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="trans-status" style="text-align: center; padding: 1rem; border-radius: var(--radius-sm); font-weight: 700; font-size: 1.1rem;">
+                        Enter transaction effects above to check balance
+                    </div>
+                </div>
+
+                <script>
+                    document.querySelectorAll('.impact-input').forEach(input => {
+                        input.addEventListener('input', checkBalance);
+                    });
+
+                    function checkBalance() {
+                        let assets = 0;
+                        let liability = 0;
+                        let equity = 0;
+
+                        document.querySelectorAll('.impact-input').forEach(input => {
+                            const val = parseFloat(input.value) || 0;
+                            if (input.id === 'trans-cash' || input.id === 'trans-ar') {
+                                assets += val;
+                            } else if (input.id === 'trans-liab') {
+                                liability += val;
+                            } else if (input.id === 'trans-equity') {
+                                equity += val;
+                            }
+                        });
+
+                        const status = document.getElementById('trans-status');
+                        const totalRight = liability + equity;
+                        const diff = assets - totalRight;
+
+                        if (assets === 0 && liability === 0 && equity === 0) {
+                            status.textContent = 'Enter transaction effects above to check balance';
+                            status.style.background = 'var(--bg-light)';
+                            status.style.color = 'var(--text-muted)';
+                        } else if (Math.abs(diff) < 0.01) {
+                            status.innerHTML = '✓ <strong>BALANCED!</strong> Assets = Liabilities + Equity';
+                            status.style.background = 'rgba(39, 174, 96, 0.1)';
+                            status.style.color = 'var(--success)';
+                        } else {
+                            status.innerHTML = `⚠️ <strong>OUT OF BALANCE!</strong> Assets (${assets}) ≠ Liabilities + Equity (${totalRight}) — Difference: ${diff}`;
+                            status.style.background = 'rgba(231, 76, 60, 0.1)';
+                            status.style.color = 'var(--error)';
+                        }
+                    }
+                </script>
+            </section>
+
+            <!-- Deep Dive with Depth Toggle -->
+            <section class="kp-section">
+                <h2>🔍 Deep Dive</h2>
+                <p>Explore transaction analysis at different levels of depth:</p>
+
+                <div class="depth-toggle">
+                    <button class="depth-btn active" onclick="setTransactionDepth('A')">Depth A: Foundational</button>
+                    <button class="depth-btn" onclick="setTransactionDepth('B')">Depth B: Standard</button>
+                    <button class="depth-btn" onclick="setTransactionDepth('C')">Depth C: Advanced</button>
+                </div>
+
+                <!-- Depth A -->
+                <div id="trans-depth-A" class="depth-content active">
+                    <h3>🟢 Foundational Level</h3>
+                    <p>Master the basic transaction types with simple examples.</p>
+
+                    <div class="key-concepts-grid">
+                        <div class="concept-card">
+                            <strong>Simple Investment</strong>
+                            <p>Owner puts $10,000 in bank. Cash ↑ $10,000; Capital ↑ $10,000. (Asset Source)</p>
+                        </div>
+                        <div class="concept-card">
+                            <strong>Simple Purchase</strong>
+                            <p>Buy $500 supplies cash. Supplies ↑ $500; Cash ↓ $500. (Asset Exchange)</p>
+                        </div>
+                        <div class="concept-card">
+                            <strong>Revenue Earned</strong>
+                            <p>Earn $2,000 fees cash. Cash ↑ $2,000; Revenue ↑ $2,000. (Asset Source)</p>
+                        </div>
+                        <div class="concept-card">
+                            <strong>Expense Paid</strong>
+                            <p>Pay $300 rent cash. Cash ↓ $300; Rent Expense ↑ $300 (Equity ↓). (Asset Use)</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Depth B -->
+                <div id="trans-depth-B" class="depth-content">
+                    <h3>🟡 Standard Level</h3>
+                    <p>Analyze more complex transactions and understand their business impact.</p>
+
+                    <div class="worked-example">
+                        <h4>Scenario: Credit Transactions</h4>
+                        <p><strong>Transaction:</strong> Perform $5,000 service for a customer who will pay next month.</p>
+                        
+                        <div class="example-step">
+                            <strong>Step 1: Identify</strong>
+                            <p>Accounts Receivable (receiving money later) and Service Revenue (earned income).</p>
+                        </div>
+
+                        <div class="example-step">
+                            <strong>Step 2: Classify</strong>
+                            <p>A/R is an Asset; Service Revenue increases Equity.</p>
+                        </div>
+
+                        <div class="example-step">
+                            <strong>Step 3: Record</strong>
+                            <p>Assets (A/R) ↑ $5,000; Equity (Revenue) ↑ $5,000.</p>
+                            <p><strong>Equation:</strong> Assets = Liabilities + Equity ✓</p>
+                        </div>
+                    </div>
+
+                    <div class="professional-tip">
+                        <strong>💡 Key Point:</strong> Revenue is recorded when <strong>earned</strong>, not when <strong>received</strong>. This is the accrual accounting principle in action!
+                    </div>
+                </div>
+
+                <!-- Depth C -->
+                <div id="trans-depth-C" class="depth-content">
+                    <h3>🔴 Advanced Level</h3>
+                    <p>Complex scenarios and professional judgment in transaction analysis.</p>
+
+                    <div class="key-concepts-grid">
+                        <div class="concept-card">
+                            <strong>Compound Transactions</strong>
+                            <p>Some transactions affect 3+ accounts. Example: Paying $5,000 cash for equipment ($3,000) and supplies ($2,000).</p>
+                        </div>
+                        <div class="concept-card">
+                            <strong>Adjusting Entries</strong>
+                            <p>End-of-period entries for accrued items (wages payable, depreciation) require understanding timing differences.</p>
+                        </div>
+                        <div class="concept-card">
+                            <strong>Contra Accounts</strong>
+                            <p>Accounts like Accumulated Depreciation and Allowance for Doubtful Accounts reduce asset values.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Common Misconceptions -->
+            <section class="kp-section">
+                <h2>🚫 Common Misconceptions & Professional Tips</h2>
+
+                <div class="misconception-alert">
+                    <strong>❌ Misconception 1:</strong> "Some transactions only affect one account."
+                    <br><br>
+                    <strong>✅ Reality:</strong> <strong>Every</strong> transaction affects <strong>at least two</strong> accounts. This is the fundamental principle of double-entry bookkeeping. If you find a one-sided entry, you've missed something.
+                </div>
+
+                <div class="misconception-alert">
+                    <strong>❌ Misconception 2:</strong> "Cash received is always revenue."
+                    <br><br>
+                    <strong>✅ Reality:</strong> Cash received can be: (1) Revenue (service performed), (2) Loan proceeds (liability), (3) Owner investment (equity), or (4) Collection of receivable (asset exchange). Always ask: "Why is cash coming in?"
+                </div>
+
+                <div class="misconception-alert">
+                    <strong>❌ Misconception 3:</strong> "The accounting equation only needs to balance at year-end."
+                    <br><br>
+                    <strong>✅ Reality:</strong> The equation must balance after <strong>every single transaction</strong>. This is your constant quality check. An unbalanced entry indicates an error that must be found and corrected immediately.
+                </div>
+
+                <div class="professional-tip">
+                    <strong>💡 Professional Tip #1:</strong> Always start analysis with "What changed?" Identify the accounts involved before deciding on increases or decreases.
+                </div>
+
+                <div class="professional-tip">
+                    <strong>💡 Professional Tip #2:</strong> Use the accounting equation as your guide: Assets = Liabilities + Equity. If Liabilities and Equity didn't change, Assets couldn't have changed either.
+                </div>
+
+                <div class="professional-tip">
+                    <strong>💡 Professional Tip #3:</strong> Practice the four patterns until they're automatic. Most transactions fit one pattern, and recognizing it speeds up analysis dramatically.
+                </div>
+            </section>
+
+            <!-- Memory Aids -->
+            <section class="kp-section">
+                <h2>🧠 Memory Aids & Quick Reference</h2>
+
+                <div class="memory-aid-card">
+                    <strong>⚡ Quick Recall: The Four Patterns</strong>
+                    <p style="margin-top: 1rem;"><strong>Source:</strong> Assets ↑, Equity ↑ (investment, revenue)</p>
+                    <p><strong>Exchange:</strong> Asset ↑, Asset ↓ (buying, collecting)</p>
+                    <p><strong>Use:</strong> Assets ↓, Equity ↓ (expenses, withdrawals)</p>
+                    <p><strong>Claims:</strong> Assets ↑, Liabilities ↑ (credit purchases)</p>
+                </div>
+
+                <div class="memory-aid-card">
+                    <strong>⚡ Quick Recall: The 3 Golden Rules</strong>
+                    <p style="margin-top: 1rem;"><strong>1. Identify:</strong> What accounts are involved?</p>
+                    <p><strong>2. Classify:</strong> Asset, Liability, or Equity? Increase or Decrease?</p>
+                    <p><strong>3. Balance:</strong> Verify Assets = Liabilities + Equity</p>
+                </div>
+
+                <div class="memory-aid-card">
+                    <strong>⚡ Quick Recall: Account Types</strong>
+                    <p style="margin-top: 1rem;"><strong>Assets:</strong> Cash, A/R, Supplies, Equipment (things you OWN)</p>
+                    <p><strong>Liabilities:</strong> A/P, Notes Payable (things you OWE)</p>
+                    <p><strong>Equity:</strong> Capital, Retained Earnings (owner's claim)</p>
+                </div>
+
+                <h3 style="margin-top: 2rem;">📖 Further Reading</h3>
+                <div class="key-concepts-grid">
+                    <div class="concept-card">
+                        <strong>Double-Entry Bookkeeping</strong>
+                        <p>The system where every transaction affects two or more accounts, ensuring the accounting equation always balances.</p>
+                    </div>
+                    <div class="concept-card">
+                        <strong>Journal Entries</strong>
+                        <p>The first step in recording transactions—chronological record of debits and credits.</p>
+                    </div>
+                    <div class="concept-card">
+                        <strong>T-Accounts</strong>
+                        <p>Visual tool for tracking account balances and understanding debit/credit effects.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Glossary -->
+            <section class="kp-section">
+                <h2>📖 Glossary</h2>
+                <div class="key-concepts-grid">
+                    <div class="concept-card">
+                        <strong>Transaction Analysis</strong>
+                        <p>The process of identifying, classifying, and recording the effects of business transactions on accounts.</p>
+                    </div>
+                    <div class="concept-card">
+                        <strong>Accounting Equation</strong>
+                        <p>Assets = Liabilities + Equity. The foundation that must always remain in balance.</p>
+                    </div>
+                    <div class="concept-card">
+                        <strong>Asset Source</strong>
+                        <p>Transaction type where assets increase and equity increases (e.g., owner investment, revenue earned).</p>
+                    </div>
+                    <div class="concept-card">
+                        <strong>Asset Exchange</strong>
+                        <p>Transaction type where one asset increases and another decreases (e.g., buying supplies, collecting receivables).</p>
+                    </div>
+                    <div class="concept-card">
+                        <strong>Asset Use</strong>
+                        <p>Transaction type where assets decrease and equity decreases (e.g., paying expenses, owner withdrawals).</p>
+                    </div>
+                    <div class="concept-card">
+                        <strong>Claims Exchange</strong>
+                        <p>Transaction type where assets increase and liabilities increase (e.g., purchasing on credit).</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Final Knowledge Check -->
+            <section class="interactive-section">
+                <h2>🎯 Final Knowledge Check</h2>
+                <p>Test your understanding of Transaction Analysis:</p>
+
+                <div class="quiz-container" data-success-text="Excellent! You've mastered transaction analysis!" data-explanation="Paying a liability reduces Cash (Asset ↓) and reduces Accounts Payable (Liability ↓). This is a claims exchange where both sides decrease proportionally. The equation stays balanced.">
+                    <div class="input-group">
+                        <p><strong>Question 1:</strong> The company pays $500 cash to reduce its Accounts Payable. What is the effect?</p>
+                        <label><input type="radio" name="trans1" value="a" data-correct="true"> Assets ↓ $500; Liabilities ↓ $500</label><br>
+                        <label><input type="radio" name="trans1" value="b" data-correct="false"> Assets ↓ $500; Equity ↓ $500</label><br>
+                        <label><input type="radio" name="trans1" value="c" data-correct="false"> Assets ↓ $500; Revenue ↓ $500</label>
+                    </div>
+
+                    <div class="input-group">
+                        <p><strong>Question 2:</strong> Which is an example of an "Asset Exchange" transaction?</p>
+                        <label><input type="radio" name="trans2" value="a" data-correct="false"> Owner invests $10,000 cash</label><br>
+                        <label><input type="radio" name="trans2" value="b" data-correct="true"> Buy $500 supplies with cash</label><br>
+                        <label><input type="radio" name="trans2" value="c" data-correct="false"> Pay $1,000 rent expense</label>
+                    </div>
+
+                    <div class="input-group">
+                        <p><strong>Question 3:</strong> How many accounts must every transaction affect?</p>
+                        <label><input type="radio" name="trans3" value="a" data-correct="false"> At least one account</label><br>
+                        <label><input type="radio" name="trans3" value="b" data-correct="false"> At least three accounts</label><br>
+                        <label><input type="radio" name="trans3" value="c" data-correct="true"> At least two accounts</label>
+                    </div>
+
+                    <button class="btn btn-primary quiz-submit">Submit All Answers</button>
+                    <div class="feedback"></div>
+                    <button class="quiz-retry">Try Again</button>
+                </div>
+            </section>
+
+            <!-- Navigation -->
+            <nav class="kp-navigation" style="display: flex; justify-content: space-between; margin-top: 4rem; padding-bottom: 2rem;">
+                <a href="ch01_A2.html" class="btn" style="background: #eee;">← Previous: Return on Assets</a>
+                <a href="ch01_P2.html" class="btn btn-primary">Next: Financial Statements →</a>
+            </nav>
+        </article>
+    </main>
+
+    <footer style="margin-top: 5rem; padding: 2rem 0; border-top: 1px solid #ddd; text-align: center; color: #888;">
+        <p>Accounting Essentials | Chapter 1 | Procedure 1</p>
+    </footer>
+
+    <script src="../../components-enhanced.js"></script>
+    <script>
+        function setTransactionDepth(depth) {
+            document.querySelectorAll('.depth-btn').forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+
+            document.querySelectorAll('.depth-content').forEach(content => content.classList.remove('active'));
+            document.getElementById(`trans-depth-${depth}`).classList.add('active');
+        }
+    </script>
+</body>
+
+</html>

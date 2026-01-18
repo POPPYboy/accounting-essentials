@@ -1,0 +1,805 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactive: Internal Controls | ACCOUNTING ESSENTIALS</title>
+    <link rel="stylesheet" href="../../styles.css">
+    <style>
+        /* Role Playing Game Styles */
+        .game-container {
+            background: var(--bg-light);
+            padding: 30px;
+            border-radius: var(--radius-md);
+            margin: 20px 0;
+        }
+
+        .scenario-card {
+            background: var(--white);
+            border: 3px solid var(--primary);
+            border-radius: var(--radius-md);
+            padding: 25px;
+            margin: 20px 0;
+        }
+
+        .scenario-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .scenario-number {
+            background: var(--accent);
+            color: var(--white);
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-right: 20px;
+        }
+
+        .scenario-title {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--primary);
+        }
+
+        .scenario-description {
+            background: var(--info-light);
+            border-left: 4px solid var(--info);
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: var(--radius-sm);
+            font-size: 1.1rem;
+            line-height: 1.6;
+        }
+
+        .choice-container {
+            margin: 20px 0;
+        }
+
+        .choice-card {
+            background: var(--white);
+            border: 2px solid var(--text-muted);
+            border-radius: var(--radius-sm);
+            padding: 20px;
+            margin: 15px 0;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: flex-start;
+        }
+
+        .choice-card:hover {
+            border-color: var(--primary);
+            background: var(--primary-light);
+            color: var(--white);
+            transform: translateX(10px);
+            box-shadow: var(--shadow-sm);
+        }
+
+        .choice-card.selected {
+            border-color: var(--secondary);
+            background: var(--secondary-light);
+            border-width: 3px;
+        }
+
+        .choice-letter {
+            background: var(--primary);
+            color: var(--white);
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            margin-right: 15px;
+            flex-shrink: 0;
+        }
+
+        .choice-card:hover .choice-letter {
+            background: var(--white);
+            color: var(--primary);
+        }
+
+        .choice-text {
+            flex: 1;
+        }
+
+        /* Feedback Styles */
+        .feedback-section {
+            margin: 20px 0;
+            padding: 25px;
+            border-radius: var(--radius-md);
+            display: none;
+        }
+
+        .feedback-section.show {
+            display: block;
+            animation: fadeIn 0.5s ease;
+        }
+
+        .feedback-section.correct {
+            background: var(--success-light);
+            border: 2px solid var(--success);
+        }
+
+        .feedback-section.incorrect {
+            background: var(--error-light);
+            border: 2px solid var(--error);
+        }
+
+        .feedback-section.explanation {
+            background: var(--info-light);
+            border: 2px solid var(--info);
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Score and Progress */
+        .game-status {
+            background: var(--primary-dark);
+            color: var(--white);
+            padding: 20px;
+            border-radius: var(--radius-md);
+            margin: 20px 0;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+        }
+
+        .status-item {
+            text-align: center;
+        }
+
+        .status-label {
+            font-size: 0.9rem;
+            opacity: 0.8;
+            margin-bottom: 5px;
+        }
+
+        .status-value {
+            font-size: 2rem;
+            font-weight: 700;
+        }
+
+        /* Progress Bar */
+        .progress-container {
+            background: var(--text-muted);
+            height: 10px;
+            border-radius: 5px;
+            overflow: hidden;
+            margin: 20px 0;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--success), var(--info));
+            transition: width 0.5s ease;
+        }
+
+        /* Character Avatar */
+        .character-avatar {
+            width: 100px;
+            height: 100px;
+            background: var(--secondary);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+            margin: 20px auto;
+            border: 3px solid var(--primary);
+        }
+
+        /* Badge System */
+        .badge-container {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin: 30px 0;
+            flex-wrap: wrap;
+        }
+
+        .badge {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background: var(--text-muted);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            color: var(--white);
+            opacity: 0.3;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .badge.earned {
+            opacity: 1;
+            animation: badgeEarned 0.5s ease;
+        }
+
+        .badge.earned::after {
+            content: '✓';
+            position: absolute;
+            bottom: -5px;
+            right: -5px;
+            width: 25px;
+            height: 25px;
+            background: var(--success);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.8rem;
+            border: 2px solid var(--white);
+        }
+
+        @keyframes badgeEarned {
+            0% { transform: scale(0.8); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+
+        /* Next Button */
+        .next-button {
+            background: var(--success);
+            color: var(--white);
+            padding: 15px 40px;
+            border: none;
+            border-radius: var(--radius-sm);
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: none;
+            margin: 20px auto;
+        }
+
+        .next-button:hover {
+            background: var(--success-dark);
+            transform: scale(1.05);
+        }
+
+        .next-button.show {
+            display: block;
+            animation: fadeIn 0.5s ease;
+        }
+
+        /* Results Screen */
+        .results-screen {
+            background: var(--white);
+            padding: 40px;
+            border-radius: var(--radius-md);
+            text-align: center;
+            display: none;
+        }
+
+        .results-screen.show {
+            display: block;
+            animation: fadeIn 0.5s ease;
+        }
+
+        .results-score {
+            font-size: 3rem;
+            font-weight: 700;
+            color: var(--primary);
+            margin: 20px 0;
+        }
+
+        .results-message {
+            font-size: 1.2rem;
+            color: var(--text-muted);
+            margin: 20px 0;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .choice-card {
+                padding: 15px;
+            }
+            .scenario-number {
+                width: 40px;
+                height: 40px;
+                font-size: 1.2rem;
+            }
+            .badge-container {
+                gap: 10px;
+            }
+            .badge {
+                width: 60px;
+                height: 60px;
+                font-size: 1.5rem;
+            }
+        }
+    </style>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-50MTQPVR7D"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-50MTQPVR7D');
+</script>
+
+</head>
+
+<body>
+    <header>
+        <div class="container nav-container">
+            <a href="../../index.html" class="logo">ACCOUNTING<span>ESSENTIALS</span></a>
+            <nav class="nav-links">
+                <a href="../../index.html">Home</a>
+                <a href="../part3.html">Part 3</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container">
+        <div class="breadcrumbs">
+            <a href="../../index.html">Home</a> <span>/</span> <a href="../part3.html">Part 3</a> <span>/</span> <a href="ch08.html">Chapter 8</a> <span>/</span> Interactive
+        </div>
+
+        <article class="animate-fade-in">
+            <h1 style="border-left: 8px solid var(--accent); padding-left: 1rem; margin: 2rem 0;">🎮 Interactive Learning: Internal Control Role-Playing</h1>
+
+            <section class="interactive-section">
+                <h2>Internal Control Role-Playing Simulation</h2>
+                <p>Play the role of an accounting supervisor facing various internal control challenges. Make the right decisions to protect the company's assets!</p>
+
+                <div class="game-container">
+                    <!-- Game Status -->
+                    <div class="game-status">
+                        <div class="status-item">
+                            <div class="status-label">Current Scenario</div>
+                            <div class="status-value" id="current-scenario">1/5</div>
+                        </div>
+                        <div class="status-item">
+                            <div class="status-label">Score</div>
+                            <div class="status-value" id="game-score">0</div>
+                        </div>
+                        <div class="status-item">
+                            <div class="status-label">Streak</div>
+                            <div class="status-value" id="streak-count">0</div>
+                        </div>
+                    </div>
+
+                    <div class="progress-container">
+                        <div class="progress-fill" id="game-progress" style="width: 20%;"></div>
+                    </div>
+
+                    <!-- Badge System -->
+                    <div class="badge-container">
+                        <div class="badge" id="badge-1" title="Beginner">🌱</div>
+                        <div class="badge" id="badge-2" title="Detail-Oriented">🔍</div>
+                        <div class="badge" id="badge-3" title="Decision Maker">⚖️</div>
+                        <div class="badge" id="badge-4" title="Master">👑</div>
+                        <div class="badge" id="badge-5" title="Perfectionist">💎</div>
+                    </div>
+
+                    <!-- Scenarios Container -->
+                    <div id="scenarios-container">
+                        <!-- Scenario 1 -->
+                        <div class="scenario-card" id="scenario-1">
+                            <div class="character-avatar">👨‍💼</div>
+                            <div class="scenario-header">
+                                <div class="scenario-number">1</div>
+                                <div class="scenario-title">Cash Handling Scenario</div>
+                            </div>
+                            <div class="scenario-description">
+                                <p><strong>Scenario:</strong> You are a newly hired accountant and find that the company's current cash handling process is as follows:</p>
+                                <ul style="margin-left: 20px; margin-top: 10px;">
+                                    <li>The same person is responsible for collecting money, recording, and bank deposits</li>
+                                    <li>No cash counting procedures</li>
+                                    <li>No supervision mechanisms</li>
+                                </ul>
+                                <p style="margin-top: 10px;"><strong>Question:</strong> Based on internal control principles, how would you improve this process?</p>
+                            </div>
+                            <div class="choice-container">
+                                <div class="choice-card" data-choice="A" onclick="selectChoice(1, 'A')">
+                                    <div class="choice-letter">A</div>
+                                    <div class="choice-text">
+                                        <strong>Maintain status quo, trust employee integrity</strong>
+                                        <p style="font-size: 0.9rem; margin-top: 5px;">Our employees are honest, no need to change workflow.</p>
+                                    </div>
+                                </div>
+                                <div class="choice-card" data-choice="B" onclick="selectChoice(1, 'B')">
+                                    <div class="choice-letter">B</div>
+                                    <div class="choice-text">
+                                        <strong>Implement Segregation of Duties</strong>
+                                        <p style="font-size: 0.9rem; margin-top: 5px;">Different people are responsible for different duties, supervising each other.</p>
+                                    </div>
+                                </div>
+                                <div class="choice-card" data-choice="C" onclick="selectChoice(1, 'C')">
+                                    <div class="choice-letter">C</div>
+                                    <div class="choice-text">
+                                        <strong>Only add cash counting</strong>
+                                        <p style="font-size: 0.9rem; margin-top: 5px;">Periodically count cash, but keep one person responsible for all processes.</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="feedback-section" id="feedback-1"></div>
+                        </div>
+
+                        <!-- Scenario 2 -->
+                        <div class="scenario-card" id="scenario-2" style="display: none;">
+                            <div class="character-avatar">📋</div>
+                            <div class="scenario-header">
+                                <div class="scenario-number">2</div>
+                                <div class="scenario-title">Purchase Authorization Scenario</div>
+                            </div>
+                            <div class="scenario-description">
+                                <p><strong>Scenario:</strong> Purchase Manager Zhang San wants to purchase office equipment worth $50,000. He says this is an emergency and needs immediate purchase, no time for regular approval process.</p>
+                                <p style="margin-top: 10px;"><strong>Question:</strong> How should you handle this request?</p>
+                            </div>
+                            <div class="choice-container">
+                                <div class="choice-card" data-choice="A" onclick="selectChoice(2, 'A')">
+                                    <div class="choice-letter">A</div>
+                                    <div class="choice-text">
+                                        <strong>Approve Immediately</strong>
+                                        <p style="font-size: 0.9rem; margin-top: 5px;">Since it is an emergency, handle it specially and approve it quickly.</p>
+                                    </div>
+                                </div>
+                                <div class="choice-card" data-choice="B" onclick="selectChoice(2, 'B')">
+                                    <div class="choice-letter">B</div>
+                                    <div class="choice-text">
+                                        <strong>Request Written Application and Follow Approval Process</strong>
+                                        <p style="font-size: 0.9rem; margin-top: 5px;">Even in emergencies, follow written procedures and authorization processes.</p>
+                                    </div>
+                                </div>
+                                <div class="choice-card" data-choice="C" onclick="selectChoice(2, 'C')">
+                                    <div class="choice-letter">C</div>
+                                    <div class="choice-text">
+                                        <strong>Reject Request, Wait for Next Budget Cycle</strong>
+                                        <p style="font-size: 0.9rem; margin-top: 5px;">Absolutely do not approve without a budget.</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="feedback-section" id="feedback-2"></div>
+                        </div>
+
+                        <!-- Scenario 3 -->
+                        <div class="scenario-card" id="scenario-3" style="display: none;">
+                            <div class="character-avatar">🔐</div>
+                            <div class="scenario-header">
+                                <div class="scenario-number">3</div>
+                                <div class="scenario-title">System Access Rights Scenario</div>
+                            </div>
+                            <div class="scenario-description">
+                                <p><strong>Scenario:</strong> An IT administrator finds that multiple employees in the company share the same administrator account in the financial system to facilitate their work.</p>
+                                <p style="margin-top: 10px;"><strong>Question:</strong> What risks does this pose? How should it be resolved?</p>
+                            </div>
+                            <div class="choice-container">
+                                <div class="choice-card" data-choice="A" onclick="selectChoice(3, 'A')">
+                                    <div class="choice-letter">A</div>
+                                    <div class="choice-text">
+                                        <strong>No problem, improves efficiency</strong>
+                                        <p style="font-size: 0.9rem; margin-top: 5px;">Shared accounts can improve work efficiency, no need to change.</p>
+                                    </div>
+                                </div>
+                                <div class="choice-card" data-choice="B" onclick="selectChoice(3, 'B')">
+                                    <div class="choice-letter">B</div>
+                                    <div class="choice-text">
+                                        <strong>Establish Independent User Accounts and Permissions</strong>
+                                        <p style="font-size: 0.9rem; margin-top: 5px;">Each employee should have an independent account and appropriate access permissions.</p>
+                                    </div>
+                                </div>
+                                <div class="choice-card" data-choice="C" onclick="selectChoice(3, 'C')">
+                                    <div class="choice-letter">C</div>
+                                    <div class="choice-text">
+                                        <strong>Only allow senior management to use this account</strong>
+                                        <p style="font-size: 0.9rem; margin-top: 5px;">Limit usage scope, but still share the account.</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="feedback-section" id="feedback-3"></div>
+                        </div>
+
+                        <!-- Scenario 4 -->
+                        <div class="scenario-card" id="scenario-4" style="display: none;">
+                            <div class="character-avatar">📊</div>
+                            <div class="scenario-header">
+                                <div class="scenario-number">4</div>
+                                <div class="scenario-title">Inventory Counting Scenario</div>
+                            </div>
+                            <div class="scenario-description">
+                                <p><strong>Scenario:</strong> In the annual inventory count, the warehouse manager is responsible for counting the inventory in his own area, a practice that has continued for many years without any problems found.</p>
+                                <p style="margin-top: 10px;"><strong>Question:</strong> What internal control deficiency does this arrangement have?</p>
+                            </div>
+                            <div class="choice-container">
+                                <div class="choice-card" data-choice="A" onclick="selectChoice(4, 'A')">
+                                    <div class="choice-letter">A</div>
+                                    <div class="choice-text">
+                                        <strong>No deficiencies, very efficient</strong>
+                                        <p style="font-size: 0.9rem; margin-top: 5px;">The manager is most familiar with his own area, this is the fastest and most accurate method.</p>
+                                    </div>
+                                </div>
+                                <div class="choice-card" data-choice="B" onclick="selectChoice(4, 'B')">
+                                    <div class="choice-letter">B</div>
+                                    <div class="choice-text">
+                                        <strong>Should be counted independently by different people</strong>
+                                        <p style="font-size: 0.9rem; margin-top: 5px;">Lack of independent verification may conceal theft or recording errors.</p>
+                                    </div>
+                                </div>
+                                <div class="choice-card" data-choice="C" onclick="selectChoice(4, 'C')">
+                                    <div class="choice-letter">C</div>
+                                    <div class="choice-text">
+                                        <strong>Only add supervisor presence</strong>
+                                        <p style="font-size: 0.9rem; margin-top: 5px;">Having a supervisor present is sufficient, no need to change counting personnel.</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="feedback-section" id="feedback-4"></div>
+                        </div>
+
+                        <!-- Scenario 5 -->
+                        <div class="scenario-card" id="scenario-5" style="display: none;">
+                            <div class="character-avatar">💳</div>
+                            <div class="scenario-header">
+                                <div class="scenario-number">5</div>
+                                <div class="scenario-title">Credit Card Management Scenario</div>
+                            </div>
+                            <div class="scenario-description">
+                                <p><strong>Scenario:</strong> The company has 5 corporate credit cards, distributed to 5 department managers. Each month, managers reimburse themselves without detailed transaction review.</p>
+                                <p style="margin-top: 10px;"><strong>Question:</strong> How should the internal controls in this area be strengthened?</p>
+                            </div>
+                            <div class="choice-container">
+                                <div class="choice-card" data-choice="A" onclick="selectChoice(5, 'A')">
+                                    <div class="choice-letter">A</div>
+                                    <div class="choice-text">
+                                        <strong>Cancel Corporate Credit Cards</strong>
+                                        <p style="font-size: 0.9rem; margin-top: 5px;">Completely cancel them; all expenses must be paid with personal cards and reimbursed.</p>
+                                    </div>
+                                </div>
+                                <div class="choice-card" data-choice="B" onclick="selectChoice(5, 'B')">
+                                    <div class="choice-letter">B</div>
+                                    <div class="choice-text">
+                                        <strong>Establish Credit Card Usage Policy and Transaction Review Mechanism</strong>
+                                        <p style="font-size: 0.9rem; margin-top: 5px;">Establish clear policies, review all transactions monthly to ensure compliance.</p>
+                                    </div>
+                                </div>
+                                <div class="choice-card" data-choice="C" onclick="selectChoice(5, 'C')">
+                                    <div class="choice-letter">C</div>
+                                    <div class="choice-text">
+                                        <strong>Only require receipts</strong>
+                                        <p style="font-size: 0.9rem; margin-top: 5px;">As long as there are receipts, no need to review transaction details in depth.</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="feedback-section" id="feedback-5"></div>
+                        </div>
+                    </div>
+
+                    <!-- Next Button -->
+                    <button class="next-button" id="next-btn" onclick="nextScenario()">Next Scenario →</button>
+
+                    <!-- Results Screen -->
+                    <div class="results-screen" id="results-screen">
+                        <h2>🎉 Game Complete!</h2>
+                        <div class="results-score" id="final-score">0/5</div>
+                        <div class="results-message" id="final-message"></div>
+                        <button class="btn btn-primary" onclick="resetGame()" style="margin-top: 20px;">Restart</button>
+                    </div>
+                </div>
+            </section>
+
+            <nav class="kp-navigation" style="display: flex; justify-content: space-between; margin-top: 4rem; padding-bottom: 2rem;">
+                <a href="ch08_A1.html" class="btn" style="background: #eee;">← Previous: Days' Sales Uncollected</a>
+                <a href="ch08.html" class="btn" style="background: var(--info); color: white;">Chapter 8 Hub</a>
+                <a href="ch08_PRACTICE.html" class="btn btn-primary">Next: Chapter 8 Practice →</a>
+            </nav>
+        </article>
+    </main>
+
+    <script src="../../components.js"></script>
+    <script>
+        // ==================== Role Playing Game ====================
+        let currentScenario = 1;
+        let score = 0;
+        let streak = 0;
+        let selectedChoice = null;
+        const totalScenarios = 5;
+
+        const correctAnswers = {
+            1: 'B',  // Segregation of Duties
+            2: 'B',  // Follow written procedures
+            3: 'B',  // Independent accounts and permissions
+            4: 'B',  // Independent counting
+            5: 'B'   // Policy and review mechanism
+        };
+
+        const explanations = {
+            1: {
+                correct: '<strong>✓ Correct!</strong> Segregation of duties is a cornerstone of internal control. When different people handle different duties (receiving money, recording, supervising), they can supervise each other, reducing the risk of fraud.',
+                incorrect: '✗ Not quite. While trust is important, internal controls should not rely on integrity alone. The risk of fraud should be reduced through the segregation of duties.'
+            },
+            2: {
+                correct: '<strong>✓ Correct!</strong> Even in emergencies, written procedures should be followed. This ensures proper authorization and documentation, preventing abuse.',
+                incorrect: '✗ Not quite. An emergency should not be an excuse to bypass internal control processes. An emergency procurement procedure should be established, but it still requires proper authorization and documentation.'
+            },
+            3: {
+                correct: '<strong>✓ Correct!</strong> Shared accounts violate the principles of segregation of duties and accountability. Each user should have an independent account and appropriate access permissions so that every action can be traced to a specific individual.',
+                incorrect: '✗ Not quite. Shared accounts create unclear responsibilities and traceability risks, violating basic principles of internal control.'
+            },
+            4: {
+                correct: '<strong>✓ Correct!</strong> Independent verification is another important principle of internal control. Having a different person conduct the count can uncover errors or fraud that might otherwise be concealed.',
+                incorrect: '✗ Not quite. Lack of independent verification is a major internal control deficiency. The warehouse manager might intentionally or unintentionally conceal errors or theft.'
+            },
+            5: {
+                correct: '<strong>✓ Correct!</strong> Clear policies and a transaction review mechanism can effectively control the use of credit cards. This ensures all expenses have proper authorization and a stated purpose.',
+                incorrect: '✗ Not quite. Relying solely on receipts is insufficient. More comprehensive controls are needed, including usage policies, regular reviews, and transaction monitoring.'
+            }
+        };
+
+        function selectChoice(scenarioNum, choice) {
+            // Remove previous selections
+            document.querySelectorAll(`#scenario-${scenarioNum} .choice-card`).forEach(card => {
+                card.classList.remove('selected');
+            });
+
+            // Select current choice
+            event.currentTarget.classList.add('selected');
+            selectedChoice = choice;
+
+            // Show feedback
+            showFeedback(scenarioNum, choice);
+        }
+
+        function showFeedback(scenarioNum, choice) {
+            const feedback = document.getElementById(`feedback-${scenarioNum}`);
+            const isCorrect = choice === correctAnswers[scenarioNum];
+
+            feedback.innerHTML = explanations[scenarioNum][isCorrect ? 'correct' : 'incorrect'];
+            feedback.className = 'feedback-section show ' + (isCorrect ? 'correct' : 'incorrect');
+
+            // Update score
+            if (isCorrect) {
+                score++;
+                streak++;
+                checkBadgeEarned(scenarioNum);
+            } else {
+                streak = 0;
+            }
+
+            updateGameStatus();
+
+            // Show next button
+            document.getElementById('next-btn').classList.add('show');
+        }
+
+        function checkBadgeEarned(scenarioNum) {
+            const badge = document.getElementById(`badge-${scenarioNum}`);
+            if (!badge.classList.contains('earned')) {
+                badge.classList.add('earned');
+                setTimeout(() => {
+                    badge.style.animation = 'none';
+                }, 1000);
+            }
+        }
+
+        function updateGameStatus() {
+            document.getElementById('current-scenario').textContent = `${currentScenario}/${totalScenarios}`;
+            document.getElementById('game-score').textContent = score;
+            document.getElementById('streak-count').textContent = streak;
+
+            // Update progress bar
+            const progress = (currentScenario / totalScenarios) * 100;
+            document.getElementById('game-progress').style.width = `${progress}%`;
+        }
+
+        function nextScenario() {
+            // Hide current scenario
+            document.getElementById(`scenario-${currentScenario}`).style.display = 'none';
+
+            // Move to next scenario
+            currentScenario++;
+
+            if (currentScenario > totalScenarios) {
+                // Show results
+                showResults();
+            } else {
+                // Show next scenario
+                document.getElementById(`scenario-${currentScenario}`).style.display = 'block';
+
+                // Hide next button
+                document.getElementById('next-btn').classList.remove('show');
+
+                // Reset selected choice
+                selectedChoice = null;
+
+                // Update status
+                updateGameStatus();
+            }
+        }
+
+        function showResults() {
+            // Hide all scenarios
+            document.querySelectorAll('.scenario-card').forEach(card => {
+                card.style.display = 'none';
+            });
+
+            // Hide next button and progress
+            document.getElementById('next-btn').style.display = 'none';
+            document.getElementById('game-progress').style.display = 'none';
+
+            // Show results
+            const resultsScreen = document.getElementById('results-screen');
+            resultsScreen.classList.add('show');
+
+            document.getElementById('final-score').textContent = `${score}/${totalScenarios}`;
+
+            let message = '';
+            if (score === totalScenarios) {
+                message = 'Perfect! You are an Internal Control Master! 💎';
+            } else if (score >= 4) {
+                message = 'Excellent! You have a deep understanding of internal controls.👑';
+            } else if (score >= 3) {
+                message = 'Good! Keep learning, you will become an internal control expert.⚖️';
+            } else if (score >= 2) {
+                message = 'Passed, but still need more practice.🔍';
+            } else {
+                message = 'Need to strengthen learning of internal control knowledge.🌱';
+            }
+
+            document.getElementById('final-message').textContent = message;
+        }
+
+        function resetGame() {
+            currentScenario = 1;
+            score = 0;
+            streak = 0;
+            selectedChoice = null;
+
+            // Reset badges
+            document.querySelectorAll('.badge').forEach(badge => {
+                badge.classList.remove('earned');
+            });
+
+            // Reset scenarios
+            document.querySelectorAll('.scenario-card').forEach(card => {
+                card.style.display = 'none';
+            });
+            document.getElementById('scenario-1').style.display = 'block';
+
+            // Reset feedbacks
+            document.querySelectorAll('.feedback-section').forEach(feedback => {
+                feedback.classList.remove('show');
+            });
+
+            // Reset choices
+            document.querySelectorAll('.choice-card').forEach(card => {
+                card.classList.remove('selected');
+            });
+
+            // Reset results
+            document.getElementById('results-screen').classList.remove('show');
+
+            // Show next button and progress
+            document.getElementById('next-btn').style.display = 'none';
+            document.getElementById('next-btn').classList.remove('show');
+            document.getElementById('game-progress').style.display = 'block';
+
+            // Update status
+            updateGameStatus();
+        }
+
+        // Initialize on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            updateGameStatus();
+        });
+    </script>
+</body>
+
+</html>

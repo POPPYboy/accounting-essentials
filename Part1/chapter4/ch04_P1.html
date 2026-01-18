@@ -1,0 +1,2118 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>P1: Work Sheet Preparation | ACCOUNTING ESSENTIALS</title>
+    <link rel="stylesheet" href="../../styles.css">
+    <style>
+        /* Additional styles for comprehensive knowledge point */
+        .worksheet-diagram {
+            position: relative;
+            width: 100%;
+            max-width: 900px;
+            margin: 2rem auto;
+            padding: 2rem;
+            background: var(--white);
+            border: 2px solid var(--primary);
+            border-radius: var(--radius-md);
+            overflow-x: auto;
+        }
+        
+        .worksheet-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 0.75rem 1rem;
+            border-bottom: 1px solid var(--border-color);
+            min-width: 800px;
+        }
+        
+        .worksheet-row:last-child {
+            border-bottom: none;
+        }
+        
+        .worksheet-row.header {
+            background: var(--primary);
+            color: var(--white);
+            font-weight: 700;
+            border-radius: var(--radius-sm) var(--radius-sm) 0 0;
+        }
+        
+        .worksheet-row.total {
+            background: var(--bg-light);
+            font-weight: 700;
+        }
+        
+        .worksheet-column {
+            flex: 1;
+            text-align: center;
+        }
+        
+        .worksheet-column:first-child {
+            flex: 2;
+            text-align: left;
+        }
+        
+        .worksheet-column.account-name {
+            text-align: left;
+            padding-left: 1rem;
+        }
+        
+        .worksheet-column.debit, .worksheet-column.credit {
+            width: 120px;
+        }
+        
+        .worksheet-section-label {
+            background: var(--secondary-light);
+            color: var(--white);
+            padding: 0.5rem 1rem;
+            font-weight: 700;
+            font-size: 0.85rem;
+            text-transform: uppercase;
+        }
+        
+        .worksheet-section-label.assets {
+            background: var(--primary);
+        }
+        
+        .worksheet-section-label.liabilities {
+            background: var(--error);
+        }
+        
+        .worksheet-section-label.equity {
+            background: var(--success);
+        }
+        
+        .worksheet-section-label.expenses {
+            background: var(--warning);
+            color: var(--text-main);
+        }
+        
+        .worksheet-section-label.revenue {
+            background: var(--info);
+        }
+        
+        .adjustment-highlight {
+            background: var(--success-light);
+            animation: pulse 1.5s infinite;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.7; }
+        }
+        
+        .worksheet-step {
+            padding: 1.5rem;
+            background: var(--bg-light);
+            border-radius: var(--radius-md);
+            margin-bottom: 1.5rem;
+            border-left: 4px solid var(--primary);
+        }
+        
+        .step-number {
+            display: inline-block;
+            width: 30px;
+            height: 30px;
+            background: var(--primary);
+            color: var(--white);
+            border-radius: 50%;
+            text-align: center;
+            line-height: 30px;
+            font-weight: 700;
+            margin-right: 0.75rem;
+        }
+        
+        .worksheet-simulator {
+            background: var(--bg-dark);
+            color: var(--white);
+            padding: 2rem;
+            border-radius: var(--radius-md);
+            margin: 2rem 0;
+        }
+        
+        .simulator-row {
+            display: flex;
+            align-items: center;
+            padding: 0.75rem 0;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+        
+        .simulator-row:last-child {
+            border-bottom: none;
+        }
+        
+        .simulator-label {
+            flex: 2;
+            font-size: 0.9rem;
+        }
+        
+        .simulator-input {
+            flex: 1;
+        }
+        
+        .simulator-input input {
+            width: 100%;
+            padding: 0.5rem;
+            border: none;
+            border-radius: var(--radius-sm);
+            text-align: right;
+        }
+        
+        .simulator-result {
+            flex: 1;
+            text-align: right;
+            font-weight: 700;
+            font-size: 1.1rem;
+        }
+        
+        .t-account {
+            display: inline-block;
+            vertical-align: top;
+            margin: 0.5rem;
+        }
+        
+        .t-account-header {
+            background: var(--primary);
+            color: var(--white);
+            padding: 0.5rem 1rem;
+            border-radius: var(--radius-sm) var(--radius-sm) 0 0;
+            font-weight: 700;
+            font-size: 0.85rem;
+            text-align: center;
+        }
+        
+        .t-account-body {
+            display: flex;
+            border: 2px solid var(--primary);
+            border-top: none;
+            border-radius: 0 0 var(--radius-sm) var(--radius-sm);
+        }
+        
+        .t-account-side {
+            width: 60px;
+            padding: 0.25rem;
+            text-align: center;
+            font-size: 0.75rem;
+        }
+        
+        .t-account-side.debit {
+            border-right: 2px solid var(--primary);
+            background: var(--primary-light);
+        }
+        
+        .t-account-side.credit {
+            background: var(--secondary-light);
+        }
+        
+        .t-account-entry {
+            padding: 0.25rem 0.5rem;
+            font-size: 0.75rem;
+            border-bottom: 1px solid var(--border-color);
+        }
+        
+        .t-account-entry:last-child {
+            border-bottom: none;
+        }
+        
+        .t-account-balance {
+            font-weight: 700;
+            font-size: 0.85rem;
+            padding: 0.5rem;
+            text-align: center;
+            background: var(--bg-light);
+            border-radius: 0 0 var(--radius-sm) var(--radius-sm);
+        }
+        
+        .flow-diagram {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin: 2rem 0;
+        }
+        
+        .flow-step {
+            padding: 1.5rem 2rem;
+            background: var(--white);
+            border: 3px solid var(--primary);
+            border-radius: var(--radius-md);
+            text-align: center;
+            min-width: 150px;
+            transition: var(--transition);
+        }
+        
+        .flow-step:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-lg);
+        }
+        
+        .flow-step-number {
+            display: inline-block;
+            width: 28px;
+            height: 28px;
+            background: var(--primary);
+            color: var(--white);
+            border-radius: 50%;
+            line-height: 28px;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+        
+        .flow-arrow {
+            font-size: 1.5rem;
+            color: var(--primary);
+        }
+        
+        .decision-tree {
+            background: var(--bg-light);
+            padding: 2rem;
+            border-radius: var(--radius-md);
+            margin: 2rem 0;
+        }
+        
+        .decision-node {
+            padding: 1rem 1.5rem;
+            background: var(--white);
+            border: 2px solid var(--primary);
+            border-radius: var(--radius-sm);
+            margin-bottom: 1rem;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+        
+        .decision-node:hover {
+            border-color: var(--secondary);
+            box-shadow: var(--shadow);
+        }
+        
+        .decision-question {
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+        }
+        
+        .decision-answer {
+            display: none;
+            padding: 1rem;
+            background: var(--success-light);
+            border-radius: var(--radius-sm);
+            margin-top: 0.5rem;
+            color: var(--white);
+        }
+        
+        .decision-node.expanded .decision-answer {
+            display: block;
+        }
+    </style>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-50MTQPVR7D"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-50MTQPVR7D');
+</script>
+
+</head>
+
+<body>
+    <header>
+        <div class="container nav-container">
+            <a href="../../index.html" class="logo">ACCOUNTING<span>ESSENTIALS</span></a>
+            <nav class="nav-links">
+                <a href="../../index.html">Home</a>
+                <a href="../../Part1/part1.html">Part 1</a>
+                <a href="../../part2/part2.html">Part 2</a>
+                <a href="../../part3/part3.html">Part 3</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container">
+        <div class="breadcrumbs">
+            <a href="../../index.html">Home</a> <span>/</span> <a href="../../Part1/part1.html">Part 1</a>
+            <span>/</span> <a href="ch04.html">Chapter 4</a> <span>/</span> P1
+        </div>
+
+        <article class="animate-fade-in">
+            <div class="kp-header">
+                <h1 style="border-left: 8px solid var(--primary-light); padding-left: 1rem; margin: 2rem 0;">Work Sheet Preparation</h1>
+            </div>
+
+            <!-- Learning Objectives -->
+            <section class="kp-section">
+                <h2>🎯 Learning Objectives</h2>
+                <div class="learning-objectives">
+                    <ul>
+                        <li>Understand the purpose and structure of a work sheet as an internal planning tool</li>
+                        <li>Identify the five major sections of a work sheet: Trial Balance, Adjustments, Adjusted Trial Balance, Income Statement, and Balance Sheet</li>
+                        <li>Record common adjusting entries in the work sheet (supplies, prepaid insurance, accrued wages, unearned revenue)</li>
+                        <li>Extend balances from Adjusted Trial Balance to appropriate statement columns</li>
+                        <li>Calculate net income/loss and understand its effect on retained earnings</li>
+                        <li>Recognize the limitations of a work sheet (internal tool, not a formal financial statement)</li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- Background & Principles -->
+            <section class="kp-section">
+                <h2>📚 Background & Principles</h2>
+                <p>The work sheet is an internal document that accountants use to organize information and verify the accuracy of adjustments before preparing formal financial statements. Think of it as the <strong>architect's blueprint</strong> before construction begins.</p>
+
+                <div class="concept-card" style="margin: 1.5rem 0;">
+                    <strong>Core Principle:</strong> The work sheet helps accountants organize adjustments, verify debits equal credits after adjustments, and prepare financial statements efficiently without extensive recalculation.
+                </div>
+
+                <div class="professional-tip">
+                    <strong>💡 Key Insight:</strong> The work sheet is like a pilot checking instruments before takeoff. It catches errors early—before they become permanent records in the formal financial statements.
+                </div>
+
+                <h3 style="margin-top: 2rem;">Why Use a Work Sheet?</h3>
+                <div class="card-grid" style="margin-top: 1rem;">
+                    <div class="content-card" style="border-left: 5px solid var(--primary);">
+                        <h4>Error Detection</h4>
+                        <p>Verifies that total debits still equal total credits after adjustments before journalizing.</p>
+                    </div>
+                    <div class="content-card" style="border-left: 5px solid var(--success);">
+                        <h4>Organization</h4>
+                        <p>Arranges all accounts and adjustments in one systematic document for easy reference.</p>
+                    </div>
+                    <div class="content-card" style="border-left: 5px solid var(--warning);">
+                        <h4>Planning</h4>
+                        <p>Allows preview of financial statement effects before committing to permanent records.</p>
+                    </div>
+                    <div class="content-card" style="border-left: 5px solid var(--info);">
+                        <h4>Efficiency</h4>
+                        <p>Speeds up the closing process by having all information organized and verified.</p>
+                    </div>
+                </div>
+
+                <div class="worksheet-flow-diagram" style="margin-top: 2rem;">
+                    <div class="flow-title">📋 Work Sheet Process Flow</div>
+                    <div class="flow-container">
+                        <div class="flow-step-card">
+                            <div class="step-number">1</div>
+                            <div class="step-icon">📊</div>
+                            <div class="step-title">Unadjusted<br>Trial Balance</div>
+                            <div class="step-desc">Start with account balances from the general ledger. Verify debits = credits.</div>
+                        </div>
+                        <div class="flow-connector">
+                            <svg width="40" height="20" viewBox="0 0 40 20">
+                                <defs>
+                                    <linearGradient id="flowGrad1" x1="0%" y1="0%" x2="100%" y2="0%">
+                                        <stop offset="0%" style="stop-color:#1a237e"/>
+                                        <stop offset="100%" style="stop-color:#27ae60"/>
+                                    </linearGradient>
+                                </defs>
+                                <path d="M0,10 L30,10" stroke="url(#flowGrad1)" stroke-width="3" fill="none"/>
+                                <polygon points="30,5 40,10 30,15" fill="#27ae60"/>
+                            </svg>
+                        </div>
+                        <div class="flow-step-card">
+                            <div class="step-number">2</div>
+                            <div class="step-icon">✏️</div>
+                            <div class="step-title">Adjustments<br>Column</div>
+                            <div class="step-desc">Record adjusting entries to update account balances for period end.</div>
+                        </div>
+                        <div class="flow-connector">
+                            <svg width="40" height="20" viewBox="0 0 40 20">
+                                <path d="M0,10 L30,10" stroke="url(#flowGrad1)" stroke-width="3" fill="none"/>
+                                <polygon points="30,5 40,10 30,15" fill="#27ae60"/>
+                            </svg>
+                        </div>
+                        <div class="flow-step-card">
+                            <div class="step-number">3</div>
+                            <div class="step-icon">⚖️</div>
+                            <div class="step-title">Adjusted<br>Trial Balance</div>
+                            <div class="step-desc">Calculate adjusted balances (Unadjusted ± Adjustments). Verify debits = credits.</div>
+                        </div>
+                        <div class="flow-connector">
+                            <svg width="40" height="20" viewBox="0 0 40 20">
+                                <path d="M0,10 L30,10" stroke="url(#flowGrad1)" stroke-width="3" fill="none"/>
+                                <polygon points="30,5 40,10 30,15" fill="#27ae60"/>
+                            </svg>
+                        </div>
+                        <div class="flow-step-card">
+                            <div class="step-number">4</div>
+                            <div class="step-icon">📈</div>
+                            <div class="step-title">Statement<br>Columns</div>
+                            <div class="step-desc">Extend balances to Income Statement or Balance Sheet sections.</div>
+                        </div>
+                        <div class="flow-connector">
+                            <svg width="40" height="20" viewBox="0 0 40 20">
+                                <path d="M0,10 L30,10" stroke="url(#flowGrad1)" stroke-width="3" fill="none"/>
+                                <polygon points="30,5 40,10 30,15" fill="#27ae60"/>
+                            </svg>
+                        </div>
+                        <div class="flow-step-card complete">
+                            <div class="step-number">5</div>
+                            <div class="step-icon">✅</div>
+                            <div class="step-title">Verify &<br>Balance</div>
+                            <div class="step-desc">Total columns to verify net income and ensure equation balance (A = L + E).</div>
+                        </div>
+                    </div>
+                </div>
+
+                <style>
+                    .worksheet-flow-diagram {
+                        background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+                        border-radius: 20px;
+                        padding: 2rem;
+                        margin: 2rem 0;
+                        box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+                    }
+
+                    .flow-title {
+                        text-align: center;
+                        font-size: 1.3rem;
+                        font-weight: 700;
+                        color: #1a237e;
+                        margin-bottom: 2rem;
+                    }
+
+                    .flow-container {
+                        display: flex;
+                        align-items: flex-start;
+                        justify-content: center;
+                        gap: 0;
+                        flex-wrap: wrap;
+                    }
+
+                    .flow-step-card {
+                        background: white;
+                        border-radius: 16px;
+                        padding: 1.25rem;
+                        width: 160px;
+                        text-align: center;
+                        box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+                        position: relative;
+                        transition: all 0.3s ease;
+                        border: 3px solid transparent;
+                    }
+
+                    .flow-step-card:hover {
+                        transform: translateY(-5px);
+                        box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+                        border-color: #1a237e;
+                    }
+
+                    .flow-step-card.complete {
+                        background: linear-gradient(135deg, #e8f5e9 0%, #c8e6c9 100%);
+                        border-color: #27ae60;
+                    }
+
+                    .step-number {
+                        position: absolute;
+                        top: -12px;
+                        left: 50%;
+                        transform: translateX(-50%);
+                        width: 28px;
+                        height: 28px;
+                        background: linear-gradient(135deg, #1a237e 0%, #283593 100%);
+                        color: white;
+                        border-radius: 50%;
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        font-weight: 700;
+                        font-size: 0.85rem;
+                        box-shadow: 0 3px 8px rgba(26,35,126,0.3);
+                    }
+
+                    .flow-step-card.complete .step-number {
+                        background: linear-gradient(135deg, #27ae60 0%, #1e8449 100%);
+                    }
+
+                    .step-icon {
+                        font-size: 2rem;
+                        margin: 0.5rem 0;
+                    }
+
+                    .step-title {
+                        font-size: 0.9rem;
+                        font-weight: 700;
+                        color: #1a237e;
+                        line-height: 1.3;
+                        margin-bottom: 0.5rem;
+                    }
+
+                    .flow-step-card.complete .step-title {
+                        color: #1e8449;
+                    }
+
+                    .step-desc {
+                        font-size: 0.75rem;
+                        color: #666;
+                        line-height: 1.4;
+                    }
+
+                    .flow-connector {
+                        display: flex;
+                        align-items: center;
+                        padding-top: 3rem;
+                    }
+
+                    .flow-connector svg {
+                        filter: drop-shadow(0 2px 4px rgba(0,0,0,0.1));
+                    }
+
+                    @media (max-width: 1200px) {
+                        .flow-container {
+                            display: grid;
+                            grid-template-columns: repeat(3, 1fr);
+                            gap: 1.5rem;
+                        }
+
+                        .flow-connector {
+                            display: none;
+                        }
+                    }
+
+                    @media (max-width: 768px) {
+                        .flow-container {
+                            grid-template-columns: repeat(2, 1fr);
+                        }
+                    }
+
+                    @media (max-width: 480px) {
+                        .flow-container {
+                            grid-template-columns: 1fr;
+                        }
+
+                        .flow-step-card {
+                            width: 100%;
+                            max-width: 280px;
+                            margin: 0 auto;
+                        }
+                    }
+                </style>
+            </section>
+
+            <!-- Key Concepts -->
+            <section class="kp-section">
+                <h2>🔑 Key Concepts</h2>
+                <div class="key-concepts-grid">
+                    <div class="concept-card">
+                        <strong>Work Sheet</strong>
+                        <p>A multi-column internal document used to organize accounting information and facilitate the preparation of financial statements. Not a formal financial statement.</p>
+                    </div>
+
+                    <div class="concept-card">
+                        <strong>Adjusting Entries</strong>
+                        <p>Journal entries made at period end to update account balances for items not recorded during the period (accruals, deferrals, estimates).</p>
+                    </div>
+
+                    <div class="concept-card">
+                        <strong>Accrued Revenues</strong>
+                        <p>Revenues earned but not yet recorded or received (e.g., interest earned but not received).</p>
+                    </div>
+
+                    <div class="concept-card">
+                        <strong>Accrued Expenses</strong>
+                        <p>Expenses incurred but not yet recorded or paid (e.g., wages earned by employees but not yet paid).</p>
+                    </div>
+
+                    <div class="concept-card">
+                        <strong>Deferred Revenues</strong>
+                        <p>Cash received in advance for services not yet performed (Unearned Revenue). Liability that becomes revenue as service is performed.</p>
+                    </div>
+
+                    <div class="concept-card">
+                        <strong>Deferred Expenses</strong>
+                        <p>Prepaid items that become expenses as benefits are consumed (Prepaid Insurance, Supplies). Asset that becomes expense over time.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Deep Dive with Depth Toggle -->
+            <section class="kp-section">
+                <h2>🔍 Deep Dive</h2>
+                <p>Explore work sheet preparation at different levels of depth:</p>
+
+                <div class="depth-toggle">
+                    <button class="depth-btn active" onclick="setDepth('A')">Depth A: Foundational</button>
+                    <button class="depth-btn" onclick="setDepth('B')">Depth B: Standard</button>
+                    <button class="depth-btn" onclick="setDepth('C')">Depth C: Advanced</button>
+                </div>
+
+                <!-- Depth A: Foundational -->
+                <div id="depth-A" class="depth-content active">
+                    <h3>🟢 Foundational Level</h3>
+                    <p>Understanding the basic structure and purpose of a work sheet.</p>
+
+                    <div class="worked-example">
+                        <h4>The Simple Work Sheet</h4>
+                        <p><strong>Analogy: The Family Budget Spreadsheet</strong></p>
+                        <p>Imagine creating a spreadsheet to plan your monthly budget. You list all your income sources, subtract expenses, and see if you have money left over. A work sheet does the same for a business—just more systematically.</p>
+
+                        <div class="example-step">
+                            <strong>Step 1: List Your Starting Points (Trial Balance)</strong>
+                            <p>Write down all account balances at the beginning of the period. This is your "starting line."</p>
+                        </div>
+
+                        <div class="example-step">
+                            <strong>Step 2: Account for Changes (Adjustments)</strong>
+                            <p>Did you use up any prepaid items? Did you earn any unpaid income? Record these changes.</p>
+                        </div>
+
+                        <div class="example-step">
+                            <strong>Step 3: Calculate Your New Balances</strong>
+                            <p>Add or subtract adjustments from starting balances to get current positions.</p>
+                        </div>
+
+                        <div class="example-step">
+                            <strong>Step 4: Separate Income from Assets</strong>
+                            <p>Put revenue and expense balances in one pile (Income Statement). Put asset, liability, and equity balances in another pile (Balance Sheet).</p>
+                        </div>
+
+                        <div class="example-step">
+                            <strong>Step 5: See Your Final Position</strong>
+                            <p>Income minus expenses = Net Income (or Loss). This flows to equity on the balance sheet.</p>
+                        </div>
+                    </div>
+
+                    <div class="concept-card" style="margin-top: 1.5rem;">
+                        <strong>💡 Memory Hook:</strong> Think of the work sheet as a "translation tool" that converts account balances into the two main financial statements: Income Statement and Balance Sheet.
+                    </div>
+
+                    <div class="flow-diagram">
+                        <div class="flow-step">
+                            <div class="flow-step-number">1</div>
+                            <div>Trial Balance</div>
+                        </div>
+                        <div class="flow-arrow">→</div>
+                        <div class="flow-step">
+                            <div class="flow-step-number">2</div>
+                            <div>Adjustments</div>
+                        </div>
+                        <div class="flow-arrow">→</div>
+                        <div class="flow-step">
+                            <div class="flow-step-number">3</div>
+                            <div>Adjusted TB</div>
+                        </div>
+                        <div class="flow-arrow">→</div>
+                        <div class="flow-step">
+                            <div class="flow-step-number">4</div>
+                            <div>Statements</div>
+                        </div>
+                    </div>
+
+                    <div class="professional-tip" style="margin-top: 1.5rem;">
+                        <strong>💡 Professional Tip:</strong> The work sheet always balances by design. If it doesn't, you've made an arithmetic error somewhere. Check your column totals carefully!
+                    </div>
+                </div>
+
+                <!-- Depth B: Standard -->
+                <div id="depth-B" class="depth-content">
+                    <h3>🟡 Standard Level</h3>
+                    <p>Understanding common adjustments and how to record them in the work sheet.</p>
+
+                    <div class="worked-example">
+                        <h4>Common Adjusting Entries</h4>
+                        <p>Here are the four most common types of adjustments you'll encounter:</p>
+
+                        <div class="key-concepts-grid" style="margin-top: 1rem;">
+                            <div class="concept-card" style="border-left: 5px solid var(--error);">
+                                <strong>1. Supplies Used</strong>
+                                <p><strong>Scenario:</strong> Started with $1,200 supplies, ended with $700 on hand.</p>
+                                <p><strong>Adjustment:</strong> Dr Supplies Expense $500, Cr Supplies $500</p>
+                                <p><em>We're "using up" the asset to create an expense.</em></p>
+                            </div>
+
+                            <div class="concept-card" style="border-left: 5px solid var(--info);">
+                                <strong>2. Prepaid Insurance Expired</strong>
+                                <p><strong>Scenario:</strong> Paid $2,400 for 1-year insurance, 8 months have passed.</p>
+                                <p><strong>Adjustment:</strong> Dr Insurance Expense $1,600, Cr Prepaid Insurance $1,600</p>
+                                <p><em>2,400 ÷ 12 × 8 = $1,600 expired.</em></p>
+                            </div>
+
+                            <div class="concept-card" style="border-left: 5px solid var(--warning);">
+                                <strong>3. Accrued Wages</strong>
+                                <p><strong>Scenario:</strong> Employees earned $500 wages but haven't been paid yet.</p>
+                                <p><strong>Adjustment:</strong> Dr Wages Expense $500, Cr Wages Payable $500</p>
+                                <p><em>We owe money, so it's a liability until paid.</em></p>
+                            </div>
+
+                            <div class="concept-card" style="border-left: 5px solid var(--success);">
+                                <strong>4. Unearned Revenue Earned</strong>
+                                <p><strong>Scenario:</strong> Received $1,200 for services, 75% of work is now complete.</p>
+                                <p><strong>Adjustment:</strong> Dr Unearned Revenue $900, Cr Service Revenue $900</p>
+                                <p><em>Converting liability to revenue as service is performed.</em></p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="worked-example" style="margin-top: 2rem;">
+                        <h4>Step-by-Step Work Sheet Construction</h4>
+                        <p>Let's build a complete work sheet for FastForward Company at December 31, 2025.</p>
+
+                        <div class="example-step">
+                            <strong>Step 1: Enter Unadjusted Trial Balance</strong>
+                            <p>List all account names and balances from the general ledger:</p>
+                            <div class="worksheet-diagram">
+                                <div class="worksheet-row header">
+                                    <div class="worksheet-column account-name">Account Title</div>
+                                    <div class="worksheet-column debit">Debit</div>
+                                    <div class="worksheet-column credit">Credit</div>
+                                </div>
+                                <div class="worksheet-row">
+                                    <div class="worksheet-column account-name">Cash</div>
+                                    <div class="worksheet-column debit">$5,800</div>
+                                    <div class="worksheet-column credit"></div>
+                                </div>
+                                <div class="worksheet-row">
+                                    <div class="worksheet-column account-name">Accounts Receivable</div>
+                                    <div class="worksheet-column debit">2,100</div>
+                                    <div class="worksheet-column credit"></div>
+                                </div>
+                                <div class="worksheet-row">
+                                    <div class="worksheet-column account-name">Supplies</div>
+                                    <div class="worksheet-column debit">8,550</div>
+                                    <div class="worksheet-column credit"></div>
+                                </div>
+                                <div class="worksheet-row">
+                                    <div class="worksheet-column account-name">Prepaid Insurance</div>
+                                    <div class="worksheet-column debit">2,300</div>
+                                    <div class="worksheet-column credit"></div>
+                                </div>
+                                <div class="worksheet-row">
+                                    <div class="worksheet-column account-name">Equipment</div>
+                                    <div class="worksheet-column debit">26,000</div>
+                                    <div class="worksheet-column credit"></div>
+                                </div>
+                                <div class="worksheet-row">
+                                    <div class="worksheet-column account-name">Accumulated Depreciation</div>
+                                    <div class="worksheet-column debit"></div>
+                                    <div class="worksheet-column credit">$300</div>
+                                </div>
+                                <div class="worksheet-row">
+                                    <div class="worksheet-column account-name">Accounts Payable</div>
+                                    <div class="worksheet-column debit"></div>
+                                    <div class="worksheet-column credit">6,200</div>
+                                </div>
+                                <div class="worksheet-row">
+                                    <div class="worksheet-column account-name">Salaries Payable</div>
+                                    <div class="worksheet-column debit"></div>
+                                    <div class="worksheet-column credit">210</div>
+                                </div>
+                                <div class="worksheet-row">
+                                    <div class="worksheet-column account-name">Unearned Consulting Revenue</div>
+                                    <div class="worksheet-column debit"></div>
+                                    <div class="worksheet-column credit">2,750</div>
+                                </div>
+                                <div class="worksheet-row">
+                                    <div class="worksheet-column account-name">Common Stock</div>
+                                    <div class="worksheet-column debit"></div>
+                                    <div class="worksheet-column credit">30,000</div>
+                                </div>
+                                <div class="worksheet-row">
+                                    <div class="worksheet-column account-name">Dividends</div>
+                                    <div class="worksheet-column debit">200</div>
+                                    <div class="worksheet-column credit"></div>
+                                </div>
+                                <div class="worksheet-row">
+                                    <div class="worksheet-column account-name">Consulting Revenue</div>
+                                    <div class="worksheet-column debit"></div>
+                                    <div class="worksheet-column credit">7,190</div>
+                                </div>
+                                <div class="worksheet-row">
+                                    <div class="worksheet-column account-name">Rent Expense</div>
+                                    <div class="worksheet-column debit">1,000</div>
+                                    <div class="worksheet-column credit"></div>
+                                </div>
+                                <div class="worksheet-row">
+                                    <div class="worksheet-column account-name">Salaries Expense</div>
+                                    <div class="worksheet-column debit">910</div>
+                                    <div class="worksheet-column credit"></div>
+                                </div>
+                                <div class="worksheet-row">
+                                    <div class="worksheet-column account-name">Supplies Expense</div>
+                                    <div class="worksheet-column debit">1,050</div>
+                                    <div class="worksheet-column credit"></div>
+                                </div>
+                                <div class="worksheet-row">
+                                    <div class="worksheet-column account-name">Insurance Expense</div>
+                                    <div class="worksheet-column debit">100</div>
+                                    <div class="worksheet-column credit"></div>
+                                </div>
+                                <div class="worksheet-row">
+                                    <div class="worksheet-column account-name">Depreciation Expense</div>
+                                    <div class="worksheet-column debit">300</div>
+                                    <div class="worksheet-column credit"></div>
+                                </div>
+                                <div class="worksheet-row total">
+                                    <div class="worksheet-column account-name">Totals</div>
+                                    <div class="worksheet-column debit">$46,650</div>
+                                    <div class="worksheet-column credit">$46,650</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="example-step" style="margin-top: 2rem;">
+                            <strong>Step 2: Record Adjustments</strong>
+                            <p>Based on the adjusting entry analysis:</p>
+                            <div class="worksheet-diagram">
+                                <div class="worksheet-row worksheet-section-label assets">Adjustments</div>
+                                <div class="worksheet-row header">
+                                    <div class="worksheet-column account-name">Account Title</div>
+                                    <div class="worksheet-column debit">Debit</div>
+                                    <div class="worksheet-column credit">Credit</div>
+                                </div>
+                                <div class="worksheet-row adjustment-highlight">
+                                    <div class="worksheet-column account-name">Supplies Expense (Adj)</div>
+                                    <div class="worksheet-column debit">$150</div>
+                                    <div class="worksheet-column credit"></div>
+                                </div>
+                                <div class="worksheet-row adjustment-highlight">
+                                    <div class="worksheet-column account-name">Supplies (Adj)</div>
+                                    <div class="worksheet-column debit"></div>
+                                    <div class="worksheet-column credit">$150</div>
+                                </div>
+                                <div class="worksheet-row adjustment-highlight">
+                                    <div class="worksheet-column account-name">Insurance Expense (Adj)</div>
+                                    <div class="worksheet-column debit">200</div>
+                                    <div class="worksheet-column credit"></div>
+                                </div>
+                                <div class="worksheet-row adjustment-highlight">
+                                    <div class="worksheet-column account-name">Prepaid Insurance (Adj)</div>
+                                    <div class="worksheet-column debit"></div>
+                                    <div class="worksheet-column credit">200</div>
+                                </div>
+                                <div class="worksheet-row adjustment-highlight">
+                                    <div class="worksheet-column account-name">Salaries Expense (Adj)</div>
+                                    <div class="worksheet-column debit">140</div>
+                                    <div class="worksheet-column credit"></div>
+                                </div>
+                                <div class="worksheet-row adjustment-highlight">
+                                    <div class="worksheet-column account-name">Salaries Payable (Adj)</div>
+                                    <div class="worksheet-column debit"></div>
+                                    <div class="worksheet-column credit">140</div>
+                                </div>
+                                <div class="worksheet-row adjustment-highlight">
+                                    <div class="worksheet-column account-name">Unearned Revenue (Adj)</div>
+                                    <div class="worksheet-column debit">800</div>
+                                    <div class="worksheet-column credit"></div>
+                                </div>
+                                <div class="worksheet-row adjustment-highlight">
+                                    <div class="worksheet-column account-name">Consulting Revenue (Adj)</div>
+                                    <div class="worksheet-column debit"></div>
+                                    <div class="worksheet-column credit">800</div>
+                                </div>
+                                <div class="worksheet-row">
+                                    <div class="worksheet-column account-name">Depreciation Expense (Adj)</div>
+                                    <div class="worksheet-column debit">150</div>
+                                    <div class="worksheet-column credit"></div>
+                                </div>
+                                <div class="worksheet-row">
+                                    <div class="worksheet-column account-name">Accumulated Depreciation (Adj)</div>
+                                    <div class="worksheet-column debit"></div>
+                                    <div class="worksheet-column credit">150</div>
+                                </div>
+                                <div class="worksheet-row total">
+                                    <div class="worksheet-column account-name">Totals</div>
+                                    <div class="worksheet-column debit">$1,440</div>
+                                    <div class="worksheet-column credit">$1,440</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="example-step" style="margin-top: 2rem;">
+                            <strong>Step 3: Calculate Adjusted Trial Balance</strong>
+                            <p>Add or subtract adjustments from unadjusted balances:</p>
+                            <div class="worksheet-diagram">
+                                <div class="worksheet-row worksheet-section-label equity">Adjusted Trial Balance</div>
+                                <div class="worksheet-row header">
+                                    <div class="worksheet-column account-name">Account Title</div>
+                                    <div class="worksheet-column debit">Debit</div>
+                                    <div class="worksheet-column credit">Credit</div>
+                                </div>
+                                <div class="worksheet-row">
+                                    <div class="worksheet-column account-name">Cash</div>
+                                    <div class="worksheet-column debit">$5,800</div>
+                                    <div class="worksheet-column credit"></div>
+                                </div>
+                                <div class="worksheet-row">
+                                    <div class="worksheet-column account-name">Accounts Receivable</div>
+                                    <div class="worksheet-column debit">2,100</div>
+                                    <div class="worksheet-column credit"></div>
+                                </div>
+                                <div class="worksheet-row">
+                                    <div class="worksheet-column account-name">Supplies</div>
+                                    <div class="worksheet-column debit">8,400</div>
+                                    <div class="worksheet-column credit"></div>
+                                </div>
+                                <div class="worksheet-row">
+                                    <div class="worksheet-column account-name">Prepaid Insurance</div>
+                                    <div class="worksheet-column debit">2,100</div>
+                                    <div class="worksheet-column credit"></div>
+                                </div>
+                                <div class="worksheet-row">
+                                    <div class="worksheet-column account-name">Equipment</div>
+                                    <div class="worksheet-column debit">26,000</div>
+                                    <div class="worksheet-column credit"></div>
+                                </div>
+                                <div class="worksheet-row">
+                                    <div class="worksheet-column account-name">Accumulated Depreciation</div>
+                                    <div class="worksheet-column debit"></div>
+                                    <div class="worksheet-column credit">$450</div>
+                                </div>
+                                <div class="worksheet-row">
+                                    <div class="worksheet-column account-name">Accounts Payable</div>
+                                    <div class="worksheet-column debit"></div>
+                                    <div class="worksheet-column credit">6,200</div>
+                                </div>
+                                <div class="worksheet-row">
+                                    <div class="worksheet-column account-name">Salaries Payable</div>
+                                    <div class="worksheet-column debit"></div>
+                                    <div class="worksheet-column credit">350</div>
+                                </div>
+                                <div class="worksheet-row">
+                                    <div class="worksheet-column account-name">Unearned Consulting Revenue</div>
+                                    <div class="worksheet-column debit"></div>
+                                    <div class="worksheet-column credit">1,950</div>
+                                </div>
+                                <div class="worksheet-row">
+                                    <div class="worksheet-column account-name">Common Stock</div>
+                                    <div class="worksheet-column debit"></div>
+                                    <div class="worksheet-column credit">30,000</div>
+                                </div>
+                                <div class="worksheet-row">
+                                    <div class="worksheet-column account-name">Retained Earnings</div>
+                                    <div class="worksheet-column debit"></div>
+                                    <div class="worksheet-column credit">5,290</div>
+                                </div>
+                                <div class="worksheet-row">
+                                    <div class="worksheet-column account-name">Dividends</div>
+                                    <div class="worksheet-column debit">200</div>
+                                    <div class="worksheet-column credit"></div>
+                                </div>
+                                <div class="worksheet-row">
+                                    <div class="worksheet-column account-name">Consulting Revenue</div>
+                                    <div class="worksheet-column debit"></div>
+                                    <div class="worksheet-column credit">7,990</div>
+                                </div>
+                                <div class="worksheet-row">
+                                    <div class="worksheet-column account-name">Rent Expense</div>
+                                    <div class="worksheet-column debit">1,000</div>
+                                    <div class="worksheet-column credit"></div>
+                                </div>
+                                <div class="worksheet-row">
+                                    <div class="worksheet-column account-name">Salaries Expense</div>
+                                    <div class="worksheet-column debit">1,050</div>
+                                    <div class="worksheet-column credit"></div>
+                                </div>
+                                <div class="worksheet-row">
+                                    <div class="worksheet-column account-name">Supplies Expense</div>
+                                    <div class="worksheet-column debit">1,200</div>
+                                    <div class="worksheet-column credit"></div>
+                                </div>
+                                <div class="worksheet-row">
+                                    <div class="worksheet-column account-name">Insurance Expense</div>
+                                    <div class="worksheet-column debit">300</div>
+                                    <div class="worksheet-column credit"></div>
+                                </div>
+                                <div class="worksheet-row">
+                                    <div class="worksheet-column account-name">Depreciation Expense</div>
+                                    <div class="worksheet-column debit">450</div>
+                                    <div class="worksheet-column credit"></div>
+                                </div>
+                                <div class="worksheet-row total">
+                                    <div class="worksheet-column account-name">Totals</div>
+                                    <div class="worksheet-column debit">$48,600</div>
+                                    <div class="worksheet-column credit">$48,600</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="misconception-alert" style="margin-top: 1.5rem;">
+                        <strong>⚠️ Common Misconception:</strong> "The work sheet is a permanent record that must be saved."
+                        <br><br>
+                        <strong>✅ Reality:</strong> The work sheet is an internal <strong>working paper</strong> used for planning and organization. It's not a formal financial statement and is typically discarded after the formal financial statements are prepared and the adjusting entries are journalized.
+                    </div>
+                </div>
+
+                <!-- Depth C: Advanced -->
+                <div id="depth-C" class="depth-content">
+                    <h3>🔴 Advanced Level</h3>
+                    <p>Understanding complex adjustments, error detection, and professional considerations.</p>
+
+                    <div class="worked-example">
+                        <h4>Complex Adjustment Scenarios</h4>
+
+                        <div class="example-step">
+                            <strong>Scenario 1: Estimated Bad Debts</strong>
+                            <p><strong>Context:</strong> A company estimates that 2% of its $50,000 Accounts Receivable will be uncollectible.</p>
+                            <p><strong>Current Allowance for Doubtful Accounts:</strong> $400 (credit balance)</p>
+                            <p><strong>Required Adjustment:</strong></p>
+                            <table class="financial-table" style="font-size: 0.85rem; margin-top: 0.5rem;">
+                                <thead>
+                                    <tr>
+                                        <th>Calculation</th>
+                                        <th class="text-right">Amount</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>Desired ending balance (2% × $50,000)</td>
+                                        <td class="text-right">$1,000</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Less: Existing credit balance</td>
+                                        <td class="text-right">(400)</td>
+                                    </tr>
+                                    <tr style="font-weight: 700;">
+                                        <td>Required adjustment (Bad Debt Expense)</td>
+                                        <td class="text-right">$600</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <p><strong>Entry:</strong> Dr Bad Debt Expense $600, Dr Allowance for Doubtful Accounts $400, Cr Accounts Receivable $1,000</p>
+                            <p><strong>Work Sheet Impact:</strong> Extends to Balance Sheet (contra-asset) and Income Statement (expense).</p>
+                        </div>
+
+                        <div class="example-step" style="margin-top: 2rem;">
+                            <strong>Scenario 2: Depreciation with Salvage Value</strong>
+                            <p><strong>Context:</strong> Equipment cost $20,000, useful life 5 years, salvage value $2,000.</p>
+                            <p><strong>Straight-Line Depreciation:</strong> ($20,000 - $2,000) ÷ 5 = $3,600 per year</p>
+                            <p><strong>Entry:</strong> Dr Depreciation Expense $3,600, Cr Accumulated Depreciation $3,600</p>
+                            <p><strong>Work Sheet Treatment:</strong> Depreciation Expense goes to Income Statement; Accumulated Depreciation (contra-asset) extends to Balance Sheet.</p>
+                        </div>
+
+                        <div class="example-step" style="margin-top: 2rem;">
+                            <strong>Scenario 3: Compound Adjustments</strong>
+                            <p>Sometimes multiple accounts need adjustment in a single entry. For example:</p>
+                            <p><strong>Adjustment for expired insurance + accrued wages + earned revenue:</strong></p>
+                            <div style="background: var(--bg-light); padding: 1rem; border-radius: var(--radius-sm); margin-top: 0.5rem;">
+                                <p><strong>Dr Insurance Expense $X, Dr Wages Expense $Y, Cr Prepaid Insurance $X, Cr Wages Payable $Y</strong></p>
+                            </div>
+                            <p style="margin-top: 0.5rem;"><strong>Key Principle:</strong> Always maintain the accounting equation (Debits = Credits) within the adjustments column.</p>
+                        </div>
+                    </div>
+
+                    <div class="worked-example" style="margin-top: 2rem;">
+                        <h4>Error Detection on the Work Sheet</h4>
+                        <p>The work sheet is an excellent error-detection tool. Here are common issues and how to spot them:</p>
+
+                        <div class="decision-tree">
+                            <div class="decision-node" data-expanded="false">
+                                <div class="decision-question">❓ Problem: Debits don't equal Credits in Adjusted Trial Balance</div>
+                                <div class="decision-answer">
+                                    <strong>Check:</strong> 1) Verify all adjustment amounts are correct 2) Ensure each debit has a corresponding credit 3) Re-sum all columns with a calculator. A common error is entering an adjustment only on one side.
+                                </div>
+                            </div>
+
+                            <div class="decision-node" data-expanded="false">
+                                <div class="decision-question">❓ Problem: Net Income doesn't appear correctly</div>
+                                <div class="decision-answer">
+                                    <strong>Check:</strong> 1) Verify revenue and expense balances extended to correct columns 2) Ensure column totals calculated correctly 3) Check that net income is added to BOTH the debit column (Balance Sheet) and credit column (Income Statement). Net income flows from IS to BS via Retained Earnings.
+                                </div>
+                            </div>
+
+                            <div class="decision-node" data-expanded="false">
+                                <div class="decision-question">❓ Problem: Account balances extended to wrong statement</div>
+                                <div class="decision-answer">
+                                    <strong>Check:</strong> 1) Review account classification (Asset, Liability, Revenue, Expense) 2) Remember: Dividends go to Balance Sheet (debit column) 3) Ensure contra-accounts (Accumulated Depreciation, Allowance for Doubtful Accounts) extend to Balance Sheet on the credit side.
+                                </div>
+                            </div>
+                        </div>
+
+                        <style>
+                            .decision-tree {
+                                background: white;
+                                padding: 1.5rem;
+                                border-radius: 16px;
+                                margin: 1.5rem 0;
+                                box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+                            }
+
+                            .decision-node {
+                                background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+                                border: 2px solid #1a237e;
+                                border-radius: 12px;
+                                margin-bottom: 1rem;
+                                cursor: pointer;
+                                transition: all 0.3s ease;
+                                overflow: hidden;
+                            }
+
+                            .decision-node:hover {
+                                border-color: #c5a059;
+                                box-shadow: 0 4px 12px rgba(26,35,126,0.15);
+                            }
+
+                            .decision-node[data-expanded="true"] {
+                                border-color: #27ae60;
+                                background: linear-gradient(135deg, #e8f5e9 0%, #c8e6c9 100%);
+                            }
+
+                            .decision-question {
+                                padding: 1rem 1.5rem;
+                                font-weight: 600;
+                                color: #1a237e;
+                                display: flex;
+                                align-items: center;
+                                gap: 0.75rem;
+                            }
+
+                            .decision-node[data-expanded="true"] .decision-question {
+                                color: #1e8449;
+                            }
+
+                            .decision-question::before {
+                                content: '📋';
+                                font-size: 1.2rem;
+                            }
+
+                            .decision-answer {
+                                max-height: 0;
+                                overflow: hidden;
+                                padding: 0 1.5rem;
+                                background: white;
+                                color: #555;
+                                line-height: 1.6;
+                                transition: all 0.3s ease;
+                            }
+
+                            .decision-node[data-expanded="true"] .decision-answer {
+                                max-height: 200px;
+                                padding: 1rem 1.5rem;
+                                border-top: 1px solid #ddd;
+                            }
+
+                            .decision-node[data-expanded="true"] .decision-question::before {
+                                content: '✅';
+                            }
+                        </style>
+
+                        <script>
+                            // Decision tree click handlers
+                            document.querySelectorAll('.decision-node').forEach(node => {
+                                node.addEventListener('click', function() {
+                                    const isExpanded = this.getAttribute('data-expanded') === 'true';
+                                    this.setAttribute('data-expanded', isExpanded ? 'false' : 'true');
+                                });
+                            });
+                        </script>
+                    </div>
+
+                    <div class="professional-tip" style="margin-top: 1.5rem;">
+                        <strong>💡 Professional Insight:</strong> In practice, modern accounting software often generates adjusted trial balances automatically. However, understanding the work sheet process is crucial for:
+                        <ul style="margin-top: 0.5rem;">
+                            <li>Auditing manual entries and understanding the flow of adjustments</li>
+                            <li>Debugging when software outputs don't match expectations</li>
+                            <li>Communicating with stakeholders about period-end adjustments</li>
+                            <li>Preparing for CPA exam and understanding accounting theory</li>
+                        </ul>
+                    </div>
+
+                    <div class="misconception-alert" style="margin-top: 1.5rem;">
+                        <strong>⚠️ Advanced Misconception:</strong> "Once adjustments are on the work sheet, the formal financial statements are complete."
+                        <br><br>
+                        <strong>✅ Reality:</strong> The work sheet is a <strong>planning tool</strong>, not a final product. The actual adjusting entries must still be journalized and posted to the general ledger before the formal financial statements are prepared. The work sheet shows what those entries should be.
+                    </div>
+                </div>
+            </section>
+
+            <!-- Interactive Work Sheet Simulator -->
+            <section class="kp-section">
+                <h2>🎨 Interactive: Work Sheet Simulator</h2>
+                <p>Practice recording adjustments and see their effect on the adjusted trial balance. Enter adjustments and watch the adjusted balances calculate automatically.</p>
+
+                <div class="worksheet-simulator">
+                    <div class="simulator-header">
+                        <h3 style="margin: 0;">📊 FastForward Company - Work Sheet Simulator</h3>
+                        <p style="margin: 0.5rem 0 0; opacity: 0.9; font-size: 0.9rem;">Enter adjustment amounts and see the effects</p>
+                    </div>
+                    
+                    <div class="simulator-grid">
+                        <div class="simulator-row">
+                            <div class="simulator-label">
+                                <span class="label-icon">📦</span>
+                                <div class="label-text">
+                                    <strong>Supplies Used</strong>
+                                    <small>Dr Supplies Expense, Cr Supplies</small>
+                                </div>
+                            </div>
+                            <div class="simulator-input-wrap">
+                                <span class="currency-prefix">$</span>
+                                <input type="number" id="ws-supp-adj" value="150" oninput="updateWS()">
+                            </div>
+                            <div class="simulator-result" id="ws-supp-res">$8,400</div>
+                        </div>
+                        
+                        <div class="simulator-row">
+                            <div class="simulator-label">
+                                <span class="label-icon">🛡️</span>
+                                <div class="label-text">
+                                    <strong>Insurance Expired</strong>
+                                    <small>Dr Insurance Expense, Cr Prepaid</small>
+                                </div>
+                            </div>
+                            <div class="simulator-input-wrap">
+                                <span class="currency-prefix">$</span>
+                                <input type="number" id="ws-ins-adj" value="200" oninput="updateWS()">
+                            </div>
+                            <div class="simulator-result" id="ws-ins-res">$2,100</div>
+                        </div>
+                        
+                        <div class="simulator-row">
+                            <div class="simulator-label">
+                                <span class="label-icon">💼</span>
+                                <div class="label-text">
+                                    <strong>Accrued Wages</strong>
+                                    <small>Dr Salaries Expense, Cr Payable</small>
+                                </div>
+                            </div>
+                            <div class="simulator-input-wrap">
+                                <span class="currency-prefix">$</span>
+                                <input type="number" id="ws-wage-adj" value="140" oninput="updateWS()">
+                            </div>
+                            <div class="simulator-result" id="ws-wage-res">$1,050</div>
+                        </div>
+                        
+                        <div class="simulator-row">
+                            <div class="simulator-label">
+                                <span class="label-icon">📋</span>
+                                <div class="label-text">
+                                    <strong>Unearned Revenue Earned</strong>
+                                    <small>Dr Unearned, Cr Revenue</small>
+                                </div>
+                            </div>
+                            <div class="simulator-input-wrap">
+                                <span class="currency-prefix">$</span>
+                                <input type="number" id="ws-unearn-adj" value="800" oninput="updateWS()">
+                            </div>
+                            <div class="simulator-result highlight-result" id="ws-unearn-res">$7,990</div>
+                        </div>
+                        
+                        <div class="simulator-row">
+                            <div class="simulator-label">
+                                <span class="label-icon">🏗️</span>
+                                <div class="label-text">
+                                    <strong>Additional Depreciation</strong>
+                                    <small>Dr Depr Expense, Cr Accum</small>
+                                </div>
+                            </div>
+                            <div class="simulator-input-wrap">
+                                <span class="currency-prefix">$</span>
+                                <input type="number" id="ws-depr-adj" value="150" oninput="updateWS()">
+                            </div>
+                            <div class="simulator-result" id="ws-depr-res">$450</div>
+                        </div>
+                    </div>
+                    
+                    <div class="simulator-total">
+                        <div class="total-label">
+                            <span class="total-icon">⚖️</span>
+                            <span>Total Debits in Adjustments Column</span>
+                        </div>
+                        <div id="ws-total-dr" class="total-value">$1,440</div>
+                    </div>
+                </div>
+
+                <div class="concept-card" style="margin-top: 1.5rem;">
+                    <strong>💡 Try It:</strong> Change the adjustment amounts above. Notice how:
+                    <ul style="margin-top: 0.5rem;">
+                        <li>Increasing supplies used decreases the Supplies asset and increases Supplies Expense</li>
+                        <li>Accrued wages create a liability (Wages Payable) while increasing expense</li>
+                        <li>Earning unearned revenue converts a liability into revenue</li>
+                        <li>The total debits always equals total credits (the work sheet always balances)</li>
+                    </ul>
+                </div>
+
+                <style>
+                    .worksheet-simulator {
+                        background: linear-gradient(135deg, #1a237e 0%, #283593 100%);
+                        border-radius: 20px;
+                        padding: 2rem;
+                        margin: 2rem 0;
+                        color: white;
+                        box-shadow: 0 8px 30px rgba(26,35,126,0.3);
+                    }
+
+                    .simulator-header {
+                        text-align: center;
+                        margin-bottom: 2rem;
+                        padding-bottom: 1.5rem;
+                        border-bottom: 1px solid rgba(255,255,255,0.2);
+                    }
+
+                    .simulator-header h3 {
+                        color: white;
+                        font-size: 1.3rem;
+                    }
+
+                    .simulator-grid {
+                        background: rgba(255,255,255,0.05);
+                        border-radius: 16px;
+                        padding: 1rem;
+                    }
+
+                    .simulator-row {
+                        display: flex;
+                        align-items: center;
+                        padding: 1rem;
+                        border-bottom: 1px solid rgba(255,255,255,0.1);
+                        gap: 1rem;
+                        transition: background 0.3s ease;
+                    }
+
+                    .simulator-row:hover {
+                        background: rgba(255,255,255,0.08);
+                    }
+
+                    .simulator-row:last-child {
+                        border-bottom: none;
+                    }
+
+                    .simulator-label {
+                        flex: 1;
+                        display: flex;
+                        align-items: center;
+                        gap: 0.75rem;
+                    }
+
+                    .label-icon {
+                        font-size: 1.5rem;
+                    }
+
+                    .label-text {
+                        display: flex;
+                        flex-direction: column;
+                    }
+
+                    .label-text strong {
+                        font-size: 0.95rem;
+                    }
+
+                    .label-text small {
+                        opacity: 0.7;
+                        font-size: 0.75rem;
+                    }
+
+                    .simulator-input-wrap {
+                        position: relative;
+                        width: 120px;
+                    }
+
+                    .currency-prefix {
+                        position: absolute;
+                        left: 12px;
+                        top: 50%;
+                        transform: translateY(-50%);
+                        opacity: 0.7;
+                        font-weight: 600;
+                    }
+
+                    .simulator-input-wrap input {
+                        width: 100%;
+                        padding: 0.75rem 0.75rem 0.75rem 1.75rem;
+                        border: 2px solid rgba(255,255,255,0.2);
+                        border-radius: 10px;
+                        background: rgba(255,255,255,0.1);
+                        color: white;
+                        font-size: 1rem;
+                        font-weight: 600;
+                        transition: all 0.3s ease;
+                    }
+
+                    .simulator-input-wrap input:focus {
+                        outline: none;
+                        border-color: #c5a059;
+                        background: rgba(255,255,255,0.15);
+                    }
+
+                    .simulator-input-wrap input::placeholder {
+                        color: rgba(255,255,255,0.5);
+                    }
+
+                    .simulator-result {
+                        width: 100px;
+                        text-align: right;
+                        font-weight: 700;
+                        font-size: 1.1rem;
+                        padding: 0.5rem 1rem;
+                        background: rgba(255,255,255,0.1);
+                        border-radius: 10px;
+                    }
+
+                    .highlight-result {
+                        background: linear-gradient(135deg, rgba(39,174,96,0.3) 0%, rgba(39,174,96,0.2) 100%);
+                        border: 1px solid rgba(39,174,96,0.5);
+                    }
+
+                    .simulator-total {
+                        display: flex;
+                        justify-content: space-between;
+                        align-items: center;
+                        margin-top: 1.5rem;
+                        padding: 1.25rem 1.5rem;
+                        background: rgba(255,255,255,0.1);
+                        border-radius: 12px;
+                        border: 1px solid rgba(255,255,255,0.2);
+                    }
+
+                    .total-label {
+                        display: flex;
+                        align-items: center;
+                        gap: 0.75rem;
+                        font-size: 0.95rem;
+                    }
+
+                    .total-icon {
+                        font-size: 1.3rem;
+                    }
+
+                    .total-value {
+                        font-size: 1.5rem;
+                        font-weight: 800;
+                        color: #27ae60;
+                        text-shadow: 0 2px 10px rgba(39,174,96,0.3);
+                    }
+
+                    @media (max-width: 768px) {
+                        .simulator-row {
+                            flex-direction: column;
+                            align-items: stretch;
+                            gap: 0.75rem;
+                        }
+
+                        .simulator-label {
+                            justify-content: center;
+                        }
+
+                        .simulator-result {
+                            width: 100%;
+                            text-align: center;
+                        }
+
+                        .simulator-total {
+                            flex-direction: column;
+                            gap: 0.75rem;
+                            text-align: center;
+                        }
+
+                        .total-label {
+                            justify-content: center;
+                        }
+                    }
+                </style>
+            </section>
+
+            <!-- Visual: T-Account Flow -->
+            <section class="kp-section">
+                <h2>📊 Visual: How Adjustments Flow</h2>
+                <p>Watch how adjusting entries affect T-accounts and flow to the work sheet:</p>
+
+                <div class="t-account-container">
+                    <div class="t-account-row">
+                        <!-- Supplies T-Account -->
+                        <div class="t-account">
+                            <div class="t-account-header">📦 Supplies</div>
+                            <div class="t-account-body">
+                                <div class="t-account-side debit-side">
+                                    <div class="side-label">Dr</div>
+                                    <div class="t-account-entry">8,550<br><span style="color: #888; font-size: 0.7rem;">(beginning)</span></div>
+                                    <div class="t-account-entry adj-entry" id="t-supp-dr">150<br><span style="color: #27ae60; font-size: 0.7rem;">(adjustment)</span></div>
+                                </div>
+                                <div class="t-account-side credit-side">
+                                    <div class="side-label">Cr</div>
+                                </div>
+                            </div>
+                            <div class="t-account-balance" id="t-supp-bal">💰 Balance: $8,400</div>
+                        </div>
+
+                        <!-- Supplies Expense T-Account -->
+                        <div class="t-account">
+                            <div class="t-account-header">📝 Supplies Expense</div>
+                            <div class="t-account-body">
+                                <div class="t-account-side debit-side">
+                                    <div class="side-label">Dr</div>
+                                    <div class="t-account-entry">1,050<br><span style="color: #888; font-size: 0.7rem;">(beginning)</span></div>
+                                    <div class="t-account-entry adj-entry" id="t-supp-exp-dr">150<br><span style="color: #27ae60; font-size: 0.7rem;">(adjustment)</span></div>
+                                </div>
+                                <div class="t-account-side credit-side">
+                                    <div class="side-label">Cr</div>
+                                </div>
+                            </div>
+                            <div class="t-account-balance expense-balance" id="t-supp-exp-bal">📈 Balance: $1,200</div>
+                        </div>
+                    </div>
+
+                    <div class="flow-connector">
+                        <span class="connector-text">When Supplies decreases (Cr) → Supplies Expense increases (Dr)</span>
+                    </div>
+
+                    <div class="t-account-row">
+                        <!-- Unearned Revenue T-Account -->
+                        <div class="t-account">
+                            <div class="t-account-header">📋 Unearned Revenue</div>
+                            <div class="t-account-body">
+                                <div class="t-account-side debit-side">
+                                    <div class="side-label">Dr</div>
+                                    <div class="t-account-entry adj-entry" id="t-unearn-dr">800<br><span style="color: #27ae60; font-size: 0.7rem;">(adjustment)</span></div>
+                                </div>
+                                <div class="t-account-side credit-side">
+                                    <div class="side-label">Cr</div>
+                                    <div class="t-account-entry">2,750<br><span style="color: #888; font-size: 0.7rem;">(beginning)</span></div>
+                                </div>
+                            </div>
+                            <div class="t-account-balance liability-balance" id="t-unearn-bal">📉 Balance: $1,950</div>
+                        </div>
+
+                        <!-- Service Revenue T-Account -->
+                        <div class="t-account">
+                            <div class="t-account-header">💵 Service Revenue</div>
+                            <div class="t-account-body">
+                                <div class="t-account-side debit-side">
+                                    <div class="side-label">Dr</div>
+                                </div>
+                                <div class="t-account-side credit-side">
+                                    <div class="side-label">Cr</div>
+                                    <div class="t-account-entry">7,190<br><span style="color: #888; font-size: 0.7rem;">(beginning)</span></div>
+                                    <div class="t-account-entry adj-entry" id="t-rev-cr">800<br><span style="color: #27ae60; font-size: 0.7rem;">(adjustment)</span></div>
+                                </div>
+                            </div>
+                            <div class="t-account-balance revenue-balance" id="t-rev-bal">📈 Balance: $7,990</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="pattern-legend">
+                    <div class="legend-item">
+                        <span class="legend-dot adjustment"></span>
+                        <span>Green entries = Adjustments</span>
+                    </div>
+                    <div class="legend-item">
+                        <span class="legend-dot balance"></span>
+                        <span>Ending balance shown at bottom</span>
+                    </div>
+                </div>
+
+                <div class="professional-tip" style="margin-top: 1.5rem;">
+                    <strong>💡 Key Pattern:</strong> Notice the "mirror image" effect:
+                    <ul style="margin-top: 0.5rem;">
+                        <li>When <strong>Supplies</strong> decreases (Cr), <strong>Supplies Expense</strong> increases (Dr)</li>
+                        <li>When <strong>Unearned Revenue</strong> decreases (Dr), <strong>Service Revenue</strong> increases (Cr)</li>
+                        <li>This maintains the accounting equation: <strong>Assets = Liabilities + Equity</strong></li>
+                    </ul>
+                </div>
+
+                <style>
+                    /* T-Account Container Styles */
+                    .t-account-container {
+                        background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+                        border-radius: 20px;
+                        padding: 2rem;
+                        margin: 1.5rem 0;
+                        box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+                    }
+
+                    .t-account-row {
+                        display: flex;
+                        justify-content: center;
+                        gap: 2rem;
+                        flex-wrap: wrap;
+                        margin-bottom: 1rem;
+                    }
+
+                    .t-account {
+                        background: white;
+                        border-radius: 16px;
+                        overflow: hidden;
+                        box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+                        min-width: 200px;
+                        transition: transform 0.3s ease;
+                    }
+
+                    .t-account:hover {
+                        transform: translateY(-5px);
+                    }
+
+                    .t-account-header {
+                        background: linear-gradient(135deg, #1a237e 0%, #283593 100%);
+                        color: white;
+                        padding: 1rem;
+                        font-weight: 700;
+                        font-size: 1rem;
+                        text-align: center;
+                    }
+
+                    .t-account-body {
+                        display: flex;
+                        border: 3px solid #1a237e;
+                        border-top: none;
+                        border-radius: 0 0 12px 12px;
+                        overflow: hidden;
+                    }
+
+                    .t-account-side {
+                        flex: 1;
+                        padding: 0.75rem;
+                        position: relative;
+                    }
+
+                    .debit-side {
+                        background: linear-gradient(180deg, rgba(26,35,126,0.08) 0%, rgba(26,35,126,0.03) 100%);
+                        border-right: 3px solid #1a237e;
+                    }
+
+                    .credit-side {
+                        background: linear-gradient(180deg, rgba(197,160,89,0.08) 0%, rgba(197,160,89,0.03) 100%);
+                    }
+
+                    .side-label {
+                        font-weight: 700;
+                        font-size: 0.75rem;
+                        text-align: center;
+                        padding: 0.25rem 0.5rem;
+                        border-radius: 6px;
+                        margin-bottom: 0.5rem;
+                    }
+
+                    .debit-side .side-label {
+                        background: #1a237e;
+                        color: white;
+                    }
+
+                    .credit-side .side-label {
+                        background: #c5a059;
+                        color: #1a237e;
+                    }
+
+                    .t-account-entry {
+                        padding: 0.5rem;
+                        text-align: center;
+                        font-size: 0.85rem;
+                        border-bottom: 1px dashed #ddd;
+                        margin-bottom: 0.25rem;
+                    }
+
+                    .t-account-entry:last-child {
+                        border-bottom: none;
+                    }
+
+                    .adj-entry {
+                        background: linear-gradient(135deg, #d4edda 0%, #c3e6cb 100%);
+                        border-radius: 8px;
+                        margin-top: 0.5rem;
+                        animation: pulse 2s infinite;
+                    }
+
+                    @keyframes pulse {
+                        0%, 100% { opacity: 1; }
+                        50% { opacity: 0.7; }
+                    }
+
+                    .t-account-balance {
+                        padding: 0.75rem;
+                        text-align: center;
+                        font-weight: 700;
+                        font-size: 0.9rem;
+                        background: #f8f9fa;
+                        border-top: 2px solid #1a237e;
+                    }
+
+                    .expense-balance {
+                        background: linear-gradient(135deg, #fff3e0 0%, #ffe0b2 100%);
+                        border-top-color: #ff9800;
+                        color: #e65100;
+                    }
+
+                    .liability-balance {
+                        background: linear-gradient(135deg, #ffebee 0%, #ffcdd2 100%);
+                        border-top-color: #e74c3c;
+                        color: #c0392b;
+                    }
+
+                    .revenue-balance {
+                        background: linear-gradient(135deg, #e8f5e9 0%, #c8e6c9 100%);
+                        border-top-color: #27ae60;
+                        color: #1e8449;
+                    }
+
+                    .flow-connector {
+                        text-align: center;
+                        padding: 1rem;
+                        margin: 0.5rem 0;
+                    }
+
+                    .connector-text {
+                        display: inline-block;
+                        padding: 0.5rem 1.5rem;
+                        background: linear-gradient(135deg, #1a237e 0%, #283593 100%);
+                        color: white;
+                        border-radius: 20px;
+                        font-size: 0.85rem;
+                        font-weight: 600;
+                    }
+
+                    .pattern-legend {
+                        display: flex;
+                        justify-content: center;
+                        gap: 2rem;
+                        margin-top: 1rem;
+                        flex-wrap: wrap;
+                    }
+
+                    .legend-item {
+                        display: flex;
+                        align-items: center;
+                        gap: 0.5rem;
+                        font-size: 0.85rem;
+                        color: #666;
+                    }
+
+                    .legend-dot {
+                        width: 12px;
+                        height: 12px;
+                        border-radius: 50%;
+                    }
+
+                    .legend-dot.adjustment {
+                        background: #27ae60;
+                    }
+
+                    .legend-dot.balance {
+                        background: #1a237e;
+                    }
+
+                    @media (max-width: 768px) {
+                        .t-account-row {
+                            flex-direction: column;
+                            align-items: center;
+                        }
+                        
+                        .t-account {
+                            width: 100%;
+                            max-width: 280px;
+                        }
+                    }
+                </style>
+            </section>
+
+            <!-- Common Misconceptions -->
+            <section class="kp-section">
+                <h2>🚫 Common Misconceptions & Professional Tips</h2>
+
+                <div class="misconception-alert">
+                    <strong>❌ Misconception 1:</strong> "The work sheet replaces the journal for adjusting entries."
+                    <br><br>
+                    <strong>✅ Reality:</strong> The work sheet is a <strong>planning tool only</strong>. Adjusting entries must still be recorded in the journal and posted to the ledger. The work sheet shows what those entries should look like, but isn't a permanent accounting record.
+                </div>
+
+                <div class="misconception-alert">
+                    <strong>❌ Misconception 2:</strong> "I can skip the work sheet and go directly to adjusted trial balance."
+                    <br><br>
+                    <strong>✅ Reality:</strong> While experienced accountants can work directly with accounts, the work sheet provides:
+                    <ul style="margin-top: 0.5rem;">
+                        <li>Systematic organization of all adjustments in one place</li>
+                        <li>Visual verification that debits equal credits after adjustments</li>
+                        <li>Easy identification of which accounts need adjusting</li>
+                        <li>Clear separation for extending to appropriate financial statements</li>
+                    </ul>
+                </div>
+
+                <div class="misconception-alert">
+                    <strong>❌ Misconception 3:</strong> "All adjustments affect both the balance sheet and income statement."
+                    <br><br>
+                    <strong>✅ Reality:</strong> Some adjustments affect only the Balance Sheet (updating accumulated depreciation) or only the Income Statement (correcting an expense classification error). However, most meaningful adjustments affect both (deferrals and accruals).
+                </div>
+
+                <div class="professional-tip">
+                    <strong>💡 Professional Tip #1:</strong> Always list all accounts from the trial balance first, then add any new accounts needed for adjustments. This ensures nothing is forgotten.
+                </div>
+
+                <div class="professional-tip">
+                    <strong>💡 Professional Tip #2:</strong> Use a highlighter or colored pen for adjustments to make them stand visually. This helps with error checking and review.
+                </div>
+
+                <div class="professional-tip">
+                    <strong>💡 Professional Tip #3:</strong> After completing the work sheet, verify three things:
+                    <ol style="margin-top: 0.5rem; padding-left: 1.5rem;">
+                        <li>Adjusted trial balance columns balance (Debits = Credits)</li>
+                        <li>Income Statement columns calculate net income correctly</li>
+                        <li>Balance Sheet columns balance (Assets = Liabilities + Equity)</li>
+                    </ol>
+                </div>
+
+                <div class="professional-tip">
+                    <strong>💡 Professional Tip #4:</strong> In practice, work sheets are often created in spreadsheet software (Excel, Google Sheets). Learn keyboard shortcuts for SUM and cell referencing to work efficiently.
+                </div>
+            </section>
+
+            <!-- Memory Aids -->
+            <section class="kp-section">
+                <h2>🧠 Memory Aids & Quick Reference</h2>
+
+                <div class="memory-aid-card">
+                    <strong>⚡ Quick Recall: The Five Steps</strong>
+                    <p style="margin-top: 1rem;"><strong>Trial Balance → Adjustments → Adjusted TB → Statements → Balance</strong></p>
+                    <p style="margin-top: 0.5rem;">The work sheet flows in this sequence, building on each previous step.</p>
+                </div>
+
+                <div class="memory-aid-card">
+                    <strong>⚡ Quick Recall: Adjustment Types</strong>
+                    <p style="margin-top: 1rem;"><strong>DEALER:</strong></p>
+                    <p style="margin-top: 0.5rem;"><strong>D</strong>eferred Expenses → Dr Expense, Cr Asset</p>
+                    <p><strong>E</strong>arned Revenue (Deferred) → Dr Liability, Cr Revenue</p>
+                    <p><strong>A</strong>ccrued Expenses → Dr Expense, Cr Liability</p>
+                    <p><strong>L</strong>ost Assets (Depreciation) → Dr Expense, Cr Contra-Asset</p>
+                    <p><strong>E</strong>arned Revenue (Accrued) → Dr Asset, Cr Revenue</p>
+                    <p><strong>R</strong>eceivable (Uncollectible) → Dr Expense, Cr Contra-Asset</p>
+                </div>
+
+                <div class="key-concepts-grid" style="margin-top: 2rem;">
+                    <div class="concept-card">
+                        <strong>📋 Work Sheet Columns (10 columns total)</strong>
+                        <p><strong>Left Side:</strong> Trial Balance, Adjustments, Adjusted TB</p>
+                        <p><strong>Right Side:</strong> Income Statement, Balance Sheet</p>
+                        <p>Each side has Debit and Credit columns.</p>
+                    </div>
+
+                    <div class="concept-card">
+                        <strong>📊 Column Flow Rules</strong>
+                        <p>Revenue accounts → IS Credit</p>
+                        <p>Expense accounts → IS Debit</p>
+                        <p>Asset accounts → BS Debit</p>
+                        <p>Liability accounts → BS Credit</p>
+                        <p>Dividends → BS Debit</p>
+                    </div>
+
+                    <div class="concept-card">
+                        <strong>⚖️ Net Income Calculation</strong>
+                        <p>IS Debits (Expenses) + IS Credits (Revenue) = Net Income</p>
+                        <p>If Revenue > Expenses = Net Income (goes to BS Debit and IS Credit)</p>
+                        <p>If Expenses > Revenue = Net Loss (goes to BS Credit and IS Debit)</p>
+                    </div>
+
+                    <div class="concept-card">
+                        <strong>🎯 Balance Check</strong>
+                        <p>Always verify: Debits = Credits at each stage</p>
+                        <p>Adjusted TB must balance before extending to statements</p>
+                        <p>Final BS columns must balance (A = L + E)</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Glossary -->
+            <section class="kp-section">
+                <h2>📖 Glossary</h2>
+                <div class="key-concepts-grid">
+                    <div class="concept-card">
+                        <strong>Work Sheet</strong>
+                        <p>A multi-column internal document used to organize accounting information and facilitate the preparation of financial statements. Not a formal financial statement.</p>
+                    </div>
+
+                    <div class="concept-card">
+                        <strong>Adjusting Entry</strong>
+                        <p>A journal entry made at the end of an accounting period to update account balances for items not recorded during the period.</p>
+                    </div>
+
+                    <div class="concept-card">
+                        <strong>Unadjusted Trial Balance</strong>
+                        <p>A list of all account balances before any adjustments are made. The starting point for the work sheet.</p>
+                    </div>
+
+                    <div class="concept-card">
+                        <strong>Adjusted Trial Balance</strong>
+                        <p>A list of all account balances after adjusting entries have been incorporated. Used to prepare financial statements.</p>
+                    </div>
+
+                    <div class="concept-card">
+                        <strong>Accrued Revenue</strong>
+                        <p>Revenue that has been earned but not yet recorded in the accounts or received in cash. Requires an adjusting entry.</p>
+                    </div>
+
+                    <div class="concept-card">
+                        <strong>Accrued Expense</strong>
+                        <p>An expense that has been incurred but not yet recorded in the accounts or paid in cash. Requires an adjusting entry.</p>
+                    </div>
+
+                    <div class="concept-card">
+                        <strong>Deferred Revenue</strong>
+                        <p>Cash received in advance for services not yet performed. Initially recorded as a liability, converted to revenue as service is performed.</p>
+                    </div>
+
+                    <div class="concept-card">
+                        <strong>Deferred Expense</strong>
+                        <p>Cash paid in advance for benefits not yet received. Initially recorded as an asset, converted to expense as benefits are consumed.</p>
+                    </div>
+
+                    <div class="concept-card">
+                        <strong>Contra Account</strong>
+                        <p>An account with a balance opposite to its related account. Examples: Accumulated Depreciation, Allowance for Doubtful Accounts.</p>
+                    </div>
+
+                    <div class="concept-card">
+                        <strong>Net Income</strong>
+                        <p>Total revenues minus total expenses for a period. If positive, added to equity; if negative, subtracted from equity.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Final Knowledge Check -->
+            <section class="interactive-section">
+                <h2>🎯 Final Knowledge Check</h2>
+                <p>Test your understanding of Work Sheet Preparation:</p>
+
+                <div class="quiz-container" data-success-text="Excellent! You've mastered work sheet preparation." data-explanation="The work sheet is an internal planning tool with 5 sections: Unadjusted Trial Balance, Adjustments, Adjusted Trial Balance, Income Statement, and Balance Sheet. Adjustments are recorded to update account balances before preparing formal financial statements.">
+                    <div class="input-group">
+                        <p><strong>Question 1:</strong> What is the primary purpose of a work sheet?</p>
+                        <label><input type="radio" name="q1" value="a" data-correct="false"> To replace the general ledger</label><br><br>
+                        <label><input type="radio" name="q1" value="b" data-correct="true"> To organize information and verify accuracy before preparing financial statements</label><br><br>
+                        <label><input type="radio" name="q1" value="c" data-correct="false"> To record daily business transactions</label>
+                    </div>
+
+                    <div class="input-group">
+                        <p><strong>Question 2:</strong> A company has $500 of supplies on hand at period end, but the Supplies account shows $1,200. What adjustment is needed?</p>
+                        <label><input type="radio" name="q2" value="a" data-correct="false"> Dr Supplies $700, Cr Supplies Expense $700</label><br><br>
+                        <label><input type="radio" name="q2" value="b" data-correct="true"> Dr Supplies Expense $700, Cr Supplies $700</label><br><br>
+                        <label><input type="radio" name="q2" value="c" data-correct="false"> No adjustment needed</label>
+                    </div>
+
+                    <div class="input-group">
+                        <p><strong>Question 3:</strong> In which section of the work sheet does Net Income appear?</p>
+                        <label><input type="radio" name="q3" value="a" data-correct="false"> Only in Income Statement columns</label><br><br>
+                        <label><input type="radio" name="q3" value="b" data-correct="false"> Only in Balance Sheet columns</label><br><br>
+                        <label><input type="radio" name="q3" value="c" data-correct="true"> In both Income Statement (to balance) and Balance Sheet (to equity)</label>
+                    </div>
+
+                    <div class="input-group">
+                        <p><strong>Question 4:</strong> Which of the following is TRUE about the work sheet?</p>
+                        <label><input type="radio" name="q4" value="a" data-correct="false"> It is a formal financial statement that must be published</label><br><br>
+                        <label><input type="radio" name="q4" value="b" data-correct="true"> It is an internal working paper used for planning and organization</label><br><br>
+                        <label><input type="radio" name="q4" value="c" data-correct="false"> It replaces the need for adjusting entries in the journal</label>
+                    </div>
+
+                    <div class="input-group">
+                        <p><strong>Question 5:</strong> After adjustments are entered, what must be verified before extending balances to statement columns?</p>
+                        <label><input type="radio" name="q5" value="a" data-correct="false"> That all account names are spelled correctly</label><br><br>
+                        <label><input type="radio" name="q5" value="b" data-correct="true"> That the Adjusted Trial Balance columns balance (Debits = Credits)</label><br><br>
+                        <label><input type="radio" name="q5" value="c" data-correct="false"> That revenue equals expenses</label>
+                    </div>
+
+                    <button class="btn btn-primary quiz-submit">Submit All Answers</button>
+                    <div class="feedback"></div>
+                    <button class="quiz-retry">Try Again</button>
+                </div>
+            </section>
+
+            <!-- Navigation -->
+            <nav class="kp-navigation" style="display: flex; justify-content: space-between; margin-top: 4rem; padding-bottom: 2rem;">
+                <a href="ch04_A1.html" class="btn" style="background: #eee;">← Previous: Current Ratio</a>
+                <a href="ch04.html" class="btn" style="background: var(--info); color: white;">Chapter 4 Hub</a>
+                <a href="ch04_P2.html" class="btn btn-primary">Next: Closing Process →</a>
+            </nav>
+        </article>
+    </main>
+
+    <footer style="margin-top: 5rem; padding: 2rem 0; border-top: 1px solid #ddd; text-align: center; color: #888;">
+        <p>Accounting Essentials | Chapter 4 | Procedure 1</p>
+    </footer>
+
+    <script src="../../components-enhanced.js"></script>
+    <script>
+        function setDepth(depth) {
+            document.querySelectorAll('.depth-btn').forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+
+            document.querySelectorAll('.depth-content').forEach(content => content.classList.remove('active'));
+            document.getElementById(`depth-${depth}`).classList.add('active');
+        }
+
+        function updateWS() {
+            // Original balances
+            const suppOrig = 8550;
+            const suppExpOrig = 1050;
+            const insOrig = 2300;
+            const insExpOrig = 100;
+            const wageOrig = 910;
+            const unearnOrig = 2750;
+            const revOrig = 7190;
+            const deprOrig = 300;
+            const deprExpOrig = 300;
+
+            // Get adjustments
+            const suppAdj = parseFloat(document.getElementById('ws-supp-adj').value) || 0;
+            const insAdj = parseFloat(document.getElementById('ws-ins-adj').value) || 0;
+            const wageAdj = parseFloat(document.getElementById('ws-wage-adj').value) || 0;
+            const unearnAdj = parseFloat(document.getElementById('ws-unearn-adj').value) || 0;
+            const deprAdj = parseFloat(document.getElementById('ws-depr-adj').value) || 0;
+
+            // Calculate adjusted balances
+            const suppBal = suppOrig - suppAdj;
+            const suppExpBal = suppExpOrig + suppAdj;
+            const insBal = insOrig - insAdj;
+            const insExpBal = insExpOrig + insAdj;
+            const wageBal = wageOrig + wageAdj;
+            const unearnBal = unearnOrig - unearnAdj;
+            const revBal = revOrig + unearnAdj;
+            const deprBal = deprOrig + deprAdj;
+            const deprExpBal = deprExpOrig + deprAdj;
+
+            // Update simulator results
+            document.getElementById('ws-supp-res').textContent = '$' + suppBal.toLocaleString();
+            document.getElementById('ws-ins-res').textContent = '$' + insBal.toLocaleString();
+            document.getElementById('ws-wage-res').textContent = '$' + wageBal.toLocaleString();
+            document.getElementById('ws-unearn-res').textContent = '$' + revBal.toLocaleString();
+            document.getElementById('ws-depr-res').textContent = '$' + deprBal.toLocaleString();
+
+            // Total adjustments
+            const totalAdj = suppAdj + insAdj + wageAdj + unearnAdj + deprAdj;
+            document.getElementById('ws-total-dr').textContent = '$' + totalAdj.toLocaleString();
+
+            // Update T-accounts - Supplies
+            const suppAdjEl = document.getElementById('t-supp-dr');
+            if (suppAdjEl) {
+                suppAdjEl.innerHTML = suppAdj + '<br><span style="color: #27ae60; font-size: 0.7rem;">(adjustment)</span>';
+            }
+            const suppBalEl = document.getElementById('t-supp-bal');
+            if (suppBalEl) {
+                suppBalEl.textContent = '💰 Balance: $' + suppBal.toLocaleString();
+            }
+            
+            // Supplies Expense
+            const suppExpBalEl = document.getElementById('t-supp-exp-bal');
+            if (suppExpBalEl) {
+                suppExpBalEl.textContent = '📈 Balance: $' + suppExpBal.toLocaleString();
+            }
+            const suppExpDrEl = document.getElementById('t-supp-exp-dr');
+            if (suppExpDrEl) {
+                suppExpDrEl.innerHTML = suppAdj + '<br><span style="color: #27ae60; font-size: 0.7rem;">(adjustment)</span>';
+            }
+            
+            // Unearned Revenue
+            const unearnDrEl = document.getElementById('t-unearn-dr');
+            if (unearnDrEl) {
+                unearnDrEl.innerHTML = unearnAdj + '<br><span style="color: #27ae60; font-size: 0.7rem;">(adjustment)</span>';
+            }
+            const unearnBalEl = document.getElementById('t-unearn-bal');
+            if (unearnBalEl) {
+                unearnBalEl.textContent = '📉 Balance: $' + unearnBal.toLocaleString();
+            }
+            
+            // Service Revenue
+            const revCrEl = document.getElementById('t-rev-cr');
+            if (revCrEl) {
+                revCrEl.innerHTML = unearnAdj + '<br><span style="color: #27ae60; font-size: 0.7rem;">(adjustment)</span>';
+            }
+            const revBalEl = document.getElementById('t-rev-bal');
+            if (revBalEl) {
+                revBalEl.textContent = '📈 Balance: $' + revBal.toLocaleString();
+            }
+        }
+
+        // Initialize T-accounts on load
+        document.addEventListener('DOMContentLoaded', function() {
+            updateWS();
+        });
+    </script>
+</body>
+
+</html>

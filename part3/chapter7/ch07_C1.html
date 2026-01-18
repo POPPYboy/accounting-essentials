@@ -1,0 +1,632 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>C1: Fundamental System Principles | ACCOUNTING ESSENTIALS</title>
+    <link rel="stylesheet" href="../../styles.css">
+    <style>
+        .comparison-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1.5rem 0;
+        }
+        .comparison-table th, .comparison-table td {
+            padding: 1rem;
+            text-align: left;
+            border-bottom: 1px solid #e0e0e0;
+        }
+        .comparison-table th {
+            background: var(--primary);
+            color: var(--white);
+        }
+        .comparison-table tr:nth-child(even) {
+            background: var(--bg-light);
+        }
+
+        /* New System Balancer styles */
+        .system-balancer {
+            background-color: var(--bg-light);
+            border-radius: var(--radius-lg);
+            padding: 2rem;
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            gap: 2rem;
+            align-items: center;
+        }
+        .balancer-controls {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+        .control-group {
+            display: flex;
+            flex-direction: column;
+        }
+        .control-group label {
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            display: flex;
+            justify-content: space-between;
+        }
+        .balancer-slider {
+            width: 100%;
+        }
+        .balancer-visualizer {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            background: var(--white);
+            border-radius: var(--radius-md);
+            min-height: 300px;
+            padding: 2rem;
+            position: relative;
+            overflow: hidden;
+        }
+        #system-orb {
+            width: 100px;
+            height: 100px;
+            background: radial-gradient(circle, var(--primary-light), var(--primary));
+            border-radius: 50%;
+            transition: all 0.4s ease;
+            box-shadow: 0 0 20px var(--primary-light);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 1.2rem;
+            color: white;
+            font-weight: 700;
+        }
+        #system-explanation {
+            margin-top: 1.5rem;
+            text-align: center;
+            font-weight: 600;
+            color: var(--text-main);
+            min-height: 40px;
+        }
+        /* Orb animations */
+        .orb-pulse {
+            animation: pulse 2s infinite;
+        }
+        @keyframes pulse {
+            0% { transform: scale(1); box-shadow: 0 0 20px var(--primary-light); }
+            50% { transform: scale(1.05); box-shadow: 0 0 30px var(--primary); }
+            100% { transform: scale(1); box-shadow: 0 0 20px var(--primary-light); }
+        }
+    </style>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-50MTQPVR7D"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-50MTQPVR7D');
+</script>
+
+</head>
+
+<body>
+    <header>
+        <div class="container nav-container">
+            <a href="../../index.html" class="logo">ACCOUNTING<span>ESSENTIALS</span></a>
+            <nav class="nav-links">
+                <a href="../../index.html">Home</a>
+                <a href="../../Part1/part1.html">Part 1</a>
+                <a href="../../part2/part2.html">Part 2</a>
+                <a href="../../part3/part3.html">Part 3</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container">
+        <div class="breadcrumbs">
+            <a href="../../index.html">Home</a> <span>/</span> <a href="../../part3/part3.html">Part 3</a>
+            <span>/</span> <a href="ch07.html">Chapter 7</a> <span>/</span> C1
+        </div>
+
+        <article class="animate-fade-in">
+            <div class="kp-header">
+                <h1 style="border-left: 8px solid var(--primary); padding-left: 1rem; margin: 2rem 0;">Fundamental System Principles</h1>
+            </div>
+
+            <!-- Learning Objectives -->
+            <section class="kp-section">
+                <h2>🎯 Learning Objectives</h2>
+                <div class="learning-objectives">
+                    <ul>
+                        <li>Understand the five fundamental principles of accounting information systems</li>
+                        <li>Explain how each principle guides system design and operation</li>
+                        <li>Evaluate system designs based on these principles</li>
+                        <li>Apply cost-benefit analysis to system decisions</li>
+                        <li>Recognize the importance of compatibility and flexibility in systems</li>
+                        <li>Balance control requirements with efficiency considerations</li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- Background & Principles -->
+            <section class="kp-section">
+                <h2>📚 Background & Principles</h2>
+                <p>Accounting information systems (AIS) are designed based on five fundamental principles that guide how businesses collect, process, and report financial data. These principles help ensure systems are effective, efficient, and appropriate for organizational needs.</p>
+
+                <div class="concept-card" style="margin: 1.5rem 0;">
+                    <strong>Core Principle:</strong> A good AIS balances control, relevance, compatibility, flexibility, and cost-benefit. Too much focus on any single principle can create problems—too much control can hinder efficiency, while too little control can lead to errors or fraud.
+                </div>
+
+                <div class="professional-tip">
+                    <strong>💡 Key Insight:</strong> Think of an AIS like the human nervous system—sensors (input) gather data, the brain (process) organizes it, and motor functions (output) respond. Internal controls act like reflexes protecting the body.
+                </div>
+            </section>
+
+            <!-- Key Concepts -->
+            <section class="kp-section">
+                <h2>🔑 Key Concepts</h2>
+                <div class="key-concepts-grid">
+                    <div class="concept-card">
+                        <strong>Control Principle</strong>
+                        <p>Internal controls must protect assets and ensure accuracy. Includes segregation of duties, authorization requirements, and independent verification.</p>
+                    </div>
+
+                    <div class="concept-card">
+                        <strong>Relevance Principle</strong>
+                        <p>The system must provide information that is useful for decision-making. Irrelevant data clutters reports and wastes resources.</p>
+                    </div>
+
+                    <div class="concept-card">
+                        <strong>Compatibility Principle</strong>
+                        <p>The system must fit the organization's unique structure, operations, and needs. A one-size-fits-all approach rarely works.</p>
+                    </div>
+
+                    <div class="concept-card">
+                        <strong>Flexibility Principle</strong>
+                        <p>The system must adapt to changes in business conditions, technology, and organizational needs over time.</p>
+                    </div>
+
+                    <div class="concept-card">
+                        <strong>Cost-Benefit Principle</strong>
+                        <p>The cost of implementing and maintaining controls should not exceed the benefits received. Resources should be allocated efficiently.</p>
+                    </div>
+
+                    <div class="concept-card">
+                        <strong>System Integration</strong>
+                        <p>How different components of the AIS work together to collect, process, and report financial information.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Deep Dive -->
+            <section class="kp-section">
+                <h2>🔍 Deep Dive</h2>
+                <p>Explore system principles at different levels of depth:</p>
+
+                <div class="depth-toggle">
+                    <button class="depth-btn active" onclick="setDepth('A')">Depth A: Foundational</button>
+                    <button class="depth-btn" onclick="setDepth('B')">Depth B: Standard</button>
+                    <button class="depth-btn" onclick="setDepth('C')">Depth C: Advanced</button>
+                </div>
+
+                <!-- Depth A -->
+                <div id="depth-A" class="depth-content active">
+                    <h3>🟢 Foundational Level</h3>
+                    <p>Understanding the five principles with examples.</p>
+
+                    <div class="worked-example">
+                        <h4>The Five Principles</h4>
+                        <div class="card-grid">
+                            <div class="content-card" style="border-top: 5px solid var(--primary);">
+                                <h3>1. Control</h3>
+                                <p>Internal controls must protect assets and ensure accuracy (The "Pain Reflex").</p>
+                            </div>
+                            <div class="content-card" style="border-top: 5px solid var(--secondary);">
+                                <h3>2. Relevance</h3>
+                                <p>The system must report useful information (Filtering out noise).</p>
+                            </div>
+                            <div class="content-card" style="border-top: 5px solid var(--success);">
+                                <h3>3. Compatibility</h3>
+                                <p>Must fit the company's unique structure (A customized suit).</p>
+                            </div>
+                            <div class="content-card" style="border-top: 5px solid var(--info);">
+                                <h3>4. Flexibility</h3>
+                                <p>Must adapt to changes (Software updates, growth).</p>
+                            </div>
+                            <div class="content-card" style="border-top: 5px solid var(--warning);">
+                                <h3>5. Cost-Benefit</h3>
+                                <p>Don't spend $5,000 to save $200 (The "Worth it?" test).</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Depth B -->
+                <div id="depth-B" class="depth-content">
+                    <h3>🟡 Standard Level</h3>
+                    <p>Applying principles to system design decisions.</p>
+
+                    <div class="worked-example">
+                        <h4>Principle Interactions</h4>
+                        <p><strong>How principles work together:</strong></p>
+                        <div class="example-step">
+                            <strong>Control vs. Efficiency:</strong>
+                            <p>More controls = more steps = slower processing. Balance is key.</p>
+                        </div>
+                        <div class="example-step">
+                            <strong>Cost vs. Benefit:</strong>
+                            <p>Question: "Is this control worth its cost?" Answer depends on risk level.</p>
+                        </div>
+                        <div class="example-step">
+                            <strong>Flexibility vs. Stability:</strong>
+                            <p>Too much flexibility can create inconsistency; too much stability creates rigidity.</p>
+                        </div>
+                    </div>
+
+                    <div class="worked-example">
+                        <h4>Real-World Application</h4>
+                        <p><strong>Small Business vs. Large Corporation:</strong></p>
+                        <table class="financial-table">
+                            <thead>
+                                <tr><th>Factor</th><th>Small Business</th><th>Large Corporation</th></tr>
+                            </thead>
+                            <tbody>
+                                <tr><td>Controls</td><td>Simpler, owner oversight</td><td>Complex, automated</td></tr>
+                                <tr><td>Relevance</td><td>Basic reports needed</td><td>Detailed analytics</td></tr>
+                                <tr><td>Cost-Benefit</td><td>Lower-cost solutions</td><td>Can afford more expensive systems</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- Depth C -->
+                <div id="depth-C" class="depth-content">
+                    <h3>🔴 Advanced Level</h3>
+                    <p>Evaluating system designs and trade-offs.</p>
+
+                    <div class="worked-example">
+                        <h4>Cost-Benefit Analysis Framework</h4>
+                        <p><strong>Evaluating Control Investments:</strong></p>
+                        <div class="example-step">
+                            <strong>Costs to Consider:</strong>
+                            <p>Software costs, training, time delays, reduced flexibility, maintenance</p>
+                        </div>
+                        <div class="example-step">
+                            <strong>Benefits to Consider:</strong>
+                            <p>Fraud prevention, error reduction, accuracy, compliance, decision support</p>
+                        </div>
+                        <div class="example-step">
+                            <strong>The Decision:</strong>
+                            <p>Implement if Benefits > Costs, considering risk levels and organizational needs.</p>
+                        </div>
+                    </div>
+
+                    <div class="worked-example">
+                        <h4>案例分析</h4>
+                        <p><strong>Scenario:</strong> "A company spends $5,000 to implement a control that saves $200 per year."</p>
+                        <p><strong>Analysis:</strong> At this rate, it takes 25 years to recover the investment. This likely violates the cost-benefit principle unless there are significant risk reduction benefits.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Interactive: System Balancer -->
+            <section class="kp-section">
+                <h2>🎨 Interactive: System Balancer</h2>
+                <p>Adjust the sliders to see how focusing on one principle affects the overall accounting information system. A good system is a balance of all five!</p>
+                <div class="system-balancer">
+                    <div class="balancer-controls">
+                        <!-- Control -->
+                        <div class="control-group">
+                            <label for="control-slider">🛡️ Control: <span id="control-val">5</span></label>
+                            <input type="range" id="control-slider" class="balancer-slider" min="1" max="10" value="5" oninput="updateSystem()">
+                        </div>
+                        <!-- Relevance -->
+                        <div class="control-group">
+                            <label for="relevance-slider">📊 Relevance: <span id="relevance-val">5</span></label>
+                            <input type="range" id="relevance-slider" class="balancer-slider" min="1" max="10" value="5" oninput="updateSystem()">
+                        </div>
+                        <!-- Compatibility -->
+                        <div class="control-group">
+                            <label for="compatibility-slider">🧩 Compatibility: <span id="compatibility-val">5</span></label>
+                            <input type="range" id="compatibility-slider" class="balancer-slider" min="1" max="10" value="5" oninput="updateSystem()">
+                        </div>
+                        <!-- Flexibility -->
+                        <div class="control-group">
+                            <label for="flexibility-slider">🔄 Flexibility: <span id="flexibility-val">5</span></label>
+                            <input type="range" id="flexibility-slider" class="balancer-slider" min="1" max="10" value="5" oninput="updateSystem()">
+                        </div>
+                        <!-- Cost -->
+                        <div class="control-group">
+                            <label for="cost-slider">💰 Cost-Benefit: <span id="cost-val">5</span></label>
+                            <input type="range" id="cost-slider" class="balancer-slider" min="1" max="10" value="5" oninput="updateSystem()">
+                        </div>
+                    </div>
+                    <div class="balancer-visualizer">
+                        <div id="system-orb" class="orb-pulse">
+                            AIS
+                        </div>
+                        <div id="system-explanation">
+                            A balanced system is efficient and effective.
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Common Misconceptions -->
+            <section class="kp-section">
+                <h2>🚫 Common Misconceptions & Professional Tips</h2>
+
+                <div class="misconception-alert">
+                    <strong>❌ Misconception 1:</strong> "More controls are always better."
+                    <br><br>
+                    <strong>✅ Reality:</strong> Controls have costs (time, money, reduced flexibility). Too many controls can hinder business operations and employee morale.
+                </div>
+
+                <div class="misconception-alert">
+                    <strong>❌ Misconception 2:</strong> "The best AIS is the most expensive one."
+                    <br><br>
+                    <strong>✅ Reality:</strong> The best AIS is one that fits the organization's needs, size, and budget. Expensive systems designed for large corporations may overwhelm small businesses.
+                </div>
+
+                <div class="misconception-alert">
+                    <strong>❌ Misconception 3:</strong> "Once implemented, an AIS doesn't need changes."
+                    <br><br>
+                    <strong>✅ Reality:</strong> Businesses change, technology evolves, and regulations update. A good AIS must be flexible and adaptable over time.
+                </div>
+
+                <div class="professional-tip">
+                    <strong>💡 Professional Tip #1:</strong> Regularly review your AIS against these five principles to identify improvement opportunities.
+                </div>
+
+                <div class="professional-tip">
+                    <strong>💡 Professional Tip #2:</strong> Involve end-users in system design to ensure compatibility and relevance.
+                </div>
+
+                <div class="professional-tip">
+                    <strong>💡 Professional Tip #3:</strong> Document the rationale for system decisions to help future evaluations.
+                </div>
+            </section>
+
+            <!-- Memory Aids -->
+            <section class="kp-section">
+                <h2>🧠 Memory Aids & Quick Reference</h2>
+
+                <div class="memory-aid-card">
+                    <strong>⚡ Quick Recall: The Five Principles</strong>
+                    <p><strong>CONTROL</strong> - Protect assets, ensure accuracy</p>
+                    <p><strong>RELEVANCE</strong> - Provide useful information</p>
+                    <p><strong>COMPATIBILITY</strong> - Fit organizational needs</p>
+                    <p><strong>FLEXIBILITY</strong> - Adapt to changes</p>
+                    <p><strong>COST-BENEFIT</strong> - Benefits > Costs</p>
+                </div>
+
+                <div class="key-concepts-grid">
+                    <div class="concept-card">
+                        <strong>🛡️ Control</strong>
+                        <p>Segregation of duties, authorization, verification. The "pain reflex" of the system.</p>
+                    </div>
+
+                    <div class="concept-card">
+                        <strong>📊 Relevance</strong>
+                        <p>Filters noise, provides actionable data for decisions.</p>
+                    </div>
+
+                    <div class="concept-card">
+                        <strong>👔 Compatibility</strong>
+                        <p>Customized fit, not one-size-fits-all.</p>
+                    </div>
+
+                    <div class="concept-card">
+                        <strong>🔄 Flexibility</strong>
+                        <p>Adapts to growth and change.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Glossary -->
+            <section class="kp-section">
+                <h2>📖 Glossary</h2>
+                <div class="key-concepts-grid">
+                    <div class="concept-card">
+                        <strong>Accounting Information System (AIS)</strong>
+                        <p>A system that collects, processes, and reports financial data to support decision-making and organizational operations.</p>
+                    </div>
+
+                    <div class="concept-card">
+                        <strong>Internal Control</strong>
+                        <p>Policies and procedures designed to protect assets, ensure accuracy, and promote operational efficiency.</p>
+                    </div>
+
+                    <div class="concept-card">
+                        <strong>Cost-Benefit Analysis</strong>
+                        <p>The process of comparing the costs of a control or system against the benefits it provides to determine if it's worthwhile.</p>
+                    </div>
+
+                    <div class="concept-card">
+                        <strong>System Compatibility</strong>
+                        <p>The degree to which an AIS fits an organization's structure, operations, and unique requirements.</p>
+                    </div>
+
+                    <div class="concept-card">
+                        <strong>System Flexibility</strong>
+                        <p>The ability of an AIS to adapt to changes in business conditions, technology, and organizational needs.</p>
+                    </div>
+
+                    <div class="concept-card">
+                        <strong>Segregation of Duties</strong>
+                        <p>Separating responsibilities for different aspects of transactions to reduce error and fraud risk.</p>
+                    </div>
+
+                    <div class="concept-card">
+                        <strong>System Implementation</strong>
+                        <p>The process of designing, installing, and integrating a new accounting system into an organization.</p>
+                    </div>
+
+                    <div class="concept-card">
+                        <strong>End-User Computing</strong>
+                        <p>Systems where end-users (non-IT staff) directly operate and manage the system for their functional needs.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Interactive: Knowledge Check -->
+            <section class="interactive-section">
+                <h2>🎯 Knowledge Check: System Principles</h2>
+                <p>Test your understanding of fundamental system principles:</p>
+
+                <div class="quiz-container" data-success-text="Excellent! You understand the fundamental system principles!" data-explanation="The five principles are Control, Relevance, Compatibility, Flexibility, and Cost-Benefit. Together they guide effective AIS design. Control protects assets, relevance ensures useful information, compatibility fits the organization, flexibility allows adaptation, and cost-benefit ensures efficiency.">
+                    <div class="input-group">
+                        <p><strong>Question 1:</strong> Which principle asks if the benefits of a control justify its cost?</p>
+                        <label><input type="radio" name="q1" value="correct" data-correct="true"> Cost-Benefit Principle</label><br>
+                        <label><input type="radio" name="q1" value="incorrect1" data-correct="false"> Control Principle</label><br>
+                        <label><input type="radio" name="q1" value="incorrect2" data-correct="false"> Relevance Principle</label>
+                    </div>
+
+                    <div class="input-group">
+                        <p><strong>Question 2:</strong> A system that cannot adapt to business growth violates which principle?</p>
+                        <label><input type="radio" name="q2" value="incorrect1" data-correct="false"> Control Principle</label><br>
+                        <label><input type="radio" name="q2" value="incorrect2" data-correct="false"> Cost-Benefit Principle</label><br>
+                        <label><input type="radio" name="q2" value="correct" data-correct="true"> Flexibility Principle</label>
+                    </div>
+
+                    <div class="input-group">
+                        <p><strong>Question 3:</strong> A control that prevents fraud and ensures accuracy relates to which principle?</p>
+                        <label><input type="radio" name="q3" value="correct" data-correct="true"> Control Principle</label><br>
+                        <label><input type="radio" name="q3" value="incorrect1" data-correct="false"> Flexibility Principle</label><br>
+                        <label><input type="radio" name="q3" value="incorrect2" data-correct="false"> Compatibility Principle</label>
+                    </div>
+
+                    <div class="input-group">
+                        <p><strong>Question 4:</strong> "A customized suit, not one-size-fits-all" describes which principle?</p>
+                        <label><input type="radio" name="q4" value="incorrect1" data-correct="false"> Relevance Principle</label><br>
+                        <label><input type="radio" name="q4" value="correct" data-correct="true"> Compatibility Principle</label><br>
+                        <label><input type="radio" name="q4" value="incorrect2" data-correct="false"> Control Principle</label>
+                    </div>
+
+                    <div class="input-group">
+                        <p><strong>Question 5:</strong> Which principle ensures the system provides useful information for decisions?</p>
+                        <label><input type="radio" name="q5" value="incorrect1" data-correct="false"> Compatibility Principle</label><br>
+                        <label><input type="radio" name="q5" value="incorrect2" data-correct="false"> Flexibility Principle</label><br>
+                        <label><input type="radio" name="q5" value="correct" data-correct="true"> Relevance Principle</label>
+                    </div>
+
+                    <button class="btn btn-primary quiz-submit">Submit Answers</button>
+                    <div class="feedback"></div>
+                    <button class="quiz-retry">Try Again</button>
+                </div>
+            </section>
+
+            <!-- Navigation -->
+            <nav class="kp-navigation" style="display: flex; justify-content: space-between; margin-top: 4rem; padding-bottom: 2rem;">
+                <a href="ch07_P4.html" class="btn" style="background: #eee;">← Previous: Cash Receipts Journal</a>
+                <a href="ch07.html" class="btn" style="background: var(--secondary); color: white;">Chapter 7 Hub</a>
+                <a href="ch07_C2.html" class="btn btn-primary">Next: Components of Accounting Systems →</a>
+            </nav>
+        </article>
+    </main>
+
+    <footer style="margin-top: 5rem; padding: 2rem 0; border-top: 1px solid #ddd; text-align: center; color: #888;">
+        <p>Accounting Essentials | Chapter 7 | Concept 1</p>
+    </footer>
+
+    <script>
+        function setDepth(depth) {
+            document.querySelectorAll('.depth-btn').forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+            document.querySelectorAll('.depth-content').forEach(content => content.classList.remove('active'));
+            document.getElementById(`depth-${depth}`).classList.add('active');
+        }
+
+        const explanations = {
+            control: [
+                "Low Control: System is fast but risky, prone to errors and fraud.",
+                "Balanced Control: Efficient with essential safeguards in place.",
+                "High Control: System is very secure but may be slow and bureaucratic."
+            ],
+            relevance: [
+                "Low Relevance: System produces cluttered, useless data.",
+                "Balanced Relevance: Provides clear, actionable insights for decision-making.",
+                "High Relevance: Generates highly tailored, real-time analytics."
+            ],
+            compatibility: [
+                "Low Compatibility: A generic system that fights the company's workflow.",
+                "Balanced Compatibility: Fits the company's structure and culture well.",
+                "High Compatibility: A perfectly bespoke system, seamlessly integrated."
+            ],
+            flexibility: [
+                "Low Flexibility: A rigid system that cannot adapt to new business needs.",
+                "Balanced Flexibility: Can be modified and updated with reasonable effort.",
+                "High Flexibility: An agile system that evolves easily, but may lack stability."
+            ],
+            cost: [
+                "Low Cost-Benefit: Over-engineered and expensive for the value it provides.",
+                "Balanced Cost-Benefit: The system's benefits clearly justify its costs.",
+                "High Cost-Benefit: A highly efficient system that provides massive value for its cost."
+            ]
+        };
+
+        let lastChanged = 'control';
+
+        function updateSystem() {
+            // Get all values
+            const control = parseInt(document.getElementById('control-slider').value);
+            const relevance = parseInt(document.getElementById('relevance-slider').value);
+            const compatibility = parseInt(document.getElementById('compatibility-slider').value);
+            const flexibility = parseInt(document.getElementById('flexibility-slider').value);
+            const cost = parseInt(document.getElementById('cost-slider').value);
+
+            // Update labels
+            document.getElementById('control-val').textContent = control;
+            document.getElementById('relevance-val').textContent = relevance;
+            document.getElementById('compatibility-val').textContent = compatibility;
+            document.getElementById('flexibility-val').textContent = flexibility;
+            document.getElementById('cost-val').textContent = cost;
+
+            const orb = document.getElementById('system-orb');
+            const explanation = document.getElementById('system-explanation');
+
+            // --- Visual Logic ---
+            // Control: Affects animation speed (pulse)
+            orb.style.animationDuration = `${3.5 - (control * 0.2)}s`;
+
+            // Relevance: Affects glow color
+            const relevanceColor = `hsla(220, 80%, ${50 + relevance * 4}%, ${0.5 + relevance * 0.05})`;
+            orb.style.boxShadow = `0 0 ${5 + relevance}px ${relevanceColor}, 0 0 ${10 + relevance * 2}px ${relevanceColor}`;
+
+            // Compatibility: Affects border style (dashed = not fitting)
+            orb.style.border = compatibility < 4 ? `3px dashed #ffb300` : `3px solid transparent`;
+
+            // Flexibility: Affects border-radius (more flexible = more fluid shape)
+            orb.style.borderRadius = `${60 - flexibility * 2}%`;
+
+            // Cost-Benefit: Affects background color (green = good value)
+            orb.style.background = `radial-gradient(circle, hsl(${120 + cost * 10}, 60%, 70%), hsl(${120 + cost * 10}, 80%, 40%))`;
+            
+            // --- Explanation Logic ---
+            const inputs = { control, relevance, compatibility, flexibility, cost };
+            let maxVal = 0;
+            let maxKey = '';
+
+            for(const [key, value] of Object.entries(inputs)) {
+                if (value > maxVal) {
+                    maxVal = value;
+                    maxKey = key;
+                }
+            }
+            
+            let explanationText = "";
+            if (inputs[maxKey] > 7) {
+                 explanationText = explanations[maxKey][2]; // High
+            } else if (inputs[maxKey] < 4) {
+                 explanationText = explanations[maxKey][0]; // Low
+            } else {
+                 explanationText = "The system is relatively balanced.";
+            }
+            explanation.textContent = explanationText;
+
+        }
+
+        document.addEventListener('DOMContentLoaded', updateSystem);
+    </script>
+</body>
+
+</html>

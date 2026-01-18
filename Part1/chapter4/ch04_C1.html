@@ -1,0 +1,963 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>C1: Classified Balance Sheet | ACCOUNTING ESSENTIALS</title>
+    <link rel="stylesheet" href="../../styles.css">
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-50MTQPVR7D"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-50MTQPVR7D');
+</script>
+
+</head>
+
+<body>
+    <header>
+        <div class="container nav-container">
+            <a href="../../index.html" class="logo">ACCOUNTS<span>MASTER</span></a>
+            <nav class="nav-links">
+                <a href="../../index.html">Home</a>
+                <a href="../part1.html">Part 1</a>
+                <a href="../../part2/part2.html">Part 2</a>
+                <a href="../../part3/part3.html">Part 3</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container">
+        <div class="breadcrumbs">
+            <a href="../../index.html">Home</a> <span>/</span> <a href="../part1.html">Part 1</a>
+            <span>/</span> <a href="ch04.html">Chapter 4</a> <span>/</span> C1
+        </div>
+
+        <article class="animate-fade-in">
+            <div class="kp-header">
+                <h1 style="border-left: 8px solid var(--primary); padding-left: 1rem; margin: 2rem 0;">Classified Balance Sheet</h1>
+            </div>
+
+            <!-- Learning Objectives -->
+            <section class="kp-section">
+                <h2>🎯 Learning Objectives</h2>
+                <div class="learning-objectives">
+                    <ul>
+                        <li>Understand the purpose and structure of a classified balance sheet</li>
+                        <li>Identify the five main categories: current assets, non-current assets, current liabilities, long-term liabilities, and equity</li>
+                        <li>Classify specific accounts into the appropriate balance sheet section</li>
+                        <li>Prepare a classified balance sheet from account balances</li>
+                        <li>Apply the accounting equation: Assets = Liabilities + Equity</li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- Background & Principles -->
+            <section class="kp-section">
+                <h2>📚 Background & Principles</h2>
+                <p>The balance sheet presents a company's financial position at a specific point in time. It follows the fundamental accounting equation: Assets = Liabilities + Equity.</p>
+
+                <div class="concept-card" style="margin: 1.5rem 0;">
+                    <strong>Core Principle:</strong> A classified balance sheet groups assets and liabilities by liquidity and timing, helping users assess a company's financial health and ability to meet short-term and long-term obligations.
+                </div>
+
+                <p>The classification system ensures that financial statements provide meaningful information for decision-making by separating items based on their characteristics.</p>
+
+                <div class="professional-tip">
+                    <strong>💡 Key Insight:</strong> The balance sheet always balances by definition (Assets = Liabilities + Equity). Classification doesn't change this equation, it just organizes the components to make them more useful and understandable.
+                </div>
+            </section>
+
+            <!-- Key Concepts -->
+            <section class="kp-section">
+                <h2>🔑 Key Concepts</h2>
+                <div class="key-concepts-grid">
+                    <div class="concept-card">
+                        <strong>Current Assets</strong>
+                        <p>Assets expected to be converted to cash or used within one year or the normal operating cycle. Examples: Cash, Accounts Receivable, Inventory, Supplies, Prepaid Expenses.</p>
+                    </div>
+
+                    <div class="concept-card">
+                        <strong>Non-Current Assets</strong>
+                        <p>Long-term assets not expected to be converted to cash within the normal operating cycle. Examples: Buildings, Land, Equipment, Patents, Long-term Investments.</p>
+                    </div>
+
+                    <div class="concept-card">
+                        <strong>Current Liabilities</strong>
+                        <p>Obligations due within one year or normal operating cycle. Examples: Accounts Payable, Wages Payable, Taxes Payable, Short-term Notes Payable.</p>
+                    </div>
+
+                    <div class="concept-card">
+                        <strong>Long-term Liabilities</strong>
+                        <p>Obligations due beyond one year or normal operating cycle. Examples: Bonds Payable, Long-term Notes Payable, Mortgage Payable, Deferred Revenue.</p>
+                    </div>
+
+                    <div class="concept-card">
+                        <strong>Equity</strong>
+                        <p>Owners' claims on assets after liabilities. Includes Common Stock, Retained Earnings, and Additional Paid-in Capital. Represents residual interest in company assets.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Deep Dive -->
+            <section class="kp-section">
+                <h2>🔍 Deep Dive</h2>
+                <p>Explore balance sheet classification at different levels of depth:</p>
+
+                <div class="depth-toggle">
+                    <button class="depth-btn active" onclick="setDepth('A')">Depth A: Foundational</button>
+                    <button class="depth-btn" onclick="setDepth('B')">Depth B: Standard</button>
+                    <button class="depth-btn" onclick="setDepth('C')">Depth C: Advanced</button>
+                </div>
+
+                <!-- Depth A -->
+                <div id="depth-A" class="depth-content active">
+                    <h3>🟢 Foundational Level</h3>
+                    <p>Understanding basic balance sheet structure and classification.</p>
+
+                    <div class="worked-example">
+                        <h4>The Organized Closet</h4>
+                        <p><strong>Analogy: The Closet vs. The Storage Unit</strong></p>
+                        <p>Imagine your Balance Sheet is your wardrobe.</p>
+
+                        <div class="example-step">
+                            <strong>Current Assets (The Daily Closet):</strong>
+                            <p>Clothes you wear everyday (Cash, Supplies). Easy to grab when needed.</p>
+                        </div>
+                        <div class="example-step">
+                            <strong>Non-Current Assets (The Storage Unit):</strong>
+                            <p>Winter coats, ski gear, and hiking boots (Buildings, Land, Equipment). You keep them for years. Hard to sell quickly but valuable for use.</p>
+                        </div>
+                        <div class="example-step">
+                            <strong>Current Liabilities (The Hunger):</strong>
+                            <p>Credit card bills, rent due, and utilities you know you'll pay within the next month (Accounts Payable, Wages Payable). Must satisfy soon!</p>
+                        </div>
+                        <div class="example-step">
+                            <strong>Non-Current Liabilities (Long-term Loans):</strong>
+                            <p>Student loans, car loans, mortgage (Bonds Payable, Notes Payable). You pay these back over years. Not immediate hunger pangs.</p>
+                        </div>
+                        <div class="example-step">
+                            <strong>Equity (Your Net Worth):</strong>
+                            <p>What's left after paying everyone (Assets - Liabilities). This is your ownership stake in the business.</p>
+                        </div>
+                    </div>
+
+                    <div
+                        style="background: var(--bg-dark); color: var(--white); padding: 2rem; border-radius: var(--radius-md); text-align: center; margin: 2rem 0;">
+                        <h3 style="color: var(--secondary-light);">The Accounting Equation</h3>
+                        <div style="font-size: 1.5rem; font-weight: 700; margin-top: 1rem;">
+                            ASSETS = LIABILITIES + EQUITY
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Depth B -->
+                <div id="depth-B" class="depth-content">
+                    <h3>🟡 Standard Level</h3>
+                    <p>Detailed account classification and balance sheet presentation format.</p>
+
+                    <div class="worked-example">
+                        <h4>Classification Categories Expanded</h4>
+                        <p>Let's expand our closet with more specific items:</p>
+
+                        <div class="example-step">
+                            <strong>Current Assets Examples:</strong>
+                            <p>Cash - Most liquid asset</p>
+                            <p>Accounts Receivable - Amounts owed by customers from credit sales</p>
+                            <p>Inventory - Goods held for sale (merchandising) or production (manufacturing)</p>
+                            <p>Supplies - Office supplies, cleaning materials, fuel (used quickly)</p>
+                            <p>Prepaid Expenses - Payments for future benefits (insurance, rent, subscriptions)</p>
+                            <p>Short-term Investments - Temporary investments of excess cash (marketable securities, certificates of deposit)</p>
+                        </div>
+
+                        <div class="example-step">
+                            <strong>Non-Current Assets Examples:</strong>
+                            <p>Buildings - Storefronts, factories, warehouses (used for 10-40 years)</p>
+                            <p>Equipment - Machinery, computers, vehicles, furniture (used for 5-10 years)</p>
+                            <p>Land - Real estate, land improvements, mineral rights (indefinite useful life)</p>
+                            <p>Intangible Assets - Patents, trademarks, copyrights, goodwill (non-physical, valuable rights)</p>
+                        </div>
+
+                        <div class="example-step">
+                            <strong>Current Liabilities Examples:</strong>
+                            <p>Accounts Payable - Amounts owed to suppliers for goods or services purchased on credit</p>
+                            <p>Wages Payable - Employee salaries and wages earned but not yet paid</p>
+                            <p>Taxes Payable - Income taxes, property taxes, sales taxes owed to government</p>
+                            <p>Short-term Notes Payable - Promissory notes due within one year</p>
+                            <p>Interest Payable - Accrued interest expense not yet paid</p>
+                            <p>Unearned Revenue - Advance payments for services not yet performed (customer deposits)</p>
+                        </div>
+
+                        <div class="example-step">
+                            <strong>Long-term Liabilities Examples:</strong>
+                            <p>Notes Payable - Formal promissory notes due beyond one year (bank loans, commercial paper)</p>
+                            <p>Bonds Payable - Long-term debt securities issued to investors (corporate bonds, debentures)</p>
+                            <p>Mortgage Payable - Secured loans backed by property (real estate mortgages)</p>
+                            <p>Deferred Revenue - Liabilities for revenue received in advance but not yet earned</p>
+                        </div>
+
+                        <div class="example-step">
+                            <strong>Equity Examples:</strong>
+                            <p>Common Stock - Owner investments in exchange for ownership shares</p>
+                            <p>Retained Earnings - Cumulative profits kept in the business (not distributed as dividends)</p>
+                            <p>Additional Paid-in Capital - Capital contributed by owners beyond common stock</p>
+                        <p>Less: Dividends - Distributions to stockholders that reduce equity</p>
+                        <p>Less: Treasury Stock - Company's own repurchased shares (contra equity account)</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Depth C -->
+                <div id="depth-C" class="depth-content">
+                    <h3>🔴 Advanced Level</h3>
+                    <p>Complex classification scenarios and balance sheet analysis techniques.</p>
+
+                    <div class="worked-example">
+                        <h4>Complex Classification Challenges</h4>
+                        <p><strong>Scenario:</strong> A company purchased a new computer system. Should it be classified as Equipment or Building?</p>
+                        <div class="example-step">
+                            <strong>Analysis factors:</strong>
+                            <p>1. Useful life: Equipment (5 years) vs. Building (40 years)</p>
+                            <p>2. Materiality: Equipment ($50,000) vs. Building ($500,000)</p>
+                            <p>3. Part of larger structure: Equipment moves freely, Building is attached</p>
+                            <p>4. Cost classification: Equipment (tangible, depreciable) vs. Building (tangible, depreciable)</p>
+                        </div>
+                        <div class="example-step">
+                            <strong>Professional judgment:</strong>
+                            <p>Most accountants would classify as Equipment due to: (1) shorter life, (2) lower cost, (3) not part of larger structure. However, significant value may justify Building classification.</p>
+                        </div>
+                    </div>
+
+                    <div class="worked-example">
+                        <h4>Deferred Revenue Classification</h4>
+                        <p><strong>Scenario:</strong> A magazine publisher receives $60,000 for 12-month subscriptions in November. How should this be recorded?</p>
+                        <div class="example-step">
+                            <strong>November (receipt):</strong>
+                            <p>Debit Cash $60,000, Credit Unearned Revenue $60,000 (Liability)</p>
+                        </div>
+                        <div class="example-step">
+                            <strong>Each month (December, January, etc.):</strong>
+                            <p>Debit Unearned Revenue $5,000, Earned Revenue $5,000 (recognize one month's service)</p>
+                        </div>
+                        <div class="example-step">
+                            <strong>After 12 months:</strong>
+                            <p>Unearned Revenue balance: $0 (all earned), Earned Revenue total: $60,000</p>
+                        </div>
+                        <div class="example-step">
+                            <strong>Classification:</strong>
+                            <p>Initially: Current Liability (Unearned Revenue)</p>
+                            <p>Over time: Becomes Revenue (no longer liability)</p>
+                            <p>Alternative: Could classify as "Other Current Liabilities" if material and significant</p>
+                        </div>
+                    </div>
+
+                    <div class="worked-example">
+                        <h4>Balance Sheet Analysis: Working Capital</h4>
+                        <p>Working capital measures short-term financial health:</p>
+                        <div class="example-step">
+                            <strong>Formula:</strong>
+                            <p>Working Capital = Current Assets - Current Liabilities</p>
+                        </div>
+                        <div class="example-step">
+                            <strong>Interpretation:</strong>
+                            <p>Positive: Can cover short-term obligations (good)</p>
+                            <p>Negative: Liquidity problems, may need external financing</p>
+                            <p>Large positive: May indicate excess cash that could be used more efficiently</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Interactive Balance Sheet Builder -->
+            <section class="kp-section">
+                <h2>🎨 Interactive: Balance Sheet Builder</h2>
+                <p>Categorize the following accounts into their correct sections. Click on an account to select it, then click the target category to place it.</p>
+
+                <div class="balance-sheet-builder">
+                    <!-- Source Items -->
+                    <div class="bs-source-section">
+                        <h4>📦 Available Accounts</h4>
+                        <div class="bs-items-container" id="bs-items">
+                            <div class="bs-item" data-category="current-assets" data-account="Cash">💵 Cash</div>
+                            <div class="bs-item" data-category="current-assets" data-account="Supplies">📝 Supplies</div>
+                            <div class="bs-item" data-category="current-assets" data-account="Accounts Receivable">📄 Accounts Receivable</div>
+                            <div class="bs-item" data-category="plant-assets" data-account="Machinery">⚙️ Machinery</div>
+                            <div class="bs-item" data-category="plant-assets" data-account="Equipment">🏗️ Equipment</div>
+                            <div class="bs-item" data-category="intangible-assets" data-account="Trademark">💎 Trademark</div>
+                            <div class="bs-item" data-category="intangible-assets" data-account="Patent">📋 Patent</div>
+                            <div class="bs-item" data-category="current-liabilities" data-account="Accounts Payable">📊 Accounts Payable</div>
+                            <div class="bs-item" data-category="current-liabilities" data-account="Wages Payable">💰 Wages Payable</div>
+                            <div class="bs-item" data-category="long-term-liabilities" data-account="Bonds Payable">📜 Bonds Payable</div>
+                            <div class="bs-item" data-category="equity" data-account="Common Stock">👥 Common Stock</div>
+                            <div class="bs-item" data-category="equity" data-account="Retained Earnings">📈 Retained Earnings</div>
+                        </div>
+                    </div>
+
+                    <!-- Target Categories -->
+                    <div class="bs-target-sections">
+                        <div class="bs-category" data-category="current-assets">
+                            <div class="category-header">
+                                <span class="category-icon">💵</span>
+                                <span class="category-name">Current Assets</span>
+                                <span class="category-count">0</span>
+                            </div>
+                            <div class="category-items"></div>
+                        </div>
+
+                        <div class="bs-category" data-category="plant-assets">
+                            <div class="category-header">
+                                <span class="category-icon">⚙️</span>
+                                <span class="category-name">Plant Assets</span>
+                                <span class="category-count">0</span>
+                            </div>
+                            <div class="category-items"></div>
+                        </div>
+
+                        <div class="bs-category" data-category="intangible-assets">
+                            <div class="category-header">
+                                <span class="category-icon">💎</span>
+                                <span class="category-name">Intangible Assets</span>
+                                <span class="category-count">0</span>
+                            </div>
+                            <div class="category-items"></div>
+                        </div>
+
+                        <div class="bs-category" data-category="current-liabilities">
+                            <div class="category-header">
+                                <span class="category-icon">📊</span>
+                                <span class="category-name">Current Liabilities</span>
+                                <span class="category-count">0</span>
+                            </div>
+                            <div class="category-items"></div>
+                        </div>
+
+                        <div class="bs-category" data-category="long-term-liabilities">
+                            <div class="category-header">
+                                <span class="category-icon">📜</span>
+                                <span class="category-name">Long-term Liabilities</span>
+                                <span class="category-count">0</span>
+                            </div>
+                            <div class="category-items"></div>
+                        </div>
+
+                        <div class="bs-category" data-category="equity">
+                            <div class="category-header">
+                                <span class="category-icon">👥</span>
+                                <span class="category-name">Equity</span>
+                                <span class="category-count">0</span>
+                            </div>
+                            <div class="category-items"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Progress & Feedback -->
+                <div class="bs-controls">
+                    <div class="bs-progress">
+                        <div class="progress-bar">
+                            <div class="progress-fill" id="bs-progress-fill"></div>
+                        </div>
+                        <span class="progress-text" id="bs-progress-text">0 / 12 classified</span>
+                    </div>
+                    <div class="bs-buttons">
+                        <button class="btn btn-primary" onclick="checkBalanceSheet()">✅ Verify Classification</button>
+                        <button class="btn btn-outline" onclick="resetBalanceSheet()">🔄 Reset All</button>
+                    </div>
+                    <div class="bs-feedback" id="bs-feedback"></div>
+                </div>
+
+                <style>
+                    /* Balance Sheet Builder Styles */
+                    .balance-sheet-builder {
+                        display: grid;
+                        grid-template-columns: 280px 1fr;
+                        gap: 2rem;
+                        margin: 2rem 0;
+                        padding: 2rem;
+                        background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+                        border-radius: 20px;
+                        box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+                    }
+
+                    @media (max-width: 900px) {
+                        .balance-sheet-builder {
+                            grid-template-columns: 1fr;
+                        }
+                    }
+
+                    /* Source Section */
+                    .bs-source-section {
+                        background: white;
+                        border-radius: 16px;
+                        padding: 1.5rem;
+                        box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+                    }
+
+                    .bs-source-section h4 {
+                        margin: 0 0 1rem 0;
+                        color: #1a237e;
+                        font-size: 1.1rem;
+                        text-align: center;
+                    }
+
+                    .bs-items-container {
+                        display: flex;
+                        flex-direction: column;
+                        gap: 0.75rem;
+                        max-height: 500px;
+                        overflow-y: auto;
+                        padding: 0.5rem;
+                    }
+
+                    .bs-item {
+                        padding: 0.75rem 1rem;
+                        background: linear-gradient(135deg, #fff 0%, #f5f5f5 100%);
+                        border: 2px solid #e0e0e0;
+                        border-radius: 12px;
+                        cursor: pointer;
+                        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+                        font-size: 0.9rem;
+                        display: flex;
+                        align-items: center;
+                        gap: 0.5rem;
+                    }
+
+                    .bs-item:hover {
+                        transform: translateX(5px);
+                        border-color: #1a237e;
+                        box-shadow: 0 4px 12px rgba(26, 35, 126, 0.2);
+                    }
+
+                    .bs-item.selected {
+                        background: linear-gradient(135deg, #1a237e 0%, #283593 100%);
+                        color: white;
+                        border-color: #1a237e;
+                        transform: scale(1.02);
+                    }
+
+                    .bs-item.placed {
+                        opacity: 0.4;
+                        cursor: not-allowed;
+                        pointer-events: none;
+                    }
+
+                    /* Target Categories */
+                    .bs-target-sections {
+                        display: grid;
+                        grid-template-columns: repeat(2, 1fr);
+                        gap: 1rem;
+                    }
+
+                    @media (max-width: 1200px) {
+                        .bs-target-sections {
+                            grid-template-columns: repeat(3, 1fr);
+                        }
+                    }
+
+                    @media (max-width: 900px) {
+                        .bs-target-sections {
+                            grid-template-columns: repeat(2, 1fr);
+                        }
+                    }
+
+                    @media (max-width: 600px) {
+                        .bs-target-sections {
+                            grid-template-columns: 1fr;
+                        }
+                    }
+
+                    .bs-category {
+                        background: white;
+                        border-radius: 16px;
+                        overflow: hidden;
+                        box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+                        transition: all 0.3s ease;
+                        border: 3px solid transparent;
+                    }
+
+                    .bs-category.highlight {
+                        border-color: #1a237e;
+                        transform: scale(1.02);
+                        box-shadow: 0 8px 25px rgba(26, 35, 126, 0.3);
+                    }
+
+                    .bs-category.correct {
+                        border-color: #27ae60;
+                        background: linear-gradient(135deg, #e8f5e9 0%, #c8e6c9 100%);
+                    }
+
+                    .bs-category.incorrect {
+                        border-color: #e74c3c;
+                        animation: shake 0.5s;
+                    }
+
+                    @keyframes shake {
+                        0%, 100% { transform: translateX(0); }
+                        25% { transform: translateX(-5px); }
+                        75% { transform: translateX(5px); }
+                    }
+
+                    .category-header {
+                        padding: 1rem;
+                        background: linear-gradient(135deg, #1a237e 0%, #283593 100%);
+                        color: white;
+                        display: flex;
+                        align-items: center;
+                        gap: 0.5rem;
+                        cursor: pointer;
+                        transition: all 0.3s ease;
+                    }
+
+                    .category-header:hover {
+                        background: linear-gradient(135deg, #283593 0%, #3949ab 100%);
+                    }
+
+                    .category-icon {
+                        font-size: 1.3rem;
+                    }
+
+                    .category-name {
+                        flex: 1;
+                        font-weight: 600;
+                        font-size: 0.85rem;
+                    }
+
+                    .category-count {
+                        background: rgba(255,255,255,0.2);
+                        padding: 0.2rem 0.6rem;
+                        border-radius: 10px;
+                        font-size: 0.75rem;
+                    }
+
+                    .category-items {
+                        padding: 1rem;
+                        min-height: 80px;
+                        display: flex;
+                        flex-direction: column;
+                        gap: 0.5rem;
+                    }
+
+                    .category-items .bs-item {
+                        background: #f8f9fa;
+                        border-color: #e0e0e0;
+                        font-size: 0.85rem;
+                        padding: 0.6rem 0.8rem;
+                    }
+
+                    .category-items .bs-item:hover {
+                        transform: none;
+                        border-color: #27ae60;
+                    }
+
+                    /* Controls */
+                    .bs-controls {
+                        margin-top: 2rem;
+                        text-align: center;
+                    }
+
+                    .bs-progress {
+                        max-width: 400px;
+                        margin: 0 auto 1.5rem;
+                    }
+
+                    .progress-bar {
+                        height: 12px;
+                        background: #e0e0e0;
+                        border-radius: 6px;
+                        overflow: hidden;
+                        margin-bottom: 0.5rem;
+                    }
+
+                    .progress-fill {
+                        height: 100%;
+                        background: linear-gradient(90deg, #1a237e, #27ae60);
+                        border-radius: 6px;
+                        transition: width 0.5s ease;
+                        width: 0%;
+                    }
+
+                    .progress-text {
+                        font-size: 0.9rem;
+                        color: #666;
+                    }
+
+                    .bs-buttons {
+                        display: flex;
+                        gap: 1rem;
+                        justify-content: center;
+                        margin-bottom: 1rem;
+                    }
+
+                    .bs-feedback {
+                        padding: 1rem;
+                        border-radius: 12px;
+                        font-weight: 600;
+                        display: none;
+                    }
+
+                    .bs-feedback.show {
+                        display: block;
+                        animation: fadeIn 0.3s ease;
+                    }
+
+                    .bs-feedback.success {
+                        background: linear-gradient(135deg, #d4edda 0%, #c3e6cb 100%);
+                        color: #155724;
+                        border: 2px solid #28a745;
+                    }
+
+                    .bs-feedback.error {
+                        background: linear-gradient(135deg, #f8d7da 0%, #f5c6cb 100%);
+                        color: #721c24;
+                        border: 2px solid #dc3545;
+                    }
+
+                    .bs-feedback.warning {
+                        background: linear-gradient(135deg, #fff3cd 0%, #ffeeba 100%);
+                        color: #856404;
+                        border: 2px solid #ffc107;
+                    }
+
+                    @keyframes fadeIn {
+                        from { opacity: 0; transform: translateY(-10px); }
+                        to { opacity: 1; transform: translateY(0); }
+                    }
+                </style>
+            </section>
+
+            <!-- Common Misconceptions -->
+            <section class="kp-section">
+                <h2>🚫 Common Misconceptions & Professional Tips</h2>
+
+                <div class="misconception-alert">
+                    <strong>❌ Misconception 1:</strong> "Assets are always things you own."
+                    <br><br>
+                    <strong>✅ Reality:</strong> Not all assets are owned. Assets include resources (cash, inventory) and rights to future benefits (prepaid expenses). Control and future economic benefit are key asset characteristics.
+                </div>
+
+                <div class="misconception-alert">
+                    <strong>❌ Misconception 2:</strong> "Current assets are always more valuable than non-current assets."
+                    <br><br>
+                    <strong>✅ Reality:</strong> Liquidity doesn't determine value. Cash is liquid but doesn't generate returns. Land may appreciate in value. Compare based on return on investment and business needs, not just liquidity.
+                </div>
+
+                <div class="misconception-alert">
+                    <strong>❌ Misconception 3:</strong> "Liabilities are always bad and should be minimized."
+                    <br><br>
+                    <strong>✅ Reality:</strong> Liabilities represent financing. Good debt (used productively to acquire assets) can enhance returns. Current liabilities fund operations, long-term liabilities fund growth. The key is managing debt wisely, not eliminating it entirely.
+                </div>
+
+                <div class="professional-tip">
+                    <strong>💡 Professional Tip #1:</strong> Always classify items consistently based on economic substance, not just legal form. Look through to the nature of the transaction.
+                </div>
+
+                <div class="professional-tip">
+                    <strong>💡 Professional Tip #2:</strong> Use materiality thresholds based on company policy. For example, purchases below $5,000 might be expensed immediately rather than capitalized as assets.
+                </div>
+
+                <div class="professional-tip">
+                    <strong>💡 Professional Tip #3:</strong> Review classifications annually. As business changes, items may need reclassification. For example, inventory may become obsolete, or a building may be fully depreciated.
+                </div>
+            </section>
+
+            <!-- Memory Aids -->
+            <section class="kp-section">
+                <h2>🧠 Memory Aids & Quick Reference</h2>
+
+                <div class="memory-aid-card">
+                    <strong>⚡ Quick Recall: Balance Sheet Equation</strong>
+                    <p><strong>Assets = Liabilities + Equity</strong></p>
+                    <p>Always balances by definition!</p>
+                </div>
+
+                <div class="key-concepts-grid">
+                    <div class="concept-card">
+                        <strong>📊 Current Assets</strong>
+                        <p>Liquid assets: Cash, A/R, Inventory, Supplies, Prepaid Expenses, Short-term Investments</p>
+                    </div>
+
+                    <div class="concept-card">
+                        <strong>🏢 Non-Current Assets</strong>
+                        <p>Long-term assets: Buildings, Equipment, Land, Intangible Assets</p>
+                    </div>
+
+                    <div class="concept-card">
+                        <strong>📋 Current Liabilities</strong>
+                        <p>Short-term debts: A/P, Wages Payable, Taxes Payable, Short-term Notes, Unearned Revenue</p>
+                    </div>
+
+                    <div class="concept-card">
+                        <strong>🏦 Long-term Liabilities</strong>
+                        <p>Long-term debts: Notes Payable, Bonds Payable, Mortgages, Deferred Revenue</p>
+                    </div>
+
+                    <div class="concept-card">
+                        <strong>📈 Equity</strong>
+                        <p>Common Stock + Retained Earnings + Additional Paid-in Capital - Dividends - Treasury Stock</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Glossary -->
+            <section class="kp-section">
+                <h2>📖 Glossary</h2>
+                <div class="key-concepts-grid">
+                    <div class="concept-card">
+                        <strong>Balance Sheet</strong>
+                        <p>Financial statement showing company's financial position at a specific point in time. Assets = Liabilities + Equity.</p>
+                    </div>
+
+                    <div class="concept-card">
+                        <strong>Classified Balance Sheet</strong>
+                        <p>Balance sheet organized into five main sections: Current Assets, Non-Current Assets, Current Liabilities, Long-term Liabilities, and Equity.</p>
+                    </div>
+
+                    <div class="concept-card">
+                        <strong>Liquidity</strong>
+                        <p>Ability to convert assets to cash quickly. Current assets are liquid, non-current assets are illiquid.</p>
+                    </div>
+
+                    <div class="concept-card">
+                        <strong>Current Ratio</strong>
+                        <p>Current Assets divided by Current Liabilities. Measures ability to meet short-term obligations. Ratio > 1.0 indicates good liquidity.</p>
+                    </div>
+
+                    <div class="concept-card">
+                        <strong>Working Capital</strong>
+                        <p>Current Assets minus Current Liabilities. Measures liquid resources available for operations after satisfying short-term obligations.</p>
+                    </div>
+
+                    <div class="concept-card">
+                        <strong>Non-Current Assets</strong>
+                        <p>Long-term assets not expected to be converted to cash within the normal operating cycle. Examples: Buildings, Equipment, Land.</p>
+                    </div>
+
+                    <div class="concept-card">
+                        <strong>Intangible Assets</strong>
+                        <p>Assets without physical substance but with long-term value. Examples: Patents, Trademarks, Copyrights, Goodwill.</p>
+                    </div>
+
+                    <div class="concept-card">
+                        <strong>Retained Earnings</strong>
+                        <p>Cumulative net income retained in the business rather than distributed to stockholders as dividends. Represents reinvested profits.</p>
+                    </div>
+
+                    <div class="concept-card">
+                        <strong>Common Stock</strong>
+                        <p>Ownership shares representing ownership in the corporation. Shareholders have voting rights and receive dividends.</p>
+                    </div>
+
+                    <div class="concept-card">
+                        <strong>Accumulated Depreciation</strong>
+                        <p>Total depreciation expense recorded to date. Reduces book value of long-term assets on balance sheet. Contra asset account.</p>
+                    </div>
+
+                    <div class="concept-card">
+                        <strong>Deferred Revenue</strong>
+                        <p>Liability representing advance payments received for services or goods not yet provided. Also called Unearned Revenue.</p>
+                    </div>
+
+                    <div class="concept-card">
+                        <strong>Prepaid Expenses</strong>
+                        <p>Current assets representing payments for future benefits. Expensed over time as benefits are consumed. Examples: Prepaid Insurance, Prepaid Rent.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Final Knowledge Check -->
+            <section class="interactive-section">
+                <h2>🎯 Final Knowledge Check</h2>
+                <p>Test your understanding of Classified Balance Sheet:</p>
+
+                <div class="quiz-container" data-success-text="Excellent! You've mastered balance sheet classification." data-explanation="Current liabilities are obligations due within one year or normal operating cycle. Examples include Accounts Payable, Wages Payable, Taxes Payable.">
+                    <div class="input-group">
+                        <p><strong>Question 1:</strong> Which of the following is typically classified as a Current Asset?</p>
+                        <label><input type="radio" name="q1" value="incorrect1" data-correct="false"> Land</label><br>
+                        <label><input type="radio" name="q1" value="correct" data-correct="true"> Accounts Receivable</label><br>
+                        <label><input type="radio" name="q1" value="incorrect2" data-correct="false"> Buildings</label><br>
+                        <label><input type="radio" name="q1" value="incorrect3" data-correct="false"> Goodwill</label>
+                    </div>
+
+                    <div class="input-group">
+                        <p><strong>Question 2:</strong> Current liabilities are obligations due:</p>
+                        <label><input type="radio" name="q2" value="correct" data-correct="true"> Within one year or normal operating cycle</label><br>
+                        <label><input type="radio" name="q2" value="incorrect1" data-correct="false"> After 5 years</label><br>
+                        <label><input type="radio" name="q2" value="incorrect2" data-correct="false"> Never - perpetual debt</label>
+                    </div>
+
+                    <div class="input-group">
+                        <p><strong>Question 3:</strong> A company has Current Assets of $500,000 and Current Liabilities of $200,000. What is the Current Ratio and Working Capital?</p>
+                        <label><input type="radio" name="q3" value="correct" data-correct="true"> Current Ratio: 2.5, Working Capital: $300,000</label><br>
+                        <label><input type="radio" name="q3" value="incorrect1" data-correct="false"> Current Ratio: 0.5, Working Capital: $250,000</label><br>
+                        <label><input type="radio" name="q3" value="incorrect2" data-correct="false"> Current Ratio: 3.0, Working Capital: $350,000</label>
+                    </div>
+
+                    <button class="btn btn-primary quiz-submit">Submit Answers</button>
+                    <div class="feedback"></div>
+                    <button class="quiz-retry">Try Again</button>
+                </div>
+            </section>
+
+            <!-- Navigation -->
+            <nav class="kp-navigation" style="display: flex; justify-content: space-between; margin-top: 4rem; padding-bottom: 2rem;">
+                <a href="ch04.html" class="btn" style="background: #eee;">← Chapter 4 Hub</a>
+                <a href="ch04_A1.html" class="btn btn-primary">Next: Current Ratio →</a>
+            </nav>
+        </article>
+    </main>
+
+    <footer style="margin-top: 5rem; padding: 2rem 0; border-top: 1px solid #ddd; text-align: center; color: #888;">
+        <p>Accounting Essentials | Chapter 4 | Concept 1</p>
+    </footer>
+
+    <script src="../../components-enhanced.js"></script>
+    <script>
+        function setDepth(depth) {
+            document.querySelectorAll('.depth-btn').forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+
+            document.querySelectorAll('.depth-content').forEach(content => content.classList.remove('active'));
+            document.getElementById('depth-' + depth).classList.add('active');
+        }
+
+        // Balance Sheet Builder Logic
+        let selectedItem = null;
+        const totalItems = 12;
+        let placedItems = {};
+
+        function initBalanceSheetBuilder() {
+            const items = document.querySelectorAll('.bs-item');
+            const categories = document.querySelectorAll('.bs-category');
+
+            // Item click handlers
+            items.forEach(item => {
+                item.addEventListener('click', function() {
+                    // Deselect previous
+                    if (selectedItem && selectedItem !== this) {
+                        selectedItem.classList.remove('selected');
+                    }
+
+                    // Toggle selection
+                    if (this.classList.contains('placed')) {
+                        return; // Can't select already placed items
+                    }
+
+                    if (selectedItem === this) {
+                        this.classList.remove('selected');
+                        selectedItem = null;
+                    } else {
+                        this.classList.add('selected');
+                        selectedItem = this;
+                    }
+                });
+            });
+
+            // Category click handlers
+            categories.forEach(category => {
+                category.addEventListener('click', function() {
+                    if (!selectedItem) return;
+
+                    const targetCategory = this.dataset.category;
+                    const itemCategory = selectedItem.dataset.category;
+                    const accountName = selectedItem.dataset.account;
+
+                    // Check if correct category
+                    if (targetCategory === itemCategory) {
+                        // Correct placement
+                        this.classList.add('correct');
+                        setTimeout(() => {
+                            this.classList.remove('correct');
+                        }, 1000);
+
+                        // Move item to category
+                        const newItem = document.createElement('div');
+                        newItem.className = 'bs-item';
+                        newItem.textContent = selectedItem.textContent;
+                        newItem.dataset.category = itemCategory;
+                        newItem.dataset.account = accountName;
+
+                        this.querySelector('.category-items').appendChild(newItem);
+                        selectedItem.classList.add('placed');
+                        selectedItem.classList.remove('selected');
+                        selectedItem = null;
+
+                        // Update progress
+                        placedItems[accountName] = targetCategory;
+                        updateProgress();
+
+                        // Update count
+                        const count = this.querySelectorAll('.category-items .bs-item').length;
+                        this.querySelector('.category-count').textContent = count;
+                    } else {
+                        // Wrong category
+                        this.classList.add('incorrect');
+                        setTimeout(() => {
+                            this.classList.remove('incorrect');
+                        }, 500);
+                    }
+                });
+            });
+        }
+
+        function updateProgress() {
+            const placed = Object.keys(placedItems).length;
+            const percentage = (placed / totalItems) * 100;
+            document.getElementById('bs-progress-fill').style.width = percentage + '%';
+            document.getElementById('bs-progress-text').textContent = placed + ' / ' + totalItems + ' classified';
+        }
+
+        function checkBalanceSheet() {
+            const placed = Object.keys(placedItems).length;
+            const feedback = document.getElementById('bs-feedback');
+
+            if (placed === totalItems) {
+                feedback.textContent = '🎉 Perfect! All 12 accounts correctly classified into their proper balance sheet sections!';
+                feedback.className = 'bs-feedback show success';
+            } else if (placed >= 8) {
+                feedback.textContent = '👍 Good progress! ' + (totalItems - placed) + ' accounts still need classification.';
+                feedback.className = 'bs-feedback show warning';
+            } else {
+                feedback.textContent = '👍 Good progress! ' + (totalItems - placed) + ' accounts still need classification.';
+                feedback.className = 'bs-feedback show warning';
+            }
+        }
+
+        function resetBalanceSheet() {
+            // Reset state
+            selectedItem = null;
+            placedItems = {};
+
+            // Reset all items in source
+            document.querySelectorAll('#bs-items .bs-item').forEach(item => {
+                item.classList.remove('selected', 'placed');
+            });
+
+            // Clear all categories
+            document.querySelectorAll('.bs-category .category-items').forEach(container => {
+                container.innerHTML = '';
+            });
+
+            // Reset counts
+            document.querySelectorAll('.bs-category .category-count').forEach(count => {
+                count.textContent = '0';
+            });
+
+            // Reset progress
+            updateProgress();
+
+            // Hide feedback
+            document.getElementById('bs-feedback').className = 'bs-feedback';
+        }
+
+        // Initialize on DOM ready
+        document.addEventListener('DOMContentLoaded', function() {
+            initBalanceSheetBuilder();
+        });
+    </script>
+</body>
+
+</html>

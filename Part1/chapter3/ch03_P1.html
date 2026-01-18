@@ -1,0 +1,692 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>P1: Adjusting Prepaid Expenses | ACCOUNTING ESSENTIALS</title>
+    <link rel="stylesheet" href="../../styles.css">
+    <style>
+        /* Enhanced styles for Periodic Reporting & Accrual concepts */
+        .periodic-cycle {
+            position: relative;
+            width: 100%;
+            max-width: 700px;
+            margin: 2rem auto;
+        }
+
+        .periodic-flow-container {
+            display: flex;
+            gap: 2rem;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            background: var(--bg-light);
+            padding: 2rem;
+            border-radius: var(--radius-md);
+        }
+
+        .periodic-step {
+            position: relative;
+            width: 300px;
+            padding: 1.5rem;
+            background: var(--white);
+            border-radius: var(--radius-sm);
+            box-shadow: var(--shadow-md);
+            transition: all 0.3s ease;
+            cursor: pointer;
+            z-index: 10;
+        }
+
+        .periodic-step:hover {
+            transform: scale(1.05);
+            box-shadow: var(--shadow-lg);
+            z-index: 20;
+        }
+
+        .periodic-step.active {
+            background: var(--primary-light);
+            border-color: var(--primary);
+            z-index: 25;
+        }
+
+        .flow-arrow {
+            position: absolute;
+            width: 4px;
+            height: 2px;
+            background: var(--primary-light);
+            transform-origin: left center;
+            left: 50%;
+        }
+    </style>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-50MTQPVR7D"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-50MTQPVR7D');
+</script>
+
+</head>
+
+<body>
+    <header>
+        <div class="container nav-container">
+            <a href="../../index.html" class="logo">ACCOUNTING<span>ESSENTIALS</span></a>
+            <nav class="nav-links">
+                <a href="../../index.html">Home</a>
+                <a href="../part1.html">Part 1</a>
+                <a href="../../part2/part2.html">Part 2</a>
+                <a href="../../part3/part3.html">Part 3</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container">
+        <div class="breadcrumbs">
+            <a href="../../index.html">Home</a> <span>/</span> <a href="../part1.html">Part 1</a> <span>/</span> <a href="ch03.html">Chapter 3</a> <span>/</span> P1
+        </div>
+
+        <article class="animate-fade-in">
+            <div class="kp-header">
+                <h1 style="border-left: 8px solid var(--primary-light); padding-left: 1rem; margin: 2rem 0;">Adjusting: Prepaid Expenses</h1>
+            </div>
+
+            <!-- Learning Objectives -->
+            <section class="kp-section">
+                <h2>🎯 Learning Objectives</h2>
+                <div class="learning-objectives">
+                    <ul>
+                        <li>Understand the matching principle in accrual accounting</li>
+                        <li>Identify types of prepaid expenses and how they differ from regular expenses</li>
+                        <li>Apply adjusting entries to recognize expenses in the correct period</li>
+                        <li>Distinguish between assets and expenses in the accounting equation</li>
+                        <li>Complete the accounting cycle with proper adjusting entries</li>
+                        <li>Identify key types of accrued expenses</li>
+                        <li>Master the year-end closing process with adjusted entries</li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- Background & Principles -->
+            <section class="kp-section">
+                <h2>📚 Background & Principles</h2>
+                <p>In accrual accounting, expenses are recognized when <strong>incurred</strong> (earned or used), regardless of when cash is paid. This principle, known as the <strong>matching principle</strong>, ensures that expenses are recorded in the <strong>same period</strong> as revenues they help generate.</p>
+
+                <div class="key-concepts-grid">
+                    <div class="concept-card">
+                        <strong>🔑 Accrual Accounting</strong>
+                        <p>Revenue and expenses are recorded when they are <strong>earned/incurred</strong> (earned or used), regardless of when cash changes hands. This provides more accurate financial picture.</p>
+                    </div>
+
+                    <div class="concept-card">
+                        <strong>💼 Prepaid Expenses</strong>
+                        <p>Expenses paid in advance of future benefit. Examples: prepaid insurance, prepaid rent, supplies purchased in bulk.</p>
+                    </div>
+
+                    <div class="concept-card">
+                        <strong>💼 Accrued Expenses</strong>
+                        <p>The portion of a prepaid expense that has been used during the current period. Systematically recognized and expensed over time.</p>
+                    </div>
+
+                    <div class="concept-card">
+                        <strong>📖 The Matching Principle</strong>
+                        <p>Every expense must be matched with a revenue it helped generate. This prevents <strong>overstating</strong> income or <strong>understating</strong> expenses.</p>
+                    </div>
+                </div>
+
+                <div class="professional-tip">
+                    <strong>💡 Professional Insight:</strong> The matching principle is one of the most important principles in accrual accounting. Without it, financial statements would be <strong>inaccurate</strong> and misleading.
+                </div>
+            </section>
+
+            <!-- Key Concepts -->
+            <section class="kp-section">
+                <h2>🔑 Key Concepts</h2>
+                <div class="key-concepts-grid">
+                    <div class="concept-card">
+                        <strong>📖 Prepaid Expense</strong>
+                        <p>An expense paid in advance for future benefit. Examples: prepaid insurance, prepaid rent, supplies purchased in bulk.</p>
+                    </div>
+
+                    <div class="concept-card">
+                        <strong>💼 Accrued Expense</strong>
+                        <p>The portion expensed in current period. Systematically reduce prepaid asset, increase expense, decrease equity.</p>
+                    </div>
+
+                    <div class="concept-card">
+                        <strong>📖 The Matching Principle</strong>
+                        <p>Every expense must be matched with the <strong>revenue</strong> it <strong>helped</strong> generate. This prevents <strong>overstating</strong> income or <strong>understating</strong> expenses.</p>
+                    </div>
+
+                    <div class="concept-card">
+                        <strong>📖 Trial Balance</strong>
+                        <p>A test that verifies <strong>debits</strong> equal <strong>credits</strong> after all <strong>adjustments</strong> are posted.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Deep Dive -->
+            <section class="kp-section">
+                <h2>🔍 Deep Dive</h2>
+                <p>Explore prepaid expenses and accrued expenses at different levels of complexity:</p>
+
+                <div class="depth-toggle">
+                    <button class="depth-btn active" onclick="setPeriodicDepth('A')">Depth A: Foundational</button>
+                    <button class="depth-btn" onclick="setPeriodicDepth('B')">Depth B: Standard</button>
+                    <button class="depth-btn" onclick="setPeriodicDepth('C')">Depth C: Advanced</button>
+                </div>
+
+                <!-- Depth A: Foundational Level -->
+                <div id="periodic-depth-A" class="depth-content active">
+                    <h3>🟢 Foundational Level</h3>
+                    <p>Basic understanding of prepaid expenses and adjusting entries.</p>
+
+                    <div class="worked-example">
+                        <h4>Example 1: Simple Prepaid Rent</h4>
+                        <p><strong>Scenario:</strong> Company pays $6,000 for 3 months of rent in advance.</p>
+
+                        <div class="example-step">
+                            <strong>Step 1: Original Entry</strong>
+                            <p>On December 1, record:</p>
+                            <ul style="margin-top: 0.5rem; margin-left: 2rem;">
+                                <li><strong>Debit Prepaid Rent (Asset) $6,000</li>
+                                <li><strong>Entry:</strong>Debit Prepaid Rent (Asset) $6,000 / Credit Cash (Asset) $6,000</li>
+                            </ul>
+                        </div>
+
+                        <div class="example-step">
+                            <strong>Step 2: Analysis</strong>
+                            <p>By December 31:</p>
+                            <ul style="margin-top: 0.5rem; margin-left: 2rem;">
+                                <li>Prepaid Rent has 3 months remaining (Jan, Feb, Mar).</li>
+                                <li>Total prepaid: $6,000</li>
+                                <li>Amount used in December: $6,000</li>
+                                <li>Unrecognized amount: $4,000 ($6,000 × 2/3)</li>
+                            </ul>
+                        </div>
+
+                        <div class="professional-tip">
+                            <strong>💡 Professional Tip:</strong> Always track remaining prepaid amount separately. Don't confuse <strong>original</strong> prepaid asset with <strong>current</strong> usage.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Depth B: Standard Level -->
+                <div id="periodic-depth-B" class="depth-content">
+                    <h3>🟡 Standard Level</h3>
+                    <p>Complete adjusting entry examples with multiple prepaid expense types.</p>
+
+                    <div class="worked-example">
+                        <h4>Example 2: Prepaid Insurance</h4>
+                        <p><strong>Scenario:</strong> On January 1, company purchases a 12-month insurance policy for $12,000, paid in advance.</p>
+
+                        <div class="example-step">
+                            <strong>Step 1: January Entry</strong>
+                            <p>On January 1, record:</p>
+                            <ul style="margin-top: 0.5rem; margin-left: 2rem;">
+                                <li><strong>Debit Prepaid Insurance (Asset) $12,000</li>
+                                <li><strong>Entry:</strong>Debit Prepaid Insurance (Asset) $12,000 / Credit Cash (Asset) $12,000</li>
+                            </ul>
+                        </div>
+
+                        <div class="example-step">
+                            <strong>Step 2: Monthly Adjustments</strong>
+                            <p>Each month, recognize $1,000 of insurance as expense:</p>
+                            <ul style="margin-top: 0.5rem; margin-left:  2rem;">
+                                <li>January: $1,000</li>
+                                <li>February: $1,000</li>
+                                <li>March: $1,000</li>
+                                <li>...through December: $12,000</li>
+                            </ul>
+                        </div>
+
+                        <div class="example-step">
+                            <strong>Step 3: Year-End Analysis</strong>
+                            <p>By December 31, total recognized: $12,000</p>
+                            <ul style="margin-top: 0.5rem; margin-left: 2rem;">
+                                <li>Total insurance expense for year: $12,000</li>
+                                <li>Prepaid Insurance remaining: $0</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                </div>
+
+                <!-- Depth C: Advanced Level -->
+                <div id="periodic-depth-C" class="depth-content">
+                    <h3>🔴 Advanced Level</h3>
+                    <p>Complex scenarios with multiple accrued expenses.</p>
+
+                    <div class="worked-example">
+                        <h4>Example 4: Prepaid Supplies</h4>
+                        <p><strong>Scenario:</strong> Company purchases office supplies for $5,000 on January 15, but expects to use them over next 6 months.</p>
+
+                        <div class="example-step">
+                            <strong>Step 1: Initial Recording</strong>
+                            <p>On January 15, record:</p>
+                            <ul style="margin-top: 0.5rem; margin-left: 2rem;">
+                                <li>Debit Supplies Inventory (Asset) $5,000</li>
+                                <li><strong>Entry:</strong>Debit Supplies Inventory (Asset) $5,000 / Credit Cash (Asset) $5,000</li>
+                            </ul>
+                        </div>
+
+                        <div class="example-step">
+                            <strong>Step 2: Monthly Usage Analysis</strong>
+                            <p>Each month, estimate usage based on purchases:</p>
+                            <ul style="margin-top: 0.5rem; margin-left: 2rem;">
+                                <li>January: Used $0</li>
+                                <li>February: Used $500</li>
+                                <li>March: Used $200</li>
+                                <li>...through June: Used $2,000</li>
+                            </ul>
+                        </div>
+
+                        <div class="example-step">
+                            <strong>Step 3: December Adjusting Entry</strong>
+                            <p>On December 31, record:</p>
+                            <ul style="margin-top: 0.5rem; margin-left: 2rem;">
+                                <li>Debit Supplies (Asset) $2,000 (remaining)</li>
+                                <li>Credit Supplies Inventory (Asset) $2,000</li>
+                            </ul>
+                        </div>
+
+                        <div class="example-step">
+                            <strong>Step 3: December 31, record:</p>
+                            <ul style="margin-top: 0.5rem; margin-left: 2rem;">
+                                <li>Debit Supplies (Asset) $2,000 → $2,000 (used)</li>
+                                <li>Credit Supplies Inventory (Asset) $2,000</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="professional-tip">
+                        <strong>💡 Professional Insight:</strong> Remember: Prepaid expenses are assets initially. Adjusting converts them to expenses over time. The adjusting entry only reclassifies the account type from asset to expense, ensuring proper matching.</p>
+                    </div>
+                </div>
+                </div>
+            </section>
+
+            <!-- Interactive Periodic Flow Simulator -->
+            <section class="kp-section">
+                <h2>🎨 Interactive Periodic Flow Simulator</h2>
+                <p>Click on each step to see how adjusting entries complete the accounting cycle:</p>
+
+                <style>
+                    /* Periodic Flow Styles */
+                    .periodic-flow-container {
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        gap: 0;
+                        margin: 2rem 0;
+                        flex-wrap: wrap;
+                        padding: 2rem;
+                        background: var(--bg-light);
+                        border-radius: var(--radius-md);
+                    }
+                    .periodic-step {
+                        display: flex;
+                        flex-direction: column;
+                        align-items: center;
+                        text-align: center;
+                        padding: 1.5rem;
+                        background: var(--white);
+                        border-radius: var(--radius-md);
+                        box-shadow: var(--shadow-md);
+                        transition: all 0.3s ease;
+                        cursor: pointer;
+                        min-width: 180px;
+                        max-width: 220px;
+                    }
+                    .periodic-step:hover {
+                        transform: translateY(-5px) scale(1.02);
+                        box-shadow: var(--shadow-lg);
+                    }
+                    .periodic-step.active {
+                        background: linear-gradient(135deg, var(--primary), var(--primary-light));
+                        color: white;
+                    }
+                    .periodic-step.active p {
+                        color: rgba(255,255,255,0.9);
+                    }
+                    .periodic-step .step-num {
+                        width: 32px;
+                        height: 32px;
+                        background: rgba(255,255,255,0.2);
+                        border-radius: 50%;
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        font-weight: 700;
+                        font-size: 0.9rem;
+                        margin-bottom: 0.75rem;
+                    }
+                    .periodic-step.active .step-num {
+                        background: rgba(255,255,255,0.3);
+                    }
+                    .periodic-step h4 {
+                        margin: 0 0 0.5rem 0;
+                        font-size: 1rem;
+                    }
+                    .periodic-step p {
+                        margin: 0;
+                        font-size: 0.8rem;
+                        color: var(--text-muted);
+                    }
+                    .periodic-arrow {
+                        font-size: 1.5rem;
+                        color: var(--primary);
+                        padding: 0 0.5rem;
+                        animation: bounce-right 1.5s ease-in-out infinite;
+                    }
+                    @keyframes bounce-right {
+                        0%, 100% { transform: translateX(0); }
+                        50% { transform: translateX(5px); }
+                    }
+                    .periodic-detail {
+                        margin-top: 2rem;
+                        padding: 2rem;
+                        background: var(--white);
+                        border-radius: var(--radius-md);
+                        border-left: 4px solid var(--primary);
+                        box-shadow: var(--shadow-sm);
+                    }
+                    .periodic-detail h4 {
+                        color: var(--primary);
+                        margin-bottom: 1rem;
+                    }
+                    .journal-entry {
+                        background: var(--bg-light);
+                        padding: 1rem 1.5rem;
+                        border-radius: var(--radius-sm);
+                        font-family: monospace;
+                        margin-top: 1rem;
+                    }
+                    .journal-entry .debit {
+                        color: var(--success);
+                        font-weight: 700;
+                    }
+                    .journal-entry .credit {
+                        color: var(--error);
+                        font-weight: 700;
+                    }
+                </style>
+
+                <div id="periodic-flow-container" class="periodic-flow-container">
+                    <div class="periodic-step" data-step="1">
+                        <div class="step-num">1</div>
+                        <h4>ANALYZE</h4>
+                        <p>Identify prepaid expenses</p>
+                    </div>
+
+                    <div class="periodic-arrow">→</div>
+
+                    <div class="periodic-step" data-step="2">
+                        <div class="step-num">2</div>
+                        <h4>RECORD</h4>
+                        <p>Record as prepaid assets</p>
+                    </div>
+
+                    <div class="periodic-arrow">→</div>
+
+                    <div class="periodic-step" data-step="3">
+                        <div class="step-num">3</div>
+                        <h4>ADJUST</h4>
+                        <p>Convert to expense</p>
+                    </div>
+
+                    <div class="periodic-arrow">→</div>
+
+                    <div class="periodic-step" data-step="4">
+                        <div class="step-num">4</div>
+                        <h4>VERIFY</h4>
+                        <p>Check trial balance</p>
+                    </div>
+                </div>
+
+                <!-- Detail Display -->
+                <div id="periodic-detail" class="periodic-detail">
+                    <h4 id="detail-title">Step 1: Analyze</h4>
+                    <p id="detail-desc">Identify which expenses have been paid in advance but not yet used. Common examples include prepaid insurance, prepaid rent, and office supplies purchased in bulk.</p>
+                    <div id="detail-entry" class="journal-entry" style="display: none;"></div>
+                </div>
+
+                <script>
+                    const periodicData = {
+                        1: {
+                            title: 'Step 1: Analyze',
+                            desc: 'Identify which expenses have been paid in advance but not yet used. Common examples include prepaid insurance ($12,000/year), prepaid rent ($6,000/3months), and office supplies purchased in bulk.',
+                            entry: null
+                        },
+                        2: {
+                            title: 'Step 2: Record as Asset',
+                            desc: 'Initially record prepaid expenses as ASSETS (not expenses). This represents future economic benefit already paid for.',
+                            entry: '<span class="debit">Dec 1  Dr. Prepaid Insurance  $12,000</span><br><span class="credit">        Cr. Cash  $12,000</span>'
+                        },
+                        3: {
+                            title: 'Step 3: Adjusting Entry',
+                            desc: 'Each month, convert portion of prepaid asset to expense. This matches expense with revenue generated.',
+                            entry: '<span class="debit">Dec 31  Dr. Insurance Expense  $1,000</span><br><span class="credit">        Cr. Prepaid Insurance  $1,000</span>'
+                        },
+                        4: {
+                            title: 'Step 4: Verify Trial Balance',
+                            desc: 'After all adjustments, verify that total debits equal total credits. This ensures the accounting equation remains balanced.',
+                            entry: 'Dr. Insurance Expense  $1,000  =  Cr. Prepaid Insurance  $1,000<br><span style="color: var(--success);">✓ Balanced!</span>'
+                        }
+                    };
+
+                    function initPeriodicSteps() {
+                        const steps = document.querySelectorAll('.periodic-step');
+                        steps.forEach(step => {
+                            // Clone to remove any existing event listeners
+                            const newStep = step.cloneNode(true);
+                            step.parentNode.replaceChild(newStep, step);
+                            
+                            // Add click event
+                            newStep.addEventListener('click', function() {
+                                const stepNum = this.getAttribute('data-step');
+                                showPeriodicStepDetails(stepNum);
+                                
+                                // Update active state
+                                document.querySelectorAll('.periodic-step').forEach(s => s.classList.remove('active'));
+                                this.classList.add('active');
+                            });
+                            
+                            // Add hover effect
+                            newStep.addEventListener('mouseenter', function() {
+                                this.style.transform = 'translateY(-5px) scale(1.02)';
+                            });
+                            newStep.addEventListener('mouseleave', function() {
+                                this.style.transform = '';
+                            });
+                        });
+                    }
+
+                    function showPeriodicStepDetails(stepNum) {
+                        const data = periodicData[stepNum];
+                        if (!data) return;
+
+                        // Update detail display
+                        document.getElementById('detail-title').textContent = data.title;
+                        document.getElementById('detail-desc').textContent = data.desc;
+                        
+                        const entryDiv = document.getElementById('detail-entry');
+                        if (data.entry) {
+                            entryDiv.style.display = 'block';
+                            entryDiv.innerHTML = data.entry;
+                        } else {
+                            entryDiv.style.display = 'none';
+                        }
+                    }
+
+                    // Initialize on DOM ready
+                    document.addEventListener('DOMContentLoaded', function() {
+                        initPeriodicSteps();
+                        // Set first step as active
+                        const firstStep = document.querySelector('.periodic-step[data-step="1"]');
+                        if (firstStep) {
+                            firstStep.classList.add('active');
+                        }
+                    });
+                </script>
+            </section>
+
+            <!-- Worked Examples -->
+            <section class="kp-section">
+                <h2>📝 Worked Examples</h2>
+                <p>Worked examples demonstrating periodic reporting.</p>
+
+                <div class="worked-example">
+                    <h4>Example 1: Simple Prepaid Rent</h4>
+                        <p><strong>Scenario:</strong> Company pays $6,000 for 3 months of rent on December 1.</p>
+
+                        <div class="example-step">
+                            <strong>Step 1: Original Entry</strong>
+                            <p>December 1, record:</p>
+                            <ul style="margin-top: 0.5rem; margin-left: 2rem;">
+                                <li><strong>Debit Prepaid Rent (Asset) $6,000</li>
+                                <li><strong>Entry:</strong>Debit Prepaid Rent (Asset) $6,000 / Credit Cash (Asset) $6,000</li>
+                            </ul>
+                        </div>
+
+                        <div class="example-step">
+                            <strong>Step 2: December Analysis</strong>
+                            <p>By December 31:</p>
+                            <ul style="margin-top: 0.5rem; margin-left: 2rem;">
+                                <li>Prepaid Rent has 3 months remaining (Jan, Feb, Mar).</li>
+                                <li>Total prepaid: $6,000</li>
+                                <li>Amount used in December: $6,000</li>
+                                <li>Unrecognized amount: $4,000 ($6,000 ÷ 3)</li>
+                            </ul>
+                        </div>
+
+                        <div class="professional-tip">
+                            <strong>💡 Professional Tip:</strong> Always track of remaining prepaid amount separately. Don't confuse <strong>original</strong> prepaid asset with <strong>current</strong> usage.</p>
+                        </div>
+                </div>
+                </div>
+            </section>
+
+            <!-- Common Misconceptions -->
+            <section class="kp-section">
+                <h2>🚫 Common Misconceptions & Professional Tips</h2>
+
+                <div class="misconception-alert">
+                    <strong>❌ Misconception 1:</strong> "Prepaid expenses are assets, not expenses."
+                        <br><br>
+                        <strong>✅ Reality:</strong> Prepaid expenses are indeed assets initially. However, accounting treats them systematically as <strong>expenses over time</strong> as they're consumed. They appear as expenses on the income statement, but their nature is different from regular expenses.</p>
+                    </div>
+
+                    <div class="professional-tip">
+                        <strong>💡 Professional Tip #1:</strong> Understand the nature of prepaid expenses. They're not assets that require careful tracking of usage and adjustment.</p>
+                    </div>
+                </div>
+
+                <div class="professional-tip">
+                    <strong>💡 Professional Tip #2:</strong> Prepaid expenses involve estimating future benefits (insurance, rent, supplies). The estimation process requires judgment about consumption patterns.</p>
+                    </div>
+
+                <div class="professional-tip">
+                    <strong>💡 Professional Tip #3:</strong> Document estimation rationale for adjustments. This provides evidence trail for accuracy and auditability.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Memory Aids -->
+            <section class="kp-section">
+                <h2>🧠 Memory Aids & Quick Reference</h2>
+                <p>Quick recall: The periodicityc Accounting principle vs Cash Basis of the Accrual Accounting vs Cash Basis</p>
+                <p style="margin-top: 1.5rem; font-size: 1.3rem; font-weight: 700;">Cash Basis = Revenues - Expenses + Other Income</p>
+                    </div>
+
+                <div class="memory-aid-card">
+                    <strong>⚡ Quick Recall: Accrual Accounting</strong>
+                        <p>Revenue and expenses when <strong>incurred</strong> (earned or used), regardless of cash timing.</p>
+                    </div>
+
+                <div class="memory-aid-card">
+                    <strong>⚡ Quick Recall: Cash Basis</strong>
+                        <p>Cash transactions, expenses not paid, payables, dividends.</p>
+                    </div>
+
+                <div class="memory-aid-card">
+                    <strong>⚡ Quick Recall: Accrual Accounting</strong>
+                        <p>Revenue increases equity when <strong>incurred</strong>, expenses <strong>cash basis</strong> decreases equity.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Glossary -->
+            <section class="kp-section">
+                <h2>📖 Glossary</h2>
+                <div class="key-concepts-grid">
+                    <div class="concept-card">
+                        <strong>📖 Prepaid Expense</strong>
+                        <p>An expense paid in advance for future benefit. Examples: prepaid insurance, prepaid rent, supplies.</p>
+                    </div>
+
+                    <div class="concept-card">
+                        <strong>💼 Accrued Expenses</strong>
+                        <p>The portion of a prepaid expense that has been used during the current period. Systematically recognized and expensed over time.</p>
+                    </div>
+
+                    <div class="concept-card">
+                        <strong>📖 Adjusting Entry</strong>
+                        <p>The journal entry that transfers from prepaid expense (asset) to expense.</p>
+                        </div>
+
+                    <div class="concept-card">
+                        <strong>📖 The Matching Principle</strong>
+                        <p>Every expense must be matched with the revenue it helped generate.</p>
+                    </div>
+
+                    <div class="concept-card">
+                        <strong>📖 Trial Balance</strong>
+                        <p>A test that verifies <strong>debits</strong> equal <strong>credits</strong> after all <strong>adjustments</strong> are posted.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Final Knowledge Check -->
+            <section class="interactive-section">
+                <h2>🎯 Final Knowledge Check</h2>
+                <p>Test your understanding of <strong>Accrual</strong> accounting.</p>
+
+                <div class="quiz-container" data-success-text="Excellent! You've mastered: fundamentals of periodicit reporting and accrual accounting." data-explanation="Prepaid expenses are assets initially that are systematically expensed over time. The adjusting entry only reclassifies the account type from asset to expense, ensuring proper matching.">
+                <div class="input-group">
+                    <label><input type="radio" name="periodic-quiz1" value="correct" data-correct="true"> Yes, it's a prepaid expense (assets)</label><br>
+                    <input type="radio" name="periodic-quiz1" value="incorrect" data-correct="false"> No, it's a regular expense</label><br>
+                    <input type="radio" name="periodic-quiz1" value="incorrect2" data-correct="false"> Yes, it's an asset</label><br>
+                    <input type="radio" name="periodic-quiz1" value="incorrect3" data-correct="false"> No, it's an asset (not a <strong>Adjusting, periodity Accrual</label></label><br>
+                    </div>
+
+                    <button class="btn btn-primary quiz-submit">Submit Answers</button>
+                    <div class="feedback"></div>
+                    <button class="quiz-retry">Try Again</button>
+                </div>
+            </section>
+
+            <nav class="kp-navigation" style="display: flex; justify-content: space-between; margin-top: 4rem; padding-bottom: 2rem;">
+                <a href="ch03_C1.html" class="btn" style="background: #eee;">← Previous: Accrual Basis</a>
+                <a href="ch03_P2.html" class="btn btn-primary">Next: Unearned Revenue →</a>
+            </nav>
+        </article>
+    </main>
+
+    <footer style="margin-top: 5rem; padding: 2rem 0; border-top: 1px solid #ddd; text-align: center; color: #888;">
+        <p>Accounting Essentials | Chapter 3 | Procedure 1</p>
+    </footer>
+    <script src="../../components-enhanced.js"></script>
+    <script>
+        function setPeriodicDepth(depth) {
+            document.querySelectorAll('.depth-btn').forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+
+            document.querySelectorAll('.depth-content').forEach(content => content.classList.remove('active'));
+            document.getElementById('periodic-depth-' + depth).classList.add('active');
+        }
+    </script>
+</body>
+
+</html>

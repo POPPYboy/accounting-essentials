@@ -1,0 +1,822 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactive: Financial Statements | ACCOUNTING ESSENTIALS</title>
+    <link rel="stylesheet" href="../../styles.css">
+    <style>
+        /* Statement Builder Styles */
+        .statement-builder {
+            background: var(--bg-light);
+            padding: 30px;
+            border-radius: var(--radius-md);
+            margin: 20px 0;
+        }
+
+        .builder-tabs {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 30px;
+        }
+
+        .builder-tab {
+            padding: 15px 30px;
+            background: var(--white);
+            border: 2px solid var(--primary);
+            border-radius: var(--radius-sm);
+            cursor: pointer;
+            font-weight: 600;
+            color: var(--primary);
+            transition: all 0.3s ease;
+        }
+
+        .builder-tab:hover {
+            background: var(--primary-light);
+            color: var(--white);
+        }
+
+        .builder-tab.active {
+            background: var(--primary);
+            color: var(--white);
+            border-color: var(--accent);
+        }
+
+        .builder-content {
+            display: none;
+        }
+
+        .builder-content.active {
+            display: block;
+            animation: fadeIn 0.5s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Drag and Drop Styles */
+        .accounts-pool {
+            background: var(--white);
+            padding: 20px;
+            border-radius: var(--radius-sm);
+            margin: 20px 0;
+            border: 2px dashed var(--primary);
+        }
+
+        .pool-item {
+            display: inline-block;
+            background: var(--primary-light);
+            color: var(--white);
+            padding: 10px 20px;
+            margin: 5px;
+            border-radius: var(--radius-sm);
+            cursor: grab;
+            font-size: 0.9rem;
+            user-select: none;
+            transition: all 0.3s ease;
+        }
+
+        .pool-item:hover {
+            transform: scale(1.05);
+            background: var(--primary);
+        }
+
+        .pool-item:active {
+            cursor: grabbing;
+        }
+
+        .pool-item.used {
+            opacity: 0.3;
+            cursor: not-allowed;
+            text-decoration: line-through;
+        }
+
+        /* Statement Drop Zones */
+        .statement-table {
+            background: var(--white);
+            border-radius: var(--radius-md);
+            overflow: hidden;
+            margin: 20px 0;
+        }
+
+        .statement-row {
+            display: flex;
+            padding: 15px;
+            border-bottom: 1px solid #ddd;
+            transition: background 0.3s ease;
+        }
+
+        .statement-row:hover {
+            background: var(--bg-light);
+        }
+
+        .statement-row.drag-over {
+            background: var(--success-light);
+            border: 2px dashed var(--success);
+        }
+
+        .statement-label {
+            flex: 2;
+            font-weight: 500;
+        }
+
+        .statement-amount {
+            flex: 1;
+            text-align: right;
+            font-family: 'Courier New', monospace;
+            font-weight: 600;
+        }
+
+        .statement-row.total {
+            background: var(--primary-light);
+            color: var(--white);
+            font-weight: 700;
+        }
+
+        .statement-row.subtotal {
+            background: var(--info-light);
+            font-weight: 600;
+        }
+
+        /* Input Styles */
+        .statement-input {
+            width: 100%;
+            padding: 8px;
+            border: 2px solid var(--text-muted);
+            border-radius: 4px;
+            font-size: 1rem;
+            text-align: right;
+            transition: border-color 0.3s ease;
+        }
+
+        .statement-input:focus {
+            outline: none;
+            border-color: var(--primary);
+        }
+
+        .statement-input.correct {
+            border-color: var(--success);
+            background: var(--success-light);
+        }
+
+        .statement-input.incorrect {
+            border-color: var(--error);
+            background: var(--error-light);
+        }
+
+        /* Validation Feedback */
+        .validation-status {
+            padding: 20px;
+            border-radius: var(--radius-md);
+            margin: 20px 0;
+            text-align: center;
+            font-size: 1.2rem;
+            font-weight: 600;
+            display: none;
+        }
+
+        .validation-status.show {
+            display: block;
+            animation: slideDown 0.5s ease;
+        }
+
+        .validation-status.success {
+            background: var(--success-light);
+            border: 2px solid var(--success);
+            color: var(--success-dark);
+        }
+
+        .validation-status.error {
+            background: var(--error-light);
+            border: 2px solid var(--error);
+            color: var(--error-dark);
+        }
+
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Instructions */
+        .instructions-box {
+            background: var(--info-light);
+            border-left: 4px solid var(--info);
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: var(--radius-sm);
+        }
+
+        .step-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .step-list li {
+            padding: 10px 0;
+            padding-left: 30px;
+            position: relative;
+        }
+
+        .step-list li:before {
+            content: attr(data-step);
+            position: absolute;
+            left: 0;
+            top: 10px;
+            width: 20px;
+            height: 20px;
+            background: var(--primary);
+            color: var(--white);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 0.8rem;
+        }
+
+        /* Statement Preview */
+        .statement-preview {
+            background: var(--white);
+            padding: 30px;
+            border-radius: var(--radius-md);
+            margin: 20px 0;
+            border: 2px solid var(--secondary);
+        }
+
+        .preview-header {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .preview-header h3 {
+            color: var(--primary);
+            margin: 5px 0;
+        }
+
+        /* Progress Indicator */
+        .builder-progress {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 20px;
+        }
+
+        .progress-step {
+            padding: 10px 20px;
+            background: var(--text-muted);
+            color: var(--white);
+            border-radius: var(--radius-sm);
+            font-size: 0.9rem;
+            font-weight: 600;
+        }
+
+        .progress-step.completed {
+            background: var(--success);
+        }
+
+        .progress-step.active {
+            background: var(--primary);
+            animation: pulse 1s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.7; }
+        }
+    </style>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-50MTQPVR7D"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-50MTQPVR7D');
+</script>
+
+</head>
+
+<body>
+    <header>
+        <div class="container nav-container">
+            <a href="../../index.html" class="logo">ACCOUNTING<span>ESSENTIALS</span></a>
+            <nav class="nav-links">
+                <a href="../../index.html">Home</a>
+                <a href="../part1.html">Part 1</a>
+                <a href="../../part2/part2.html">Part 2</a>
+                <a href="../../part3/part3.html">Part 3</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container">
+        <div class="breadcrumbs">
+            <a href="../../index.html">Home</a> <span>/</span> <a href="../part1.html">Part 1</a> <span>/</span> <a href="ch04.html">Chapter 4</a> <span>/</span> Interactive
+        </div>
+
+        <article class="animate-fade-in">
+            <h1 style="border-left: 8px solid var(--accent); padding-left: 1rem; margin: 2rem 0;">🎮 Interactive Learning: Financial Statement Builder</h1>
+
+            <section class="interactive-section">
+                <h2>Financial Statement Builder</h2>
+                <p>Build complete financial statements step by step. Classify account balances into the correct statement items!</p>
+
+                <div class="statement-builder">
+                    <div class="instructions-box">
+                        <h3>📋 Building Guide</h3>
+                        <ul class="step-list">
+                            <li data-step="1">Select account balances from the pool</li>
+                            <li data-step="2">Drag or click accounts to the correct statement position</li>
+                            <li data-step="3">Complete income statement, calculate net income</li>
+                            <li data-step="4">Complete Balance Sheet, verify accounting equation is balanced</li>
+                            <li data-step="5">Check and generate final statements</li>
+                        </ul>
+                    </div>
+
+                    <div class="builder-tabs">
+                        <div class="builder-tab active" data-statement="income">📊 Income Statement</div>
+                        <div class="builder-tab" data-statement="retained-earnings">📈 Owner's Equity Statement</div>
+                        <div class="builder-tab" data-statement="balance-sheet">💰 Balance Sheet</div>
+                    </div>
+
+                    <div class="builder-progress">
+                        <div class="progress-step active" data-step="1">Income Statement</div>
+                        <div class="progress-step" data-step="2">Equity Statement</div>
+                        <div class="progress-step" data-step="3">Balance Sheet</div>
+                        <div class="progress-step" data-step="4">Verification</div>
+                    </div>
+
+                    <!-- Account Pool -->
+                    <div class="accounts-pool">
+                        <h3>📦 Account Balance Pool</h3>
+                        <p>Click account to add to statement, click added account to remove</p>
+                        <div id="accounts-pool">
+                            <div class="pool-item" data-amount="50000" data-account="revenue" data-type="credit">Service Revenue $50,000</div>
+                            <div class="pool-item" data-amount="15000" data-account="salaries-expense" data-type="debit">Salaries Expense $15,000</div>
+                            <div class="pool-item" data-amount="8000" data-account="rent-expense" data-type="debit">Rent Expense $8,000</div>
+                            <div class="pool-item" data-amount="2000" data-account="supplies-expense" data-type="debit">Supplies Expense $2,000</div>
+                            <div class="pool-item" data-amount="3000" data-account="utilities-expense" data-type="debit">Utilities Expense $3,000</div>
+                            <div class="pool-item" data-amount="30000" data-account="cash" data-type="debit">Cash $30,000</div>
+                            <div class="pool-item" data-amount="15000" data-account="accounts-receivable" data-type="debit">Accounts Receivable $15,000</div>
+                            <div class="pool-item" data-amount="20000" data-account="equipment" data-type="debit">Equipment $20,000</div>
+                            <div class="pool-item" data-amount="8000" data-account="accounts-payable" data-type="credit">Accounts Payable $8,000</div>
+                            <div class="pool-item" data-amount="40000" data-account="common-stock" data-type="credit">Common Stock $40,000</div>
+                            <div class="pool-item" data-amount="12000" data-account="retained-earnings" data-type="credit">Retained Earnings $12,000</div>
+                        </div>
+                    </div>
+
+                    <!-- Income Statement -->
+                    <div class="builder-content active" id="income-statement">
+                        <h3>Income Statement</h3>
+                        <p>Add Revenue and Expenses accounts to the correct positions</p>
+
+                        <div class="statement-table">
+                            <div class="statement-row" style="background: var(--primary-light); color: var(--white);">
+                                <div class="statement-label"><strong>Company Name</strong></div>
+                                <div class="statement-amount"></div>
+                            </div>
+                            <div class="statement-row" style="background: var(--primary-light); color: var(--white);">
+                                <div class="statement-label"><strong>Income Statement</strong></div>
+                                <div class="statement-amount"></div>
+                            </div>
+                            <div class="statement-row" style="background: var(--primary-light); color: var(--white);">
+                                <div class="statement-label"><strong>For the Year Ended December 31, 2025</strong></div>
+                                <div class="statement-amount"></div>
+                            </div>
+
+                            <!-- Revenue Section -->
+                            <div class="statement-row" data-section="revenue">
+                                <div class="statement-label">Revenue</div>
+                                <div class="statement-amount"></div>
+                            </div>
+
+                            <!-- Expenses Section -->
+                            <div class="statement-row" data-section="expenses">
+                                <div class="statement-label">Expenses</div>
+                                <div class="statement-amount"></div>
+                            </div>
+
+                            <!-- Total Expenses -->
+                            <div class="statement-row subtotal">
+                                <div class="statement-label">Total Expenses</div>
+                                <div class="statement-amount" id="total-expenses">$0</div>
+                            </div>
+
+                            <!-- Net Income -->
+                            <div class="statement-row total">
+                                <div class="statement-label">Net Income</div>
+                                <div class="statement-amount" id="net-income">$0</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Retained Earnings Statement -->
+                    <div class="builder-content" id="retained-earnings-statement">
+                        <h3>Owner's Equity Statement</h3>
+                        <p>Show changes in Owner's Equity for the current period</p>
+
+                        <div class="statement-table">
+                            <div class="statement-row" style="background: var(--primary-light); color: var(--white);">
+                                <div class="statement-label"><strong>Company Name</strong></div>
+                                <div class="statement-amount"></div>
+                            </div>
+                            <div class="statement-row" style="background: var(--primary-light); color: var(--white);">
+                                <div class="statement-label"><strong>Owner's Equity Statement</strong></div>
+                                <div class="statement-amount"></div>
+                            </div>
+                            <div class="statement-row" style="background: var(--primary-light); color: var(--white);">
+                                <div class="statement-label"><strong>For the Year Ended December 31, 2025</strong></div>
+                                <div class="statement-amount"></div>
+                            </div>
+
+                            <div class="statement-row">
+                                <div class="statement-label">Beginning Retained Earnings</div>
+                                <div class="statement-amount">$12,000</div>
+                            </div>
+
+                            <div class="statement-row">
+                                <div class="statement-label">Add: Net Income</div>
+                                <div class="statement-amount" id="re-net-income">$0</div>
+                            </div>
+
+                            <div class="statement-row">
+                                <div class="statement-label">Less: Dividends</div>
+                                <div class="statement-amount">$0</div>
+                            </div>
+
+                            <div class="statement-row total">
+                                <div class="statement-label">Ending Retained Earnings</div>
+                                <div class="statement-amount" id="ending-re">$12,000</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Balance Sheet -->
+                    <div class="builder-content" id="balance-sheet">
+                        <h3>Balance Sheet</h3>
+                        <p>Show company financial position at period end</p>
+
+                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+                            <!-- Assets -->
+                            <div class="statement-table">
+                                <div class="statement-row" style="background: var(--primary-light); color: var(--white);">
+                                    <div class="statement-label"><strong>Assets</strong></div>
+                                    <div class="statement-amount"></div>
+                                </div>
+
+                                <div class="statement-row" data-section="current-assets">
+                                    <div class="statement-label">Current Assets</div>
+                                    <div class="statement-amount"></div>
+                                </div>
+
+                                <div class="statement-row" data-section="non-current-assets">
+                                    <div class="statement-label">Non-current Assets</div>
+                                    <div class="statement-amount"></div>
+                                </div>
+
+                                <div class="statement-row total">
+                                    <div class="statement-label">Total Assets</div>
+                                    <div class="statement-amount" id="total-assets">$0</div>
+                                </div>
+                            </div>
+
+                            <!-- Liabilities and Equity -->
+                            <div class="statement-table">
+                                <div class="statement-row" style="background: var(--primary-light); color: var(--white);">
+                                    <div class="statement-label"><strong>Liabilities and Equity</strong></div>
+                                    <div class="statement-amount"></div>
+                                </div>
+
+                                <div class="statement-row" data-section="current-liabilities">
+                                    <div class="statement-label">Current Liabilities</div>
+                                    <div class="statement-amount"></div>
+                                </div>
+
+                                <div class="statement-row subtotal">
+                                    <div class="statement-label">Total Liabilities</div>
+                                    <div class="statement-amount" id="total-liabilities">$0</div>
+                                </div>
+
+                                <div class="statement-row" data-section="equity">
+                                    <div class="statement-label">Owner's Equity</div>
+                                    <div class="statement-amount"></div>
+                                </div>
+
+                                <div class="statement-row total">
+                                    <div class="statement-label">Total Liabilities and Equity</div>
+                                    <div class="statement-amount" id="total-l-e">$0</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Validation -->
+                    <div class="validation-status" id="validation-status"></div>
+
+                    <div style="text-align: center; margin-top: 20px;">
+                        <button class="btn btn-primary" onclick="validateStatements()">Validate Statements</button>
+                        <button class="btn btn-outline" onclick="resetBuilder()">Reset</button>
+                    </div>
+                </div>
+            </section>
+
+            <div style="display: flex; justify-content: space-between; margin-top: 4rem; padding-bottom: 2rem;">
+                <a href="ch04_P3.html" class="btn" style="background: #eee;">← Previous: Closing Process</a>
+                <a href="ch04_PRACTICE.html" class="btn btn-primary">Next: Practice Case →</a>
+            </div>
+        </article>
+    </main>
+
+    <script src="../../components.js"></script>
+    <script>
+        // ==================== Statement Builder ====================
+        let activeStatement = 'income';
+        let statementData = {
+            income: {
+                revenue: [],
+                expenses: []
+            },
+            balanceSheet: {
+                currentAssets: [],
+                nonCurrentAssets: [],
+                currentLiabilities: [],
+                equity: []
+            }
+        };
+
+        function initStatementBuilder() {
+            // Tab switching
+            document.querySelectorAll('.builder-tab').forEach(tab => {
+                tab.addEventListener('click', function() {
+                    const statement = this.dataset.statement;
+
+                    // Remove active from all tabs
+                    document.querySelectorAll('.builder-tab').forEach(t => t.classList.remove('active'));
+                    document.querySelectorAll('.builder-content').forEach(c => c.classList.remove('active'));
+
+                    // Add active to clicked tab
+                    this.classList.add('active');
+                    document.getElementById(statement + '-statement').classList.add('active');
+
+                    activeStatement = statement;
+                    updateProgress();
+                });
+            });
+
+            // Account pool click handlers
+            document.querySelectorAll('.pool-item').forEach(item => {
+                item.addEventListener('click', function() {
+                    if (this.classList.contains('used')) {
+                        // Remove from statement
+                        removeAccountFromStatement(this);
+                    } else {
+                        // Add to statement
+                        addAccountToStatement(this);
+                    }
+                });
+            });
+        }
+
+        function addAccountToStatement(item) {
+            const account = item.dataset.account;
+            const amount = parseFloat(item.dataset.amount);
+
+            // Determine where to add based on account type
+            if (account === 'revenue') {
+                statementData.income.revenue.push({ account, amount });
+                addTableRow('income', 'revenue', account, amount);
+            } else if (account.includes('expense')) {
+                statementData.income.expenses.push({ account, amount });
+                addTableRow('income', 'expenses', account, amount);
+            } else if (account === 'cash' || account === 'accounts-receivable') {
+                statementData.balanceSheet.currentAssets.push({ account, amount });
+                addTableRow('balance-sheet', 'current-assets', account, amount);
+            } else if (account === 'equipment') {
+                statementData.balanceSheet.nonCurrentAssets.push({ account, amount });
+                addTableRow('balance-sheet', 'non-current-assets', account, amount);
+            } else if (account === 'accounts-payable') {
+                statementData.balanceSheet.currentLiabilities.push({ account, amount });
+                addTableRow('balance-sheet', 'current-liabilities', account, amount);
+            } else if (account === 'common-stock' || account === 'retained-earnings') {
+                statementData.balanceSheet.equity.push({ account, amount });
+                addTableRow('balance-sheet', 'equity', account, amount);
+            }
+
+            item.classList.add('used');
+            calculateTotals();
+        }
+
+        function removeAccountFromStatement(item) {
+            const account = item.dataset.account;
+
+            // Remove from data
+            statementData.income.revenue = statementData.income.revenue.filter(a => a.account !== account);
+            statementData.income.expenses = statementData.income.expenses.filter(a => a.account !== account);
+            statementData.balanceSheet.currentAssets = statementData.balanceSheet.currentAssets.filter(a => a.account !== account);
+            statementData.balanceSheet.nonCurrentAssets = statementData.balanceSheet.nonCurrentAssets.filter(a => a.account !== account);
+            statementData.balanceSheet.currentLiabilities = statementData.balanceSheet.currentLiabilities.filter(a => a.account !== account);
+            statementData.balanceSheet.equity = statementData.balanceSheet.equity.filter(a => a.account !== account);
+
+            // Remove from table
+            document.querySelectorAll('.statement-row.added-account').forEach(row => {
+                if (row.dataset.account === account) {
+                    row.remove();
+                }
+            });
+
+            item.classList.remove('used');
+            calculateTotals();
+        }
+
+        function addTableRow(statement, section, account, amount) {
+            const container = document.querySelector(`#${statement}-statement .statement-row[data-section="${section}"]`);
+
+            if (container) {
+                const newRow = document.createElement('div');
+                newRow.className = 'statement-row added-account';
+                newRow.dataset.account = account;
+                newRow.innerHTML = `
+                    <div class="statement-label">${formatAccountName(account)}</div>
+                    <div class="statement-amount">$${amount.toLocaleString()}</div>
+                `;
+
+                // Insert after the section header
+                container.parentNode.insertBefore(newRow, container.nextSibling);
+            }
+        }
+
+        function formatAccountName(account) {
+            const names = {
+                'revenue': 'Service Revenue',
+                'salaries-expense': 'Salaries Expense',
+                'rent-expense': 'Rent Expense',
+                'supplies-expense': 'Supplies Expense',
+                'utilities-expense': 'Utilities Expense',
+                'cash': 'Cash',
+                'accounts-receivable': 'Accounts Receivable',
+                'equipment': 'Equipment',
+                'accounts-payable': 'Accounts Payable',
+                'common-stock': 'Common Stock',
+                'retained-earnings': 'Retained Earnings'
+            };
+            return names[account] || account;
+        }
+
+        function calculateTotals() {
+            // Income Statement
+            const totalRevenue = statementData.income.revenue.reduce((sum, a) => sum + a.amount, 0);
+            const totalExpenses = statementData.income.expenses.reduce((sum, a) => sum + a.amount, 0);
+            const netIncome = totalRevenue - totalExpenses;
+
+            document.getElementById('total-expenses').textContent = '$' + totalExpenses.toLocaleString();
+            document.getElementById('net-income').textContent = '$' + netIncome.toLocaleString();
+            document.getElementById('re-net-income').textContent = '$' + netIncome.toLocaleString();
+
+            // Update ending retained earnings
+            const beginningRE = 12000;
+            const dividends = 0;
+            const endingRE = beginningRE + netIncome - dividends;
+            document.getElementById('ending-re').textContent = '$' + endingRE.toLocaleString();
+
+            // Balance Sheet
+            const currentAssets = statementData.balanceSheet.currentAssets.reduce((sum, a) => sum + a.amount, 0);
+            const nonCurrentAssets = statementData.balanceSheet.nonCurrentAssets.reduce((sum, a) => sum + a.amount, 0);
+            const totalAssets = currentAssets + nonCurrentAssets;
+
+            const currentLiabilities = statementData.balanceSheet.currentLiabilities.reduce((sum, a) => sum + a.amount, 0);
+            const totalLiabilities = currentLiabilities;
+
+            // Calculate equity with updated retained earnings
+            const equity = statementData.balanceSheet.equity.map(e => {
+                if (e.account === 'retained-earnings') {
+                    return { ...e, amount: endingRE };
+                }
+                return e;
+            }).reduce((sum, e) => sum + e.amount, 0);
+
+            const totalLE = totalLiabilities + equity;
+
+            document.getElementById('total-assets').textContent = '$' + totalAssets.toLocaleString();
+            document.getElementById('total-liabilities').textContent = '$' + totalLiabilities.toLocaleString();
+            document.getElementById('total-l-e').textContent = '$' + totalLE.toLocaleString();
+        }
+
+        function updateProgress() {
+            const steps = document.querySelectorAll('.progress-step');
+            steps.forEach((step, index) => {
+                step.classList.remove('active', 'completed');
+                if (index < activeStatement.length) {
+                    step.classList.add('completed');
+                }
+                if (index === activeStatement.length) {
+                    step.classList.add('active');
+                }
+            });
+        }
+
+        function validateStatements() {
+            const status = document.getElementById('validation-status');
+            status.classList.remove('show', 'success', 'error');
+
+            // Check if all accounts are used
+            const totalItems = document.querySelectorAll('.pool-item').length;
+            const usedItems = document.querySelectorAll('.pool-item.used').length;
+
+            if (usedItems !== totalItems) {
+                status.textContent = `⚠️ Still need to use ${totalItems - usedItems} more account(s)`;
+                status.classList.add('error', 'show');
+                return;
+            }
+
+            // Calculate totals
+            const totalRevenue = statementData.income.revenue.reduce((sum, a) => sum + a.amount, 0);
+            const totalExpenses = statementData.income.expenses.reduce((sum, a) => sum + a.amount, 0);
+            const netIncome = totalRevenue - totalExpenses;
+
+            const currentAssets = statementData.balanceSheet.currentAssets.reduce((sum, a) => sum + a.amount, 0);
+            const nonCurrentAssets = statementData.balanceSheet.nonCurrentAssets.reduce((sum, a) => sum + a.amount, 0);
+            const totalAssets = currentAssets + nonCurrentAssets;
+
+            const currentLiabilities = statementData.balanceSheet.currentLiabilities.reduce((sum, a) => sum + a.amount, 0);
+            const totalLiabilities = currentLiabilities;
+
+            const beginningRE = 12000;
+            const endingRE = beginningRE + netIncome;
+
+            const equity = statementData.balanceSheet.equity.map(e => {
+                if (e.account === 'retained-earnings') {
+                    return { ...e, amount: endingRE };
+                }
+                return e;
+            }).reduce((sum, e) => sum + e.amount, 0);
+
+            const totalLE = totalLiabilities + equity;
+
+            // Check if balance sheet balances
+            const balances = Math.abs(totalAssets - totalLE) < 0.01;
+
+            if (balances) {
+                status.textContent = '✅ Statements Correct! Assets = Liabilities + Equity';
+                status.classList.add('success', 'show');
+                updateProgress();
+            } else {
+                status.textContent = `❌ Statements are unbalanced! Assets ($${totalAssets.toLocaleString()}) ≠ Liabilities + Equity ($${totalLE.toLocaleString()})`;
+                status.classList.add('error', 'show');
+            }
+        }
+
+        function resetBuilder() {
+            // Reset all data
+            statementData = {
+                income: {
+                    revenue: [],
+                    expenses: []
+                },
+                balanceSheet: {
+                    currentAssets: [],
+                    nonCurrentAssets: [],
+                    currentLiabilities: [],
+                    equity: []
+                }
+            };
+
+            // Remove all added rows
+            document.querySelectorAll('.statement-row.added-account').forEach(row => {
+                row.remove();
+            });
+
+            // Reset pool items
+            document.querySelectorAll('.pool-item').forEach(item => {
+                item.classList.remove('used');
+            });
+
+            // Reset totals
+            calculateTotals();
+            document.getElementById('total-expenses').textContent = '$0';
+            document.getElementById('net-income').textContent = '$0';
+            document.getElementById('re-net-income').textContent = '$0';
+            document.getElementById('ending-re').textContent = '$12,000';
+            document.getElementById('total-assets').textContent = '$0';
+            document.getElementById('total-liabilities').textContent = '$0';
+            document.getElementById('total-l-e').textContent = '$0';
+
+            // Hide validation status
+            document.getElementById('validation-status').classList.remove('show');
+        }
+
+        // Initialize on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            initStatementBuilder();
+        });
+    </script>
+</body>
+
+</html>

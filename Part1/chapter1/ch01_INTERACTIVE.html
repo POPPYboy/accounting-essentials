@@ -1,0 +1,586 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactive: Accounting Equation | ACCOUNTING ESSENTIALS</title>
+    <link rel="stylesheet" href="../../styles.css">
+    <style>
+        /* Additional styles for interactive elements */
+        .equation-bar {
+            height: 200px;
+            display: flex;
+            align-items: flex-end;
+            justify-content: space-around;
+            padding: 20px;
+            background: var(--bg-light);
+            border-radius: var(--radius-md);
+            margin: 20px 0;
+        }
+
+        .equation-column {
+            width: 150px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            transition: all 0.5s cubic-bezier(0.25, 0.8, 0.25, 1);
+        }
+
+        .equation-bar-fill {
+            width: 100%;
+            border-radius: 8px 8px 0 0;
+            transition: height 0.5s cubic-bezier(0.25, 0.8, 0.25, 1);
+            min-height: 10px;
+        }
+
+        .assets-bar { background: linear-gradient(to top, var(--primary), var(--primary-light)); }
+        .liabilities-bar { background: linear-gradient(to top, var(--error), var(--error-light)); }
+        .equity-bar { background: linear-gradient(to top, var(--success), var(--success-light)); }
+
+        .equation-label {
+            margin-top: 10px;
+            font-weight: 600;
+            color: var(--text-main);
+        }
+
+        .equation-value {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary);
+        }
+
+        /* T-Account Styles */
+        .t-account-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+
+        .t-account {
+            background: var(--white);
+            border: 2px solid var(--primary);
+            border-radius: var(--radius-md);
+            padding: 20px;
+            min-height: 250px;
+            position: relative;
+        }
+
+        .t-account-header {
+            text-align: center;
+            font-weight: 700;
+            font-size: 1.2rem;
+            margin-bottom: 20px;
+            color: var(--primary);
+        }
+
+        .t-account-body {
+            display: flex;
+            border-top: 3px solid var(--primary);
+            min-height: 150px;
+        }
+
+        .t-account-side {
+            flex: 1;
+            padding: 10px;
+            min-height: 100px;
+        }
+
+        .t-account-left {
+            border-right: 2px solid var(--primary);
+        }
+
+        .t-account-right {
+            border-left: none;
+        }
+
+        .t-account-label {
+            text-align: center;
+            font-weight: 600;
+            color: var(--text-muted);
+            margin-bottom: 10px;
+        }
+
+        .t-account-balance {
+            border-top: 2px solid var(--secondary);
+            padding-top: 5px;
+            font-weight: 700;
+            text-align: right;
+            margin-top: auto;
+            color: var(--secondary);
+        }
+
+        /* Drag and Drop Styles */
+        .draggable-transaction {
+            background: var(--primary-light);
+            color: var(--white);
+            padding: 10px 15px;
+            border-radius: var(--radius-sm);
+            margin: 5px 0;
+            cursor: grab;
+            font-size: 0.9rem;
+            user-select: none;
+            transition: all 0.3s ease;
+        }
+
+        .draggable-transaction:hover {
+            background: var(--primary);
+            transform: scale(1.02);
+        }
+
+        .draggable-transaction:active {
+            cursor: grabbing;
+        }
+
+        .drop-zone {
+            min-height: 100px;
+            border: 2px dashed var(--text-muted);
+            border-radius: var(--radius-sm);
+            padding: 10px;
+            transition: all 0.3s ease;
+        }
+
+        .drop-zone.drag-over {
+            border-color: var(--success);
+            background: var(--success-light);
+        }
+
+        .transaction-input-container {
+            background: var(--bg-light);
+            padding: 20px;
+            border-radius: var(--radius-md);
+            margin: 20px 0;
+        }
+
+        .transaction-item {
+            padding: 8px 12px;
+            margin: 5px 0;
+            background: var(--white);
+            border-radius: var(--radius-sm);
+            border-left: 4px solid var(--primary);
+        }
+
+        .transaction-item.removed {
+            opacity: 0.5;
+            text-decoration: line-through;
+        }
+
+        /* Animation Classes */
+        .animate-grow {
+            animation: grow 0.5s ease-out;
+        }
+
+        @keyframes grow {
+            from { transform: scaleY(0); }
+            to { transform: scaleY(1); }
+        }
+
+        /* Success Animation */
+        .success-pulse {
+            animation: successPulse 0.5s ease-out;
+        }
+
+        @keyframes successPulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+    </style>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-50MTQPVR7D"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-50MTQPVR7D');
+</script>
+
+</head>
+
+<body>
+    <header>
+        <div class="container nav-container">
+            <a href="../../index.html" class="logo">ACCOUNTING<span>ESSENTIALS</span></a>
+            <nav class="nav-links">
+                <a href="../../index.html">Home</a>
+                <a href="../part1.html">Part 1</a>
+                <a href="../../part2/part2.html">Part 2</a>
+                <a href="../../part3/part3.html">Part 3</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container">
+        <div class="breadcrumbs">
+            <a href="../../index.html">Home</a> <span>/</span> <a href="../part1.html">Part 1</a> <span>/</span> <a href="ch01.html">Chapter 1</a> <span>/</span> Interactive
+        </div>
+
+        <article class="animate-fade-in">
+            <h1 style="border-left: 8px solid var(--accent); padding-left: 1rem; margin: 2rem 0;">🎮 Interactive Learning Module</h1>
+
+            <!-- Section 1: Accounting Equation Visualizer -->
+            <section class="interactive-section">
+                <h2>1. Accounting Equation Visualizer</h2>
+                <p>Watch how each transaction affects the accounting equation: <strong>Assets = Liabilities + Owner's Equity</strong></p>
+
+                <div class="equation-bar">
+                    <div class="equation-column">
+                        <div class="equation-bar-fill assets-bar" id="assets-bar" style="height: 100px;"></div>
+                        <div class="equation-value" id="assets-value">$100,000</div>
+                        <div class="equation-label">Assets</div>
+                    </div>
+                    <div class="equation-column">
+                        <div class="equation-bar-fill liabilities-bar" id="liabilities-bar" style="height: 60px;"></div>
+                        <div class="equation-value" id="liabilities-value">$60,000</div>
+                        <div class="equation-label">Liabilities</div>
+                    </div>
+                    <div class="equation-column">
+                        <div class="equation-bar-fill equity-bar" id="equity-bar" style="height: 40px;"></div>
+                        <div class="equation-value" id="equity-value">$40,000</div>
+                        <div class="equation-label">Owner's Equity</div>
+                    </div>
+                </div>
+
+                <div id="equation-status" style="text-align: center; font-size: 1.2rem; font-weight: bold; color: var(--success); margin: 20px 0;">
+                    ✓ Equation Balanced
+                </div>
+
+                <div class="transaction-input-container">
+                    <h3>Select a transaction to see its impact:</h3>
+                    <div id="transaction-list">
+                        <div class="draggable-transaction" data-asset-change="5000" data-liab-change="5000" data-equity-change="0">
+                            1. Purchased equipment $5,000 on account
+                        </div>
+                        <div class="draggable-transaction" data-asset-change="3000" data-liab-change="0" data-equity-change="3000">
+                            2. Owner invested $3,000 cash
+                        </div>
+                        <div class="draggable-transaction" data-asset-change="-2000" data-liab-change="-2000" data-equity-change="0">
+                            3. Paid creditors $2,000
+                        </div>
+                        <div class="draggable-transaction" data-asset-change="1000" data-liab-change="0" data-equity-change="-1000">
+                            4. Paid rent $1,000
+                        </div>
+                        <div class="draggable-transaction" data-asset-change="4000" data-liab-change="0" data-equity-change="4000">
+                            5. Received service fees $4,000 cash
+                        </div>
+                    </div>
+                    <button class="btn btn-primary" onclick="applySelectedTransaction()" style="margin-top: 15px;">
+                        Apply Selected Transaction
+                    </button>
+                    <button class="btn btn-outline" onclick="resetEquation()" style="margin-top: 15px;">
+                        Reset
+                    </button>
+                </div>
+            </section>
+
+            <!-- Section 2: T-Account Drag and Drop -->
+            <section class="interactive-section">
+                <h2>2. T-Account Drag and Drop Exercise</h2>
+                <p>Drag transaction items to the correct side of the T-accounts (Debit or Credit)</p>
+
+                <div class="card-grid" style="margin: 20px 0;">
+                    <div class="content-card">
+                        <h3>📌 Transaction Scenario</h3>
+                        <p><strong>Company purchased office supplies, paid $500 cash</strong></p>
+                        <div style="background: var(--bg-light); padding: 15px; border-radius: var(--radius-sm); margin-top: 10px;">
+                            <p><strong>Hint:</strong></p>
+                            <ul style="margin-left: 20px;">
+                                <li>Office supplies are assets, increase recorded as debit</li>
+                                <li>Cash is an asset, decrease recorded as credit</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="content-card" style="border: 2px solid var(--info);">
+                        <h3>📦 Drag and Drop Zone</h3>
+                        <div id="drag-source" style="padding: 20px; background: var(--bg-light); border-radius: var(--radius-sm);">
+                            <div class="draggable-transaction" draggable="true" data-account="supplies" data-type="debit">
+                                Office Supplies $500 (Debit)
+                            </div>
+                            <div class="draggable-transaction" draggable="true" data-account="cash" data-type="credit">
+                                Cash $500 (Credit)
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="t-account-container">
+                    <!-- Supplies Account -->
+                    <div class="t-account">
+                        <div class="t-account-header">Office Supplies</div>
+                        <div class="t-account-body">
+                            <div class="t-account-side t-account-left">
+                                <div class="t-account-label">Debit</div>
+                                <div class="drop-zone" id="supplies-debit" data-account="supplies" data-side="debit">
+                                    <!-- Dragged items will appear here -->
+                                </div>
+                                <div class="t-account-balance" id="supplies-debit-balance">$0</div>
+                            </div>
+                            <div class="t-account-side t-account-right">
+                                <div class="t-account-label">Credit</div>
+                                <div class="drop-zone" id="supplies-credit" data-account="supplies" data-side="credit">
+                                    <!-- Dragged items will appear here -->
+                                </div>
+                                <div class="t-account-balance" id="supplies-credit-balance">$0</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Cash Account -->
+                    <div class="t-account">
+                        <div class="t-account-header">Cash</div>
+                        <div class="t-account-body">
+                            <div class="t-account-side t-account-left">
+                                <div class="t-account-label">Debit</div>
+                                <div class="drop-zone" id="cash-debit" data-account="cash" data-side="debit">
+                                    <!-- Dragged items will appear here -->
+                                </div>
+                                <div class="t-account-balance" id="cash-debit-balance">$0</div>
+                            </div>
+                            <div class="t-account-side t-account-right">
+                                <div class="t-account-label">Credit</div>
+                                <div class="drop-zone" id="cash-credit" data-account="cash" data-side="credit">
+                                    <!-- Dragged items will appear here -->
+                                </div>
+                                <div class="t-account-balance" id="cash-credit-balance">$0</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <button class="btn btn-primary" onclick="checkTAccounts()" style="margin-top: 20px;">
+                    Check My Answers
+                </button>
+                <div id="t-account-feedback" style="margin-top: 15px; padding: 15px; border-radius: var(--radius-sm); display: none;"></div>
+            </section>
+
+            <div style="display: flex; justify-content: space-between; margin-top: 4rem; padding-bottom: 2rem;">
+                <a href="ch01_P2.html" class="btn" style="background: #eee;">← Back to Procedures</a>
+                <a href="../chapter2/ch02_INTERACTIVE.html" class="btn btn-primary">Next: Chapter 2 Interactive →</a>
+            </div>
+        </article>
+    </main>
+
+    <script src="../../components.js"></script>
+    <script>
+        // ==================== Accounting Equation Visualizer ====================
+        let currentAssets = 100000;
+        let currentLiabilities = 60000;
+        let currentEquity = 40000;
+        let maxAmount = 150000;
+
+        function updateEquationBars() {
+            const assetsPercent = (currentAssets / maxAmount) * 100;
+            const liabPercent = (currentLiabilities / maxAmount) * 100;
+            const equityPercent = (currentEquity / maxAmount) * 100;
+
+            document.getElementById('assets-bar').style.height = Math.max(assetsPercent, 5) + '%';
+            document.getElementById('liabilities-bar').style.height = Math.max(liabPercent, 5) + '%';
+            document.getElementById('equity-bar').style.height = Math.max(equityPercent, 5) + '%';
+
+            document.getElementById('assets-value').textContent = '$' + currentAssets.toLocaleString();
+            document.getElementById('liabilities-value').textContent = '$' + currentLiabilities.toLocaleString();
+            document.getElementById('equity-value').textContent = '$' + currentEquity.toLocaleString();
+
+            // Check if equation balances
+            const isBalanced = Math.abs(currentAssets - (currentLiabilities + currentEquity)) < 0.01;
+            const status = document.getElementById('equation-status');
+
+            if (isBalanced) {
+                status.textContent = '✓ Equation Balanced';
+                status.style.color = 'var(--success)';
+            } else {
+                status.textContent = '✗ Equation Unbalanced! Assets must equal Liabilities + Equity';
+                status.style.color = 'var(--error)';
+            }
+
+            // Add animation
+            document.querySelector('.equation-bar').classList.add('animate-grow');
+            setTimeout(() => {
+                document.querySelector('.equation-bar').classList.remove('animate-grow');
+            }, 500);
+        }
+
+        function applySelectedTransaction() {
+            const transactions = document.querySelectorAll('.draggable-transaction');
+            let selectedTransaction = null;
+
+            transactions.forEach(trans => {
+                if (trans.style.background === 'var(--primary)' || trans.classList.contains('selected')) {
+                    selectedTransaction = trans;
+                }
+            });
+
+            if (!selectedTransaction) {
+                alert('Please select a transaction first (click on a transaction)');
+                return;
+            }
+
+            const assetChange = parseFloat(selectedTransaction.dataset.assetChange);
+            const liabChange = parseFloat(selectedTransaction.dataset.liabChange);
+            const equityChange = parseFloat(selectedTransaction.dataset.equityChange);
+
+            currentAssets += assetChange;
+            currentLiabilities += liabChange;
+            currentEquity += equityChange;
+
+            // Ensure values don't go negative
+            currentAssets = Math.max(0, currentAssets);
+            currentLiabilities = Math.max(0, currentLiabilities);
+            currentEquity = Math.max(0, currentEquity);
+
+            updateEquationBars();
+
+            // Mark transaction as used
+            selectedTransaction.style.opacity = '0.5';
+            selectedTransaction.style.textDecoration = 'line-through';
+            selectedTransaction.classList.add('removed');
+        }
+
+        function resetEquation() {
+            currentAssets = 100000;
+            currentLiabilities = 60000;
+            currentEquity = 40000;
+
+            const transactions = document.querySelectorAll('.draggable-transaction');
+            transactions.forEach(trans => {
+                trans.style.opacity = '1';
+                trans.style.textDecoration = 'none';
+                trans.classList.remove('removed');
+            });
+
+            updateEquationBars();
+        }
+
+        // Click to select transaction
+        document.querySelectorAll('.draggable-transaction').forEach(trans => {
+            trans.addEventListener('click', function() {
+                // Remove selected class from all transactions
+                document.querySelectorAll('.draggable-transaction').forEach(t => {
+                    t.style.background = 'var(--primary-light)';
+                });
+
+                // Add to clicked transaction
+                this.style.background = 'var(--primary)';
+            });
+        });
+
+        // ==================== T-Account Drag and Drop ====================
+        let draggedItem = null;
+
+        function initDragAndDrop() {
+            const draggables = document.querySelectorAll('.draggable-transaction[draggable="true"]');
+            const dropZones = document.querySelectorAll('.drop-zone');
+
+            draggables.forEach(draggable => {
+                draggable.addEventListener('dragstart', function(e) {
+                    draggedItem = this;
+                    this.style.opacity = '0.5';
+                    e.dataTransfer.effectAllowed = 'move';
+                });
+
+                draggable.addEventListener('dragend', function() {
+                    this.style.opacity = '1';
+                    draggedItem = null;
+                });
+            });
+
+            dropZones.forEach(zone => {
+                zone.addEventListener('dragover', function(e) {
+                    e.preventDefault();
+                    this.classList.add('drag-over');
+                });
+
+                zone.addEventListener('dragleave', function() {
+                    this.classList.remove('drag-over');
+                });
+
+                zone.addEventListener('drop', function(e) {
+                    e.preventDefault();
+                    this.classList.remove('drag-over');
+
+                    if (draggedItem) {
+                        // Create a copy of dragged item
+                        const newItem = document.createElement('div');
+                        newItem.className = 'transaction-item';
+                        newItem.innerHTML = draggedItem.innerHTML;
+                        newItem.dataset.account = draggedItem.dataset.account;
+                        newItem.dataset.type = draggedItem.dataset.type;
+
+                        this.appendChild(newItem);
+
+                        // Remove from original source
+                        draggedItem.style.display = 'none';
+
+                        // Update balance
+                        updateTAccountBalance(this.dataset.account, this.dataset.side);
+                    }
+                });
+            });
+        }
+
+        function updateTAccountBalance(account, side) {
+            const sideBalances = {
+                debit: 0,
+                credit: 0
+            };
+
+            const debitZone = document.getElementById(`${account}-debit`);
+            const creditZone = document.getElementById(`${account}-credit`);
+
+            debitZone.querySelectorAll('.transaction-item').forEach(item => {
+                const amount = parseFloat(item.textContent.match(/\$(\d+)/)[1]);
+                sideBalances.debit += amount;
+            });
+
+            creditZone.querySelectorAll('.transaction-item').forEach(item => {
+                const amount = parseFloat(item.textContent.match(/\$(\d+)/)[1]);
+                sideBalances.credit += amount;
+            });
+
+            document.getElementById(`${account}-debit-balance`).textContent = '$' + sideBalances.debit;
+            document.getElementById(`${account}-credit-balance`).textContent = '$' + sideBalances.credit;
+        }
+
+        function checkTAccounts() {
+            const feedback = document.getElementById('t-account-feedback');
+            feedback.style.display = 'block';
+
+            // Check supplies account (should have debit entry)
+            const suppliesDebit = document.getElementById('supplies-debit');
+            const suppliesCredit = document.getElementById('supplies-credit');
+
+            // Check cash account (should have credit entry)
+            const cashDebit = document.getElementById('cash-debit');
+            const cashCredit = document.getElementById('cash-credit');
+
+            const suppliesCorrect = suppliesDebit.children.length === 1 && suppliesCredit.children.length === 0;
+            const cashCorrect = cashCredit.children.length === 1 && cashDebit.children.length === 0;
+
+            if (suppliesCorrect && cashCorrect) {
+                feedback.style.background = 'var(--success-light)';
+                feedback.style.color = 'var(--success-dark)';
+                feedback.innerHTML = '<strong>✓ Perfect!</strong> You correctly recorded office supplies as debit and cash as credit. Asset increases are debited, asset decreases are credited.';
+            } else {
+                let errorMsg = '<strong>✗ Still needs adjustment:</strong><br>';
+                if (!suppliesCorrect) {
+                    errorMsg += '• Office supplies is an asset, increase should be debited<br>';
+                }
+                if (!cashCorrect) {
+                    errorMsg += '• Cash is an asset, decrease should be credited<br>';
+                }
+                feedback.style.background = 'var(--error-light)';
+                feedback.style.color = 'var(--error-dark)';
+                feedback.innerHTML = errorMsg;
+            }
+        }
+
+        // Initialize drag and drop on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            initDragAndDrop();
+        });
+    </script>
+</body>
+
+</html>

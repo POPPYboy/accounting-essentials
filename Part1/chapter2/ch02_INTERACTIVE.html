@@ -1,0 +1,574 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactive: Accounting Cycle | ACCOUNTING ESSENTIALS</title>
+    <link rel="stylesheet" href="../../styles.css">
+    <style>
+        /* Transaction Flow Styles */
+        .flow-step {
+            background: var(--white);
+            border: 3px solid var(--primary);
+            border-radius: var(--radius-md);
+            padding: 20px;
+            margin: 15px 0;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .flow-step:hover {
+            transform: translateX(10px);
+            box-shadow: var(--shadow-md);
+        }
+
+        .flow-step.active {
+            background: var(--primary-light);
+            border-color: var(--accent);
+            color: var(--white);
+        }
+
+        .flow-step.active h3 {
+            color: var(--white);
+        }
+
+        .flow-step-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+        }
+
+        .flow-step.active .flow-step-content {
+            max-height: 500px;
+        }
+
+        .flow-number {
+            position: absolute;
+            left: -20px;
+            top: 20px;
+            width: 40px;
+            height: 40px;
+            background: var(--accent);
+            color: var(--white);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 1.2rem;
+        }
+
+        .flow-arrow {
+            text-align: center;
+            color: var(--text-muted);
+            font-size: 2rem;
+            margin: 5px 0;
+        }
+
+        /* Error Spotting Styles */
+        .error-section {
+            background: var(--bg-light);
+            padding: 20px;
+            border-radius: var(--radius-md);
+            margin: 20px 0;
+        }
+
+        .transaction-entry {
+            background: var(--white);
+            padding: 15px;
+            border-radius: var(--radius-sm);
+            margin: 10px 0;
+            border-left: 4px solid var(--success);
+        }
+
+        .transaction-entry.has-error {
+            border-left-color: var(--error);
+        }
+
+        .error-highlight {
+            background: var(--error-light);
+            border: 2px solid var(--error);
+            padding: 2px 5px;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .error-explanation {
+            background: var(--info-light);
+            border-left: 4px solid var(--info);
+            padding: 15px;
+            margin-top: 10px;
+            border-radius: var(--radius-sm);
+            display: none;
+        }
+
+        .error-explanation.show {
+            display: block;
+            animation: slideDown 0.3s ease;
+        }
+
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Progress Indicator */
+        .progress-container {
+            background: var(--bg-light);
+            padding: 20px;
+            border-radius: var(--radius-md);
+            margin-bottom: 20px;
+        }
+
+        .progress-bar {
+            height: 20px;
+            background: var(--text-muted);
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--success), var(--info));
+            transition: width 0.5s ease;
+        }
+
+        .progress-text {
+            text-align: center;
+            margin-top: 10px;
+            font-weight: 600;
+            color: var(--primary);
+        }
+
+        /* Animation */
+        .animate-slide {
+            animation: slideIn 0.5s ease;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateX(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+    </style>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-50MTQPVR7D"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-50MTQPVR7D');
+</script>
+
+</head>
+
+<body>
+    <header>
+        <div class="container nav-container">
+            <a href="../../index.html" class="logo">ACCOUNTING<span>ESSENTIALS</span></a>
+            <nav class="nav-links">
+                <a href="../../index.html">Home</a>
+                <a href="../part1.html">Part 1</a>
+                <a href="../../part2/part2.html">Part 2</a>
+                <a href="../../part3/part3.html">Part 3</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container">
+        <div class="breadcrumbs">
+            <a href="../../index.html">Home</a> <span>/</span> <a href="../part1.html">Part 1</a> <span>/</span> <a href="ch02.html">Chapter 2</a> <span>/</span> Interactive
+        </div>
+
+        <article class="animate-fade-in">
+            <h1 style="border-left: 8px solid var(--accent); padding-left: 1rem; margin: 2rem 0;">🎮 Interactive Learning: The Accounting Cycle</h1>
+
+            <!-- Section 1: Accounting Cycle Flowchart -->
+            <section class="interactive-section">
+                <h2>1. Accounting Cycle Flowchart</h2>
+                <p>Click each step to see detailed explanations and examples. Complete the entire accounting cycle!</p>
+
+                <div class="progress-container">
+                    <div class="progress-bar">
+                        <div class="progress-fill" id="cycle-progress" style="width: 0%;"></div>
+                    </div>
+                    <div class="progress-text">Progress: <span id="progress-text">0</span>/9 Steps Completed</div>
+                </div>
+
+                <div class="flow-container">
+                    <!-- Step 1 -->
+                    <div class="flow-step" data-step="1">
+                        <div class="flow-number">1</div>
+                        <h3>Analyze Transactions</h3>
+                        <p>Identify how transactions affect the accounting equation</p>
+                        <div class="flow-step-content">
+                            <p><strong>Example:</strong></p>
+                            <p>Company purchased equipment for $5,000, paid in cash.</p>
+                            <p><strong>Analysis:</strong></p>
+                            <ul>
+                                <li>Assets: Equipment increases by $5,000</li>
+                                <li>Assets: Cash decreases by $5,000</li>
+                                <li>Total assets remain unchanged; the accounting equation stays balanced</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="flow-arrow">↓</div>
+
+                    <!-- Step 2 -->
+                    <div class="flow-step" data-step="2">
+                        <div class="flow-number">2</div>
+                        <h3>Record Journal Entries</h3>
+                        <p>Record all transactions chronologically in the journal</p>
+                        <div class="flow-step-content">
+                            <p><strong>Format:</strong></p>
+                            <table class="financial-table" style="margin-top: 10px;">
+                                <thead>
+                                    <tr>
+                                        <th>Account</th>
+                                        <th>Debit</th>
+                                        <th>Credit</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>Equipment</td>
+                                        <td>5,000</td>
+                                        <td></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Cash</td>
+                                        <td></td>
+                                        <td>5,000</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <div class="flow-arrow">↓</div>
+
+                    <!-- Step 3 -->
+                    <div class="flow-step" data-step="3">
+                        <div class="flow-number">3</div>
+                        <h3>Post to Ledger</h3>
+                        <p>Transfer journal entries to individual ledger accounts</p>
+                        <div class="flow-step-content">
+                            <p><strong>Process:</strong></p>
+                            <ul>
+                                <li>Record debit amounts to the debit side of corresponding accounts</li>
+                                <li>Record credit amounts to the credit side of corresponding accounts</li>
+                                <li>Maintain original transaction date and reference number</li>
+                            </ul>
+                            <p><strong>Purpose:</strong> Organize transaction information by account type for easier access and analysis</p>
+                        </div>
+                    </div>
+
+                    <div class="flow-arrow">↓</div>
+
+                    <!-- Step 4 -->
+                    <div class="flow-step" data-step="4">
+                        <div class="flow-number">4</div>
+                        <h3>Prepare Unadjusted Trial Balance</h3>
+                        <p>Verify that total debits equal total credits</p>
+                        <div class="flow-step-content">
+                            <p><strong>Purpose:</strong></p>
+                            <ul>
+                                <li>Ensure all journal entries maintain the debit-credit equality</li>
+                                <li>Check for mathematical errors</li>
+                                <li>Identify any omitted entries</li>
+                            </ul>
+                            <p style="color: var(--info);"><strong>Note:</strong> A trial balance cannot detect all errors (e.g., errors of principle, omitted transactions)</p>
+                        </div>
+                    </div>
+
+                    <div class="flow-arrow">↓</div>
+
+                    <!-- Step 5 -->
+                    <div class="flow-step" data-step="5">
+                        <div class="flow-number">5</div>
+                        <h3>Prepare Adjusting Entries</h3>
+                        <p>Update accounts to properly reflect accruals and deferrals</p>
+                        <div class="flow-step-content">
+                            <p><strong>Common Adjustments:</strong></p>
+                            <ul>
+                                <li>Accrued revenues and expenses</li>
+                                <li>Prepaid expense amortization</li>
+                                <li>Depreciation expense</li>
+                                <li>Allowance for doubtful accounts</li>
+                            </ul>
+                            <p><strong>Example:</strong> Monthly depreciation expense of $1,000</p>
+                        </div>
+                    </div>
+
+                    <div class="flow-arrow">↓</div>
+
+                    <!-- Step 6 -->
+                    <div class="flow-step" data-step="6">
+                        <div class="flow-number">6</div>
+                        <h3>Prepare Adjusted Trial Balance</h3>
+                        <p>Verify account balances after adjusting entries</p>
+                        <div class="flow-step-content">
+                            <p><strong>Purpose:</strong></p>
+                            <ul>
+                                <li>Ensure adjusting entries are properly balanced</li>
+                                <li>Provide accurate balances for financial statement preparation</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="flow-arrow">↓</div>
+
+                    <!-- Step 7 -->
+                    <div class="flow-step" data-step="7">
+                        <div class="flow-number">7</div>
+                        <h3>Prepare Financial Statements</h3>
+                        <p>Generate the Income Statement, Statement of Owner's Equity, and Balance Sheet</p>
+                        <div class="flow-step-content">
+                            <p><strong>Sequence:</strong></p>
+                            <ol>
+                                <li><strong>Income Statement:</strong> Reports revenues and expenses for the period</li>
+                                <li><strong>Statement of Owner's Equity:</strong> Shows changes in equity during the period</li>
+                                <li><strong>Balance Sheet:</strong> Presents the financial position at period-end</li>
+                            </ol>
+                        </div>
+                    </div>
+
+                    <div class="flow-arrow">↓</div>
+
+                    <!-- Step 8 -->
+                    <div class="flow-step" data-step="8">
+                        <div class="flow-number">8</div>
+                        <h3>Closing Entries</h3>
+                        <p>Transfer temporary account balances to permanent capital accounts</p>
+                        <div class="flow-step-content">
+                            <p><strong>Temporary Accounts (Closed):</strong></p>
+                            <ul>
+                                <li>Revenue accounts</li>
+                                <li>Expense accounts</li>
+                                <li>Drawing/Dividend accounts</li>
+                            </ul>
+                            <p><strong>Permanent Accounts (Not Closed):</strong> Assets, Liabilities, Owner's Equity</p>
+                        </div>
+                    </div>
+
+                    <div class="flow-arrow">↓</div>
+
+                    <!-- Step 9 -->
+                    <div class="flow-step" data-step="9">
+                        <div class="flow-number">9</div>
+                        <h3>Prepare Post-Closing Trial Balance</h3>
+                        <p>Verify the starting point for the next accounting period</p>
+                        <div class="flow-step-content">
+                            <p><strong>Accounts Included:</strong></p>
+                            <ul>
+                                <li>Asset accounts</li>
+                                <li>Liability accounts</li>
+                                <li>Owner's Equity accounts</li>
+                            </ul>
+                            <p><strong>Does NOT Contain:</strong> Revenue, Expense, and Dividend accounts (these have been closed)</p>
+                        </div>
+                    </div>
+                </div>
+
+                <button class="btn btn-primary" onclick="resetCycleProgress()" style="margin-top: 20px;">
+                    Reset Progress
+                </button>
+            </section>
+
+            <!-- Section 2: Error Spotting Exercise -->
+            <section class="interactive-section">
+                <h2>2. Journal Entry Error Spotting Exercise</h2>
+                <p>Find errors in the journal entries below. Click on the highlighted portions to see explanations!</p>
+
+                <div class="error-section">
+                    <h3>Challenge: Find All Errors!</h3>
+                    <p>Errors Found: <span id="errors-found">0</span> / <span id="total-errors">3</span></p>
+
+                    <!-- Entry 1 -->
+                    <div class="transaction-entry" id="entry-1">
+                        <h4>Entry 1: Purchasing Office Supplies</h4>
+                        <p><strong>Transaction:</strong> Company purchased office supplies for $500, paid in cash.</p>
+                        <div style="margin-top: 10px;">
+                            <p><span class="error-highlight" onclick="showError('entry1-1')">Office Supplies</span> &nbsp;&nbsp;&nbsp; <strong>Debit</strong> &nbsp;&nbsp;&nbsp; $500</p>
+                            <p><span class="error-highlight" onclick="showError('entry1-2')">Cash</span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <strong>Credit</strong> &nbsp;&nbsp;&nbsp; $50</p>
+                        </div>
+                        <div class="error-explanation" id="entry1-1">
+                            <p><strong>❌ ERROR:</strong> Account classification is incorrect.</p>
+                            <p><strong>✓ Correct:</strong> Should use "Supplies Expense" account instead of "Office Supplies" asset account.</p>
+                            <p><strong>Reason:</strong> Office supplies are typically consumed within the current period and should be recorded as expenses, not assets.</p>
+                        </div>
+                        <div class="error-explanation" id="entry1-2">
+                            <p><strong>❌ ERROR:</strong> Credit amount is incorrect.</p>
+                            <p><strong>✓ Correct:</strong> Should be $500, not $50.</p>
+                            <p><strong>Reason:</strong> Debits must equal credits. Since the debit is $500, the credit must also be $500.</p>
+                        </div>
+                    </div>
+
+                    <!-- Entry 2 -->
+                    <div class="transaction-entry" id="entry-2">
+                        <h4>Entry 2: Receiving Service Fees</h4>
+                        <p><strong>Transaction:</strong> Company performed services and received $1,000 in cash.</p>
+                        <div style="margin-top: 10px;">
+                            <p><span class="error-highlight" onclick="showError('entry2-1')">Service Revenue</span> &nbsp;&nbsp;&nbsp; <strong>Debit</strong> &nbsp;&nbsp;&nbsp; $1,000</p>
+                            <p>Cash &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <strong>Credit</strong> &nbsp;&nbsp;&nbsp; $1,000</p>
+                        </div>
+                        <div class="error-explanation" id="entry2-1">
+                            <p><strong>❌ ERROR:</strong> Revenue account is recorded in the wrong direction.</p>
+                            <p><strong>✓ Correct:</strong> Should credit "Service Revenue" instead of debiting it.</p>
+                            <p><strong>Rule:</strong> Revenue increases with a credit entry. Cash (an asset) increases with a debit entry. The correct entry is: Debit Cash $1,000, Credit Service Revenue $1,000.</p>
+                        </div>
+                    </div>
+
+                    <!-- Entry 3 -->
+                    <div class="transaction-entry" id="entry-3">
+                        <h4>Entry 3: Paying Rent</h4>
+                        <p><strong>Transaction:</strong> Paid monthly rent of $2,000.</p>
+                        <div style="margin-top: 10px;">
+                            <p>Rent Expense &nbsp;&nbsp;&nbsp; <strong>Debit</strong> &nbsp;&nbsp;&nbsp; $2,000</p>
+                            <p><span class="error-highlight" onclick="showError('entry3-1')">Rent Expense</span> &nbsp;&nbsp;&nbsp; <strong>Credit</strong> &nbsp;&nbsp;&nbsp; $2,000</p>
+                        </div>
+                        <div class="error-explanation" id="entry3-1">
+                            <p><strong>❌ ERROR:</strong> Used the wrong credit account.</p>
+                            <p><strong>✓ Correct:</strong> Should credit "Cash" instead of "Rent Expense".</p>
+                            <p><strong>Rule:</strong> When paying rent, Cash decreases (credit) and Rent Expense increases (debit). The same account cannot be used for both debit and credit in a single entry (with rare exceptions).</p>
+                        </div>
+                    </div>
+                </div>
+
+                <button class="btn btn-primary" onclick="resetErrorExercise()" style="margin-top: 20px;">
+                    Reset Exercise
+                </button>
+                <div id="completion-message" style="margin-top: 20px; padding: 15px; background: var(--success-light); border-radius: var(--radius-sm); display: none;">
+                    <strong>🎉 Congratulations!</strong> You found all the errors! Keep up the great work!
+                </div>
+            </section>
+
+            <div style="display: flex; justify-content: space-between; margin-top: 4rem; padding-bottom: 2rem;">
+                <a href="../chapter1/ch01_INTERACTIVE.html" class="btn" style="background: #eee;">← Previous Chapter</a>
+                <a href="../chapter3/ch03_INTERACTIVE.html" class="btn btn-primary">Next: Chapter 3 Interactive →</a>
+            </div>
+        </article>
+    </main>
+
+    <script src="../../components.js"></script>
+    <script>
+        // ==================== Accounting Cycle Flowchart ====================
+        let completedSteps = new Set();
+
+        function initFlowchart() {
+            const flowSteps = document.querySelectorAll('.flow-step');
+
+            flowSteps.forEach(step => {
+                step.addEventListener('click', function() {
+                    const stepNum = this.dataset.step;
+
+                    // Toggle active state
+                    this.classList.toggle('active');
+
+                    // Update progress
+                    if (this.classList.contains('active')) {
+                        completedSteps.add(stepNum);
+                    } else {
+                        completedSteps.delete(stepNum);
+                    }
+
+                    updateProgress();
+                });
+            });
+        }
+
+        function updateProgress() {
+            const totalSteps = 9;
+            const completed = completedSteps.size;
+            const percentage = (completed / totalSteps) * 100;
+
+            document.getElementById('cycle-progress').style.width = percentage + '%';
+            document.getElementById('progress-text').textContent = completed;
+
+            // Check if all steps completed
+            if (completed === totalSteps) {
+                showCompletionBadge();
+            }
+        }
+
+        function resetCycleProgress() {
+            completedSteps.clear();
+            document.querySelectorAll('.flow-step').forEach(step => {
+                step.classList.remove('active');
+            });
+            updateProgress();
+        }
+
+        function showCompletionBadge() {
+            const message = document.createElement('div');
+            message.style.cssText = 'position: fixed; top: 20px; right: 20px; background: var(--success-light); color: var(--success-dark); padding: 20px; border-radius: var(--radius-md); border: 2px solid var(--success); z-index: 1000; animation: slideIn 0.5s ease;';
+            message.innerHTML = '<strong>🏆 Achievement Unlocked!</strong><br>Completed the Accounting Cycle!';
+            document.body.appendChild(message);
+
+            setTimeout(() => {
+                message.remove();
+            }, 3000);
+        }
+
+        // ==================== Error Spotting Exercise ====================
+        let foundErrors = 0;
+        const totalErrors = 3;
+        let foundErrorIds = new Set();
+
+        function showError(errorId) {
+            const explanation = document.getElementById(errorId);
+
+            if (!explanation.classList.contains('show')) {
+                explanation.classList.add('show');
+
+                if (!foundErrorIds.has(errorId)) {
+                    foundErrorIds.add(errorId);
+                    foundErrors++;
+                    document.getElementById('errors-found').textContent = foundErrors;
+
+                    // Check if all errors found
+                    if (foundErrors === totalErrors) {
+                        setTimeout(() => {
+                            document.getElementById('completion-message').style.display = 'block';
+                            document.getElementById('completion-message').scrollIntoView({ behavior: 'smooth' });
+                        }, 500);
+                    }
+                }
+            }
+        }
+
+        function resetErrorExercise() {
+            foundErrors = 0;
+            foundErrorIds.clear();
+            document.getElementById('errors-found').textContent = '0';
+
+            document.querySelectorAll('.error-explanation').forEach(exp => {
+                exp.classList.remove('show');
+            });
+
+            document.getElementById('completion-message').style.display = 'none';
+        }
+
+        // Initialize on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            initFlowchart();
+        });
+    </script>
+</body>
+
+</html>

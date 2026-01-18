@@ -1,0 +1,1287 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>A1: Acid-Test & Gross Margin Ratios | ACCOUNTING ESSENTIALS</title>
+    <link rel="stylesheet" href="../../styles.css">
+    <style>
+        /* Additional styles for comprehensive knowledge point */
+        .ratio-cards {
+            display: flex;
+            gap: 1.5rem;
+            margin: 2rem 0;
+            flex-wrap: wrap;
+        }
+        
+        .ratio-card {
+            flex: 1;
+            min-width: 280px;
+            padding: 1.5rem;
+            background: var(--white);
+            border: 3px solid var(--primary);
+            border-radius: var(--radius-md);
+            text-align: center;
+            transition: var(--transition);
+        }
+        
+        .ratio-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-lg);
+        }
+        
+        .ratio-card.acid { border-color: var(--info); }
+        .ratio-card.gross { border-color: var(--success); }
+        .ratio-card.current { border-color: var(--warning); }
+        
+        .ratio-icon {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .ratio-name {
+            font-size: 1.1rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+        
+        .ratio-card.acid .ratio-name { color: var(--info); }
+        .ratio-card.gross .ratio-name { color: var(--success); }
+        .ratio-card.current .ratio-name { color: var(--warning); }
+        
+        .ratio-formula {
+            background: var(--bg-light);
+            padding: 0.75rem;
+            border-radius: var(--radius-sm);
+            font-family: 'Courier New', monospace;
+            font-weight: 700;
+            margin: 0.5rem 0;
+        }
+        
+        .ratio-benchmark {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            margin-top: 0.5rem;
+        }
+        
+        .comparison-table-ratio {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 2rem 0;
+        }
+        
+        .comparison-table-ratio th,
+        .comparison-table-ratio td {
+            padding: 1rem;
+            text-align: left;
+            border-bottom: 1px solid var(--border-color);
+        }
+        
+        .comparison-table-ratio th {
+            background: var(--primary);
+            color: var(--white);
+            font-weight: 700;
+        }
+        
+        .comparison-table-ratio th:first-child {
+            border-radius: var(--radius-sm) 0 0 0;
+        }
+        
+        .comparison-table-ratio th:last-child {
+            border-radius: 0 var(--radius-sm) 0 0;
+        }
+        
+        .comparison-table-ratio tr:hover {
+            background: var(--bg-light);
+        }
+        
+        .benchmark-indicator {
+            display: inline-block;
+            padding: 0.25rem 0.75rem;
+            border-radius: var(--radius-sm);
+            font-size: 0.8rem;
+            font-weight: 700;
+        }
+        
+        .benchmark-indicator.good { background: var(--success-light); color: var(--success-dark); }
+        .benchmark-indicator.warning { background: var(--warning-light); color: var(--warning-dark); }
+        .benchmark-indicator.danger { background: var(--error-light); color: var(--error-dark); }
+        
+        .calculator-ratio {
+            background: var(--bg-dark);
+            color: var(--white);
+            padding: 2rem;
+            border-radius: var(--radius-md);
+            margin: 2rem 0;
+        }
+        
+        .calc-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+            margin: 1.5rem 0;
+        }
+        
+        .calc-input-group {
+            background: rgba(255,255,255,0.1);
+            padding: 1rem;
+            border-radius: var(--radius-sm);
+        }
+        
+        .calc-input-group label {
+            display: block;
+            font-size: 0.85rem;
+            margin-bottom: 0.5rem;
+            color: var(--text-muted);
+        }
+        
+        .calc-input-group input {
+            width: 100%;
+            padding: 0.75rem;
+            border: none;
+            border-radius: var(--radius-sm);
+            font-size: 1.1rem;
+            font-weight: 700;
+            text-align: right;
+        }
+        
+        .calc-result-display {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            flex-wrap: wrap;
+            margin-top: 1.5rem;
+            padding-top: 1.5rem;
+            border-top: 2px solid rgba(255,255,255,0.2);
+        }
+        
+        .result-box {
+            text-align: center;
+            padding: 1.5rem;
+            background: var(--white);
+            border-radius: var(--radius-md);
+            min-width: 150px;
+        }
+        
+        .result-value {
+            font-size: 2rem;
+            font-weight: 800;
+        }
+        
+        .result-value.acid { color: var(--info); }
+        .result-value.gross { color: var(--success); }
+        .result-value.current { color: var(--warning); }
+        
+        .result-label {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            margin-top: 0.25rem;
+        }
+        
+        .result-status {
+            margin-top: 0.5rem;
+            padding: 0.25rem 0.75rem;
+            border-radius: var(--radius-sm);
+            font-size: 0.8rem;
+            font-weight: 700;
+            display: inline-block;
+        }
+        
+        .flow-ratio {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin: 2rem 0;
+            padding: 2rem;
+            background: var(--bg-light);
+            border-radius: var(--radius-md);
+        }
+        
+        .flow-ratio-step {
+            padding: 1rem 1.5rem;
+            background: var(--white);
+            border: 3px solid var(--primary);
+            border-radius: var(--radius-md);
+            text-align: center;
+        }
+        
+        .flow-ratio-arrow {
+            font-size: 1.5rem;
+            color: var(--primary);
+        }
+        
+        .industry-benchmark {
+            background: var(--bg-light);
+            padding: 2rem;
+            border-radius: var(--radius-md);
+            margin: 2rem 0;
+        }
+        
+        .industry-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+        
+        .industry-card {
+            background: var(--white);
+            padding: 1rem;
+            border-radius: var(--radius-sm);
+            border-left: 4px solid var(--primary);
+        }
+        
+        .industry-name {
+            font-weight: 700;
+            font-size: 0.9rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .industry-values {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+        }
+        
+        .decision-node-ratio {
+            padding: 1rem 1.5rem;
+            background: var(--white);
+            border: 2px solid var(--primary);
+            border-radius: var(--radius-sm);
+            margin-bottom: 1rem;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+        
+        .decision-node-ratio:hover {
+            border-color: var(--secondary);
+            box-shadow: var(--shadow);
+        }
+        
+        .decision-question-ratio {
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+        }
+        
+        .decision-answer-ratio {
+            display: none;
+            padding: 1rem;
+            background: var(--success-light);
+            border-radius: var(--radius-sm);
+            margin-top: 0.5rem;
+            color: var(--white);
+        }
+        
+        .decision-node-ratio.expanded .decision-answer-ratio {
+            display: block;
+        }
+        
+        .t-account-ratio {
+            display: inline-block;
+            vertical-align: top;
+            margin: 0.5rem;
+            background: var(--white);
+            border-radius: var(--radius-md);
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: transform 0.3s ease;
+        }
+        
+        .t-account-ratio:hover {
+            transform: translateY(-3px);
+        }
+        
+        .t-account-header-ratio {
+            padding: 0.75rem 1.25rem;
+            border-radius: var(--radius-sm) var(--radius-sm) 0 0;
+            font-weight: 700;
+            font-size: 0.9rem;
+            text-align: center;
+            color: var(--white);
+        }
+        
+        .t-account-header-ratio.quick { 
+            background: linear-gradient(135deg, var(--info) 0%, #2980b9 100%); 
+        }
+        .t-account-header-ratio.inventory { 
+            background: linear-gradient(135deg, var(--warning) 0%, #f39c12 100%);
+            color: var(--text-main);
+        }
+        .t-account-header-ratio.current { 
+            background: linear-gradient(135deg, var(--secondary) 0%, #b7950b 100%); 
+        }
+        
+        .t-account-body-ratio {
+            display: flex;
+            border: 2px solid var(--border-color);
+            border-top: none;
+            border-radius: 0 0 var(--radius-sm) var(--radius-sm);
+        }
+        
+        .t-account-side-ratio {
+            width: 90px;
+            padding: 0.75rem;
+            text-align: center;
+            font-size: 0.8rem;
+        }
+        
+        .t-account-side-ratio.debit {
+            border-right: 2px solid var(--border-color);
+            background: linear-gradient(180deg, rgba(52,152,219,0.1) 0%, rgba(52,152,219,0.05) 100%);
+        }
+        
+        .t-account-side-ratio.credit {
+            background: linear-gradient(180deg, rgba(197,160,89,0.1) 0%, rgba(197,160,89,0.05) 100%);
+        }
+        
+        .t-account-entry-ratio {
+            padding: 0.5rem 0.25rem;
+            border-bottom: 1px dashed var(--border-color);
+            font-weight: 500;
+        }
+        
+        .t-account-entry-ratio:last-child {
+            border-bottom: none;
+        }
+        
+        .t-account-entry-ratio.success {
+            color: var(--success);
+            font-weight: 600;
+        }
+        
+        .t-account-entry-ratio.error {
+            color: var(--error);
+            font-weight: 600;
+        }
+        
+        .t-account-balance-ratio {
+            padding: 0.5rem;
+            text-align: center;
+            font-weight: 700;
+            font-size: 0.85rem;
+            background: var(--bg-light);
+            border-top: 2px solid var(--primary);
+        }
+        
+        .timeline-ratio {
+            position: relative;
+            padding: 2rem 0;
+        }
+        
+        .timeline-ratio::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: var(--primary);
+            transform: translateY(-50%);
+        }
+        
+        .timeline-item-ratio {
+            display: flex;
+            align-items: center;
+            margin-bottom: 2rem;
+            position: relative;
+        }
+        
+        .timeline-marker-ratio {
+            width: 44px;
+            height: 44px;
+            background: var(--primary);
+            color: var(--white);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            z-index: 1;
+            margin-right: 1.5rem;
+            border: 3px solid var(--white);
+            box-shadow: var(--shadow);
+        }
+        
+        .timeline-content-ratio {
+            flex: 1;
+            background: var(--white);
+            padding: 1.5rem;
+            border: 2px solid var(--primary);
+            border-radius: var(--radius-md);
+        }
+    </style>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-50MTQPVR7D"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-50MTQPVR7D');
+</script>
+
+</head>
+
+<body>
+    <header>
+        <div class="container nav-container">
+            <a href="../../index.html" class="logo">ACCOUNTING<span>ESSENTIALS</span></a>
+            <nav class="nav-links">
+                <a href="../../index.html">Home</a>
+                <a href="../../Part1/part1.html">Part 1</a>
+                <a href="../../part2/part2.html">Part 2</a>
+                <a href="../../part3/part3.html">Part 3</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container">
+        <div class="breadcrumbs">
+            <a href="../../index.html">Home</a> <span>/</span> <a href="../../part2/part2.html">Part 2</a>
+            <span>/</span> <a href="ch05.html">Chapter 5</a> <span>/</span> A1
+        </div>
+
+        <article class="animate-fade-in">
+            <div class="kp-header">
+                <h1 style="border-left: 8px solid var(--secondary); padding-left: 1rem; margin: 2rem 0;">Acid-Test and Gross Margin Ratios</h1>
+            </div>
+
+            <!-- Learning Objectives -->
+            <section class="kp-section">
+                <h2>🎯 Learning Objectives</h2>
+                <div class="learning-objectives">
+                    <ul>
+                        <li>Understand the purpose and calculation of the acid-test (quick) ratio for measuring liquidity</li>
+                        <li>Calculate and interpret the gross margin ratio for measuring profitability</li>
+                        <li>Compare acid-test ratio to current ratio and understand when to use each</li>
+                        <li>Identify industry benchmarks for liquidity and profitability ratios</li>
+                        <li>Analyze the relationship between inventory, sales, and gross margin</li>
+                        <li>Use ratio analysis to evaluate financial health and make business decisions</li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- Background & Principles -->
+            <section class="kp-section">
+                <h2>📚 Background & Principles</h2>
+                <p>Financial ratios are powerful tools for understanding a company's financial health. The <strong>acid-test ratio</strong> measures short-term liquidity by identifying how well a company can meet its immediate obligations without relying on inventory sales. The <strong>gross margin ratio</strong> measures profitability by showing what percentage of each sales dollar remains after covering the cost of goods sold.</p>
+
+                <div class="concept-card" style="margin: 1.5rem 0;">
+                    <strong>Core Principle:</strong> The acid-test ratio answers: "If all sales stopped today, could we pay our bills?" by using only the most liquid assets. The gross margin ratio answers: "How much of each sales dollar do we keep before operating expenses?"
+                </div>
+
+                <div class="professional-tip">
+                    <strong>💡 Key Insight:</strong> Think of the acid-test ratio as the "emergency room" measure of liquidity—it shows how the patient would fare in a crisis. A ratio below 1.0 means the company would struggle to pay immediate debts without selling inventory or raising cash.
+                </div>
+
+                <h3 style="margin-top: 2rem;">The Two Vital Signs of Merchandising</h3>
+                <div class="ratio-cards" style="margin-top: 1rem;">
+                    <div class="ratio-card acid">
+                        <div class="ratio-icon">💓</div>
+                        <div class="ratio-name">Acid-Test Ratio</div>
+                        <div class="ratio-subtitle">Liquidity Vital Sign</div>
+                        <div class="ratio-formula">Quick Assets ÷ Current Liabilities</div>
+                        <div class="ratio-benchmark">Healthy: > 1.0</div>
+                        <p style="font-size: 0.85rem; margin-top: 0.5rem;">Can we survive a sudden shock?</p>
+                    </div>
+                    <div class="ratio-card gross">
+                        <div class="ratio-icon">💰</div>
+                        <div class="ratio-name">Gross Margin Ratio</div>
+                        <div class="ratio-subtitle">Profitability Vital Sign</div>
+                        <div class="ratio-formula">Gross Profit ÷ Net Sales</div>
+                        <div class="ratio-benchmark">Varies by industry</div>
+                        <p style="font-size: 0.85rem; margin-top: 0.5rem;">Are we pricing correctly?</p>
+                    </div>
+                    <div class="ratio-card current">
+                        <div class="ratio-icon">📊</div>
+                        <div class="ratio-name">Current Ratio</div>
+                        <div class="ratio-subtitle">Standard Liquidity</div>
+                        <div class="ratio-formula">Current Assets ÷ Current Liabilities</div>
+                        <div class="ratio-benchmark">Healthy: > 1.5</div>
+                        <p style="font-size: 0.85rem; margin-top: 0.5rem;">Standard short-term health check</p>
+                    </div>
+                </div>
+
+                <div class="timeline-ratio" style="margin-top: 2rem;">
+                    <div class="timeline-item-ratio">
+                        <div class="timeline-marker-ratio">1</div>
+                        <div class="timeline-content-ratio">
+                            <strong>Identify Current Assets</strong>
+                            <p>List all assets expected to be converted to cash within one year.</p>
+                        </div>
+                    </div>
+                    <div class="timeline-item-ratio">
+                        <div class="timeline-marker-ratio">2</div>
+                        <div class="timeline-content-ratio">
+                            <strong>Identify Quick Assets</strong>
+                            <p>Remove inventory and prepaid expenses (less liquid). Quick assets = Cash + Marketable Securities + Accounts Receivable.</p>
+                        </div>
+                    </div>
+                    <div class="timeline-item-ratio">
+                        <div class="timeline-marker-ratio">3</div>
+                        <div class="timeline-content-ratio">
+                            <strong>Identify Current Liabilities</strong>
+                            <p>List all debts due within one year.</p>
+                        </div>
+                    </div>
+                    <div class="timeline-item-ratio">
+                        <div class="timeline-marker-ratio">4</div>
+                        <div class="timeline-content-ratio">
+                            <strong>Calculate Ratios</strong>
+                            <p>Acid-Test = Quick Assets ÷ Current Liabilities. Gross Margin = Gross Profit ÷ Net Sales.</p>
+                        </div>
+                    </div>
+                    <div class="timeline-item-ratio">
+                        <div class="timeline-marker-ratio">5</div>
+                        <div class="timeline-content-ratio">
+                            <strong>Compare to Benchmarks</strong>
+                            <p>Evaluate results against industry standards and historical trends.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Key Concepts -->
+            <section class="kp-section">
+                <h2>🔑 Key Concepts</h2>
+                <div class="key-concepts-grid">
+                    <div class="concept-card">
+                        <strong>Acid-Test Ratio (Quick Ratio)</strong>
+                        <p>A liquidity ratio that measures a company's ability to pay current liabilities using only its most liquid assets (cash, marketable securities, and receivables), excluding inventory.</p>
+                    </div>
+
+                    <div class="concept-card">
+                        <strong>Quick Assets</strong>
+                        <p>The most liquid current assets: Cash, Cash Equivalents, Short-term Investments, and Accounts Receivable. Excludes Inventory and Prepaid Expenses.</p>
+                    </div>
+
+                    <div class="concept-card">
+                        <strong>Gross Margin Ratio</strong>
+                        <p>A profitability ratio that measures the percentage of each sales dollar remaining after covering Cost of Goods Sold. Calculated as Gross Profit ÷ Net Sales.</p>
+                    </div>
+
+                    <div class="concept-card">
+                        <strong>Current Ratio</strong>
+                        <p>A liquidity ratio measuring current assets divided by current liabilities. Less stringent than acid-test because it includes all current assets including inventory.</p>
+                    </div>
+
+                    <div class="concept-card">
+                        <strong>Liquidity</strong>
+                        <p>The ability to convert assets to cash quickly without significant loss of value. More liquid assets can be used immediately to pay debts.</p>
+                    </div>
+
+                    <div class="concept-card">
+                        <strong>Profitability</strong>
+                        <p>The ability to generate earnings relative to revenue, assets, or equity. Gross margin is a key measure of pricing efficiency and cost management.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Deep Dive -->
+            <section class="kp-section">
+                <h2>🔍 Deep Dive</h2>
+                <p>Explore ratio analysis at different levels of depth:</p>
+
+                <div class="depth-toggle">
+                    <button class="depth-btn active" onclick="setDepth('A')">Depth A: Foundational</button>
+                    <button class="depth-btn" onclick="setDepth('B')">Depth B: Standard</button>
+                    <button class="depth-btn" onclick="setDepth('C')">Depth C: Advanced</button>
+                </div>
+
+                <!-- Depth A: Foundational -->
+                <div id="depth-A" class="depth-content active">
+                    <h3>🟢 Foundational Level</h3>
+                    <p>Understanding the basic formulas and interpretations of key ratios.</p>
+
+                    <div class="worked-example">
+                        <h4>The Emergency Fund Analogy</h4>
+                        <p><strong>Acid-Test Ratio:</strong> Imagine you have an emergency fund for unexpected bills. The acid-test ratio asks: "If I lost my income today, could I pay all my immediate bills using only my emergency fund?"</p>
+                        <ul style="margin-top: 0.5rem; padding-left: 1.5rem;">
+                            <li><strong>Ratio > 1.0:</strong> Your emergency fund covers all bills. You're safe!</li>
+                            <li><strong>Ratio = 1.0:</strong> Your emergency fund exactly covers bills. Tight but OK.</li>
+                            <li><strong>Ratio < 1.0:</strong> Your emergency fund isn't enough. You'd need to sell belongings (inventory) or borrow.</li>
+                        </ul>
+
+                        <p style="margin-top: 1rem;"><strong>Gross Margin Ratio:</strong> Think of this as your "profit percentage" on each sale. If you buy something for $60 and sell it for $100, you keep $40. Your gross margin is 40%.</p>
+                    </div>
+
+                    <div class="flow-ratio">
+                        <div class="flow-ratio-step">
+                            <strong>Net Sales</strong>
+                            <div style="font-size: 0.8rem; margin-top: 0.25rem;">$100</div>
+                        </div>
+                        <div class="flow-ratio-arrow">→</div>
+                        <div class="flow-ratio-step" style="border-color: var(--error);">
+                            <strong style="color: var(--error);">COGS</strong>
+                            <div style="font-size: 0.8rem; margin-top: 0.25rem;">($60)</div>
+                        </div>
+                        <div class="flow-ratio-arrow">=</div>
+                        <div class="flow-ratio-step" style="border-color: var(--success);">
+                            <strong style="color: var(--success);">Gross Profit</strong>
+                            <div style="font-size: 0.8rem; margin-top: 0.25rem;">$40</div>
+                        </div>
+                        <div class="flow-ratio-arrow">→</div>
+                        <div class="flow-ratio-step">
+                            <strong>Gross Margin</strong>
+                            <div style="font-size: 0.8rem; margin-top: 0.25rem;">40%</div>
+                        </div>
+                    </div>
+
+                    <div class="concept-card" style="margin-top: 1.5rem;">
+                        <strong>💡 Memory Hook:</strong> Acid-Test excludes inventory because you can't always sell inventory quickly at full value. Gross Margin shows "what's left" after paying for the goods you sold.
+                    </div>
+
+                    <div class="professional-tip" style="margin-top: 1.5rem;">
+                        <strong>💡 Key Point:</strong> A "good" ratio varies by industry. Grocery stores have low gross margins (20-30%) but high volume. Jewelry stores have high margins (50-60%) but low volume. Always compare to industry peers!
+                    </div>
+                </div>
+
+                <!-- Depth B: Standard -->
+                <div id="depth-B" class="depth-content">
+                    <h3>🟡 Standard Level</h3>
+                    <p>Calculating ratios from financial data and interpreting results.</p>
+
+                    <div class="worked-example">
+                        <h4>Ratio Calculations for FastForward Merchandising</h4>
+                        <p><strong>Financial Data:</strong></p>
+                        <table class="financial-table" style="font-size: 0.9rem; margin-top: 0.5rem;">
+                            <tbody>
+                                <tr>
+                                    <td>Cash</td>
+                                    <td class="text-right">$12,000</td>
+                                </tr>
+                                <tr>
+                                    <td>Accounts Receivable</td>
+                                    <td class="text-right">8,000</td>
+                                </tr>
+                                <tr>
+                                    <td>Inventory</td>
+                                    <td class="text-right">15,000</td>
+                                </tr>
+                                <tr>
+                                    <td>Prepaid Expenses</td>
+                                    <td class="text-right">2,000</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Total Current Assets</strong></td>
+                                    <td class="text-right"><strong>$37,000</strong></td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Total Current Liabilities</strong></td>
+                                    <td class="text-right"><strong>$20,000</strong></td>
+                                </tr>
+                                <tr style="height: 1rem;"></tr>
+                                <tr>
+                                    <td>Net Sales</td>
+                                    <td class="text-right">$100,000</td>
+                                </tr>
+                                <tr>
+                                    <td>Cost of Goods Sold</td>
+                                    <td class="text-right">60,000</td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                        <h4 style="margin-top: 1.5rem;">Calculations:</h4>
+                        
+                        <div class="key-concepts-grid" style="margin-top: 1rem;">
+                            <div class="concept-card" style="border-left: 5px solid var(--info);">
+                                <strong>Acid-Test Ratio</strong>
+                                <p>Quick Assets = Cash + AR = $12,000 + $8,000 = $20,000</p>
+                                <p style="font-size: 1.2rem; font-weight: 700; margin-top: 0.5rem;">Acid-Test = $20,000 ÷ $20,000 = <strong>1.00</strong></p>
+                                <p><em>Status: Adequate but tight</em></p>
+                            </div>
+
+                            <div class="concept-card" style="border-left: 5px solid var(--success);">
+                                <strong>Current Ratio</strong>
+                                <p>Current Assets = $37,000</p>
+                                <p style="font-size: 1.2rem; font-weight: 700; margin-top: 0.5rem;">Current Ratio = $37,000 ÷ $20,000 = <strong>1.85</strong></p>
+                                <p><em>Status: Healthy</em></p>
+                            </div>
+
+                            <div class="concept-card" style="border-left: 5px solid var(--warning);">
+                                <strong>Gross Margin Ratio</strong>
+                                <p>Gross Profit = $100,000 - $60,000 = $40,000</p>
+                                <p style="font-size: 1.2rem; font-weight: 700; margin-top: 0.5rem;">Gross Margin = $40,000 ÷ $100,000 = <strong>40%</strong></p>
+                                <p><em>Status: Good for retail</em></p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="worked-example" style="margin-top: 2rem;">
+                        <h4>Why Exclude Inventory from Acid-Test?</h4>
+                        <p>Consider two companies with identical current ratios but different acid-test ratios:</p>
+
+                        <table class="comparison-table-ratio">
+                            <thead>
+                                <tr>
+                                    <th>Account</th>
+                                    <th>Company A (Retail)</th>
+                                    <th>Company B (Tech)</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Cash</td>
+                                    <td>$5,000</td>
+                                    <td>$5,000</td>
+                                </tr>
+                                <tr>
+                                    <td>Accounts Receivable</td>
+                                    <td>5,000</td>
+                                    <td>5,000</td>
+                                </tr>
+                                <tr>
+                                    <td>Inventory</td>
+                                    <td>40,000</td>
+                                    <td>0</td>
+                                </tr>
+                                <tr style="background: var(--bg-light); font-weight: 700;">
+                                    <td>Current Assets</td>
+                                    <td>$50,000</td>
+                                    <td>$10,000</td>
+                                </tr>
+                                <tr>
+                                    <td>Current Liabilities</td>
+                                    <td>$25,000</td>
+                                    <td>$5,000</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Current Ratio</strong></td>
+                                    <td><strong>2.00</strong></td>
+                                    <td><strong>2.00</strong></td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Acid-Test Ratio</strong></td>
+                                    <td><strong>0.40</strong></td>
+                                    <td><strong>2.00</strong></td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                        <p><strong>Analysis:</strong> Company A has $40,000 in inventory. If sales stopped today, could it pay $25,000 in debts? It would need to liquidate inventory at potentially discounted prices. Company B has no inventory and can easily pay its debts from quick assets.</p>
+                    </div>
+
+                    <div class="misconception-alert" style="margin-top: 1.5rem;">
+                        <strong>⚠️ Common Misconception:</strong> "A higher acid-test ratio is always better."
+                        <br><br>
+                        <strong>✅ Reality:</strong> An excessively high acid-test ratio (e.g., 3.0+) may indicate the company is holding too much cash that could be invested more productively. The goal is adequate liquidity, not maximization.
+                    </div>
+                </div>
+
+                <!-- Depth C: Advanced -->
+                <div id="depth-C" class="depth-content">
+                    <h3>🔴 Advanced Level</h3>
+                    <p>Understanding industry benchmarks, trend analysis, and decision-making applications.</p>
+
+                    <div class="worked-example">
+                        <h4>Industry Benchmarks</h4>
+                        <p>Different industries have different "normal" ratios based on their business models:</p>
+
+                        <div class="industry-benchmark">
+                            <h3 style="margin-bottom: 0.5rem;">Industry Benchmark Guide</h3>
+                            <div class="industry-grid">
+                                <div class="industry-card" style="border-left-color: var(--info);">
+                                    <div class="industry-name">Grocery Stores</div>
+                                    <div class="industry-values">
+                                        <div>Acid-Test: 0.5 - 1.0</div>
+                                        <div>Gross Margin: 20 - 30%</div>
+                                    </div>
+                                </div>
+                                <div class="industry-card" style="border-left-color: var(--success);">
+                                    <div class="industry-name">Department Stores</div>
+                                    <div class="industry-values">
+                                        <div>Acid-Test: 0.5 - 1.0</div>
+                                        <div>Gross Margin: 35 - 45%</div>
+                                    </div>
+                                </div>
+                                <div class="industry-card" style="border-left-color: var(--warning);">
+                                    <div class="industry-name">Jewelry Retailers</div>
+                                    <div class="industry-values">
+                                        <div>Acid-Test: 0.8 - 1.5</div>
+                                        <div>Gross Margin: 50 - 60%</div>
+                                    </div>
+                                </div>
+                                <div class="industry-card" style="border-left-color: var(--secondary);">
+                                    <div class="industry-name">Software (SaaS)</div>
+                                    <div class="industry-values">
+                                        <div>Acid-Test: 1.5 - 3.0</div>
+                                        <div>Gross Margin: 70 - 85%</div>
+                                    </div>
+                                </div>
+                                <div class="industry-card" style="border-left-color: var(--primary);">
+                                    <div class="industry-name">Manufacturing</div>
+                                    <div class="industry-values">
+                                        <div>Acid-Test: 0.8 - 1.2</div>
+                                        <div>Gross Margin: 25 - 40%</div>
+                                    </div>
+                                </div>
+                                <div class="industry-card" style="border-left-color: var(--error);">
+                                    <div class="industry-name">Construction</div>
+                                    <div class="industry-values">
+                                        <div>Acid-Test: 0.9 - 1.5</div>
+                                        <div>Gross Margin: 15 - 25%</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="worked-example" style="margin-top: 2rem;">
+                        <h4>Trend Analysis and Decision Making</h4>
+                        <p>Ratios are most useful when tracked over time and compared to benchmarks:</p>
+
+                        <div class="decision-tree">
+                            <div class="decision-node-ratio" onclick="this.classList.toggle('expanded')">
+                                <div class="decision-question-ratio">Problem: Acid-test ratio declining over 3 quarters</div>
+                                <div class="decision-answer-ratio">
+                                    <strong>Possible Causes:</strong> Inventory building up (slowing sales), receivables growing (customers paying slower), or cash being used for capital expenditures.<br>
+                                    <strong>Action:</strong> Review inventory turnover, Days Sales Outstanding, and cash flow statement. May need to accelerate collections or reduce inventory purchases.
+                                </div>
+                            </div>
+
+                            <div class="decision-node-ratio" onclick="this.classList.toggle('expanded')">
+                                <div class="decision-question-ratio">Problem: Gross margin declining while sales increasing</div>
+                                <div class="decision-answer-ratio">
+                                    <strong>Possible Causes:</strong> Rising purchase costs, excessive discounting, inefficient purchasing, or shift toward lower-margin products.<br>
+                                    <strong>Action:</strong> Review vendor contracts, pricing strategy, product mix, and sales discounting policies.
+                                </div>
+                            </div>
+
+                            <div class="decision-node-ratio" onclick="this.classList.toggle('expanded')">
+                                <div class="decision-question-ratio">Problem: Acid-test good but current ratio high</div>
+                                <div class="decision-answer-ratio">
+                                    <strong>Analysis:</strong> High inventory is boosting current ratio. Acid-test shows true liquidity without inventory. The company may have slow-moving or obsolete inventory.<br>
+                                    <strong>Action:</strong> Review inventory age and turnover. Consider markdowns or write-offs for slow-moving items.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="professional-tip" style="margin-top: 1.5rem;">
+                        <strong>💡 Professional Insight:</strong> In practice, ratio analysis is only one input to decision making. Always consider:
+                        <ul style="margin-top: 0.5rem;">
+                            <li><strong>Trend:</strong> Is the ratio improving or declining over time?</li>
+                            <li><strong>Industry:</strong> How does the company compare to peers?</li>
+                            <li><strong>Context:</strong> Are there seasonal patterns or one-time events affecting results?</li>
+                            <li><strong>Multiple metrics:</strong> Don't rely on a single ratio; use multiple measures for a complete picture.</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Interactive Calculator -->
+            <section class="kp-section">
+                <h2>🎨 Interactive: Ratio Calculator</h2>
+                <p>Calculate acid-test ratio and gross margin ratio from financial data. Adjust the values to see how changes affect the ratios.</p>
+
+                <div class="calculator-ratio">
+                    <h3: 1. style="margin-bottom5rem; text-align: center;">Merchandising Ratio Analyzer</h3>
+                    
+                    <div class="calc-grid">
+                        <div class="calc-input-group">
+                            <label>Cash ($)</label>
+                            <input type="number" id="ratio-cash" value="12000" oninput="calcRatios()">
+                        </div>
+                        <div class="calc-input-group">
+                            <label>Accounts Receivable ($)</label>
+                            <input type="number" id="ratio-ar" value="8000" oninput="calcRatios()">
+                        </div>
+                        <div class="calc-input-group">
+                            <label>Inventory ($)</label>
+                            <input type="number" id="ratio-inv" value="15000" oninput="calcRatios()">
+                        </div>
+                        <div class="calc-input-group">
+                            <label>Prepaid Expenses ($)</label>
+                            <input type="number" id="ratio-prep" value="2000" oninput="calcRatios()">
+                        </div>
+                        <div class="calc-input-group">
+                            <label>Current Liabilities ($)</label>
+                            <input type="number" id="ratio-cl" value="20000" oninput="calcRatios()">
+                        </div>
+                        <div class="calc-input-group">
+                            <label>Net Sales ($)</label>
+                            <input type="number" id="ratio-sales" value="100000" oninput="calcRatios()">
+                        </div>
+                        <div class="calc-input-group">
+                            <label>Cost of Goods Sold ($)</label>
+                            <input type="number" id="ratio-cogs" value="60000" oninput="calcRatios()">
+                        </div>
+                    </div>
+                    
+                    <div class="calc-result-display">
+                        <div class="result-box">
+                            <div class="result-value acid" id="result-acid">1.00</div>
+                            <div class="result-label">Acid-Test Ratio</div>
+                            <div class="result-status" id="status-acid">Adequate</div>
+                        </div>
+                        <div class="result-box">
+                            <div class="result-value current" id="result-current">1.85</div>
+                            <div class="result-label">Current Ratio</div>
+                            <div class="result-status" id="status-current">Healthy</div>
+                        </div>
+                        <div class="result-box">
+                            <div class="result-value gross" id="result-gross">40.0%</div>
+                            <div class="result-label">Gross Margin %</div>
+                            <div class="result-status" id="status-gross">Good</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="concept-card" style="margin-top: 1.5rem;">
+                    <strong>💡 Try It:</strong> Change Inventory to $30,000 and watch the Acid-Test Ratio drop (because inventory is excluded from quick assets) while the Current Ratio stays the same (because inventory is included in current assets).
+                </div>
+            </section>
+
+            <!-- Visual: Quick Assets Components -->
+            <section class="kp-section">
+                <h2>📊 Visual: What Makes "Quick" Assets?</h2>
+                <p>Understanding which assets are included in the acid-test ratio calculation:</p>
+
+                <div style="overflow-x: auto; padding: 1.5rem; margin: 1.5rem 0; background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%); border-radius: var(--radius-md);">
+                    <div style="display: flex; justify-content: center; align-items: flex-start; gap: 1.5rem; flex-wrap: wrap;">
+                        <div class="t-account-ratio">
+                            <div class="t-account-header-ratio quick">✓ Quick Assets</div>
+                            <div class="t-account-body-ratio">
+                                <div class="t-account-side-ratio debit">
+                                    <div style="font-weight: 700; margin-bottom: 0.5rem; font-size: 0.75rem; color: var(--info); text-transform: uppercase;">Include</div>
+                                    <div class="t-account-entry-ratio success">Cash</div>
+                                    <div class="t-account-entry-ratio success">Marketable Securities</div>
+                                    <div class="t-account-entry-ratio success">Accounts Receivable</div>
+                                </div>
+                            </div>
+                            <div class="t-account-balance-ratio" style="background: linear-gradient(135deg, rgba(52,152,219,0.15) 0%, rgba(52,152,219,0.05) 100%);">
+                                Formula: Cash + AR + MS ÷ CL
+                            </div>
+                        </div>
+
+                        <div class="t-account-ratio">
+                            <div class="t-account-header-ratio inventory">✗ Not Quick</div>
+                            <div class="t-account-body-ratio">
+                                <div class="t-account-side-ratio debit">
+                                    <div style="font-weight: 700; margin-bottom: 0.5rem; font-size: 0.75rem; color: var(--warning); text-transform: uppercase;">Exclude</div>
+                                    <div class="t-account-entry-ratio error">Inventory</div>
+                                    <div class="t-account-entry-ratio error">Prepaid Expenses</div>
+                                    <div class="t-account-entry-ratio error">Supplies</div>
+                                </div>
+                            </div>
+                            <div class="t-account-balance-ratio" style="background: linear-gradient(135deg, rgba(241,196,15,0.15) 0%, rgba(241,196,15,0.05) 100%); color: var(--warning);">
+                                Cannot convert to cash quickly
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1rem; margin-top: 1.5rem;">
+                    <div class="concept-card" style="border-left: 4px solid var(--error);">
+                        <strong>💡 Why Exclude Inventory?</strong>
+                        <ul style="margin-top: 0.5rem; padding-left: 1.25rem;">
+                            <li><strong>Time:</strong> Selling inventory takes time—you can't convert it to cash instantly</li>
+                            <li><strong>Value:</strong> Inventory may be damaged, obsolete, or require discounting to sell</li>
+                            <li><strong>Uncertainty:</strong> The ultimate value of inventory is uncertain until it's actually sold</li>
+                        </ul>
+                    </div>
+
+                    <div class="concept-card" style="border-left: 4px solid var(--warning);">
+                        <strong>💡 Why Exclude Prepaids?</strong>
+                        <ul style="margin-top: 0.5rem; padding-left: 1.25rem;">
+                            <li>Prepaids represent payments for future benefits (insurance, rent)</li>
+                            <li>They cannot be converted to cash—they're consumed over time</li>
+                            <li>They're assets, but not "quick" assets</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Common Misconceptions -->
+            <section class="kp-section">
+                <h2>🚫 Common Misconceptions & Professional Tips</h2>
+
+                <div class="misconception-alert">
+                    <strong>❌ Misconception 1:</strong> "The acid-test ratio should always be above 2.0."
+                    <br><br>
+                    <strong>✅ Reality:</strong> A ratio above 1.0 is generally adequate. Many successful companies operate with ratios between 0.5 and 1.0, especially in industries where inventory turns over quickly (grocery stores, restaurants).
+                </div>
+
+                <div class="misconception-alert">
+                    <strong>❌ Misconception 2:</strong> "Gross margin is the same as profit."
+                    <br><br>
+                    <strong>✅ Reality:</strong> Gross margin is profit BEFORE operating expenses. A company can have a 50% gross margin but still lose money if operating expenses (rent, salaries, marketing) exceed gross profit.
+                </div>
+
+                <div class="misconception-alert">
+                    <strong>❌ Misconception 3:</strong> "If acid-test ratio > 1.0, the company has no liquidity problems."
+                    <br><br>
+                    <strong>✅ Reality:</strong> A ratio above 1.0 is a snapshot. The company could still have cash flow problems if receivables aren't collectible, if liabilities are due before receivables are collected, or if there's a seasonal pattern.
+                </div>
+
+                <div class="misconception-alert">
+                    <strong>❌ Misconception 4:</strong> "Higher gross margin always means better performance."
+                    <br><br>
+                    <strong>✅ Reality:</strong> A higher gross margin might come at the cost of lower sales volume. Some companies succeed with lower margins but high volume (Walmart, Costco). Focus on gross profit dollars AND margin percentage.
+                </div>
+
+                <div class="professional-tip">
+                    <strong>💡 Professional Tip #1:</strong> Use both current ratio and acid-test ratio together. If current ratio is healthy but acid-test is weak, inventory is doing the heavy lifting. This could indicate risk if inventory is slow-moving.
+                </div>
+
+                <div class="professional-tip">
+                    <strong>💡 Professional Tip #2:</strong> For gross margin analysis, also calculate "markup" (Gross Profit ÷ Cost) and compare. Sometimes margins look good because of accounting changes, not operational improvements.
+                </div>
+
+                <div class="professional-tip">
+                    <strong>💡 Professional Tip #3:</strong> When analyzing a potential customer or supplier, use these ratios to assess creditworthiness. A low acid-test ratio may indicate payment risk.
+                </div>
+            </section>
+
+            <!-- Memory Aids -->
+            <section class="kp-section">
+                <h2>🧠 Memory Aids & Quick Reference</h2>
+
+                <div class="memory-aid-card">
+                    <strong>⚡ Quick Recall: Acid-Test Formula</strong>
+                    <p style="margin-top: 1rem;"><strong>CASH + AR = Quick Assets</strong></p>
+                    <p style="margin-top: 0.5rem;">Acid-Test Ratio = Quick Assets ÷ Current Liabilities</p>
+                    <p style="margin-top: 0.5rem;"><em>Exclude: Inventory, Prepaid Expenses</em></p>
+                </div>
+
+                <div class="memory-aid-card">
+                    <strong>⚡ Quick Recall: Gross Margin Formula</strong>
+                    <p style="margin-top: 1rem;"><strong>Sales - COGS = Gross Profit</strong></p>
+                    <p style="margin-top: 0.5rem;">Gross Margin % = Gross Profit ÷ Net Sales</p>
+                    <p style="margin-top: 0.5rem;"><em>Higher % = More profit per dollar of sales</em></p>
+                </div>
+
+                <div class="key-concepts-grid" style="margin-top: 2rem;">
+                    <div class="concept-card">
+                        <strong>📊 Quick Reference: Acid-Test Benchmarks</strong>
+                        <p><strong>> 1.5:</strong> Strong liquidity</p>
+                        <p><strong>1.0 - 1.5:</strong> Adequate liquidity</p>
+                        <p><strong>0.8 - 1.0:</strong> Monitor closely</p>
+                        <p><strong>< 0.8:</strong> Potential liquidity concerns</p>
+                    </div>
+
+                    <div class="concept-card">
+                        <strong>📈 Quick Reference: Gross Margin Benchmarks</strong>
+                        <p><strong>70%+:</strong> Software, pharmaceuticals</p>
+                        <p><strong>40-70%:</strong> Retail, services</p>
+                        <p><strong>20-40%:</strong> Grocery, manufacturing</p>
+                        <p><strong>< 20%:</strong> Commodities, high-volume retail</p>
+                    </div>
+
+                    <div class="concept-card">
+                        <strong>⚖️ Ratio Interpretation Rules</strong>
+                        <p>Always compare to: 1) Industry benchmarks, 2) Historical trends, 3) Competitor data</p>
+                        <p>A single ratio is less useful than trend analysis over multiple periods.</p>
+                    </div>
+
+                    <div class="concept-card">
+                        <strong>🔍 What Each Ratio Tells You</strong>
+                        <p>Acid-Test: Emergency liquidity without selling inventory</p>
+                        <p>Current Ratio: Overall short-term financial health</p>
+                        <p>Gross Margin: Pricing power and cost efficiency</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Glossary -->
+            <section class="kp-section">
+                <h2>📖 Glossary</h2>
+                <div class="key-concepts-grid">
+                    <div class="concept-card">
+                        <strong>Acid-Test Ratio (Quick Ratio)</strong>
+                        <p>A liquidity ratio calculated as (Cash + Marketable Securities + Accounts Receivable) ÷ Current Liabilities. Measures ability to pay current debts without selling inventory.</p>
+                    </div>
+
+                    <div class="concept-card">
+                        <strong>Quick Assets</strong>
+                        <p>The most liquid current assets: Cash, Cash Equivalents, Short-term Investments, and Accounts Receivable. Excludes Inventory and Prepaid Expenses.</p>
+                    </div>
+
+                    <div class="concept-card">
+                        <strong>Gross Margin Ratio</strong>
+                        <p>A profitability ratio calculated as Gross Profit ÷ Net Sales. Shows the percentage of each sales dollar remaining after Cost of Goods Sold.</p>
+                    </div>
+
+                    <div class="concept-card">
+                        <strong>Current Ratio</strong>
+                        <p>A liquidity ratio calculated as Current Assets ÷ Current Liabilities. A broader measure of liquidity than acid-test because it includes all current assets.</p>
+                    </div>
+
+                    <div class="concept-card">
+                        <strong>Liquidity</strong>
+                        <p>The ability to convert an asset to cash quickly without significant loss of value. More liquid assets can be used more readily to meet financial obligations.</p>
+                    </div>
+
+                    <div class="concept-card">
+                        <strong>Working Capital</strong>
+                        <p>Current Assets minus Current Liabilities. A measure of short-term financial health. Positive working capital indicates ability to meet short-term obligations.</p>
+                    </div>
+
+                    <div class="concept-card">
+                        <strong>Benchmark</strong>
+                        <p>A standard or reference point used for comparison. Industry benchmarks allow meaningful comparison between companies in different industries.</p>
+                    </div>
+
+                    <div class="concept-card">
+                        <strong>Gross Profit</strong>
+                        <p>Net Sales minus Cost of Goods Sold. Represents the profit before operating expenses are deducted.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Final Knowledge Check -->
+            <section class="interactive-section">
+                <h2>🎯 Final Knowledge Check</h2>
+                <p>Test your understanding of Acid-Test and Gross Margin Ratios:</p>
+
+                <div class="quiz-container" data-success-text="Excellent! You've mastered ratio analysis." data-explanation="The acid-test ratio measures liquidity using only the most liquid assets (excluding inventory). The gross margin ratio measures profitability by showing what percentage of sales remains after covering cost of goods sold. Both should be compared to industry benchmarks and historical trends for meaningful analysis.">
+                    <div class="input-group">
+                        <p><strong>Question 1:</strong> Which assets are included in the acid-test ratio calculation?</p>
+                        <label><input type="radio" name="q1" value="a" data-correct="false"> All current assets</label><br><br>
+                        <label><input type="radio" name="q1" value="b" data-correct="true"> Cash, marketable securities, and accounts receivable only</label><br><br>
+                        <label><input type="radio" name="q1" value="c" data-correct="false"> Cash, inventory, and accounts receivable</label>
+                    </div>
+
+                    <div class="input-group">
+                        <p><strong>Question 2:</strong> If Quick Assets = $50,000 and Current Liabilities = $40,000, what is the acid-test ratio?</p>
+                        <label><input type="radio" name="q2" value="a" data-correct="false"> 0.80</label><br><br>
+                        <label><input type="radio" name="q2" value="b" data-correct="true"> 1.25</label><br><br>
+                        <label><input type="radio" name="q2" value="c" data-correct="false"> 2.00</label>
+                    </div>
+
+                    <div class="input-group">
+                        <p><strong>Question 3:</strong> Why is inventory excluded from the acid-test ratio?</p>
+                        <label><input type="radio" name="q3" value="a" data-correct="false"> Inventory is not a current asset</label><br><br>
+                        <label><input type="radio" name="q3" value="b" data-correct="true"> Inventory may be difficult to convert to cash quickly at full value</label><br><br>
+                        <label><input type="radio" name="q3" value="c" data-correct="false"> Inventory is always worth more than its recorded value</label>
+                    </div>
+
+                    <div class="input-group">
+                        <p><strong>Question 4:</strong> Net Sales = $200,000, COGS = $120,000. What is the gross margin ratio?</p>
+                        <label><input type="radio" name="q4" value="a" data-correct="false"> 40%</label><br><br>
+                        <label><input type="radio" name="q4" value="b" data-correct="false"> 60%</label><br><br>
+                        <label><input type="radio" name="q4" value="c" data-correct="true"> 40%</label>
+                    </div>
+
+                    <div class="input-group">
+                        <p><strong>Question 5:</strong> A company has a healthy gross margin but declining acid-test ratio. What might this indicate?</p>
+                        <label><input type="radio" name="q5" value="a" data-correct="false"> The company is pricing products too high</label><br><br>
+                        <label><input type="radio" name="q5" value="b" data-correct="true"> The company may be accumulating slow-moving inventory or having collection issues</label><br><br>
+                        <label><input type="radio" name="q5" value="c" data-correct="false"> The company has too much cash</label>
+                    </div>
+
+                    <button class="btn btn-primary quiz-submit">Submit All Answers</button>
+                    <div class="feedback"></div>
+                    <button class="quiz-retry">Try Again</button>
+                </div>
+            </section>
+
+            <!-- Navigation -->
+            <nav class="kp-navigation" style="display: flex; justify-content: space-between; margin-top: 4rem; padding-bottom: 2rem;">
+                <a href="ch05_C1.html" class="btn" style="background: #eee;">← Previous: Merchandising</a>
+                <a href="ch05.html" class="btn" style="background: var(--info); color: white;">Chapter 5 Hub</a>
+                <a href="ch05_P1.html" class="btn btn-primary">Next: Perpetual System →</a>
+            </nav>
+        </article>
+    </main>
+
+    <footer style="margin-top: 5rem; padding: 2rem 0; border-top: 1px solid #ddd; text-align: center; color: #888;">
+        <p>Accounting Essentials | Chapter 5 | Analysis 1</p>
+    </footer>
+
+    <script src="../../components-enhanced.js"></script>
+    <script>
+        function setDepth(depth) {
+            document.querySelectorAll('.depth-btn').forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+
+            document.querySelectorAll('.depth-content').forEach(content => content.classList.remove('active'));
+            document.getElementById(`depth-${depth}`).classList.add('active');
+        }
+
+        function calcRatios() {
+            // Get inputs
+            const cash = parseFloat(document.getElementById('ratio-cash').value) || 0;
+            const ar = parseFloat(document.getElementById('ratio-ar').value) || 0;
+            const inv = parseFloat(document.getElementById('ratio-inv').value) || 0;
+            const prep = parseFloat(document.getElementById('ratio-prep').value) || 0;
+            const cl = parseFloat(document.getElementById('ratio-cl').value) || 1; // Avoid divide by zero
+            const sales = parseFloat(document.getElementById('ratio-sales').value) || 0;
+            const cogs = parseFloat(document.getElementById('ratio-cogs').value) || 0;
+
+            // Calculate quick assets
+            const quickAssets = cash + ar;
+            const currentAssets = cash + ar + inv + prep;
+
+            // Calculate ratios
+            const acidTest = quickAssets / cl;
+            const currentRatio = currentAssets / cl;
+            const grossProfit = sales - cogs;
+            const grossMargin = sales > 0 ? (grossProfit / sales) * 100 : 0;
+
+            // Update display
+            document.getElementById('result-acid').textContent = acidTest.toFixed(2);
+            document.getElementById('result-current').textContent = currentRatio.toFixed(2);
+            document.getElementById('result-gross').textContent = grossMargin.toFixed(1) + '%';
+
+            // Update status indicators
+            const acidStatus = document.getElementById('status-acid');
+            const currentStatus = document.getElementById('status-current');
+            const grossStatus = document.getElementById('status-gross');
+
+            // Acid-test status
+            if (acidTest >= 1.5) {
+                acidStatus.textContent = 'Strong';
+                acidStatus.className = 'result-status good';
+            } else if (acidTest >= 1.0) {
+                acidStatus.textContent = 'Adequate';
+                acidStatus.className = 'result-status good';
+            } else if (acidTest >= 0.8) {
+                acidStatus.textContent = 'Monitor';
+                acidStatus.className = 'result-status warning';
+            } else {
+                acidStatus.textContent = 'Concern';
+                acidStatus.className = 'result-status danger';
+            }
+
+            // Current ratio status
+            if (currentRatio >= 2.0) {
+                currentStatus.textContent = 'Strong';
+                currentStatus.className = 'result-status good';
+            } else if (currentRatio >= 1.5) {
+                currentStatus.textContent = 'Healthy';
+                currentStatus.className = 'result-status good';
+            } else if (currentRatio >= 1.0) {
+                currentStatus.textContent = 'Adequate';
+                currentStatus.className = 'result-status warning';
+            } else {
+                currentStatus.textContent = 'Low';
+                currentStatus.className = 'result-status danger';
+            }
+
+            // Gross margin status
+            if (grossMargin >= 50) {
+                grossStatus.textContent = 'Excellent';
+                grossStatus.className = 'result-status good';
+            } else if (grossMargin >= 35) {
+                grossStatus.textContent = 'Good';
+                grossStatus.className = 'result-status good';
+            } else if (grossMargin >= 20) {
+                grossStatus.textContent = 'Average';
+                grossStatus.className = 'result-status warning';
+            } else {
+                grossStatus.textContent = 'Low';
+                grossStatus.className = 'result-status danger';
+            }
+        }
+
+        // Initialize calculations
+        window.onload = calcRatios;
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,522 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>P2: Perpetual System - Sales | ACCOUNTING ESSENTIALS</title>
+    <link rel="stylesheet" href="../../styles.css">
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-50MTQPVR7D"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-50MTQPVR7D');
+</script>
+
+</head>
+
+<body>
+    <header>
+        <div class="container nav-container">
+            <a href="../../index.html" class="logo">ACCOUNTS<span>MASTER</span></a>
+            <nav class="nav-links">
+                <a href="../../index.html">Home</a>
+                <a href="../part1.html">Part 1</a>
+                <a href="../../part2/part2.html">Part 2</a>
+                <a href="../../part3/part3.html">Part 3</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container">
+        <div class="breadcrumbs">
+            <a href="../../index.html">Home</a> <span>/</span> <a href="../part1.html">Part 1</a> <span>/</span> <a href="../../part2/part2.html">Part 2</a> <span>/</span> <a href="ch05.html">Chapter 5</a> <span>/</span> P2
+        </div>
+
+        <article class="animate-fade-in">
+            <div class="kp-header">
+                <h1 style="border-left: 8px solid var(--primary-light); padding-left: 1rem; margin: 2rem 0;">Perpetual System - Sales</h1>
+            </div>
+
+            <!-- Learning Objectives -->
+            <section class="kp-section">
+                <h2>🎯 Learning Objectives</h2>
+                <div class="learning-objectives">
+                    <ul>
+                        <li>Understand the double-entry nature of sales transactions</li>
+                        <li>Record sales entries in perpetual inventory system</li>
+                        <li>Calculate gross sales, returns, allowances, and net sales</li>
+                        <li>Distinguish between cash sales and credit sales</li>
+                        <li>Apply sales discount policies to transactions</li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- Background & Principles -->
+            <section class="kp-section">
+                <h2>📚 Background & Principles</h2>
+                <p>Sales transactions represent revenue recognition at the moment goods or services are transferred to customers. In a perpetual inventory system, inventory is updated continuously, ensuring accurate tracking.</p>
+
+                <div class="concept-card" style="margin: 1.5rem 0;">
+                    <strong>Core Principle:</strong> Revenue is recognized when ownership transfers to the buyer, regardless of when cash is received. The perpetual system provides real-time inventory visibility, supporting accurate sales recording.
+                </div>
+
+                <p>Each sale triggers two journal entries: one recording revenue and one recording cost of goods sold, updating inventory balances simultaneously.</p>
+
+                <div class="professional-tip">
+                    <strong>💡 Key Insight:</strong> The double-entry system in sales ensures that every transaction affects at least two accounts and maintains the accounting equation balance: Assets = Liabilities + Equity.
+                </div>
+            </section>
+
+            <!-- Key Concepts -->
+            <section class="kp-section">
+                <h2>🔑 Key Concepts</h2>
+                <div class="key-concepts-grid">
+                    <div class="concept-card">
+                        <strong>Gross Sales</strong>
+                        <p>Total sales revenue before subtracting returns and allowances. The nominal sales amount at list price.</p>
+                    </div>
+
+                    <div class="concept-card">
+                        <strong>Sales Returns and Allowances</strong>
+                        <p>Contra-revenue accounts that reduce gross sales. Returns represent goods returned by customers. Allowances represent price reductions.</p>
+                    </div>
+
+                    <div class="concept-card">
+                        <strong>Net Sales</strong>
+                        <p>Gross Sales minus returns and allowances. The actual amount earned from sales activities. Used for income statement and financial analysis.</p>
+                    </div>
+
+                    <div class="concept-card">
+                        <strong>Sales Discounts</strong>
+                        <p>Price reductions offered to customers for early payment or bulk purchases. Include cash discounts, quantity discounts, and trade discounts.</p>
+                    </div>
+
+                    <div class="concept-card">
+                        <strong>Credit Sales</strong>
+                        <p>Sales made on credit with deferred payment. Creates Accounts Receivable instead of immediate cash. Requires credit analysis and collection procedures.</p>
+                    </div>
+
+                    <div class="concept-card">
+                        <strong>Perpetual Inventory Update</strong>
+                        <p>Immediate reduction of Merchandise Inventory account and increase of Cost of Goods Sold when sale occurs. Maintains real-time inventory quantities.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Deep Dive -->
+            <section class="kp-section">
+                <h2>🔍 Deep Dive</h2>
+                <p>Explore sales transactions at different levels of depth:</p>
+
+                <div class="depth-toggle">
+                    <button class="depth-btn active" onclick="setDepth('A')">Depth A: Foundational</button>
+                    <button class="depth-btn" onclick="setDepth('B')">Depth B: Standard</button>
+                    <button class="depth-btn" onclick="setDepth('C')">Depth C: Advanced</button>
+                </div>
+
+                <!-- Depth A -->
+                <div id="depth-A" class="depth-content active">
+                    <h3>🟢 Foundational Level</h3>
+                    <p>Understanding basic sales recording principles.</p>
+
+                    <div class="worked-example">
+                        <h4>The Two-Scan Sale</h4>
+                        <p><strong>Analogy: The Double Beep</strong></p>
+                        <p>In a Perpetual System (The Scanner), every sale creates TWO separate "Beeps" (Journal Entries) instantly:</p>
+
+                        <div class="example-step">
+                            <strong>Beep 1 (The Price):</strong>
+                            <p>"That will be $100." → Records <strong>Revenue</strong> (and Cash or AR)</p>
+                        </div>
+                        <div class="example-step">
+                            <strong>Beep 2 (The Cost):</strong>
+                            <p>"Item removed from stock." → Records <strong>Cost of Goods Sold</strong> (Expense) and reduces <strong>Inventory</strong></p>
+                        </div>
+                        <div class="example-step">
+                            <strong>Why Two Beeps?</strong>
+                            <p>The store needs to know it made $100 AND it lost an item that cost $60. This double-tracking ensures accuracy.</p>
+                        </div>
+                    </div>
+
+                    <div
+                        style="background: var(--bg-dark); color: var(--white); padding: 2rem; border-radius: var(--radius-md); text-align: center; margin: 2rem 0;">
+                        <h3 style="color: var(--secondary-light);">The Sales Equation</h3>
+                        <div style="font-size: 1.5rem; font-weight: 700; margin-top: 1rem;">
+                            Net Sales = Gross Sales - Returns - Allowances
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Depth B -->
+                <div id="depth-B" class="depth-content">
+                    <h3>🟡 Standard Level</h3>
+                    <p>Recording sales with discounts and understanding sales returns.</p>
+
+                    <div class="worked-example">
+                        <h4>Credit Terms and Discounts</h4>
+                        <p><strong>Scenario:</strong> Purchase $5,000 with credit terms 2/10, n/30. Payment on April 30.</p>
+
+                        <div class="example-step">
+                            <strong>Analysis:</strong>
+                            <p>Full cost: $5,000</p>
+                            <p>Discount period: 0-10 days = 2% discount</p>
+                            <p>Period 11-30 days = net (full) amount</p>
+                        </div>
+                        <div class="example-step">
+                            <strong>Entry on purchase date (March 1):</strong>
+                            <p>Debit Inventory $5,000, Credit Accounts Payable $5,000</p>
+                        </div>
+                        <div class="example-step">
+                            <strong>Entry on payment date (April 15):</strong>
+                            <p>Debit Accounts Payable $5,000, Credit Cash $4,900 (with 2% discount)</p>
+                        </div>
+                        <div class="example-step">
+                            <strong>Discount Calculation:</strong>
+                            <p>$5,000 × 2% = $100 discount</p>
+                            <p>Net payment: $5,000 - $100 = $4,900</p>
+                        </div>
+                    </div>
+
+                    <div class="worked-example">
+                        <h4>Recording Sales Returns</h4>
+                        <p><strong>Scenario:</strong> Customer returns 20 units (cost $200 each). Company grants full credit for returns.</p>
+
+                        <div class="example-step">
+                            <strong>Effect on Inventory:</strong>
+                            <p>Inventory increases by $4,000 (20 units × $200 cost)</p>
+                            <p>Company restocks returned merchandise</p>
+                        </div>
+                        <div class="example-step">
+                            <strong>Recording the Return:</strong>
+                            <p>Debit Inventory $4,000 (increase asset), Credit Sales Returns and Allowances $4,000 (contra-revenue, reduces sales)</p>
+                        </div>
+                        <div class="example-step">
+                            <strong>Effect on Income Statement:</strong>
+                            <p>Sales Returns and Allowances appears as negative adjustment to Gross Sales, reducing Net Sales</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Depth C -->
+                <div id="depth-C" class="depth-content">
+                    <h3>🔴 Advanced Level</h3>
+                    <p>Complex sales scenarios including credit sales analysis and partial returns.</p>
+
+                    <div class="worked-example">
+                        <h4>Credit Sales and Allowances</h4>
+                        <p><strong>Scenario:</strong> Net sales of $100,000 with 2% sales allowance policy.</p>
+
+                        <div class="example-step">
+                            <strong>Analysis:</strong>
+                            <p>Total allowance = $100,000 × 2% = $2,000</p>
+                            <p>Companies record allowance as separate contra-revenue account</p>
+                        </div>
+                        <div class="example-step">
+                            <strong>Recording allowances:</strong>
+                            <p>Debit Sales Returns and Allowances $2,000 (increase contra-revenue), Credit Accounts Receivable $2,000 (reduce net A/R)</p>
+                        </div>
+                        <div class="example-step">
+                            <strong>Impact:</strong>
+                            <p>Net sales reduced by allowance amount</p>
+                            <p>Financial statements show gross sales and allowance disclosure</p>
+                        </div>
+                    </div>
+
+                    <div class="worked-example">
+                        <h4>Credit Terms Optimization</h4>
+                        <p><strong>Scenario:</strong> Evaluating whether to offer early payment discount to improve cash flow.</p>
+
+                        <div class="example-step">
+                            <strong>Factors to consider:</strong>
+                            <p>1. Cost of capital: Current interest rate (5%)</p>
+                            <p>2. Savings from supplier discount: 2%</p>
+                            <p>3. Customer payment patterns: History and creditworthiness</p>
+                            <p>4. Cash needs: Operating expenses and upcoming investments</p>
+                        </div>
+                        <div class="example-step">
+                            <strong>Decision analysis:</strong>
+                            <p>If cost of capital > discount savings, offer early discount</p>
+                            <p>If good customers with strong credit history, maintain strict terms</p>
+                            <p>If need cash flow, consider offering discount to accelerate collections</p>
+                        </div>
+                    </div>
+
+                    <div class="worked-example">
+                        <h4>Sales with Multiple Components</h4>
+                        <p><strong>Scenario:</strong> Complex sale with merchandise, delivery charges, and credit terms.</p>
+
+                        <div class="example-step">
+                            <strong>Entry breakdown:</strong>
+                            <p>Debit Accounts Receivable $10,000</p>
+                            <p>Debit Cost of Goods Sold $6,000</p>
+                            <p>Credit Sales Revenue $15,000 (merchandise)</p>
+                            <p>Credit Delivery Revenue $1,000 (shipping)</p>
+                        </div>
+                        <div class="example-step">
+                            <strong>Financial statement impact:</strong>
+                            <p>Gross sales: $16,000 ($15,000 + $1,000)</p>
+                            <p>COGS: $6,000</p>
+                            <p>Net sales: $16,000 - returns and allowances</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Interactive Net Sales Calculator -->
+            <section class="kp-section">
+                <h2>🎨 Interactive: Net Sales Calculator</h2>
+                <p>Gross Sales is rarely the final number. Calculate Net Sales by subtracting returns, allowances, and discounts.</p>
+
+                <div class="simulator-container">
+                    <div class="input-group">
+                        <label>Gross Sales ($)</label>
+                        <input type="number" id="gross-sales" value="10000" oninput="calcNetSales()">
+                    </div>
+                    <div class="input-group">
+                        <label>Returns ($)</label>
+                        <input type="number" id="sales-ret" value="500" oninput="calcNetSales()">
+                    </div>
+                    <div class="input-group">
+                        <label>Allowances ($)</label>
+                        <input type="number" id="sales-all" value="100" oninput="calcNetSales()">
+                    </div>
+                    <div class="input-group">
+                        <label>Discounts ($)</label>
+                        <input type="number" id="sales-disc" value="200" oninput="calcNetSales()">
+                    </div>
+
+                    <div style="display: flex; gap: 1rem; margin-top: 2rem;">
+                        <div style="flex: 1; padding: 1.5rem; background: var(--bg-light); border-radius: var(--radius-sm); border: 2px solid var(--primary); text-align: center;">
+                            <div style="font-size: 0.8rem; color: var(--text-muted); text-transform: uppercase;">You Save</div>
+                            <div id="save-val" style="font-size: 2.5rem; font-weight: 800; color: var(--success);">$200.00</div>
+                        </div>
+                        <div style="flex: 1; padding: 1.5rem; background: var(--bg-light); border-radius: var(--radius-sm); border: 2px solid var(--primary); text-align: center;">
+                            <div style="font-size: 0.8rem; color: var(--text-muted); text-transform: uppercase;">Final Payment</div>
+                            <div id="pay-val" style="font-size: 2.5rem; font-weight: 800; color: var(--primary);">$9,400.00</div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Common Misconceptions -->
+            <section class="kp-section">
+                <h2>🚫 Common Misconceptions & Professional Tips</h2>
+
+                <div class="misconception-alert">
+                    <strong>❌ Misconception 1:</strong> "Gross sales always equal cash received."
+                    <br><br>
+                    <strong>✅ Reality:</strong> Gross sales includes all sales revenue at list price, whether cash or credit. Net sales (after adjustments) represents the revenue to be recognized, but gross sales reflects total sales activity.
+                </div>
+
+                <div class="misconception-alert">
+                    <strong>❌ Misconception 2:</strong> "Sales returns are recorded as expenses."
+                    <br><br>
+                    <strong>✅ Reality:</strong> Sales Returns and Allowances are contra-revenue accounts, not expenses. They reduce gross sales to arrive at net sales. Inventory increases when merchandise is returned.
+                </div>
+
+                <div class="misconception-alert">
+                    <strong>❌ Misconception 3:</strong> "Sales discounts always benefit the seller."
+                    <br><br>
+                    <strong>✅ Reality:</strong> While discounts encourage early payment, they also reduce revenue. Sellers must balance the cash flow benefit against revenue reduction. High discounts may indicate cash flow problems or weak credit policies.
+                </div>
+
+                <div class="professional-tip">
+                    <strong>💡 Professional Tip #1:</strong> Track gross sales separately from net sales. This helps analyze trends, evaluate discount effectiveness, and monitor allowance policies.
+                </div>
+
+                <div class="professional-tip">
+                    <strong>💡 Professional Tip #2:</strong> Reconcile sales returns inventory immediately. When merchandise is returned, update inventory counts and values to prevent discrepancies.
+                </div>
+
+                <div class="professional-tip">
+                    <strong>💡 Professional Tip #3:</strong> Monitor allowance accounts regularly. Large or growing allowance balances may indicate quality problems, customer dissatisfaction, or aggressive sales practices that need policy review.
+                </div>
+            </section>
+
+            <!-- Memory Aids -->
+            <section class="kp-section">
+                <h2>🧠 Memory Aids & Quick Reference</h2>
+
+                <div class="memory-aid-card">
+                    <strong>⚡ Quick Recall: Net Sales Formula</strong>
+                    <p><strong>Net Sales = Gross Sales - Returns - Allowances - Discounts</strong></p>
+                    <p>Net sales used for income statement preparation and ratio analysis.</p>
+                </div>
+
+                <div class="key-concepts-grid">
+                    <div class="concept-card">
+                        <strong>📊 Gross Sales</strong>
+                        <p>Total sales at list price. Before returns, allowances, and discounts.</p>
+                    </div>
+
+                    <div class="concept-card">
+                        <strong>💰 Sales Returns</strong>
+                        <p>Contra-revenue account. Credited when merchandise is returned. Reduces gross sales.</p>
+                    </div>
+
+                    <div class="concept-card">
+                        <strong>💸 Sales Allowances</strong>
+                        <p>Contra-revenue account. Credits for price reductions, rebates, or quantity discounts. Reduces gross sales.</p>
+                    </div>
+
+                    <div class="concept-card">
+                        <strong>📈 Net Sales</strong>
+                        <p>Gross Sales - Returns - Allowances. Actual revenue earned from sales activities.</p>
+                    </div>
+
+                    <div class="concept-card">
+                        <strong>🎫 Sales Discounts</strong>
+                        <p>Price reductions for early payment, bulk purchases, or special promotions. Include cash, quantity, and trade discounts.</p>
+                    </div>
+
+                    <div class="concept-card">
+                        <strong>💳 Credit Terms</strong>
+                        <p>Payment terms: 2/10, n/30, n/45, EOM. Specify payment period and discount availability.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Glossary -->
+            <section class="kp-section">
+                <h2>📖 Glossary</h2>
+                <div class="key-concepts-grid">
+                    <div class="concept-card">
+                        <strong>Sales Revenue</strong>
+                        <p>Revenue recognized from sale of goods or services. Represents gross inflow from customer transactions.</p>
+                    </div>
+
+                    <div class="concept-card">
+                        <strong>Cost of Goods Sold (COGS)</strong>
+                        <p>Expense representing cost of inventory sold during a period. Calculated as Beginning Inventory + Purchases - Ending Inventory in perpetual systems.</p>
+                    </div>
+
+                    <div class="concept-card">
+                        <strong>Gross Sales</strong>
+                        <p>Total sales revenue before subtracting returns, allowances, and discounts. Represents total sales activity at list price.</p>
+                    </div>
+
+                    <div class="concept-card">
+                        <strong>Net Sales</strong>
+                        <p>Gross Sales minus Sales Returns and Allowances. Actual revenue to be recognized and used for income statement and financial analysis.</p>
+                    </div>
+
+                    <div class="concept-card">
+                        <strong>Sales Returns and Allowances</strong>
+                        <p>Contra-revenue accounts that reduce gross sales. Returns: merchandise returned. Allowances: price reductions, rebates, discounts.</p>
+                    </div>
+
+                    <div class="concept-card">
+                        <strong>Sales Discounts</strong>
+                        <p>Price reductions offered to customers. Cash discounts (early payment), quantity discounts (bulk purchases), trade discounts (industry practices).</p>
+                    </div>
+
+                    <div class="concept-card">
+                        <strong>Contra Account</strong>
+                        <p>Account with normal balance opposite to related account. Examples: Sales Returns and Allowances (contra to Sales), Accumulated Depreciation (contra to PPE).</p>
+                    </div>
+
+                    <div class="concept-card">
+                        <strong>Credit Terms</strong>
+                        <p>Payment terms specifying when payment is due and if early payment discount applies. Format: 2/10, n/30, n/45, EOM.</p>
+                    </div>
+
+                    <div class="concept-card">
+                        <strong>Credit Sales</strong>
+                        <p>Sales on credit with deferred payment. Creates Accounts Receivable. Requires credit evaluation and collection procedures.</p>
+                    </div>
+
+                    <div class="concept-card">
+                        <strong>Cash Sales</strong>
+                        <p>Sales with immediate cash receipt. Creates Cash debit directly. No collection risk but may require security controls.</p>
+                    </div>
+
+                    <div class="concept-card">
+                        <strong>Accounts Receivable</strong>
+                        <p>Asset representing amounts owed by customers from credit sales. Monitored for aging and collection effectiveness.</p>
+                    </div>
+
+                    <div class="concept-card">
+                        <strong>Allowance Method</strong>
+                        <p>Approach to estimating uncollectible accounts. Percentage of sales method (aging method alternative). Direct write-off for specific uncollectible amounts.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Final Knowledge Check -->
+            <section class="interactive-section">
+                <h2>🎯 Final Knowledge Check</h2>
+                <p>Test your understanding of Perpetual System - Sales:</p>
+
+                <div class="quiz-container" data-success-text="Excellent! You've mastered sales recording concepts." data-explanation="Purchase returns decrease inventory account directly in a perpetual system. The Merchandise Inventory account is debited for the cost of returned goods, increasing the asset back to its original position.">
+                    <div class="input-group">
+                        <p><strong>Question 1:</strong> When merchandise is sold on credit, which account is typically debited?</p>
+                        <label><input type="radio" name="q1" value="incorrect1" data-correct="false"> Cash</label><br>
+                        <label><input type="radio" name="q1" value="correct" data-correct="true"> Accounts Receivable</label><br>
+                        <label><input type="radio" name="q1" value="incorrect2" data-correct="false"> Sales Revenue</label><br>
+                        <label><input type="radio" name="q1" value="incorrect3" data-correct="false"> Merchandise Inventory</label>
+                    </div>
+
+                    <div class="input-group">
+                        <p><strong>Question 2:</strong> What is the effect of a sales allowance account on net sales?</p>
+                        <label><input type="radio" name="q2" value="correct" data-correct="true"> Reduces gross sales (contra-revenue effect)</label><br>
+                        <label><input type="radio" name="q2" value="incorrect1" data-correct="false"> Increases gross sales (added to revenue)</label><br>
+                        <label><input type="radio" name="q2" value="incorrect2" data-correct="false"> Recorded as expense</label><br>
+                        <label><input type="radio" name="q2" value="incorrect3" data-correct="false"> Has no effect on sales</label>
+                    </div>
+
+                    <div class="input-group">
+                        <p><strong>Question 3:</strong> A customer returns goods purchased for $500 (cost basis). How should the return be recorded if the inventory is now on a new cost basis of $450 per unit?</p>
+                        <label><input type="radio" name="q3" value="incorrect1" data-correct="false"> Debit Inventory $500 (original cost)</label><br>
+                        <label><input type="radio" name="q3" value="incorrect2" data-correct="false"> Credit Inventory $500 (current cost)</label><br>
+                        <label><input type="radio" name="q3" value="correct" data-correct="true"> Debit Inventory $450 (current cost) and record cost difference of $50 separately</label><br>
+                        <label><input type="radio" name="q3" value="incorrect3" data-correct="false"> Debit Sales Returns $500 (contra-revenue)</label>
+                    </div>
+
+                    <button class="btn btn-primary quiz-submit">Submit Answers</button>
+                    <div class="feedback"></div>
+                    <button class="quiz-retry">Try Again</button>
+                </div>
+            </section>
+
+            <!-- Navigation -->
+            <nav class="kp-navigation" style="display: flex; justify-content: space-between; margin-top: 4rem; padding-bottom: 2rem;">
+                <a href="ch05_P1.html" class="btn" style="background: #eee;">← Previous: Purchases</a>
+                <a href="ch05_P3.html" class="btn btn-primary">Next: Adjusting & Closing →</a>
+            </nav>
+        </article>
+    </main>
+
+    <footer style="margin-top: 5rem; padding: 2rem 0; border-top: 1px solid #ddd; text-align: center; color: #888;">
+        <p>Accounting Essentials | Chapter 5 | Procedure 2</p>
+    </footer>
+
+    <script src="../../components-enhanced.js"></script>
+    <script>
+        function setDepth(depth) {
+            document.querySelectorAll('.depth-btn').forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+
+            document.querySelectorAll('.depth-content').forEach(content => content.classList.remove('active'));
+            document.getElementById(`depth-${depth}`).classList.add('active');
+        }
+
+        function calcNetSales() {
+            const gross = parseFloat(document.getElementById('gross-sales').value) || 0;
+            const ret = parseFloat(document.getElementById('sales-ret').value) || 0;
+            const all = parseFloat(document.getElementById('sales-all').value) || 0;
+            const disc = parseFloat(document.getElementById('sales-disc').value) || 0;
+
+            const net = gross - ret - all - disc;
+            const finalPayment = net;
+
+            document.getElementById('save-val').textContent = '$' + (ret + all + disc).toLocaleString(undefined, { minimumFractionDigits: 2 });
+            document.getElementById('pay-val').textContent = '$' + finalPayment.toLocaleString(undefined, { minimumFractionDigits: 2 });
+        }
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,555 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>C2: Control of Cash | ACCOUNTING ESSENTIALS</title>
+    <link rel="stylesheet" href="../../styles.css">
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-50MTQPVR7D"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-50MTQPVR7D');
+</script>
+
+</head>
+
+<body>
+    <header>
+        <div class="container nav-container">
+            <a href="../../index.html" class="logo">ACCOUNTING<span>ESSENTIALS</span></a>
+            <nav class="nav-links">
+                <a href="../../index.html">Home</a>
+                <a href="../../Part1/part1.html">Part 1</a>
+                <a href="../../part2/part2.html">Part 2</a>
+                <a href="../../part3/part3.html">Part 3</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container">
+        <div class="breadcrumbs">
+            <a href="../../index.html">Home</a> <span>/</span> <a href="../../part3/part3.html">Part 3</a>
+            <span>/</span> <a href="ch08.html">Chapter 8</a> <span>/</span> C2
+        </div>
+
+        <article class="animate-fade-in">
+            <div class="kp-header">
+                <h1 style="border-left: 8px solid var(--primary); padding-left: 1rem; margin: 2rem 0;">Control of Cash
+                </h1>
+            </div>
+
+            <!-- Learning Objectives -->
+            <section class="kp-section">
+                <h2>🎯 Learning Objectives</h2>
+                <div class="learning-objectives">
+                    <ul>
+                        <li>Understand why cash requires special internal controls</li>
+                        <li>Identify cash and cash equivalents for financial reporting</li>
+                        <li>Explain procedures for controlling cash receipts</li>
+                        <li>Describe procedures for controlling cash disbursements</li>
+                        <li>Apply bank reconciliation as a cash control tool</li>
+                        <li>Understand the importance of petty cash controls</li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- Background & Principles -->
+            <section class="kp-section">
+                <h2>📚 Background & Principles</h2>
+                <p>Cash is the most liquid asset and the most susceptible to theft and misappropriation. Effective cash
+                    controls protect assets, ensure accurate financial reporting, and promote operational efficiency.
+                    These controls cover both cash receipts (money coming in) and cash disbursements (money going out).
+                </p>
+
+                <div class="concept-card" style="margin: 1.5rem 0;">
+                    <strong>Core Principle:</strong> Cash controls follow the principle of segregation of
+                    duties—different people should handle cash receipt, cash recording, and bank deposits. This prevents
+                    any single person from both stealing cash and hiding the theft in records.
+                </div>
+
+                <div class="professional-tip">
+                    <strong>💡 Key Insight:</strong> Think of cash liquidity like physical states of water. Cash is
+                    liquid water (instantly spendable), cash equivalents are ice cubes (melt in 90 days), and inventory
+                    is a glacier (slow to convert).
+                </div>
+            </section>
+
+            <!-- Key Concepts -->
+            <section class="kp-section">
+                <h2>🔑 Key Concepts</h2>
+                <div class="key-concepts-grid">
+                    <div class="concept-card">
+                        <strong>Cash Equivalents</strong>
+                        <p>Short-term, highly liquid investments within 3 months of maturity (T-bills, money market
+                            funds).</p>
+                    </div>
+
+                    <div class="concept-card">
+                        <strong>Cash Receipt Controls</strong>
+                        <p>Procedures for over-the-counter and mail receipts to ensure all cash is recorded and
+                            deposited.</p>
+                    </div>
+
+                    <div class="concept-card">
+                        <strong>Cash Disbursement Controls</strong>
+                        <p>Procedures for authorizing and recording payments to prevent unauthorized disbursements.</p>
+                    </div>
+
+                    <div class="concept-card">
+                        <strong>Zero-Base Cash</strong>
+                        <p>Keeping minimum cash on hand by depositing all receipts promptly and paying by check.</p>
+                    </div>
+
+                    <div class="concept-card">
+                        <strong>Electronic Funds Transfer (EFT)</strong>
+                        <p>Electronic movement of money between accounts, providing audit trails and reducing handling.
+                        </p>
+                    </div>
+
+                    <div class="concept-card">
+                        <strong>Bank Reconciliation</strong>
+                        <p>Monthly comparison of bank statements to company records to verify cash balances.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Deep Dive -->
+            <section class="kp-section">
+                <h2>🔍 Deep Dive</h2>
+                <p>Explore cash control at different levels of depth:</p>
+
+                <div class="depth-toggle">
+                    <button class="depth-btn active" onclick="setDepth('A')">Depth A: Foundational</button>
+                    <button class="depth-btn" onclick="setDepth('B')">Depth B: Standard</button>
+                    <button class="depth-btn" onclick="setDepth('C')">Depth C: Advanced</button>
+                </div>
+
+                <!-- Depth A -->
+                <div id="depth-A" class="depth-content active">
+                    <h3>🟢 Foundational Level</h3>
+                    <p>Understanding cash liquidity.</p>
+
+                    <div class="worked-example">
+                        <h4>Liquidity Analogy</h4>
+                        <p><strong>Liquid Water vs. Ice vs. Glacier</strong></p>
+                        <div class="card-grid">
+                            <div class="content-card" style="border-left: 5px solid var(--info);">
+                                <h4>Cash (Liquid Water)</h4>
+                                <p>You can pour it instantly. Spend NOW.</p>
+                            </div>
+                            <div class="content-card" style="border-left: 5px solid var(--secondary);">
+                                <h4>Cash Equivalents (Ice)</h4>
+                                <p>Basically water, but need to melt first. Investments maturing in < 90 days.</p>
+                            </div>
+                            <div class="content-card" style="border-left: 5px solid var(--primary);">
+                                <h4>Inventory (Glacier)</h4>
+                                <p>Frozen assets. Must sell (melt) before spending.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="worked-example">
+                        <h4>Cash Equivalents Criteria</h4>
+                        <div class="flip-card-container">
+                            <div class="flip-card">
+                                <div class="flip-card-front">
+                                    <h3>Cash Equivalents</h3>
+                                </div>
+                                <div class="flip-card-back">
+                                    <p>Short-term, highly liquid investments within 3 months of maturity</p>
+                                    <p style="margin-top: 0.5rem;">Examples: T-bills, Money Market Funds, Commercial
+                                        Paper</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Depth B -->
+                <div id="depth-B" class="depth-content">
+                    <h3>🟡 Standard Level</h3>
+                    <p>Understanding receipt and disbursement controls.</p>
+
+                    <div class="worked-example">
+                        <h4>Cash Receipt Controls</h4>
+                        <div class="card-grid">
+                            <div class="content-card" style="border-top: 5px solid var(--secondary);">
+                                <h4>Over-the-Counter</h4>
+                                <ul style="font-size: 0.9rem; list-style: none; padding: 0;">
+                                    <li>✅ Customer receives receipt</li>
+                                    <li>✅ Register records transaction</li>
+                                    <li>✅ Manager compares tape to cash</li>
+                                    <li>✅ Daily deposit required</li>
+                                </ul>
+                            </div>
+                            <div class="content-card" style="border-top: 5px solid var(--primary);">
+                                <h4>By Mail</h4>
+                                <ul style="font-size: 0.9rem; list-style: none; padding: 0;">
+                                    <li>✅ Two people open mail</li>
+                                    <li>✅ List of checks prepared</li>
+                                    <li>✅ Copy to cashier & accountant</li>
+                                    <li>✅ Immediate deposit</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Depth C -->
+                <div id="depth-C" class="depth-content">
+                    <h3>🔴 Advanced Level</h3>
+                    <p>Understanding cash management and fraud prevention.</p>
+
+                    <div class="worked-example">
+                        <h4>Cash Management Strategies</h4>
+                        <table class="financial-table">
+                            <thead>
+                                <tr>
+                                    <th>Strategy</th>
+                                    <th>Description</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Zero-Base Cash</td>
+                                    <td>Deposit all receipts, pay by check/EFT</td>
+                                </tr>
+                                <tr>
+                                    <td>Electronic Payments</td>
+                                    <td>Use EFT for vendor payments and payroll</td>
+                                </tr>
+                                <tr>
+                                    <td>Controlled Disbursement</td>
+                                    <td>Timing bank withdrawals to optimize cash</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Interactive: Liquidity Lab -->
+            <section class="kp-section">
+                <h2>🧪 Liquidity Lab: Sort the Assets</h2>
+                <p>Drag the items below into the correct container based on their liquidity. Remember: Ice melts in 90
+                    days!</p>
+
+                <div class="liquidity-lab"
+                    style="background:#f0f8ff; padding:2rem; border-radius:15px; border:2px solid #bcdbf3;">
+
+                    <!-- Score -->
+                    <div style="text-align:right; font-weight:bold; margin-bottom:1rem;">
+                        Score: <span id="liq-score">0</span> / 6
+                    </div>
+
+                    <!-- Bins -->
+                    <div class="bins-container"
+                        style="display:flex; justify-content:space-around; gap:1rem; margin-bottom:2rem; flex-wrap:wrap;">
+
+                        <!-- Bin 1: Cash -->
+                        <div class="liq-bin" data-type="cash" style="background:#2196f3; color:white;">
+                            <div class="bin-icon">💧</div>
+                            <h3>Cash</h3>
+                            <p>Liquid (Instant)</p>
+                        </div>
+
+                        <!-- Bin 2: Equivalents -->
+                        <div class="liq-bin" data-type="equiv" style="background:#81d4fa; color:#01579b;">
+                            <div class="bin-icon">🧊</div>
+                            <h3>Equivalents</h3>
+                            <p>Melts < 3 Mos.</p>
+                        </div>
+
+                        <!-- Bin 3: Other -->
+                        <div class="liq-bin" data-type="other" style="background:#90a4ae; color:white;">
+                            <div class="bin-icon">🗻</div>
+                            <h3>Non-Cash</h3>
+                            <p>Frozen (> 3 Mos.)</p>
+                        </div>
+                    </div>
+
+                    <!-- Item Deck -->
+                    <div class="items-deck" id="liq-deck"
+                        style="display:flex; justify-content:center; gap:1rem; flex-wrap:wrap; min-height:80px;">
+                        <!-- Items injected via JS -->
+                    </div>
+
+                    <!-- Feedback -->
+                    <div id="liq-feedback"
+                        style="margin-top:1rem; text-align:center; font-weight:bold; min-height:1.5rem;"></div>
+
+                </div>
+            </section>
+
+            <style>
+                .liq-bin {
+                    width: 150px;
+                    padding: 1rem;
+                    border-radius: 10px;
+                    text-align: center;
+                    border: 3px dashed rgba(255, 255, 255, 0.5);
+                    transition: transform 0.2s, box-shadow 0.2s;
+                }
+
+                .liq-bin.drag-over {
+                    transform: scale(1.1);
+                    box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+                    border-style: solid;
+                }
+
+                .bin-icon {
+                    font-size: 2rem;
+                    margin-bottom: 0.5rem;
+                }
+
+                .liq-item {
+                    background: white;
+                    padding: 0.8rem 1.2rem;
+                    border-radius: 20px;
+                    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
+                    cursor: grab;
+                    font-weight: 600;
+                    border: 1px solid #ddd;
+                    user-select: none;
+                }
+
+                .liq-item:active {
+                    cursor: grabbing;
+                    transform: scale(1.05);
+                }
+
+                .liq-item.correct {
+                    animation: fadeOut 0.5s forwards;
+                }
+
+                @keyframes fadeOut {
+                    to {
+                        opacity: 0;
+                        transform: scale(0);
+                    }
+                }
+            </style>
+
+            <script>
+                const liqItems = [
+                    { name: "$100 Bill", type: "cash", hint: "Currency is strict Cash." },
+                    { name: "60-Day T-Bill", type: "equiv", hint: "Maturity < 90 days = Equivalent." },
+                    { name: "Inventory", type: "other", hint: "Inventory takes time to sell. Not cash." },
+                    { name: "Customer Check", type: "cash", hint: "Checks are treated as Cash." },
+                    { name: "6-Month CD", type: "other", hint: "Maturity > 90 days. Too frozen!" },
+                    { name: "Money Mkt Fund", type: "equiv", hint: "Highly liquid investment = Equivalent." }
+                ];
+
+                let liqScore = 0;
+                let currentItem = null;
+
+                function initLiquidityLab() {
+                    const deck = document.getElementById('liq-deck');
+                    liqItems.forEach(item => {
+                        const el = document.createElement('div');
+                        el.className = 'liq-item';
+                        el.draggable = true;
+                        el.textContent = item.name;
+                        el.dataset.type = item.type;
+                        el.dataset.hint = item.hint;
+
+                        el.addEventListener('dragstart', (e) => {
+                            e.dataTransfer.setData('text/plain', item.type);
+                            currentItem = el;
+                        });
+
+                        // Touch/Click support for mobile
+                        el.addEventListener('click', () => selectItem(el));
+
+                        deck.appendChild(el);
+                    });
+                }
+
+                // Drop Zones
+                document.querySelectorAll('.liq-bin').forEach(bin => {
+                    bin.addEventListener('dragover', (e) => {
+                        e.preventDefault();
+                        bin.classList.add('drag-over');
+                    });
+                    bin.addEventListener('dragleave', () => bin.classList.remove('drag-over'));
+                    bin.addEventListener('drop', (e) => {
+                        e.preventDefault();
+                        bin.classList.remove('drag-over');
+                        checkDrop(bin.dataset.type, e.dataTransfer.getData('text/plain'));
+                    });
+
+                    // Click to drop (mobile)
+                    bin.addEventListener('click', () => {
+                        if (currentItem) checkDrop(bin.dataset.type, currentItem.dataset.type);
+                    });
+                });
+
+                function selectItem(el) {
+                    if (currentItem) currentItem.style.border = "1px solid #ddd";
+                    currentItem = el;
+                    el.style.border = "2px solid #2196f3";
+                    document.getElementById('liq-feedback').textContent = "Select a bin above...";
+                }
+
+                function checkDrop(binType, itemType) {
+                    if (!currentItem) return;
+
+                    const fb = document.getElementById('liq-feedback');
+                    if (binType === itemType) {
+                        fb.textContent = "Correct! " + currentItem.dataset.hint;
+                        fb.style.color = "var(--success)";
+                        currentItem.classList.add('correct');
+                        liqScore++;
+                        document.getElementById('liq-score').textContent = liqScore;
+
+                        setTimeout(() => {
+                            if (currentItem && currentItem.parentNode) currentItem.remove();
+                            currentItem = null;
+                            if (liqScore === liqItems.length) fb.textContent = "🎉 All sorted! You're a Liquidity Master!";
+                        }, 500);
+                    } else {
+                        fb.textContent = "Oops! Try again. " + (binType === 'cash' ? "Is it strictly currency?" : "Check the maturity date.");
+                        fb.style.color = "var(--error)";
+                    }
+                }
+
+                document.addEventListener('DOMContentLoaded', initLiquidityLab);
+            </script>
+
+            <!-- Common Misconceptions -->
+            <section class="kp-section">
+                <h2>🚫 Common Misconceptions & Professional Tips</h2>
+
+                <div class="misconception-alert">
+                    <strong>❌ Misconception 1:</strong> "Any short-term investment is a cash equivalent."
+                    <br><br>
+                    <strong>✅ Reality:</strong> Only investments within 3 months of maturity qualify as cash
+                    equivalents.
+                </div>
+
+                <div class="misconception-alert">
+                    <strong>❌ Misconception 2:</strong> "Bank reconciliation is just for finding errors."
+                    <br><br>
+                    <strong>✅ Reality:</strong> It's also a critical fraud detection tool and provides external
+                    verification.
+                </div>
+
+                <div class="professional-tip">
+                    <strong>💡 Professional Tip #1:</strong> Reconcile bank statements monthly.
+                </div>
+
+                <div class="professional-tip">
+                    <strong>💡 Professional Tip #2:</strong> Have someone other than the cash custodian perform bank
+                    reconciliation.
+                </div>
+
+                <div class="professional-tip">
+                    <strong>💡 Professional Tip #3:</strong> Deposit all cash receipts daily.
+                </div>
+            </section>
+
+            <!-- Memory Aids -->
+            <section class="kp-section">
+                <h2>🧠 Memory Aids & Quick Reference</h2>
+
+                <div class="memory-aid-card">
+                    <strong>⚡ Quick Recall: Cash Equivalents</strong>
+                    <p><strong>Must be:</strong></p>
+                    <p>• Readily convertible to known cash amount</p>
+                    <p>• Within 3 months of maturity</p>
+                    <p><strong>Examples:</strong> T-bills, Money Market Funds</p>
+                </div>
+            </section>
+
+            <!-- Glossary -->
+            <section class="kp-section">
+                <h2>📖 Glossary</h2>
+                <div class="key-concepts-grid">
+                    <div class="concept-card">
+                        <strong>Cash Equivalents</strong>
+                        <p>Short-term, highly liquid investments within 3 months of maturity.</p>
+                    </div>
+
+                    <div class="concept-card">
+                        <strong>Bank Reconciliation</strong>
+                        <p>Comparing bank statements to company records to verify cash balances.</p>
+                    </div>
+
+                    <div class="concept-card">
+                        <strong>Segregation of Duties</strong>
+                        <p>Separating functions so no single person controls all aspects of cash.</p>
+                    </div>
+
+                    <div class="concept-card">
+                        <strong>Zero-Base Cash</strong>
+                        <p>Keeping minimum cash by depositing everything and paying by check.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Interactive: Knowledge Check -->
+            <section class="interactive-section">
+                <h2>🎯 Knowledge Check: Control of Cash</h2>
+                <p>Test your understanding of cash control:</p>
+
+                <div class="quiz-container" data-success-text="Excellent! You understand cash control!"
+                    data-explanation="Cash controls require segregation of duties, prompt deposits, proper authorization, and regular bank reconciliation. Cash equivalents must be within 3 months of maturity.">
+                    <div class="input-group">
+                        <p><strong>Question 1:</strong> Which is a cash equivalent?</p>
+                        <label><input type="radio" name="q1" value="correct" data-correct="true"> 2-month
+                            T-bill</label><br>
+                        <label><input type="radio" name="q1" value="incorrect1" data-correct="false"> 6-month CD</label>
+                    </div>
+
+                    <div class="input-group">
+                        <p><strong>Question 2:</strong> Who should perform bank reconciliation?</p>
+                        <label><input type="radio" name="q2" value="correct" data-correct="true"> Someone other than the
+                            cash custodian</label><br>
+                        <label><input type="radio" name="q2" value="incorrect1" data-correct="false"> The cash
+                            custodian</label>
+                    </div>
+
+                    <div class="input-group">
+                        <p><strong>Question 3:</strong> Cash receipts by mail should be handled by:</p>
+                        <label><input type="radio" name="q3" value="correct" data-correct="true"> Two people</label><br>
+                        <label><input type="radio" name="q3" value="incorrect1" data-correct="false"> One person</label>
+                    </div>
+
+                    <button class="btn btn-primary quiz-submit">Submit Answers</button>
+                    <div class="feedback"></div>
+                    <button class="quiz-retry">Try Again</button>
+                </div>
+            </section>
+
+            <!-- Navigation -->
+            <nav class="kp-navigation"
+                style="display: flex; justify-content: space-between; margin-top: 4rem; padding-bottom: 2rem;">
+                <a href="ch08_C1.html" class="btn" style="background: #eee;">← Previous: Internal Control</a>
+                <a href="ch08.html" class="btn" style="background: var(--secondary); color: white;">Chapter 8 Hub</a>
+                <a href="ch08_P1.html" class="btn btn-primary">Next: Bank Reconciliation →</a>
+            </nav>
+        </article>
+    </main>
+
+    <footer style="margin-top: 5rem; padding: 2rem 0; border-top: 1px solid #ddd; text-align: center; color: #888;">
+        <p>Accounting Essentials | Chapter 8 | Concept 2</p>
+    </footer>
+
+    <script src="../../components-enhanced.js"></script>
+    <script>
+        function setDepth(depth) {
+            document.querySelectorAll('.depth-btn').forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+
+            document.querySelectorAll('.depth-content').forEach(content => content.classList.remove('active'));
+            document.getElementById(`depth-${depth}`).classList.add('active');
+        }
+    </script>
+</body>
+
+</html>

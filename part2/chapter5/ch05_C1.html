@@ -1,0 +1,1165 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>C1: Merchandising Activities & Cost Flows | ACCOUNTING ESSENTIALS</title>
+    <link rel="stylesheet" href="../../styles.css">
+    <style>
+        /* Additional styles for comprehensive knowledge point */
+        .merch-cycle {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin: 2rem 0;
+            padding: 2rem;
+            background: var(--bg-light);
+            border-radius: var(--radius-md);
+        }
+        
+        .cycle-step {
+            padding: 1.5rem 2rem;
+            background: var(--white);
+            border: 3px solid var(--primary);
+            border-radius: var(--radius-md);
+            text-align: center;
+            min-width: 130px;
+            transition: var(--transition);
+        }
+        
+        .cycle-step:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-lg);
+        }
+        
+        .cycle-step-number {
+            display: inline-block;
+            width: 32px;
+            height: 32px;
+            background: var(--primary);
+            color: var(--white);
+            border-radius: 50%;
+            line-height: 32px;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+        
+        .cycle-step.purchase { border-color: var(--info); }
+        .cycle-step.sale { border-color: var(--success); }
+        .cycle-step.collection { border-color: var(--warning); }
+        
+        .cycle-arrow {
+            font-size: 1.5rem;
+            color: var(--primary);
+        }
+        
+        .gross-profit-display {
+            background: var(--bg-dark);
+            color: var(--white);
+            padding: 2rem;
+            border-radius: var(--radius-md);
+            margin: 2rem 0;
+            text-align: center;
+        }
+        
+        .gp-formula {
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin: 1rem 0;
+        }
+        
+        .gp-highlight {
+            color: var(--success);
+        }
+        
+        .merch-comparison {
+            display: flex;
+            gap: 2rem;
+            margin: 2rem 0;
+            flex-wrap: wrap;
+        }
+        
+        .merch-side {
+            flex: 1;
+            min-width: 280px;
+            padding: 1.5rem;
+            border-radius: var(--radius-md);
+        }
+        
+        .merch-side.service {
+            background: var(--info-light);
+            border: 3px solid var(--info);
+        }
+        
+        .merch-side.merchandiser {
+            background: var(--success-light);
+            border: 3px solid var(--success);
+        }
+        
+        .merch-header {
+            font-weight: 700;
+            font-size: 1.2rem;
+            margin-bottom: 1rem;
+            text-transform: uppercase;
+        }
+        
+        .merch-side.service .merch-header { color: var(--info-dark); }
+        .merch-side.merchandiser .merch-header { color: var(--success-dark); }
+        
+        .equation-box {
+            background: var(--bg-light);
+            padding: 2rem;
+            border-radius: var(--radius-md);
+            margin: 2rem 0;
+            text-align: center;
+        }
+        
+        .equation-row {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 1rem;
+            flex-wrap: wrap;
+            margin: 1rem 0;
+        }
+        
+        .equation-term {
+            padding: 0.75rem 1.5rem;
+            background: var(--white);
+            border: 2px solid var(--primary);
+            border-radius: var(--radius-sm);
+            font-weight: 700;
+        }
+        
+        .equation-operator {
+            font-size: 1.5rem;
+            color: var(--primary);
+            font-weight: 700;
+        }
+        
+        .equation-result {
+            background: var(--success);
+            color: var(--white);
+            padding: 0.75rem 1.5rem;
+            border-radius: var(--radius-sm);
+            font-weight: 700;
+        }
+        
+        .cogs-timeline {
+            position: relative;
+            padding: 2rem 0;
+        }
+        
+        .cogs-timeline::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: var(--primary);
+            transform: translateY(-50%);
+        }
+        
+        .cogs-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 2rem;
+            position: relative;
+        }
+        
+        .cogs-marker {
+            width: 44px;
+            height: 44px;
+            background: var(--primary);
+            color: var(--white);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            z-index: 1;
+            margin-right: 1.5rem;
+            border: 3px solid var(--white);
+            box-shadow: var(--shadow);
+        }
+        
+        .cogs-content {
+            flex: 1;
+            background: var(--white);
+            padding: 1.5rem;
+            border: 2px solid var(--primary);
+            border-radius: var(--radius-md);
+        }
+        
+        .inventory-flow {
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            gap: 1rem;
+            flex-wrap: wrap;
+            margin: 2rem 0;
+            padding: 2rem;
+            background: var(--bg-light);
+            border-radius: var(--radius-md);
+        }
+        
+        .flow-box {
+            padding: 1.5rem;
+            background: var(--white);
+            border: 3px solid var(--primary);
+            border-radius: var(--radius-md);
+            text-align: center;
+            min-width: 150px;
+        }
+        
+        .flow-box.highlight {
+            background: var(--primary);
+            color: var(--white);
+        }
+        
+        .flow-arrow-h {
+            font-size: 2rem;
+            color: var(--primary);
+            align-self: center;
+        }
+        
+        .flow-arrow-v {
+            font-size: 1.5rem;
+            color: var(--primary);
+            transform: rotate(90deg);
+        }
+        
+        .operating-cycle-display {
+            position: relative;
+            padding: 3rem 0;
+            margin: 2rem 0;
+        }
+        
+        .cycle-center-label {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 100px;
+            height: 100px;
+            background: var(--primary);
+            color: var(--white);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            text-align: center;
+            font-size: 0.85rem;
+            z-index: 2;
+            box-shadow: var(--shadow-lg);
+        }
+        
+        .cycle-step-pos {
+            position: absolute;
+            padding: 1rem 1.5rem;
+            background: var(--white);
+            border: 3px solid var(--primary);
+            border-radius: var(--radius-md);
+            text-align: center;
+            min-width: 120px;
+        }
+        
+        .cycle-step-pos:nth-child(2) { top: 0; left: 50%; transform: translateX(-50%); border-color: var(--info); }
+        .cycle-step-pos:nth-child(3) { top: 50%; right: 0; transform: translateY(-50%); border-color: var(--success); }
+        .cycle-step-pos:nth-child(4) { bottom: 0; left: 50%; transform: translateX(-50%); border-color: var(--warning); }
+        .cycle-step-pos:nth-child(5) { top: 50%; left: 0; transform: translateY(-50%); border-color: var(--secondary); }
+        
+        .cycle-step-pos:nth-child(2)::after { content: '→'; position: absolute; bottom: -25px; right: -25px; color: var(--info); font-size: 1.5rem; }
+        .cycle-step-pos:nth-child(3)::after { content: '→'; position: absolute; bottom: 10px; right: -25px; color: var(--success); font-size: 1.5rem; }
+        .cycle-step-pos:nth-child(4)::after { content: '←'; position: absolute; top: -25px; left: 20px; color: var(--warning); font-size: 1.5rem; }
+        .cycle-step-pos:nth-child(5)::after { content: '←'; position: absolute; top: 10px; left: -25px; color: var(--secondary); font-size: 1.5rem; }
+        
+        .decision-node-merch {
+            padding: 1rem 1.5rem;
+            background: var(--white);
+            border: 2px solid var(--primary);
+            border-radius: var(--radius-sm);
+            margin-bottom: 1rem;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+        
+        .decision-node-merch:hover {
+            border-color: var(--secondary);
+            box-shadow: var(--shadow);
+        }
+        
+        .decision-question-merch {
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+        }
+        
+        .decision-answer-merch {
+            display: none;
+            padding: 1rem;
+            background: var(--success-light);
+            border-radius: var(--radius-sm);
+            margin-top: 0.5rem;
+            color: var(--white);
+        }
+        
+        .decision-node-merch.expanded .decision-answer-merch {
+            display: block;
+        }
+        
+        .calculator-merch {
+            background: var(--bg-dark);
+            color: var(--white);
+            padding: 2rem;
+            border-radius: var(--radius-md);
+            margin: 2rem 0;
+        }
+        
+        .calc-row {
+            display: flex;
+            align-items: center;
+            padding: 0.75rem 0;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+        
+        .calc-row:last-child {
+            border-bottom: none;
+        }
+        
+        .calc-label {
+            flex: 2;
+            font-size: 0.9rem;
+        }
+        
+        .calc-input {
+            flex: 1;
+        }
+        
+        .calc-input input {
+            width: 100%;
+            padding: 0.5rem;
+            border: none;
+            border-radius: var(--radius-sm);
+            text-align: right;
+        }
+        
+        .calc-result {
+            flex: 1;
+            text-align: right;
+            font-weight: 700;
+            font-size: 1.1rem;
+            color: var(--success);
+        }
+    </style>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-50MTQPVR7D"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-50MTQPVR7D');
+</script>
+
+</head>
+
+<body>
+    <header>
+        <div class="container nav-container">
+            <a href="../../index.html" class="logo">ACCOUNTING<span>ESSENTIALS</span></a>
+            <nav class="nav-links">
+                <a href="../../index.html">Home</a>
+                <a href="../../Part1/part1.html">Part 1</a>
+                <a href="../../part2/part2.html">Part 2</a>
+                <a href="../../part3/part3.html">Part 3</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container">
+        <div class="breadcrumbs">
+            <a href="../../index.html">Home</a> <span>/</span> <a href="../../part2/part2.html">Part 2</a>
+            <span>/</span> <a href="ch05.html">Chapter 5</a> <span>/</span> C1
+        </div>
+
+        <article class="animate-fade-in">
+            <div class="kp-header">
+                <h1 style="border-left: 8px solid var(--primary); padding-left: 1rem; margin: 2rem 0;">Merchandising Activities & Cost Flows</h1>
+            </div>
+
+            <!-- Learning Objectives -->
+            <section class="kp-section">
+                <h2>🎯 Learning Objectives</h2>
+                <div class="learning-objectives">
+                    <ul>
+                        <li>Understand the difference between service companies and merchandisers in the accounting equation</li>
+                        <li>Identify the components of merchandise cost of goods available for sale</li>
+                        <li>Calculate cost of goods sold and gross profit from inventory data</li>
+                        <li>Describe the operating cycle of a merchandiser and its impact on financial statements</li>
+                        <li>Understand how purchases, sales, and inventory relate in the perpetual and periodic systems</li>
+                        <li>Explain the importance of gross profit margin and its relationship to profitability</li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- Background & Principles -->
+            <section class="kp-section">
+                <h2>📚 Background & Principles</h2>
+                <p>Merchandising is the business of buying goods from suppliers and selling them to customers. Unlike service companies that sell intangible services, merchandisers deal with <strong>tangible products</strong> that move through the supply chain from purchase to sale. This creates unique accounting challenges, particularly around tracking inventory costs and calculating gross profit.</p>
+
+                <div class="concept-card" style="margin: 1.5rem 0;">
+                    <strong>Core Principle:</strong> For merchandisers, gross profit = Net Sales - Cost of Goods Sold. This margin must cover all operating expenses to generate net income. The ability to buy low and sell high is the foundation of merchandising profitability.
+                </div>
+
+                <div class="professional-tip">
+                    <strong>💡 Key Insight:</strong> Think of a merchandiser as a middleman in the supply chain. They purchase products from manufacturers or wholesalers and sell them to end consumers. Their "value add" is the difference between what they pay (Cost of Goods Sold) and what they receive (Sales).
+                </div>
+
+                <h3 style="margin-top: 2rem;">Service Company vs. Merchandiser</h3>
+                <div class="merch-comparison" style="margin-top: 1rem;">
+                    <div class="merch-side service">
+                        <div class="merch-header">Service Company</div>
+                        <p><strong>Revenue - Expenses = Net Income</strong></p>
+                        <p style="margin-top: 1rem;">Examples: Accounting firms, consulting agencies, hair salons</p>
+                        <p style="margin-top: 0.5rem;">No inventory to track</p>
+                        <p style="margin-top: 0.5rem;">Revenue = Services performed</p>
+                    </div>
+                    <div class="merch-side merchandiser">
+                        <div class="merch-header">Merchandiser</div>
+                        <p><strong>Gross Profit - Operating Expenses = Net Income</strong></p>
+                        <p style="margin-top: 1rem;">Examples: Walmart, Amazon, local bookstore, clothing retailer</p>
+                        <p style="margin-top: 0.5rem;">Must track inventory costs</p>
+                        <p style="margin-top: 0.5rem;">Revenue = Goods sold to customers</p>
+                    </div>
+                </div>
+
+                <div class="timeline-closing" style="margin-top: 2rem;">
+                    <div class="timeline-item-closing">
+                        <div class="timeline-marker-closing">1</div>
+                        <div class="timeline-content-closing">
+                            <strong>Purchase Inventory</strong>
+                            <p>Buy goods from suppliers. Cash decreases or Accounts Payable increases. Inventory increases.</p>
+                        </div>
+                    </div>
+                    <div class="timeline-item-closing">
+                        <div class="timeline-marker-closing">2</div>
+                        <div class="timeline-content-closing">
+                            <strong>Hold Inventory</strong>
+                            <p>Store goods until sold. Inventory is a current asset on the balance sheet.</p>
+                        </div>
+                    </div>
+                    <div class="timeline-item-closing">
+                        <div class="timeline-marker-closing">3</div>
+                        <div class="timeline-content-closing">
+                            <strong>Sell Goods</strong>
+                            <p>Record sales revenue. Remove inventory from balance sheet and record Cost of Goods Sold.</p>
+                        </div>
+                    </div>
+                    <div class="timeline-item-closing">
+                        <div class="timeline-marker-closing">4</div>
+                        <div class="timeline-content-closing">
+                            <strong>Collect Cash</strong>
+                            <p>Receive payment from customers. Cash or Accounts Receivable increases.</p>
+                        </div>
+                    </div>
+                    <div class="timeline-item-closing">
+                        <div class="timeline-marker-closing">5</div>
+                        <div class="timeline-content-closing">
+                            <strong>Repeat</strong>
+                            <p>Use cash collected to purchase more inventory. The cycle continues indefinitely.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Key Concepts -->
+            <section class="kp-section">
+                <h2>🔑 Key Concepts</h2>
+                <div class="key-concepts-grid">
+                    <div class="concept-card">
+                        <strong>Merchandiser</strong>
+                        <p>A business that purchases goods from suppliers and sells them to customers. Involves inventory tracking and cost of goods sold calculations.</p>
+                    </div>
+
+                    <div class="concept-card">
+                        <strong>Cost of Goods Sold (COGS)</strong>
+                        <p>The cost of inventory sold to customers during the period. Calculated as: Beginning Inventory + Purchases - Ending Inventory.</p>
+                    </div>
+
+                    <div class="concept-card">
+                        <strong>Gross Profit</strong>
+                        <p>Net Sales minus Cost of Goods Sold. Represents the profit before operating expenses. Also called "Gross Margin."</p>
+                    </div>
+
+                    <div class="concept-card">
+                        <strong>Net Sales</strong>
+                        <p>Total sales revenue minus sales returns, allowances, and discounts. The top line for merchandising income statements.</p>
+                    </div>
+
+                    <div class="concept-card">
+                        <strong>Cost of Goods Available for Sale</strong>
+                        <p>Beginning Inventory + Net Purchases. The total cost of all inventory that could have been sold during the period.</p>
+                    </div>
+
+                    <div class="concept-card">
+                        <strong>Operating Cycle</strong>
+                        <p>The time it takes to turn cash into inventory, then into receivables, and back into cash. Longer cycles require more working capital.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Deep Dive -->
+            <section class="kp-section">
+                <h2>🔍 Deep Dive</h2>
+                <p>Explore merchandising activities at different levels of depth:</p>
+
+                <div class="depth-toggle">
+                    <button class="depth-btn active" onclick="setDepth('A')">Depth A: Foundational</button>
+                    <button class="depth-btn" onclick="setDepth('B')">Depth B: Standard</button>
+                    <button class="depth-btn" onclick="setDepth('C')">Depth C: Advanced</button>
+                </div>
+
+                <!-- Depth A: Foundational -->
+                <div id="depth-A" class="depth-content active">
+                    <h3>🟢 Foundational Level</h3>
+                    <p>Understanding the basic merchandising model and profit calculation.</p>
+
+                    <div class="worked-example">
+                        <h4>The Retail Relay Race</h4>
+                        <p><strong>Analogy: The Retail Relay Race</strong></p>
+                        <p>Merchandisers (like Walmart or Amazon) run a never-ending relay race.</p>
+
+                        <div class="example-step">
+                            <strong>Lap 1 (Cash to Goods):</strong>
+                            <p>You start with cash and run to buy inventory (The Baton). Cash decreases, Inventory increases.</p>
+                        </div>
+
+                        <div class="example-step">
+                            <strong>Lap 2 (Goods to Receivables):</strong>
+                            <p>You hand the baton (Inventory) to a customer, who promises to pay later. Inventory decreases, Accounts Receivable increases.</p>
+                        </div>
+
+                        <div class="example-step">
+                            <strong>Lap 3 (Receivables to Cash):</strong>
+                            <p>The customer pays you. Now you have MORE cash than you started with (Profit).</p>
+                        </div>
+
+                        <div class="example-step">
+                            <strong>Repeat:</strong>
+                            <p>You use that new cash to buy MORE inventory, and the race starts again.</p>
+                        </div>
+                    </div>
+
+                    <div class="gross-profit-display">
+                        <div style="font-size: 0.9rem; text-transform: uppercase; letter-spacing: 1px;">The Merchandising Profit Formula</div>
+                        <div class="gp-formula">
+                            <span class="gp-highlight">Net Sales</span>
+                            <span style="margin: 0 1rem;">-</span>
+                            <span style="color: var(--error);">Cost of Goods Sold</span>
+                            <span style="margin: 0 1rem;">=</span>
+                            <span style="color: var(--warning);">Gross Profit</span>
+                        </div>
+                        <p style="font-size: 0.9rem; opacity: 0.9;">Gross Profit must cover all operating expenses to create Net Income</p>
+                    </div>
+
+                    <div class="merch-cycle">
+                        <div class="cycle-step purchase">
+                            <div class="cycle-step-number">1</div>
+                            <div><strong>Buy</strong></div>
+                            <div style="font-size: 0.75rem;">Inventory</div>
+                        </div>
+                        <div class="cycle-arrow">→</div>
+                        <div class="cycle-step">
+                            <div class="cycle-step-number">2</div>
+                            <div><strong>Hold</strong></div>
+                            <div style="font-size: 0.75rem;">Storage</div>
+                        </div>
+                        <div class="cycle-arrow">→</div>
+                        <div class="cycle-step sale">
+                            <div class="cycle-step-number">3</div>
+                            <div><strong>Sell</strong></div>
+                            <div style="font-size: 0.75rem;">Revenue</div>
+                        </div>
+                        <div class="cycle-arrow">→</div>
+                        <div class="cycle-step collection">
+                            <div class="cycle-step-number">4</div>
+                            <div><strong>Collect</strong></div>
+                            <div style="font-size: 0.75rem;">Cash</div>
+                        </div>
+                    </div>
+
+                    <div class="concept-card" style="margin-top: 1.5rem;">
+                        <strong>💡 Memory Hook:</strong> Service companies have "Revenue - Expenses = Income." Merchandisers add an extra step: "Sales - COGS = Gross Profit, then Gross Profit - Expenses = Income."
+                    </div>
+
+                    <div class="professional-tip" style="margin-top: 1.5rem;">
+                        <strong>💡 Key Point:</strong> Gross profit is called "gross" because it hasn't yet been reduced by operating expenses (rent, salaries, utilities). It's "gross" profit, not net profit.
+                    </div>
+                </div>
+
+                <!-- Depth B: Standard -->
+                <div id="depth-B" class="depth-content">
+                    <h3>🟡 Standard Level</h3>
+                    <p>Understanding cost flow calculations and the income statement structure.</p>
+
+                    <div class="worked-example">
+                        <h4>Cost of Goods Sold Calculation</h4>
+                        <p>Let's track inventory costs for a small bookstore called "Chapter One."</p>
+
+                        <div class="cogs-timeline">
+                            <div class="cogs-item">
+                                <div class="cogs-marker">1</div>
+                                <div class="cogs-content">
+                                    <strong>Beginning Inventory</strong>
+                                    <p>Jan 1: 50 books @ $10 each = <strong>$500</strong></p>
+                                    <p><em>Inventory carried over from the previous period.</em></p>
+                                </div>
+                            </div>
+                            <div class="cogs-item">
+                                <div class="cogs-marker">2</div>
+                                <div class="cogs-content">
+                                    <strong>Add: Purchases</strong>
+                                    <p>During January: 200 books @ $10 = $2,000</p>
+                                    <p><em>All inventory purchased during the period, net of returns and discounts.</em></p>
+                                </div>
+                            </div>
+                            <div class="cogs-item">
+                                <div class="cogs-marker">3</div>
+                                <div class="cogs-content">
+                                    <strong>Cost of Goods Available for Sale</strong>
+                                    <p>$500 + $2,000 = <strong>$2,500</strong></p>
+                                    <p><em>Total cost of all inventory that could have been sold.</em></p>
+                                </div>
+                            </div>
+                            <div class="cogs-item">
+                                <div class="cogs-marker">4</div>
+                                <div class="cogs-content">
+                                    <strong>Less: Ending Inventory</strong>
+                                    <p>Jan 31: 30 books @ $10 = <strong>$300</strong></p>
+                                    <p><em>Physical count of unsold inventory at period end.</em></p>
+                                </div>
+                            </div>
+                            <div class="cogs-item">
+                                <div class="cogs-marker" style="background: var(--success);">=</div>
+                                <div class="cogs-content" style="border-color: var(--success);">
+                                    <strong style="color: var(--success);">Cost of Goods Sold</strong>
+                                    <p>$2,500 - $300 = <strong>$2,200</strong></p>
+                                    <p><em>The cost of the 220 books sold during January.</em></p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="calculator-merch">
+                        <h3 style="margin-bottom: 1rem; text-align: center;">Merchandising Calculator</h3>
+                        
+                        <div class="calc-row">
+                            <div class="calc-label">Beginning Inventory ($)</div>
+                            <div class="calc-input"><input type="number" id="merch-beg" value="10000" oninput="calcMerch()"></div>
+                            <div class="calc-result" id="merch-avail">$50,000</div>
+                        </div>
+                        
+                        <div class="calc-row">
+                            <div class="calc-label">+ Net Purchases ($)</div>
+                            <div class="calc-input"><input type="number" id="merch-purch" value="40000" oninput="calcMerch()"></div>
+                            <div class="calc-result"></div>
+                        </div>
+                        
+                        <div class="calc-row" style="border-top: 2px solid rgba(255,255,255,0.3); padding-top: 1rem; margin-top: 0.5rem;">
+                            <div class="calc-label"><strong>= Cost of Goods Available</strong></div>
+                            <div class="calc-input"></div>
+                            <div class="calc-result" style="color: var(--warning);" id="merch-avail2">$50,000</div>
+                        </div>
+                        
+                        <div class="calc-row">
+                            <div class="calc-label">- Ending Inventory ($)</div>
+                            <div class="calc-input"><input type="number" id="merch-end" value="8000" oninput="calcMerch()"></div>
+                            <div class="calc-result"></div>
+                        </div>
+                        
+                        <div class="calc-row" style="border-top: 2px solid rgba(255,255,255,0.3); padding-top: 1rem; margin-top: 0.5rem;">
+                            <div class="calc-label"><strong>= Cost of Goods Sold (COGS)</strong></div>
+                            <div class="calc-input"></div>
+                            <div class="calc-result" style="font-size: 1.3rem;" id="merch-cogs">$42,000</div>
+                        </div>
+                    </div>
+
+                    <div class="worked-example" style="margin-top: 2rem;">
+                        <h4>Complete Merchandising Income Statement</h4>
+                        <p>Using the calculations above, here is Chapter One's income statement structure:</p>
+
+                        <div style="background: var(--bg-light); padding: 1.5rem; border-radius: var(--radius-md); margin-top: 1rem;">
+                            <table class="financial-table" style="font-size: 0.9rem;">
+                                <tbody>
+                                    <tr>
+                                        <td><strong>Sales Revenue</strong></td>
+                                        <td class="text-right" style="color: var(--text-muted);">$80,000</td>
+                                    </tr>
+                                    <tr>
+                                        <td style="padding-left: 2rem;">Less: Sales Returns & Allowances</td>
+                                        <td class="text-right" style="color: var(--text-muted);">(2,000)</td>
+                                    </tr>
+                                    <tr>
+                                        <td style="padding-left: 2rem;">Less: Sales Discounts</td>
+                                        <td class="text-right" style="color: var(--text-muted);">(1,000)</td>
+                                    </tr>
+                                    <tr class="total-row">
+                                        <td><strong>Net Sales</strong></td>
+                                        <td class="text-right"><strong>$77,000</strong></td>
+                                    </tr>
+                                    <tr style="height: 1.5rem;"></tr>
+                                    <tr>
+                                        <td><strong>Cost of Goods Sold</strong></td>
+                                        <td class="text-right" style="color: var(--error);">(42,000)</td>
+                                    </tr>
+                                    <tr class="total-row" style="border-top: 3px double var(--primary);">
+                                        <td><span style="color: var(--success); font-weight: 700;">Gross Profit</span></td>
+                                        <td class="text-right" style="color: var(--success); font-weight: 700;">$35,000</td>
+                                    </tr>
+                                    <tr style="height: 1.5rem;"></tr>
+                                    <tr>
+                                        <td>Operating Expenses</td>
+                                        <td class="text-right" style="color: var(--text-muted);">(20,000)</td>
+                                    </tr>
+                                    <tr class="total-row">
+                                        <td><strong>Net Income</strong></td>
+                                        <td class="text-right"><strong>$15,000</strong></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <div class="concept-card" style="margin-top: 1rem;">
+                            <strong>Analysis:</strong> Chapter One's gross profit margin = $35,000 ÷ $77,000 = <strong>45.5%</strong>. This means for every dollar of sales, about 45 cents is available to cover operating expenses and create profit.
+                        </div>
+                    </div>
+
+                    <div class="misconception-alert" style="margin-top: 1.5rem;">
+                        <strong>⚠️ Common Misconception:</strong> "Cost of Goods Sold is the same as all expenses."
+                        <br><br>
+                        <strong>✅ Reality:</strong> COGS is a <strong>direct cost</strong> related to producing or purchasing the goods sold. Operating expenses (rent, salaries, advertising) are <strong>indirect costs</strong> of running the business. Both reduce income, but they're reported separately.
+                    </div>
+                </div>
+
+                <!-- Depth C: Advanced -->
+                <div id="depth-C" class="depth-content">
+                    <h3>🔴 Advanced Level</h3>
+                    <p>Understanding inventory systems, cost flow assumptions, and analysis techniques.</p>
+
+                    <div class="worked-example">
+                        <h4>Perpetual vs. Periodic Inventory Systems</h4>
+
+                        <div class="merch-comparison">
+                            <div class="merch-side service" style="flex: 1; min-width: 250px;">
+                                <div class="merch-header">Perpetual System</div>
+                                <p style="font-size: 0.85rem;"><strong>Real-time tracking:</strong></p>
+                                <ul style="font-size: 0.85rem; padding-left: 1rem;">
+                                    <li>Inventory updated after every sale</li>
+                                    <li>COGS known at all times</li>
+                                    <li>Uses technology (barcodes, scanners)</li>
+                                    <li>Standard in modern retail</li>
+                                    <li>Cost flow assumptions still apply</li>
+                                </ul>
+                            </div>
+                            <div class="merch-side merchandiser" style="flex: 1; min-width: 250px;">
+                                <div class="merch-header">Periodic System</div>
+                                <p style="font-size: 0.85rem;"><strong>Periodic tracking:</strong></p>
+                                <ul style="font-size: 0.85rem; padding-left: 1rem;">
+                                    <li>Inventory updated only at period end</li>
+                                    <li>COGS calculated after physical count</li>
+                                    <li>Simpler but less accurate</li>
+                                    <li>Used for low-value items (nails, bolts)</li>
+                                    <li>Ending inventory = physical count</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="worked-example" style="margin-top: 2rem;">
+                        <h4>Cost Flow Assumptions (Inventory Valuation)</h4>
+                        <p>When inventory costs change over time, we must assume which costs flow to COGS:</p>
+
+                        <div class="decision-tree">
+                            <div class="decision-node-merch" onclick="this.classList.toggle('expanded')">
+                                <div class="decision-question-merch">FIFO (First-In, First-Out)</div>
+                                <div class="decision-answer-merch">
+                                    <strong>Assumption:</strong> First costs in = First costs out to COGS.<br>
+                                    <strong>Effect during inflation:</strong> Lower COGS, Higher Ending Inventory, Higher Net Income.<br>
+                                    <strong>Best for:</strong> Perishable goods (food, medicine) where oldest items are sold first.
+                                </div>
+                            </div>
+
+                            <div class="decision-node-merch" onclick="this.classList.toggle('expanded')">
+                                <div class="decision-question-merch">LIFO (Last-In, First-Out)</div>
+                                <div class="decision-answer-merch">
+                                    <strong>Assumption:</strong> Last costs in = First costs out to COGS.<br>
+                                    <strong>Effect during inflation:</strong> Higher COGS, Lower Ending Inventory, Lower Net Income, Lower Taxes.<br>
+                                    <strong>Best for:</strong> Non-perishable goods (oil, metals) where costs are rising.
+                                </div>
+                            </div>
+
+                            <div class="decision-node-merch" onclick="this.classList.toggle('expanded')">
+                                <div class="decision-question-merch">Weighted Average</div>
+                                <div class="decision-answer-merch">
+                                    <strong>Assumption:</strong> All units have the same average cost.<br>
+                                    <strong>Effect:</strong> Smooths out price fluctuations. COGS and Inventory fall between FIFO and LIFO.<br>
+                                    <strong>Best for:</strong> Homogeneous goods (grain, oil) where individual items are identical.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="professional-tip" style="margin-top: 1.5rem;">
+                        <strong>💡 Professional Insight:</strong> Cost flow assumptions (FIFO, LIFO, Weighted Average) are accounting choices that affect financial statements but NOT cash flows. During inflation:
+                        <ul style="margin-top: 0.5rem;">
+                            <li>FIFO: Reports higher profits (more taxes), higher inventory values (stronger balance sheet)</li>
+                            <li>LIFO: Reports lower profits (tax savings), lower inventory values</li>
+                            <li>Many companies choose LIFO specifically for the tax advantage during inflationary periods</li>
+                        </ul>
+                    </div>
+
+                    <div class="misconception-alert" style="margin-top: 1.5rem;">
+                        <strong>⚠️ Advanced Misconception:</strong> "FIFO/LIFO describes the actual physical flow of goods."
+                        <br><br>
+                        <strong>✅ Reality:</strong> FIFO and LIFO are <strong>cost flow assumptions</strong>, not physical flow descriptions. A company can physically sell newer items first (LIFO physical flow) but use older costs for accounting (FIFO cost flow). The assumptions are about which costs are matched to sales, not which physical items are sold.
+                    </div>
+                </div>
+            </section>
+
+            <!-- Interactive: Merchandising Flow Simulator -->
+            <section class="kp-section">
+                <h2>🎨 Interactive: Merchandising Cycle Simulator</h2>
+                <p>Watch how inventory flows through the accounting system and affects financial statements.</p>
+
+                <div class="inventory-flow">
+                    <div class="flow-box">
+                        <div style="font-size: 0.8rem; color: var(--text-muted);">Cash</div>
+                        <div style="font-size: 1.5rem; font-weight: 700;">$50,000</div>
+                    </div>
+                    <div class="flow-arrow-h">→</div>
+                    <div class="flow-box purchase">
+                        <div style="font-size: 0.8rem; color: var(--text-muted);">Purchase</div>
+                        <div style="font-size: 1.5rem; font-weight: 700;">$40,000</div>
+                    </div>
+                    <div class="flow-arrow-h">→</div>
+                    <div class="flow-box highlight">
+                        <div style="font-size: 0.8rem;">Inventory</div>
+                        <div style="font-size: 1.5rem; font-weight: 700;">$10,000</div>
+                    </div>
+                    <div class="flow-arrow-h">→</div>
+                    <div class="flow-box sale">
+                        <div style="font-size: 0.8rem; color: var(--text-muted);">Sale</div>
+                        <div style="font-size: 1.5rem; font-weight: 700;">$60,000</div>
+                    </div>
+                    <div class="flow-arrow-h">→</div>
+                    <div class="flow-box">
+                        <div style="font-size: 0.8rem; color: var(--text-muted);">COGS</div>
+                        <div style="font-size: 1.5rem; font-weight: 700; color: var(--error);">($35,000)</div>
+                    </div>
+                </div>
+
+                <div class="concept-card" style="margin-top: 1.5rem;">
+                    <strong>💡 Key Relationships:</strong>
+                    <ul style="margin-top: 0.5rem;">
+                        <li>Sales ($60,000) - COGS ($35,000) = Gross Profit ($25,000)</li>
+                        <li>Beginning Inventory + Purchases = Goods Available ($50,000)</li>
+                        <li>Goods Available - Ending Inventory = COGS ($35,000)</li>
+                        <li>Ending Inventory ($15,000) = Goods Available - COGS</li>
+                    </ul>
+                </div>
+
+                <div class="calculator-merch" style="margin-top: 1.5rem;">
+                    <h3 style="margin-bottom: 1rem; text-align: center;">Interactive Cost Flow</h3>
+                    
+                    <div style="display: flex; gap: 1rem; flex-wrap: wrap;">
+                        <div style="flex: 1; min-width: 200px;">
+                            <div class="calc-label">Beginning Inventory ($)</div>
+                            <input type="number" id="flow-beg" value="10000" oninput="calcFlow()" style="width: 100%; padding: 0.5rem; border-radius: var(--radius-sm); border: none; margin-top: 0.25rem;">
+                        </div>
+                        <div style="flex: 1; min-width: 200px;">
+                            <div class="calc-label">Purchases ($)</div>
+                            <input type="number" id="flow-purch" value="40000" oninput="calcFlow()" style="width: 100%; padding: 0.5rem; border-radius: var(--radius-sm); border: none; margin-top: 0.25rem;">
+                        </div>
+                        <div style="flex: 1; min-width: 200px;">
+                            <div class="calc-label">Sales ($)</div>
+                            <input type="number" id="flow-sales" value="60000" oninput="calcFlow()" style="width: 100%; padding: 0.5rem; border-radius: var(--radius-sm); border: none; margin-top: 0.25rem;">
+                        </div>
+                        <div style="flex: 1; min-width: 200px;">
+                            <div class="calc-label">Gross Profit %</div>
+                            <input type="number" id="flow-gp" value="42" oninput="calcFlow()" style="width: 100%; padding: 0.5rem; border-radius: var(--radius-sm); border: none; margin-top: 0.25rem;">
+                        </div>
+                    </div>
+                    
+                    <div style="margin-top: 1.5rem; padding-top: 1rem; border-top: 2px solid rgba(255,255,255,0.3);">
+                        <div style="display: flex; justify-content: space-between; padding: 0.5rem 0;">
+                            <span>Cost of Goods Available:</span>
+                            <span style="font-weight: 700;" id="flow-avail">$50,000</span>
+                        </div>
+                        <div style="display: flex; justify-content: space-between; padding: 0.5rem 0; border-top: 1px solid rgba(255,255,255,0.1);">
+                            <span>COGS (based on GP%):</span>
+                            <span style="font-weight: 700; color: var(--error);" id="flow-cogs">$34,800</span>
+                        </div>
+                        <div style="display: flex; justify-content: space-between; padding: 0.5rem 0; border-top: 1px solid rgba(255,255,255,0.1);">
+                            <span>Ending Inventory:</span>
+                            <span style="font-weight: 700; color: var(--success);" id="flow-end">$15,200</span>
+                        </div>
+                        <div style="display: flex; justify-content: space-between; padding: 0.5rem 0; border-top: 1px solid rgba(255,255,255,0.1); margin-top: 0.5rem;">
+                            <span>Gross Profit:</span>
+                            <span style="font-weight: 700; font-size: 1.2rem; color: var(--success);" id="flow-gpres">$25,200</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Common Misconceptions -->
+            <section class="kp-section">
+                <h2>🚫 Common Misconceptions & Professional Tips</h2>
+
+                <div class="misconception-alert">
+                    <strong>❌ Misconception 1:</strong> "Gross profit is the same as net income."
+                    <br><br>
+                    <strong>✅ Reality:</strong> Gross profit is sales minus cost of goods sold. Net income is gross profit minus ALL operating expenses (rent, salaries, utilities, etc.). A company can have gross profit but still report net loss if expenses exceed gross profit.
+                </div>
+
+                <div class="misconception-alert">
+                    <strong>❌ Misconception 2:</strong> "Ending inventory doesn't affect the income statement."
+                    <br><br>
+                    <strong>✅ Reality:</strong> Ending inventory directly affects COGS on the income statement. Higher ending inventory = lower COGS = higher gross profit. This is why accurate inventory counts are crucial for income statement accuracy.
+                </div>
+
+                <div class="misconception-alert">
+                    <strong>❌ Misconception 3:</strong> "Purchases are the same as Cost of Goods Sold."
+                    <br><br>
+                    <strong>✅ Reality:</strong> Purchases are the cost of inventory bought during the period. COGS is the cost of inventory actually sold. The difference is ending inventory (goods purchased but not sold) and beginning inventory (goods sold but not purchased this period).
+                </div>
+
+                <div class="misconception-alert">
+                    <strong>❌ Misconception 4:</strong> "The perpetual system always gives better inventory numbers."
+                    <br><br>
+                    <strong>✅ Reality:</strong> The perpetual system provides real-time data but requires technology and can have errors (theft, damage, recording mistakes). Physical counts are still needed periodically to verify accuracy. Both systems can be accurate when properly maintained.
+                </div>
+
+                <div class="professional-tip">
+                    <strong>💡 Professional Tip #1:</strong> Gross profit margin (Gross Profit ÷ Net Sales) is a key metric for evaluating merchandising performance. Higher margins may indicate premium pricing or efficient purchasing. Compare to industry benchmarks.
+                </div>
+
+                <div class="professional-tip">
+                    <strong>💡 Professional Tip #2:</strong> Monitor inventory turnover (COGS ÷ Average Inventory). Low turnover may indicate obsolete inventory or pricing issues. High turnover is generally good but could mean understocking.
+                </div>
+
+                <div class="professional-tip">
+                    <strong>💡 Professional Tip #3:</strong> The operating cycle length affects working capital needs. A longer cycle (more days in inventory + more days in receivables) requires more financing. Track days inventory outstanding (DIO) and days sales outstanding (DSO).
+                </div>
+            </section>
+
+            <!-- Memory Aids -->
+            <section class="kp-section">
+                <h2>🧠 Memory Aids & Quick Reference</h2>
+
+                <div class="memory-aid-card">
+                    <strong>⚡ Quick Recall: COGS Formula</strong>
+                    <p style="margin-top: 1rem;"><strong>BPE</strong> = <strong>B</strong>eginning + <strong>P</strong>urchases - <strong>E</strong>nded</p>
+                    <p style="margin-top: 0.5rem;">Beginning Inventory + Purchases - Ending Inventory = Cost of Goods Sold</p>
+                </div>
+
+                <div class="memory-aid-card">
+                    <strong>⚡ Quick Recall: Gross Profit Formula</strong>
+                    <p style="margin-top: 1rem;"><strong>SNAC</strong> = <strong>S</strong>ales - <strong>N</strong>et - <strong>A</strong>llowances - <strong>C</strong>ash discounts</p>
+                    <p style="margin-top: 0.5rem;">Net Sales - COGS = Gross Profit</p>
+                </div>
+
+                <div class="key-concepts-grid" style="margin-top: 2rem;">
+                    <div class="concept-card">
+                        <strong>📊 Key Merchandising Formulas</strong>
+                        <p>Net Sales = Gross Sales - Returns - Discounts</p>
+                        <p>COGS = Beginning Inventory + Purchases - Ending Inventory</p>
+                        <p>Gross Profit = Net Sales - COGS</p>
+                        <p>Gross Margin % = Gross Profit ÷ Net Sales</p>
+                    </div>
+
+                    <div class="concept-card">
+                        <strong>📋 Inventory System Types</strong>
+                        <p><strong>Perpetual:</strong> Real-time updates, continuous tracking, COGS known immediately</p>
+                        <p><strong>Periodic:</strong> Count-based, updated at period end, COGS calculated retrospectively</p>
+                    </div>
+
+                    <div class="concept-card">
+                        <strong>⚖️ Cost Flow Methods</strong>
+                        <p><strong>FIFO:</strong> Oldest costs → COGS (lowers COGS when prices rise)</p>
+                        <p><strong>LIFO:</strong> Newest costs → COGS (raises COGS when prices rise)</p>
+                        <p><strong>Weighted Avg:</strong> Average cost → COGS (smooths price changes)</p>
+                    </div>
+
+                    <div class="concept-card">
+                        <strong>🎯 Analysis Metrics</strong>
+                        <p>Gross Margin % = Gross Profit ÷ Net Sales</p>
+                        <p>Inventory Turnover = COGS ÷ Average Inventory</p>
+                        <p>Days Inventory = 365 ÷ Inventory Turnover</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Glossary -->
+            <section class="kp-section">
+                <h2>📖 Glossary</h2>
+                <div class="key-concepts-grid">
+                    <div class="concept-card">
+                        <strong>Merchandiser</strong>
+                        <p>A business that purchases goods from suppliers and sells them to customers, tracking inventory costs and calculating gross profit.</p>
+                    </div>
+
+                    <div class="concept-card">
+                        <strong>Cost of Goods Sold (COGS)</strong>
+                        <p>The cost of inventory sold to customers during the period. Calculated as: Beginning Inventory + Net Purchases - Ending Inventory.</p>
+                    </div>
+
+                    <div class="concept-card">
+                        <strong>Gross Profit</strong>
+                        <p>Net Sales minus Cost of Goods Sold. Represents the profit before operating expenses. Also called "Gross Margin."</p>
+                    </div>
+
+                    <div class="concept-card">
+                        <strong>Net Sales</strong>
+                        <p>Total sales revenue minus sales returns, allowances, and sales discounts. The revenue figure used for gross profit calculation.</p>
+                    </div>
+
+                    <div class="concept-card">
+                        <strong>Cost of Goods Available for Sale</strong>
+                        <p>Beginning Inventory plus Net Purchases. Represents the total cost of all inventory that could have been sold during the period.</p>
+                    </div>
+
+                    <div class="concept-card">
+                        <strong>Operating Cycle</strong>
+                        <p>The time from purchasing inventory to collecting cash from customers. Affects working capital needs and financing requirements.</p>
+                    </div>
+
+                    <div class="concept-card">
+                        <strong>Perpetual Inventory System</strong>
+                        <p>An inventory system that updates inventory records continuously after each sale, providing real-time COGS information.</p>
+                    </div>
+
+                    <div class="concept-card">
+                        <strong>Periodic Inventory System</strong>
+                        <p>An inventory system that updates inventory records only at period end based on physical count. COGS is calculated retrospectively.</p>
+                    </div>
+
+                    <div class="concept-card">
+                        <strong>FIFO (First-In, First-Out)</strong>
+                        <p>A cost flow assumption where the oldest inventory costs are assigned to COGS and newer costs remain in ending inventory.</p>
+                    </div>
+
+                    <div class="concept-card">
+                        <strong>LIFO (Last-In, First-Out)</strong>
+                        <p>A cost flow assumption where the newest inventory costs are assigned to COGS and older costs remain in ending inventory.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Final Knowledge Check -->
+            <section class="interactive-section">
+                <h2>🎯 Final Knowledge Check</h2>
+                <p>Test your understanding of Merchandising Activities:</p>
+
+                <div class="quiz-container" data-success-text="Excellent! You've mastered merchandising activities and cost flows." data-explanation="Merchandisers differ from service companies by tracking inventory and calculating Cost of Goods Sold. The key formula is: Net Sales - COGS = Gross Profit. COGS itself is calculated as: Beginning Inventory + Purchases - Ending Inventory. The operating cycle of buy-hold-sell-collect drives merchandising cash flows.">
+                    <div class="input-group">
+                        <p><strong>Question 1:</strong> What is the primary difference between a service company and a merchandiser?</p>
+                        <label><input type="radio" name="q1" value="a" data-correct="false"> Service companies have higher expenses</label><br><br>
+                        <label><input type="radio" name="q1" value="b" data-correct="true"> Merchandisers buy and sell physical goods, tracking inventory and COGS</label><br><br>
+                        <label><input type="radio" name="q1" value="c" data-correct="false"> Service companies cannot make profit</label>
+                    </div>
+
+                    <div class="input-group">
+                        <p><strong>Question 2:</strong> If Beginning Inventory = $10,000, Purchases = $40,000, and Ending Inventory = $8,000, what is COGS?</p>
+                        <label><input type="radio" name="q2" value="a" data-correct="false"> $42,000</label><br><br>
+                        <label><input type="radio" name="q2" value="b" data-correct="true"> $42,000</label><br><br>
+                        <label><input type="radio" name="q2" value="c" data-correct="false"> $58,000</label>
+                    </div>
+
+                    <div class="input-group">
+                        <p><strong>Question 3:</strong> Gross profit is calculated as:</p>
+                        <label><input type="radio" name="q3" value="a" data-correct="false"> Sales - All Expenses</label><br><br>
+                        <label><input type="radio" name="q3" value="b" data-correct="true"> Net Sales - Cost of Goods Sold</label><br><br>
+                        <label><input type="radio" name="q3" value="c" data-correct="false"> Net Sales - Operating Expenses</label>
+                    </div>
+
+                    <div class="input-group">
+                        <p><strong>Question 4:</strong> Which is NOT a component of Cost of Goods Available for Sale?</p>
+                        <label><input type="radio" name="q4" value="a" data-correct="false"> Beginning Inventory</label><br><br>
+                        <label><input type="radio" name="q4" value="b" data-correct="false"> Purchases</label><br><br>
+                        <label><input type="radio" name="q4" value="c" data-correct="true"> Operating Expenses</label>
+                    </div>
+
+                    <div class="input-group">
+                        <p><strong>Question 5:</strong> What does the operating cycle of a merchandiser measure?</p>
+                        <label><input type="radio" name="q5" value="a" data-correct="true"> The time from purchasing inventory to collecting cash from customers</label><br><br>
+                        <label><input type="radio" name="q5" value="b" data-correct="false"> The time from hiring employees to paying salaries</label><br><br>
+                        <label><input type="radio" name="q5" value="c" data-correct="false"> The fiscal year length</label>
+                    </div>
+
+                    <button class="btn btn-primary quiz-submit">Submit All Answers</button>
+                    <div class="feedback"></div>
+                    <button class="quiz-retry">Try Again</button>
+                </div>
+            </section>
+
+            <!-- Navigation -->
+            <nav class="kp-navigation" style="display: flex; justify-content: space-between; margin-top: 4rem; padding-bottom: 2rem;">
+                <a href="ch05.html" class="btn" style="background: #eee;">← Chapter 5 Hub</a>
+                <a href="ch05_A1.html" class="btn btn-primary">Next: Merchandising Ratios →</a>
+            </nav>
+        </article>
+    </main>
+
+    <footer style="margin-top: 5rem; padding: 2rem 0; border-top: 1px solid #ddd; text-align: center; color: #888;">
+        <p>Accounting Essentials | Chapter 5 | Concept 1</p>
+    </footer>
+
+    <script src="../../components-enhanced.js"></script>
+    <script>
+        function setDepth(depth) {
+            document.querySelectorAll('.depth-btn').forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+
+            document.querySelectorAll('.depth-content').forEach(content => content.classList.remove('active'));
+            document.getElementById(`depth-${depth}`).classList.add('active');
+        }
+
+        function calcMerch() {
+            const beg = parseFloat(document.getElementById('merch-beg').value) || 0;
+            const purch = parseFloat(document.getElementById('merch-purch').value) || 0;
+            const end = parseFloat(document.getElementById('merch-end').value) || 0;
+
+            const avail = beg + purch;
+            const cogs = avail - end;
+
+            document.getElementById('merch-avail').textContent = '$' + avail.toLocaleString();
+            document.getElementById('merch-avail2').textContent = '$' + avail.toLocaleString();
+            document.getElementById('merch-cogs').textContent = '$' + cogs.toLocaleString();
+        }
+
+        function calcFlow() {
+            const beg = parseFloat(document.getElementById('flow-beg').value) || 0;
+            const purch = parseFloat(document.getElementById('flow-purch').value) || 0;
+            const sales = parseFloat(document.getElementById('flow-sales').value) || 0;
+            const gpPercent = parseFloat(document.getElementById('flow-gp').value) || 0;
+
+            const avail = beg + purch;
+            const cogs = sales * (1 - gpPercent / 100);
+            const end = avail - cogs;
+            const gp = sales * (gpPercent / 100);
+
+            document.getElementById('flow-avail').textContent = '$' + avail.toLocaleString();
+            document.getElementById('flow-cogs').textContent = '$' + cogs.toLocaleString(undefined, {minimumFractionDigits: 0, maximumFractionDigits: 0});
+            document.getElementById('flow-end').textContent = '$' + end.toLocaleString(undefined, {minimumFractionDigits: 0, maximumFractionDigits: 0});
+            document.getElementById('flow-gpres').textContent = '$' + gp.toLocaleString(undefined, {minimumFractionDigits: 0, maximumFractionDigits: 0});
+        }
+    </script>
+</body>
+
+</html>

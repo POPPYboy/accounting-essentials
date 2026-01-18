@@ -1,0 +1,840 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>P1: Special Journals | ACCOUNTING ESSENTIALS</title>
+    <link rel="stylesheet" href="../../styles.css">
+    <style>
+        /* Journal Clerk Game Styles */
+        .clerk-desk {
+            background: var(--bg-light);
+            border-radius: var(--radius-lg);
+            padding: 2rem;
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 1.5rem;
+            border: 3px dashed var(--primary-light);
+        }
+
+        #invoice-area {
+            background: var(--white);
+            padding: 2rem;
+            border-radius: var(--radius-md);
+            box-shadow: var(--shadow-sm);
+            min-height: 150px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 2px solid var(--primary-light);
+        }
+
+        .invoice-item {
+            display: inline-flex;
+            align-items: center;
+            background: #fffde7;
+            padding: 0.75rem 1.5rem;
+            border: 2px solid #fbc02d;
+            border-radius: var(--radius-sm);
+            cursor: grab;
+            margin: 0.5rem;
+            transition: all 0.2s ease;
+            font-weight: 600;
+            min-width: 100px;
+        }
+
+        .invoice-item:hover {
+            transform: scale(1.05);
+            box-shadow: var(--shadow-md);
+        }
+
+        .invoice-item:active {
+            cursor: grabbing;
+            transform: scale(1.02);
+        }
+
+        .invoice-item.dragging {
+            opacity: 0.5;
+            transform: rotate(3deg);
+        }
+
+        #invoice-area {
+            background: var(--white);
+            padding: 1.5rem;
+            border-radius: var(--radius-md);
+            box-shadow: var(--shadow-sm);
+            min-height: 150px;
+        }
+
+        .invoice-item {
+            display: inline-flex;
+            align-items: center;
+            background: linear-gradient(135deg, #fffde7 0%, #fff9c4 100%);
+            padding: 0.75rem 1.25rem;
+            border: 2px solid #fbc02d;
+            border-radius: var(--radius-sm);
+            cursor: grab;
+            margin: 0.5rem;
+            transition: all 0.2s ease;
+            font-weight: 600;
+            font-size: 0.95rem;
+            min-width: 120px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .invoice-item:hover {
+            transform: translateY(-3px) scale(1.02);
+            box-shadow: 0 6px 12px rgba(251, 192, 45, 0.4);
+            border-color: var(--primary);
+        }
+
+        .invoice-item:active {
+            cursor: grabbing;
+            transform: scale(0.98);
+        }
+
+        .invoice-item.dragging {
+            opacity: 0.5;
+            transform: rotate(3deg) scale(0.95);
+        }
+
+        #purchases-journal-table {
+            width: 100%;
+            border-collapse: collapse;
+            table-layout: fixed;
+            background: var(--white);
+            border-radius: var(--radius-md);
+            box-shadow: var(--shadow-sm);
+            margin-top: 1rem;
+            overflow: hidden;
+        }
+
+        #purchases-journal-table th,
+        #purchases-journal-table td {
+            border: 1px solid var(--border-color);
+            padding: 0.75rem;
+            text-align: center;
+            vertical-align: middle;
+        }
+
+        #purchases-journal-table th {
+            background: var(--primary);
+            color: white;
+            font-weight: 600;
+            text-transform: uppercase;
+            font-size: 0.9rem;
+        }
+
+        #purchases-journal-table td {
+            font-weight: 500;
+        }
+
+        #purchases-journal-table tbody tr {
+            transition: background-color 0.3s ease;
+        }
+
+        #purchases-journal-table tbody tr:hover {
+            background-color: var(--primary-light);
+        }
+
+        #purchases-journal-table tr.completed-row {
+            background-color: var(--success-light) !important;
+        }
+
+        #purchases-journal-table tr.completed-row td {
+            color: var(--success-dark);
+            font-weight: 600;
+        }
+
+        .drop-zone {
+            background: var(--white);
+            border: 2px dashed var(--border-color);
+            min-height: 50px;
+            min-width: 120px;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+
+        .drop-zone.drag-over {
+            background-color: var(--success-light);
+            border-color: var(--success);
+            border-style: solid;
+            border-width: 3px;
+            transform: scale(1.02);
+        }
+
+        .drop-zone.filled {
+            background-color: var(--success);
+            color: white;
+            font-weight: 700;
+            border-color: var(--success-dark);
+            border-style: solid;
+        }
+
+        /* Clerk Desk Layout */
+        .invoice-section,
+        .journal-section {
+            background: var(--white);
+            padding: 1.5rem;
+            border-radius: var(--radius-md);
+            box-shadow: var(--shadow-sm);
+        }
+
+        .invoice-section h3,
+        .journal-section h3 {
+            margin-bottom: 1rem;
+            color: var(--primary);
+            border-bottom: 2px solid var(--primary-light);
+            padding-bottom: 0.5rem;
+        }
+
+        #journal-game-feedback.success {
+            background: var(--success-light);
+            color: var(--success-dark);
+            border: 2px solid var(--success);
+        }
+
+        #journal-game-feedback.error {
+            background: var(--error-light);
+            color: var(--error-dark);
+            border: 2px solid var(--error);
+        }
+
+        #purchases-journal-table tr {
+            display: flex;
+            width: 100%;
+        }
+
+        #purchases-journal-table td {
+            flex: 1;
+        }
+    </style>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-50MTQPVR7D"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-50MTQPVR7D');
+</script>
+
+</head>
+
+<body>
+    <header>
+        <div class="container nav-container">
+            <a href="../../index.html" class="logo">ACCOUNTING<span>ESSENTIALS</span></a>
+            <nav class="nav-links">
+                <a href="../../index.html">Home</a>
+                <a href="../../Part1/part1.html">Part 1</a>
+                <a href="../../part2/part2.html">Part 2</a>
+                <a href="../../part3/part3.html">Part 3</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container">
+        <div class="breadcrumbs">
+            <a href="../../index.html">Home</a> <span>/</span> <a href="../../part3/part3.html">Part 3</a>
+            <span>/</span> <a href="ch07.html">Chapter 7</a> <span>/</span> P1
+        </div>
+
+        <article class="animate-fade-in">
+            <div class="kp-header">
+                <h1 style="border-left: 8px solid var(--primary-light); padding-left: 1rem; margin: 2rem 0;">Special Journals</h1>
+            </div>
+
+            <!-- Learning Objectives -->
+            <section class="kp-section">
+                <h2>🎯 Learning Objectives</h2>
+                <div class="learning-objectives">
+                    <ul>
+                        <li>Understand the purpose and benefits of special journals in accounting systems</li>
+                        <li>Identify the five types of special journals and their specific purposes</li>
+                        <li>Distinguish between transactions recorded in special journals versus the general journal</li>
+                        <li>Explain how special journals improve efficiency in recording recurring transactions</li>
+                        <li>Describe the posting process from special journals to ledgers</li>
+                        <li>Apply the appropriate journal for various business transactions</li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- Background & Principles -->
+            <section class="kp-section">
+                <h2>📚 Background & Principles</h2>
+                <p>Special journals are specialized accounting records designed to efficiently handle high-volume, repetitive transaction types. Instead of recording every transaction in the general journal, businesses use these "express lanes" to streamline their accounting processes and improve accuracy.</p>
+
+                <div class="concept-card" style="margin: 1.5rem 0;">
+                    <strong>Core Principle:</strong> Special journals separate routine transactions by type, allowing accountants to record similar transactions together and post column totals to the general ledger at month-end, rather than posting each entry individually.
+                </div>
+
+                <div class="professional-tip">
+                    <strong>💡 Key Insight:</strong> Think of special journals like supermarket checkout lanes. The general journal is the customer service desk that handles unusual items and returns, while special journals are express lanes designed for specific, repetitive transaction types.
+                </div>
+            </section>
+
+            <!-- Key Concepts -->
+            <section class="kp-section">
+                <h2>🔑 Key Concepts</h2>
+                <div class="key-concepts-grid">
+                    <div class="concept-card">
+                        <strong>Sales Journal</strong>
+                        <p>Records all credit sales of merchandise. Each entry only requires one amount column since debit (AR) and credit (Sales) are always equal.</p>
+                    </div>
+
+                    <div class="concept-card">
+                        <strong>Cash Receipts Journal</strong>
+                        <p>Records all transactions where cash is received. Includes multiple debit and credit columns for different cash receipt sources.</p>
+                    </div>
+
+                    <div class="concept-card">
+                        <strong>Purchases Journal</strong>
+                        <p>Records all credit purchases of merchandise and supplies. Mirrors the structure of the sales journal.</p>
+                    </div>
+
+                    <div class="concept-card">
+                        <strong>Cash Payments Journal</strong>
+                        <p>Records all transactions where cash is paid out. The mirror image of the cash receipts journal.</p>
+                    </div>
+
+                    <div class="concept-card">
+                        <strong>General Journal</strong>
+                        <p>The journal of "last resort" for adjusting entries, closing entries, and non-routine transactions not covered by special journals.</p>
+                    </div>
+
+                    <div class="concept-card">
+                        <strong>Subsidiary Ledger Support</strong>
+                        <p>Special journals often feed information to subsidiary ledgers (like accounts receivable subsidiary) for detailed tracking.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Deep Dive -->
+            <section class="kp-section">
+                <h2>🔍 Deep Dive</h2>
+                <p>Explore special journals at different levels of depth:</p>
+
+                <div class="depth-toggle">
+                    <button class="depth-btn active" onclick="setDepth('A')">Depth A: Foundational</button>
+                    <button class="depth-btn" onclick="setDepth('B')">Depth B: Standard</button>
+                    <button class="depth-btn" onclick="setDepth('C')">Depth C: Advanced</button>
+                </div>
+
+                <!-- Depth A -->
+                <div id="depth-A" class="depth-content active">
+                    <h3>🟢 Foundational Level</h3>
+                    <p>Understanding the basic concept of special journals.</p>
+
+                    <div class="worked-example">
+                        <h4>The Supermarket Analogy</h4>
+                        <p><strong>Express Lanes vs. Customer Service</strong></p>
+                        <p>Imagine a busy supermarket with different checkout options:</p>
+                        <div class="example-step">
+                            <strong>General Journal (Customer Service Desk):</strong>
+                            <p>Handles unusual situations—price adjustments, returns, complaints. It's slow but handles anything.</p>
+                        </div>
+                        <div class="example-step">
+                            <strong>Special Journals (Express Lanes):</strong>
+                            <p>Each lane handles ONE specific type of transaction quickly and efficiently.</p>
+                        </div>
+                    </div>
+
+                    <div class="worked-example">
+                        <h4>The Five Journals</h4>
+                        <table class="financial-table">
+                            <thead>
+                                <tr><th>Journal</th><th>What It Handles</th><th>When to Use</th></tr>
+                            </thead>
+                            <tbody>
+                                <tr><td>Sales Journal</td><td>Credit sales of merchandise</td><td>Only sales on account</td></tr>
+                                <tr><td>Cash Receipts</td><td>Any cash coming in</td><td>Cash sales, customer payments</td></tr>
+                                <tr><td>Purchases Journal</td><td>Credit purchases</td><td>Buying inventory on account</td></tr>
+                                <tr><td>Cash Payments</td><td>Any cash going out</td><td>Bill payments, expenses</td></tr>
+                                <tr><td>General Journal</td><td>Everything else</td><td>Adjustments, unusual items</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- Depth B -->
+                <div id="depth-B" class="depth-content">
+                    <h3>🟡 Standard Level</h3>
+                    <p>Understanding journal structure and posting procedures.</p>
+
+                    <div class="worked-example">
+                        <h4>Sales Journal Efficiency</h4>
+                        <p><strong>Why Only One Amount Column?</strong></p>
+                        <p>In the sales journal, every entry follows the same pattern:</p>
+                        <div class="example-step">
+                            <strong>The Pattern:</strong>
+                            <p>Debit: Accounts Receivable | Credit: Sales Revenue</p>
+                            <p>Since these always balance, we only record the amount ONCE!</p>
+                        </div>
+                        <div class="example-step">
+                            <strong>At Month-End:</strong>
+                            <p>Post the column TOTAL to the general ledger: $XX,XXX to AR (debit) and $XX,XXX to Sales (credit)</p>
+                        </div>
+                    </div>
+
+                    <div class="worked-example">
+                        <h4>Cash Receipts Journal Complexity</h4>
+                        <p><strong>Multiple Columns for Multiple Sources</strong></p>
+                        <p>Cash can come from various sources, so the journal has multiple columns:</p>
+                        <table class="financial-table">
+                            <thead>
+                                <tr><th>Column</th><th>Type</th><th>Posted When</th></tr>
+                            </thead>
+                            <tbody>
+                                <tr><td>Cash Dr.</td><td>Debit (total)</td><td>Month-end</td></tr>
+                                <tr><td>Sales Discounts Dr.</td><td>Debit (total)</td><td>Month-end</td></tr>
+                                <tr><td>Accounts Receivable Cr.</td><td>Credit (individual)</td><td>Daily</td></tr>
+                                <tr><td>Sales Revenue Cr.</td><td>Credit (total)</td><td>Month-end</td></tr>
+                                <tr><td>Other Accounts Cr.</td><td>Credit (individual)</td><td>Daily</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- Depth C -->
+                <div id="depth-C" class="depth-content">
+                    <h3>🔴 Advanced Level</h3>
+                    <p>Understanding posting controls and system integration.</p>
+
+                    <div class="worked-example">
+                        <h4>The Posting Process</h4>
+                        <p><strong>Individual vs. Total Posting</strong></p>
+                        <div class="example-step">
+                            <strong>Daily Posting (Individual):</strong>
+                            <p>Account names in the "Account Debited" or "Accounts Receivable Cr." columns get posted to subsidiary ledgers immediately.</p>
+                        </div>
+                        <div class="example-step">
+                            <strong>Month-End Posting (Totals):</strong>
+                            <p>Column totals get posted to control accounts in the general ledger: AR Control, Sales, Cash, etc.</p>
+                        </div>
+                        <div class="example-step">
+                            <strong>The Control Check:</strong>
+                            <p>Subsidiary ledger total MUST equal the control account balance.</p>
+                        </div>
+                    </div>
+
+                    <div class="worked-example">
+                        <h4>Special Journal Selection Criteria</h4>
+                        <p><strong>When to Use Each Journal:</strong></p>
+                        <div class="example-step">
+                            <strong>Use Sales Journal IF:</strong>
+                            <p>Transaction = Sale of merchandise AND Customer charged (not cash)</p>
+                        </div>
+                        <div class="example-step">
+                            <strong>Use Cash Receipts Journal IF:</strong>
+                            <p>Transaction involves receiving CASH (any source)</p>
+                        </div>
+                        <div class="example-step">
+                            <strong>Use General Journal IF:</strong>
+                            <p>Transaction doesn't fit any special journal pattern</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Interactive: Purchases Journal Clerk -->
+            <section class="kp-section">
+                <h2>🎨 Interactive: Purchases Journal Clerk</h2>
+                <p>You are the accounting clerk! Drag the correct information from the invoice into the appropriate columns in the Purchases Journal to record the transaction.</p>
+
+                <div class="clerk-desk">
+                    <div>
+                        <h3>Incoming Invoice:</h3>
+                        <div id="invoice-area">
+                            <!-- Invoice data will be generated by JavaScript -->
+                        </div>
+                    </div>
+                    <div>
+                        <h3>Purchases Journal</h3>
+                        <table id="purchases-journal-table">
+                            <thead>
+                                <tr>
+                                    <th>Date</th>
+                                    <th>Account Credited (Supplier)</th>
+                                    <th>Invoice No.</th>
+                                    <th>Amount (Dr. Inventory / Cr. A/P)</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <!-- New row to be filled -->
+                                <tr id="journal-row-1">
+                                    <td class="drop-zone" data-type="date"></td>
+                                    <td class="drop-zone" data-type="supplier"></td>
+                                    <td class="drop-zone" data-type="inv"></td>
+                                    <td class="drop-zone" data-type="amount"></td>
+                                </tr>
+                                <!-- Completed rows will be added here -->
+                            </tbody>
+                        </table>
+                        <div id="journal-game-feedback" style="margin-top: 1rem; padding: 1rem; border-radius: var(--radius-sm); text-align:center; font-weight:bold; display:none;"></div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Common Misconceptions -->
+            <section class="kp-section">
+                <h2>🚫 Common Misconceptions & Professional Tips</h2>
+
+                <div class="misconception-alert">
+                    <strong>❌ Misconception 1:</strong> "Cash sales go in the Sales Journal."
+                    <br><br>
+                    <strong>✅ Reality:</strong> The Sales Journal is ONLY for credit sales. Cash sales are recorded in the Cash Receipts Journal because they involve a cash debit, not an accounts receivable debit.
+                </div>
+
+                <div class="misconception-alert">
+                    <strong>❌ Misconception 2:</strong> "Every entry in special journals gets posted individually to the general ledger."
+                    <br><br>
+                    <strong>✅ Reality:</strong> Only the "individual" columns (like customer names in AR) get posted daily. Column totals are posted at month-end, which is the whole point of special journals!
+                </div>
+
+                <div class="misconception-alert">
+                    <strong>❌ Misconception 3:</strong> "All purchases go in the Purchases Journal."
+                    <br><br>
+                    <strong>✅ Reality:</strong> The Purchases Journal records only credit purchases. Cash purchases are recorded in the Cash Payments Journal.
+                </div>
+
+                <div class="professional-tip">
+                    <strong>💡 Professional Tip #1:</strong> When in doubt, ask: "What accounts are affected?" If the pattern matches a special journal's column structure, use it. Otherwise, use the general journal.
+                </div>
+
+                <div class="professional-tip">
+                    <strong>💡 Professional Tip #2:</strong> Always check that column totals in special journals balance (debits = credits) before posting. This is your first control check.
+                </div>
+
+                <div class="professional-tip">
+                    <strong>💡 Professional Tip #3:</strong> The general journal is not "lesser" than special journals—it's for unique situations that don't fit standardized patterns.
+                </div>
+            </section>
+
+            <!-- Memory Aids -->
+            <section class="kp-section">
+                <h2>🧠 Memory Aids & Quick Reference</h2>
+
+                <div class="memory-aid-card">
+                    <strong>⚡ Quick Recall: Journal Selection</strong>
+                    <p><strong>Got Cash In?</strong> → Cash Receipts Journal</p>
+                    <p><strong>Got Cash Out?</strong> → Cash Payments Journal</p>
+                    <p><strong>Credit Sale?</strong> → Sales Journal</p>
+                    <p><strong>Credit Purchase?</strong> → Purchases Journal</p>
+                    <p><strong>Everything Else?</strong> → General Journal</p>
+                </div>
+
+                <div class="key-concepts-grid">
+                    <div class="concept-card">
+                        <strong>📊 Sales Journal</strong>
+                        <p>One amount column. Post total to AR and Sales at month-end. Individual AR posted daily.</p>
+                    </div>
+
+                    <div class="concept-card">
+                        <strong>💵 Cash Receipts Journal</strong>
+                        <p>Multiple columns. Cash Dr. column always present. Post totals monthly, individuals daily.</p>
+                    </div>
+
+                    <div class="concept-card">
+                        <strong>📋 Purchases Journal</strong>
+                        <p>Mirror of Sales Journal. Records credit purchases of merchandise and supplies.</p>
+                    </div>
+
+                    <div class="concept-card">
+                        <strong>💸 Cash Payments Journal</strong>
+                        <p>Mirror of Cash Receipts. Records all cash outflows. Always has Cash Cr. column.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Glossary -->
+            <section class="kp-section">
+                <h2>📖 Glossary</h2>
+                <div class="key-concepts-grid">
+                    <div class="concept-card">
+                        <strong>Special Journal</strong>
+                        <p>An accounting journal designed to record a specific type of transaction efficiently, with columnar sections for common accounts.</p>
+                    </div>
+
+                    <div class="concept-card">
+                        <strong>General Journal</strong>
+                        <p>The journal of original entry for transactions not recorded in special journals, including adjusting and closing entries.</p>
+                    </div>
+
+                    <div class="concept-card">
+                        <strong>Sales Journal</strong>
+                        <p>Special journal for recording credit sales of merchandise. Contains one amount column since debits equal credits.</p>
+                    </div>
+
+                    <div class="concept-card">
+                        <strong>Cash Receipts Journal</strong>
+                        <p>Special journal for recording all transactions involving the receipt of cash, regardless of source.</p>
+                    </div>
+
+                    <div class="concept-card">
+                        <strong>Purchases Journal</strong>
+                        <p>Special journal for recording credit purchases of merchandise and supplies from vendors.</p>
+                    </div>
+
+                    <div class="concept-card">
+                        <strong>Cash Payments Journal</strong>
+                        <p>Special journal for recording all transactions involving the payment of cash to others.</p>
+                    </div>
+
+                    <div class="concept-card">
+                        <strong>Control Account</strong>
+                        <p>A general ledger account that summarizes the total balance of a subsidiary ledger.</p>
+                    </div>
+
+                    <div class="concept-card">
+                        <strong>Subsidiary Ledger</strong>
+                        <p>A group of accounts that provides detailed support for a single control account in the general ledger.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Interactive: Knowledge Check -->
+            <section class="interactive-section">
+                <h2>🎯 Knowledge Check: Special Journals</h2>
+                <p>Test your understanding of special journals:</p>
+
+                <div class="quiz-container" data-success-text="Excellent! You understand special journals!" data-explanation="Special journals efficiently handle repetitive transactions. Credit sales go to Sales Journal, cash receipts to Cash Receipts Journal, and unusual items to General Journal. Column totals post monthly while individual amounts post daily.">
+                    <div class="input-group">
+                        <p><strong>Question 1:</strong> Which journal is used for credit sales of merchandise?</p>
+                        <label><input type="radio" name="q1" value="correct" data-correct="true"> Sales Journal</label><br>
+                        <label><input type="radio" name="q1" value="incorrect1" data-correct="false"> Cash Receipts Journal</label><br>
+                        <label><input type="radio" name="q1" value="incorrect2" data-correct="false"> General Journal</label>
+                    </div>
+
+                    <div class="input-group">
+                        <p><strong>Question 2:</strong> When is the total of the Sales Journal column posted to the general ledger?</p>
+                        <label><input type="radio" name="q2" value="incorrect1" data-correct="false"> Daily, with each entry</label><br>
+                        <label><input type="radio" name="q2" value="correct" data-correct="true"> At month-end</label><br>
+                        <label><input type="radio" name="q2" value="incorrect2" data-correct="false"> Weekly</label>
+                    </div>
+
+                    <div class="input-group">
+                        <p><strong>Question 3:</strong> Where is a cash sale recorded?</p>
+                        <label><input type="radio" name="q3" value="incorrect1" data-correct="false"> Sales Journal</label><br>
+                        <label><input type="radio" name="q3" value="correct" data-correct="true"> Cash Receipts Journal</label><br>
+                        <label><input type="radio" name="q3" value="incorrect2" data-correct="false"> Purchases Journal</label>
+                    </div>
+
+                    <div class="input-group">
+                        <p><strong>Question 4:</strong> Which transaction would be recorded in the General Journal?</p>
+                        <label><input type="radio" name="q4" value="incorrect1" data-correct="false"> Monthly rent payment</label><br>
+                        <label><input type="radio" name="q4" value="incorrect2" data-correct="false"> Sale of merchandise on credit</label><br>
+                        <label><input type="radio" name="q4" value="correct" data-correct="true"> Adjusting entry for depreciation</label>
+                    </div>
+
+                    <div class="input-group">
+                        <p><strong>Question 5:</strong> Why does the Sales Journal only need one amount column?</p>
+                        <label><input type="radio" name="q5" value="correct" data-correct="true"> Because debits (AR) and credits (Sales) always equal</label><br>
+                        <label><input type="radio" name="q5" value="incorrect1" data-correct="false"> Because sales are always the same amount</label><br>
+                        <label><input type="radio" name="q5" value="incorrect2" data-correct="false"> Because the general journal handles posting</label>
+                    </div>
+
+                    <button class="btn btn-primary quiz-submit">Submit Answers</button>
+                    <div class="feedback"></div>
+                    <button class="quiz-retry">Try Again</button>
+                </div>
+            </section>
+
+            <!-- Navigation -->
+            <nav class="kp-navigation" style="display: flex; justify-content: space-between; margin-top: 4rem; padding-bottom: 2rem;">
+                <a href="ch07_A1.html" class="btn" style="background: #eee;">← Previous: Days' Payable Outstanding</a>
+                <a href="ch07.html" class="btn" style="background: var(--secondary); color: white;">Chapter 7 Hub</a>
+                <a href="ch07_P2.html" class="btn btn-primary">Next: Subsidiary Ledgers →</a>
+            </nav>
+        </article>
+    </main>
+
+    <footer style="margin-top: 5rem; padding: 2rem 0; border-top: 1px solid #ddd; text-align: center; color: #888;">
+        <p>Accounting Essentials | Chapter 7 | Procedure 1</p>
+    </footer>
+
+    <script>
+        function setDepth(depth) {
+            document.querySelectorAll('.depth-btn').forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+            document.querySelectorAll('.depth-content').forEach(content => content.classList.remove('active'));
+            document.getElementById(`depth-${depth}`).classList.add('active');
+        }
+
+        const invoiceData = [
+            { date: 'Jan 5', supplier: 'Office Supplies Co.', inv: '101', amount: '300' },
+            { date: 'Jan 8', supplier: 'Tech Gadgets Inc.', inv: '102', amount: '1250' },
+            { date: 'Jan 12', supplier: 'Furniture World', inv: '103', amount: '800' },
+            { date: 'Jan 15', supplier: 'ComponentSource', inv: '104', amount: '550' }
+        ];
+        let currentInvoiceIndex = 0;
+        let currentRowId = 1;
+        let completedFields = 0;
+
+        function generateInvoice() {
+            const invoice = invoiceData[currentInvoiceIndex];
+            const invoiceArea = document.getElementById('invoice-area');
+            if (!invoiceArea) return;
+            
+            invoiceArea.innerHTML = `
+                <div style="display: flex; flex-wrap: wrap; gap: 0.5rem; justify-content: center; margin-top: 1rem;">
+                    <span class="invoice-item" draggable="true" data-type="date" data-value="${invoice.date}">
+                        <span style="margin-right: 0.5rem;">📅</span>Date: ${invoice.date}
+                    </span>
+                    <span class="invoice-item" draggable="true" data-type="supplier" data-value="${invoice.supplier}">
+                        <span style="margin-right: 0.5rem;">🏢</span>Supplier: ${invoice.supplier}
+                    </span>
+                    <span class="invoice-item" draggable="true" data-type="inv" data-value="${invoice.inv}">
+                        <span style="margin-right: 0.5rem;">📄</span>Invoice #: ${invoice.inv}
+                    </span>
+                    <span class="invoice-item" draggable="true" data-type="amount" data-value="${invoice.amount}">
+                        <span style="margin-right: 0.5rem;">💰</span>Amount: $${invoice.amount}
+                    </span>
+                </div>
+                <p style="text-align: center; margin-top: 1rem; color: var(--text-muted); font-size: 0.85rem;">
+                    💡 Drag each item to its matching column in the table below
+                </p>
+            `;
+            addDragListeners();
+        }
+
+        function addDragListeners() {
+            const draggables = document.querySelectorAll('.invoice-item');
+            draggables.forEach(item => {
+                item.addEventListener('dragstart', handleDragStart);
+                item.addEventListener('dragend', handleDragEnd);
+            });
+        }
+        
+        function handleDragStart(e) {
+            e.target.classList.add('dragging');
+            e.dataTransfer.setData('text/type', e.target.dataset.type);
+            e.dataTransfer.setData('text/value', e.target.dataset.value);
+            e.dataTransfer.effectAllowed = 'move';
+        }
+
+        function handleDragEnd(e) {
+            e.target.classList.remove('dragging');
+        }
+
+        function setupDropZones() {
+            const dropZones = document.querySelectorAll('.drop-zone:not(.listeners-attached)');
+            dropZones.forEach(zone => {
+                zone.addEventListener('dragover', handleDragOver);
+                zone.addEventListener('dragleave', handleDragLeave);
+                zone.addEventListener('drop', handleDrop);
+                zone.classList.add('listeners-attached');
+            });
+        }
+
+        function handleDragOver(e) {
+            e.preventDefault();
+            const dropZone = e.target.closest('.drop-zone');
+            if (dropZone && !dropZone.classList.contains('filled')) {
+                dropZone.classList.add('drag-over');
+            }
+        }
+
+        function handleDragLeave(e) {
+            const dropZone = e.target.closest('.drop-zone');
+            if (dropZone) {
+                dropZone.classList.remove('drag-over');
+            }
+        }
+
+        function handleDrop(e) {
+            e.preventDefault();
+            const dropZone = e.target.closest('.drop-zone');
+            if (!dropZone) return;
+
+            dropZone.classList.remove('drag-over');
+            
+            if (dropZone.classList.contains('filled')) {
+                return; // Don't allow dropping on filled cells
+            }
+
+            const draggedType = e.dataTransfer.getData('text/type');
+            const draggedValue = e.dataTransfer.getData('text/value');
+            const dropZoneType = dropZone.dataset.type;
+            const feedback = document.getElementById('journal-game-feedback');
+
+            if (draggedType === dropZoneType) {
+                dropZone.textContent = draggedValue;
+                dropZone.classList.add('filled');
+                
+                const originalItem = document.querySelector(`.invoice-item[data-type='${draggedType}']`);
+                if(originalItem) originalItem.style.display = 'none';
+
+                completedFields++;
+                checkCompletion();
+            } else {
+                feedback.textContent = `✗ Incorrect! "${draggedType}" goes in the "${dropZoneType}" column. Try again!`;
+                feedback.className = 'error';
+                feedback.style.display = 'block';
+                setTimeout(() => feedback.style.display = 'none', 2500);
+            }
+        }
+        
+        function checkCompletion() {
+            if (completedFields === 4) {
+                const feedback = document.getElementById('journal-game-feedback');
+                feedback.textContent = '✓ Excellent! Entry recorded correctly. Loading next invoice...';
+                feedback.className = 'success';
+                feedback.style.display = 'block';
+
+                setTimeout(() => {
+                    feedback.style.display = 'none';
+                    archiveCurrentRow();
+                    addNewJournalRow();
+                    
+                    currentInvoiceIndex = (currentInvoiceIndex + 1) % invoiceData.length;
+                    completedFields = 0;
+
+                    generateInvoice();
+                }, 2500);
+            }
+        }
+
+        function archiveCurrentRow() {
+            const currentRow = document.getElementById(`journal-row-${currentRowId}`);
+            if (currentRow) {
+                currentRow.querySelectorAll('.drop-zone').forEach(td => {
+                    td.classList.remove('drop-zone', 'listeners-attached');
+                });
+                currentRow.classList.add('completed-row');
+                currentRow.style.background = '#f1f8e9';
+            }
+        }
+
+        function addNewJournalRow() {
+            currentRowId++;
+            const tableBody = document.querySelector('#purchases-journal-table tbody');
+            if (!tableBody) return;
+
+            const newRow = document.createElement('tr');
+            newRow.id = `journal-row-${currentRowId}`;
+
+            const cellTypes = ['date', 'supplier', 'inv', 'amount'];
+            cellTypes.forEach(type => {
+                const cell = document.createElement('td');
+                cell.classList.add('drop-zone');
+                cell.dataset.type = type;
+                newRow.appendChild(cell);
+            });
+
+            tableBody.appendChild(newRow);
+            setupDropZones(); // Re-initialize listeners for the new row
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            generateInvoice();
+            setupDropZones();
+        });
+    </script>
+</body>
+
+</html>

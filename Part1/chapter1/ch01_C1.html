@@ -1,0 +1,1264 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>C1: Purpose, Users, and Opportunities | ACCOUNTING ESSENTIALS</title>
+    <link rel="stylesheet" href="../../styles.css">
+    <style>
+        /* Additional styles for this page */
+        .accounting-flow-diagram {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0;
+            margin: 2rem 0;
+            padding: 2rem;
+            background: var(--bg-light);
+            border-radius: var(--radius-lg);
+            flex-wrap: wrap;
+        }
+
+        .flow-node {
+            padding: 1.5rem 2rem;
+            background: var(--white);
+            border: 3px solid var(--primary);
+            border-radius: var(--radius-md);
+            font-weight: 700;
+            font-size: 0.95rem;
+            text-align: center;
+            transition: var(--transition);
+            min-width: 140px;
+            box-shadow: var(--shadow);
+        }
+
+        .flow-node:hover {
+            transform: translateY(-5px) scale(1.05);
+            box-shadow: var(--shadow-lg);
+            z-index: 10;
+        }
+
+        .flow-node.identify {
+            border-color: var(--info);
+            background: linear-gradient(135deg, var(--info-light) 0%, var(--white) 100%);
+        }
+
+        .flow-node.record {
+            border-color: var(--secondary);
+            background: linear-gradient(135deg, rgba(197,160,89,0.2) 0%, var(--white) 100%);
+        }
+
+        .flow-node.communicate {
+            border-color: var(--success);
+            background: linear-gradient(135deg, var(--success-light) 0%, var(--white) 100%);
+        }
+
+        .flow-node small {
+            display: block;
+            margin-top: 0.5rem;
+            font-weight: 500;
+            color: var(--text-muted);
+            font-size: 0.85rem;
+        }
+
+        .flow-arrow {
+            font-size: 2rem;
+            color: var(--primary);
+            padding: 0 0.5rem;
+            font-weight: bold;
+        }
+
+        @media (max-width: 768px) {
+            .accounting-flow-diagram {
+                flex-direction: column;
+                gap: 1rem;
+                padding: 1.5rem;
+            }
+
+            .flow-arrow {
+                transform: rotate(90deg);
+                padding: 0.5rem 0;
+            }
+        }
+
+        /* Quiz label styles */
+        .quiz-container label {
+            display: block;
+            padding: 1rem;
+            margin-bottom: 0.75rem;
+            background: var(--white);
+            border: 2px solid var(--border-color);
+            border-radius: var(--radius-sm);
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .quiz-container label:hover {
+            border-color: var(--primary);
+            background: var(--primary-light);
+        }
+
+        .quiz-container input[type="radio"] {
+            margin-right: 0.75rem;
+        }
+
+        /* ========== Interactive Accounting Factory ========== */
+        .accounting-factory {
+            background: var(--white);
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-lg);
+            overflow: hidden;
+            margin: 2rem 0;
+        }
+
+        .factory-tabs {
+            display: flex;
+            background: var(--primary);
+            flex-wrap: wrap;
+        }
+
+        .factory-tab {
+            flex: 1;
+            min-width: 150px;
+            padding: 1rem 1.5rem;
+            background: transparent;
+            border: none;
+            color: rgba(255,255,255,0.8);
+            font-size: 0.95rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            border-bottom: 4px solid transparent;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+        }
+
+        .factory-tab:hover {
+            background: rgba(255,255,255,0.1);
+            color: var(--white);
+        }
+
+        .factory-tab.active {
+            background: rgba(255,255,255,0.15);
+            color: var(--white);
+            border-bottom-color: var(--secondary);
+        }
+
+        .factory-content {
+            padding: 2rem;
+            display: none;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .factory-content.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Tab 1: Process Flow Interactive */
+        .process-flow-interactive {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 1rem;
+            flex-wrap: wrap;
+            padding: 2rem;
+            background: var(--bg-light);
+            border-radius: var(--radius-md);
+            margin-bottom: 2rem;
+        }
+
+        .process-step {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .process-icon {
+            width: 100px;
+            height: 100px;
+            background: var(--white);
+            border: 4px solid var(--primary);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            transition: var(--transition);
+            box-shadow: var(--shadow);
+        }
+
+        .process-step:hover .process-icon {
+            transform: scale(1.15) rotate(5deg);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .process-step.active .process-icon {
+            background: var(--primary);
+            color: var(--white);
+            transform: scale(1.2);
+        }
+
+        .process-step-label {
+            font-weight: 700;
+            font-size: 1rem;
+            color: var(--primary);
+        }
+
+        .process-arrow {
+            font-size: 2rem;
+            color: var(--secondary);
+            font-weight: bold;
+        }
+
+        .process-detail {
+            background: var(--white);
+            border-radius: var(--radius-md);
+            padding: 1.5rem;
+            box-shadow: var(--shadow);
+            border-left: 5px solid var(--primary);
+            margin-top: 1rem;
+        }
+
+        .process-detail h4 {
+            color: var(--primary);
+            margin-bottom: 0.75rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .process-detail p {
+            color: var(--text-main);
+            line-height: 1.6;
+        }
+
+        /* Tab 2: Accounting Type Sorter */
+        .type-sorter {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            margin: 1.5rem 0;
+        }
+
+        @media (max-width: 768px) {
+            .type-sorter {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .type-bin {
+            padding: 1.5rem;
+            border-radius: var(--radius-md);
+            min-height: 300px;
+        }
+
+        .type-bin.financial {
+            background: linear-gradient(135deg, var(--info-light) 0%, var(--white) 100%);
+            border: 3px solid var(--info);
+        }
+
+        .type-bin.managerial {
+            background: linear-gradient(135deg, rgba(46,204,113,0.15) 0%, var(--white) 100%);
+            border: 3px solid var(--success);
+        }
+
+        .type-bin h4 {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-bottom: 1rem;
+            padding-bottom: 0.75rem;
+            border-bottom: 2px solid;
+        }
+
+        .type-bin.financial h4 {
+            color: var(--info);
+            border-bottom-color: var(--info);
+        }
+
+        .type-bin.managerial h4 {
+            color: var(--success);
+            border-bottom-color: var(--success);
+        }
+
+        .scenario-cards {
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+        }
+
+        .scenario-card {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 1rem;
+            background: var(--white);
+            border-radius: var(--radius-sm);
+            cursor: grab;
+            transition: var(--transition);
+            box-shadow: var(--shadow-sm);
+            font-size: 0.95rem;
+        }
+
+        .scenario-card:hover {
+            transform: translateX(5px);
+            box-shadow: var(--shadow);
+        }
+
+        .scenario-card.dragging {
+            opacity: 0.5;
+            cursor: grabbing;
+        }
+
+        .scenario-card .drag-handle {
+            font-size: 1.2rem;
+            color: var(--text-muted);
+        }
+
+        .scenario-card .card-content {
+            flex: 1;
+        }
+
+        .scenario-card.correct {
+            animation: correctPulse 0.5s ease;
+        }
+
+        .scenario-card.placed {
+            display: none;
+        }
+
+        @keyframes correctPulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+
+        .bin-placeholder {
+            text-align: center;
+            padding: 2rem;
+            color: var(--text-muted);
+            font-style: italic;
+            border: 2px dashed currentColor;
+            border-radius: var(--radius-sm);
+            margin-top: 1rem;
+        }
+
+        .bin-placeholder.filled {
+            border: none;
+            padding: 1rem;
+            text-align: left;
+        }
+
+        .score-display {
+            text-align: center;
+            padding: 1rem;
+            background: var(--primary);
+            color: var(--white);
+            border-radius: var(--radius-md);
+            margin-top: 1rem;
+            font-weight: 600;
+        }
+
+        /* Tab 3: Career Explorer */
+        .career-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+            margin: 1.5rem 0;
+        }
+
+        .career-card {
+            background: var(--white);
+            border-radius: var(--radius-md);
+            padding: 1.5rem;
+            text-align: center;
+            cursor: pointer;
+            transition: var(--transition);
+            border: 3px solid transparent;
+            box-shadow: var(--shadow);
+        }
+
+        .career-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .career-card.active {
+            border-color: var(--primary);
+            background: var(--primary-light);
+        }
+
+        .career-icon {
+            font-size: 3rem;
+            margin-bottom: 0.75rem;
+        }
+
+        .career-name {
+            font-weight: 700;
+            font-size: 1rem;
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+        }
+
+        .career-desc {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+        }
+
+        .career-detail {
+            background: var(--bg-light);
+            border-radius: var(--radius-md);
+            padding: 1.5rem;
+            margin-top: 1.5rem;
+            border-left: 5px solid var(--primary);
+        }
+
+        .career-detail h4 {
+            color: var(--primary);
+            margin-bottom: 1rem;
+        }
+
+        .career-detail ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .career-detail li {
+            padding: 0.5rem 0;
+            padding-left: 1.5rem;
+            position: relative;
+        }
+
+        .career-detail li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: var(--success);
+            font-weight: bold;
+        }
+    </style>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-50MTQPVR7D"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-50MTQPVR7D');
+</script>
+
+</head>
+
+<body>
+    <header>
+        <div class="container nav-container">
+            <a href="../../index.html" class="logo">ACCOUNTING<span>ESSENTIALS</span></a>
+            <nav class="nav-links">
+                <a href="../../index.html">Home</a>
+                <a href="../part1.html">Part 1</a>
+                <a href="../../part2/part2.html">Part 2</a>
+                <a href="../../part3/part3.html">Part 3</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container">
+        <div class="breadcrumbs">
+            <a href="../../index.html">Home</a> <span>/</span> <a href="../part1.html">Part 1</a> <span>/</span> <a
+                href="ch01.html">Chapter 1</a> <span>/</span> C1
+        </div>
+
+        <article class="animate-fade-in">
+            <div class="kp-header">
+                <h1 style="border-left: 8px solid var(--secondary); padding-left: 1rem; margin: 2rem 0;">Purpose, Users, and Opportunities</h1>
+            </div>
+
+            <!-- Learning Objectives -->
+            <section class="kp-section">
+                <h2>🎯 Learning Objectives</h2>
+                <div class="learning-objectives">
+                    <ul>
+                        <li>Understand why accounting is called the "language of business"</li>
+                        <li>Identify the three fundamental functions of an accounting system</li>
+                        <li>Distinguish between external users (Financial Accounting) and internal users (Managerial Accounting)</li>
+                        <li>Recognize the key differences between Financial and Managerial accounting</li>
+                        <li>Explore the four broad career paths in accounting</li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- Background & Principles -->
+            <section class="kp-section">
+                <h2>📚 Background & Principles</h2>
+                <p>Accounting is not just about numbers—it's about <strong>information systems</strong> that help businesses make decisions. Think of accounting as the dashboard of a car. Just as a driver needs speed, fuel, and engine temperature to navigate safely, business leaders need financial information to steer their organizations effectively.</p>
+
+                <div class="concept-card" style="margin: 1.5rem 0;">
+                    <strong>Core Principle:</strong> Accounting serves as an <strong>information and measurement system</strong> that identifies, records, and communicates economic events of a business entity to interested users.
+                </div>
+
+                <p>This system operates on three fundamental assumptions that form its foundation:</p>
+                <div class="key-concepts-grid">
+                    <div class="concept-card">
+                        <strong>Entity Concept</strong>
+                        <p>The business is treated as separate from its owner's personal finances. Your personal expenses are not business expenses.</p>
+                    </div>
+                    <div class="concept-card">
+                        <strong>Monetary Unit Assumption</strong>
+                        <p>All transactions are expressed in terms of money (currency) to provide a common measurement basis.</p>
+                    </div>
+                    <div class="concept-card">
+                        <strong>Periodicity Assumption</strong>
+                        <p>The life of a business is divided into artificial time periods (months, quarters, years) for reporting purposes.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Key Concepts -->
+            <section class="kp-section">
+                <h2>🔑 Key Concepts</h2>
+                <div class="key-concepts-grid">
+                    <div class="concept-card">
+                        <strong>Identifying</strong>
+                        <p>The process of selecting which economic events are relevant to record. Only transactions that affect the financial position of the business qualify.</p>
+                        <em>Example: Selling coffee (record) vs. Employee's personal lunch (ignore)</em>
+                    </div>
+                    <div class="concept-card">
+                        <strong>Recording</strong>
+                        <p>Maintaining a chronological, systematic diary of all identified economic events. This creates the audit trail.</p>
+                        <em>Example: Recording sales as they happen, not at year-end.</em>
+                    </div>
+                    <div class="concept-card">
+                        <strong>Communicating</strong>
+                        <p>Summarizing recorded data into financial reports that stakeholders can understand and use for decision-making.</p>
+                        <em>Example: Balance Sheet, Income Statement, Cash Flow Statement.</em>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Deep Dive with Depth Toggle -->
+            <section class="kp-section">
+                <h2>🔍 Deep Dive</h2>
+                <p>Explore accounting fundamentals at different levels of depth. Choose your learning path:</p>
+
+                <div class="depth-toggle">
+                    <button class="depth-btn active" onclick="setDepth('A')">Depth A: Foundational</button>
+                    <button class="depth-btn" onclick="setDepth('B')">Depth B: Standard</button>
+                    <button class="depth-btn" onclick="setDepth('C')">Depth C: Advanced</button>
+                </div>
+
+                <!-- Depth A: Foundational -->
+                <div id="depth-A" class="depth-content active">
+                    <h3>🟢 Foundational Level</h3>
+                    <p>At this level, focus on understanding the <strong>basic building blocks</strong> of accounting.</p>
+
+                    <div class="worked-example">
+                        <h4>Basic Example: Java Joint Coffee Shop</h4>
+                        <p><strong>Scenario:</strong> Java Joint sells 100 cups of coffee today at $3 each.</p>
+
+                        <div class="example-step">
+                            <strong>Step 1: Identify the Event</strong>
+                            <p>Selling coffee is a relevant economic event. It changes the financial position of the business.</p>
+                        </div>
+
+                        <div class="example-step">
+                            <strong>Step 2: Classify the Effect</strong>
+                            <p>Cash increases by $300 (100 cups × $3). Revenue increases by $300.</p>
+                        </div>
+
+                        <div class="example-step">
+                            <strong>Step 3: Understand the Impact</strong>
+                            <p>The business now has more resources (cash) and has earned revenue from providing a service.</p>
+                        </div>
+                    </div>
+
+                    <div class="professional-tip">
+                        <strong>💡 Professional Tip:</strong> Always ask: <em>"Did this event change what we own, what we owe, or what we earned?"</em> If yes, it's an accounting event.
+                    </div>
+                </div>
+
+                <!-- Depth B: Standard -->
+                <div id="depth-B" class="depth-content">
+                    <h3>🟡 Standard Level</h3>
+                    <p>At this level, understand how the three functions work together in a complete accounting cycle.</p>
+
+                    <div class="worked-example">
+                        <h4>Standard Example: Week at Java Joint</h4>
+                        <p><strong>Scenario:</strong> Over one week, Java Joint:</p>
+                        <ul>
+                            <li>Sold $2,000 worth of coffee (cash sales)</li>
+                            <li>Paid $500 for coffee beans (expense)</li>
+                            <li>Received invoice for $200 electricity (expense, unpaid)</li>
+                            <li>Paid employee wages of $800</li>
+                        </ul>
+
+                        <div class="example-step">
+                            <strong>Step 1: Identification Phase</strong>
+                            <p>All four events are economic events affecting the business. They are identified and ready for recording.</p>
+                        </div>
+
+                        <div class="example-step">
+                            <strong>Step 2: Recording Phase</strong>
+                            <p>Each event is recorded in the journal chronologically:</p>
+                            <ul>
+                                <li>Monday: Debit Cash $2,000 / Credit Revenue $2,000</li>
+                                <li>Tuesday: Debit Coffee Expense $500 / Credit Cash $500</li>
+                                <li>Wednesday: Debit Electricity Expense $200 / Credit Accounts Payable $200</li>
+                                <li>Friday: Debit Wages Expense $800 / Credit Cash $800</li>
+                            </ul>
+                        </div>
+
+                        <div class="example-step">
+                            <strong>Step 3: Communication Phase</strong>
+                            <p>At week end, summarize:</p>
+                            <ul>
+                                <li><strong>Revenue:</strong> $2,000</li>
+                                <li><strong>Total Expenses:</strong> $1,500 ($500 + $200 + $800)</li>
+                                <li><strong>Net Income:</strong> $500 ($2,000 - $1,500)</li>
+                                <li><strong>Cash Position:</strong> $700 increase ($2,000 - $500 - $800)</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="misconception-alert">
+                        <strong>⚠️ Common Misconception:</strong> "Accounting only deals with money."
+                        <br><br>
+                        <strong>Correction:</strong> Accounting deals with <strong>all economic resources</strong>—not just cash. It tracks inventory, equipment, receivables, payables, and intangible assets like patents.
+                    </div>
+                </div>
+
+                <!-- Depth C: Advanced -->
+                <div id="depth-C" class="depth-content">
+                    <h3>🔴 Advanced Level</h3>
+                    <p>At this level, explore complex scenarios and professional applications.</p>
+
+                    <div class="worked-example">
+                        <h4>Advanced Example: Professional Service Firm</h4>
+                        <p><strong>Scenario:</strong> A consulting firm has multiple revenue streams and complex cost structures. Consider:</p>
+
+                        <div class="key-concepts-grid" style="margin: 1rem 0;">
+                            <div class="concept-card">
+                                <strong>Revenue Recognition Complexity</strong>
+                                <p>Multiple projects with different completion stages. Some revenue is earned incrementally (percentage-of-completion method), some upon delivery.</p>
+                            </div>
+                            <div class="concept-card">
+                                <strong>Cost Allocation</strong>
+                                <p>Overhead costs (rent, utilities) must be allocated to different projects based on labor hours or machine hours.</p>
+                            </div>
+                            <div class="concept-card">
+                                <strong>Accrual Adjustments</strong>
+                                <p>Recording revenue when earned (not when cash received) and expenses when incurred (not when paid). This requires month-end adjusting entries.</p>
+                            </div>
+                        </div>
+
+                        <h4 style="margin-top: 2rem;">Professional Application</h4>
+                        <p>Consider a firm with these year-end adjustments:</p>
+                        <ul>
+                            <li><strong>Unbilled Services:</strong> $50,000 of work completed but not yet billed (accrued revenue)</li>
+                            <li><strong>Unearned Revenue:</strong> $20,000 received in advance for next year's projects</li>
+                            <li><strong>Accrued Expenses:</strong> $15,000 in salaries earned but not yet paid</li>
+                            <li><strong>Prepaid Expenses:</strong> $8,000 insurance paid in advance for next year</li>
+                        </ul>
+
+                        <div class="professional-tip">
+                            <strong>💡 Professional Insight:</strong> These adjustments ensure financial statements reflect the <strong>matching principle</strong>—revenues are matched with the expenses that helped generate them. This is critical for accurate profitability analysis.
+                        </div>
+                    </div>
+
+                    <div class="misconception-alert">
+                        <strong>⚠️ Advanced Misconception:</strong> "If we follow the rules exactly, the financial statements are always perfectly accurate."
+                        <br><br>
+                        <strong>Reality:</strong> Accounting involves <strong>estimates and judgments</strong> (depreciation methods, bad debt allowance, inventory valuation). Two accountants can make different but equally reasonable estimates. Professional judgment is essential.
+                    </div>
+                </div>
+            </section>
+
+            <!-- Visual Diagram with Interactive Factory -->
+            <section class="kp-section">
+                <h2>🎨 Visual: Accounting as an Information Flow</h2>
+                <p>Watch how accounting processes economic events into useful information:</p>
+
+                <div class="accounting-flow-diagram">
+                    <div class="flow-node identify">
+                        1. IDENTIFY
+                        <small>Economic Events</small>
+                    </div>
+                    <div class="flow-arrow">→</div>
+                    <div class="flow-node record">
+                        2. RECORD
+                        <small>Journal Entries</small>
+                    </div>
+                    <div class="flow-arrow">→</div>
+                    <div class="flow-node communicate">
+                        3. COMMUNICATE
+                        <small>Financial Statements</small>
+                </div>
+            </section>
+
+            <!-- Financial vs Managerial Accounting -->
+            <section class="kp-section">
+                <h2>⚖️ Financial vs. Managerial Accounting</h2>
+                <p>These two branches serve different users with different needs:</p>
+
+                <div class="table-scroll">
+                    <table class="comparison-table">
+                        <thead>
+                            <tr>
+                                <th>Feature</th>
+                                <th>Financial Accounting (External)</th>
+                                <th>Managerial Accounting (Internal)</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>Primary Users</strong></td>
+                                <td>Investors, Creditors, Government Agencies, External Auditors</td>
+                                <td>Managers, Directors, Internal Decision-Makers</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Time Focus</strong></td>
+                                <td>Historical (Past Performance)</td>
+                                <td>Future-Oriented (Budgeting & Planning)</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Rules & Standards</strong></td>
+                                <td>GAAP/IFRS - Strict Compliance Required</td>
+                                <td>Flexible - Whatever Management Finds Useful</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Reporting Scope</strong></td>
+                                <td>Whole Organization (Consolidated)</td>
+                                <td>Segments, Departments, Products, or Regions</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Report Frequency</strong></td>
+                                <td>Annual/Quarterly (Periodic)</td>
+                                <td>Daily/Weekly/Monthly (As Needed)</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Information Type</strong></td>
+                                <td>Quantitative, Verifiable, Objective</td>
+                                <td>Quantitative & Qualitative, May Include Non-Financial Data</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- Career Opportunities -->
+            <section class="kp-section">
+                <h2>💼 Career Opportunities in Accounting</h2>
+                <p>Accounting opens doors to diverse and rewarding career paths. Here are the four major areas:</p>
+
+                <div class="card-grid" style="margin-top: 2rem;">
+                    <div class="content-card" style="border-left: 5px solid var(--primary);">
+                        <h3 style="color: var(--primary);">1. Financial Accounting</h3>
+                        <p><strong>Focus:</strong> Preparation, analysis, and auditing of external financial reports.</p>
+                        <p><strong>Typical Roles:</strong> Auditor, Financial Analyst, Controller, CFO</p>
+                        <p><strong>Key Skills:</strong> GAAP/IFRS expertise, financial statement analysis, internal controls</p>
+                    </div>
+
+                    <div class="content-card" style="border-left: 5px solid var(--success);">
+                        <h3 style="color: var(--success);">2. Managerial Accounting</h3>
+                        <p><strong>Focus:</strong> Internal decision support, budgeting, and performance evaluation.</p>
+                        <p><strong>Typical Roles:</strong> Cost Accountant, Budget Analyst, Management Consultant</p>
+                        <p><strong>Key Skills:</strong> Cost analysis, forecasting, strategic planning</p>
+                    </div>
+
+                    <div class="content-card" style="border-left: 5px solid var(--warning);">
+                        <h3 style="color: var(--warning);">3. Taxation</h3>
+                        <p><strong>Focus:</strong> Tax planning, compliance, and regulatory matters.</p>
+                        <p><strong>Typical Roles:</strong> Tax Advisor, Tax Auditor, IRS Agent, Corporate Tax Manager</p>
+                        <p><strong>Key Skills:</strong> Tax law expertise, research, compliance planning</p>
+                    </div>
+
+                    <div class="content-card" style="border-left: 5px solid var(--info);">
+                        <h3 style="color: var(--info);">4. Accounting-Related Fields</h3>
+                        <p><strong>Focus:</strong> Using accounting knowledge in related business areas.</p>
+                        <p><strong>Typical Roles:</strong> Commercial Lender, Investment Banker, Business Consultant, Financial Planner</p>
+                        <p><strong>Key Skills:</strong> Financial analysis, risk assessment, business acumen</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Interactive: Accounting Factory -->
+            <section class="accounting-factory">
+                <div class="factory-tabs">
+                    <button class="factory-tab active" onclick="switchFactoryTab('process', event)">
+                        🔄 Accounting Process
+                    </button>
+                    <button class="factory-tab" onclick="switchFactoryTab('types', event)">
+                        ⚖️ Financial vs Managerial
+                    </button>
+                    <button class="factory-tab" onclick="switchFactoryTab('careers', event)">
+                        💼 Career Paths
+                    </button>
+                </div>
+
+                <!-- Tab 1: Accounting Process Interactive -->
+                <div id="tab-process" class="factory-content active">
+                    <p style="margin-bottom: 1.5rem; color: var(--text-muted);">
+                        Click on each step to explore how accounting transforms business events into useful information:
+                    </p>
+
+                    <div class="process-flow-interactive">
+                        <div class="process-step" onclick="showProcessDetail('identify')">
+                            <div class="process-icon">🔍</div>
+                            <div class="process-step-label">IDENTIFY</div>
+                        </div>
+                        <div class="process-arrow">→</div>
+                        <div class="process-step" onclick="showProcessDetail('record')">
+                            <div class="process-icon">📝</div>
+                            <div class="process-step-label">RECORD</div>
+                        </div>
+                        <div class="process-arrow">→</div>
+                        <div class="process-step" onclick="showProcessDetail('communicate')">
+                            <div class="process-icon">📊</div>
+                            <div class="process-step-label">COMMUNICATE</div>
+                        </div>
+                    </div>
+
+                    <div id="process-detail" class="process-detail" style="display: none;">
+                        <h4 id="detail-title">Step Details</h4>
+                        <p id="detail-text">Click on a step above to learn more.</p>
+                    </div>
+                </div>
+
+                <!-- Tab 2: Accounting Type Sorter -->
+                <div id="tab-types" class="factory-content">
+                    <p style="margin-bottom: 1.5rem; color: var(--text-muted);">
+                        Drag each scenario to the correct accounting type:
+                    </p>
+
+                    <div class="type-sorter">
+                        <div class="type-bin financial" ondragover="allowDrop(event)" ondrop="dropScenario(event, 'financial')">
+                            <h4>💰 Financial Accounting</h4>
+                            <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 1rem;">External reports for investors & creditors</p>
+                            <div class="bin-placeholder" id="financial-placeholder">
+                                Drop scenarios here
+                            </div>
+                            <div class="scenario-cards" id="financial-placed"></div>
+                        </div>
+
+                        <div class="type-bin managerial" ondragover="allowDrop(event)" ondrop="dropScenario(event, 'managerial')">
+                            <h4>🏢 Managerial Accounting</h4>
+                            <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 1rem;">Internal reports for management decisions</p>
+                            <div class="bin-placeholder" id="managerial-placeholder">
+                                Drop scenarios here
+                            </div>
+                            <div class="scenario-cards" id="managerial-placed"></div>
+                        </div>
+                    </div>
+
+                    <div class="scenario-cards" id="scenario-pool">
+                        <div class="scenario-card" draggable="true" ondragstart="dragScenario(event)" data-type="financial" id="scenario-1">
+                            <span class="drag-handle">⋮⋮</span>
+                            <span class="card-content">Bank deciding on a loan application</span>
+                        </div>
+                        <div class="scenario-card" draggable="true" ondragstart="dragScenario(event)" data-type="managerial" id="scenario-2">
+                            <span class="drag-handle">⋮⋮</span>
+                            <span class="card-content">Manager deciding next month's staffing levels</span>
+                        </div>
+                        <div class="scenario-card" draggable="true" ondragstart="dragScenario(event)" data-type="financial" id="scenario-3">
+                            <span class="drag-handle">⋮⋮</span>
+                            <span class="card-content">Investor analyzing annual reports</span>
+                        </div>
+                        <div class="scenario-card" draggable="true" ondragstart="dragScenario(event)" data-type="managerial" id="scenario-4">
+                            <span class="drag-handle">⋮⋮</span>
+                            <span class="card-content">Factory supervisor calculating product costs</span>
+                        </div>
+                        <div class="scenario-card" draggable="true" ondragstart="dragScenario(event)" data-type="financial" id="scenario-5">
+                            <span class="drag-handle">⋮⋮</span>
+                            <span class="card-content">Government tax agency reviewing tax returns</span>
+                        </div>
+                        <div class="scenario-card" draggable="true" ondragstart="dragScenario(event)" data-type="managerial" id="scenario-6">
+                            <span class="drag-handle">⋮⋮</span>
+                            <span class="card-content">CEO creating next year's budget plan</span>
+                        </div>
+                    </div>
+
+                    <div class="score-display" id="type-score">Score: 0 / 6 Correct</div>
+                </div>
+
+                <!-- Tab 3: Career Explorer -->
+                <div id="tab-careers" class="factory-content">
+                    <p style="margin-bottom: 1.5rem; color: var(--text-muted);">
+                        Click on each career path to learn more about accounting opportunities:
+                    </p>
+
+                    <div class="career-grid">
+                        <div class="career-card" onclick="showCareerDetail('audit')">
+                            <div class="career-icon">🔍</div>
+                            <div class="career-name">Auditing</div>
+                            <div class="career-desc">Examine financial records</div>
+                        </div>
+                        <div class="career-card" onclick="showCareerDetail('tax')">
+                            <div class="career-icon">📋</div>
+                            <div class="career-name">Taxation</div>
+                            <div class="career-desc">Tax planning & compliance</div>
+                        </div>
+                        <div class="career-card" onclick="showCareerDetail('managerial')">
+                            <div class="career-icon">📈</div>
+                            <div class="career-name">Managerial</div>
+                            <div class="career-desc">Internal business analysis</div>
+                        </div>
+                        <div class="career-card" onclick="showCareerDetail('consulting')">
+                            <div class="career-icon">💼</div>
+                            <div class="career-name">Consulting</div>
+                            <div class="career-desc">Business advisory services</div>
+                        </div>
+                    </div>
+
+                    <div id="career-detail" class="career-detail" style="display: none;">
+                        <h4 id="career-title">Career Details</h4>
+                        <p id="career-desc"></p>
+                        <ul id="career-skills"></ul>
+                    </div>
+                </div>
+            </section>
+            </section>
+
+            <!-- Common Misconceptions -->
+            <section class="kp-section">
+                <h2>🚫 Common Misconceptions & Professional Tips</h2>
+
+                <div class="misconception-alert">
+                    <strong>❌ Misconception 1:</strong> "Accounting is just about math and calculations."
+                    <br><br>
+                    <strong>✅ Reality:</strong> While math is important, <strong>professional judgment and interpretation</strong> are crucial. Accountants must decide which accounting method to use, how to estimate future outcomes, and how to present complex transactions meaningfully.
+                </div>
+
+                <div class="misconception-alert">
+                    <strong>❌ Misconception 2:</strong> "Only people who are good at math can succeed in accounting."
+                    <br><br>
+                    <strong>✅ Reality:</strong> Modern accounting requires <strong>analytical thinking, problem-solving, communication skills, and technology proficiency</strong>. Understanding business processes is often more important than advanced mathematics.
+                </div>
+
+                <div class="misconception-alert">
+                    <strong>❌ Misconception 3:</strong> "Accounting is boring and repetitive."
+                    <br><br>
+                    <strong>✅ Reality:</strong> Accounting involves <strong>investigative work, strategic planning, fraud detection, mergers & acquisitions analysis, and international business</strong>. Every transaction tells a story about business decisions and strategies.
+                </div>
+
+                <div class="professional-tip">
+                    <strong>💡 Professional Tip #1:</strong> Develop strong <strong>communication skills</strong>. Accountants must explain complex financial concepts to non-financial managers and executives effectively.
+                </div>
+
+                <div class="professional-tip">
+                    <strong>💡 Professional Tip #2:</strong> Stay current with <strong>technology</strong>. Modern accounting uses ERP systems (SAP, Oracle), data analytics tools, and automation. Technical skills are increasingly valuable.
+                </div>
+
+                <div class="professional-tip">
+                    <strong>💡 Professional Tip #3:</strong> Understand <strong>business operations</strong>, not just accounting rules. The best accountants can walk into a factory or retail store and understand what's happening operationally.
+                </div>
+            </section>
+
+            <!-- Memory Aids -->
+            <section class="kp-section">
+                <h2>🧠 Memory Aids & Quick Reference</h2>
+
+                <div class="memory-aid-card">
+                    <strong>⚡ Quick Recall: The Three Functions</strong>
+                    <p style="margin-top: 1rem;"><strong>Identify → Record → Communicate</strong></p>
+                    <p style="margin-top: 0.5rem;">These are the three pillars of every accounting system. You can't skip any of them!</p>
+                </div>
+
+                <div class="memory-aid-card">
+                    <strong>⚡ Quick Recall: User Types</strong>
+                    <p style="margin-top: 1rem;"><strong>External = Financial = Past = Rules = Whole Org</strong></p>
+                    <p><strong>Internal = Managerial = Future = Flexible = Segments</strong></p>
+                </div>
+
+                <h3 style="margin-top: 2rem;">📖 Further Reading</h3>
+                <div class="key-concepts-grid">
+                    <div class="concept-card">
+                        <strong>GAAP (Generally Accepted Accounting Principles)</strong>
+                        <p>The standard framework for financial accounting in the United States.</p>
+                    </div>
+                    <div class="concept-card">
+                        <strong>IFRS (International Financial Reporting Standards)</strong>
+                        <p>Global accounting standards used in over 140 countries.</p>
+                    </div>
+                    <div class="concept-card">
+                        <strong>CPA (Certified Public Accountant)</strong>
+                        <p>The premier certification for financial accountants in the US.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Glossary -->
+            <section class="kp-section">
+                <h2>📖 Glossary</h2>
+                <div class="key-concepts-grid">
+                    <div class="concept-card">
+                        <strong>Accounting</strong>
+                        <p>An information and measurement system that identifies, records, and communicates economic events.</p>
+                    </div>
+                    <div class="concept-card">
+                        <strong>Economic Event</strong>
+                        <p>An occurrence that affects the financial position of a business entity.</p>
+                    </div>
+                    <div class="concept-card">
+                        <strong>Financial Accounting</strong>
+                        <p>The branch of accounting concerned with providing external users with financial information.</p>
+                    </div>
+                    <div class="concept-card">
+                        <strong>Managerial Accounting</strong>
+                        <p>The branch of accounting concerned with providing internal users with information for decision-making.</p>
+                    </div>
+                    <div class="concept-card">
+                        <strong>Entity Concept</strong>
+                        <p>The assumption that business is separate from its owner's personal affairs.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Final Knowledge Check -->
+            <section class="interactive-section">
+                <h2>🎯 Final Knowledge Check</h2>
+                <p>Test your understanding of Purpose, Users, and Opportunities:</p>
+
+                <div class="quiz-container" data-success-text="Excellent! You've mastered the fundamentals of accounting's purpose and user types." data-explanation="Remember: Financial Accounting is for external users (past-focused, rules-based), while Managerial Accounting is for internal users (future-focused, flexible).">
+                    <div class="input-group">
+                        <p><strong>Question 1:</strong> Which accounting function involves maintaining a chronological diary of events?</p>
+                        <label><input type="radio" name="final1" value="identify" data-correct="false"> Identifying</label><br>
+                        <label><input type="radio" name="final1" value="record" data-correct="true"> Recording</label><br>
+                        <label><input type="radio" name="final1" value="communicate" data-correct="false"> Communicating</label>
+                    </div>
+
+                    <div class="input-group">
+                        <p><strong>Question 2:</strong> A manager deciding next month's production schedule needs which type of accounting?</p>
+                        <label><input type="radio" name="final2" value="financial" data-correct="false"> Financial Accounting</label><br>
+                        <label><input type="radio" name="final2" value="managerial" data-correct="true"> Managerial Accounting</label>
+                    </div>
+
+                    <div class="input-group">
+                        <p><strong>Question 3:</strong> Which statement is TRUE about accounting?</p>
+                        <label><input type="radio" name="final3" value="math" data-correct="false"> It's primarily about advanced mathematics</label><br>
+                        <label><input type="radio" name="final3" value="rules" data-correct="false"> There is only one correct way to record every transaction</label><br>
+                        <label><input type="radio" name="final3" value="judgment" data-correct="true"> It involves professional judgment and interpretation</label>
+                    </div>
+
+                    <button class="btn btn-primary quiz-submit">Submit All Answers</button>
+                    <div class="feedback"></div>
+                    <button class="quiz-retry">Try Again</button>
+                </div>
+            </section>
+
+            <!-- Navigation -->
+            <nav class="kp-navigation" style="display: flex; justify-content: space-between; margin-top: 4rem; padding-bottom: 2rem;">
+                <a href="ch01.html" class="btn" style="background: #eee;">← Back to Chapter 1</a>
+                <a href="ch01_C2.html" class="btn btn-primary">Next: Ethics & GAAP →</a>
+            </nav>
+        </article>
+    </main>
+
+    <footer style="margin-top: 5rem; padding: 2rem 0; border-top: 1px solid #ddd; text-align: center; color: #888;">
+        <p>Accounting Essentials | Chapter 1 | Concept 1</p>
+    </footer>
+
+    <script src="../../components-enhanced.js"></script>
+    <script>
+        function setDepth(depth) {
+            // Update buttons
+            document.querySelectorAll('.depth-btn').forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+
+            // Update content visibility
+            document.querySelectorAll('.depth-content').forEach(content => content.classList.remove('active'));
+            document.getElementById(`depth-${depth}`).classList.add('active');
+        }
+
+        // ========== Accounting Factory Interactive Functions ==========
+        
+        // Process Details
+        const processDetails = {
+            identify: {
+                title: "🔍 Step 1: IDENTIFY - Selecting Economic Events",
+                text: "The first step is to determine which business activities should be recorded. Only <strong>economic events</strong> that affect the financial position of the business qualify. This means transactions that change assets, liabilities, or equity. <br><br><em>Example:</em> Selling products? YES. Manager's family lunch? NO."
+            },
+            record: {
+                title: "📝 Step 2: RECORD - Journal Entries",
+                text: "Identified events are systematically recorded in chronological order. Each transaction is documented with details like date, amounts, and accounts affected. This creates an <strong>audit trail</strong> that can be traced back if needed.<br><br><em>Example:</em> Recording sales of $500 when it happens, not waiting until year-end."
+            },
+            communicate: {
+                title: "📊 Step 3: COMMUNICATE - Financial Statements",
+                text: "Recorded data is summarized into financial reports that stakeholders can understand. These include the <strong>Balance Sheet, Income Statement, and Cash Flow Statement</strong>. The goal is to communicate useful information for decision-making.<br><br><em>Example:</em> Publishing quarterly reports for investors and creditors."
+            }
+        };
+
+        function showProcessDetail(step) {
+            const detail = processDetails[step];
+            const detailDiv = document.getElementById('process-detail');
+            const titleEl = document.getElementById('detail-title');
+            const textEl = document.getElementById('detail-text');
+            
+            // Update content
+            titleEl.innerHTML = detail.title;
+            textEl.innerHTML = detail.text;
+            
+            // Show with animation
+            detailDiv.style.display = 'block';
+            detailDiv.style.animation = 'none';
+            detailDiv.offsetHeight; // Trigger reflow
+            detailDiv.style.animation = 'fadeIn 0.3s ease';
+            
+            // Update active state on icons
+            document.querySelectorAll('.process-step').forEach((el, index) => {
+                el.classList.remove('active');
+            });
+            document.querySelectorAll('.process-step')[step === 'identify' ? 0 : step === 'record' ? 1 : 2].classList.add('active');
+        }
+
+        // Tab Switching
+        function switchFactoryTab(tabName, event) {
+            // Update tab buttons
+            document.querySelectorAll('.factory-tab').forEach(tab => {
+                tab.classList.remove('active');
+            });
+            event.target.classList.add('active');
+
+            // Update content panels
+            document.querySelectorAll('.factory-content').forEach(content => {
+                content.classList.remove('active');
+            });
+            document.getElementById('tab-' + tabName).classList.add('active');
+        }
+
+        // Type Sorter (Drag and Drop)
+        let correctCount = 0;
+        const totalScenarios = 6;
+
+        function dragScenario(event) {
+            event.dataTransfer.setData('text/plain', event.target.id);
+            event.target.classList.add('dragging');
+        }
+
+        function allowDrop(event) {
+            event.preventDefault();
+        }
+
+        function dropScenario(event, type) {
+            event.preventDefault();
+            const scenarioId = event.dataTransfer.getData('text/plain');
+            const scenario = document.getElementById(scenarioId);
+            
+            if (!scenario) return;
+
+            scenario.classList.remove('dragging');
+            const correctType = scenario.dataset.type;
+            
+            if (correctType === type) {
+                // Correct!
+                scenario.classList.add('placed');
+                scenario.classList.add('correct');
+                
+                // Add to the bin
+                const placedContainer = document.getElementById(type + '-placed');
+                const placeholder = document.getElementById(type + '-placeholder');
+                
+                if (placeholder) {
+                    placeholder.classList.add('filled');
+                    placeholder.textContent = '✓ Correct!';
+                }
+                
+                // Create new placed card
+                const placedCard = document.createElement('div');
+                placedCard.className = 'scenario-card';
+                placedCard.style.background = 'var(--success-light)';
+                placedCard.innerHTML = '<span style="color: var(--success);">✓</span> ' + scenario.querySelector('.card-content').textContent;
+                placedContainer.appendChild(placedCard);
+                
+                correctCount++;
+                updateScore();
+            } else {
+                // Wrong - animate shake
+                scenario.style.animation = 'none';
+                scenario.offsetHeight;
+                scenario.style.animation = 'correctPulse 0.5s ease';
+                scenario.style.borderColor = 'var(--error)';
+                setTimeout(() => {
+                    scenario.style.borderColor = '';
+                }, 1000);
+            }
+        }
+
+        function updateScore() {
+            const scoreEl = document.getElementById('type-score');
+            if (correctCount === totalScenarios) {
+                scoreEl.textContent = '🎉 Perfect! You mastered Financial vs Managerial Accounting!';
+                scoreEl.style.background = 'var(--success)';
+            } else {
+                scoreEl.textContent = `Score: ${correctCount} / ${totalScenarios} Correct`;
+            }
+        }
+
+        // Career Explorer
+        const careerData = {
+            audit: {
+                title: '🔍 Auditing',
+                desc: 'Examine financial records to ensure accuracy and compliance with laws and standards.',
+                skills: ['GAAP/IFRS knowledge', 'Analytical thinking', 'Attention to detail', 'Professional skepticism', 'Report writing']
+            },
+            tax: {
+                title: '📋 Taxation',
+                desc: 'Help individuals and businesses plan their taxes and ensure compliance with tax laws.',
+                skills: ['Tax law expertise', 'Research abilities', 'Planning strategies', 'Compliance knowledge', 'Client communication']
+            },
+            managerial: {
+                title: '📈 Managerial Accounting',
+                desc: 'Provide internal financial information to help management make business decisions.',
+                skills: ['Cost analysis', 'Budgeting', 'Forecasting', 'Performance evaluation', 'Strategic planning']
+            },
+            consulting: {
+                title: '💼 Consulting',
+                desc: 'Advise businesses on financial matters, improvements, and strategic decisions.',
+                skills: ['Business acumen', 'Problem solving', 'Presentation skills', 'Industry knowledge', 'Project management']
+            }
+        };
+
+        function showCareerDetail(career) {
+            const data = careerData[career];
+            const detail = document.getElementById('career-detail');
+            const title = document.getElementById('career-title');
+            const desc = document.getElementById('career-desc');
+            const skills = document.getElementById('career-skills');
+            
+            // Update content
+            title.textContent = data.title;
+            desc.textContent = data.desc;
+            
+            // Update skills list
+            skills.innerHTML = '';
+            data.skills.forEach(skill => {
+                const li = document.createElement('li');
+                li.textContent = skill;
+                skills.appendChild(li);
+            });
+            
+            // Show detail
+            detail.style.display = 'block';
+            detail.style.animation = 'none';
+            detail.offsetHeight;
+            detail.style.animation = 'fadeIn 0.3s ease';
+            
+            // Update active card
+            document.querySelectorAll('.career-card').forEach(card => {
+                card.classList.remove('active');
+            });
+            event.target.closest('.career-card').classList.add('active');
+        }
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,460 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>P3: Adjusting & Closing for Merchandisers | ACCOUNTING ESSENTIALS</title>
+    <link rel="stylesheet" href="../../styles.css">
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-50MTQPVR7D"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-50MTQPVR7D');
+</script>
+
+</head>
+
+<body>
+    <header>
+        <div class="container nav-container">
+            <a href="../../index.html" class="logo">ACCOUNTS<span>MASTER</span></a>
+            <nav class="nav-links">
+                <a href="../../index.html">Home</a>
+                <a href="../part1.html">Part 1</a>
+                <a href="../../part2/part2.html">Part 2</a>
+                <a href="../../part3/part3.html">Part 3</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container">
+        <div class="breadcrumbs">
+            <a href="../../index.html">Home</a> <span>/</span> <a href="../part1.html">Part 1</a> <span>/</span> <a href="../../part2/part2.html">Part 2</a> <span>/</span> <a href="ch05.html">Chapter 5</a> <span>/</span> P3
+        </div>
+
+        <article class="animate-fade-in">
+            <div class="kp-header">
+                <h1 style="border-left: 8px solid var(--primary-light); padding-left: 1rem; margin: 2rem 0;">Adjusting & Closing for Merchandisers</h1>
+            </div>
+
+            <!-- Learning Objectives -->
+            <section class="kp-section">
+                <h2>🎯 Learning Objectives</h2>
+                <div class="learning-objectives">
+                    <ul>
+                        <li>Understand the adjusting and closing process for merchandisers</li>
+                        <li>Prepare adjusting entries for inventory shrinkage</li>
+                        <li>Record closing entries for sales accounts</li>
+                        <li>Calculate cost of goods sold under periodic inventory systems</li>
+                        <li>Close temporary accounts at period-end</li>
+                        <li>Prepare post-closing trial balance</li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- Background & Principles -->
+            <section class="kp-section">
+                <h2>📚 Background & Principles</h2>
+                <p>The closing process ensures that temporary accounts with debit balances are reduced to zero at the end of an accounting period, and that real (permanent) accounts are transferred to retained earnings.</p>
+
+                <div class="concept-card" style="margin: 1.5rem 0;">
+                    <strong>Core Principle:</strong> The closing process updates account balances to prepare accurate financial statements for the next accounting period. Temporary accounts must start each period at zero.
+                </div>
+
+                <p>Key temporary accounts to close include sales accounts (revenue, returns, allowances, discounts) and certain contra accounts like inventory shrinkage adjustment.</p>
+
+                <div class="professional-tip">
+                    <strong>💡 Key Insight:</strong> The closing process ensures that income statement shows only current period activity, while balance sheet shows cumulative results. Without proper closing, both financial statements would be inaccurate.
+                </div>
+            </section>
+
+            <!-- Key Concepts -->
+            <section class="kp-section">
+                <h2>🔑 Key Concepts</h2>
+                <div class="key-concepts-grid">
+                    <div class="concept-card">
+                        <strong>Adjusting Entries</strong>
+                        <p>Journal entries made at the end of an accounting period to update account balances for items not yet recorded (accruals, deferrals, estimates).</p>
+                    </div>
+
+                    <div class="concept-card">
+                        <strong>Closing Entries</strong>
+                        <p>Journal entries that transfer balances from temporary accounts (revenues, expenses) to permanent accounts (retained earnings) and reset temporary accounts to zero for the new period.</p>
+                    </div>
+
+                    <div class="concept-card">
+                        <strong>Temporary Accounts</strong>
+                        <p>Accounts that are reset to zero at the end of each accounting period. Include revenues, expenses, and dividends.</p>
+                    </div>
+
+                    <div class="concept-card">
+                        <strong>Permanent Accounts</strong>
+                        <p>Accounts that are not reset to zero and whose balances carry forward to future periods. Include assets, liabilities, equity, and contra accounts.</p>
+                    </div>
+
+                    <div class="concept-card">
+                        <strong>Inventory Shrinkage</strong>
+                        <p>Difference between book inventory and physical count. Adjusted as COGS expense and reduces inventory.</p>
+                    </div>
+
+                    <div class="concept-card">
+                        <strong>Post-Closing Trial Balance</strong>
+                        <p>Trial balance prepared after adjusting and closing entries, showing only permanent account balances. Used to prepare financial statements.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Deep Dive -->
+            <section class="kp-section">
+                <h2>🔍 Deep Dive</h2>
+                <p>Explore adjusting and closing concepts at different levels of depth:</p>
+
+                <div class="depth-toggle">
+                    <button class="depth-btn active" onclick="setDepth('A')">Depth A: Foundational</button>
+                    <button class="depth-btn" onclick="setDepth('B')">Depth B: Standard</button>
+                    <button class="depth-btn" onclick="setDepth('C')">Depth C: Advanced</button>
+                </div>
+
+                <!-- Depth A -->
+                <div id="depth-A" class="depth-content active">
+                    <h3>🟢 Foundational Level</h3>
+                    <p>Understanding basic adjusting and closing principles.</p>
+
+                    <div class="worked-example">
+                        <h4>The Mystery of Shrinkage</h4>
+                        <p><strong>Analogy: The Missing Cookies</strong></p>
+                        <p>Imagine you have a cookie jar. Your computer says there are 100 cookies inside.</p>
+
+                        <div class="example-step">
+                            <strong>The Reality Check:</strong>
+                            <p>At end of year, you open jar and count only 95 cookies.</p>
+                        </div>
+                        <div class="example-step">
+                            <strong>What happened?</strong>
+                            <p>Maybe 5 broke (Damage) or someone took them (Theft). This is <strong>Shrinkage</strong>.</p>
+                        </div>
+                        <div class="example-step">
+                            <strong>The Adjustment:</strong>
+                            <p>You can't sell ghosts. You must lower the computer count to match reality.</p>
+                        </div>
+                        <div class="example-step">
+                            <strong>Journal Entry:</strong>
+                            <p>Debit Cost of Goods Sold | Credit Inventory</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Depth B -->
+                <div id="depth-B" class="depth-content">
+                    <h3>🟡 Standard Level</h3>
+                    <p>Detailed closing entries and sales account closure.</p>
+
+                    <div class="worked-example">
+                        <h4>Merchandising Closing Entries</h4>
+                        <p>The closing process includes closing sales accounts (revenues and their contra accounts) to properly calculate net income.</p>
+
+                        <div class="example-step">
+                            <strong>Step 1: Calculate Gross Sales</strong>
+                            <p>Gross Sales = Sales (credit balance)</p>
+                        </div>
+                        <div class="example-step">
+                            <strong>Step 2: Transfer Revenue to Income Summary</strong>
+                            <p>Debit Sales (reduces to zero), Credit Income Summary (closes revenue)</p>
+                        </div>
+                        <div class="example-step">
+                            <strong>Step 3: Transfer Contra Accounts to Income Summary</strong>
+                            <p>Debit Sales Returns, Sales Allowances, Sales Discounts (all reduce to zero)</p>
+                        </div>
+                        <div class="example-step">
+                            <strong>Step 4: Close Expense Accounts to Income Summary</strong>
+                            <p>Debit Income Summary (reduce to zero), Credit each expense account (reduces to zero)</p>
+                        </div>
+                        <div class="example-step">
+                            <strong>Step 5: Close Income Summary</strong>
+                            <p>Debit Income Summary (transfer net income), Credit Retained Earnings (permanent)</p>
+                        </div>
+                        <div class="example-step">
+                            <strong>Result:</strong>
+                            <p>All temporary accounts now have zero balances. Net income is properly reflected in Retained Earnings.</p>
+                        </div>
+                    </div>
+
+                    <div class="worked-example">
+                        <h4>Why Sales Returns and Allowances are Temporary</h4>
+                        <p>Sales Returns and Allowances have debit balances (reduce gross sales). They must be closed each period because they only reflect current period activity.</p>
+
+                        <div class="example-step">
+                            <strong>Normal balance:</strong>
+                            <p>These accounts normally have debit balances (reductions to revenue). Closing them transfers their balances to Income Summary.</p>
+                        </div>
+                        <div class="example-step">
+                            <strong>Closing entry:</strong>
+                            <p>Debit Income Summary (for total contra account balances), Credit Sales Returns, Sales Allowances, Sales Discounts (resets to zero)</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Depth C -->
+                <div id="depth-C" class="depth-content">
+                    <h3>🔴 Advanced Level</h3>
+                    <p>Complex closing scenarios and post-closing trial balance preparation.</p>
+
+                    <div class="worked-example">
+                        <h4>Inventory Shrinkage Analysis</h4>
+                        <p><strong>Scenario:</strong> Physical inventory count shows 98,000 units but book inventory shows 100,000. Cost per unit is $50. How to record?</p>
+
+                        <div class="example-step">
+                            <strong>Analysis:</strong>
+                            <p>Shrinkage = 100,000 - 98,000 = 2,000 units</p>
+                            <p>Cost of shrinkage = 2,000 × $50 = $100,000</p>
+                        </div>
+                        <div class="example-step">
+                            <strong>Entry:</strong>
+                            <p>Debit Cost of Goods Sold $100,000 (expense), Credit Inventory $100,000 (reduce book inventory to match physical count)</p>
+                        </div>
+                        <div class="example-step">
+                            <strong>Effect:</strong>
+                            <p>Inventory account now reflects physical reality. COGS increased by shrinkage expense. Net income reduced.</p>
+                        </div>
+                    </div>
+
+                    <div class="worked-example">
+                        <h4>Post-Closing Trial Balance Structure</h4>
+                        <p>The post-closing trial balance lists only permanent account balances after all temporary accounts are closed.</p>
+
+                        <div class="example-step">
+                            <strong>Permanent Accounts Shown:</strong>
+                            <p>Assets: Cash, Accounts Receivable, Inventory, PPE</p>
+                            <p>Liabilities: Accounts Payable, Notes Payable, Long-term Debt</p>
+                            <p>Equity: Common Stock, Retained Earnings, Accumulated Depreciation, Dividends, Treasury Stock</p>
+                        </div>
+                        <div class="example-step">
+                            <strong>Temporary Accounts Excluded:</strong>
+                            <p>Sales, Sales Returns, Sales Allowances, Sales Discounts, COGS, and all expense accounts</p>
+                        </div>
+                        <div class="example-step">
+                            <strong>Use:</strong>
+                            <p>Post-closing trial balance is the foundation for preparing Balance Sheet and Income Statement with accurate permanent account balances.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Interactive Shrinkage Calculator -->
+            <section class="kp-section">
+                <h2>🎨 Interactive: Shrinkage Calculator</h2>
+                <p>Calculate the adjustment needed when book inventory doesn't match physical count.</p>
+
+                <div class="simulator-container">
+                    <div class="input-group">
+                        <label>Book Inventory Balance ($)</label>
+                        <input type="number" id="book-inv" value="12500" oninput="calcShrinkage()">
+                    </div>
+                    <div class="input-group">
+                        <label>Physical Inventory Count ($)</label>
+                        <input type="number" id="phys-inv" value="12200" oninput="calcShrinkage()">
+                    </div>
+
+                    <div style="margin-top: 2rem; padding: 1.5rem; background: var(--bg-light); border-radius: 8px; text-align: center;">
+                        <span style="font-size: 0.8rem; color: var(--text-muted); text-transform: uppercase;">Shrinkage</span>
+                        <div id="shrink-res" style="font-size: 2.5rem; font-weight: 800; color: var(--error);">$300</div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Common Misconceptions -->
+            <section class="kp-section">
+                <h2>🚫 Common Misconceptions & Professional Tips</h2>
+
+                <div class="misconception-alert">
+                    <strong>❌ Misconception 1:</strong> "Closing entries are optional."
+                    <br><br>
+                    <strong>✅ Reality:</strong> Closing entries are MANDATORY under accrual accounting. Without closing, temporary accounts would accumulate incorrect balances, causing misleading financial statements.
+                </div>
+
+                <div class="misconception-alert">
+                    <strong>❌ Misconception 2:</strong> "You can close revenue without closing expense accounts."
+                    <br><br>
+                    <strong>✅ Reality:</strong> Both revenue AND expense accounts must be closed. Net income must be transferred to Retained Earnings after considering ALL temporary account balances.
+                </div>
+
+                <div class="misconception-alert">
+                    <strong>❌ Misconception 3:</strong> "Permanent accounts are reset to zero during closing."
+                    <br><br>
+                    <strong>✅ Reality:</strong> Only temporary accounts (revenues, expenses, dividends) are closed. Permanent accounts (assets, liabilities, equity) are NOT reset—their balances carry forward.
+                </div>
+
+                <div class="professional-tip">
+                    <strong>💡 Professional Tip #1:</strong> Always close ALL temporary accounts, including contra-revenue accounts. Sales Returns and Allowances are temporary because they only reflect current period activity.
+                </div>
+
+                <div class="professional-tip">
+                    <strong>💡 Professional Tip #2:</strong> Use a worksheet to plan and verify closing entries before posting. Errors in closing entries are costly to correct and can cascade through financial statements.
+                </div>
+
+                <div class="professional-tip">
+                    <strong>💡 Professional Tip #3:</strong> Verify that all closing entries balance. Debits should equal credits, ensuring the accounting equation remains balanced.
+                </div>
+            </section>
+
+            <!-- Memory Aids -->
+            <section class="kp-section">
+                <h2>🧠 Memory Aids & Quick Reference</h2>
+
+                <div class="memory-aid-card">
+                    <strong>⚡ Quick Recall: The Closing Process</strong>
+                    <p>1. Close revenues to Income Summary (debit)</p>
+                    <p>2. Close expenses to Income Summary (credit)</p>
+                    <p>3. Close Income Summary to Retained Earnings (debit)</p>
+                    <p>Result: All temporary accounts = zero</p>
+                </div>
+
+                <div class="key-concepts-grid">
+                    <div class="concept-card">
+                        <strong>📊 Temporary Accounts</strong>
+                        <p>Revenues, expenses, dividends. Closed each period, start at zero next period.</p>
+                    </div>
+
+                    <div class="concept-card">
+                        <strong>📈 Permanent Accounts</strong>
+                        <p>Assets, liabilities, equity, contra accounts. Balances carry forward to next period.</p>
+                    </div>
+
+                    <div class="concept-card">
+                        <strong>🔄 Adjusting Entries</strong>
+                        <p>Updates for accruals, deferrals, estimates. Made before financial statements.</p>
+                    </div>
+
+                    <div class="concept-card">
+                        <strong>📋 Closing Entries</strong>
+                        <p>Transfer temporary account balances to Retained Earnings. Reset temporary accounts to zero for new period.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Glossary -->
+            <section class="kp-section">
+                <h2>📖 Glossary</h2>
+                <div class="key-concepts-grid">
+                    <div class="concept-card">
+                        <strong>Adjusting Entries</strong>
+                        <p>Journal entries at period-end to update accounts for unrecorded items (accruals, deferrals, estimates).</p>
+                    </div>
+
+                    <div class="concept-card">
+                        <strong>Closing Entries</strong>
+                        <p>Journal entries that transfer balances from temporary accounts (revenues, expenses) to permanent accounts and reset temporary accounts to zero.</p>
+                    </div>
+
+                    <div class="concept-card">
+                        <strong>Temporary Accounts</strong>
+                        <p>Accounts that are reset to zero at the end of each accounting period. Include revenues, expenses, and dividends.</p>
+                    </div>
+
+                    <div class="concept-card">
+                        <strong>Permanent Accounts</strong>
+                        <p>Accounts whose balances carry forward to future periods. Include assets, liabilities, equity, and contra accounts.</p>
+                    </div>
+
+                    <div class="concept-card">
+                        <strong>Income Summary Account</strong>
+                        <p>Temporary account used during closing process to aggregate all revenues and expenses, facilitating transfer to Retained Earnings.</p>
+                    </div>
+
+                    <div class="concept-card">
+                        <strong>Post-Closing Trial Balance</strong>
+                        <p>Trial balance prepared after adjusting and closing entries, showing only permanent account balances. Used to prepare financial statements.</p>
+                    </div>
+
+                    <div class="concept-card">
+                        <strong>Retained Earnings</strong>
+                        <p>Cumulative net income retained in the business rather than distributed to shareholders. Equals total revenues minus total expenses and dividends.</p>
+                    </div>
+
+                    <div class="concept-card">
+                        <strong>Inventory Shrinkage</strong>
+                        <p>Difference between book inventory and physical count due to theft, damage, loss, or errors. Adjusted as COGS expense.</p>
+                    </div>
+
+                    <div class="concept-card">
+                        <strong>Contra Revenue Accounts</strong>
+                        <p>Accounts with credit balances that reduce gross sales. Include Sales Returns, Sales Allowances, and Sales Discounts.</p>
+                    </div>
+
+                    <div class="concept-card">
+                        <strong>Cost of Goods Sold</strong>
+                        <p>Expense account representing cost of inventory sold during a period. Beginning Inventory + Purchases - Ending Inventory.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Final Knowledge Check -->
+            <section class="interactive-section">
+                <h2>🎯 Final Knowledge Check</h2>
+                <p>Test your understanding of Adjusting & Closing for Merchandisers:</p>
+
+                <div class="quiz-container" data-success-text="Excellent! You've mastered the adjusting and closing process." data-explanation="Closing entries transfer temporary account balances to Retained Earnings and reset temporary accounts to zero. Only temporary accounts (revenues, expenses, dividends) are closed.">
+                    <div class="input-group">
+                        <p><strong>Question 1:</strong> Which of the following is a temporary account that must be closed each period?</p>
+                        <label><input type="radio" name="q1" value="correct" data-correct="true"> Sales Revenue</label><br>
+                        <label><input type="radio" name="q1" value="incorrect1" data-correct="false"> Cash (permanent account)</label><br>
+                        <label><input type="radio" name="q1" value="incorrect2" data-correct="false"> Accounts Payable (permanent account)</label>
+                    </div>
+
+                    <div class="input-group">
+                        <p><strong>Question 2:</strong> When closing revenue accounts, what is the closing entry?</p>
+                        <label><input type="radio" name="q2" value="incorrect1" data-correct="false"> Debit Retained Earnings, Credit Sales Revenue</label><br>
+                        <label><input type="radio" name="q2" value="correct" data-correct="true"> Debit Sales Revenue (reduce to zero), Credit Income Summary (reduces to zero)</label><br>
+                        <label><input type="radio" name="q2" value="incorrect2" data-correct="false"> Credit Sales Revenue, Debit Cash</label>
+                    </div>
+
+                    <div class="input-group">
+                        <p><strong>Question 3:</strong> What is the purpose of a post-closing trial balance?</p>
+                        <label><input type="radio" name="q3" value="correct" data-correct="true"> To list only permanent account balances for preparing financial statements</label><br>
+                        <label><input type="radio" name="q3" value="incorrect1" data-correct="false"> To verify that debits equal credits</label><br>
+                        <label><input type="radio" name="q3" value="incorrect2" data-correct="false"> To prepare adjusting entries for the next period</label>
+                    </div>
+
+                    <button class="btn btn-primary quiz-submit">Submit Answers</button>
+                    <div class="feedback"></div>
+                    <button class="quiz-retry">Try Again</button>
+                </div>
+            </section>
+
+            <!-- Navigation -->
+            <nav class="kp-navigation" style="display: flex; justify-content: space-between; margin-top: 4rem; padding-bottom: 2rem;">
+                <a href="ch05_P2.html" class="btn" style="background: #eee;">← Previous: Sales</a>
+                <a href="ch05_P4.html" class="btn btn-primary">Next: Periodic System →</a>
+            </nav>
+        </article>
+    </main>
+
+    <footer style="margin-top: 5rem; padding: 2rem 0; border-top: 1px solid #ddd; text-align: center; color: #888;">
+        <p>Accounting Essentials | Chapter 5 | Procedure 3</p>
+    </footer>
+
+    <script src="../../components-enhanced.js"></script>
+    <script>
+        function setDepth(depth) {
+            document.querySelectorAll('.depth-btn').forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+
+            document.querySelectorAll('.depth-content').forEach(content => content.classList.remove('active'));
+            document.getElementById(`depth-${depth}`).classList.add('active');
+        }
+
+        function calcShrinkage() {
+            const book = parseFloat(document.getElementById('book-inv').value) || 0;
+            const phys = parseFloat(document.getElementById('phys-inv').value) || 0;
+            const diff = book - phys;
+
+            document.getElementById('shrink-res').textContent = (diff > 0 ? '$' + diff.toLocaleString() : '$0');
+        }
+    </script>
+</body>
+
+</html>

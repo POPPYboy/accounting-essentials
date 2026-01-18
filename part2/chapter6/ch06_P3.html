@@ -1,0 +1,656 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>P3: Weighted Average Costing | ACCOUNTING ESSENTIALS</title>
+    <link rel="stylesheet" href="../../styles.css">
+    <style>
+        .wac-blender-viz {
+            display: flex;
+            justify-content: space-around;
+            align-items: flex-end;
+            gap: 1rem;
+            padding: 2rem 1rem;
+            margin: 2rem 0;
+            background: var(--bg-light);
+            border-radius: var(--radius-md);
+            border: 1px solid #e0e0e0;
+            min-height: 250px;
+        }
+        .wac-stack {
+            display: flex;
+            flex-direction: column-reverse;
+            align-items: center;
+            gap: 2px;
+            width: 30%;
+        }
+        .wac-unit {
+            width: 100%;
+            border-radius: 2px;
+            text-align: center;
+            color: white;
+            font-size: 0.7rem;
+            font-weight: 600;
+            padding: 2px 0;
+            transition: all 0.3s ease;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+        }
+        .wac-stack-label {
+            margin-top: 0.75rem;
+            font-weight: 600;
+            font-size: 0.9rem;
+            text-align: center;
+        }
+        .wac-blender-op {
+            font-size: 3rem;
+            color: var(--text-muted);
+            padding-bottom: 50px; /* Align with stacks */
+        }
+        .method-comparison {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+        .method-card {
+            background: var(--bg-light);
+            border-radius: var(--radius-md);
+            padding: 1.5rem;
+            text-align: center;
+            border-top: 4px solid;
+        }
+        .method-card.fifo {
+            border-color: var(--success);
+        }
+        .method-card.lifo {
+            border-color: var(--error);
+        }
+        .method-card.wac {
+            border-color: var(--primary-light);
+        }
+        .method-card h4 {
+            margin: 0 0 0.5rem 0;
+            font-size: 1rem;
+        }
+        .method-card.fifo h4 { color: var(--success); }
+        .method-card.lifo h4 { color: var(--error); }
+        .method-card.wac h4 { color: var(--primary-light); }
+        .wac-formula {
+            background: var(--bg-light);
+            border-radius: var(--radius-sm);
+            padding: 1.5rem;
+            margin: 1rem 0;
+            text-align: center;
+            font-family: 'Courier New', monospace;
+        }
+        .wac-result {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            color: var(--white);
+            border-radius: var(--radius-md);
+            padding: 2rem;
+            text-align: center;
+            margin: 2rem 0;
+        }
+        .wac-result .label {
+            font-size: 0.9rem;
+            color: var(--secondary-light);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        .wac-result .value {
+            font-size: 3rem;
+            font-weight: 900;
+        }
+    </style>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-50MTQPVR7D"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-50MTQPVR7D');
+</script>
+
+</head>
+
+<body>
+    <header>
+        <div class="container nav-container">
+            <a href="../../index.html" class="logo">ACCOUNTING<span>ESSENTIALS</span></a>
+            <nav class="nav-links">
+                <a href="../../index.html">Home</a>
+                <a href="../../Part1/part1.html">Part 1</a>
+                <a href="../../part2/part2.html">Part 2</a>
+                <a href="../../part3/part3.html">Part 3</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container">
+        <div class="breadcrumbs">
+            <a href="../../index.html">Home</a> <span>/</span> <a href="../../part2/part2.html">Part 2</a> <span>/</span> <a href="ch06.html">Chapter 6</a> <span>/</span> P3
+        </div>
+
+        <article class="animate-fade-in">
+            <div class="kp-header">
+                <h1 style="border-left: 8px solid var(--primary-light); padding-left: 1rem; margin: 2rem 0;">Weighted Average Costing</h1>
+            </div>
+
+            <!-- Learning Objectives -->
+            <section class="kp-section">
+                <h2>🎯 Learning Objectives</h2>
+                <div class="learning-objectives">
+                    <ul>
+                        <li>Understand the weighted average costing method and when to apply it</li>
+                        <li>Calculate the weighted average unit cost for periodic and perpetual systems</li>
+                        <li>Explain the "smoothing" effect of weighted average on COGS and income</li>
+                        <li>Compare weighted average results to FIFO and LIFO methods</li>
+                        <li>Apply weighted average in inventory valuation scenarios</li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- Background & Principles -->
+            <section class="kp-section">
+                <h2>📚 Background & Principles</h2>
+                <p>Weighted Average Costing assigns an average cost to each unit of inventory by dividing total cost of goods available for sale by total units available. This method smooths out price fluctuations and provides a middle-ground between FIFO and LIFO.</p>
+
+                <div class="concept-card" style="margin: 1.5rem 0;">
+                    <strong>Core Principle:</strong> All inventory units are treated as fungible—each unit has the same cost equal to the weighted average of all purchase costs. This avoids the extremes of FIFO (newest costs) and LIFO (oldest costs).
+                </div>
+
+                <p>Unlike FIFO and LIFO, weighted average produces different results under perpetual vs. periodic systems because the average is recalculated after each purchase in perpetual systems.</p>
+
+                <div class="professional-tip">
+                    <strong>💡 Key Insight:</strong> Think of weighted average like mixing gasoline in a tank. You buy gas at different prices, it all mixes together, and when you use it, you consume a "blended" average price. You can't separate which molecules came from which purchase.
+                </div>
+            </section>
+
+            <!-- Key Concepts -->
+            <section class="kp-section">
+                <h2>🔑 Key Concepts</h2>
+                <div class="key-concepts-grid">
+                    <div class="concept-card">
+                        <strong>Weighted Average Unit Cost</strong>
+                        <p>Total cost of goods available divided by total units available. Used to value all inventory units.</p>
+                    </div>
+
+                    <div class="concept-card">
+                        <strong>Periodic Weighted Average</strong>
+                        <p>Calculating one average at period-end using all purchases during the period.</p>
+                    </div>
+
+                    <div class="concept-card">
+                        <strong>Moving Average (Perpetual)</strong>
+                        <p>Recalculating average after each purchase. Each sale uses the current moving average cost.</p>
+                    </div>
+
+                    <div class="concept-card">
+                        <strong>Smoothing Effect</strong>
+                        <p>Weighted average produces COGS and income values between FIFO and LIFO extremes.</p>
+                    </div>
+
+                    <div class="concept-card">
+                        <strong>Goods Available for Sale</strong>
+                        <p>Beginning Inventory + Purchases (all costs considered in the average).</p>
+                    </div>
+
+                    <div class="concept-card">
+                        <strong>Units Available for Sale</strong>
+                        <p>Beginning Inventory units + Purchased units (all units considered in the average).</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Deep Dive -->
+            <section class="kp-section">
+                <h2>🔍 Deep Dive</h2>
+                <p>Explore Weighted Average at different levels of depth:</p>
+
+                <div class="depth-toggle">
+                    <button class="depth-btn active" onclick="setDepth('A')">Depth A: Foundational</button>
+                    <button class="depth-btn" onclick="setDepth('B')">Depth B: Standard</button>
+                    <button class="depth-btn" onclick="setDepth('C')">Depth C: Advanced</button>
+                </div>
+
+                <!-- Depth A -->
+                <div id="depth-A" class="depth-content active">
+                    <h3>🟢 Foundational Level</h3>
+                    <p>Understanding the "Gas Tank" analogy.</p>
+
+                    <div class="worked-example">
+                        <h4>The Fuel Tank Analogy</h4>
+                        <p><strong>Analogy: Mixing Gasoline</strong></p>
+                        <p>You have a gas tank. On Monday, you buy 10 gallons at $3.00/gallon ($30). On Friday, you buy 10 more gallons at $3.50/gallon ($35).</p>
+
+                        <div class="example-step">
+                            <strong>The Mix:</strong>
+                            <p>The gasoline all mixes together in the tank. You can't separate "Monday gas" from "Friday gas."</p>
+                        </div>
+                        <div class="example-step">
+                            <strong>The Average:</strong>
+                            <p>Total: 20 gallons, Total cost: $65, Average cost: $65 ÷ 20 = $3.25/gallon</p>
+                        </div>
+                        <div class="example-step">
+                            <strong>The Consumption:</strong>
+                            <p>When you use gas, you use the blended $3.25 average, not the specific $3.00 or $3.50 prices.</p>
+                        </div>
+                    </div>
+
+                    <div class="wac-formula">
+                        <strong>Weighted Average Cost Formula:</strong><br>
+                        = Total Cost of Goods Available ÷ Total Units Available
+                    </div>
+                </div>
+
+                <!-- Depth B -->
+                <div id="depth-B" class="depth-content">
+                    <h3>🟡 Standard Level</h3>
+                    <p>Calculating weighted average step by step.</p>
+
+                    <div class="worked-example">
+                        <h4>Periodic Weighted Average Calculation</h4>
+                        <p><strong>Given:</strong></p>
+                        <p>Beginning Inventory: 10 units @ $10 = $100</p>
+                        <p>Jan 15 Purchase: 20 units @ $12 = $240</p>
+                        <p>Jan 28 Purchase: 15 units @ $15 = $225</p>
+                        <p>Goods Available: 45 units = $565</p>
+                        <p>Ending Inventory: 12 units</p>
+
+                        <div class="example-step">
+                            <strong>Step 1: Calculate Total Cost and Units</strong>
+                            <p>Total Cost = $565</p>
+                            <p>Total Units = 45</p>
+                        </div>
+                        <div class="example-step">
+                            <strong>Step 2: Calculate Weighted Average Cost</strong>
+                            <p>Average Cost = $565 ÷ 45 = <strong>$12.56 per unit</strong></p>
+                        </div>
+                        <div class="example-step">
+                            <strong>Step 3: Calculate Ending Inventory</strong>
+                            <p>Ending Inventory = 12 units × $12.56 = <strong>$150.72</strong></p>
+                        </div>
+                        <div class="example-step">
+                            <strong>Step 4: Calculate COGS</strong>
+                            <p>COGS = 33 units × $12.56 = <strong>$414.48</strong></p>
+                            <p>Or: $565 - $150.72 = $414.28 (rounding difference)</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Depth C -->
+                <div id="depth-C" class="depth-content">
+                    <h3>🔴 Advanced Level</h3>
+                    <p>Comparison with FIFO and LIFO, and moving average in perpetual systems.</p>
+
+                    <div class="method-comparison">
+                        <div class="method-card fifo">
+                            <h4>FIFO</h4>
+                            <div style="font-size: 1.5rem; font-weight: 700;">$180</div>
+                            <div style="font-size: 0.8rem; color: var(--text-muted);">Ending Inventory</div>
+                            <div style="font-size: 0.8rem; margin-top: 0.5rem;">Highest value (newest costs)</div>
+                        </div>
+                        <div class="method-card wac">
+                            <h4>Weighted Avg</h4>
+                            <div style="font-size: 1.5rem; font-weight: 700;">$150.72</div>
+                            <div style="font-size: 0.8rem; color: var(--text-muted);">Ending Inventory</div>
+                            <div style="font-size: 0.8rem; margin-top: 0.5rem;">Middle value (averaged)</div>
+                        </div>
+                        <div class="method-card lifo">
+                            <h4>LIFO</h4>
+                            <div style="font-size: 1.5rem; font-weight: 700;">$124</div>
+                            <div style="font-size: 0.8rem; color: var(--text-muted);">Ending Inventory</div>
+                            <div style="font-size: 0.8rem; margin-top: 0.5rem;">Lowest value (oldest costs)</div>
+                        </div>
+                    </div>
+
+                    <div class="worked-example">
+                        <h4>Perpetual Moving Average</h4>
+                        <p><strong>Key Difference:</strong> In perpetual systems, the average is recalculated after EACH purchase.</p>
+                        <p>Example: If you have 10 units @ $10, average = $10.00</p>
+                        <p>Then buy 5 units @ $12, new average = ($100 + $60) ÷ 15 = $10.67</p>
+                        <p>Sales use the current moving average at the time of sale.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Interactive Calculator -->
+            <section class="kp-section">
+                <h2>🎨 Interactive: Weighted Average Calculator</h2>
+                <p>See how different purchases blend together to create an average cost.</p>
+
+                <div class="simulator-container">
+                    <div class="card-grid" style="grid-template-columns: repeat(2, 1fr); gap: 1rem;">
+                        <div class="wac-container old">
+                            <h4 style="color: var(--primary); margin: 0 0 1rem 0;">Current Inventory</h4>
+                            <div class="input-group">
+                                <label>Units on Hand</label>
+                                <input type="number" id="wac-units-old" value="10" oninput="calcWAC()">
+                            </div>
+                            <div class="input-group">
+                                <label>Avg Cost per Unit ($)</label>
+                                <input type="number" id="wac-cost-old" value="100" oninput="calcWAC()">
+                            </div>
+                        </div>
+                        <div class="wac-container new">
+                            <h4 style="color: var(--secondary); margin: 0 0 1rem 0;">New Purchase</h4>
+                            <div class="input-group">
+                                <label>Units Purchased</label>
+                                <input type="number" id="wac-units-new" value="5" oninput="calcWAC()">
+                            </div>
+                            <div class="input-group">
+                                <label>Purchase Price per Unit ($)</label>
+                                <input type="number" id="wac-cost-new" value="130" oninput="calcWAC()">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="wac-mixer" style="text-align: center; font-size: 2rem; color: var(--secondary);">⚗️</div>
+
+                    <div class="wac-result">
+                        <div class="label">New Weighted Average Cost</div>
+                        <div class="value" id="wac-res">$110.00</div>
+                        <div style="margin-top: 0.5rem; opacity: 0.8;">This blended cost applies to all units</div>
+                    </div>
+
+                    <div class="wac-blender-viz" id="wac-blender-viz">
+                        <!-- Blender visualization will be rendered here -->
+                    </div>
+                </div>
+            </section>
+
+            <!-- Method Comparison -->
+            <section class="kp-section">
+                <h2>📊 Method Comparison Summary</h2>
+                <p>Understanding how weighted average compares to FIFO and LIFO during price changes.</p>
+
+                <div class="method-comparison">
+                    <div class="method-card fifo">
+                        <h4>📦 FIFO</h4>
+                        <p>Oldest costs → COGS</p>
+                        <p>Newest costs → Inventory</p>
+                        <p><strong>Effect:</strong> Higher income in rising prices</p>
+                    </div>
+                    <div class="method-card wac">
+                        <h4>⚖️ Weighted Avg</h4>
+                        <p>All costs averaged</p>
+                        <p>Smooths the extremes</p>
+                        <p><strong>Effect:</strong> Moderate income</p>
+                    </div>
+                    <div class="method-card lifo">
+                        <h4>📉 LIFO</h4>
+                        <p>Newest costs → COGS</p>
+                        <p>Oldest costs → Inventory</p>
+                        <p><strong>Effect:</strong> Lower income in rising prices</p>
+                    </div>
+                </div>
+
+                <div class="concept-card" style="margin-top: 1rem;">
+                    <strong>🎯 When to Use Weighted Average:</strong>
+                    <ul style="margin-top: 0.5rem;">
+                        <li>Products are homogeneous (identical units)</li>
+                        <li>Price fluctuations are significant</li>
+                        <li>Consistent income reporting is desired</li>
+                        <li>Simpler method than tracking multiple cost layers</li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- Common Misconceptions -->
+            <section class="kp-section">
+                <h2>🚫 Common Misconceptions & Professional Tips</h2>
+
+                <div class="misconception-alert">
+                    <strong>❌ Misconception 1:</strong> "Weighted average is the same as simple average of prices."
+                    <br><br>
+                    <strong>✅ Reality:</strong> Weighted average considers BOTH quantities AND prices. A purchase of 100 units at $10 should have more influence than a purchase of 10 units at $10 on the average cost.
+                </div>
+
+                <div class="misconception-alert">
+                    <strong>❌ Misconception 2:</strong> "Periodic and perpetual weighted average give the same results."
+                    <br><br>
+                    <strong>✅ Reality:</strong> Unlike FIFO, PERIODIC and PERPETUAL weighted average CAN produce different results. Perpetual (moving average) recalculates after each purchase, while periodic uses period-end totals.
+                </div>
+
+                <div class="misconception-alert">
+                    <strong>❌ Misconception 3:</strong> "Weighted average is always the best method."
+                    <br><br>
+                    <strong>✅ Reality:</strong> The "best" method depends on the business context. FIFO matches physical flow for perishable goods. LIFO provides tax benefits. Weighted average smooths results for homogeneous products with price volatility.
+                </div>
+
+                <div class="professional-tip">
+                    <strong>💡 Professional Tip #1:</strong> Weighted average is particularly useful for commodity products (grain, oil, chemicals) where individual units are identical and tracking specific costs is impractical.
+                </div>
+
+                <div class="professional-tip">
+                    <strong>💡 Professional Tip #2:</strong> When implementing weighted average, ensure your inventory system can track both quantities AND costs accurately—errors in either will distort the average.
+                </div>
+
+                <div class="professional-tip">
+                    <strong>💡 Professional Tip #3:</strong> Consider using weighted average when you want income that reflects overall purchasing patterns rather than timing of specific purchases.
+                </div>
+            </section>
+
+            <!-- Memory Aids -->
+            <section class="kp-section">
+                <h2>🧠 Memory Aids & Quick Reference</h2>
+
+                <div class="memory-aid-card">
+                    <strong>⚡ Quick Recall: Weighted Average Formula</strong>
+                    <p><strong>WAC = Total Cost Available ÷ Total Units Available</strong></p>
+                    <p>Then: COGS = Units Sold × WAC</p>
+                    <p>Then: Ending Inventory = Units Remaining × WAC</p>
+                </div>
+
+                <div class="key-concepts-grid">
+                    <div class="concept-card">
+                        <strong>⚗️ The Blender</strong>
+                        <p>All costs mix together into one average. Smooths price fluctuations.</p>
+                    </div>
+
+                    <div class="concept-card">
+                        <strong>📊 COGS Calculation</strong>
+                        <p>Units Sold × Weighted Average Cost</p>
+                    </div>
+
+                    <div class="concept-card">
+                        <strong>📦 Inventory Calculation</strong>
+                        <p>Units Remaining × Weighted Average Cost</p>
+                    </div>
+
+                    <div class="concept-card">
+                        <strong>⚖️ Middle Ground</strong>
+                        <p>COGS and inventory between FIFO and LIFO extremes</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Glossary -->
+            <section class="kp-section">
+                <h2>📖 Glossary</h2>
+                <div class="key-concepts-grid">
+                    <div class="concept-card">
+                        <strong>Weighted Average Cost</strong>
+                        <p>Inventory costing method using average cost of all units available for sale to value COGS and ending inventory.</p>
+                    </div>
+
+                    <div class="concept-card">
+                        <strong>Periodic Weighted Average</strong>
+                        <p>Calculating weighted average at period-end using total purchases and units for the entire period.</p>
+                    </div>
+
+                    <div class="concept-card">
+                        <strong>Moving Average</strong>
+                        <p>Perpetual system weighted average recalculated after each purchase. Also called "rolling average."</p>
+                    </div>
+
+                    <div class="concept-card">
+                        <strong>Goods Available for Sale</strong>
+                        <p>Total cost of all inventory that could have been sold: Beginning Inventory + Purchases.</p>
+                    </div>
+
+                    <div class="concept-card">
+                        <strong>Units Available for Sale</strong>
+                        <p>Total quantity of inventory that could have been sold: Beginning units + Purchased units.</p>
+                    </div>
+
+                    <div class="concept-card">
+                        <strong>Cost Flow Assumption</strong>
+                        <p>Method for assigning costs to COGS and inventory. Weighted average is one of the three main assumptions.</p>
+                    </div>
+
+                    <div class="concept-card">
+                        <strong>Homogeneous Inventory</strong>
+                        <p>Inventory consisting of identical or interchangeable units. Good candidate for weighted average.</p>
+                    </div>
+
+                    <div class="concept-card">
+                        <strong>Smoothing Effect</strong>
+                        <p>Weighted average's tendency to produce COGS and income values between FIFO and LIFO extremes.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Final Knowledge Check -->
+            <section class="interactive-section">
+                <h2>🎯 Final Knowledge Check</h2>
+                <p>Test your understanding of Weighted Average Costing:</p>
+
+                <div class="quiz-container" data-success-text="Excellent! You've mastered weighted average inventory costing." data-explanation="Weighted average cost is calculated by dividing total cost of goods available by total units available. This average is then used to value both COGS and ending inventory, smoothing out price fluctuations.">
+                    <div class="input-group">
+                        <p><strong>Question 1:</strong> How is weighted average unit cost calculated?</p>
+                        <label><input type="radio" name="q1" value="incorrect1" data-correct="false"> Average of all purchase prices</label><br>
+                        <label><input type="radio" name="q1" value="correct" data-correct="true"> Total cost ÷ Total units</label><br>
+                        <label><input type="radio" name="q1" value="incorrect2" data-correct="false"> Most recent purchase price</label>
+                    </div>
+
+                    <div class="input-group">
+                        <p><strong>Question 2:</strong> Beginning Inventory 10 @ $10, Purchases 20 @ $12, Ending Inventory 12 units. What is ending inventory value?</p>
+                        <label><input type="radio" name="q2" value="incorrect1" data-correct="false"> $120 (FIFO value)</label><br>
+                        <label><input type="radio" name="q2" value="incorrect2" data-correct="false"> $100 (LIFO value)</label><br>
+                        <label><input type="radio" name="q2" value="correct" data-correct="true"> $150.72 (12 × $12.56 avg)</label>
+                    </div>
+
+                    <div class="input-group">
+                        <p><strong>Question 3:</strong> In rising prices, weighted average produces:</p>
+                        <label><input type="radio" name="q3" value="incorrect1" data-correct="false"> Same COGS as FIFO</label><br>
+                        <label><input type="radio" name="q3" value="incorrect2" data-correct="false"> Same COGS as LIFO</label><br>
+                        <label><input type="radio" name="q3" value="correct" data-correct="true"> COGS between FIFO and LIFO</label>
+                    </div>
+
+                    <div class="input-group">
+                        <p><strong>Question 4:</strong> What distinguishes moving average from periodic weighted average?</p>
+                        <label><input type="radio" name="q4" value="incorrect1" data-correct="false"> They are identical methods</label><br>
+                        <label><input type="radio" name="q4" value="correct" data-correct="true"> Moving average recalculates after each purchase</label><br>
+                        <label><input type="radio" name="q4" value="incorrect2" data-correct="false"> Periodic uses newer costs</label>
+                    </div>
+
+                    <div class="input-group">
+                        <p><strong>Question 5:</strong> Weighted average is best suited for:</p>
+                        <label><input type="radio" name="q5" value="incorrect1" data-correct="false"> Unique, high-value items</label><br>
+                        <label><input type="radio" name="q5" value="correct" data-correct="true"> Homogeneous, interchangeable units</label><br>
+                        <label><input type="radio" name="q5" value="incorrect2" data-correct="false"> Items with extreme price volatility</label>
+                    </div>
+
+                    <button class="btn btn-primary quiz-submit">Submit Answers</button>
+                    <div class="feedback"></div>
+                    <button class="quiz-retry">Try Again</button>
+                </div>
+            </section>
+
+            <!-- Navigation -->
+            <nav class="kp-navigation" style="display: flex; justify-content: space-between; margin-top: 4rem; padding-bottom: 2rem;">
+                <a href="ch06_P2.html" class="btn" style="background: #eee;">← Previous: LIFO (Periodic)</a>
+                <a href="ch06.html" class="btn" style="background: var(--info); color: white;">Chapter 6 Hub</a>
+                <a href="ch06_P4.html" class="btn btn-primary">Next: Inventory Presentation →</a>
+            </nav>
+        </article>
+    </main>
+
+    <footer style="margin-top: 5rem; padding: 2rem 0; border-top: 1px solid #ddd; text-align: center; color: #888;">
+        <p>Accounting Essentials | Chapter 6 | Procedure 3</p>
+    </footer>
+
+    <script>
+        function setDepth(depth) {
+            document.querySelectorAll('.depth-btn').forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+
+            document.querySelectorAll('.depth-content').forEach(content => content.classList.remove('active'));
+            document.getElementById(`depth-${depth}`).classList.add('active');
+        }
+
+        function calcWAC() {
+            const u1 = parseInt(document.getElementById('wac-units-old').value) || 0;
+            const c1 = parseFloat(document.getElementById('wac-cost-old').value) || 0;
+            const u2 = parseInt(document.getElementById('wac-units-new').value) || 0;
+            const c2 = parseFloat(document.getElementById('wac-cost-new').value) || 0;
+
+            const totalUnits = u1 + u2;
+            if (totalUnits === 0) {
+                document.getElementById('wac-res').textContent = "$0.00";
+                document.getElementById('wac-blender-viz').innerHTML = '<p style="color: var(--text-muted);">Enter inventory values to see the blend.</p>';
+                return;
+            }
+
+            const totalCost = (u1 * c1) + (u2 * c2);
+            const avg = totalCost / totalUnits;
+
+            document.getElementById('wac-res').textContent = "$" + avg.toFixed(2);
+            
+            renderBlender(u1, c1, u2, c2, totalUnits, avg);
+        }
+
+        function renderBlender(u1, c1, u2, c2, uTotal, cAvg) {
+            const visual = document.getElementById('wac-blender-viz');
+            const maxUnitsToShow = 12; // Cap units to avoid crowding
+
+            // Determine min/max costs for color scaling
+            const allCosts = [c1, c2, cAvg].filter(c => c > 0);
+            const minCost = Math.min(...allCosts, 0);
+            const maxCost = Math.max(...allCosts, 1); // Avoid division by zero
+
+            // Helper to generate a stack of units
+            const createStack = (units, cost, label, colorVar) => {
+                let stackHtml = `<div class="wac-stack">`;
+                const displayUnits = Math.min(units, maxUnitsToShow);
+                
+                // Scale color from light to dark based on cost
+                const costRatio = (cost - minCost) / (maxCost - minCost);
+                const bgColor = `hsl(var(${colorVar}), 60%, ${75 - costRatio * 30}%)`;
+
+                for (let i = 0; i < displayUnits; i++) {
+                    stackHtml += `<div class="wac-unit" style="background-color: ${bgColor}; height: 10px;" title="Unit Cost: $${cost.toFixed(2)}"></div>`;
+                }
+                stackHtml += `<div class="wac-stack-label">${label}<br>(${units} @ $${cost.toFixed(2)})</div></div>`;
+                return stackHtml;
+            };
+            
+            const oldStack = createStack(u1, c1, 'Current Stock', '--hue-primary');
+            const newStack = createStack(u2, c2, 'New Purchase', '--hue-secondary');
+            const blendedStack = createStack(uTotal, cAvg, 'Blended Inventory', '--hue-info');
+
+            visual.innerHTML = `
+                ${oldStack}
+                <div class="wac-blender-op">+</div>
+                ${newStack}
+                <div class="wac-blender-op">=</div>
+                ${blendedStack}
+            `;
+        }
+        
+        // Add HSL color variables to root for this to work
+        document.documentElement.style.setProperty('--hue-primary', '210');
+        document.documentElement.style.setProperty('--hue-secondary', '260');
+        document.documentElement.style.setProperty('--hue-info', '180');
+
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', calcWAC);
+    </script>
+</body>
+
+</html>

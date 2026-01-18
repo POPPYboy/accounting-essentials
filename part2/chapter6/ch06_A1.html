@@ -1,0 +1,576 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>A1: Inventory Turnover | ACCOUNTING ESSENTIALS</title>
+    <link rel="stylesheet" href="../../styles.css">
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-50MTQPVR7D"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-50MTQPVR7D');
+</script>
+
+</head>
+
+<body>
+    <header>
+        <div class="container nav-container">
+            <a href="../../index.html" class="logo">ACCOUNTS<span>MASTER</span></a>
+            <nav class="nav-links">
+                <a href="../../index.html">Home</a>
+                <a href="../part1.html">Part 1</a>
+                <a href="../../part2/part2.html">Part 2</a>
+                <a href="../../part3/part3.html">Part 3</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container">
+        <div class="breadcrumbs">
+            <a href="../../index.html">Home</a> <span>/</span> <a href="../part1.html">Part 1</a> <span>/</span> <a href="../part1.html">Part 1</a> <span>/</span> <a href="../../part2/part2.html">Part 2</a> <span>/</span> <a href="../part1.html">Part 1</a> <span>/</span> <a href="../../part2/part2.html">Part 2</a> <span>/</span> <a href="../part3/part3.html">Part 3</a> <span>/</span> <a href="../part1.html">Part 1</a> <span>/</span> <a href="../../part2/part2.html">Part 2</a> <span>/</span> <a href="../part3/part3.html">Part 3</a> <span>/</span> A1
+        </div>
+
+        <article class="animate-fade-in">
+            <div class="kp-header">
+                <h1 style="border-left: 8px solid var(--info); padding-left: 1rem; margin: 2rem 0;">Inventory Turnover</h1>
+            </div>
+
+            <!-- Learning Objectives -->
+            <section class="kp-section">
+                <h2>🎯 Learning Objectives</h2>
+                <div class="learning-objectives">
+                    <ul>
+                        <li>Understand the inventory turnover ratio and its importance</li>
+                        <li>Calculate inventory turnover using various methods (cost of goods sold and average inventory)</li>
+                        <li>Apply the Days Sales in Inventory (DSI) conversion to calculate days to sell inventory</li>
+                        <li>Analyze inventory turnover across different industries and business models</li>
+                        <li>Interpret inventory turnover results for operational efficiency assessment</li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- Background & Principles -->
+            <section class="kp-section">
+                <h2>📚 Background & Principles</h2>
+                <p>Inventory turnover measures how efficiently a company manages its inventory by indicating how many times inventory is sold and replaced during a period relative to average inventory levels.</p>
+
+                <div class="concept-card" style="margin: 1.5rem 0;">
+                    <strong>Core Principle:</strong> Higher inventory turnover generally indicates better inventory management and operational efficiency, but should be compared within the same industry and business model context.
+                </div>
+
+                <p>The ratio helps businesses optimize inventory levels, reduce carrying costs, and improve cash flow by identifying slow-moving or excess inventory.</p>
+
+                <div class="professional-tip">
+                    <strong>💡 Key Insight:</strong> While high inventory turnover suggests efficient management, excessively high turnover may indicate understocking risks that could lead to lost sales and customer dissatisfaction.
+                </div>
+            </section>
+
+            <!-- Key Concepts -->
+            <section class="kp-section">
+                <h2>🔑 Key Concepts</h2>
+                <div class="key-concepts-grid">
+                    <div class="concept-card">
+                        <strong>Inventory Turnover</strong>
+                        <p>Ratio measuring how many times inventory is sold and replaced during a period. Formula: Cost of Goods Sold ÷ Average Inventory.</p>
+                    </div>
+
+                    <div class="concept-card">
+                        <strong>Cost of Goods Sold (COGS)</strong>
+                        <p>Total cost of merchandise sold during a period. Includes beginning inventory, purchases, and ending inventory. Formula: Beginning Inventory + Purchases - Ending Inventory.</p>
+                    </div>
+
+                    <div class="concept-card">
+                        <strong>Average Inventory</strong>
+                        <p>Typical inventory balance during a period. Calculated as (Beginning Inventory + Ending Inventory) ÷ 2 or as simple average if using periodic system.</p>
+                    </div>
+
+                    <div class="concept-card">
+                        <strong>Days Sales in Inventory (DSI)</strong>
+                        <p>Number of days it would take to sell all inventory at current sales rate. Calculated as 365 days ÷ Inventory Turnover Ratio.</p>
+                    </div>
+
+                    <div class="concept-card">
+                        <strong>Gross Margin</strong>
+                        <p>Sales revenue minus cost of goods sold. Represents profit before other expenses. Higher margins allow higher turnover ratios.</p>
+                    </div>
+
+                    <div class="concept-card">
+                        <strong>Carrying Cost</strong>
+                        <p>Cost to hold inventory including storage, insurance, and obsolescence. Lower turnover ratios may indicate inefficient use of capital tied up in inventory.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Deep Dive -->
+            <section class="kp-section">
+                <h2>🔍 Deep Dive</h2>
+                <p>Explore inventory turnover concepts at different levels of depth:</p>
+
+                <div class="depth-toggle">
+                    <button class="depth-btn active" onclick="setDepth('A')">Depth A: Foundational</button>
+                    <button class="depth-btn" onclick="setDepth('B')">Depth B: Standard</button>
+                    <button class="depth-btn" onclick="setDepth('C')">Depth C: Advanced</button>
+                </div>
+
+                <!-- Depth A -->
+                <div id="depth-A" class="depth-content active">
+                    <h3>🟢 Foundational Level</h3>
+                    <p>Understanding the inventory turnover concept.</p>
+
+                    <div class="worked-example">
+                        <h4>The "Speed of Sales" Analogy</h4>
+                        <p><strong>Analogy: The Revolving Door</strong></p>
+                        <p>Imagine a store's inventory as a revolving door.</p>
+
+                        <div class="example-step">
+                            <strong>High Turnover (Grocery Store):</strong>
+                            <p>The door spins quickly. Goods enter and leave constantly (like a busy supermarket).</p>
+                        </div>
+                        <div class="example-step">
+                            <strong>Low Turnover (Art Gallery):</strong>
+                            <p>The door barely moves. Paintings sit for months before selling (like a luxury art store).</p>
+                        </div>
+                        <div class="example-step">
+                            <strong>The Metric:</strong>
+                            <p>Turnover measures <em>how many times</em> you sell out your entire inventory in a year.</p>
+                        </div>
+                    </div>
+
+                    <div
+                        style="background: var(--bg-dark); color: var(--white); padding: 2rem; border-radius: var(--radius-md); text-align: center; margin: 2rem 0;">
+                        <h3 style="color: var(--secondary-light);">The Inventory Turnover Formula</h3>
+                        <div style="font-size: 1.5rem; font-weight: 700; margin-top: 1rem;">
+                            Cost of Goods Sold / Average Inventory
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Depth B -->
+                <div id="depth-B" class="depth-content">
+                    <h3>🟡 Standard Level</h3>
+                    <p>Detailed turnover calculations and DSI interpretation.</p>
+
+                    <div class="worked-example">
+                        <h4>Turnover Calculation Example</h4>
+                        <p><strong>Scenario:</strong> A company has the following data for the year:</p>
+                        <div class="example-step">
+                            <strong>Cost of Goods Sold:</strong> $500,000
+                        </div>
+                        <div class="example-step">
+                            <strong>Average Inventory:</strong>
+ <p>$100,000 (calculated as (beg + end) ÷ 2)</p>
+                        </div>
+                        <div class="example-step">
+                            <strong>Turnover Calculation:</strong>
+                            <p>Turnover = $500,000 ÷ $100,000 = 5.0 times</p>
+                        </div>
+                        <div class="example-step">
+                            <strong>Interpretation:</strong>
+                            <p>The company sold and replaced its entire inventory 5 times during the year.</p>
+                        </div>
+                    </div>
+
+                    <div class="worked-example">
+                        <h4>Days Sales in Inventory (DSI)</h4>
+                        <p><strong>Formula:</strong> DSI = 365 ÷ Turnover Ratio</p>
+                        <div class="example-step">
+                            <strong>Calculation:</strong>
+                            <p>DSI = 365 ÷ 5.0 = 73.0 days</p>
+                        </div>
+                        <div class="example-step">
+                            <strong>Meaning:</strong>
+                            <p>On average, it takes 73 days to sell all inventory.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Depth C -->
+                <div id="depth-C" class="depth-content">
+                    <h3>🔴 Advanced Level</h3>
+                    <p>Advanced concepts and analysis techniques.</p>
+
+                    <div class="worked-example">
+                        <h4>Component Analysis of Turnover</h4>
+                        <p>High turnover can be achieved through various strategies:</p>
+                        <div class="example-step">
+                            <strong>1. High Sales with Low Inventory:</strong>
+                            <p>Efficient merchandising with just-in-time inventory practices</p>
+                        </div>
+                        <div class="example-step">
+                            <strong>2. Product Mix Optimization:</strong>
+                            <p>Focusing on higher-margin, faster-moving products while reducing slow-moving inventory</p>
+                        </div>
+                        <div class="example-step">
+                            <strong>3. Demand Forecasting:</strong>
+                            <p>Predicting sales to optimize inventory levels and avoid stockouts or excess inventory</p>
+                        </div>
+                    </div>
+
+                    <div class="worked-example">
+                        <h4>Comparative Analysis Across Periods</h4>
+                        <p><strong>Scenario:</strong> Company's turnover improved from 4.0 to 6.0 over three years.</p>
+                        <div class="example-step">
+                            <strong>Analysis:</strong>
+                            <p>Improvement suggests better inventory management, stronger sales growth, or both.</p>
+                        </div>
+                        <div class="example-step">
+                            <strong>Cautions:</strong>
+                            <p>Compare same period sales growth across years before concluding improvement. Could be due to changing accounting methods, business model shifts, or one-time events.</p>
+                        </div>
+                    </div>
+
+                    <div class="worked-example">
+                        <h4>Turnover vs. Profit Margin Relationship</h4>
+                        <p><strong>Scenario:</strong> Company has 40% gross margin and 5.0 turnover.</p>
+                        <div class="example-step">
+                            <strong>Analysis:</strong>
+                            <p>With 40% gross margin, the company earns $0.40 on every sales dollar. Inventory cost is $0.60 per sales dollar (60% gross margin = 40% COGS).</p>
+                        </div>
+                        <div class="example-step">
+                            <strong>Margin Impact on Turnover:</strong>
+                            <p>Higher gross margins generally support higher turnover ratios as companies can sell inventory more times while maintaining profitability.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Interactive Turnover Calculator -->
+            <section class="kp-section">
+                <h2>🎨 Interactive: Inventory Turnover Calculator</h2>
+                <p>Calculate inventory turnover ratio and days sales in inventory. Select industry benchmark to compare.</p>
+
+                <div class="simulator-container">
+                    <div class="input-group">
+                        <label>Cost of Goods Sold ($)</label>
+                        <input type="number" id="ito-cogs" value="500000" oninput="calcTurnover()">
+                    </div>
+                    <div class="input-group">
+                        <label>Beginning Inventory ($)</label>
+                        <input type="number" id="ito-beg" value="100000" oninput="calcTurnover()">
+                    </div>
+                    <div class="input-group">
+                        <label>Purchases ($)</label>
+                        <input type="number" id="ito-purch" value="200000" oninput="calcTurnover()">
+                    </div>
+                    <div class="input-group">
+                        <label>Ending Inventory ($)</label>
+                        <input type="number" id="ito-end" value="100000" oninput="calcTurnover()">
+                    </div>
+                    <div class="input-group">
+                        <label>Calculate Average As:</label>
+                        <select id="ito-avg-method" onchange="calcTurnover()">
+                            <option value="simple">(Beg + End) ÷ 2</option>
+                            <option value="sales-weighted">Sales-Weighted Average</option>
+                        </select>
+                    </div>
+
+                    <div style="display: flex; gap: 1rem; margin-top: 2rem;">
+                        <div style="flex: 1; padding: 1.5rem; background: var(--bg-light); border-radius: var(--radius-sm); border: 2px solid var(--primary); text-align: center;">
+                            <div style="font-size: 0.8rem; color: var(--text-muted); text-transform: uppercase;">Turnover Ratio</div>
+                            <div id="turnover-ratio" style="font-size: 2rem; font-weight: 900; color: var(--primary);">5.00</div>
+                        </div>
+                        <div style="flex: 1; padding: 1.5rem; background: var(--bg-light); border-radius: var(--radius-sm); border: 2px solid var(--info); text-align: center;">
+                            <div style="font-size: 0.8rem; color: var(--text-muted); text-transform: uppercase;">DSI (Days)</div>
+                            <div id="turnover-dsi" style="font-size: 2rem; font-weight: 900; color: var(--info);">73.0</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div style="margin-top: 2rem;">
+                    <label>Industry Benchmark:</label>
+                    <select id="ito-benchmark" onchange="showBenchmark()">
+                        <option value="none">Select Industry...</option>
+                        <option value="retail">Retail - General Merchandise</option>
+                        <option value="grocery">Grocery Stores</option>
+                        <option value="automotive">Automotive</option>
+                        <option value="apparel">Apparel & Footwear</option>
+                        <option value="electronics">Electronics</option>
+                    </select>
+                </div>
+
+                <div id="benchmark-info" style="padding: 1.5rem; background: var(--bg-light); border-radius: var(--radius-sm); border-left: 4px solid var(--warning); display: none;">
+                    <p style="font-weight: bold;">Benchmark Analysis</p>
+                    <p>Selected industry turnover: <strong>5.0x</strong> (very good for general merchandise)</p>
+                    <p>Industry average: <strong>4.5x</strong></p>
+                    <p>Your result is: <strong id="benchmark-result">Better</strong> by 0.5x</p>
+                </div>
+            </div>
+            </section>
+
+            <!-- Common Misconceptions -->
+            <section class="kp-section">
+                <h2>🚫 Common Misconceptions & Professional Tips</h2>
+
+                <div class="misconception-alert">
+                    <strong>❌ Misconception 1:</strong> "Higher inventory turnover is always better."
+                    <br><br>
+                    <strong>✅ Reality:</strong> Higher turnover is generally desirable but context matters. Extremely high turnover may indicate understocking risks and potential lost sales from inventory shortages.
+                </div>
+
+                <div class="misconception-alert">
+                    <strong>❌ Misconception 2:</strong> "Inventory turnover should be the same for all industries."
+                    <br><br>
+                    <strong>✅ Reality:</strong> Turnover ratios vary dramatically by industry. Grocery stores typically have 10-15x turnover, while auto parts manufacturers may have 4-6x. Always compare to industry peers, not across different sectors.
+                </div>
+
+                <div class="misconception-alert">
+                    <strong>❌ Misconception 3:</strong> "Days sales in inventory (DSI) measures how long inventory sits before being sold."
+                    <br><br>
+                    <strong>✅ Reality:</strong> While DSI is a useful metric, it doesn't measure how long inventory sits idle or obsolete. It measures how many days of sales it would take to sell at current turnover rate, assuming constant sales.
+                </div>
+
+                <div class="professional-tip">
+                    <strong>💡 Professional Tip #1:</strong> Monitor turnover trends over multiple periods rather than focusing on a single point. Look for patterns and underlying causes of changes.
+                </div>
+
+                <div class="professional-tip">
+                    <strong>💡 Professional Tip #2:</strong> Compare turnover ratios to industry benchmarks after adjusting for business model differences. A fashion retailer with 4x turnover may be performing excellently, while an auto parts dealer with 4x turnover may have room for improvement.
+                </div>
+
+                <div class="professional-tip">
+                    <strong>💡 Professional Tip #3:</strong> Use inventory turnover in conjunction with gross margin analysis. High turnover with low gross margin suggests pricing or efficiency issues. High turnover with high gross margin is the ideal combination.
+                </div>
+            </section>
+
+            <!-- Memory Aids -->
+            <section class="kp-section">
+                <h2>🧠 Memory Aids & Quick Reference</h2>
+
+                <div class="memory-aid-card">
+                    <strong>⚡ Quick Recall: Inventory Turnover Formulas</strong>
+                    <p><strong>Turnover = Cost of Goods Sold ÷ Average Inventory</strong></p>
+                    <p><strong>DSI = 365 ÷ Turnover Ratio</strong></p>
+                    <p><strong>Average Inventory = (Beginning + Ending) ÷ 2</strong></p>
+                </div>
+
+                <div class="key-concepts-grid">
+                    <div class="concept-card">
+                        <strong>📊 High Turnover (>8x)</strong>
+                        <p>Inventory is very efficient. Typical of grocery stores and fast-food chains. Indicated just-in-time management.</p>
+                    </div>
+
+                    <div class="concept-card">
+                        <strong>⚖️ Good Turnover (4x - 8x)</strong>
+                        <p>Industry standard. Good inventory management. Most businesses aim for this range.</p>
+                    </div>
+
+                    <div class="concept-card">
+                        <strong>📉 Low Turnover (<4x)</strong>
+                        <p>May indicate overstocking, obsolete inventory, or slow-moving goods. Requires immediate attention to inventory management.</p>
+                    </div>
+
+                    <div class="concept-card">
+                        <strong>💰 Slow Turnover (<2x)</strong>
+                        <p>Significant inventory management problems. Carrying costs are high, cash flow is tied up. Risk of write-offs.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Glossary -->
+            <section class="kp-section">
+                <h2>📖 Glossary</h2>
+                <div class="key-concepts-grid">
+                    <div class="concept-card">
+                        <strong>Inventory Turnover</strong>
+                        <p>Ratio measuring how many times inventory is sold and replaced during a period. Formula: COGS ÷ Average Inventory.</p>
+                    </div>
+
+                    <div class="concept-card">
+                        <strong>Cost of Goods Sold (COGS)</strong>
+                        <p>Total cost of merchandise sold during a period. Includes beginning inventory, purchases, and ending inventory. Formula: Beginning Inventory + Purchases - Ending Inventory.</p>
+                    </div>
+
+                    <div class="concept-card">
+                        <strong>Average Inventory</strong>
+                        <p>Typical inventory balance during a period. Calculated as (Beginning Inventory + Ending Inventory) ÷ 2 for periodic systems. Simple average may be used for stable inventory levels.</p>
+                    </div>
+
+                    <div class="concept-card">
+                        <strong>Days Sales in Inventory (DSI)</strong>
+                        <p>Number of days it would take to sell all inventory at current sales rate. Calculated as 365 days ÷ Inventory Turnover Ratio. Measures liquidity of inventory in days.</p>
+                    </div>
+
+                    <div class="concept-card">
+                        <strong>Gross Margin</strong>
+                        <p>Sales revenue minus cost of goods sold. Represents profit before other expenses. Higher margins allow for higher turnover ratios.</p>
+                    </div>
+
+                    <div class="concept-card">
+                        <strong>Carrying Cost</strong>
+                        <p>Cost to hold inventory including storage, insurance, and obsolescence. Lower turnover may indicate inefficient capital tied up in inventory or poor inventory management.</p>
+                    </div>
+
+                    <div class="concept-card">
+                        <strong>Inventory Obsolescence</strong>
+                        <p>Decline in inventory value due to factors like age, damage, or becoming outdated. Can create losses when written off.</p>
+                    </div>
+
+                    <div class="concept-card">
+                        <strong>Just-in-Time (JIT)</strong>
+                        <p>Inventory system where goods are produced or purchased just as needed for immediate sale. Minimizes inventory holding costs and storage.</p>
+                    </div>
+
+                    <div class="concept-card">
+                        <strong>Periodic System</strong>
+                        <p>Inventory system where counts are taken at period-end. Higher accuracy but less real-time visibility. May have inventory discrepancies at count time.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Final Knowledge Check -->
+            <section class="interactive-section">
+                <h2>🎯 Final Knowledge Check</h2>
+                <p>Test your understanding of Inventory Turnover:</p>
+
+                <div class="quiz-container" data-success-text="Excellent! You've mastered inventory turnover analysis." data-explanation="Inventory turnover measures efficiency of inventory management. Higher ratios generally indicate better efficiency but should be compared within industry context.">
+                    <div class="input-group">
+                        <p><strong>Question 1:</strong> If a company has COGS of $500,000 and average inventory of $100,000, what is the inventory turnover?</p>
+                        <label><input type="radio" name="q1" value="incorrect1" data-correct="false"> 2.0x</label><br>
+                        <label><input type="radio" name="q1" value="correct" data-correct="true"> 5.0x</label><br>
+                        <label><input type="radio" name="q1" value="incorrect2" data-correct="false"> 10.0x</label>
+                    </div>
+
+                    <div class="input-group">
+                        <p><strong>Question 2:</strong> What does Days Sales in Inventory (DSI) measure?</p>
+                        <label><input type="radio" name="q2" value="correct" data-correct="true"> How many days it takes to sell inventory</label><br>
+                        <label><input type="radio" name="q2" value="incorrect1" data-correct="false"> How many days until inventory becomes obsolete</label><br>
+                        <label><input type="radio" name="q2" value="incorrect2" data-correct="false"> The total time inventory sits before being replaced</label>
+                    </div>
+
+                    <div class="input-group">
+                        <p><strong>Question 3:</strong> A company has 8x turnover while a competitor has 12x turnover in the same industry. Which company has better inventory efficiency?</p>
+                        <label><input type="radio" name="q3" value="incorrect1" data-correct="false"> The competitor with 12x turnover</label><br>
+                        <label><input type="radio" name="q3" value="correct" data-correct="true"> Cannot determine without knowing gross margin - turnover must be analyzed with profitability</label><br>
+                        <label><input type="radio" name="q3" value="incorrect2" data-correct="false"> The company with 8x turnover - higher turnover is always better</label>
+                    </div>
+
+                    <button class="btn btn-primary quiz-submit">Submit Answers</button>
+                    <div class="feedback"></div>
+                    <button class="quiz-retry">Try Again</button>
+                </div>
+            </section>
+
+            <!-- Navigation -->
+            <nav class="kp-navigation" style="display: flex; justify-content: space-between; margin-top: 4rem; padding-bottom: 2rem;">
+                <a href="./ch06_C1.html" class="btn" style="background: #eee;">← Previous: Inventory Turnover</a>
+                <a href="./ch06_A2.html" class="btn btn-primary">Next: Asset Turnover →</a>
+            </nav>
+        </article>
+    </main>
+
+    <footer style="margin-top: 5rem; padding: 2rem 0; border-top: 1px solid #ddd; text-align: center; color: #888;">
+        <p>Accounting Essentials | Chapter 6 | Analysis 1</p>
+    </footer>
+
+    <script src="../../components-enhanced.js"></script>
+    <script>
+        function setDepth(depth) {
+            document.querySelectorAll('.depth-btn').forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+
+            document.querySelectorAll('.depth-content').forEach(content => content.classList.remove('active'));
+            document.getElementById(`depth-${depth}`).classList.add('active');
+        }
+
+        function calcTurnover() {
+            const cogs = parseFloat(document.getElementById('ito-cogs').value) || 0;
+            const beg = parseFloat(document.getElementById('ito-beg').value) || 0;
+            const purch = parseFloat(document.getElementById('ito-purch').value) || 0;
+            const end = parseFloat(document.getElementById('ito-end').value) || 0;
+            const avgMethod = document.getElementById('ito-avg-method').value;
+
+            let avgInventory;
+            if (avgMethod === 'simple') {
+                avgInventory = (beg + end) / 2;
+            } else {
+                // Sales-weighted average would require access to daily inventory data
+                avgInventory = beg + end / 2;
+            }
+
+            const turnover = cogs / avgInventory;
+            const dsi = 365 / turnover;
+
+            // Update display
+            document.getElementById('turnover-ratio').textContent = turnover.toFixed(2);
+            document.getElementById('turnover-dsi').textContent = dsi.toFixed(1);
+
+            // Benchmark comparison
+            const benchmarkInfo = document.getElementById('benchmark-info');
+            const benchmark = document.getElementById('ito-benchmark').value;
+
+            let benchmarkRatio, benchmarkText;
+
+            switch(benchmark) {
+                case 'retail':
+                    benchmarkRatio = 5.0;
+                    benchmarkText = 'Retail';
+                    break;
+                case 'grocery':
+                    benchmarkRatio = 12.0;
+                    benchmarkText = 'Grocery';
+                    break;
+                case 'automotive':
+                    benchmarkRatio = 8.0;
+                    benchmarkText = 'Automotive';
+                    break;
+                case 'apparel':
+                    benchmarkRatio = 6.0;
+                    benchmarkText = 'Apparel';
+                    break;
+                case 'electronics':
+                    benchmarkRatio = 4.0;
+                    benchmarkText = 'Electronics';
+                    break;
+                default:
+                    benchmarkInfo.style.display = 'none';
+                    return;
+            }
+
+            if (benchmark) {
+                benchmarkInfo.style.display = 'block';
+
+                const diff = turnover - benchmarkRatio;
+                let resultText, resultClass;
+
+                if (diff > 1.0) {
+                    resultText = `Your result of ${turnover.toFixed(2)}x is higher than the ${benchmarkText} industry average of ${benchmarkRatio}x.`;
+                    resultClass = 'better';
+                } else if (diff > -1.0) {
+                    resultText = `Your result of ${turnover.toFixed(2)}x is lower than the ${benchmarkText} industry average of ${benchmarkRatio}x. This may indicate understocking issues.`;
+                    resultClass = 'worse';
+                } else if (diff > -0.2 && diff < 0.2) {
+                    resultText = `Your result of ${turnover.toFixed(2)}x is close to the ${benchmarkText} industry average of ${benchmarkRatio}x.`;
+                    resultClass = 'similar';
+                } else {
+                    resultText = `Your result of ${turnover.toFixed(2)}x is significantly lower than the ${benchmarkText} industry average. This may indicate serious inventory management problems.`;
+                    resultClass = 'concern';
+                }
+
+                document.getElementById('benchmark-result').textContent = `${turnover.toFixed(2)}x`;
+                document.getElementById('benchmark-result').className = resultClass;
+                document.getElementById('benchmark-info').querySelector('p').textContent = `Industry average: ${benchmarkRatio}x (${benchmarkText})`;
+                document.getElementById('benchmark-info').querySelector('p:nth-child(2)').textContent = `Your result: ${resultText}`;
+
+                if (resultClass === 'better' || resultClass === 'similar') {
+                    document.getElementById('benchmark-info').style.borderColor = 'var(--success)';
+                } else if (resultClass === 'worse') {
+                    document.getElementById('benchmark-info').style.borderColor = 'var(--error)';
+                } else {
+                    document.getElementById('benchmark-info').style.borderColor = 'var(--warning)';
+                }
+            }
+        }
+
+        function showBenchmark() {
+            document.getElementById('benchmark-info').style.display = 'none';
+        }
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,2056 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>P4 (App 5A): Periodic Inventory System | ACCOUNTING ESSENTIALS</title>
+    <link rel="stylesheet" href="../../styles.css">
+    <style>
+        /* Additional styles for comprehensive knowledge point */
+        .system-comparison {
+            display: flex;
+            gap: 2rem;
+            margin: 2rem 0;
+            flex-wrap: wrap;
+        }
+        
+        .system-side {
+            flex: 1;
+            min-width: 280px;
+            padding: 1.5rem;
+            border-radius: var(--radius-md);
+        }
+        
+        .system-side.perpetual {
+            background: var(--info-light);
+            border: 3px solid var(--info);
+        }
+        
+        .system-side.periodic {
+            background: var(--secondary-light);
+            border: 3px solid var(--secondary);
+        }
+        
+        .system-header {
+            font-weight: 700;
+            font-size: 1.2rem;
+            margin-bottom: 1rem;
+            text-transform: uppercase;
+        }
+        
+        .system-side.perpetual .system-header { color: var(--info-dark); }
+        .system-side.periodic .system-header { color: var(--secondary-dark); }
+        
+        .equation-display {
+            background: var(--bg-dark);
+            color: var(--white);
+            padding: 2rem;
+            border-radius: var(--radius-md);
+            margin: 2rem 0;
+            text-align: center;
+        }
+        
+        .equation-row {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 1rem;
+            flex-wrap: wrap;
+            margin: 1rem 0;
+        }
+        
+        .equation-term {
+            padding: 0.75rem 1.5rem;
+            background: rgba(255,255,255,0.1);
+            border: 2px solid rgba(255,255,255,0.3);
+            border-radius: var(--radius-sm);
+            font-weight: 700;
+        }
+        
+        .equation-term.highlight {
+            background: rgba(var(--success-rgb), 0.3);
+            border-color: var(--success);
+        }
+        
+        .equation-operator {
+            font-size: 1.5rem;
+            font-weight: 700;
+        }
+        
+        .equation-result {
+            background: var(--success);
+            color: var(--white);
+            padding: 0.75rem 1.5rem;
+            border-radius: var(--radius-sm);
+            font-weight: 700;
+        }
+        
+        .timeline-periodic {
+            position: relative;
+            padding: 2rem 0;
+        }
+        
+        .timeline-periodic::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: var(--primary);
+            transform: translateY(-50%);
+        }
+        
+        .timeline-item-periodic {
+            display: flex;
+            align-items: center;
+            margin-bottom: 2rem;
+            position: relative;
+        }
+        
+        .timeline-marker-periodic {
+            width: 44px;
+            height: 44px;
+            background: var(--secondary);
+            color: var(--white);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            z-index: 1;
+            margin-right: 1.5rem;
+            border: 3px solid var(--white);
+            box-shadow: var(--shadow);
+        }
+        
+        .timeline-content-periodic {
+            flex: 1;
+            background: var(--white);
+            padding: 1.5rem;
+            border: 2px solid var(--secondary);
+            border-radius: var(--radius-md);
+        }
+        
+        .countdown-diagram {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 0.5rem;
+            margin: 2rem 0;
+            padding: 2rem;
+            background: var(--bg-light);
+            border-radius: var(--radius-md);
+        }
+        
+        .countdown-step {
+            padding: 1rem 1.5rem;
+            background: var(--white);
+            border: 3px solid var(--primary);
+            border-radius: var(--radius-md);
+            text-align: center;
+        }
+        
+        .countdown-step.highlight {
+            background: var(--secondary);
+            border-color: var(--secondary);
+            color: var(--white);
+        }
+        
+        .countdown-number {
+            display: inline-block;
+            width: 28px;
+            height: 28px;
+            background: var(--primary);
+            color: var(--white);
+            border-radius: 50%;
+            line-height: 28px;
+            font-weight: 700;
+            margin-bottom: 0.25rem;
+        }
+        
+        .countdown-step.highlight .countdown-number {
+            background: var(--white);
+            color: var(--secondary);
+        }
+        
+        .countdown-arrow {
+            font-size: 1.5rem;
+            color: var(--primary);
+        }
+        
+        .calculator-periodic {
+            background: var(--bg-dark);
+            color: var(--white);
+            padding: 2rem;
+            border-radius: var(--radius-md);
+            margin: 2rem 0;
+        }
+        
+        .calc-row-periodic {
+            display: flex;
+            align-items: center;
+            padding: 0.75rem 0;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+        
+        .calc-row-periodic:last-child {
+            border-bottom: none;
+        }
+        
+        .calc-label-periodic {
+            flex: 2;
+            font-size: 0.9rem;
+        }
+        
+        .calc-input-periodic {
+            flex: 1;
+        }
+        
+        .calc-input-periodic input {
+            width: 100%;
+            padding: 0.5rem;
+            border: none;
+            border-radius: var(--radius-sm);
+            text-align: right;
+        }
+        
+        .calc-result-periodic {
+            flex: 1;
+            text-align: right;
+            font-weight: 700;
+            font-size: 1.1rem;
+            color: var(--success);
+        }
+        
+        .decision-node-periodic {
+            padding: 1rem 1.5rem;
+            background: var(--white);
+            border: 2px solid var(--primary);
+            border-radius: var(--radius-sm);
+            margin-bottom: 1rem;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+        
+        .decision-node-periodic:hover {
+            border-color: var(--secondary);
+            box-shadow: var(--shadow);
+        }
+        
+        .decision-question-periodic {
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+        }
+        
+        .decision-answer-periodic {
+            display: none;
+            padding: 1rem;
+            background: var(--success-light);
+            border-radius: var(--radius-sm);
+            margin-top: 0.5rem;
+            color: var(--white);
+        }
+        
+        .decision-node-periodic.expanded .decision-answer-periodic {
+            display: block;
+        }
+        
+        .when-to-use-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin: 2rem 0;
+        }
+        
+        .when-to-use-card {
+            padding: 1.5rem;
+            background: var(--white);
+            border-radius: var(--radius-md);
+            border-left: 4px solid var(--primary);
+        }
+        
+        .when-to-use-card.perpetual {
+            border-left-color: var(--info);
+        }
+        
+        .when-to-use-card.periodic {
+            border-left-color: var(--secondary);
+        }
+        
+        .when-to-use-title {
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+        
+        .when-to-use-card.perpetual .when-to-use-title { color: var(--info); }
+        .when-to-use-card.periodic .when-to-use-title { color: var(--secondary); }
+    </style>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-50MTQPVR7D"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-50MTQPVR7D');
+</script>
+
+</head>
+
+<body>
+    <header>
+        <div class="container nav-container">
+            <a href="../../index.html" class="logo">ACCOUNTING<span>ESSENTIALS</span></a>
+            <nav class="nav-links">
+                <a href="../../index.html">Home</a>
+                <a href="../../Part1/part1.html">Part 1</a>
+                <a href="../../part2/part2.html">Part 2</a>
+                <a href="../../part3/part3.html">Part 3</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container">
+        <div class="breadcrumbs">
+            <a href="../../index.html">Home</a> <span>/</span> <a href="../../part2/part2.html">Part 2</a>
+            <span>/</span> <a href="ch05.html">Chapter 5</a> <span>/</span> P4
+        </div>
+
+        <article class="animate-fade-in">
+            <div class="kp-header">
+                <h1 style="border-left: 8px solid var(--secondary); padding-left: 1rem; margin: 2rem 0;">Periodic Inventory System (Appendix 5A)</h1>
+            </div>
+
+            <!-- Learning Objectives -->
+            <section class="kp-section">
+                <h2>🎯 Learning Objectives</h2>
+                <div class="learning-objectives">
+                    <ul>
+                        <li>Understand the difference between perpetual and periodic inventory systems</li>
+                        <li>Identify when each system is appropriate for different business types</li>
+                        <li>Calculate Cost of Goods Sold using the periodic system formula</li>
+                        <li>Understand Goods Available for Sale and its components</li>
+                        <li>Prepare adjusting entries for inventory in periodic systems</li>
+                        <li>Analyze the trade-offs between perpetual and periodic systems</li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- Background & Principles -->
+            <section class="kp-section">
+                <h2>📚 Background & Principles</h2>
+                <p>The periodic inventory system determines inventory quantities and costs only at specific intervals, typically at the end of each accounting period. Unlike perpetual systems that track inventory continuously, periodic systems rely on physical counts to determine ending inventory and calculate Cost of Goods Sold.</p>
+
+                <div class="concept-card" style="margin: 1.5rem 0;">
+                    <strong>Core Principle:</strong> In a periodic system, COGS is calculated indirectly: Beginning Inventory + Net Purchases - Ending Inventory (from physical count). The "Purchases" account accumulates all inventory acquisitions during the period.
+                </div>
+
+                <div class="professional-tip">
+                    <strong>💡 Key Insight:</strong> The periodic system is like a "reset button" approach. You don't know how much inventory was sold during the period until you count what's left at the end. Then you work backward to figure out COGS.
+                </div>
+
+                <h3 style="margin-top: 2rem;">The Scanner vs. The Clipboard</h3>
+                <div class="system-comparison" style="margin-top: 1rem;">
+                    <div class="system-side perpetual">
+                        <div class="system-header">🖥️ Perpetual System</div>
+                        <p><strong>Analogy: The Scanner</strong></p>
+                        <p>Used by Walmart and modern retailers. Every "beep" at checkout updates inventory <em>instantly</em>. You always know what you have.</p>
+                        <ul style="margin-top: 0.5rem; font-size: 0.9rem; padding-left: 1rem;">
+                            <li>Real-time inventory tracking</li>
+                            <li>COGS known after each sale</li>
+                            <li>Requires technology (barcodes, scanners)</li>
+                            <li>Higher implementation cost</li>
+                        </ul>
+                    </div>
+                    <div class="system-side periodic">
+                        <div class="system-header">📋 Periodic System</div>
+                        <p><strong>Analogy: The Clipboard</strong></p>
+                        <p>Used by small shops and lemonade stands. You count what's left at the end to figure out how many you sold.</p>
+                        <ul style="margin-top: 0.5rem; font-size: 0.9rem; padding-left: 1rem;">
+                            <li>Periodic physical counts</li>
+                            <li>COGS calculated at period end</li>
+                            <li>Simple manual process</li>
+                            <li>Lower implementation cost</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="when-to-use-grid">
+                    <div class="when-to-use-card perpetual">
+                        <div class="when-to-use-title">Use Perpetual When:</div>
+                        <ul style="font-size: 0.85rem; padding-left: 1rem; margin: 0;">
+                            <li>High transaction volume</li>
+                            <li>Expensive inventory items</li>
+                            <li>Need real-time data</li>
+                            <li>Automated reordering needed</li>
+                            <li>Technology infrastructure exists</li>
+                        </ul>
+                    </div>
+                    <div class="when-to-use-card periodic">
+                        <div class="when-to-use-title">Use Periodic When:</div>
+                        <ul style="font-size: 0.85rem; padding-left: 1rem; margin: 0;">
+                            <li>Low transaction volume</li>
+                            <li>Low-value items (nails, bolts)</li>
+                            <li>Simple business operations</li>
+                            <li>Limited technology budget</li>
+                            <li>Physical count is easy</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="table-scroll" style="margin-top: 2rem;">
+                    <table class="comparison-table">
+                        <thead>
+                            <tr>
+                                <th>Feature</th>
+                                <th>Perpetual System</th>
+                                <th>Periodic System</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>Inventory Update</strong></td>
+                                <td>Instant (with every sale)</td>
+                                <td>Period-end (by physical count)</td>
+                            </tr>
+                            <tr>
+                                <td><strong>COGS Calculation</strong></td>
+                                <td>Known continuously</td>
+                                <td>Calculated at period end</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Inventory Account</strong></td>
+                                <td>Always shows current balance</td>
+                                <td>Shows beginning balance until adjusted</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Purchases Account</strong></td>
+                                <td>Not used (direct to Inventory)</td>
+                                <td>Accumulates all purchases</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Typical Business</strong></td>
+                                <td>High-volume, high-tech (Walmart)</td>
+                                <td>Low-volume, manual (Small shops)</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Cost of Implementation</strong></td>
+                                <td>Higher (technology needed)</td>
+                                <td>Lower (simple counting)</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- Key Concepts -->
+            <section class="kp-section">
+                <h2>🔑 Key Concepts</h2>
+                <div class="key-concepts-grid">
+                    <div class="concept-card">
+                        <strong>Periodic Inventory System</strong>
+                        <p>An inventory system where inventory quantities and costs are determined only at the end of each accounting period through physical count, not continuously updated.</p>
+                    </div>
+
+                    <div class="concept-card">
+                        <strong>Purchases Account</strong>
+                        <p>In periodic systems, this temporary account accumulates all inventory purchases during the period. Debited for all purchases, credited for returns and allowances.</p>
+                    </div>
+
+                    <div class="concept-card">
+                        <strong>Goods Available for Sale</strong>
+                        <p>Beginning Inventory + Net Purchases. The total cost of all inventory that could have been sold during the period.</p>
+                    </div>
+
+                    <div class="concept-card">
+                        <strong>Physical Inventory Count</strong>
+                        <p>The process of counting, weighing, or measuring all inventory on hand at period end. Essential for periodic systems to determine ending inventory.</p>
+                    </div>
+
+                    <div class="concept-card">
+                        <strong>Net Purchases</strong>
+                        <p>Purchases - Purchase Returns and Allowances - Purchase Discounts. The actual cost of inventory acquired during the period.</p>
+                    </div>
+
+                    <div class="concept-card">
+                        <strong>COGS in Periodic System</strong>
+                        <p>Beginning Inventory + Net Purchases - Ending Inventory (from physical count). Cannot be known until the physical count is complete.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Deep Dive -->
+            <section class="kp-section">
+                <h2>🔍 Deep Dive</h2>
+                <p>Explore periodic inventory concepts at different levels of depth:</p>
+
+                <div class="depth-toggle">
+                    <button class="depth-btn active" onclick="setDepth('A')">Depth A: Foundational</button>
+                    <button class="depth-btn" onclick="setDepth('B')">Depth B: Standard</button>
+                    <button class="depth-btn" onclick="setDepth('C')">Depth C: Advanced</button>
+                </div>
+
+                <!-- Depth A: Foundational -->
+                <div id="depth-A" class="depth-content active">
+                    <h3>🟢 Foundational Level</h3>
+                    <p>Understanding the basic periodic system concept and COGS formula.</p>
+
+                    <div class="worked-example">
+                        <h4>The Lemonade Stand Analogy</h4>
+                        <p><strong>Scenario:</strong> You run a small lemonade stand. You don't scan every cup sold—you just count cups at the end of the day.</p>
+
+                        <div class="example-step">
+                            <strong>Morning:</strong>
+                            <p>You start with 50 cups. (Beginning Inventory = 50)</p>
+                        </div>
+
+                        <div class="example-step">
+                            <strong>During the day:</strong>
+                            <p>You buy 100 more cups. (Purchases = 100)</p>
+                            <p>You sell cups throughout the day but don't track each one.</p>
+                        </div>
+
+                        <div class="example-step">
+                            <strong>Evening (Count):</strong>
+                            <p>You count and have 30 cups left. (Ending Inventory = 30)</p>
+                        </div>
+
+                        <div class="example-step">
+                            <strong>Calculation:</strong>
+                            <p>Cups Sold = Beginning + Purchases - Ending</p>
+                            <p>Cups Sold = 50 + 100 - 30 = 120 cups</p>
+                            <p>If each cup cost $0.10, COGS = 120 × $0.10 = $12.00</p>
+                        </div>
+                    </div>
+
+                    <div class="equation-display" style="margin-top: 1.5rem;">
+                        <div class="equation-row">
+                            <div class="equation-term">Beginning Inventory</div>
+                            <div class="equation-operator">+</div>
+                            <div class="equation-term">Net Purchases</div>
+                            <div class="equation-operator">=</div>
+                            <div class="equation-term highlight">Goods Available</div>
+                        </div>
+                        <div class="equation-arrow" style="margin: 0.5rem 0;">↓</div>
+                        <div class="equation-row">
+                            <div class="equation-term highlight">Goods Available</div>
+                            <div class="equation-operator">-</div>
+                            <div class="equation-term">Ending Inventory</div>
+                            <div class="equation-operator">=</div>
+                            <div class="equation-result">COGS</div>
+                        </div>
+                    </div>
+
+                    <div class="concept-card" style="margin-top: 1.5rem;">
+                        <strong>💡 Memory Hook:</strong> In periodic systems, think of it like a bank account. You know your starting balance (Beginning Inventory), you track all deposits (Purchases), but you only know your ending balance when you check the actual inventory count.
+                    </div>
+                </div>
+
+                <!-- Depth B: Standard -->
+                <div id="depth-B" class="depth-content">
+                    <h3>🟡 Standard Level</h3>
+                    <p>Understanding the accounting entries and complete COGS calculation.</p>
+
+                    <div class="worked-example">
+                        <h4>Complete COGS Calculation</h4>
+                        <p><strong>Scenario:</strong> A small bookstore uses periodic inventory. Year-end data:</p>
+
+                        <div class="timeline-periodic">
+                            <div class="timeline-item-periodic">
+                                <div class="timeline-marker-periodic">1</div>
+                                <div class="timeline-content-periodic">
+                                    <strong>Beginning Inventory</strong>
+                                    <p>Jan 1 inventory balance: <strong>$10,000</strong></p>
+                                    <p><em>From previous period's ending count.</em></p>
+                                </div>
+                            </div>
+                            <div class="timeline-item-periodic">
+                                <div class="timeline-marker-periodic">2</div>
+                                <div class="timeline-content-periodic">
+                                    <strong>Add: Gross Purchases</strong>
+                                    <p>Total purchases during year: <strong>$50,000</strong></p>
+                                    <p><em>All inventory purchases, regardless of payment status.</em></p>
+                                </div>
+                            </div>
+                            <div class="timeline-item-periodic">
+                                <div class="timeline-marker-periodic">3</div>
+                                <div class="timeline-content-periodic">
+                                    <strong>Less: Purchase Returns</strong>
+                                    <p>Returns to suppliers: <strong>($2,000)</strong></p>
+                                    <p><em>Goods returned reduce net purchases.</em></p>
+                                </div>
+                            </div>
+                            <div class="timeline-item-periodic">
+                                <div class="timeline-marker-periodic">4</div>
+                                <div class="timeline-content-periodic">
+                                    <strong>Less: Purchase Discounts</strong>
+                                    <p>Early payment discounts: <strong>($1,000)</strong></p>
+                                    <p><em>Discounts taken reduce net purchases.</em></p>
+                                </div>
+                            </div>
+                            <div class="timeline-item-periodic">
+                                <div class="timeline-marker-periodic" style="background: var(--success);">=</div>
+                                <div class="timeline-content-periodic" style="border-color: var(--success);">
+                                    <strong>Net Purchases</strong>
+                                    <p>$50,000 - $2,000 - $1,000 = <strong>$47,000</strong></p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="calculator-periodic">
+                        <h3 style="margin-bottom: 1rem; text-align: center;">Periodic COGS Calculator</h3>
+                        
+                        <div class="calc-row-periodic">
+                            <div class="calc-label-periodic">Beginning Inventory ($)</div>
+                            <div class="calc-input-periodic"><input type="number" id="per-beg" value="10000" oninput="calcPeriodic()"></div>
+                            <div class="calc-result-periodic" id="per-avail">$10,000</div>
+                        </div>
+                        
+                        <div class="calc-row-periodic">
+                            <div class="calc-label-periodic">+ Purchases ($)</div>
+                            <div class="calc-input-periodic"><input type="number" id="per-purch" value="50000" oninput="calcPeriodic()"></div>
+                            <div class="calc-result-periodic"></div>
+                        </div>
+                        
+                        <div class="calc-row-periodic">
+                            <div class="calc-label-periodic">- Purchase Returns ($)</div>
+                            <div class="calc-input-periodic"><input type="number" id="per-returns" value="2000" oninput="calcPeriodic()"></div>
+                            <div class="calc-result-periodic"></div>
+                        </div>
+                        
+                        <div class="calc-row-periodic">
+                            <div class="calc-label-periodic">- Purchase Discounts ($)</div>
+                            <div class="calc-input-periodic"><input type="number" id="per-discounts" value="1000" oninput="calcPeriodic()"></div>
+                            <div class="calc-result-periodic"></div>
+                        </div>
+                        
+                        <div class="calc-row-periodic" style="border-top: 2px solid rgba(255,255,255,0.3); padding-top: 1rem; margin-top: 0.5rem;">
+                            <div class="calc-label-periodic"><strong>= Goods Available for Sale</strong></div>
+                            <div class="calc-input-periodic"></div>
+                            <div class="calc-result-periodic" id="per-avail2">$57,000</div>
+                        </div>
+                        
+                        <div class="calc-row-periodic">
+                            <div class="calc-label-periodic">- Ending Inventory (count) ($)</div>
+                            <div class="calc-input-periodic"><input type="number" id="per-end" value="12000" oninput="calcPeriodic()"></div>
+                            <div class="calc-result-periodic"></div>
+                        </div>
+                        
+                        <div class="calc-row-periodic" style="border-top: 2px solid rgba(255,255,255,0.3); padding-top: 1rem; margin-top: 0.5rem;">
+                            <div class="calc-label-periodic"><strong>= Cost of Goods Sold</strong></div>
+                            <div class="calc-input-periodic"></div>
+                            <div class="calc-result-periodic" style="font-size: 1.3rem;" id="per-cogs">$45,000</div>
+                        </div>
+                    </div>
+
+                    <div class="worked-example" style="margin-top: 2rem;">
+                        <h4>Journal Entries in Periodic System</h4>
+                        <p><strong>During the period:</strong></p>
+                        <table class="financial-table" style="font-size: 0.9rem;">
+                            <thead>
+                                <tr>
+                                    <th>Transaction</th>
+                                    <th>Debit</th>
+                                    <th>Credit</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Purchase inventory</td>
+                                    <td>Purchases $5,000</td>
+                                    <td>Accounts Payable $5,000</td>
+                                </tr>
+                                <tr>
+                                    <td>Return inventory to supplier</td>
+                                    <td>Accounts Payable $500</td>
+                                    <td>Purchase Returns $500</td>
+                                </tr>
+                                <tr>
+                                    <td>Pay within discount period</td>
+                                    <td>Accounts Payable $4,900</td>
+                                    <td>Cash $4,900</td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                        <p style="margin-top: 1rem;"><strong>At period end (adjusting entry):</strong></p>
+                        <table class="financial-table" style="font-size: 0.9rem;">
+                            <thead>
+                                <tr>
+                                    <th>Transaction</th>
+                                    <th>Debit</th>
+                                    <th>Credit</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Close Beginning Inventory</td>
+                                    <td>Income Summary $10,000</td>
+                                    <td>Inventory $10,000</td>
+                                </tr>
+                                <tr>
+                                    <td>Record Ending Inventory</td>
+                                    <td>Inventory $12,000</td>
+                                    <td>Income Summary $12,000</td>
+                                </tr>
+                                <tr>
+                                    <td>Close Purchases</td>
+                                    <td>Income Summary $47,000</td>
+                                    <td>Purchases $47,000</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- Depth C: Advanced -->
+                <div id="depth-C" class="depth-content">
+                    <h3>🔴 Advanced Level</h3>
+                    <p>Understanding inventory valuation methods, errors, and analysis.</p>
+
+                    <div class="worked-example">
+                        <h4>Effect of Inventory Valuation Methods on COGS</h4>
+                        <p>In periodic systems, three methods determine which costs flow to COGS:</p>
+
+                        <div class="decision-tree">
+                            <div class="decision-node-periodic" onclick="this.classList.toggle('expanded')">
+                                <div class="decision-question-periodic">FIFO (First-In, First-Out) in Periodic System</div>
+                                <div class="decision-answer-periodic">
+                                    <strong>Assumption:</strong> Oldest costs are sold first.<br>
+                                    <strong>Effect on COGS:</strong> Lower during inflation (older, cheaper costs flow to COGS).<br>
+                                    <strong>Effect on Ending Inventory:</strong> Higher (newer, more expensive costs remain).<br>
+                                    <strong>Financial Impact:</strong> Lower COGS → Higher Net Income → Higher Taxes.
+                                </div>
+                            </div>
+
+                            <div class="decision-node-periodic" onclick="this.classList.toggle('expanded')">
+                                <div class="decision-question-periodic">LIFO (Last-In, First-Out) in Periodic System</div>
+                                <div class="decision-answer-periodic">
+                                    <strong>Assumption:</strong> Newest costs are sold first.<br>
+                                    <strong>Effect on COGS:</strong> Higher during inflation (newer, expensive costs flow to COGS).<br>
+                                    <strong>Effect on Ending Inventory:</strong> Lower (older, cheaper costs remain).<br>
+                                    <strong>Financial Impact:</strong> Higher COGS → Lower Net Income → Lower Taxes.<br>
+                                    <strong>Note:</strong> LIFO is not allowed under IFRS.
+                                </div>
+                            </div>
+
+                            <div class="decision-node-periodic" onclick="this.classList.toggle('expanded')">
+                                <div class="decision-question-periodic">Weighted Average in Periodic System</div>
+                                <div class="decision-answer-periodic">
+                                    <strong>Assumption:</strong> All units have the same average cost.<br>
+                                    <strong>Formula:</strong> Total Cost of Goods Available ÷ Total Units Available.<br>
+                                    <strong>Effect:</strong> COGS and Ending Inventory fall between FIFO and LIFO.<br>
+                                    <strong>Best For:</strong> Homogeneous products where individual item costs don't differ much.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="worked-example" style="margin-top: 2rem;">
+                        <h4>Common Periodic System Errors</h4>
+
+                        <div class="decision-tree">
+                            <div class="decision-node-periodic" onclick="this.classList.toggle('expanded')">
+                                <div class="decision-question-periodic">Error: Understated Ending Inventory</div>
+                                <div class="decision-answer-periodic">
+                                    <strong>Effect:</strong> If ending inventory is understated by $5,000:<br>
+                                    - COGS is overstated by $5,000 (because Ending is subtracted)<br>
+                                    - Net Income is understated by $5,000<br>
+                                    - Assets and Equity are understated on Balance Sheet.<br>
+                                    <strong>Fix:</strong> Adjust inventory to correct amount before closing.
+                                </div>
+                            </div>
+
+                            <div class="decision-node-periodic" onclick="this.classList.toggle('expanded')">
+                                <div class="decision-question-periodic">Error: Omitted Inventory Count</div>
+                                <div class="decision-answer-periodic">
+                                    <strong>Effect:</strong> If entire inventory count is missed:<br>
+                                    - No ending inventory balance<br>
+                                    - COGS = Goods Available (100% of purchases)<br>
+                                    - Net Income severely understated<br>
+                                    <strong>Fix:</strong> Complete physical count immediately and adjust.
+                                </div>
+                            </div>
+
+                            <div class="decision-node-periodic" onclick="this.classList.toggle('expanded')">
+                                <div class="decision-question-periodic">Error: Double-Counted Inventory</div>
+                                <div class="decision-answer-periodic">
+                                    <strong>Effect:</strong> If ending inventory is overstated by $3,000:<br>
+                                    - COGS is understated by $3,000<br>
+                                    - Net Income is overstated by $3,000<br>
+                                    - Assets are overstated on Balance Sheet.<br>
+                                    <strong>Fix:</strong> Recount and adjust to correct amount.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="professional-tip" style="margin-top: 1.5rem;">
+                        <strong>💡 Professional Insight:</strong> Periodic systems are prone to counting errors because everything depends on one physical count at year-end. Best practices include:
+                        <ul style="margin-top: 0.5rem;">
+                            <li>Use pre-numbered count sheets</li>
+                            <li>Have two-person counting teams (one counts, one records)</li>
+                            <li>Count after hours when operations stop</li>
+                            <li>Segregate counting duties from custodians</li>
+                            <li>Perform surprise counts periodically throughout the year</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Interactive: Periodic vs Perpetual Comparison -->
+            <!-- Interactive: System Comparison Simulator -->
+            <section class="kp-section">
+                <h2>🎨 Interactive: Perpetual vs Periodic System Simulator</h2>
+                <p>Experience how the same transaction flows through both inventory systems. Adjust values and see how journal entries and account balances differ.</p>
+
+                <div class="inventory-simulator">
+                    <div class="simulator-header">
+                        <h3>📦 Transaction Simulator</h3>
+                        <p>Select a transaction type and enter details to see how both systems record it</p>
+                    </div>
+
+                    <!-- Transaction Type Selector -->
+                    <div class="transaction-types">
+                        <button class="trans-type-btn active" data-type="purchase" onclick="selectTransactionType('purchase')">
+                            <span class="trans-icon">🛒</span>
+                            <span class="trans-label">Purchase Inventory</span>
+                            <span class="trans-name">Buy goods from supplier</span>
+                        </button>
+                        <button class="trans-type-btn" data-type="payment" onclick="selectTransactionType('payment')">
+                            <span class="trans-icon">💵</span>
+                            <span class="trans-label">Pay Supplier</span>
+                            <span class="trans-name">Pay for inventory</span>
+                        </button>
+                        <button class="trans-type-btn" data-type="sale" onclick="selectTransactionType('sale')">
+                            <span class="trans-icon">🏷️</span>
+                            <span class="trans-label">Record Sale</span>
+                            <span class="trans-name">Sell goods to customer</span>
+                        </button>
+                        <button class="trans-type-btn" data-type="count" onclick="selectTransactionType('count')">
+                            <span class="trans-icon">📋</span>
+                            <span class="trans-label">Year-End Count</span>
+                            <span class="trans-name">Physical inventory count</span>
+                        </button>
+                    </div>
+
+                    <p style="text-align: center; color: rgba(255,255,255,0.8); margin-bottom: 1rem; font-size: 0.9rem;">
+                        👆 Select a transaction type above, then enter details below
+                    </p>
+
+                    <!-- Input Fields -->
+                    <div class="trans-inputs" id="trans-inputs">
+                        <!-- Dynamic inputs will be inserted here -->
+                    </div>
+
+                    <!-- System Comparison -->
+                    <div class="system-comparison-container">
+                        <div class="system-panel perpetual-system">
+                            <div class="system-header">
+                                <span class="system-icon">🖥️</span>
+                                <span>Perpetual System</span>
+                                <span class="system-badge">Real-time tracking</span>
+                            </div>
+                            <div class="system-content">
+                                <div class="journal-display" id="perpetual-journal">
+                                    <!-- Journal entries will appear here -->
+                                </div>
+                                <div class="account-t-accounts" id="perpetual-accounts">
+                                    <!-- T-accounts will appear here -->
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="system-divider">
+                            <div class="divider-line"></div>
+                            <div class="divider-label">SAME TRANSACTION, DIFFERENT RECORDING</div>
+                            <div class="divider-line"></div>
+                        </div>
+
+                        <div class="system-panel periodic-system">
+                            <div class="system-header">
+                                <span class="system-icon">📋</span>
+                                <span>Periodic System</span>
+                                <span class="system-badge">Year-end calculation</span>
+                            </div>
+                            <div class="system-content">
+                                <div class="journal-display" id="periodic-journal">
+                                    <!-- Journal entries will appear here -->
+                                </div>
+                                <div class="account-t-accounts" id="periodic-accounts">
+                                    <!-- T-accounts will appear here -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Key Differences Panel -->
+                    <div class="differences-panel" id="differences-panel">
+                        <h4>📊 Key Differences</h4>
+                        <div class="diff-grid">
+                            <div class="diff-item">
+                                <div class="diff-label">Inventory Account</div>
+                                <div class="diff-comparison">
+                                    <span class="diff-perp">Updated immediately</span>
+                                    <span class="diff-sep">→</span>
+                                    <span class="diff-peri">Updated at year-end</span>
+                                </div>
+                            </div>
+                            <div class="diff-item">
+                                <div class="diff-label">COGS Recognition</div>
+                                <div class="diff-comparison">
+                                    <span class="diff-perp">Each sale</span>
+                                    <span class="diff-sep">→</span>
+                                    <span class="diff-peri">Year-end calculation</span>
+                                </div>
+                            </div>
+                            <div class="diff-item">
+                                <div class="diff-label">Physical Count Needed</div>
+                                <div class="diff-comparison">
+                                    <span class="diff-perp">Verification only</span>
+                                    <span class="diff-sep">→</span>
+                                    <span class="diff-peri">Essential for COGS</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Quiz Challenge -->
+                    <div class="simulator-quiz">
+                        <h4>🎯 Quick Check</h4>
+                        <div class="quiz-question" id="quiz-question">
+                            <p id="quiz-text">After purchasing 100 units at $10 each, what's the Inventory balance in each system?</p>
+                            <div class="quiz-options" id="quiz-options">
+                                <button class="quiz-opt" onclick="checkAnswer('perpetual', '1000')">
+                                    <strong>Perpetual:</strong> $1,000 | <strong>Periodic:</strong> $0
+                                </button>
+                                <button class="quiz-opt" onclick="checkAnswer('perpetual', '0')">
+                                    <strong>Perpetual:</strong> $0 | <strong>Periodic:</strong> $1,000
+                                </button>
+                                <button class="quiz-opt" onclick="checkAnswer('perpetual', 'same')">
+                                    Both systems show $1,000
+                                </button>
+                            </div>
+                        </div>
+                        <div class="quiz-feedback" id="quiz-feedback"></div>
+                    </div>
+                </div>
+
+                <style>
+
+                .inventory-simulator {
+                        background: linear-gradient(135deg, #1a237e 0%, #283593 100%);
+                        border-radius: 20px;
+                        padding: 2rem;
+                        margin: 1.5rem 0;
+                        color: white;
+                        box-shadow: 0 8px 30px rgba(26,35,126,0.3);
+                    }
+
+                    .simulator-header {
+                        text-align: center;
+                        margin-bottom: 2rem;
+                    }
+
+                    .simulator-header h3 {
+                        color: white;
+                        margin-bottom: 0.5rem;
+                    }
+
+                    .simulator-header p {
+                        opacity: 0.9;
+                        margin: 0;
+                    }
+
+                    .transaction-types {
+                        display: flex;
+                        justify-content: center;
+                        gap: 1rem;
+                        margin-bottom: 2rem;
+                        flex-wrap: wrap;
+                    }
+
+                    .trans-type-btn {
+                        display: flex;
+                        flex-direction: column;
+                        align-items: center;
+                        padding: 1rem 1.25rem;
+                        background: rgba(255,255,255,0.1);
+                        border: 2px solid rgba(255,255,255,0.2);
+                        border-radius: 12px;
+                        color: white;
+                        cursor: pointer;
+                        transition: all 0.3s ease;
+                        min-width: 120px;
+                        text-align: center;
+                    }
+
+                    .trans-type-btn:hover {
+                        background: rgba(255,255,255,0.2);
+                        transform: translateY(-3px);
+                    }
+
+                    .trans-type-btn.active {
+                        background: rgba(255,255,255,0.25);
+                        border-color: #c5a059;
+                        box-shadow: 0 4px 15px rgba(197,160,89,0.3);
+                    }
+
+                    .trans-icon {
+                        font-size: 1.75rem;
+                        margin-bottom: 0.5rem;
+                    }
+
+                    .trans-label {
+                        font-weight: 700;
+                        font-size: 0.95rem;
+                        margin-bottom: 0.25rem;
+                    }
+
+                    .trans-name {
+                        font-size: 0.75rem;
+                        opacity: 0.8;
+                        font-style: italic;
+                    }
+
+                    .trans-inputs {
+                        display: grid;
+                        grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+                        gap: 1rem;
+                        margin-bottom: 2rem;
+                        padding: 1.5rem;
+                        background: rgba(255,255,255,0.1);
+                        border-radius: 12px;
+                        border: 1px solid rgba(255,255,255,0.15);
+                    }
+
+                    .trans-inputs h4 {
+                        grid-column: 1 / -1;
+                        margin: 0 0 0.5rem 0;
+                        color: white;
+                        font-size: 0.95rem;
+                        opacity: 0.9;
+                        text-align: center;
+                    }
+
+                    .input-group {
+                        display: flex;
+                        flex-direction: column;
+                        gap: 0.5rem;
+                    }
+
+                    .input-group label {
+                        font-size: 0.85rem;
+                        opacity: 0.9;
+                        color: white;
+                    }
+
+                    .input-group input, .input-group select {
+                        padding: 0.75rem;
+                        border: 2px solid rgba(255,255,255,0.2);
+                        border-radius: 8px;
+                        background: rgba(255,255,255,0.15);
+                        color: white;
+                        font-size: 1rem;
+                        width: 100%;
+                        box-sizing: border-box;
+                    }
+
+                    .input-group input:focus, .input-group select:focus {
+                        outline: none;
+                        border-color: #c5a059;
+                        background: rgba(255,255,255,0.2);
+                    }
+
+                    .input-group input::placeholder {
+                        color: rgba(255,255,255,0.5);
+                    }
+
+                    .input-group select option {
+                        background: var(--primary);
+                        color: white;
+                    }
+
+                    .system-comparison-container {
+                        display: flex;
+                        gap: 1rem;
+                        margin-bottom: 1.5rem;
+                    }
+
+                    .system-panel {
+                        flex: 1;
+                        background: white;
+                        border-radius: 16px;
+                        overflow: hidden;
+                        color: var(--text-main);
+                    }
+
+                    .system-header {
+                        background: linear-gradient(135deg, var(--primary) 0%, #283593 100%);
+                        color: white;
+                        padding: 1rem 1.25rem;
+                        display: flex;
+                        align-items: center;
+                        gap: 0.75rem;
+                        font-weight: 700;
+                    }
+
+                    .periodic-system .system-header {
+                        background: linear-gradient(135deg, var(--secondary) 0%, #9a7d0a 100%);
+                    }
+
+                    .system-icon {
+                        font-size: 1.25rem;
+                    }
+
+                    .system-badge {
+                        margin-left: auto;
+                        font-size: 0.75rem;
+                        background: rgba(255,255,255,0.2);
+                        padding: 0.25rem 0.75rem;
+                        border-radius: 20px;
+                    }
+
+                    .system-content {
+                        padding: 1.25rem;
+                    }
+
+                    .journal-display {
+                        background: var(--bg-light);
+                        border-radius: 8px;
+                        padding: 1rem;
+                        margin-bottom: 1rem;
+                        font-family: 'Courier New', monospace;
+                        font-size: 0.85rem;
+                    }
+
+                    .journal-entry {
+                        display: flex;
+                        padding: 0.5rem 0;
+                        border-bottom: 1px dashed var(--border-color);
+                    }
+
+                    .journal-entry:last-child {
+                        border-bottom: none;
+                    }
+
+                    .journal-entry .account {
+                        flex: 1;
+                        font-weight: 600;
+                    }
+
+                    .journal-entry .amounts {
+                        display: flex;
+                        gap: 2rem;
+                    }
+
+                    .journal-entry .dr, .journal-entry .cr {
+                        width: 80px;
+                        text-align: right;
+                    }
+
+                    .journal-entry .cr {
+                        color: var(--primary);
+                    }
+
+                    .system-divider {
+                        display: flex;
+                        flex-direction: column;
+                        align-items: center;
+                        justify-content: center;
+                        padding: 0 0.5rem;
+                    }
+
+                    .divider-line {
+                        flex: 1;
+                        width: 2px;
+                        background: linear-gradient(180deg, transparent 0%, #c5a059 50%, transparent 100%);
+                    }
+
+                    .divider-label {
+                        padding: 0.5rem 0;
+                        font-size: 0.7rem;
+                        font-weight: 700;
+                        color: #c5a059;
+                        text-align: center;
+                        white-space: nowrap;
+                    }
+
+                    .differences-panel {
+                        background: rgba(255,255,255,0.1);
+                        border-radius: 12px;
+                        padding: 1.5rem;
+                        margin-bottom: 1.5rem;
+                    }
+
+                    .differences-panel h4 {
+                        color: white;
+                        margin-bottom: 1rem;
+                        text-align: center;
+                    }
+
+                    .diff-grid {
+                        display: grid;
+                        gap: 1rem;
+                    }
+
+                    .diff-item {
+                        background: rgba(255,255,255,0.08);
+                        border-radius: 8px;
+                        padding: 1rem;
+                    }
+
+                    .diff-label {
+                        font-weight: 600;
+                        margin-bottom: 0.5rem;
+                        font-size: 0.9rem;
+                    }
+
+                    .diff-comparison {
+                        display: flex;
+                        align-items: center;
+                        gap: 1rem;
+                        font-size: 0.85rem;
+                    }
+
+                    .diff-perp, .diff-peri {
+                        padding: 0.5rem 1rem;
+                        border-radius: 6px;
+                        flex: 1;
+                        text-align: center;
+                    }
+
+                    .diff-perp {
+                        background: rgba(52,152,219,0.3);
+                        color: white;
+                    }
+
+                    .diff-peri {
+                        background: rgba(197,160,89,0.3);
+                        color: white;
+                    }
+
+                    .diff-sep {
+                        color: #c5a059;
+                        font-weight: 700;
+                    }
+
+                    .simulator-quiz {
+                        background: rgba(255,255,255,0.95);
+                        border-radius: 12px;
+                        padding: 1.5rem;
+                        color: var(--text-main);
+                    }
+
+                    .simulator-quiz h4 {
+                        color: var(--primary);
+                        margin-bottom: 1rem;
+                    }
+
+                    .quiz-question {
+                        margin-bottom: 1rem;
+                    }
+
+                    .quiz-options {
+                        display: flex;
+                        flex-direction: column;
+                        gap: 0.75rem;
+                    }
+
+                    .quiz-opt {
+                        padding: 1rem;
+                        background: var(--bg-light);
+                        border: 2px solid var(--border-color);
+                        border-radius: 8px;
+                        cursor: pointer;
+                        font-size: 0.9rem;
+                        text-align: left;
+                        transition: all 0.3s ease;
+                    }
+
+                    .quiz-opt:hover {
+                        border-color: var(--primary);
+                        background: white;
+                    }
+
+                    .quiz-opt.correct {
+                        background: var(--success-light);
+                        border-color: var(--success);
+                    }
+
+                    .quiz-opt.incorrect {
+                        background: var(--error-light);
+                        border-color: var(--error);
+                    }
+
+                    .quiz-feedback {
+                        margin-top: 1rem;
+                        padding: 1rem;
+                        border-radius: 8px;
+                        font-weight: 600;
+                        display: none;
+                    }
+
+                    .quiz-feedback.show {
+                        display: block;
+                        animation: slideDown 0.3s ease;
+                    }
+
+                    .quiz-feedback.correct {
+                        background: var(--success-light);
+                        color: var(--success-dark);
+                    }
+
+                    .quiz-feedback.incorrect {
+                        background: var(--error-light);
+                        color: var(--error-dark);
+                    }
+
+                    @keyframes slideDown {
+                        from { opacity: 0; transform: translateY(-10px); }
+                        to { opacity: 1; transform: translateY(0); }
+                    }
+
+                    @media (max-width: 992px) {
+                        .system-comparison-container {
+                            flex-direction: column;
+                        }
+
+                        .system-divider {
+                            flex-direction: row;
+                            padding: 0.5rem 0;
+                        }
+
+                        .divider-line {
+                            width: 100%;
+                            height: 2px;
+                            background: linear-gradient(90deg, transparent 0%, #c5a059 50%, transparent 100%);
+                        }
+
+                        .divider-label {
+                            writing-mode: horizontal-tb;
+                            padding: 0.5rem;
+                        }
+                    }
+
+                    @media (max-width: 576px) {
+                        .transaction-types {
+                            gap: 0.5rem;
+                        }
+
+                        .trans-type-btn {
+                            padding: 0.75rem 1rem;
+                            min-width: 70px;
+                        }
+
+                        .trans-icon {
+                            font-size: 1.25rem;
+                        }
+
+                        .trans-name {
+                            font-size: 0.75rem;
+                        }
+                    }
+
+                    /* Quiz Styles for Radio Buttons */
+                    .quiz-container {
+                        background: var(--white);
+                        padding: 2rem;
+                        border-radius: var(--radius-md);
+                        box-shadow: var(--shadow);
+                        margin: 2rem 0;
+                        max-width: 800px;
+                    }
+
+                    .quiz-container .input-group {
+                        margin-bottom: 2rem;
+                        padding: 1.5rem;
+                        background: var(--bg-light);
+                        border-radius: var(--radius-sm);
+                    }
+
+                    .quiz-container .input-group p {
+                        margin-bottom: 1rem;
+                        font-weight: 600;
+                        color: var(--primary);
+                    }
+
+                    .quiz-container label {
+                        display: flex !important;
+                        align-items: center;
+                        gap: 0.75rem;
+                        padding: 0.6rem 1rem;
+                        background: var(--white);
+                        border: 2px solid var(--border-color);
+                        border-radius: var(--radius-sm);
+                        margin-bottom: 0.4rem !important;
+                        cursor: pointer;
+                        transition: var(--transition);
+                        color: var(--text-main) !important;
+                        font-size: 0.95rem !important;
+                        font-weight: 500 !important;
+                        line-height: 1.4 !important;
+                    }
+
+                    .quiz-container label:hover {
+                        border-color: var(--primary);
+                        background: var(--white);
+                        transform: translateX(5px);
+                    }
+
+                    .quiz-container label.selected {
+                        border-color: var(--primary);
+                        background: var(--primary-light);
+                        color: var(--primary-dark) !important;
+                    }
+
+                    .quiz-container input[type="radio"] {
+                        width: 20px;
+                        height: 20px;
+                        cursor: pointer;
+                        accent-color: var(--primary);
+                        flex-shrink: 0;
+                    }
+
+                    .quiz-submit {
+                        margin-top: 1rem;
+                    }
+
+                    .quiz-explanation {
+                        margin-top: 1.5rem;
+                        padding: 1.5rem;
+                        background: var(--info-light);
+                        border-radius: var(--radius-sm);
+                        border-left: 4px solid var(--info);
+                        color: var(--text-main) !important;
+                    }
+                </style>
+
+                <script>
+                    // Simulator state
+                    let currentTransaction = 'purchase';
+                    let simData = {
+                        purchase: {
+                            quantity: 100,
+                            unitPrice: 10,
+                            terms: '2/10,n/30'
+                        },
+                        payment: {
+                            amount: 1000,
+                            daysEarly: 8,
+                            discount: 0.02
+                        },
+                        sale: {
+                            quantity: 50,
+                            unitPrice: 15,
+                            costPerUnit: 10
+                        },
+                        count: {
+                            beginningInventory: 5000,
+                            purchases: 10000,
+                            endingCount: 80,
+                            unitCost: 12
+                        }
+                    };
+
+                    function selectTransactionType(type) {
+                        currentTransaction = type;
+                        
+                        // Update button states
+                        document.querySelectorAll('.trans-type-btn').forEach(btn => {
+                            btn.classList.remove('active');
+                            if (btn.dataset.type === type) {
+                                btn.classList.add('active');
+                            }
+                        });
+
+                        // Update input fields
+                        updateInputFields();
+                        
+                        // Update displays
+                        updateDisplays();
+                    }
+
+                    function updateInputFields() {
+                        const container = document.getElementById('trans-inputs');
+                        let html = '';
+                        
+                        // Add section title
+                        const titles = {
+                            'purchase': '📝 Purchase Details',
+                            'payment': '💵 Payment Details',
+                            'sale': '🏷️ Sale Details',
+                            'count': '📋 Year-End Count Details'
+                        };
+                        html = `<h4>${titles[currentTransaction]}</h4>`;
+
+                        switch(currentTransaction) {
+                            case 'purchase':
+                                html += `
+                                    <div class="input-group">
+                                        <label>Quantity (units)</label>
+                                        <input type="number" id="sim-qty" value="${simData.purchase.quantity}" onchange="updateSimData()">
+                                    </div>
+                                    <div class="input-group">
+                                        <label>Unit Price ($)</label>
+                                        <input type="number" id="sim-price" value="${simData.purchase.unitPrice}" step="0.01" onchange="updateSimData()">
+                                    </div>
+                                    <div class="input-group">
+                                        <label>Payment Terms</label>
+                                        <select id="sim-terms" onchange="updateSimData()">
+                                            <option value="2/10,n/30">2/10, n/30</option>
+                                            <option value="1/10,n/30">1/10, n/30</option>
+                                            <option value="n/30">n/30</option>
+                                        </select>
+                                    </div>
+                                `;
+                                break;
+                            case 'payment':
+                                html += `
+                                    <div class="input-group">
+                                        <label>Payment Amount ($)</label>
+                                        <input type="number" id="sim-pay-amount" value="${simData.payment.amount}" onchange="updateSimData()">
+                                    </div>
+                                    <div class="input-group">
+                                        <label>Days Before Due</label>
+                                        <input type="number" id="sim-days" value="${simData.payment.daysEarly}" onchange="updateSimData()">
+                                    </div>
+                                    <div class="input-group">
+                                        <label>Discount Rate</label>
+                                        <select id="sim-discount" onchange="updateSimData()">
+                                            <option value="0.02">2%</option>
+                                            <option value="0.01">1%</option>
+                                            <option value="0">No discount</option>
+                                        </select>
+                                    </div>
+                                `;
+                                break;
+                            case 'sale':
+                                html += `
+                                    <div class="input-group">
+                                        <label>Quantity Sold</label>
+                                        <input type="number" id="sim-sale-qty" value="${simData.sale.quantity}" onchange="updateSimData()">
+                                    </div>
+                                    <div class="input-group">
+                                        <label>Sales Price per Unit ($)</label>
+                                        <input type="number" id="sim-sale-price" value="${simData.sale.unitPrice}" step="0.01" onchange="updateSimData()">
+                                    </div>
+                                    <div class="input-group">
+                                        <label>Cost per Unit ($)</label>
+                                        <input type="number" id="sim-cost" value="${simData.sale.costPerUnit}" step="0.01" onchange="updateSimData()">
+                                    </div>
+                                `;
+                                break;
+                            case 'count':
+                                html += `
+                                    <div class="input-group">
+                                        <label>Beginning Inventory ($)</label>
+                                        <input type="number" id="sim-begin" value="${simData.count.beginningInventory}" onchange="updateSimData()">
+                                    </div>
+                                    <div class="input-group">
+                                        <label>Purchases During Year ($)</label>
+                                        <input type="number" id="sim-purch" value="${simData.count.purchases}" onchange="updateSimData()">
+                                    </div>
+                                    <div class="input-group">
+                                        <label>Units Counted</label>
+                                        <input type="number" id="sim-counted" value="${simData.count.endingCount}" onchange="updateSimData()">
+                                    </div>
+                                    <div class="input-group">
+                                        <label>Unit Cost ($)</label>
+                                        <input type="number" id="sim-unit-cost" value="${simData.count.unitCost}" step="0.01" onchange="updateSimData()">
+                                    </div>
+                                `;
+                                break;
+                        }
+
+                        container.innerHTML = html;
+                    }
+
+                    function updateSimData() {
+                        switch(currentTransaction) {
+                            case 'purchase':
+                                simData.purchase.quantity = Number(document.getElementById('sim-qty').value) || 0;
+                                simData.purchase.unitPrice = Number(document.getElementById('sim-price').value) || 0;
+                                simData.purchase.terms = document.getElementById('sim-terms').value;
+                                break;
+                            case 'payment':
+                                simData.payment.amount = Number(document.getElementById('sim-pay-amount').value) || 0;
+                                simData.payment.daysEarly = Number(document.getElementById('sim-days').value) || 0;
+                                simData.payment.discount = Number(document.getElementById('sim-discount').value) || 0;
+                                break;
+                            case 'sale':
+                                simData.sale.quantity = Number(document.getElementById('sim-sale-qty').value) || 0;
+                                simData.sale.unitPrice = Number(document.getElementById('sim-sale-price').value) || 0;
+                                simData.sale.costPerUnit = Number(document.getElementById('sim-cost').value) || 0;
+                                break;
+                            case 'count':
+                                simData.count.beginningInventory = Number(document.getElementById('sim-begin').value) || 0;
+                                simData.count.purchases = Number(document.getElementById('sim-purch').value) || 0;
+                                simData.count.endingCount = Number(document.getElementById('sim-counted').value) || 0;
+                                simData.count.unitCost = Number(document.getElementById('sim-unit-cost').value) || 0;
+                                break;
+                        }
+                        updateDisplays();
+                    }
+
+                    function updateDisplays() {
+                        const perpJournal = document.getElementById('perpetual-journal');
+                        const periJournal = document.getElementById('periodic-journal');
+                        const perpAccounts = document.getElementById('perpetual-accounts');
+                        const periAccounts = document.getElementById('periodic-accounts');
+
+                        let perpHtml = '';
+                        let periHtml = '';
+
+                        switch(currentTransaction) {
+                            case 'purchase':
+                                const total = simData.purchase.quantity * simData.purchase.unitPrice;
+                                perpHtml = `
+                                    <div class="journal-entry">
+                                        <div class="account">Inventory</div>
+                                        <div class="amounts">
+                                            <div class="dr">$${total.toLocaleString()}</div>
+                                            <div class="cr">-</div>
+                                        </div>
+                                    </div>
+                                    <div class="journal-entry">
+                                        <div class="account">Accounts Payable</div>
+                                        <div class="amounts">
+                                            <div class="dr">-</div>
+                                            <div class="cr">$${total.toLocaleString()}</div>
+                                        </div>
+                                    </div>
+                                `;
+                                periHtml = `
+                                    <div class="journal-entry">
+                                        <div class="account">Purchases</div>
+                                        <div class="amounts">
+                                            <div class="dr">$${total.toLocaleString()}</div>
+                                            <div class="cr">-</div>
+                                        </div>
+                                    </div>
+                                    <div class="journal-entry">
+                                        <div class="account">Accounts Payable</div>
+                                        <div class="amounts">
+                                            <div class="dr">-</div>
+                                            <div class="cr">$${total.toLocaleString()}</div>
+                                        </div>
+                                    </div>
+                                `;
+                                break;
+                            case 'payment':
+                                const discountAmount = simData.payment.amount * simData.payment.discount;
+                                const paymentAmount = simData.payment.amount - discountAmount;
+                                perpHtml = `
+                                    <div class="journal-entry">
+                                        <div class="account">Accounts Payable</div>
+                                        <div class="amounts">
+                                            <div class="dr">$${simData.payment.amount.toLocaleString()}</div>
+                                            <div class="cr">-</div>
+                                        </div>
+                                    </div>
+                                    <div class="journal-entry">
+                                        <div class="account">Cash</div>
+                                        <div class="amounts">
+                                            <div class="dr">-</div>
+                                            <div class="cr">$${paymentAmount.toLocaleString()}</div>
+                                        </div>
+                                    </div>
+                                    <div class="journal-entry">
+                                        <div class="account">Purchase Discounts</div>
+                                        <div class="amounts">
+                                            <div class="dr">-</div>
+                                            <div class="cr">$${discountAmount.toLocaleString()}</div>
+                                        </div>
+                                    </div>
+                                `;
+                                periHtml = `
+                                    <div class="journal-entry">
+                                        <div class="account">Accounts Payable</div>
+                                        <div class="amounts">
+                                            <div class="dr">$${simData.payment.amount.toLocaleString()}</div>
+                                            <div class="cr">-</div>
+                                        </div>
+                                    </div>
+                                    <div class="journal-entry">
+                                        <div class="account">Cash</div>
+                                        <div class="amounts">
+                                            <div class="dr">-</div>
+                                            <div class="cr">$${paymentAmount.toLocaleString()}</div>
+                                        </div>
+                                    </div>
+                                    <div class="journal-entry">
+                                        <div class="account">Purchase Discounts</div>
+                                        <div class="amounts">
+                                            <div class="dr">-</div>
+                                            <div class="cr">$${discountAmount.toLocaleString()}</div>
+                                        </div>
+                                    </div>
+                                `;
+                                break;
+                            case 'sale':
+                                const salesTotal = simData.sale.quantity * simData.sale.unitPrice;
+                                const cogs = simData.sale.quantity * simData.sale.costPerUnit;
+                                perpHtml = `
+                                    <div class="journal-entry">
+                                        <div class="account">Accounts Receivable</div>
+                                        <div class="amounts">
+                                            <div class="dr">$${salesTotal.toLocaleString()}</div>
+                                            <div class="cr">-</div>
+                                        </div>
+                                    </div>
+                                    <div class="journal-entry">
+                                        <div class="account">Sales Revenue</div>
+                                        <div class="amounts">
+                                            <div class="dr">-</div>
+                                            <div class="cr">$${salesTotal.toLocaleString()}</div>
+                                        </div>
+                                    </div>
+                                    <div class="journal-entry">
+                                        <div class="account">Cost of Goods Sold</div>
+                                        <div class="amounts">
+                                            <div class="dr">$${cogs.toLocaleString()}</div>
+                                            <div class="cr">-</div>
+                                        </div>
+                                    </div>
+                                    <div class="journal-entry">
+                                        <div class="account">Inventory</div>
+                                        <div class="amounts">
+                                            <div class="dr">-</div>
+                                            <div class="cr">$${cogs.toLocaleString()}</div>
+                                        </div>
+                                    </div>
+                                `;
+                                periHtml = `
+                                    <div class="journal-entry">
+                                        <div class="account">Accounts Receivable</div>
+                                        <div class="amounts">
+                                            <div class="dr">$${salesTotal.toLocaleString()}</div>
+                                            <div class="cr">-</div>
+                                        </div>
+                                    </div>
+                                    <div class="journal-entry">
+                                        <div class="account">Sales Revenue</div>
+                                        <div class="amounts">
+                                            <div class="dr">-</div>
+                                            <div class="cr">$${salesTotal.toLocaleString()}</div>
+                                        </div>
+                                    </div>
+                                    <div class="journal-entry" style="color: var(--text-muted); font-style: italic;">
+                                        <div class="account">COGS not recorded until year-end physical count</div>
+                                    </div>
+                                `;
+                                break;
+                            case 'count':
+                                const goodsAvailable = simData.count.beginningInventory + simData.count.purchases;
+                                const endingInventory = simData.count.endingCount * simData.count.unitCost;
+                                const calculatedCOGS = goodsAvailable - endingInventory;
+                                perpHtml = `
+                                    <div class="journal-entry" style="color: var(--success);">
+                                        <div class="account">✓ No entry needed - Inventory already accurate</div>
+                                    </div>
+                                    <div class="journal-entry">
+                                        <div class="account">Inventory Balance</div>
+                                        <div class="amounts">
+                                            <div class="dr">$${endingInventory.toLocaleString()}</div>
+                                            <div class="cr">-</div>
+                                        </div>
+                                    </div>
+                                `;
+                                periHtml = `
+                                    <div class="journal-entry">
+                                        <div class="account">Inventory (Ending)</div>
+                                        <div class="amounts">
+                                            <div class="dr">$${endingInventory.toLocaleString()}</div>
+                                            <div class="cr">-</div>
+                                        </div>
+                                    </div>
+                                    <div class="journal-entry">
+                                        <div class="account">Cost of Goods Sold</div>
+                                        <div class="amounts">
+                                            <div class="dr">-</div>
+                                            <div class="cr">$${calculatedCOGS.toLocaleString()}</div>
+                                        </div>
+                                    </div>
+                                `;
+                                break;
+                        }
+
+                        perpJournal.innerHTML = perpHtml;
+                        periJournal.innerHTML = periHtml;
+                    }
+
+                    function checkAnswer(system, answer) {
+                        const feedback = document.getElementById('quiz-feedback');
+                        const options = document.querySelectorAll('.quiz-opt');
+                        
+                        options.forEach(opt => opt.classList.remove('correct', 'incorrect'));
+                        
+                        if (answer === 'perpetual') {
+                            options[0].classList.add('correct');
+                            options[1].classList.add('incorrect');
+                            options[2].classList.add('incorrect');
+                            feedback.textContent = '✓ Correct! In perpetual systems, Inventory is updated immediately. In periodic systems, Inventory remains at beginning balance until year-end adjustment.';
+                            feedback.className = 'quiz-feedback show correct';
+                        } else {
+                            feedback.textContent = '✗ Not quite. Remember: Perpetual systems update Inventory continuously. Periodic systems only update at year-end based on physical count.';
+                            feedback.className = 'quiz-feedback show incorrect';
+                        }
+                    }
+
+                    // Initialize
+                    document.addEventListener('DOMContentLoaded', function() {
+                        updateInputFields();
+                        updateDisplays();
+                    });
+                </script>
+            </section>
+
+            <!-- Common Misconceptions -->
+            <section class="kp-section">
+                <h2>🚫 Common Misconceptions & Professional Tips</h2>
+
+                <div class="misconception-alert">
+                    <strong>❌ Misconception 1:</strong> "Periodic systems are obsolete and no longer used."
+                    <br><br>
+                    <strong>✅ Reality:</strong> Periodic systems are still widely used by small businesses, service businesses, and organizations with low-value, high-volume inventory (hardware stores, auto parts shops, craft stores). They're simple and cost-effective.
+                </div>
+
+                <div class="misconception-alert">
+                    <strong>❌ Misconception 2:</strong> "The Purchases account is an asset."
+                    <br><br>
+                    <strong>✅ Reality:</strong> In periodic systems, Purchases is a <strong>temporary expense account</strong> (similar to Cost of Goods Sold). It's closed at period end. The asset account is "Inventory," which shows only the beginning balance until adjusted.
+                </div>
+
+                <div class="misconception-alert">
+                    <strong>❌ Misconception 3:</strong> "You don't need physical counts in periodic systems."
+                    <br><br>
+                    <strong>✅ Reality:</strong> Physical counts are <strong>essential</strong> in periodic systems. The entire COGS calculation depends on accurate ending inventory from physical count. No count = no COGS number = no financial statements.
+                </div>
+
+                <div class="misconception-alert">
+                    <strong>❌ Misconception 4:</strong> "FIFO and LIFO work differently in periodic vs. perpetual systems."
+                    <br><br>
+                    <strong>✅ Reality:</strong> The cost flow assumption (FIFO, LIFO, Weighted Average) is <strong>the same concept</strong> in both systems. The difference is timing: perpetual updates COGS continuously while periodic waits until year-end to apply the assumption.
+                </div>
+
+                <div class="professional-tip">
+                    <strong>💡 Professional Tip #1:</strong> Physical inventory counts are stressful events! Plan them carefully. Count during off-hours, use well-trained teams, and have supervisory oversight.
+                </div>
+
+                <div class="professional-tip">
+                    <strong>💡 Professional Tip #2:</strong> Consider cycle counting (counting a portion of inventory each week) instead of one annual count. This spreads the workload and provides more regular accuracy checks.
+                </div>
+
+                <div class="professional-tip">
+                    <strong>💡 Professional Tip #3:</strong> The choice between perpetual and periodic isn't all-or-nothing. Many companies use perpetual for high-value items and periodic for low-value items.
+                </div>
+            </section>
+
+            <!-- Memory Aids -->
+            <section class="kp-section">
+                <h2>🧠 Memory Aids & Quick Reference</h2>
+
+                <div class="memory-aid-card">
+                    <strong>⚡ Quick Recall: Periodic COGS Formula</strong>
+                    <p style="margin-top: 1rem;"><strong>BPNG</strong> = <strong>B</strong>eginning + <strong>P</strong>urchases - <strong>N</strong>et (returns/discounts) - <strong>G</strong>oods Available</p>
+                    <p style="margin-top: 0.5rem;">Goods Available - Ending = COGS</p>
+                </div>
+
+                <div class="memory-aid-card">
+                    <strong>⚡ Quick Recall: Net Purchases Formula</strong>
+                    <p style="margin-top: 1rem;"><strong>PRD</strong> = <strong>P</strong>urchases - <strong>R</strong>eturns - <strong>D</strong>iscounts</p>
+                    <p style="margin-top: 0.5rem;">This net amount is added to beginning inventory for goods available.</p>
+                </div>
+
+                <div class="key-concepts-grid" style="margin-top: 2rem;">
+                    <div class="concept-card">
+                        <strong>📋 Key Accounts (Periodic)</strong>
+                        <p><strong>Inventory:</strong> Shows only beginning balance until year-end adjustment</p>
+                        <p><strong>Purchases:</strong> Temporary account accumulating all purchases</p>
+                        <p><strong>Purchase Returns:</strong> Contra-purchases, reduces net purchases</p>
+                        <p><strong>Purchase Discounts:</strong> Contra-purchases, reduces net purchases</p>
+                    </div>
+
+                    <div class="concept-card">
+                        <strong>📊 Key Formulas</strong>
+                        <p>Net Purchases = Purchases - Returns - Discounts</p>
+                        <p>Goods Available = Beginning Inventory + Net Purchases</p>
+                        <p>COGS = Goods Available - Ending Inventory</p>
+                    </div>
+
+                    <div class="concept-card">
+                        <strong>⚖️ Perpetual vs Periodic Summary</strong>
+                        <p>Perpetual: Real-time, continuous, tech-based</p>
+                        <p>Periodic: Periodic count, simple, manual</p>
+                        <p>Both valid; choose based on business needs</p>
+                    </div>
+
+                    <div class="concept-card">
+                        <strong>🎯 Year-End Process</strong>
+                        <p>1. Physical count of ending inventory</p>
+                        <p>2. Calculate COGS using formula</p>
+                        <p>3. Adjust Inventory account to count amount</p>
+                        <p>4. Close all temporary accounts</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Glossary -->
+            <section class="kp-section">
+                <h2>📖 Glossary</h2>
+                <div class="key-concepts-grid">
+                    <div class="concept-card">
+                        <strong>Periodic Inventory System</strong>
+                        <p>An inventory system where inventory quantities and costs are determined only at the end of each accounting period through physical count.</p>
+                    </div>
+
+                    <div class="concept-card">
+                        <strong>Purchases Account</strong>
+                        <p>A temporary account in periodic systems that accumulates all inventory purchases during the period.</p>
+                    </div>
+
+                    <div class="concept-card">
+                        <strong>Goods Available for Sale</strong>
+                        <p>The total cost of inventory that could have been sold: Beginning Inventory + Net Purchases.</p>
+                    </div>
+
+                    <div class="concept-card">
+                        <strong>Physical Inventory Count</strong>
+                        <p>The process of counting, weighing, or measuring all inventory on hand at period end. Essential for periodic systems.</p>
+                    </div>
+
+                    <div class="concept-card">
+                        <strong>Net Purchases</strong>
+                        <p>Purchases minus Purchase Returns and Purchase Discounts. The actual cost of inventory acquired.</p>
+                    </div>
+
+                    <div class="concept-card">
+                        <strong>Purchase Returns</strong>
+                        <p>A contra-purchases account that records the cost of inventory returned to suppliers.</p>
+                    </div>
+
+                    <div class="concept-card">
+                        <strong>Purchase Discounts</strong>
+                        <p>A contra-purchases account that records discounts taken for early payment.</p>
+                    </div>
+
+                    <div class="concept-card">
+                        <strong>Perpetual Inventory System</strong>
+                        <p>An alternative system where inventory is continuously updated with each purchase and sale transaction.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Final Knowledge Check -->
+            <section class="interactive-section">
+                <h2>🎯 Final Knowledge Check</h2>
+                <p>Test your understanding of Periodic Inventory Systems:</p>
+
+                <div class="quiz-container" data-success-text="Excellent! You've mastered periodic inventory systems." data-explanation="In periodic systems, COGS is calculated at period-end using: Beginning Inventory + Net Purchases - Ending Inventory (from physical count). Net Purchases = Purchases - Purchase Returns - Purchase Discounts. The system relies on physical counts rather than continuous tracking.">
+                    <div class="input-group">
+                        <p><strong>Question 1:</strong> In a periodic system, when inventory is purchased, which account is debited?</p>
+                        <label><input type="radio" name="q1" value="a" data-correct="false"> Merchandise Inventory</label>
+                        <label><input type="radio" name="q1" value="b" data-correct="true"> Purchases</label>
+                        <label><input type="radio" name="q1" value="c" data-correct="false"> Cost of Goods Sold</label>
+                    </div>
+
+                    <div class="input-group">
+                        <p><strong>Question 2:</strong> What is the formula for Cost of Goods Sold in a periodic system?</p>
+                        <label><input type="radio" name="q2" value="a" data-correct="false"> Beginning + Purchases</label>
+                        <label><input type="radio" name="q2" value="b" data-correct="true"> Beginning + Net Purchases - Ending Inventory</label>
+                        <label><input type="radio" name="q2" value="c" data-correct="false"> Purchases - Ending Inventory</label>
+                    </div>
+
+                    <div class="input-group">
+                        <p><strong>Question 3:</strong> Net Purchases equals:</p>
+                        <label><input type="radio" name="q3" value="a" data-correct="false"> Purchases + Returns + Discounts</label>
+                        <label><input type="radio" name="q3" value="b" data-correct="false"> Purchases - Returns</label>
+                        <label><input type="radio" name="q3" value="c" data-correct="true"> Purchases - Returns - Discounts</label>
+                    </div>
+
+                    <div class="input-group">
+                        <p><strong>Question 4:</strong> What is essential for a periodic system to calculate COGS?</p>
+                        <label><input type="radio" name="q4" value="a" data-correct="false"> Continuous tracking software</label>
+                        <label><input type="radio" name="q4" value="b" data-correct="true"> Physical count of ending inventory</label>
+                        <label><input type="radio" name="q4" value="c" data-correct="false"> Barcode scanners at checkout</label>
+                    </div>
+
+                    <div class="input-group">
+                        <p><strong>Question 5:</strong> Beginning Inventory = $15,000, Purchases = $60,000, Returns = $3,000, Discounts = $2,000, Ending Inventory = $20,000. What is COGS?</p>
+                        <label><input type="radio" name="q5" value="a" data-correct="false"> $45,000</label>
+                        <label><input type="radio" name="q5" value="b" data-correct="false"> $50,000</label>
+                        <label><input type="radio" name="q5" value="c" data-correct="true"> $50,000</label>
+                    </div>
+
+                    <button class="btn btn-primary quiz-submit">Submit All Answers</button>
+                    <div class="feedback"></div>
+                    <div class="quiz-explanation"></div>
+                    <button class="quiz-retry">Try Again</button>
+                </div>
+            </section>
+
+            <!-- Navigation -->
+            <nav class="kp-navigation" style="display: flex; justify-content: space-between; margin-top: 4rem; padding-bottom: 2rem;">
+                <a href="ch05_P3.html" class="btn" style="background: #eee;">← Previous</a>
+                <a href="ch05.html" class="btn" style="background: var(--info); color: white;">Chapter 5 Hub</a>
+                <a href="ch05_P5.html" class="btn btn-primary">Next: Periodic Purchases →</a>
+            </nav>
+        </article>
+    </main>
+
+    <footer style="margin-top: 5rem; padding: 2rem 0; border-top: 1px solid #ddd; text-align: center; color: #888;">
+        <p>Accounting Essentials | Chapter 5 | Procedure 4 (Appendix)</p>
+    </footer>
+
+    <script src="../../components-enhanced.js"></script>
+    <script>
+        function setDepth(depth) {
+            document.querySelectorAll('.depth-btn').forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+
+            document.querySelectorAll('.depth-content').forEach(content => content.classList.remove('active'));
+            document.getElementById(`depth-${depth}`).classList.add('active');
+        }
+
+        function calcPeriodic() {
+            const beg = parseFloat(document.getElementById('per-beg').value) || 0;
+            const purch = parseFloat(document.getElementById('per-purch').value) || 0;
+            const returns = parseFloat(document.getElementById('per-returns').value) || 0;
+            const discounts = parseFloat(document.getElementById('per-discounts').value) || 0;
+            const end = parseFloat(document.getElementById('per-end').value) || 0;
+
+            const netPurchases = purch - returns - discounts;
+            const goodsAvailable = beg + netPurchases;
+            const cogs = goodsAvailable - end;
+
+            document.getElementById('per-avail').textContent = '$' + beg.toLocaleString();
+            document.getElementById('per-avail2').textContent = '$' + goodsAvailable.toLocaleString();
+            document.getElementById('per-cogs').textContent = '$' + cogs.toLocaleString();
+        }
+
+        // Initialize calculator
+        window.onload = calcPeriodic;
+
+        // Add radio button selection highlighting
+        document.querySelectorAll('.quiz-container input[type="radio"]').forEach(radio => {
+            radio.addEventListener('change', function() {
+                // Remove selected class from all labels in this quiz
+                const quizContainer = this.closest('.quiz-container');
+                quizContainer.querySelectorAll('.input-group label').forEach(label => {
+                    label.classList.remove('selected');
+                });
+                // Add selected class to the parent label of the checked radio
+                if (this.parentElement) {
+                    this.parentElement.classList.add('selected');
+                }
+            });
+        });
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,2079 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>P2: Closing Process & Post-Closing TB | ACCOUNTING ESSENTIALS</title>
+    <link rel="stylesheet" href="../../styles.css">
+    <style>
+        /* Additional styles for comprehensive knowledge point */
+        .closing-diagram {
+            position: relative;
+            width: 100%;
+            max-width: 900px;
+            margin: 2rem auto;
+            padding: 2rem;
+            background: var(--white);
+            border: 2px solid var(--primary);
+            border-radius: var(--radius-md);
+            overflow-x: auto;
+        }
+        
+        .closing-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 0.75rem 1rem;
+            border-bottom: 1px solid var(--border-color);
+            min-width: 800px;
+        }
+        
+        .closing-row:last-child {
+            border-bottom: none;
+        }
+        
+        .closing-row.header {
+            background: var(--primary);
+            color: var(--white);
+            font-weight: 700;
+            border-radius: var(--radius-sm) var(--radius-sm) 0 0;
+        }
+        
+        .closing-row.total {
+            background: var(--bg-light);
+            font-weight: 700;
+        }
+        
+        .closing-column {
+            flex: 1;
+            text-align: center;
+        }
+        
+        .closing-column:first-child {
+            flex: 2;
+            text-align: left;
+        }
+        
+        .closing-column.account-name {
+            text-align: left;
+            padding-left: 1rem;
+        }
+        
+        .closing-column.debit, .closing-column.credit {
+            width: 120px;
+        }
+        
+        .closing-section-label {
+            background: var(--secondary-light);
+            color: var(--white);
+            padding: 0.5rem 1rem;
+            font-weight: 700;
+            font-size: 0.85rem;
+            text-transform: uppercase;
+        }
+        
+        .closing-section-label.revenues {
+            background: var(--info);
+        }
+        
+        .closing-section-label.expenses {
+            background: var(--warning);
+            color: var(--text-main);
+        }
+        
+        .closing-section-label.equity {
+            background: var(--success);
+        }
+        
+        .closing-highlight {
+            background: var(--success-light);
+            animation: pulse 1.5s infinite;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.7; }
+        }
+        
+        .closing-step {
+            padding: 1.5rem;
+            background: var(--bg-light);
+            border-radius: var(--radius-md);
+            margin-bottom: 1.5rem;
+            border-left: 4px solid var(--primary);
+        }
+        
+        .step-number {
+            display: inline-block;
+            width: 30px;
+            height: 30px;
+            background: var(--primary);
+            color: var(--white);
+            border-radius: 50%;
+            text-align: center;
+            line-height: 30px;
+            font-weight: 700;
+            margin-right: 0.75rem;
+        }
+        
+        .t-account {
+            display: inline-block;
+            vertical-align: top;
+            margin: 0.5rem;
+        }
+        
+        .t-account-header {
+            background: var(--primary);
+            color: var(--white);
+            padding: 0.5rem 1rem;
+            border-radius: var(--radius-sm) var(--radius-sm) 0 0;
+            font-weight: 700;
+            font-size: 0.85rem;
+            text-align: center;
+        }
+        
+        .t-account-body {
+            display: flex;
+            border: 2px solid var(--primary);
+            border-top: none;
+            border-radius: 0 0 var(--radius-sm) var(--radius-sm);
+        }
+        
+        .t-account-side {
+            width: 60px;
+            padding: 0.25rem;
+            text-align: center;
+            font-size: 0.75rem;
+        }
+        
+        .t-account-side.debit {
+            border-right: 2px solid var(--primary);
+            background: var(--primary-light);
+        }
+        
+        .t-account-side.credit {
+            background: var(--secondary-light);
+        }
+        
+        .t-account-entry {
+            padding: 0.25rem 0.5rem;
+            font-size: 0.75rem;
+            border-bottom: 1px solid var(--border-color);
+        }
+        
+        .t-account-entry:last-child {
+            border-bottom: none;
+        }
+        
+        .t-account-balance {
+            font-weight: 700;
+            font-size: 0.85rem;
+            padding: 0.5rem;
+            text-align: center;
+            background: var(--bg-light);
+            border-radius: 0 0 var(--radius-sm) var(--radius-sm);
+        }
+        
+        .flow-diagram {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin: 2rem 0;
+        }
+        
+        .flow-step {
+            padding: 1.5rem 2rem;
+            background: var(--white);
+            border: 3px solid var(--primary);
+            border-radius: var(--radius-md);
+            text-align: center;
+            min-width: 150px;
+            transition: var(--transition);
+        }
+        
+        .flow-step:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-lg);
+        }
+        
+        .flow-step-number {
+            display: inline-block;
+            width: 28px;
+            height: 28px;
+            background: var(--primary);
+            color: var(--white);
+            border-radius: 50%;
+            line-height: 28px;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+        
+        .flow-arrow {
+            font-size: 1.5rem;
+            color: var(--primary);
+        }
+        
+        .reid-sequence {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin: 2rem 0;
+            padding: 1.5rem;
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            border-radius: var(--radius-md);
+        }
+        
+        .reid-step {
+            padding: 1rem 1.5rem;
+            background: var(--white);
+            border: 2px solid var(--primary);
+            border-radius: var(--radius-sm);
+            text-align: center;
+            min-width: 120px;
+            transition: var(--transition);
+        }
+        
+        .reid-step:hover {
+            transform: translateY(-3px);
+            box-shadow: var(--shadow);
+        }
+        
+        .reid-letter {
+            display: inline-block;
+            width: 32px;
+            height: 32px;
+            background: var(--primary);
+            color: var(--white);
+            border-radius: 50%;
+            line-height: 32px;
+            font-weight: 700;
+            font-size: 1.1rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .reid-arrow {
+            font-size: 1.2rem;
+            color: var(--primary);
+        }
+        
+        .depth-toggle {
+            display: flex;
+            gap: 0.5rem;
+            margin: 1.5rem 0;
+            flex-wrap: wrap;
+        }
+        
+        .depth-btn {
+            padding: 0.75rem 1.5rem;
+            border: 2px solid var(--primary);
+            background: var(--white);
+            color: var(--primary);
+            border-radius: var(--radius-sm);
+            cursor: pointer;
+            font-weight: 600;
+            transition: var(--transition);
+        }
+        
+        .depth-btn:hover {
+            background: var(--primary-light);
+        }
+        
+        .depth-btn.active {
+            background: var(--primary);
+            color: var(--white);
+        }
+        
+        .depth-content {
+            display: none;
+        }
+        
+        .depth-content.active {
+            display: block;
+        }
+        
+        .journal-entry-box {
+            background: var(--bg-light);
+            border: 2px solid var(--primary);
+            border-radius: var(--radius-md);
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+            font-family: 'Courier New', monospace;
+        }
+        
+        .journal-entry-row {
+            display: flex;
+            padding: 0.5rem 0;
+            border-bottom: 1px dashed var(--border-color);
+        }
+        
+        .journal-entry-row:last-child {
+            border-bottom: none;
+        }
+        
+        .je-date {
+            width: 100px;
+            color: var(--text-muted);
+        }
+        
+        .je-account {
+            flex: 1;
+            font-weight: 600;
+        }
+        
+        .je-debit {
+            width: 120px;
+            text-align: right;
+        }
+        
+        .je-credit {
+            width: 120px;
+            text-align: right;
+        }
+    </style>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-50MTQPVR7D"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-50MTQPVR7D');
+</script>
+
+</head>
+
+<body>
+    <header>
+        <div class="container nav-container">
+            <a href="../../index.html" class="logo">ACCOUNTING<span>ESSENTIALS</span></a>
+            <nav class="nav-links">
+                <a href="../../index.html">Home</a>
+                <a href="../../Part1/part1.html">Part 1</a>
+                <a href="../../part2/part2.html">Part 2</a>
+                <a href="../../part3/part3.html">Part 3</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container">
+        <div class="breadcrumbs">
+            <a href="../../index.html">Home</a> <span>/</span> <a href="../../Part1/part1.html">Part 1</a>
+            <span>/</span> <a href="ch04.html">Chapter 4</a> <span>/</span> P2
+        </div>
+
+        <article class="animate-fade-in">
+            <div class="kp-header">
+                <h1 style="border-left: 8px solid var(--primary-light); padding-left: 1rem; margin: 2rem 0;">Closing Process & Post-Closing Trial Balance</h1>
+            </div>
+
+            <!-- Learning Objectives -->
+            <section class="kp-section">
+                <h2>🎯 Learning Objectives</h2>
+                <div class="learning-objectives">
+                    <ul>
+                        <li>Understand the purpose and importance of the closing process in the accounting cycle</li>
+                        <li>Identify temporary versus permanent accounts and understand why they are treated differently</li>
+                        <li>Apply the REID sequence (Revenues, Expenses, Income Summary, Dividends) for closing entries</li>
+                        <li>Prepare formal closing journal entries and understand their effect on account balances</li>
+                        <li>Prepare and verify a post-closing trial balance</li>
+                        <li>Explain how closing entries affect the accounting equation and prepare the company for the next period</li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- Background & Principles -->
+            <section class="kp-section">
+                <h2>📚 Background & Principles</h2>
+                <p>The closing process is the final step in the accounting cycle where accountants prepare the books for the next accounting period. Think of it as <strong>resetting the game board</strong>—keeping the permanent pieces (assets, liabilities, equity) in place while gathering up all the temporary scores (revenues, expenses, dividends) to update the player's total.</p>
+
+                <div class="concept-card" style="margin: 1.5rem 0;">
+                    <strong>Core Principle:</strong> The closing process transfers the balances of temporary accounts (revenues, expenses, dividends) to permanent equity accounts, specifically Retained Earnings, thereby resetting temporary accounts to zero for the next period.
+                </div>
+
+                <div class="professional-tip">
+                    <strong>💡 Key Insight:</strong> The closing process is like the inning break in a baseball game. You tally up all the runs scored (revenues) and subtract the costs incurred (expenses) to see if the team is ahead or behind (net income/loss), then reset for the next inning while keeping the running total.
+                </div>
+
+                <h3 style="margin-top: 2rem;">Why Is the Closing Process Necessary?</h3>
+                <div class="card-grid" style="margin-top: 1rem;">
+                    <div class="content-card" style="border-left: 5px solid var(--primary);">
+                        <h4>Reset Temporary Accounts</h4>
+                        <p>Revenue and expense accounts must start at zero each period to correctly measure income for that specific period only.</p>
+                    </div>
+                    <div class="content-card" style="border-left: 5px solid var(--success);">
+                        <h4>Update Retained Earnings</h4>
+                        <p>Net income (or loss) and dividends must flow to Retained Earnings to track cumulative company profits over time.</p>
+                    </div>
+                    <div class="content-card" style="border-left: 5px solid var(--warning);">
+                        <h4>Error Detection</h4>
+                        <p>The post-closing trial balance verifies that debits still equal credits after all closing entries are posted.</p>
+                    </div>
+                    <div class="content-card" style="border-left: 5px solid var(--info);">
+                        <h4>Fresh Start</h4>
+                        <p>Each accounting period begins with a clean slate for revenues and expenses while permanent accounts carry forward.</p>
+                    </div>
+                </div>
+
+                <div class="closing-flow-diagram" style="margin-top: 2rem;">
+                    <div class="flow-title">📋 Closing Process Flow</div>
+                    <div class="flow-container">
+                        <div class="flow-step-card">
+                            <div class="step-number">1</div>
+                            <div class="step-icon">📊</div>
+                            <div class="step-title">Adjusted<br>Trial Balance</div>
+                            <div class="step-desc">Start with all account balances after adjustments have been posted.</div>
+                        </div>
+                        <div class="flow-connector">
+                            <svg width="40" height="20" viewBox="0 0 40 20">
+                                <defs>
+                                    <linearGradient id="flowGrad2" x1="0%" y1="0%" x2="100%" y2="0%">
+                                        <stop offset="0%" style="stop-color:#1a237e"/>
+                                        <stop offset="100%" style="stop-color:#27ae60"/>
+                                    </linearGradient>
+                                </defs>
+                                <path d="M0,10 L30,10" stroke="url(#flowGrad2)" stroke-width="3" fill="none"/>
+                                <polygon points="30,5 40,10 30,15" fill="#27ae60"/>
+                            </svg>
+                        </div>
+                        <div class="flow-step-card">
+                            <div class="step-number">2</div>
+                            <div class="step-icon">📤</div>
+                            <div class="step-title">Close<br>Revenues</div>
+                            <div class="step-desc">Transfer all revenue balances to Income Summary.</div>
+                        </div>
+                        <div class="flow-connector">
+                            <svg width="40" height="20" viewBox="0 0 40 20">
+                                <path d="M0,10 L30,10" stroke="url(#flowGrad2)" stroke-width="3" fill="none"/>
+                                <polygon points="30,5 40,10 30,15" fill="#27ae60"/>
+                            </svg>
+                        </div>
+                        <div class="flow-step-card">
+                            <div class="step-number">3</div>
+                            <div class="step-icon">💸</div>
+                            <div class="step-title">Close<br>Expenses</div>
+                            <div class="step-desc">Transfer all expense balances to Income Summary.</div>
+                        </div>
+                        <div class="flow-connector">
+                            <svg width="40" height="20" viewBox="0 0 40 20">
+                                <path d="M0,10 L30,10" stroke="url(#flowGrad2)" stroke-width="3" fill="none"/>
+                                <polygon points="30,5 40,10 30,15" fill="#27ae60"/>
+                            </svg>
+                        </div>
+                        <div class="flow-step-card">
+                            <div class="step-number">4</div>
+                            <div class="step-icon">📈</div>
+                            <div class="step-title">Close Income<br>Summary</div>
+                            <div class="step-desc">Transfer net income/loss to Retained Earnings.</div>
+                        </div>
+                        <div class="flow-connector">
+                            <svg width="40" height="20" viewBox="0 0 40 20">
+                                <path d="M0,10 L30,10" stroke="url(#flowGrad2)" stroke-width="3" fill="none"/>
+                                <polygon points="30,5 40,10 30,15" fill="#27ae60"/>
+                            </svg>
+                        </div>
+                        <div class="flow-step-card">
+                            <div class="step-number">5</div>
+                            <div class="step-icon">💰</div>
+                            <div class="step-title">Close<br>Dividends</div>
+                            <div class="step-desc">Transfer dividends to Retained Earnings.</div>
+                        </div>
+                        <div class="flow-connector">
+                            <svg width="40" height="20" viewBox="0 0 40 20">
+                                <path d="M0,10 L30,10" stroke="url(#flowGrad2)" stroke-width="3" fill="none"/>
+                                <polygon points="30,5 40,10 30,15" fill="#27ae60"/>
+                            </svg>
+                        </div>
+                        <div class="flow-step-card complete">
+                            <div class="step-number">6</div>
+                            <div class="step-icon">✅</div>
+                            <div class="step-title">Post-Closing<br>Trial Balance</div>
+                            <div class="step-desc">Verify debits equal credits with permanent accounts only.</div>
+                        </div>
+                    </div>
+                </div>
+
+                <style>
+                    .closing-flow-diagram {
+                        background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+                        border-radius: 20px;
+                        padding: 2rem;
+                        margin: 2rem 0;
+                        box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+                    }
+
+                    .flow-title {
+                        text-align: center;
+                        font-size: 1.3rem;
+                        font-weight: 700;
+                        color: #1a237e;
+                        margin-bottom: 2rem;
+                    }
+
+                    .flow-container {
+                        display: flex;
+                        align-items: flex-start;
+                        justify-content: center;
+                        gap: 0;
+                        flex-wrap: wrap;
+                    }
+
+                    .flow-step-card {
+                        background: white;
+                        border-radius: 16px;
+                        padding: 1.25rem;
+                        width: 160px;
+                        text-align: center;
+                        box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+                        position: relative;
+                        transition: all 0.3s ease;
+                        border: 3px solid transparent;
+                    }
+
+                    .flow-step-card:hover {
+                        transform: translateY(-5px);
+                        box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+                        border-color: #1a237e;
+                    }
+
+                    .flow-step-card.complete {
+                        background: linear-gradient(135deg, #e8f5e9 0%, #c8e6c9 100%);
+                        border-color: #27ae60;
+                    }
+
+                    .step-number {
+                        position: absolute;
+                        top: -12px;
+                        left: 50%;
+                        transform: translateX(-50%);
+                        width: 28px;
+                        height: 28px;
+                        background: linear-gradient(135deg, #1a237e 0%, #283593 100%);
+                        color: white;
+                        border-radius: 50%;
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        font-weight: 700;
+                        font-size: 0.85rem;
+                        box-shadow: 0 3px 8px rgba(26,35,126,0.3);
+                    }
+
+                    .flow-step-card.complete .step-number {
+                        background: linear-gradient(135deg, #27ae60 0%, #1e8449 100%);
+                    }
+
+                    .step-icon {
+                        font-size: 2rem;
+                        margin: 0.5rem 0;
+                    }
+
+                    .step-title {
+                        font-size: 0.9rem;
+                        font-weight: 700;
+                        color: #1a237e;
+                        line-height: 1.3;
+                        margin-bottom: 0.5rem;
+                    }
+
+                    .flow-step-card.complete .step-title {
+                        color: #1e8449;
+                    }
+
+                    .step-desc {
+                        font-size: 0.75rem;
+                        color: #666;
+                        line-height: 1.4;
+                    }
+
+                    .flow-connector {
+                        display: flex;
+                        align-items: center;
+                        padding-top: 3rem;
+                    }
+
+                    .flow-connector svg {
+                        filter: drop-shadow(0 2px 4px rgba(0,0,0,0.1));
+                    }
+
+                    @media (max-width: 1200px) {
+                        .flow-container {
+                            display: grid;
+                            grid-template-columns: repeat(3, 1fr);
+                            gap: 1.5rem;
+                        }
+
+                        .flow-connector {
+                            display: none;
+                        }
+                    }
+
+                    @media (max-width: 768px) {
+                        .flow-container {
+                            grid-template-columns: repeat(2, 1fr);
+                        }
+                    }
+
+                    @media (max-width: 480px) {
+                        .flow-container {
+                            grid-template-columns: 1fr;
+                        }
+
+                        .flow-step-card {
+                            width: 100%;
+                            max-width: 280px;
+                            margin: 0 auto;
+                        }
+                    }
+                </style>
+            </section>
+
+            <!-- Key Concepts -->
+            <section class="kp-section">
+                <h2>🔑 Key Concepts</h2>
+                <div class="key-concepts-grid">
+                    <div class="concept-card">
+                        <strong>Temporary Accounts</strong>
+                        <p>Revenue, expense, and dividend accounts that are closed to zero at the end of each period. Their balances do not carry forward to the next accounting period.</p>
+                    </div>
+
+                    <div class="concept-card">
+                        <strong>Permanent Accounts</strong>
+                        <p>Asset, liability, and equity accounts (including Retained Earnings) that are NOT closed. Their balances carry forward to the next accounting period.</p>
+                    </div>
+
+                    <div class="concept-card">
+                        <strong>Closing Entries</strong>
+                        <p>Journal entries that transfer the balances of temporary accounts to permanent accounts, specifically Income Summary and Retained Earnings.</p>
+                    </div>
+
+                    <div class="concept-card">
+                        <strong>Income Summary</strong>
+                        <p>A temporary account used only during the closing process. It accumulates all revenues and expenses to determine net income (or loss) before transferring to Retained Earnings.</p>
+                    </div>
+
+                    <div class="concept-card">
+                        <strong>Retained Earnings</strong>
+                        <p>A permanent equity account that tracks cumulative net income less dividends declared since the company's inception.</p>
+                    </div>
+
+                    <div class="concept-card">
+                        <strong>Post-Closing Trial Balance</strong>
+                        <p>A trial balance prepared after closing entries are posted, containing ONLY permanent accounts to verify that debits equal credits.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Deep Dive with Depth Toggle -->
+            <section class="kp-section">
+                <h2>🔍 Deep Dive</h2>
+                <p>Explore the closing process at different levels of depth:</p>
+
+                <div class="depth-toggle">
+                    <button class="depth-btn active" onclick="setDepth('A')">Depth A: Foundational</button>
+                    <button class="depth-btn" onclick="setDepth('B')">Depth B: Standard</button>
+                    <button class="depth-btn" onclick="setDepth('C')">Depth C: Advanced</button>
+                </div>
+
+                <!-- Depth A: Foundational -->
+                <div id="depth-A" class="depth-content active">
+                    <h3>🟢 Foundational Level</h3>
+                    <p>Understanding the basic concept of closing temporary accounts.</p>
+
+                    <div class="worked-example">
+                        <h4>The Simple Analogy: Sports Season</h4>
+                        <p><strong>Analogy: Basketball Season</strong></p>
+                        <p>Imagine tracking a basketball team's performance. Each game, you record points scored (revenues) and expenses like player salaries, travel costs, equipment. At the end of the season, you tally everything up. The team's overall standing is like Retained Earnings—it accumulates all the wins and losses over time.</p>
+
+                        <div class="example-step">
+                            <strong>Step 1: Identify What Gets "Reset"</strong>
+                            <p>Points scored in each game, expenses for each game—these are temporary. They get tallied up but don't carry to next season individually.</p>
+                        </div>
+
+                        <div class="example-step">
+                            <strong>Step 2: Identify What Gets "Kept"</strong>
+                            <p>The team's overall record, its championship wins, and its cash reserves—these are permanent and carry to next season.</p>
+                        </div>
+
+                        <div class="example-step">
+                            <strong>Step 3: The REID Sequence</strong>
+                            <p>Close <strong>R</strong>evenues → Close <strong>E</strong>xpenses → Close <strong>I</strong>ncome Summary → Close <strong>D</strong>ividends</p>
+                        </div>
+                    </div>
+
+                    <div class="reid-sequence">
+                        <div class="reid-step">
+                            <div class="reid-letter">R</div>
+                            <div>Revenues</div>
+                        </div>
+                        <div class="reid-arrow">→</div>
+                        <div class="reid-step">
+                            <div class="reid-letter">E</div>
+                            <div>Expenses</div>
+                        </div>
+                        <div class="reid-arrow">→</div>
+                        <div class="reid-step">
+                            <div class="reid-letter">I</div>
+                            <div>Income Summary</div>
+                        </div>
+                        <div class="reid-arrow">→</div>
+                        <div class="reid-step">
+                            <div class="reid-letter">D</div>
+                            <div>Dividends</div>
+                        </div>
+                    </div>
+
+                    <div class="concept-card" style="margin-top: 1.5rem;">
+                        <strong>💡 Memory Hook:</strong> Think of "REID" like "Read" to remember the closing sequence: Revenues, Expenses, Income Summary, Dividends.
+                    </div>
+
+                    <div class="flow-diagram">
+                        <div class="flow-step">
+                            <div class="flow-step-number">1</div>
+                            <div>Temporary<br>Accounts</div>
+                        </div>
+                        <div class="flow-arrow">→</div>
+                        <div class="flow-step">
+                            <div class="flow-step-number">2</div>
+                            <div>Income<br>Summary</div>
+                        </div>
+                        <div class="flow-arrow">→</div>
+                        <div class="flow-step">
+                            <div class="flow-step-number">3</div>
+                            <div>Retained<br>Earnings</div>
+                        </div>
+                        <div class="flow-arrow">→</div>
+                        <div class="flow-step">
+                            <div class="flow-step-number">4</div>
+                            <div>Permanent<br>Accounts</div>
+                        </div>
+                    </div>
+
+                    <div class="professional-tip" style="margin-top: 1.5rem;">
+                        <strong>💡 Professional Tip:</strong> After closing entries, only permanent accounts (Assets, Liabilities, Common Stock, Retained Earnings) should have balances. If you see revenue, expense, or dividend balances, you've missed a closing step!
+                    </div>
+                </div>
+
+                <!-- Depth B: Standard -->
+                <div id="depth-B" class="depth-content">
+                    <h3>🟡 Standard Level</h3>
+                    <p>Understanding the four closing entries and how to prepare them.</p>
+
+                    <div class="worked-example">
+                        <h4>The Four Closing Entries</h4>
+                        <p>Each closing entry serves a specific purpose in transferring temporary account balances:</p>
+
+                        <div class="key-concepts-grid" style="margin-top: 1rem;">
+                            <div class="concept-card" style="border-left: 5px solid var(--info);">
+                                <strong>Entry 1: Close Revenues to Income Summary</strong>
+                                <p><strong>Journal Entry:</strong></p>
+                                <p>Dr Consulting Revenue $7,990</p>
+                                <p>Dr Service Revenue $500</p>
+                                <p>Cr Income Summary $8,490</p>
+                                <p><em>All revenue debits, Income Summary credit = Total Revenue</em></p>
+                            </div>
+
+                            <div class="concept-card" style="border-left: 5px solid var(--warning);">
+                                <strong>Entry 2: Close Expenses to Income Summary</strong>
+                                <p><strong>Journal Entry:</strong></p>
+                                <p>Dr Income Summary $4,000</p>
+                                <p>Cr Rent Expense $1,000</p>
+                                <p>Cr Salaries Expense $1,050</p>
+                                <p>Cr Supplies Expense $1,200</p>
+                                <p>Cr Insurance Expense $300</p>
+                                <p>Cr Depreciation Expense $450</p>
+                                <p><em>Income Summary debit = Total Expenses</em></p>
+                            </div>
+
+                            <div class="concept-card" style="border-left: 5px solid var(--success);">
+                                <strong>Entry 3: Close Income Summary to Retained Earnings</strong>
+                                <p><strong>Journal Entry (Net Income):</strong></p>
+                                <p>Dr Income Summary $4,490</p>
+                                <p>Cr Retained Earnings $4,490</p>
+                                <p><em>Net Income = Revenue $8,490 - Expenses $4,000 = $4,490</em></p>
+                            </div>
+
+                            <div class="concept-card" style="border-left: 5px solid var(--error);">
+                                <strong>Entry 4: Close Dividends to Retained Earnings</strong>
+                                <p><strong>Journal Entry:</strong></p>
+                                <p>Dr Retained Earnings $200</p>
+                                <p>Cr Dividends $200</p>
+                                <p><em>Reduces retained earnings by dividends declared</em></p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="worked-example" style="margin-top: 2rem;">
+                        <h4>Step-by-Step Closing Process for FastForward Company</h4>
+                        <p>Let's prepare closing entries based on the Adjusted Trial Balance from P1.</p>
+
+                        <div class="example-step">
+                            <strong>Step 1: Review Adjusted Trial Balance</strong>
+                            <p>Identify which accounts are temporary (will be closed) and which are permanent (will carry forward).</p>
+                            <div class="closing-diagram">
+                                <div class="closing-row header">
+                                    <div class="closing-column account-name">Account Type</div>
+                                    <div class="closing-column">Treatment</div>
+                                </div>
+                                <div class="closing-row">
+                                    <div class="closing-column account-name">Cash, Accounts Receivable, Supplies, Prepaid Insurance, Equipment</div>
+                                    <div class="closing-column">Assets - PERMANENT (Keep Balance)</div>
+                                </div>
+                                <div class="closing-row">
+                                    <div class="closing-column account-name">Accumulated Depreciation, Accounts Payable, Salaries Payable, Unearned Revenue</div>
+                                    <div class="closing-column">Liabilities - PERMANENT (Keep Balance)</div>
+                                </div>
+                                <div class="closing-row">
+                                    <div class="closing-column account-name">Common Stock, Retained Earnings</div>
+                                    <div class="closing-column">Equity - PERMANENT (Keep Balance)</div>
+                                </div>
+                                <div class="closing-row closing-highlight">
+                                    <div class="closing-column account-name">Consulting Revenue, Service Revenue</div>
+                                    <div class="closing-column">Revenues - TEMPORARY (Close to $0)</div>
+                                </div>
+                                <div class="closing-row closing-highlight">
+                                    <div class="closing-column account-name">Rent Expense, Salaries Expense, Supplies Expense, Insurance Expense, Depreciation Expense</div>
+                                    <div class="closing-column">Expenses - TEMPORARY (Close to $0)</div>
+                                </div>
+                                <div class="closing-row closing-highlight">
+                                    <div class="closing-column account-name">Dividends</div>
+                                    <div class="closing-column">Dividends - TEMPORARY (Close to $0)</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="example-step" style="margin-top: 2rem;">
+                            <strong>Step 2: Prepare Closing Entry #1 - Close Revenues</strong>
+                            <div class="journal-entry-box">
+                                <div class="journal-entry-row">
+                                    <div class="je-date">Dec 31</div>
+                                    <div class="je-account">Income Summary</div>
+                                    <div class="je-debit">8,490</div>
+                                    <div class="je-credit"></div>
+                                </div>
+                                <div class="journal-entry-row">
+                                    <div class="je-date"></div>
+                                    <div class="je-account"> Consulting Revenue</div>
+                                    <div class="je-debit"></div>
+                                    <div class="je-credit">7,990</div>
+                                </div>
+                                <div class="journal-entry-row">
+                                    <div class="je-date"></div>
+                                    <div class="je-account"> Service Revenue</div>
+                                    <div class="je-debit"></div>
+                                    <div class="je-credit">500</div>
+                                </div>
+                                <div class="journal-entry-row" style="border-top: 2px solid var(--primary); margin-top: 0.5rem; padding-top: 0.5rem;">
+                                    <div class="je-date"></div>
+                                    <div class="je-account"><em>(To close revenues to Income Summary)</em></div>
+                                    <div class="je-debit"></div>
+                                    <div class="je-credit"></div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="example-step" style="margin-top: 2rem;">
+                            <strong>Step 3: Prepare Closing Entry #2 - Close Expenses</strong>
+                            <div class="journal-entry-box">
+                                <div class="journal-entry-row">
+                                    <div class="je-date">Dec 31</div>
+                                    <div class="je-account">Income Summary</div>
+                                    <div class="je-debit">4,000</div>
+                                    <div class="je-credit"></div>
+                                </div>
+                                <div class="journal-entry-row">
+                                    <div class="je-date"></div>
+                                    <div class="je-account"> Rent Expense</div>
+                                    <div class="je-debit"></div>
+                                    <div class="je-credit">1,000</div>
+                                </div>
+                                <div class="journal-entry-row">
+                                    <div class="je-date"></div>
+                                    <div class="je-account"> Salaries Expense</div>
+                                    <div class="je-debit"></div>
+                                    <div class="je-credit">1,050</div>
+                                </div>
+                                <div class="journal-entry-row">
+                                    <div class="je-date"></div>
+                                    <div class="je-account"> Supplies Expense</div>
+                                    <div class="je-debit"></div>
+                                    <div class="je-credit">1,200</div>
+                                </div>
+                                <div class="journal-entry-row">
+                                    <div class="je-date"></div>
+                                    <div class="je-account"> Insurance Expense</div>
+                                    <div class="je-debit"></div>
+                                    <div class="je-credit">300</div>
+                                </div>
+                                <div class="journal-entry-row">
+                                    <div class="je-date"></div>
+                                    <div class="je-account"> Depreciation Expense</div>
+                                    <div class="je-debit"></div>
+                                    <div class="je-credit">450</div>
+                                </div>
+                                <div class="journal-entry-row" style="border-top: 2px solid var(--primary); margin-top: 0.5rem; padding-top: 0.5rem;">
+                                    <div class="je-date"></div>
+                                    <div class="je-account"><em>(To close expenses to Income Summary)</em></div>
+                                    <div class="je-debit"></div>
+                                    <div class="je-credit"></div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="example-step" style="margin-top: 2rem;">
+                            <strong>Step 4: Prepare Closing Entry #3 - Close Income Summary</strong>
+                            <p><strong>Net Income Calculation:</strong> Income Summary Credit $8,490 - Income Summary Debit $4,000 = $4,490 Credit Balance (Net Income)</p>
+                            <div class="journal-entry-box">
+                                <div class="journal-entry-row">
+                                    <div class="je-date">Dec 31</div>
+                                    <div class="je-account">Income Summary</div>
+                                    <div class="je-debit">4,490</div>
+                                    <div class="je-credit"></div>
+                                </div>
+                                <div class="journal-entry-row">
+                                    <div class="je-date"></div>
+                                    <div class="je-account"> Retained Earnings</div>
+                                    <div class="je-debit"></div>
+                                    <div class="je-credit">4,490</div>
+                                </div>
+                                <div class="journal-entry-row" style="border-top: 2px solid var(--primary); margin-top: 0.5rem; padding-top: 0.5rem;">
+                                    <div class="je-date"></div>
+                                    <div class="je-account"><em>(To close net income to Retained Earnings)</em></div>
+                                    <div class="je-debit"></div>
+                                    <div class="je-credit"></div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="example-step" style="margin-top: 2rem;">
+                            <strong>Step 5: Prepare Closing Entry #4 - Close Dividends</strong>
+                            <div class="journal-entry-box">
+                                <div class="journal-entry-row">
+                                    <div class="je-date">Dec 31</div>
+                                    <div class="je-account">Retained Earnings</div>
+                                    <div class="je-debit">200</div>
+                                    <div class="je-credit"></div>
+                                </div>
+                                <div class="journal-entry-row">
+                                    <div class="je-date"></div>
+                                    <div class="je-account"> Dividends</div>
+                                    <div class="je-debit"></div>
+                                    <div class="je-credit">200</div>
+                                </div>
+                                <div class="journal-entry-row" style="border-top: 2px solid var(--primary); margin-top: 0.5rem; padding-top: 0.5rem;">
+                                    <div class="je-date"></div>
+                                    <div class="je-account"><em>(To close dividends to Retained Earnings)</em></div>
+                                    <div class="je-debit"></div>
+                                    <div class="je-credit"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Depth C: Advanced -->
+                <div id="depth-C" class="depth-content">
+                    <h3>🔴 Advanced Level</h3>
+                    <p>Understanding the post-closing trial balance, reversing entries, and the complete accounting cycle.</p>
+
+                    <div class="worked-example">
+                        <h4>The Post-Closing Trial Balance</h4>
+                        <p>After all closing entries are posted, only permanent accounts should have balances. The post-closing trial balance verifies this.</p>
+
+                        <div class="closing-diagram">
+                            <div class="closing-row header">
+                                <div class="closing-column account-name">Account Title</div>
+                                <div class="closing-column debit">Debit</div>
+                                <div class="closing-column credit">Credit</div>
+                            </div>
+                            <div class="closing-row">
+                                <div class="closing-column account-name">Cash</div>
+                                <div class="closing-column debit">$5,800</div>
+                                <div class="closing-column credit"></div>
+                            </div>
+                            <div class="closing-row">
+                                <div class="closing-column account-name">Accounts Receivable</div>
+                                <div class="closing-column debit">2,100</div>
+                                <div class="closing-column credit"></div>
+                            </div>
+                            <div class="closing-row">
+                                <div class="closing-column account-name">Supplies</div>
+                                <div class="closing-column debit">8,400</div>
+                                <div class="closing-column credit"></div>
+                            </div>
+                            <div class="closing-row">
+                                <div class="closing-column account-name">Prepaid Insurance</div>
+                                <div class="closing-column debit">2,100</div>
+                                <div class="closing-column credit"></div>
+                            </div>
+                            <div class="closing-row">
+                                <div class="closing-column account-name">Equipment</div>
+                                <div class="closing-column debit">26,000</div>
+                                <div class="closing-column credit"></div>
+                            </div>
+                            <div class="closing-row">
+                                <div class="closing-column account-name">Accumulated Depreciation</div>
+                                <div class="closing-column debit"></div>
+                                <div class="closing-column credit">$450</div>
+                            </div>
+                            <div class="closing-row">
+                                <div class="closing-column account-name">Accounts Payable</div>
+                                <div class="closing-column debit"></div>
+                                <div class="closing-column credit">6,200</div>
+                            </div>
+                            <div class="closing-row">
+                                <div class="closing-column account-name">Salaries Payable</div>
+                                <div class="closing-column debit"></div>
+                                <div class="closing-column credit">350</div>
+                            </div>
+                            <div class="closing-row">
+                                <div class="closing-column account-name">Unearned Consulting Revenue</div>
+                                <div class="closing-column debit"></div>
+                                <div class="closing-column credit">1,950</div>
+                            </div>
+                            <div class="closing-row">
+                                <div class="closing-column account-name">Common Stock</div>
+                                <div class="closing-column debit"></div>
+                                <div class="closing-column credit">30,000</div>
+                            </div>
+                            <div class="closing-row">
+                                <div class="closing-column account-name">Retained Earnings</div>
+                                <div class="closing-column debit"></div>
+                                <div class="closing-column credit">9,580</div>
+                            </div>
+                            <div class="closing-row total">
+                                <div class="closing-column account-name">Totals</div>
+                                <div class="closing-column debit">$44,400</div>
+                                <div class="closing-column credit">$44,400</div>
+                            </div>
+                        </div>
+
+                        <div class="concept-card" style="margin-top: 1.5rem; border-left: 5px solid var(--success);">
+                            <strong>✓ Verification:</strong> The post-closing trial balance balances! Total debits ($44,400) equal total credits ($44,400). Notice that all temporary accounts (revenues, expenses, dividends) have zero balances—they were closed in the closing entries.
+                        </div>
+                    </div>
+
+                    <div class="worked-example" style="margin-top: 2rem;">
+                        <h4>Reversing Entries (Optional but Common)</h4>
+                        <p>Some accountants prepare reversing entries at the beginning of the next period for accrued revenues and accrued expenses. This simplifies subsequent recording.</p>
+
+                        <div class="concept-card" style="margin-top: 1rem;">
+                            <strong>Why Use Reversing Entries?</strong>
+                            <p>Accrued revenues recorded at period end (Dr Accounts Receivable, Cr Revenue) would normally be recorded again when cash is received. A reversing entry simplifies this by allowing the subsequent cash receipt to be recorded normally (Dr Cash, Cr Revenue) without double-counting.</p>
+                        </div>
+
+                        <div class="key-concepts-grid" style="margin-top: 1.5rem;">
+                            <div class="concept-card" style="border-left: 5px solid var(--info);">
+                                <strong>Example: Accrued Service Revenue</strong>
+                                <p><strong>Adjusting Entry (Dec 31):</strong></p>
+                                <p>Dr Accounts Receivable $100</p>
+                                <p>Cr Service Revenue $100</p>
+                                <p><strong>Reversing Entry (Jan 1):</strong></p>
+                                <p>Dr Service Revenue $100</p>
+                                <p>Cr Accounts Receivable $100</p>
+                                <p><strong>Collection Entry (Jan 15):</strong></p>
+                                <p>Dr Cash $100</p>
+                                <p>Cr Service Revenue $100</p>
+                            </div>
+
+                            <div class="concept-card" style="border-left: 5px solid var(--warning);">
+                                <strong>Example: Accrued Wages</strong>
+                                <p><strong>Adjusting Entry (Dec 31):</strong></p>
+                                <p>Dr Wages Expense $140</p>
+                                <p>Cr Wages Payable $140</p>
+                                <p><strong>Reversing Entry (Jan 1):</strong></p>
+                                <p>Dr Wages Payable $140</p>
+                                <p>Cr Wages Expense $140</p>
+                                <p><strong>Payment Entry (Jan 15):</strong></p>
+                                <p>Dr Wages Expense $800</p>
+                                <p>Cr Cash $800</p>
+                            </div>
+                        </div>
+
+                        <div class="professional-tip" style="margin-top: 1.5rem;">
+                            <strong>💡 Professional Tip:</strong> Reversing entries are optional and often used by larger organizations with sophisticated accounting systems. Small businesses may skip them. They primarily benefit accrual-type transactions where cash flow occurs after the accrual.
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Interactive: Closing Entries Simulator -->
+            <section class="kp-section">
+                <h2>🎨 Interactive: Closing Entries Simulator</h2>
+                <p>Practice preparing closing entries and see how balances flow to Retained Earnings. Enter values and watch the closing process unfold.</p>
+
+                <div class="closing-simulator">
+                    <div class="simulator-header">
+                        <h3 style="margin: 0;">📊 FastForward Company - Closing Process Simulator</h3>
+                        <p style="margin: 0.5rem 0 0; opacity: 0.9; font-size: 0.9rem;">Enter account balances and prepare closing entries</p>
+                    </div>
+                    
+                    <div class="simulator-grid">
+                        <div class="simulator-row">
+                            <div class="simulator-label">
+                                <span class="label-icon">📈</span>
+                                <div class="label-text">
+                                    <strong>Consulting Revenue</strong>
+                                    <small>Total revenue earned this period</small>
+                                </div>
+                            </div>
+                            <div class="simulator-input-wrap">
+                                <span class="currency-prefix">$</span>
+                                <input type="number" id="close-rev" value="7990" oninput="updateClosing()">
+                            </div>
+                            <div class="simulator-result" id="close-rev-res">$7,990</div>
+                        </div>
+                        
+                        <div class="simulator-row">
+                            <div class="simulator-label">
+                                <span class="label-icon">💸</span>
+                                <div class="label-text">
+                                    <strong>Total Expenses</strong>
+                                    <small>Sum of all expense accounts</small>
+                                </div>
+                            </div>
+                            <div class="simulator-input-wrap">
+                                <span class="currency-prefix">$</span>
+                                <input type="number" id="close-exp" value="4000" oninput="updateClosing()">
+                            </div>
+                            <div class="simulator-result" id="close-exp-res">$4,000</div>
+                        </div>
+                        
+                        <div class="simulator-row">
+                            <div class="simulator-label">
+                                <span class="label-icon">💰</span>
+                                <div class="label-text">
+                                    <strong>Dividends</strong>
+                                    <small>Distributions to shareholders</small>
+                                </div>
+                            </div>
+                            <div class="simulator-input-wrap">
+                                <span class="currency-prefix">$</span>
+                                <input type="number" id="close-div" value="200" oninput="updateClosing()">
+                            </div>
+                            <div class="simulator-result" id="close-div-res">$200</div>
+                        </div>
+                        
+                        <div class="simulator-row">
+                            <div class="simulator-label">
+                                <span class="label-icon">📊</span>
+                                <div class="label-text">
+                                    <strong>Beginning Retained Earnings</strong>
+                                    <small>RE balance from prior period</small>
+                                </div>
+                            </div>
+                            <div class="simulator-input-wrap">
+                                <span class="currency-prefix">$</span>
+                                <input type="number" id="close-beg-re" value="5290" oninput="updateClosing()">
+                            </div>
+                            <div class="simulator-result" id="close-beg-re-res">$5,290</div>
+                        </div>
+                    </div>
+                    
+                    <div class="simulator-summary">
+                        <div class="summary-card income-card">
+                            <div class="summary-icon">📈</div>
+                            <div class="summary-content">
+                                <strong>Net Income</strong>
+                                <span id="sim-net-income">$3,990</span>
+                            </div>
+                        </div>
+                        <div class="summary-card re-card">
+                            <div class="summary-icon">💼</div>
+                            <div class="summary-content">
+                                <strong>Ending Retained Earnings</strong>
+                                <span id="sim-end-re">$9,080</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="closing-entries-preview">
+                        <h4 style="margin-bottom: 1rem; color: #1a237e;">📝 Closing Entries Summary</h4>
+                        <div class="je-preview">
+                            <div class="je-title">Entry 1: Close Revenues to Income Summary</div>
+                            <div class="je-lines">
+                                <span>Dr Consulting Revenue <span id="je1-dr">$7,990</span></span>
+                                <span>Cr Income Summary <span id="je1-cr">$7,990</span></span>
+                            </div>
+                        </div>
+                        <div class="je-preview">
+                            <div class="je-title">Entry 2: Close Expenses to Income Summary</div>
+                            <div class="je-lines">
+                                <span>Dr Income Summary <span id="je2-dr">$4,000</span></span>
+                                <span>Cr Expenses <span id="je2-cr">$4,000</span></span>
+                            </div>
+                        </div>
+                        <div class="je-preview">
+                            <div class="je-title">Entry 3: Close Income Summary to RE</div>
+                            <div class="je-lines">
+                                <span>Dr Income Summary <span id="je3-dr">$3,990</span></span>
+                                <span>Cr Retained Earnings <span id="je3-cr">$3,990</span></span>
+                            </div>
+                        </div>
+                        <div class="je-preview">
+                            <div class="je-title">Entry 4: Close Dividends to RE</div>
+                            <div class="je-lines">
+                                <span>Dr Retained Earnings <span id="je4-dr">$200</span></span>
+                                <span>Cr Dividends <span id="je4-cr">$200</span></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="concept-card" style="margin-top: 1.5rem;">
+                    <strong>💡 Try It:</strong> Change the values above. Notice how:
+                    <ul style="margin-top: 0.5rem;">
+                        <li>Net Income = Revenue - Expenses</li>
+                        <li>Ending RE = Beginning RE + Net Income - Dividends</li>
+                        <li>Each closing entry balances (Dr = Cr)</li>
+                        <li>Income Summary always ends at $0 after all entries</li>
+                    </ul>
+                </div>
+
+                <style>
+                    .closing-simulator {
+                        background: linear-gradient(135deg, #1a237e 0%, #283593 100%);
+                        border-radius: 20px;
+                        padding: 2rem;
+                        margin: 2rem 0;
+                        color: white;
+                        box-shadow: 0 8px 30px rgba(26,35,126,0.3);
+                    }
+
+                    .simulator-header {
+                        text-align: center;
+                        margin-bottom: 2rem;
+                        padding-bottom: 1.5rem;
+                        border-bottom: 1px solid rgba(255,255,255,0.2);
+                    }
+
+                    .simulator-header h3 {
+                        color: white;
+                        font-size: 1.3rem;
+                    }
+
+                    .simulator-grid {
+                        background: rgba(255,255,255,0.05);
+                        border-radius: 16px;
+                        padding: 1rem;
+                    }
+
+                    .simulator-row {
+                        display: flex;
+                        align-items: center;
+                        padding: 1rem;
+                        border-bottom: 1px solid rgba(255,255,255,0.1);
+                        gap: 1rem;
+                        transition: background 0.3s ease;
+                    }
+
+                    .simulator-row:hover {
+                        background: rgba(255,255,255,0.08);
+                    }
+
+                    .simulator-row:last-child {
+                        border-bottom: none;
+                    }
+
+                    .simulator-label {
+                        flex: 1;
+                        display: flex;
+                        align-items: center;
+                        gap: 0.75rem;
+                    }
+
+                    .label-icon {
+                        font-size: 1.5rem;
+                    }
+
+                    .label-text {
+                        display: flex;
+                        flex-direction: column;
+                    }
+
+                    .label-text strong {
+                        font-size: 0.95rem;
+                    }
+
+                    .label-text small {
+                        opacity: 0.7;
+                        font-size: 0.75rem;
+                    }
+
+                    .simulator-input-wrap {
+                        position: relative;
+                        width: 120px;
+                    }
+
+                    .currency-prefix {
+                        position: absolute;
+                        left: 12px;
+                        top: 50%;
+                        transform: translateY(-50%);
+                        opacity: 0.7;
+                        font-weight: 600;
+                    }
+
+                    .simulator-input-wrap input {
+                        width: 100%;
+                        padding: 0.75rem 0.75rem 0.75rem 1.75rem;
+                        border: 2px solid rgba(255,255,255,0.2);
+                        border-radius: 10px;
+                        background: rgba(255,255,255,0.1);
+                        color: white;
+                        font-size: 1rem;
+                        font-weight: 600;
+                        transition: all 0.3s ease;
+                    }
+
+                    .simulator-input-wrap input:focus {
+                        outline: none;
+                        border-color: #c5a059;
+                        background: rgba(255,255,255,0.15);
+                    }
+
+                    .simulator-input-wrap input::placeholder {
+                        color: rgba(255,255,255,0.5);
+                    }
+
+                    .simulator-result {
+                        width: 100px;
+                        text-align: right;
+                        font-weight: 700;
+                        font-size: 1.1rem;
+                        padding: 0.5rem 1rem;
+                        background: rgba(255,255,255,0.1);
+                        border-radius: 10px;
+                    }
+
+                    .simulator-summary {
+                        display: flex;
+                        gap: 1rem;
+                        margin-top: 1.5rem;
+                        flex-wrap: wrap;
+                    }
+
+                    .summary-card {
+                        flex: 1;
+                        min-width: 200px;
+                        display: flex;
+                        align-items: center;
+                        gap: 1rem;
+                        padding: 1.25rem;
+                        border-radius: 12px;
+                    }
+
+                    .summary-card.income-card {
+                        background: linear-gradient(135deg, rgba(39,174,96,0.3) 0%, rgba(39,174,96,0.2) 100%);
+                        border: 1px solid rgba(39,174,96,0.5);
+                    }
+
+                    .summary-card.re-card {
+                        background: linear-gradient(135deg, rgba(52,152,219,0.3) 0%, rgba(52,152,219,0.2) 100%);
+                        border: 1px solid rgba(52,152,219,0.5);
+                    }
+
+                    .summary-icon {
+                        font-size: 2rem;
+                    }
+
+                    .summary-content {
+                        display: flex;
+                        flex-direction: column;
+                    }
+
+                    .summary-content strong {
+                        font-size: 0.85rem;
+                        opacity: 0.9;
+                    }
+
+                    .summary-content span {
+                        font-size: 1.3rem;
+                        font-weight: 700;
+                    }
+
+                    .closing-entries-preview {
+                        margin-top: 2rem;
+                        padding: 1.5rem;
+                        background: rgba(255,255,255,0.05);
+                        border-radius: 12px;
+                    }
+
+                    .je-preview {
+                        padding: 1rem;
+                        background: rgba(255,255,255,0.08);
+                        border-radius: 8px;
+                        margin-bottom: 0.75rem;
+                    }
+
+                    .je-preview:last-child {
+                        margin-bottom: 0;
+                    }
+
+                    .je-title {
+                        font-weight: 600;
+                        font-size: 0.9rem;
+                        margin-bottom: 0.5rem;
+                        color: #c5a059;
+                    }
+
+                    .je-lines {
+                        display: flex;
+                        flex-direction: column;
+                        gap: 0.25rem;
+                        font-size: 0.85rem;
+                        font-family: 'Courier New', monospace;
+                    }
+
+                    @media (max-width: 768px) {
+                        .simulator-row {
+                            flex-direction: column;
+                            align-items: stretch;
+                            gap: 0.75rem;
+                        }
+
+                        .simulator-label {
+                            justify-content: center;
+                        }
+
+                        .simulator-result {
+                            width: 100%;
+                            text-align: center;
+                        }
+
+                        .simulator-summary {
+                            flex-direction: column;
+                        }
+                    }
+                </style>
+            </section>
+
+            <!-- Visual: How Closing Entries Flow -->
+            <section class="kp-section">
+                <h2>📊 Visual: How Closing Entries Flow</h2>
+                <p>Watch how closing entries transfer balances through the accounts:</p>
+
+                <div class="t-account-container">
+                    <div class="t-account-row">
+                        <!-- Consulting Revenue T-Account -->
+                        <div class="t-account">
+                            <div class="t-account-header">📈 Consulting Revenue</div>
+                            <div class="t-account-body">
+                                <div class="t-account-side debit-side">
+                                    <div class="side-label">Dr</div>
+                                    <div class="t-account-entry close-entry" id="t-rev-dr">7,990<br><span style="color: #e74c3c; font-size: 0.7rem;">(close)</span></div>
+                                </div>
+                                <div class="t-account-side credit-side">
+                                    <div class="side-label">Cr</div>
+                                    <div class="t-account-entry">7,190<br><span style="color: #888; font-size: 0.7rem;">(balance)</span></div>
+                                </div>
+                            </div>
+                            <div class="t-account-balance revenue-balance">💰 Balance: $0</div>
+                        </div>
+
+                        <!-- Income Summary T-Account -->
+                        <div class="t-account">
+                            <div class="t-account-header">📋 Income Summary</div>
+                            <div class="t-account-body">
+                                <div class="t-account-side debit-side">
+                                    <div class="side-label">Dr</div>
+                                    <div class="t-account-entry close-entry" id="t-is-dr">4,000<br><span style="color: #e74c3c; font-size: 0.7rem;">(expenses)</span></div>
+                                </div>
+                                <div class="t-account-side credit-side">
+                                    <div class="side-label">Cr</div>
+                                    <div class="t-account-entry">7,990<br><span style="color: #27ae60; font-size: 0.7rem;">(revenues)</span></div>
+                                    <div class="t-account-entry close-entry" id="t-is-cr">3,990<br><span style="color: #e74c3c; font-size: 0.7rem;">(to RE)</span></div>
+                                </div>
+                            </div>
+                            <div class="t-account-balance">💰 Balance: $0</div>
+                        </div>
+                    </div>
+
+                    <div class="flow-connector">
+                        <span class="connector-text">Close revenues (Dr) → Income Summary receives | Close expenses (Cr) from IS | Net income → Retained Earnings</span>
+                    </div>
+
+                    <div class="t-account-row">
+                        <!-- Retained Earnings T-Account -->
+                        <div class="t-account">
+                            <div class="t-account-header">💼 Retained Earnings</div>
+                            <div class="t-account-body">
+                                <div class="t-account-side debit-side">
+                                    <div class="side-label">Dr</div>
+                                    <div class="t-account-entry close-entry" id="t-re-dr">200<br><span style="color: #e74c3c; font-size: 0.7rem;">(dividends)</span></div>
+                                </div>
+                                <div class="t-account-side credit-side">
+                                    <div class="side-label">Cr</div>
+                                    <div class="t-account-entry">5,290<br><span style="color: #888; font-size: 0.7rem;">(beginning)</span></div>
+                                    <div class="t-account-entry close-entry" id="t-re-cr">3,990<br><span style="color: #27ae60; font-size: 0.7rem;">(net income)</span></div>
+                                </div>
+                            </div>
+                            <div class="t-account-balance equity-balance">💰 Balance: $9,080</div>
+                        </div>
+
+                        <!-- Dividends T-Account -->
+                        <div class="t-account">
+                            <div class="t-account-header">💰 Dividends</div>
+                            <div class="t-account-body">
+                                <div class="t-account-side debit-side">
+                                    <div class="side-label">Dr</div>
+                                    <div class="t-account-entry">200<br><span style="color: #888; font-size: 0.7rem;">(balance)</span></div>
+                                </div>
+                                <div class="t-account-side credit-side">
+                                    <div class="side-label">Cr</div>
+                                    <div class="t-account-entry close-entry" id="t-div-cr">200<br><span style="color: #e74c3c; font-size: 0.7rem;">(close)</span></div>
+                                </div>
+                            </div>
+                            <div class="t-account-balance">💰 Balance: $0</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="pattern-legend">
+                    <div class="legend-item">
+                        <span class="legend-dot closing"></span>
+                        <span>Red entries = Closing entries</span>
+                    </div>
+                    <div class="legend-item">
+                        <span class="legend-dot balance"></span>
+                        <span>Ending balance shown at bottom</span>
+                    </div>
+                    <div class="legend-item">
+                        <span class="legend-dot permanent"></span>
+                        <span>RE carries forward, Temp accounts zero</span>
+                    </div>
+                </div>
+
+                <div class="professional-tip" style="margin-top: 1.5rem;">
+                    <strong>💡 Key Pattern:</strong> Observe the flow:
+                    <ul style="margin-top: 0.5rem;">
+                        <li><strong>Revenues</strong> decrease (Dr) and flow INTO Income Summary (Cr)</li>
+                        <li><strong>Expenses</strong> decrease (Cr) as they flow OUT of Income Summary (Dr)</li>
+                        <li><strong>Net Income</strong> flows from Income Summary to Retained Earnings</li>
+                        <li><strong>Dividends</strong> flow directly from Dividends to Retained Earnings</li>
+                        <li><strong>Income Summary</strong> always ends at $0 (temporary account)</li>
+                    </ul>
+                </div>
+
+                <style>
+                    /* T-Account Container Styles */
+                    .t-account-container {
+                        background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+                        border-radius: 20px;
+                        padding: 2rem;
+                        margin: 1.5rem 0;
+                        box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+                    }
+
+                    .t-account-row {
+                        display: flex;
+                        justify-content: center;
+                        gap: 2rem;
+                        flex-wrap: wrap;
+                        margin-bottom: 1rem;
+                    }
+
+                    .t-account {
+                        background: white;
+                        border-radius: 16px;
+                        overflow: hidden;
+                        box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+                        min-width: 200px;
+                        transition: transform 0.3s ease;
+                    }
+
+                    .t-account:hover {
+                        transform: translateY(-5px);
+                    }
+
+                    .t-account-header {
+                        background: linear-gradient(135deg, #1a237e 0%, #283593 100%);
+                        color: white;
+                        padding: 1rem;
+                        font-weight: 700;
+                        font-size: 1rem;
+                        text-align: center;
+                    }
+
+                    .t-account-body {
+                        display: flex;
+                        border: 3px solid #1a237e;
+                        border-top: none;
+                        border-radius: 0 0 12px 12px;
+                        overflow: hidden;
+                    }
+
+                    .t-account-side {
+                        flex: 1;
+                        padding: 0.75rem;
+                        position: relative;
+                    }
+
+                    .debit-side {
+                        background: linear-gradient(180deg, rgba(26,35,126,0.08) 0%, rgba(26,35,126,0.03) 100%);
+                        border-right: 3px solid #1a237e;
+                    }
+
+                    .credit-side {
+                        background: linear-gradient(180deg, rgba(197,160,89,0.08) 0%, rgba(197,160,89,0.03) 100%);
+                    }
+
+                    .side-label {
+                        font-weight: 700;
+                        font-size: 0.75rem;
+                        text-align: center;
+                        padding: 0.25rem 0.5rem;
+                        border-radius: 6px;
+                        margin-bottom: 0.5rem;
+                    }
+
+                    .debit-side .side-label {
+                        background: #1a237e;
+                        color: white;
+                    }
+
+                    .credit-side .side-label {
+                        background: #c5a059;
+                        color: #1a237e;
+                    }
+
+                    .t-account-entry {
+                        padding: 0.5rem;
+                        text-align: center;
+                        font-size: 0.85rem;
+                        border-bottom: 1px dashed #ddd;
+                        margin-bottom: 0.25rem;
+                    }
+
+                    .t-account-entry:last-child {
+                        border-bottom: none;
+                    }
+
+                    .close-entry {
+                        background: linear-gradient(135deg, #ffebee 0%, #ffcdd2 100%);
+                        border-radius: 8px;
+                        margin-top: 0.5rem;
+                        animation: pulse 2s infinite;
+                        color: #c0392b;
+                    }
+
+                    @keyframes pulse {
+                        0%, 100% { opacity: 1; }
+                        50% { opacity: 0.7; }
+                    }
+
+                    .t-account-balance {
+                        padding: 0.75rem;
+                        text-align: center;
+                        font-weight: 700;
+                        font-size: 0.9rem;
+                        background: #f8f9fa;
+                        border-top: 2px solid #1a237e;
+                    }
+
+                    .revenue-balance {
+                        background: linear-gradient(135deg, #e8f5e9 0%, #c8e6c9 100%);
+                        border-top-color: #27ae60;
+                        color: #1e8449;
+                    }
+
+                    .equity-balance {
+                        background: linear-gradient(135deg, #e3f2fd 0%, #bbdefb 100%);
+                        border-top-color: #3498db;
+                        color: #1a5276;
+                    }
+
+                    .flow-connector {
+                        text-align: center;
+                        padding: 1rem;
+                        margin: 0.5rem 0;
+                    }
+
+                    .connector-text {
+                        display: inline-block;
+                        padding: 0.5rem 1.5rem;
+                        background: linear-gradient(135deg, #1a237e 0%, #283593 100%);
+                        color: white;
+                        border-radius: 20px;
+                        font-size: 0.85rem;
+                        font-weight: 600;
+                    }
+
+                    .pattern-legend {
+                        display: flex;
+                        justify-content: center;
+                        gap: 2rem;
+                        margin-top: 1rem;
+                        flex-wrap: wrap;
+                    }
+
+                    .legend-item {
+                        display: flex;
+                        align-items: center;
+                        gap: 0.5rem;
+                        font-size: 0.85rem;
+                        color: #666;
+                    }
+
+                    .legend-dot {
+                        width: 12px;
+                        height: 12px;
+                        border-radius: 50%;
+                    }
+
+                    .legend-dot.closing {
+                        background: #e74c3c;
+                    }
+
+                    .legend-dot.balance {
+                        background: #1a237e;
+                    }
+
+                    .legend-dot.permanent {
+                        background: #3498db;
+                    }
+
+                    @media (max-width: 768px) {
+                        .t-account-row {
+                            flex-direction: column;
+                            align-items: center;
+                        }
+                        
+                        .t-account {
+                            width: 100%;
+                            max-width: 280px;
+                        }
+                    }
+                </style>
+            </section>
+
+            <!-- Common Misconceptions -->
+            <section class="kp-section">
+                <h2>🚫 Common Misconceptions & Professional Tips</h2>
+
+                <div class="misconception-alert">
+                    <strong>❌ Misconception 1:</strong> "Closing entries are the same as adjusting entries."
+                    <br><br>
+                    <strong>✅ Reality:</strong> Adjusting entries update accounts for the current period's transactions (accruals, deferrals). Closing entries reset temporary accounts to zero and transfer their balances to Retained Earnings. They serve completely different purposes and occur at different times in the accounting cycle.
+                </div>
+
+                <div class="misconception-alert">
+                    <strong>❌ Misconception 2:</strong> "Dividends are an expense and should appear on the Income Statement."
+                    <br><br>
+                    <strong>✅ Reality:</strong> Dividends are NOT an expense. They are a distribution of earnings to shareholders. They appear on the Statement of Retained Earnings and the Balance Sheet (reducing equity), but never on the Income Statement.
+                </div>
+
+                <div class="misconception-alert">
+                    <strong>❌ Misconception 3:</strong> "The Income Summary account appears on the financial statements."
+                    <br><br>
+                    <strong>✅ Reality:</strong> The Income Summary is a temporary "holding" account used ONLY during the closing process. It does NOT appear on any formal financial statement. Its purpose is simply to accumulate revenues and expenses before transferring the net result to Retained Earnings.
+                </div>
+
+                <div class="misconception-alert">
+                    <strong>❌ Misconception 4:</strong> "Retained Earnings represents cash available for dividends."
+                    <br><br>
+                    <strong>✅ Reality:</strong> Retained Earnings is an equity account tracking cumulative net income less dividends. It has NO relationship to cash. A company can have high retained earnings but no cash (if profits are tied up in receivables or inventory), or have cash but low retained earnings (if it has historical losses).
+                </div>
+
+                <div class="professional-tip">
+                    <strong>💡 Professional Tip #1:</strong> Always close revenues FIRST, then expenses. This ensures that when you calculate net income in the Income Summary, you've captured all revenues and expenses.
+                </div>
+
+                <div class="professional-tip">
+                    <strong>💡 Professional Tip #2:</strong> After posting closing entries, verify that all temporary accounts (revenues, expenses, dividends) have zero balances. If any have non-zero balances, you've missed a closing step.
+                </div>
+
+                <div class="professional-tip">
+                    <strong>💡 Professional Tip #3:</strong> Use the post-closing trial balance as your final check. If it balances and contains only permanent accounts, your closing process is complete and correct.
+                </div>
+
+                <div class="professional-tip">
+                    <strong>💡 Professional Tip #4:</strong> In practice, closing entries are often automated in accounting software. However, understanding the manual process helps you audit and troubleshoot when issues arise.
+                </div>
+            </section>
+
+            <!-- Memory Aids -->
+            <section class="kp-section">
+                <h2>🧠 Memory Aids & Quick Reference</h2>
+
+                <div class="memory-aid-card">
+                    <strong>⚡ Quick Recall: The REID Sequence</strong>
+                    <p style="margin-top: 1rem;"><strong>R</strong>evenues → <strong>E</strong>xpenses → <strong>I</strong>ncome Summary → <strong>D</strong>ividends</p>
+                    <p style="margin-top: 0.5rem;">Close in this order to transfer balances correctly to Retained Earnings.</p>
+                </div>
+
+                <div class="memory-aid-card">
+                    <strong>⚡ Quick Recall: What Gets Closed?</strong>
+                    <p style="margin-top: 1rem;"><strong>TEMPORARY (Close to $0):</strong> Revenues, Expenses, Dividends</p>
+                    <p style="margin-top: 0.5rem;"><strong>PERMANENT (Keep Balance):</strong> Assets, Liabilities, Common Stock, Retained Earnings</p>
+                </div>
+
+                <div class="key-concepts-grid" style="margin-top: 2rem;">
+                    <div class="concept-card">
+                        <strong>📋 The Four Closing Entries</strong>
+                        <p><strong>Entry 1:</strong> Dr Revenues, Cr Income Summary</p>
+                        <p><strong>Entry 2:</strong> Dr Income Summary, Cr Expenses</p>
+                        <p><strong>Entry 3:</strong> Dr Income Summary, Cr Retained Earnings (net income)</p>
+                        <p><strong>Entry 4:</strong> Dr Retained Earnings, Cr Dividends</p>
+                    </div>
+
+                    <div class="concept-card">
+                        <strong>📊 Income Summary Logic</strong>
+                        <p>Credit Balance (Revenues > Expenses) = Net Income</p>
+                        <p>Debit Balance (Expenses > Revenues) = Net Loss</p>
+                        <p>Always closes to zero after Entry 3</p>
+                    </div>
+
+                    <div class="concept-card">
+                        <strong>⚖️ Post-Closing TB Verification</strong>
+                        <p>Only permanent accounts should have balances</p>
+                        <p>Total Debits must equal Total Credits</p>
+                        <p>No revenue, expense, or dividend balances should remain</p>
+                    </div>
+
+                    <div class="concept-card">
+                        <strong>🎯 Retained Earnings Formula</strong>
+                        <p>Beginning RE + Net Income - Dividends = Ending RE</p>
+                        <p>Ending RE = $5,290 + $4,490 - $200 = $9,580</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Glossary -->
+            <section class="kp-section">
+                <h2>📖 Glossary</h2>
+                <div class="key-concepts-grid">
+                    <div class="concept-card">
+                        <strong>Closing Entries</strong>
+                        <p>Journal entries made at the end of an accounting period to transfer the balances of temporary accounts (revenues, expenses, dividends) to permanent equity accounts.</p>
+                    </div>
+
+                    <div class="concept-card">
+                        <strong>Temporary Accounts</strong>
+                        <p>Revenue, expense, and dividend accounts that are closed to zero at the end of each period. Their balances do not carry forward to the next accounting period.</p>
+                    </div>
+
+                    <div class="concept-card">
+                        <strong>Permanent Accounts</strong>
+                        <p>Asset, liability, and equity accounts (including Retained Earnings) that are NOT closed. Their balances carry forward to the next accounting period.</p>
+                    </div>
+
+                    <div class="concept-card">
+                        <strong>Income Summary</strong>
+                        <p>A temporary account used only during the closing process. It accumulates all revenues and expenses to determine net income (or loss) before transferring to Retained Earnings.</p>
+                    </div>
+
+                    <div class="concept-card">
+                        <strong>Retained Earnings</strong>
+                        <p>A permanent equity account that tracks cumulative net income less dividends declared since the company's inception.</p>
+                    </div>
+
+                    <div class="concept-card">
+                        <strong>Post-Closing Trial Balance</strong>
+                        <p>A trial balance prepared after closing entries are posted, containing ONLY permanent accounts to verify that debits equal credits.</p>
+                    </div>
+
+                    <div class="concept-card">
+                        <strong>Reversing Entries</strong>
+                        <p>Optional journal entries made at the beginning of the next period that reverse the effect of certain adjusting entries, simplifying subsequent transaction recording.</p>
+                    </div>
+
+                    <div class="concept-card">
+                        <strong>Dividends</strong>
+                        <p>Distributions of a company's earnings to its shareholders. Recorded in a temporary account that is closed to Retained Earnings at period end.</p>
+                    </div>
+
+                    <div class="concept-card">
+                        <strong>Net Income</strong>
+                        <p>Total revenues minus total expenses for a period. If positive, transferred to Retained Earnings; if negative, deducted from Retained Earnings.</p>
+                    </div>
+
+                    <div class="concept-card">
+                        <strong>Accounting Cycle</strong>
+                        <p>The sequence of steps followed to record, classify, and summarize financial information: Transactions → Journal → Ledger → TB → Adjustments → Adj TB → Statements → Closing → Post-Closing TB</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Final Knowledge Check -->
+            <section class="interactive-section">
+                <h2>🎯 Final Knowledge Check</h2>
+                <p>Test your understanding of the Closing Process and Post-Closing Trial Balance:</p>
+
+                <div class="quiz-container" data-success-text="Excellent! You've mastered the closing process." data-explanation="The closing process transfers temporary account balances (revenues, expenses, dividends) to Retained Earnings through the Income Summary, then prepares a post-closing trial balance with only permanent accounts.">
+                    <div class="input-group">
+                        <p><strong>Question 1:</strong> Which of the following accounts should be closed at the end of the accounting period?</p>
+                        <label><input type="radio" name="q1" value="a" data-correct="false"> Cash and Accounts Receivable</label><br><br>
+                        <label><input type="radio" name="q1" value="b" data-correct="true"> Service Revenue and Salaries Expense</label><br><br>
+                        <label><input type="radio" name="q1" value="c" data-correct="false"> Common Stock and Retained Earnings</label>
+                    </div>
+
+                    <div class="input-group">
+                        <p><strong>Question 2:</strong> What is the correct order for closing entries (REID)?</p>
+                        <label><input type="radio" name="q2" value="a" data-correct="false"> Expenses → Revenues → Income Summary → Dividends</label><br><br>
+                        <label><input type="radio" name="q2" value="b" data-correct="false"> Income Summary → Dividends → Revenues → Expenses</label><br><br>
+                        <label><input type="radio" name="q2" value="c" data-correct="true"> Revenues → Expenses → Income Summary → Dividends</label>
+                    </div>
+
+                    <div class="input-group">
+                        <p><strong>Question 3:</strong> A company has $50,000 in total revenues and $35,000 in total expenses. What is the journal entry to close Income Summary (assuming a net income)?</p>
+                        <label><input type="radio" name="q3" value="a" data-correct="false"> Dr Retained Earnings $15,000, Cr Income Summary $15,000</label><br><br>
+                        <label><input type="radio" name="q3" value="b" data-correct="true"> Dr Income Summary $15,000, Cr Retained Earnings $15,000</label><br><br>
+                        <label><input type="radio" name="q3" value="c" data-correct="false"> Dr Income Summary $50,000, Cr Retained Earnings $50,000</label>
+                    </div>
+
+                    <div class="input-group">
+                        <p><strong>Question 4:</strong> Which of the following accounts will appear on the post-closing trial balance?</p>
+                        <label><input type="radio" name="q4" value="a" data-correct="false"> Service Revenue, Rent Expense, and Dividends</label><br><br>
+                        <label><input type="radio" name="q4" value="b" data-correct="false"> Income Summary and Supplies Expense</label><br><br>
+                        <label><input type="radio" name="q4" value="c" data-correct="true"> Cash, Accounts Payable, and Common Stock</label>
+                    </div>
+
+                    <div class="input-group">
+                        <p><strong>Question 5:</strong> Dividends are closed with which entry?</p>
+                        <label><input type="radio" name="q5" value="a" data-correct="false"> Dr Dividends, Cr Retained Earnings</label><br><br>
+                        <label><input type="radio" name="q5" value="b" data-correct="true"> Dr Retained Earnings, Cr Dividends</label><br><br>
+                        <label><input type="radio" name="q5" value="c" data-correct="false"> Dr Dividends, Cr Cash</label>
+                    </div>
+
+                    <div class="input-group">
+                        <p><strong>Question 6:</strong> Why is the Income Summary account used in the closing process?</p>
+                        <label><input type="radio" name="q6" value="a" data-correct="false"> It appears on the balance sheet as an asset</label><br><br>
+                        <label><input type="radio" name="q6" value="b" data-correct="true"> It temporarily accumulates revenues and expenses to calculate net income before transferring to Retained Earnings</label><br><br>
+                        <label><input type="radio" name="q6" value="c" data-correct="false"> It replaces the need for adjusting entries</label>
+                    </div>
+
+                    <div class="input-group">
+                        <p><strong>Question 7:</strong> After closing entries are posted, what should be the balance of the Service Revenue account?</p>
+                        <label><input type="radio" name="q7" value="a" data-correct="false"> The total revenue for the period</label><br><br>
+                        <label><input type="radio" name="q7" value="b" data-correct="false"> The beginning balance plus current revenue</label><br><br>
+                        <label><input type="radio" name="q7" value="c" data-correct="true"> $0 (zero)</label>
+                    </div>
+
+                    <div class="input-group">
+                        <p><strong>Question 8:</strong> Which statement about reversing entries is TRUE?</p>
+                        <label><input type="radio" name="q8" value="a" data-correct="false"> They are required for all adjusting entries</label><br><br>
+                        <label><input type="radio" name="q8" value="b" data-correct="true"> They are optional and primarily benefit accrual-type transactions</label><br><br>
+                        <label><input type="radio" name="q8" value="c" data-correct="false"> They must be prepared before the closing process</label>
+                    </div>
+
+                    <button class="btn btn-primary quiz-submit">Submit All Answers</button>
+                    <div class="feedback"></div>
+                    <button class="quiz-retry">Try Again</button>
+                </div>
+            </section>
+
+            <!-- Navigation -->
+            <nav class="kp-navigation" style="display: flex; justify-content: space-between; margin-top: 4rem; padding-bottom: 2rem;">
+                <a href="ch04.html" class="btn" style="background: #eee;">← Chapter 4 Hub</a>
+                <a href="ch04_P3.html" class="btn btn-primary">Next: Post-Closing TB →</a>
+            </nav>
+        </article>
+    </main>
+
+    <footer style="margin-top: 5rem; padding: 2rem 0; border-top: 1px solid #ddd; text-align: center; color: #888;">
+        <p>Accounting Essentials | Chapter 4 | P2: Closing Process & Post-Closing TB</p>
+    </footer>
+
+    <script src="../../components.js"></script>
+    <script>
+        function setDepth(depth) {
+            // Hide all depth contents
+            document.querySelectorAll('.depth-content').forEach(content => {
+                content.classList.remove('active');
+            });
+            
+            // Deactivate all buttons
+            document.querySelectorAll('.depth-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            
+            // Show selected depth
+            document.getElementById('depth-' + depth).classList.add('active');
+            
+            // Activate button
+            event.target.classList.add('active');
+        }
+
+        function updateClosing() {
+            // Get input values
+            const revenue = parseFloat(document.getElementById('close-rev').value) || 0;
+            const expenses = parseFloat(document.getElementById('close-exp').value) || 0;
+            const dividends = parseFloat(document.getElementById('close-div').value) || 0;
+            const begRE = parseFloat(document.getElementById('close-beg-re').value) || 0;
+
+            // Calculate net income
+            const netIncome = revenue - expenses;
+            
+            // Calculate ending retained earnings
+            const endRE = begRE + netIncome - dividends;
+
+            // Update display values
+            document.getElementById('close-rev-res').textContent = '$' + revenue.toLocaleString();
+            document.getElementById('close-exp-res').textContent = '$' + expenses.toLocaleString();
+            document.getElementById('close-div-res').textContent = '$' + dividends.toLocaleString();
+            document.getElementById('close-beg-re-res').textContent = '$' + begRE.toLocaleString();
+
+            // Update summary cards
+            document.getElementById('sim-net-income').textContent = '$' + netIncome.toLocaleString();
+            document.getElementById('sim-end-re').textContent = '$' + endRE.toLocaleString();
+
+            // Update closing entries preview
+            document.getElementById('je1-dr').textContent = '$' + revenue.toLocaleString();
+            document.getElementById('je1-cr').textContent = '$' + revenue.toLocaleString();
+            document.getElementById('je2-dr').textContent = '$' + expenses.toLocaleString();
+            document.getElementById('je2-cr').textContent = '$' + expenses.toLocaleString();
+            document.getElementById('je3-dr').textContent = '$' + Math.abs(netIncome).toLocaleString();
+            document.getElementById('je3-cr').textContent = '$' + Math.abs(netIncome).toLocaleString();
+            document.getElementById('je4-dr').textContent = '$' + dividends.toLocaleString();
+            document.getElementById('je4-cr').textContent = '$' + dividends.toLocaleString();
+
+            // Update T-accounts
+            const revDr = document.getElementById('t-rev-dr');
+            if (revDr) {
+                revDr.innerHTML = revenue.toLocaleString() + '<br><span style="color: #e74c3c; font-size: 0.7rem;">(close)</span>';
+            }
+
+            const isDr = document.getElementById('t-is-dr');
+            if (isDr) {
+                isDr.innerHTML = expenses.toLocaleString() + '<br><span style="color: #e74c3c; font-size: 0.7rem;">(expenses)</span>';
+            }
+
+            const isCr = document.getElementById('t-is-cr');
+            if (isCr) {
+                isCr.innerHTML = Math.abs(netIncome).toLocaleString() + '<br><span style="color: #e74c3c; font-size: 0.7rem;">(to RE)</span>';
+            }
+
+            const reDr = document.getElementById('t-re-dr');
+            if (reDr) {
+                reDr.innerHTML = dividends.toLocaleString() + '<br><span style="color: #e74c3c; font-size: 0.7rem;">(dividends)</span>';
+            }
+
+            const reCr = document.getElementById('t-re-cr');
+            if (reCr) {
+                reCr.innerHTML = Math.abs(netIncome).toLocaleString() + '<br><span style="color: #27ae60; font-size: 0.7rem;">(net income)</span>';
+            }
+
+            const divCr = document.getElementById('t-div-cr');
+            if (divCr) {
+                divCr.innerHTML = dividends.toLocaleString() + '<br><span style="color: #e74c3c; font-size: 0.7rem;">(close)</span>';
+            }
+
+            // Update ending balances
+            const reBalEl = document.querySelector('.equity-balance');
+            if (reBalEl) {
+                reBalEl.textContent = '💰 Balance: $' + endRE.toLocaleString();
+            }
+        }
+
+        // Initialize closing simulator on load
+        document.addEventListener('DOMContentLoaded', function() {
+            updateClosing();
+        });
+    </script>
+</body>
+
+</html>

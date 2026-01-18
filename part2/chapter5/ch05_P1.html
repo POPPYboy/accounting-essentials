@@ -1,0 +1,465 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>P1: Perpetual System - Purchases | ACCOUNTING ESSENTIALS</title>
+    <link rel="stylesheet" href="../../styles.css">
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-50MTQPVR7D"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-50MTQPVR7D');
+</script>
+
+</head>
+
+<body>
+    <header>
+        <div class="container nav-container">
+            <a href="../../index.html" class="logo">ACCOUNTS<span>MASTER</span></a>
+            <nav class="nav-links">
+                <a href="../../index.html">Home</a>
+                <a href="../part1.html">Part 1</a>
+                <a href="../../part2/part2.html">Part 2</a>
+                <a href="../../part3/part3.html">Part 3</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container">
+        <div class="breadcrumbs">
+            <a href="../../index.html">Home</a> <span>/</span> <a href="../part1.html">Part 1</a>
+            <span>/</span> <a href="../../part2/part2.html">Part 2</a> <span>/</span> <a href="ch05.html">Chapter 5</a> <span>/</span> P1
+        </div>
+
+        <article class="animate-fade-in">
+            <div class="kp-header">
+                <h1 style="border-left: 8px solid var(--primary-light); padding-left: 1rem; margin: 2rem 0;">Perpetual System - Purchases</h1>
+            </div>
+
+            <!-- Learning Objectives -->
+            <section class="kp-section">
+                <h2>🎯 Learning Objectives</h2>
+                <div class="learning-objectives">
+                    <ul>
+                        <li>Understand perpetual inventory system and its key components</li>
+                        <li>Distinguish between perpetual and periodic inventory systems</li>
+                        <li>Record purchases, returns, and discounts in a perpetual system</li>
+                        <li>Calculate cost of goods sold under various inventory flow scenarios</li>
+                        <li>Analyze purchase returns and allowances effects on cost of goods sold</li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- Background & Principles -->
+            <section class="kp-section">
+                <h2>📚 Background & Principles</h2>
+                <p>Perpetual inventory system continuously tracks inventory quantities and costs after each transaction, providing real-time inventory information for better management and decision-making.</p>
+
+                <div class="concept-card" style="margin: 1.5rem 0;">
+                    <strong>Core Principle:</strong> In perpetual systems, every purchase and sale immediately updates the inventory account and related accounts, ensuring perpetual visibility of inventory quantities and costs.
+                </div>
+
+                <p>The key difference from periodic systems is that perpetual maintains a running inventory balance, while periodic only takes physical counts at period-end.</p>
+
+                <div class="professional-tip">
+                    <strong>💡 Key Insight:</strong> Perpetual systems are preferred for businesses with high-volume transactions, expensive items, or where real-time inventory tracking is critical for operations.
+                </div>
+            </section>
+
+            <!-- Key Concepts -->
+            <section class="kp-section">
+                <h2>🔑 Key Concepts</h2>
+                <div class="key-concepts-grid">
+                    <div class="concept-card">
+                        <strong>Perpetual Inventory</strong>
+                        <p>Inventory system where each purchase and sale immediately updates inventory records. Maintains running balance for each inventory item.</p>
+                    </div>
+
+                    <div class="concept-card">
+                        <strong>Merchandise Inventory Account</strong>
+                        <p>Asset account that tracks cost of inventory on hand. Updated with each purchase (debit) and sale (credit).</p>
+                    </div>
+
+                    <div class="concept-card">
+                        <strong>Cost of Goods Sold (COGS)</strong>
+                        <p>Cost of inventory that was sold during a period. Calculated as Beginning Inventory + Purchases - Ending Inventory.</p>
+                    </div>
+
+                    <div class="concept-card">
+                        <strong>Inventory Subsidiary Ledger</strong>
+                        <p>Supporting ledger that shows detailed quantity and cost for each inventory item. Used for tracking inventory levels.</p>
+                    </div>
+
+                    <div class="concept-card">
+                        <strong>Purchase Returns and Allowances</strong>
+                        <p>Contra-revenue accounts that reduce inventory from returns to customers or price adjustments.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Deep Dive -->
+            <section class="kp-section">
+                <h2>🔍 Deep Dive</h2>
+                <p>Explore perpetual inventory concepts at different levels of depth:</p>
+
+                <div class="depth-toggle">
+                    <button class="depth-btn active" onclick="setDepth('A')">Depth A: Foundational</button>
+                    <button class="depth-btn" onclick="setDepth('B')">Depth B: Standard</button>
+                    <button class="depth-btn" onclick="setDepth('C')">Depth C: Advanced</button>
+                </div>
+
+                <!-- Depth A -->
+                <div id="depth-A" class="depth-content active">
+                    <h3>🟢 Foundational Level</h3>
+                    <p>Understanding basic perpetual inventory recording.</p>
+
+                    <div class="worked-example">
+                        <h4>The Supermarket Scanner</h4>
+                        <p><strong>Analogy: Real-Time Inventory Tracking</strong></p>
+                        <p>Historically, stores could only count inventory once a year (Periodic system). Today, modern retailers use barcodes and scanners to know exactly how many items are in stock INSTANTLY.</p>
+                        <div class="example-step">
+                            <strong>The Scanner (Perpetual):</strong>
+                            <p>Every time a barcode is scanned, the computer updates inventory counts IMMEDIATELY.</p>
+                        </div>
+                        <div class="example-step">
+                            <strong>The Result:</strong>
+                            <p>At any second of the day, the manager knows exactly how many "Apples" are in stock.</p>
+                        </div>
+                    </div>
+
+                    <div class="worked-example">
+                        <h4>Basic Purchase Recording</h4>
+                        <p><strong>Scenario:</strong> Purchase 100 units at $10 each, credit terms 2/10, n/30.</p>
+                        <div class="example-step">
+                            <strong>Step 1: Purchase Entry</strong>
+                            <p>Debit Inventory $1,000, Credit Accounts Payable $1,000</p>
+                        </div>
+                        <div class="example-step">
+                            <strong>Step 2: Effect on Accounts</strong>
+                            <p>Inventory (asset) increases, Accounts Payable (liability) increases</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Depth B -->
+                <div id="depth-B" class="depth-content">
+                    <h3>🟡 Standard Level</h3>
+                    <p>Understanding credit terms, returns, and cost calculations.</p>
+
+                    <div class="worked-example">
+                        <h4>Recording Purchases with Credit Terms</h4>
+                        <p><strong>Scenario:</strong> Purchase $5,000 of merchandise with credit terms 2/10, n/30. Payment on April 30.</p>
+                        <div class="example-step">
+                            <strong>Analysis:</strong>
+                            <p>Full cost: $5,000</p>
+                            <p>Invoice amount: $4,900 (after 2% discount)</p>
+                            <p>Discount taken: $100</p>
+                            <p>Payment required by April 30: $4,900</p>
+                        </div>
+                        <div class="example-step">
+                            <strong>Entry on purchase date (March 1):</strong>
+                            <p>Debit Inventory $5,000, Credit Accounts Payable $5,000</p>
+                        </div>
+                        <div class="example-step">
+                            <strong>Entry on payment date (April 30):</strong>
+                            <p>Debit Accounts Payable $4,900, Credit Cash $4,900</p>
+                            <p><strong>Net payment:</strong> <p>$4,900 cash actually paid</p>
+                        </div>
+                    </div>
+
+                    <div class="worked-example">
+                        <h4>Purchase Returns and Allowances</h4>
+                        <p><strong>Scenario:</strong> Customer returns 20 units (cost $200 each). Company grants full credit for the returns.</p>
+                        <div class="example-step">
+                            <strong>Entry for return:</strong>
+                            <p>Debit Inventory $200 (increase asset), Credit Sales Returns and Allowances $200 (contra-revenue, reduces sales)</p>
+                        </div>
+                        <div class="example-step">
+                            <strong>Effect on COGS:</strong>
+                            <p>Inventory increases by $200, but COGS will be calculated based on original cost ($200), so gross margin affected.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Depth C -->
+                <div id="depth-C" class="depth-content">
+                    <h3>🔴 Advanced Level</h3>
+                    <p>Complex inventory flow scenarios and cost calculations.</p>
+
+                    <div class="worked-example">
+                        <h4>Cost Flow in Perpetual System</h4>
+                        <p>Understanding how costs flow through perpetual inventory accounts.</p>
+                        <div class="example-step">
+                            <strong>Beginning Inventory:</strong>
+                            <p>Starting balance at beginning of period</p>
+                        </div>
+                        <div class="example-step">
+                            <strong>+ Purchases:</strong>
+                            <p>Add to beginning (net of returns)</p>
+                        </div>
+                        <div class="example-step">
+                            <strong>- Returns and Allowances:</strong>
+                            <p>Subtract (returns and allowances)</p>
+                        </div>
+                        <div class="example-step">
+                            <strong>= Ending Inventory:</strong>
+                            <p>Balance remaining after sales</p>
+                        </div>
+                        <div class="example-step">
+                            <strong>COGS Calculation:</strong>
+                            <p>Beginning + Purchases - Returns and Allowances - Ending = COGS</p>
+                        </div>
+
+                        <div class="example-step">
+                            <strong>Example:</strong>
+                            <p>Beginning: $10,000, Purchases: $50,000, Returns: $500, Ending: $9,500</p>
+                            <p>COGS: $10,000 + $50,000 - $500 = $50,500</p>
+                        </div>
+                    </div>
+
+                    <div class="worked-example">
+                        <h4>Weighted Average Cost Method</h4>
+                        <p>Some perpetual systems track costs using weighted average, calculated as (Value × Quantity) ÷ Total Quantity.</p>
+                        <div class="example-step">
+                            <strong>Formula:</strong>
+                            <p>Weighted Average Cost = Total Cost of Goods Available ÷ Total Units Available</p>
+                        </div>
+                        <div class="example-step">
+                            <strong>Example:</strong>
+                            <p>Batch 1: 100 units @ $10/unit = $1,000, Batch 2: 200 units @ $12/unit = $2,400</p>
+                            <p>Total: 300 units @ $11.33/unit = $3,400</p>
+                            <p>Weighted Average Cost = $3,400 ÷ 300 = $11.33/unit</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Interactive Discount Calculator -->
+            <section class="kp-section">
+                <h2>🎨 Interactive: Discount Savings Calculator</h2>
+                <p>Calculate how much you save by paying within discount period.</p>
+
+                <div class="simulator-container">
+                    <div class="input-group">
+                        <label>Purchase Amount ($)</label>
+                        <input type="number" id="disc-amt" value="5000" oninput="calcDiscount()">
+                    </div>
+                    <div class="input-group">
+                        <label>Discount Rate (%)</label>
+                        <input type="number" id="disc-rate" value="2" step="0.5" oninput="calcDiscount()">
+                    </div>
+                    <div class="input-group">
+                        <label>Discount Period (Days)</label>
+                        <input type="number" id="disc-days" value="10" step="1" oninput="calcDiscount()">
+                    </div>
+
+                    <div style="display: flex; gap: 1rem; margin-top: 2rem;">
+                        <div style="flex: 1; padding: 1.5rem; background: var(--bg-light); border-radius: var(--radius-sm); border: 2px solid var(--primary);">
+                            <div style="font-size: 0.8rem; color: var(--text-muted);">You Save</div>
+                            <div id="save-val" style="font-size: 2rem; font-weight: 800; color: var(--success);">$100.00</div>
+                        </div>
+                        <div style="flex: 1; padding: 1.5rem; background: var(--bg-light); border-radius: var(--radius-sm); border: 2px solid var(--primary);">
+                            <div style="font-size: 0.8rem; color: var(--text-muted);">Final Payment</div>
+                            <div id="pay-val" style="font-size: 2rem; font-weight: 800; color: var(--primary);">$4,900.00</div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Common Misconceptions -->
+            <section class="kp-section">
+                <h2>🚫 Common Misconceptions & Professional Tips</h2>
+
+                <div class="misconception-alert">
+                    <strong>❌ Misconception 1:</strong> "Perpetual systems are too expensive for small businesses."
+                    <br><br>
+                    <strong>✅ Reality:</strong> While perpetual systems have higher implementation costs, they provide better control, accuracy, and decision-making. The cost-benefit depends on business size, transaction volume, and value of improved inventory information.
+                </div>
+
+                <div class="misconception-alert">
+                    <strong>❌ Misconception 2:</strong> "Inventory account is always debited."
+                    <br><br>
+                    <strong>✅ Reality:</strong> The inventory account is an asset account and normally has a DEBIT balance. However, purchase returns and allowances are CONTRA accounts that are credited, reducing the net debit. The inventory account shows net increases after considering returns.
+                </div>
+
+                <div class="misconception-alert">
+                    <strong>❌ Misconception 3:</strong> "Cost of goods sold always equals purchases minus ending inventory."
+                    <br><br>
+                    <strong>✅ Reality:</strong> In perpetual systems, COGS = Beginning Inventory + Purchases - Returns and Allowances - Ending Inventory. Returns and allowances reduce the inventory increase from purchases, making COGS calculation more accurate.
+                </div>
+
+                <div class="professional-tip">
+                    <strong>💡 Professional Tip #1:</strong> Maintain accurate inventory records by scanning and recording purchases immediately. Delayed recording causes discrepancies and costly corrections.
+                </div>
+
+                <div class="professional-tip">
+                    <strong>💡 Professional Tip #2:</strong> Use separate inventory subsidiary accounts for high-value items. This helps identify slow-moving vs. fast-moving inventory.
+                </div>
+
+                <div class="professional-tip">
+                    <strong>💡 Professional Tip #3:</strong> Regular physical inventory counts reconcile perpetual system records. They help identify shrinkage, theft, or recording errors.
+                </div>
+            </section>
+
+            <!-- Memory Aids -->
+            <section class="kp-section">
+                <h2>🧠 Memory Aids & Quick Reference</h2>
+
+                <div class="memory-aid-card">
+                    <strong>⚡ Quick Recall: Perpetual Inventory Equation</strong>
+                    <p><strong>COGS = Beginning + Purchases - (Returns + Allowances) - Ending</strong></p>
+                    <p>Inventory updated with every purchase (debit) and sale (credit for net increase)</p>
+                </div>
+
+                <div class="key-concepts-grid">
+                    <div class="concept-card">
+                        <strong>📊 Merchandise Inventory</strong>
+                        <p>Asset account tracking cost of goods on hand. Debit for increases, credit for decreases.</p>
+                    </div>
+
+                    <div class="concept-card">
+                        <strong>💰 Purchase Returns</strong>
+                        <p>Contra-revenue account. Credited when customers return goods. Reduces gross sales and net income.</p>
+                    </div>
+
+                    <div class="concept-card">
+                        <strong>💸 Sales Allowances</strong>
+                        <p>Contra-revenue account. Credited for price reductions, rebates, or trade discounts.</p>
+                    </div>
+
+                    <div class="concept-card">
+                        <strong>📈 Cost of Goods Sold</strong>
+                        <p>Expense account. Calculated from inventory changes. Beginning + Purchases - Returns and Allowances - Ending.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Glossary -->
+            <section class="kp-section">
+                <h2>📖 Glossary</h2>
+                <div class="key-concepts-grid">
+                    <div class="concept-card">
+                        <strong>Perpetual Inventory System</strong>
+                        <p>Inventory system where each purchase and sale immediately updates inventory records. Provides real-time tracking of quantities and costs.</p>
+                    </div>
+
+                    <div class="concept-card">
+                        <strong>Merchandise Inventory</strong>
+                        <p>Asset account that tracks cost of inventory on hand. Maintains perpetual balance for each inventory item.</p>
+                    </div>
+
+                    <div class="concept-card">
+                        <strong>Cost of Goods Sold (COGS)</strong>
+                        <p>Cost of inventory that was sold during a period. Calculated as Beginning Inventory + Purchases - Returns and Allowances - Ending Inventory.</p>
+                    </div>
+
+                    <div class="concept-card">
+                        <strong>Inventory Subsidiary Ledger</strong>
+                        <p>Supporting ledger that shows detailed quantity and cost for each inventory item. Used for tracking inventory levels and costs.</p>
+                    </div>
+
+                    <div class="concept-card">
+                        <strong>Purchase Returns</strong>
+                        <p>Contra-revenue account recording value of goods returned by customers. Reduces gross sales and net income.</p>
+                    </div>
+
+                    <div class="concept-card">
+                        <strong>Sales Allowances</strong>
+                        <p>Contra-revenue account recording reductions from list price, rebates, trade discounts, and cash discounts.</p>
+                    </div>
+
+                    <div class="concept-card">
+                        <strong>Periodic Inventory System</strong>
+                        <p>Alternative system where inventory counts are taken at period-end. Only updates once per accounting period.</p>
+                    </div>
+
+                    <div class="concept-card">
+                        <strong>Weighted Average Cost</strong>
+                        <p>Inventory costing method that assigns average cost to items based on total purchases and quantity.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Final Knowledge Check -->
+            <section class="interactive-section">
+                <h2>🎯 Final Knowledge Check</h2>
+                <p>Test your understanding of Perpetual Inventory System:</p>
+
+                <div class="quiz-container" data-success-text="Excellent! You've mastered perpetual inventory concepts." data-explanation="In perpetual systems, inventory is updated continuously. Merchandise Inventory account is debited for purchases and credited for net increases (sales minus returns). COGS = Beginning + Purchases - Returns and Allowances - Ending Inventory.">
+                    <div class="input-group">
+                        <p><strong>Question 1:</strong> In a perpetual system, when merchandise is purchased, which account is debited?</p>
+                        <label><input type="radio" name="q1" value="correct" data-correct="true"> Merchandise Inventory</label><br>
+                        <label><input type="radio" name="q1" value="incorrect1" data-correct="false"> Accounts Payable</label><br>
+                        <label><input type="radio" name="q1" value="incorrect2" data-correct="false"> Cost of Goods Sold</label>
+                    </div>
+
+                    <div class="input-group">
+                        <p><strong>Question 2:</strong> What is the effect of a customer return on the accounting equation?</p>
+                        <label><input type="radio" name="q2" value="correct" data-correct="true"> Debit Inventory, Credit Sales Returns and Allowances (reduces equity)</label><br>
+                        <label><input type="radio" name="q2" value="incorrect1" data-correct="false"> Credit Cash, Debit Inventory (increases asset)</label><br>
+                        <label><input type="radio" name="q2" value="incorrect2" data-correct="false"> Credit Revenue, Debit Sales Returns (increases sales)</label>
+                    </div>
+
+                    <div class="input-group">
+                        <p><strong>Question 3:</strong> How is Cost of Goods Sold calculated in a perpetual system?</p>
+                        <label><input type="radio" name="q3" value="incorrect1" data-correct="false"> Purchases - Ending Inventory</label><br>
+                        <label><input type="radio" name="q3" value="correct" data-correct="true"> Beginning + Purchases - Returns and Allowances - Ending Inventory</label><br>
+                        <label><input type="radio" name="q3" value="incorrect2" data-correct="false"> Purchases + Ending Inventory</label>
+                    </div>
+
+                    <button class="btn btn-primary quiz-submit">Submit Answers</button>
+                    <div class="feedback"></div>
+                    <button class="quiz-retry">Try Again</button>
+                </div>
+            </section>
+
+            <!-- Navigation -->
+            <nav class="kp-navigation" style="display: flex; justify-content: space-between; margin-top: 4rem; padding-bottom: 2rem;">
+                <a href="ch05_A1.html" class="btn" style="background: #eee;">← Previous: Analysis</a>
+                <a href="ch05.html" class="btn" style="background: var(--info); color: white;">Chapter 5 Hub</a>
+                <a href="ch05_P2.html" class="btn btn-primary">Next: Procedure 2 →</a>
+            </nav>
+        </article>
+    </main>
+
+    <footer style="margin-top: 5rem; padding: 2rem 0; border-top: 1px solid #ddd; text-align: center; color: #888;">
+        <p>Accounting Essentials | Chapter 5 | Procedure 1</p>
+    </footer>
+
+    <script src="../../components-enhanced.js"></script>
+    <script>
+        function setDepth(depth) {
+            document.querySelectorAll('.depth-btn').forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+
+            document.querySelectorAll('.depth-content').forEach(content => content.classList.remove('active'));
+            document.getElementById(`depth-${depth}`).classList.add('active');
+        }
+
+        function calcDiscount() {
+            const amt = parseFloat(document.getElementById('disc-amt').value) || 0;
+            const rate = parseFloat(document.getElementById('disc-rate').value) || 0;
+            const days = parseFloat(document.getElementById('disc-days').value) || 10;
+
+            // Calculate discount amount
+            const discount = amt * (rate / 100);
+            const savings = discount;
+
+            // Calculate payment if paid early
+            const total = amt - savings;
+            const netPayment = total; // Assume early payment
+
+            // Update display
+            document.getElementById('save-val').textContent = '$' + savings.toLocaleString(undefined, { minimumFractionDigits: 2 });
+            document.getElementById('pay-val').textContent = '$' + netPayment.toLocaleString(undefined, { minimumFractionDigits: 2 });
+        }
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,599 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>A1: The Accounting Equation | ACCOUNTING ESSENTIALS</title>
+    <link rel="stylesheet" href="../../styles.css">
+    <style>
+        /* Equation Animation Styles */
+        .equation-animation {
+            position: relative;
+            width: 100%;
+            max-width: 800px;
+            height: 320px;
+            margin: 2rem auto;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0;
+        }
+        .equation-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0;
+            flex-wrap: wrap;
+        }
+        .equation-side {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            width: 180px;
+            padding: 1.5rem 1rem;
+            border-radius: var(--radius-md);
+            transition: all 0.3s ease;
+            cursor: pointer;
+            text-align: center;
+            min-height: 120px;
+        }
+        .equation-side:hover {
+            transform: scale(1.08);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.2);
+        }
+        .equation-side h3 {
+            margin: 0 0 0.5rem 0;
+            font-size: 1.3rem;
+            line-height: 1.2;
+            color: white;
+        }
+        .equation-side p {
+            margin: 0;
+            font-size: 0.85rem;
+            opacity: 0.9;
+        }
+        .equation-side.assets { background: var(--primary); color: var(--white); }
+        .equation-side.liabilities { background: var(--error); color: var(--white); }
+        .equation-side.equity { background: var(--success); color: var(--white); }
+        .equation-sign {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: var(--text-muted);
+            min-width: 50px;
+            transition: all 0.3s ease;
+        }
+        .equation-sign.equals {
+            font-size: 3rem;
+            margin: 0 15px;
+        }
+        .equation-side-group {
+            display: flex;
+            align-items: center;
+            gap: 0;
+        }
+    </style>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-50MTQPVR7D"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-50MTQPVR7D');
+</script>
+
+</head>
+
+<body>
+    <header>
+        <div class="container nav-container">
+            <a href="../../index.html" class="logo">ACCOUNTING<span>ESSENTIALS</span></a>
+            <nav class="nav-links">
+                <a href="../../index.html">Home</a>
+                <a href="../part1.html">Part 1</a>
+                <a href="../../part2/part2.html">Part 2</a>
+                <a href="../../part3/part3.html">Part 3</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container">
+        <div class="breadcrumbs">
+            <a href="../../index.html">Home</a> <span>/</span> <a href="../part1.html">Part 1</a> <span>/</span> <a
+                href="ch01.html">Chapter 1</a> <span>/</span> A1
+        </div>
+
+        <article class="animate-fade-in">
+            <div class="kp-header">
+                <h1 style="border-left: 8px solid var(--accent); padding-left: 1rem; margin: 2rem 0;">The Accounting Equation</h1>
+            </div>
+
+            <!-- Learning Objectives -->
+            <section class="kp-section">
+                <h2>🎯 Learning Objectives</h2>
+                <div class="learning-objectives">
+                    <ul>
+                        <li>Explain the fundamental accounting equation: Assets = Liabilities + Equity</li>
+                        <li>Understand the three main components: Assets, Liabilities, and Equity</li>
+                        <li>Apply the equation to analyze business transactions</li>
+                        <li>Identify how different transactions affect each component</li>
+                        <li>Use the equation to verify accounting accuracy</li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- Background & Principles -->
+            <section class="kp-section">
+                <h2>📚 Background & Principles</h2>
+                <p>The accounting equation is the <strong>foundation of double-entry accounting</strong>. It represents the fundamental relationship between what a business owns (resources) and who has claims on those resources (creditors and owners).</p>
+
+                <div class="concept-card" style="margin: 1.5rem 0;">
+                    <strong>Core Principle:</strong> The equation MUST always balance. Every transaction affects at least two accounts, and the total debits must equal total credits.
+                </div>
+
+                <p>This principle emerges from the <strong>entity concept</strong>—a business is separate from its owner. Therefore, business resources belong to the business entity, not to individuals.</p>
+
+                <div class="professional-tip" style="margin-top: 2rem;">
+                    <strong>💡 Key Insight:</strong> Think of the accounting equation as a mathematical statement of reality. If it doesn't balance, the records don't accurately represent the business's financial position.
+                </div>
+            </section>
+
+            <!-- Key Concepts -->
+            <section class="kp-section">
+                <h2>🔑 Key Concepts</h2>
+                <div class="key-concepts-grid">
+                    <div class="concept-card">
+                        <strong>Assets</strong>
+                        <p>Economic resources controlled by the business as a result of past events.</p>
+                        <ul style="margin-top: 1rem; line-height: 1.8;">
+                            <li>Cash, Accounts Receivable, Inventory, Equipment, Buildings</li>
+                            <li>Expected to provide future economic benefits</li>
+                        </ul>
+                    </div>
+
+                    <div class="concept-card">
+                        <strong>Liabilities</strong>
+                        <p>Present obligations of the business arising from past events.</p>
+                        <ul style="margin-top: 1rem; line-height: 1.8;">
+                            <li>Accounts Payable, Notes Payable, Wages Payable, Loans Payable</li>
+                            <li>Settled by transferring assets or services in the future</li>
+                        </ul>
+                    </div>
+
+                    <div class="concept-card">
+                        <strong>Equity</strong>
+                        <p>Residual interest in the assets of the business after deducting liabilities.</p>
+                        <ul style="margin-top: 1rem; line-height: 1.8;">
+                            <li>Owner's Capital (investment)</li>
+                            <li>Retained Earnings (accumulated profits not distributed)</li>
+                            <li>Common Stock (shareholder equity)</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Visual Equation Animation -->
+            <section class="kp-section">
+                <h2>🎨 Interactive Equation Visualization</h2>
+                <p>Click on each component to see how the equation balances:</p>
+
+                <div class="equation-animation">
+                    <div class="equation-container">
+                        <div class="equation-side assets" onclick="animateEquation('assets')">
+                            <h3>ASSETS</h3>
+                            <p>Resources Owned</p>
+                            <p style="font-size: 0.8rem; margin-top: 0.5rem;">Cash, Equipment, Supplies</p>
+                        </div>
+                        <div class="equation-sign equals" id="eq-equals">=</div>
+                        <div class="equation-side-group">
+                            <div class="equation-side liabilities" onclick="animateEquation('liabilities')">
+                                <h3>LIABILITIES</h3>
+                                <p>Creditor Claims</p>
+                                <p style="font-size: 0.8rem; margin-top: 0.5rem;">Accounts Payable, Notes</p>
+                            </div>
+                            <div class="equation-sign plus" id="eq-plus-1">+</div>
+                            <div class="equation-side equity" onclick="animateEquation('equity')">
+                                <h3>EQUITY</h3>
+                                <p>Owner Claims</p>
+                                <p style="font-size: 0.8rem; margin-top: 0.5rem;">Capital, Retained Earnings</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="equation-status" style="text-align: center; margin-top: 1rem; padding: 1rem; font-size: 1.1rem; font-weight: 700;">
+                    Click on any component to see the equation in action!
+                </div>
+            </section>
+
+            <!-- Deep Dive with Depth Toggle -->
+            <section class="kp-section">
+                <h2>🔍 Deep Dive</h2>
+                <p>Explore the accounting equation at different levels of depth:</p>
+
+                <div class="depth-toggle">
+                    <button class="depth-btn active" onclick="setEquationDepth('A')">Depth A: Foundational</button>
+                    <button class="depth-btn" onclick="setEquationDepth('B')">Depth B: Standard</button>
+                    <button class="depth-btn" onclick="setEquationDepth('C')">Depth C: Advanced</button>
+                </div>
+
+                <!-- Depth A -->
+                <div id="eq-depth-A" class="depth-content active">
+                    <h3>🟢 Foundational Level</h3>
+                    <p>Basic understanding of the accounting equation with simple examples.</p>
+
+                    <div class="worked-example">
+                        <h4>Example 1: Starting a Business</h4>
+                        <p><strong>Scenario:</strong> Owner invests $10,000 cash to start a business.</p>
+
+                        <div class="example-step">
+                            <strong>Step 1: Identify Changes</strong>
+                            <p>Assets increase by $10,000 (Cash)</p>
+                            <p>Equity increases by $10,000 (Owner's Capital)</p>
+                        </div>
+
+                        <div class="example-step">
+                            <strong>Step 2: Verify Equation</strong>
+                            <p>Left Side: $10,000 (Assets)</p>
+                            <p>Right Side: $10,000 (Equity)</p>
+                            <p>Equation: <strong>BALANCED</strong> ✓</p>
+                        </div>
+                    </div>
+
+                    <div class="professional-tip">
+                        <strong>💡 Professional Tip:</strong> Always start your analysis with "What changed?" Identify both sides of the transaction before recording.
+                    </div>
+                </div>
+
+                <!-- Depth B -->
+                <div id="eq-depth-B" class="depth-content">
+                    <h3>🟡 Standard Level</h3>
+                    <p>Detailed analysis of transactions and their dual effects on the accounting equation.</p>
+
+                    <div class="worked-example">
+                        <h4>Example 2: Multiple Transactions</h4>
+                        <p><strong>Scenario:</strong> FastForward experiences these transactions in one month:</p>
+                        <ul>
+                            <li>Borrow $5,000 from bank</li>
+                            <li>Purchase equipment for $3,000 cash</li>
+                            <li>Earn service revenue of $4,000 on account</li>
+                            <li>Pay rent expense of $1,200 cash</li>
+                        </ul>
+
+                        <div class="example-step">
+                            <strong>Step 1: Transaction 1 - Borrowing</strong>
+                            <p>Assets: Cash +$5,000 (increase)</p>
+                            <p>Liabilities: Loans Payable +$5,000 (increase)</p>
+                            <p>Equity: No change</p>
+                        </div>
+
+                        <div class="example-step">
+                            <strong>Step 2: Transaction 2 - Equipment Purchase</strong>
+                            <p>Assets: Cash -$3,000 (decrease), Equipment +$3,000 (increase)</p>
+                            <p>Net Assets: +$0 (no change in total)</p>
+                            <p>Liabilities: No change</p>
+                            <p>Equity: No change</p>
+                        </div>
+
+                        <div class="example-step">
+                            <strong>Step 3: Transaction 3 - Revenue</strong>
+                            <p>Assets: Accounts Receivable +$4,000 (increase)</p>
+                            <p>Equity: Retained Earnings +$4,000 (increase)</p>
+                            <p>Net Position: Assets = Liabilities + Equity</p>
+                        </div>
+
+                        <div class="example-step">
+                            <strong>Step 4: Transaction 4 - Rent Payment</strong>
+                            <p>Assets: Cash -$1,200 (decrease)</p>
+                            <p>Equity: Retained Earnings -$1,200 (decrease)</p>
+                            <p>Net Position: Assets still = Liabilities + Equity</p>
+                        </div>
+                    </div>
+
+                    <div class="misconception-alert">
+                        <strong>⚠️ Common Misconception:</strong> "Assets always increase when you make money."
+                        <br><br>
+                        <strong>✅ Reality:</strong> Assets can increase OR decrease depending on the transaction. Borrowing money increases assets, but spending money decreases them. The key is understanding WHAT accounts are affected.
+                    </div>
+                </div>
+
+                <!-- Depth C -->
+                <div id="eq-depth-C" class="depth-content">
+                    <h3>🔴 Advanced Level</h3>
+                    <p>Complex scenarios and professional applications of the accounting equation.</p>
+
+                    <div class="worked-example">
+                        <h4>Example 3: Comprehensive Business Scenario</h4>
+                        <p><strong>Scenario:</strong> A company has beginning balances: Assets $100,000, Liabilities $40,000, Equity $60,000. During the month:</p>
+                        <ul>
+                            <li>Earned revenue $15,000 (increases Equity)</li>
+                            <li>Paid expenses $12,000 (decreases Equity)</li>
+                            <li>Purchased equipment $8,000 on credit (increase Assets, increase Liabilities)</li>
+                            <li>Collected accounts receivable $3,000 (increase Assets)</li>
+                            <li>Collected cash from customers $18,000 (increase Assets)</li>
+                            <li>Paid dividends $2,000 (decreases Equity)</li>
+                            <li>Depreciation expense $1,000 (decreases Equity)</li>
+                        </ul>
+
+                        <div class="example-step">
+                            <strong>Step 1: Calculate Net Income Effect on Equity</strong>
+                            <p>Revenue - Expenses = $15,000 - $12,000 = $3,000</p>
+                            <p>Less Dividends: $3,000 - $1,000 = $2,000</p>
+                            <p>Net increase to Equity: $3,000 - $2,000 = $1,000</p>
+                        </div>
+
+                        <div class="example-step">
+                            <strong>Step 2: Calculate Ending Equity</strong>
+                            <p>Beginning Equity: $60,000</p>
+                            <p>Plus Net Increase: +$1,000</p>
+                            <p>Ending Equity: $61,000</p>
+                        </div>
+
+                        <div class="example-step">
+                            <strong>Step 3: Verify Asset Changes</strong>
+                            <p>Beginning Assets: $100,000</p>
+                            <p>+ Equipment: +$8,000</p>
+                            <p>+ A/R: +$3,000</p>
+                            <p>+ Cash from revenue: +$18,000</p>
+                            <p>- Cash for expenses: -$12,000</p>
+                            <p>- Cash for dividends: -$2,000</p>
+                            <p>+ Cash from collections: +$18,000</p>
+                            <p>- Depreciation: -$1,000</p>
+                            <p>Ending Assets: $124,000</p>
+                        </div>
+
+                        <div class="example-step">
+                            <strong>Step 4: Verify Equation Balance</strong>
+                            <p>Assets: $124,000</p>
+                            <p>Liabilities: $40,000 (beginning) + $8,000 (equipment purchase) = $48,000</p>
+                            <p>Equity: $61,000</p>
+                            <p>Right Side: $48,000 + $61,000 = $109,000</p>
+                            <p><strong>ERROR!</strong> Left ($124,000) ≠ Right ($109,000) - Equation does NOT balance!</p>
+                        </div>
+                    </div>
+
+                    <div class="professional-tip">
+                        <strong>💡 Professional Insight:</strong> In real accounting, you MUST reconcile the equation every period. If it doesn't balance, there's an error that must be found and corrected. Never accept an unbalanced equation.
+                    </div>
+                </div>
+            </section>
+
+            <!-- Interactive Equation Simulator -->
+            <section class="kp-section">
+                <h2>🎮 Interactive Equation Simulator</h2>
+                <p>Enter values and watch the equation update in real-time:</p>
+
+                <div class="simulator-container" id="equation-calculator">
+                    <div class="equation-display">
+                        <div class="equation-part">
+                            <h4 style="color: var(--primary);">Assets</h4>
+                            <input type="number" id="eq-assets" value="10000" step="100" placeholder="Enter total assets">
+                        </div>
+                        <div style="font-size: 2rem;">=</div>
+                        <div class="equation-part">
+                            <h4 style="color: var(--error);">Liabilities</h4>
+                            <input type="number" id="eq-liabilities" value="4000" step="100" placeholder="Enter total liabilities">
+                        </div>
+                        <div style="font-size: 2rem;">+</div>
+                        <div class="equation-part">
+                            <h4 style="color: var(--success);">Equity</h4>
+                            <input type="number" id="eq-equity" value="6000" step="100" placeholder="Enter total equity">
+                        </div>
+                    </div>
+                    <div id="eq-status"
+                        style="text-align: center; font-weight: 900; font-size: 1.5rem; color: var(--success);">✓ BALANCED</div>
+                </div>
+            </section>
+
+            <!-- Common Misconceptions -->
+            <section class="kp-section">
+                <h2>🚫 Common Misconceptions & Professional Tips</h2>
+
+                <div class="misconception-alert">
+                    <strong>❌ Misconception 1:</strong> "The accounting equation is just Assets = Liabilities + Equity."
+                    <br><br>
+                    <strong>✅ Reality:</strong> This is the BASIC equation. The FULL equation is: Assets = Liabilities + (Common Stock - Dividends + Revenues - Expenses). This expanded form shows how Equity actually changes over time.
+                </div>
+
+                <div class="misconception-alert">
+                    <strong>❌ Misconception 2:</strong> "Equity never decreases."
+                    <br><br>
+                    <strong>✅ Reality:</strong> Equity decreases when the business has net losses (expenses > revenues) or when dividends are paid. These are normal, healthy business activities.
+                </div>
+
+                <div class="misconception-alert">
+                    <strong>❌ Misconception 3:</strong> "If Assets increase, Liabilities and Equity must also increase."
+                    <br><br>
+                    <strong>✅ Reality:</strong> NOT always! Consider borrowing money: Assets (Cash) increases, but Liabilities (Loans Payable) also increases. The equation balances because BOTH sides increase by the same amount.
+                </div>
+
+                <div class="professional-tip">
+                    <strong>💡 Professional Tip #1:</strong> Always perform a "sanity check" after recording transactions. Add up debits and credits—they MUST be equal.
+                </div>
+
+                <div class="professional-tip">
+                    <strong>💡 Professional Tip #2:</strong> When analyzing transactions, use the accounting equation as your guide. Ask: "Which assets, liabilities, or equity accounts are affected?"
+                </div>
+
+                <div class="professional-tip">
+                    <strong>💡 Professional Tip #3:</strong> Remember that the accounting equation applies to the ENTIRE business, not just a single transaction. Regular reconciliation prevents errors from accumulating.
+                </div>
+            </section>
+
+            <!-- Memory Aids -->
+            <section class="kp-section">
+                <h2>🧠 Memory Aids & Quick Reference</h2>
+
+                <div class="memory-aid-card">
+                    <strong>⚡ Quick Recall: The Basic Equation</strong>
+                    <p style="margin-top: 1rem; font-size: 1.3rem; font-weight: 700;">
+                        Assets = Liabilities + Equity
+                    </p>
+                </div>
+
+                <div class="memory-aid-card">
+                    <strong>⚡ Quick Recall: The Expanded Equation</strong>
+                    <p style="margin-top: 1rem;">Assets = Liabilities + [Common Stock - Dividends + Revenues - Expenses]</p>
+                </div>
+
+                <div class="memory-aid-card">
+                    <strong>⚡ Quick Recall: Transaction Analysis</strong>
+                    <p style="margin-top: 1rem;">Every transaction affects at least TWO accounts - dual effect principle</p>
+                </div>
+
+                <h3 style="margin-top: 2rem;">📖 Further Reading</h3>
+                <div class="key-concepts-grid">
+                    <div class="concept-card">
+                        <strong>Double-Entry Bookkeeping</strong>
+                        <p>Foundation of the accounting equation - every transaction has equal debits and credits.</p>
+                    </div>
+                    <div class="concept-card">
+                        <strong>Financial Statement Analysis</strong>
+                        <p>How the accounting equation connects to balance sheets and income statements.</p>
+                    </div>
+                    <div class="concept-card">
+                        <strong>Transaction Analysis</strong>
+                        <p>Methodical approach to identifying and classifying business transactions.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Glossary -->
+            <section class="kp-section">
+                <h2>📖 Glossary</h2>
+                <div class="key-concepts-grid">
+                    <div class="concept-card">
+                        <strong>Accounting Equation</strong>
+                        <p>The fundamental relationship: Assets = Liabilities + Equity. Must always balance.</p>
+                    </div>
+                    <div class="concept-card">
+                        <strong>Assets</strong>
+                        <p>Economic resources controlled by the business (cash, equipment, inventory, etc.).</p>
+                    </div>
+                    <div class="concept-card">
+                        <strong>Liabilities</strong>
+                        <p>Present obligations of the business (accounts payable, loans, wages payable).</p>
+                    </div>
+                    <div class="concept-card">
+                        <strong>Equity</strong>
+                        <p>Owner's claim on business assets (owner's capital, retained earnings, common stock).</p>
+                    </div>
+                    <div class="concept-card">
+                        <strong>Entity Concept</strong>
+                        <p>Business is separate from its owner for accounting purposes.</p>
+                    </div>
+                    <div class="concept-card">
+                        <strong>Dual Effect</strong>
+                        <p>Every transaction affects at least two accounts to maintain equation balance.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Final Knowledge Check -->
+            <section class="interactive-section">
+                <h2>🎯 Final Knowledge Check</h2>
+                <p>Test your understanding of the Accounting Equation:</p>
+
+                <div class="quiz-container" data-success-text="Excellent! You've mastered the fundamental accounting equation and transaction analysis." data-explanation="The accounting equation is Assets = Liabilities + Equity. Owner investment increases both Assets and Equity equally. Dividends and expenses decrease Equity.">
+                    <div class="input-group">
+                        <p><strong>Question 1:</strong> Owner invests $20,000 cash in the business. How does this affect the equation?</p>
+                        <label><input type="radio" name="final1" value="correct" data-correct="true"> Assets increase by $20,000; Equity increases by $20,000</label><br>
+                        <label><input type="radio" name="final1" value="wrong1" data-correct="false"> Assets increase by $20,000; Liabilities increase by $20,000</label><br>
+                        <label><input type="radio" name="final1" value="wrong2" data-correct="false"> Assets increase by $20,000; Liabilities decrease by $20,000</label>
+                    </div>
+
+                    <div class="input-group">
+                        <p><strong>Question 2:</strong> A company earns $10,000 revenue and pays $7,000 in expenses. How does Equity change?</p>
+                        <label><input type="radio" name="final2" value="correct" data-correct="true"> Equity increases by $3,000 (revenue minus expenses)</label><br>
+                        <label><input type="radio" name="final2" value="wrong1" data-correct="false"> Equity increases by $10,000 (revenue only)</label><br>
+                        <label><input type="radio" name="final2" value="wrong2" data-correct="false"> Equity decreases by $7,000 (expenses only)</label>
+                    </div>
+
+                    <div class="input-group">
+                        <p><strong>Question 3:</strong> Which statement is ALWAYS TRUE?</p>
+                        <label><input type="radio" name="final3" value="correct" data-correct="true"> Assets = Liabilities + Equity (always must balance)</label><br>
+                        <label><input type="radio" name="final3" value="wrong1" data-correct="false"> Assets = Liabilities - Equity</label><br>
+                        <label><input type="radio" name="final3" value="wrong2" data-correct="false"> Assets = Equity + Liabilities</label>
+                    </div>
+
+                    <button class="btn btn-primary quiz-submit">Submit All Answers</button>
+                    <div class="feedback"></div>
+                    <button class="quiz-retry">Try Again</button>
+                </div>
+            </section>
+
+            <!-- Navigation -->
+            <nav class="kp-navigation" style="display: flex; justify-content: space-between; margin-top: 4rem; padding-bottom: 2rem;">
+                <a href="ch01_C2.html" class="btn" style="background: #eee;">← Previous: Ethics & GAAP</a>
+                <a href="ch01_A2.html" class="btn btn-primary">Next: Return on Assets →</a>
+            </nav>
+        </article>
+    </main>
+
+    <footer style="margin-top: 5rem; padding: 2rem 0; border-top: 1px solid #ddd; text-align: center; color: #888;">
+        <p>Accounting Essentials | Chapter 1 | Analysis 1</p>
+    </footer>
+
+    <script src="../../components-enhanced.js"></script>
+    <script>
+        function setEquationDepth(depth) {
+            document.querySelectorAll('.depth-btn').forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+
+            document.querySelectorAll('.depth-content').forEach(content => content.classList.remove('active'));
+            document.getElementById(`eq-depth-${depth}`).classList.add('active');
+        }
+
+        function animateEquation(component) {
+            const status = document.getElementById('equation-status');
+            const equals = document.getElementById('eq-equals');
+            const plus1 = document.getElementById('eq-plus-1');
+
+            let message = '';
+            let color = 'var(--primary)';
+
+            switch(component) {
+                case 'assets':
+                    message = '💰 ASSETS increase when the business acquires resources (cash, equipment, etc.)';
+                    color = 'var(--primary)';
+                    break;
+                case 'liabilities':
+                    message = '📋 LIABILITIES represent debts and obligations owed to creditors';
+                    color = 'var(--error)';
+                    break;
+                case 'equity':
+                    message = '📈 EQUITY represents the owner\'s claim after all liabilities are paid';
+                    color = 'var(--success)';
+                    break;
+            }
+
+            status.innerHTML = `<strong>${component.toUpperCase()}:</strong> ${message}`;
+            status.style.color = color;
+
+            // Visual feedback animation
+            equals.style.transform = 'scale(1.3)';
+            equals.style.color = color;
+            plus1.style.transform = 'scale(1.3)';
+            plus1.style.color = color;
+
+            setTimeout(() => {
+                equals.style.transform = 'scale(1)';
+                equals.style.color = 'var(--text-muted)';
+                plus1.style.transform = 'scale(1)';
+                plus1.style.color = 'var(--text-muted)';
+
+                setTimeout(() => {
+                    status.innerHTML = '✓ The equation <strong>ALWAYS</strong> stays balanced!';
+                    status.style.color = 'var(--success)';
+                }, 5000);
+            }, 500);
+        }
+    </script>
+</body>
+
+</html>

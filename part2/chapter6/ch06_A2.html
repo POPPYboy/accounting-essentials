@@ -1,0 +1,612 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>A2: Days' Sales in Inventory | ACCOUNTING ESSENTIALS</title>
+    <link rel="stylesheet" href="../../styles.css">
+    <style>
+        .days-visual {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 1rem;
+            margin: 2rem 0;
+            flex-wrap: wrap;
+        }
+        .days-box {
+            background: linear-gradient(135deg, var(--info) 0%, #1565c0 100%);
+            color: var(--white);
+            padding: 2rem 3rem;
+            border-radius: var(--radius-md);
+            text-align: center;
+            min-width: 180px;
+        }
+        .days-box .number {
+            font-size: 3rem;
+            font-weight: 900;
+        }
+        .days-box .label {
+            font-size: 0.9rem;
+            color: var(--secondary-light);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        .days-equation {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 1rem;
+            margin: 1.5rem 0;
+            flex-wrap: wrap;
+        }
+        .days-term {
+            background: var(--bg-light);
+            padding: 1rem 1.5rem;
+            border-radius: var(--radius-sm);
+            font-weight: 600;
+        }
+        .days-operator {
+            font-size: 1.5rem;
+            color: var(--secondary);
+            font-weight: 700;
+        }
+        .threshold-card {
+            background: var(--bg-light);
+            border-radius: var(--radius-md);
+            padding: 1.5rem;
+            margin: 1rem 0;
+            border-left: 4px solid;
+        }
+        .threshold-card.warning {
+            border-color: var(--error);
+        }
+        .threshold-card.success {
+            border-color: var(--success);
+        }
+        .threshold-card.info {
+            border-color: var(--info);
+        }
+        .threshold-card h4 {
+            margin: 0 0 0.5rem 0;
+        }
+        .threshold-card.warning h4 {
+            color: var(--error);
+        }
+        .threshold-card.success h4 {
+            color: var(--success);
+        }
+        .threshold-card.info h4 {
+            color: var(--info);
+        }
+        .inventory-status {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin: 1rem 0;
+        }
+        .status-indicator {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+        }
+        .status-indicator.good {
+            background: var(--success);
+        }
+        .status-indicator.warning {
+            background: var(--warning);
+        }
+        .status-indicator.danger {
+            background: var(--error);
+        }
+    </style>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-50MTQPVR7D"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-50MTQPVR7D');
+</script>
+
+</head>
+
+<body>
+    <header>
+        <div class="container nav-container">
+            <a href="../../index.html" class="logo">ACCOUNTING<span>ESSENTIALS</span></a>
+            <nav class="nav-links">
+                <a href="../../index.html">Home</a>
+                <a href="../../Part1/part1.html">Part 1</a>
+                <a href="../../part2/part2.html">Part 2</a>
+                <a href="../../part3/part3.html">Part 3</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container">
+        <div class="breadcrumbs">
+            <a href="../../index.html">Home</a> <span>/</span> <a href="../../part2/part2.html">Part 2</a> <span>/</span> <a href="ch06.html">Chapter 6</a> <span>/</span> A2
+        </div>
+
+        <article class="animate-fade-in">
+            <div class="kp-header">
+                <h1 style="border-left: 8px solid var(--info); padding-left: 1rem; margin: 2rem 0;">Days' Sales in Inventory</h1>
+            </div>
+
+            <!-- Learning Objectives -->
+            <section class="kp-section">
+                <h2>🎯 Learning Objectives</h2>
+                <div class="learning-objectives">
+                    <ul>
+                        <li>Calculate Days' Sales in Inventory and interpret its meaning</li>
+                        <li>Understand the relationship between inventory turnover and DSI</li>
+                        <li>Analyze DSI in the context of industry norms and business models</li>
+                        <li>Identify inventory management issues through DSI trends</li>
+                        <li>Use DSI for cash flow and working capital analysis</li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- Background & Principles -->
+            <section class="kp-section">
+                <h2>📚 Background & Principles</h2>
+                <p>Days' Sales in Inventory (DSI) measures the average number of days it takes to sell the entire inventory on hand. It's a liquidity metric that converts the inventory turnover ratio into a more intuitive daily measure.</p>
+
+                <div class="concept-card" style="margin: 1.5rem 0;">
+                    <strong>Core Principle:</strong> DSI converts inventory turnover into days by dividing 365 by the turnover ratio. Lower DSI indicates faster inventory movement and better liquidity, while higher DSI suggests slower turnover and potential obsolescence risks.
+                </div>
+
+                <p>DSI helps managers understand how long capital is tied up in inventory and supports decisions about purchasing, pricing, and promotion strategies.</p>
+
+                <div class="professional-tip">
+                    <strong>💡 Key Insight:</strong> DSI is like a "freshness meter" for your inventory. A grocery store might want DSI under 10 days, while a furniture store might accept 60-90 days. The "right" number depends entirely on your industry and business model.
+                </div>
+            </section>
+
+            <!-- Key Concepts -->
+            <section class="kp-section">
+                <h2>🔑 Key Concepts</h2>
+                <div class="key-concepts-grid">
+                    <div class="concept-card">
+                        <strong>Days' Sales in Inventory (DSI)</strong>
+                        <p>Average number of days to sell all inventory. Formula: (Ending Inventory ÷ COGS) × 365 or 365 ÷ Inventory Turnover.</p>
+                    </div>
+
+                    <div class="concept-card">
+                        <strong>Inventory Liquidity</strong>
+                        <p>How quickly inventory can be converted to cash. Lower DSI means faster conversion and better liquidity.</p>
+                    </div>
+
+                    <div class="concept-card">
+                        <strong>Obsolescence Risk</strong>
+                        <p>Higher DSI increases risk of inventory becoming outdated, damaged, or expired before sale.</p>
+                    </div>
+
+                    <div class="concept-card">
+                        <strong>Carrying Cost Impact</strong>
+                        <p>Each day of DSI represents storage, insurance, and opportunity costs of holding inventory.</p>
+                    </div>
+
+                    <div class="concept-card">
+                        <strong>Stockout Risk</strong>
+                        <p>Very low DSI may indicate insufficient inventory, risking lost sales when customers can't find products.</p>
+                    </div>
+
+                    <div class="concept-card">
+                        <strong>Seasonal Variation</strong>
+                        <p>DSI may fluctuate seasonally. Year-end DSI should be compared to the same period in prior years.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Deep Dive -->
+            <section class="kp-section">
+                <h2>🔍 Deep Dive</h2>
+                <p>Explore Days' Sales in Inventory at different levels of depth:</p>
+
+                <div class="depth-toggle">
+                    <button class="depth-btn active" onclick="setDepth('A')">Depth A: Foundational</button>
+                    <button class="depth-btn" onclick="setDepth('B')">Depth B: Standard</button>
+                    <button class="depth-btn" onclick="setDepth('C')">Depth C: Advanced</button>
+                </div>
+
+                <!-- Depth A -->
+                <div id="depth-A" class="depth-content active">
+                    <h3>🟢 Foundational Level</h3>
+                    <p>Understanding the "Shelf Life" concept.</p>
+
+                    <div class="worked-example">
+                        <h4>The Milk Carton Analogy</h4>
+                        <p><strong>Analogy: The Expiration Date</strong></p>
+                        <p>Imagine inventory as a carton of milk on a grocery store shelf.</p>
+
+                        <div class="example-step">
+                            <strong>The Question:</strong>
+                            <p>How many days does that milk sit on the shelf before a customer buys it?</p>
+                        </div>
+                        <div class="example-step">
+                            <strong>The Answer is DSI:</strong>
+                            <p>If milk sits 7 days on average before selling, DSI = 7 days.</p>
+                        </div>
+                        <div class="example-step">
+                            <strong>The Business Reality:</strong>
+                            <p>Fewer days = fresher products, less spoilage, lower storage costs.</p>
+                        </div>
+                    </div>
+
+                    <div class="days-equation">
+                        <div class="days-term">Ending Inventory</div>
+                        <div class="days-operator">÷</div>
+                        <div class="days-term">COGS per Day</div>
+                        <div class="days-operator">=</div>
+                        <div class="days-term">Days' Sales</div>
+                    </div>
+
+                    <div style="background: var(--bg-dark); color: var(--white); padding: 2rem; border-radius: var(--radius-md); text-align: center; margin: 2rem 0;">
+                        <h3 style="color: var(--secondary-light);">The DSI Formula</h3>
+                        <div style="font-size: 1.5rem; font-weight: 700; margin-top: 1rem;">
+                            (Ending Inventory ÷ COGS) × 365
+                        </div>
+                        <p style="margin-top: 1rem; color: var(--text-muted);">Or equivalently: 365 ÷ Inventory Turnover</p>
+                    </div>
+                </div>
+
+                <!-- Depth B -->
+                <div id="depth-B" class="depth-content">
+                    <h3>🟡 Standard Level</h3>
+                    <p>Calculation and interpretation examples.</p>
+
+                    <div class="worked-example">
+                        <h4>DSI Calculation</h4>
+                        <p><strong>Scenario:</strong> Ending Inventory = $60,000, COGS = $500,000</p>
+
+                        <div class="days-equation">
+                            <div class="days-term">$60,000</div>
+                            <div class="days-operator">÷</div>
+                            <div class="days-term">$500,000</div>
+                            <div class="days-operator">×</div>
+                            <div class="days-term">365</div>
+                            <div class="days-operator">=</div>
+                            <div class="days-term" style="background: var(--info); color: white;">43.8 Days</div>
+                        </div>
+
+                        <div class="example-step">
+                            <strong>Interpretation:</strong>
+                            <p>On average, it takes 44 days to sell the current inventory level.</p>
+                        </div>
+                    </div>
+
+                    <div class="worked-example">
+                        <h4>Industry Benchmarks</h4>
+                        <p><strong>Typical DSI ranges by industry:</strong></p>
+
+                        <div class="threshold-card success">
+                            <h4>✅ Fast Turnover (DSI &lt; 30 days)</h4>
+                            <p>Grocery stores, bakeries, florists. Products are perishable or have high demand velocity.</p>
+                        </div>
+
+                        <div class="threshold-card info">
+                            <h4>📊 Moderate Turnover (DSI 30-60 days)</h4>
+                            <p>General retail, electronics, cosmetics. Balance between variety and turnover.</p>
+                        </div>
+
+                        <div class="threshold-card warning">
+                            <h4>⚠️ Slow Turnover (DSI 60-120 days)</h4>
+                            <p>Furniture, automotive parts, seasonal goods. Longer selling cycles are normal.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Depth C -->
+                <div id="depth-C" class="depth-content">
+                    <h3>🔴 Advanced Level</h3>
+                    <p>Advanced analysis and strategic implications.</p>
+
+                    <div class="worked-example">
+                        <h4>DSI Trend Analysis</h4>
+                        <p><strong>Scenario:</strong> Company's DSI increased from 35 days to 52 days over 2 years.</p>
+
+                        <div class="example-step">
+                            <strong>Potential Causes:</strong>
+                            <p>1. Declining product quality or relevance</p>
+                            <p>2. Increased competition reducing market share</p>
+                            <p>3. Over-purchasing relative to demand</p>
+                            <p>4. Seasonal timing differences in measurement</p>
+                        </div>
+                        <div class="example-step">
+                            <strong>Actions to Consider:</strong>
+                            <p>1. Review purchase orders for excess quantities</p>
+                            <p>2. Analyze which products have highest DSI increase</p>
+                            <p>3. Consider promotions to clear slow-moving items</p>
+                            <p>4. Negotiate consignment arrangements with suppliers</p>
+                        </div>
+                    </div>
+
+                    <div class="worked-example">
+                        <h4>Working Capital Optimization</h4>
+                        <p><strong>The relationship:</strong> DSI × Average Daily COGS = Cash tied up in inventory</p>
+
+                        <div class="example-step">
+                            <strong>Example:</strong>
+                            <p>DSI = 44 days, Daily COGS = $500,000 ÷ 365 = $1,370</p>
+                            <p>Cash in inventory = 44 × $1,370 = $60,280 (matches ending inventory)</p>
+                        </div>
+                        <div class="example-step">
+                            <strong>Optimization Target:</strong>
+                            <p>Reducing DSI by 10 days saves $13,700 in working capital (at current sales levels).</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Interactive Calculator -->
+            <section class="kp-section">
+                <h2>🎨 Interactive: Days' Sales in Inventory Calculator</h2>
+                <p>Calculate how long it takes to sell your current inventory.</p>
+
+                <div class="simulator-container">
+                    <div class="card-grid" style="grid-template-columns: repeat(2, 1fr); gap: 1rem;">
+                        <div class="input-group">
+                            <label>Ending Inventory ($)</label>
+                            <input type="number" id="dsi-end" value="60000" oninput="calcDaysSales()">
+                        </div>
+                        <div class="input-group">
+                            <label>Cost of Goods Sold ($)</label>
+                            <input type="number" id="dsi-cogs" value="500000" oninput="calcDaysSales()">
+                        </div>
+                    </div>
+
+                    <div class="days-visual">
+                        <div class="days-box">
+                            <div class="label">Days' Sales in Inventory</div>
+                            <div class="number" id="dsi-res">43.8</div>
+                            <div style="font-size: 0.9rem; margin-top: 0.5rem;">Days</div>
+                        </div>
+                    </div>
+
+                    <div id="dsi-interpretation" style="background: var(--bg-light); padding: 1.5rem; border-radius: var(--radius-sm); border-left: 4px solid var(--info);">
+                        <p id="dsi-msg" style="margin: 0;">It takes approximately 44 days to sell the current inventory.</p>
+                    </div>
+
+                    <div style="margin-top: 2rem;">
+                        <h4 style="margin-bottom: 1rem;">Industry Comparison</h4>
+                        <div class="card-grid" style="grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem;">
+                            <div class="threshold-card success">
+                                <h4>🛒 Grocery</h4>
+                                <p><strong>7-14 days</strong></p>
+                                <p style="font-size: 0.85rem; color: var(--text-muted);">Perishable goods require fast turnover</p>
+                            </div>
+                            <div class="threshold-card info">
+                                <h4>💻 Electronics</h4>
+                                <p><strong>30-45 days</strong></p>
+                                <p style="font-size: 0.85rem; color: var(--text-muted);">Technology turnover varies by product life</p>
+                            </div>
+                            <div class="threshold-card warning">
+                                <h4>🪑 Furniture</h4>
+                                <p><strong>60-90 days</strong></p>
+                                <p style="font-size: 0.85rem; color: var(--text-muted);">Longer purchase cycles expected</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Common Misconceptions -->
+            <section class="kp-section">
+                <h2>🚫 Common Misconceptions & Professional Tips</h2>
+
+                <div class="misconception-alert">
+                    <strong>❌ Misconception 1:</strong> "Lower DSI is always better."
+                    <br><br>
+                    <strong>✅ Reality:</strong> Very low DSI may indicate understocking and stockout risks. A retailer with DSI of 5 days might be losing sales because they can't meet customer demand. The optimal DSI balances carrying costs against stockout risks.
+                </div>
+
+                <div class="misconception-alert">
+                    <strong>❌ Misconception 2:</strong> "DSI measures how long inventory sits before selling."
+                    <br><br>
+                    <strong>✅ Reality:</strong> DSI measures average time to sell at CURRENT turnover rates, not how long specific items sit. Some items may sell immediately while others languish—both average to the same DSI.
+                </div>
+
+                <div class="misconception-alert">
+                    <strong>❌ Misconception 3:</strong> "DSI can be compared across all industries."
+                    <br><br>
+                    <strong>✅ Reality:</strong> DSI varies dramatically by industry. Comparing a grocery store's 10-day DSI to a furniture store's 80-day DSI is meaningless. Always compare within your industry peer group.
+                </div>
+
+                <div class="professional-tip">
+                    <strong>💡 Professional Tip #1:</strong> Track DSI monthly to identify trends before they become problems. A gradual increase of 5-10 days over several months signals inventory buildup.
+                </div>
+
+                <div class="professional-tip">
+                    <strong>💡 Professional Tip #2:</strong> Calculate DSI by product category, not just company-wide. Fast-moving electronics shouldn't be averaged with slow-moving replacement parts.
+                </div>
+
+                <div class="professional-tip">
+                    <strong>💡 Professional Tip #3:</strong> Consider timing when analyzing year-end DSI. If your fiscal year-end is right after a major inventory buildup for seasonal sales, DSI will appear artificially high.
+                </div>
+            </section>
+
+            <!-- Memory Aids -->
+            <section class="kp-section">
+                <h2>🧠 Memory Aids & Quick Reference</h2>
+
+                <div class="memory-aid-card">
+                    <strong>⚡ Quick Recall: DSI Formulas</strong>
+                    <p><strong>DSI = (Ending Inventory ÷ COGS) × 365</strong></p>
+                    <p><strong>DSI = 365 ÷ Inventory Turnover</strong></p>
+                    <p><strong>Remember: DSI × Daily COGS = Cash in Inventory</strong></p>
+                </div>
+
+                <div class="key-concepts-grid">
+                    <div class="concept-card">
+                        <strong>📦 Low DSI (&lt; 30)</strong>
+                        <p>Fast turnover. Good for perishable items. May indicate stockout risk if too low.</p>
+                    </div>
+
+                    <div class="concept-card">
+                        <strong>⚖️ Moderate DSI (30-60)</strong>
+                        <p>Balanced inventory. Typical for general retail and electronics.</p>
+                    </div>
+
+                    <div class="concept-card">
+                        <strong>📉 High DSI (> 60)</strong>
+                        <p>Slow turnover. Acceptable for furniture, seasonal goods. Monitor for obsolescence.</p>
+                    </div>
+
+                    <div class="concept-card">
+                        <strong>📈 Trend Analysis</strong>
+                        <p>Increasing DSI over time indicates building inventory problems. Investigate causes.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Glossary -->
+            <section class="kp-section">
+                <h2>📖 Glossary</h2>
+                <div class="key-concepts-grid">
+                    <div class="concept-card">
+                        <strong>Days' Sales in Inventory (DSI)</strong>
+                        <p>Financial ratio measuring average number of days to sell all inventory. Formula: (Ending Inventory ÷ COGS) × 365.</p>
+                    </div>
+
+                    <div class="concept-card">
+                        <strong>Inventory Liquidity</strong>
+                        <p>Measure of how quickly inventory can be converted to cash through sales. Higher liquidity = lower DSI.</p>
+                    </div>
+
+                    <div class="concept-card">
+                        <strong>Inventory Obsolescence</strong>
+                        <p>Risk that inventory will decline in value before being sold. Increases with higher DSI.</p>
+                    </div>
+
+                    <div class="concept-card">
+                        <strong>Stockout</strong>
+                        <p>Situation where inventory is exhausted and sales are lost. Risk increases with very low DSI.</p>
+                    </div>
+
+                    <div class="concept-card">
+                        <strong>Carrying Cost</strong>
+                        <p>Total cost of holding inventory including storage, insurance, and opportunity cost. Directly related to DSI level.</p>
+                    </div>
+
+                    <div class="concept-card">
+                        <strong>Working Capital</strong>
+                        <p>Current assets minus current liabilities. Inventory is a major component affecting working capital efficiency.</p>
+                    </div>
+
+                    <div class="concept-card">
+                        <strong>Inventory Turnover Ratio</strong>
+                        <p>Number of times inventory is sold and replaced during a period. DSI = 365 ÷ Turnover.</p>
+                    </div>
+
+                    <div class="concept-card">
+                        <strong>Average Daily COGS</strong>
+                        <p>COGS divided by 365 days. Used to calculate DSI and understand daily inventory consumption rate.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Final Knowledge Check -->
+            <section class="interactive-section">
+                <h2>🎯 Final Knowledge Check</h2>
+                <p>Test your understanding of Days' Sales in Inventory:</p>
+
+                <div class="quiz-container" data-success-text="Excellent! You've mastered DSI analysis." data-explanation="DSI measures how many days it takes to sell inventory at current rates. A DSI of 44 days means if you stopped buying inventory today, it would take 44 days to sell everything you have on hand.">
+                    <div class="input-group">
+                        <p><strong>Question 1:</strong> If a company has ending inventory of $80,000 and COGS of $400,000, what is DSI?</p>
+                        <label><input type="radio" name="q1" value="incorrect1" data-correct="false"> 20 days</label><br>
+                        <label><input type="radio" name="q1" value="incorrect2" data-correct="false"> 50 days</label><br>
+                        <label><input type="radio" name="q1" value="correct" data-correct="true"> 73 days</label>
+                    </div>
+
+                    <div class="input-group">
+                        <p><strong>Question 2:</strong> A DSI of 5 days for a grocery store is likely:</p>
+                        <label><input type="radio" name="q2" value="correct" data-correct="true"> Normal and healthy for perishables</label><br>
+                        <label><input type="radio" name="q2" value="incorrect1" data-correct="false"> Indicating a serious inventory problem</label><br>
+                        <label><input type="radio" name="q2" value="incorrect2" data-correct="false"> The same as for a furniture store</label>
+                    </div>
+
+                    <div class="input-group">
+                        <p><strong>Question 3:</strong> If DSI increases from 30 to 45 days over 6 months, this likely indicates:</p>
+                        <label><input type="radio" name="q3" value="incorrect1" data-correct="false"> Better inventory management</label><br>
+                        <label><input type="radio" name="q3" value="correct" data-correct="true"> Potential inventory buildup or declining sales</label><br>
+                        <label><input type="radio" name="q3" value="incorrect2" data-correct="false"> Lower carrying costs</label>
+                    </div>
+
+                    <div class="input-group">
+                        <p><strong>Question 4:</strong> DSI is most closely related to which other ratio?</p>
+                        <label><input type="radio" name="q4" value="incorrect1" data-correct="false"> Current ratio</label><br>
+                        <label><input type="radio" name="q4" value="incorrect2" data-correct="false"> Debt-to-equity ratio</label><br>
+                        <label><input type="radio" name="q4" value="correct" data-correct="true"> Inventory turnover ratio</label>
+                    </div>
+
+                    <div class="input-group">
+                        <p><strong>Question 5:</strong> Very low DSI may indicate:</p>
+                        <label><input type="radio" name="q5" value="incorrect1" data-correct="false"> High carrying costs</label><br>
+                        <label><input type="radio" name="q5" value="correct" data-correct="true"> Stockout risk and potential lost sales</label><br>
+                        <label><input type="radio" name="q5" value="incorrect2" data-correct="false"> Obsolescence problems</label>
+                    </div>
+
+                    <button class="btn btn-primary quiz-submit">Submit Answers</button>
+                    <div class="feedback"></div>
+                    <button class="quiz-retry">Try Again</button>
+                </div>
+            </section>
+
+            <!-- Navigation -->
+            <nav class="kp-navigation" style="display: flex; justify-content: space-between; margin-top: 4rem; padding-bottom: 2rem;">
+                <a href="ch06_A1.html" class="btn" style="background: #eee;">← Previous: Inventory Turnover</a>
+                <a href="ch06.html" class="btn" style="background: var(--info); color: white;">Chapter 6 Hub</a>
+                <a href="ch06_A3.html" class="btn btn-primary">Next: LCM & Inventory Valuation →</a>
+            </nav>
+        </article>
+    </main>
+
+    <footer style="margin-top: 5rem; padding: 2rem 0; border-top: 1px solid #ddd; text-align: center; color: #888;">
+        <p>Accounting Essentials | Chapter 6 | Analysis 2</p>
+    </footer>
+
+    <script src="../../components-enhanced.js"></script>
+    <script>
+        function setDepth(depth) {
+            document.querySelectorAll('.depth-btn').forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+
+            document.querySelectorAll('.depth-content').forEach(content => content.classList.remove('active'));
+            document.getElementById(`depth-${depth}`).classList.add('active');
+        }
+
+        function calcDaysSales() {
+            const end = parseFloat(document.getElementById('dsi-end').value) || 0;
+            const cogs = parseFloat(document.getElementById('dsi-cogs').value) || 0;
+
+            if (cogs === 0) {
+                document.getElementById('dsi-res').textContent = '-';
+                document.getElementById('dsi-msg').textContent = 'Enter COGS to calculate DSI.';
+                return;
+            }
+
+            const days = ((end / cogs) * 365).toFixed(1);
+            document.getElementById('dsi-res').textContent = days;
+
+            // Interpretation
+            let interpretation;
+            if (days < 30) {
+                interpretation = `With ${days} days, your inventory turns quickly. This is efficient but monitor for potential stockout risks.`;
+            } else if (days < 60) {
+                interpretation = `At ${days} days, your inventory turnover is moderate and healthy for most retail operations.`;
+            } else if (days < 90) {
+                interpretation = `At ${days} days, consider analyzing slow-moving items. Higher carrying costs and obsolescence risks increase.`;
+            } else {
+                interpretation = `With ${days} days, inventory is moving slowly. Investigate causes and consider promotions to reduce carrying costs.`;
+            }
+
+            document.getElementById('dsi-msg').textContent = interpretation;
+        }
+    </script>
+</body>
+
+</html>

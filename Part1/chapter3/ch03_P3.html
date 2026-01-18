@@ -1,0 +1,894 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>P3: Adjusting Prepaid Expenses | ACCOUNTING ESSENTIALS</title>
+    <link rel="stylesheet" href="../../styles.css">
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-50MTQPVR7D"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-50MTQPVR7D');
+</script>
+
+</head>
+
+<body>
+    <header>
+        <div class="container nav-container">
+            <a href="../../index.html" class="logo">ACCOUNTING<span>ESSENTIALS</span></a>
+            <nav class="nav-links">
+                <a href="../../index.html">Home</a>
+                <a href="../part1.html">Part 1</a>
+                <a href="../../part2/part2.html">Part 2</a>
+                <a href="../part3/part3.html">Part 3</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container">
+        <div class="breadcrumbs">
+            <a href="../../index.html">Home</a> <span>/</span> <a href="../part1.html">Part 1</a> <span>/</span> <a href="ch03.html">Chapter 3</a> <span>/</span> P3
+        </div>
+
+        <article class="animate-fade-in">
+            <div class="kp-header">
+                <h1 style="border-left: 8px solid var(--primary-light); padding-left: 1rem; margin: 2rem 0;">Adjusting Prepaid Expenses</h1>
+            </div>
+
+            <!-- Learning Objectives -->
+            <section class="kp-section">
+                <h2>🎯 Learning Objectives</h2>
+                <div class="learning-objectives">
+                    <ul>
+                        <li>Understand the timing principle in accrual accounting</li>
+                        <li>Identify prepaid expenses and how they differ from regular expenses</li>
+                        <li>Apply adjusting entries to recognize expenses in the correct period</li>
+                        <li>Distinguish between assets and expenses in the accounting equation</li>
+                        <li>Complete the accounting cycle with proper adjusting entries</li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- Background & Principles -->
+            <section class="kp-section">
+                <h2>📚 Background & Principles</h2>
+                <p>In accrual accounting, expenses are recognized when <strong>incurred</strong> (earned or used), regardless of when cash is paid. This principle, known as the <strong>matching principle</strong>, ensures that expenses are recorded in the same period as the revenues they help generate.</p>
+
+                <div class="key-concepts-grid">
+                    <div class="concept-card">
+                        <strong>🔑 Accrual Accounting</strong>
+                        <p>Revenue and expenses are recorded when they are earned/incurred, not when cash changes hands. This provides more accurate financial picture.</p>
+                    </div>
+
+                    <div class="concept-card">
+                        <strong>💼 Prepaid Expenses</strong>
+                        <p>Expenses paid in advance of use. These are initially recorded as assets and systematically expensed over time.</p>
+                    </div>
+
+                    <div class="concept-card">
+                        <strong>📖 The Matching Principle</strong>
+                        <p>Every expense must be matched with the revenue it helped generate. This prevents overstating income or understating expenses.</p>
+                    </div>
+                </div>
+
+                <div class="professional-tip">
+                    <strong>💡 Professional Insight:</strong> Adjusting entries are one of the most important steps in the accounting cycle. Without them, financial statements would be incomplete and inaccurate.
+                </div>
+            </section>
+
+            <!-- Key Concepts -->
+            <section class="kp-section">
+                <h2>🔑 Key Concepts</h2>
+                <div class="key-concepts-grid">
+                    <div class="concept-card">
+                        <strong>Prepaid Expense</strong>
+                        <p>An expense paid in advance for future benefit. Examples: prepaid insurance, prepaid rent, supplies purchased in bulk.</p>
+                    </div>
+
+                    <div class="concept-card">
+                        <strong>Accrued Expense</strong>
+                        <p>The portion of a prepaid expense that has been used during the current period. Systematically recognized and expensed over time.</p>
+                    </div>
+
+                    <div class="concept-card">
+                        <strong>Adjusting Entry</strong>
+                        <p>The journal entry that transfers from Prepaid Expense (Asset) to Expense (Expense). Example: Debit Insurance Expense, Credit Prepaid Insurance.</p>
+                    </div>
+
+                    <div class="concept-card">
+                        <strong>Adjusted Expense</strong>
+                        <p>The expense amount recognized for the current period. Example: Rent Expense $500 for December.</p>
+                    </div>
+
+                    <div class="concept-card">
+                        <strong>Balance Sheet Impact</strong>
+                        <p>Prepaid expenses are initially assets. Adjusting converts them to expenses, reducing assets and affecting equity.</p>
+                    </div>
+
+                    <div class="concept-card">
+                        <strong>Trial Balance</strong>
+                        <p>A test that verifies debits equal credits after all adjustments are posted.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Deep Dive -->
+            <section class="kp-section">
+                <h2>🔍 Deep Dive</h2>
+                <p>Explore adjusting entries at different levels of complexity:</p>
+
+                <div class="depth-toggle">
+                    <button class="depth-btn active" onclick="setPrepaidDepth('A')">Depth A: Foundational</button>
+                    <button class="depth-btn" onclick="setPrepaidDepth('B')">Depth B: Standard</button>
+                    <button class="depth-btn" onclick="setPrepaidDepth('C')">Depth C: Advanced</button>
+                </div>
+
+                <!-- Depth A -->
+                <div id="prepaid-depth-A" class="depth-content active">
+                    <h3>🟢 Foundational Level</h3>
+                    <p>Basic understanding of prepaid expenses and adjusting entries.</p>
+
+                    <div class="worked-example">
+                        <h4>Example 1: Simple Prepaid Rent</h4>
+                        <p><strong>Scenario:</strong> FastForward pays $6,000 for 3 months of rent on December 1.</p>
+
+                        <div class="example-step">
+                            <strong>Step 1: Original Entry</strong>
+                            <p>On December 1, record:</p>
+                            <ul style="margin-top: 0.5rem; margin-left: 2rem;">
+                                <li>Debit Prepaid Rent (Asset) $18,000</li>
+                                <li>Credit Cash (Asset) $18,000</li>
+                            </ul>
+                        </div>
+
+                        <div class="example-step">
+                            <strong>Step 2: December Analysis</strong>
+                            <p>By December 31:</p>
+                            <ul style="margin-top: 0.5rem; margin-left: 2rem;">
+                                <li>Prepaid Rent has 3 months remaining (Jan, Feb, Mar).</li>
+                                <li>Total prepaid: $18,000</li>
+                                <li>Amount used in December: $6,000</li>
+                                <li>Unrecognized amount: $12,000 ($6,000 ÷ 3)</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="professional-tip">
+                        <strong>💡 Professional Tip:</strong> Always track the remaining prepaid amount separately. Don't confuse the original prepaid asset with current usage.
+                    </div>
+                </div>
+                </div>
+
+                <!-- Depth B -->
+                <div id="prepaid-depth-B" class="depth-content">
+                    <h3>🟡 Standard Level</h3>
+                    <p>Complete adjusting entry examples with multiple prepaid expense types.</p>
+
+                    <div class="worked-example">
+                        <h4>Example 2: Prepaid Insurance</h4>
+                        <p><strong>Scenario:</strong> On January 1, FastForward purchases a 12-month insurance policy for $12,000, paid in advance.</p>
+
+                        <div class="example-step">
+                            <strong>Step 1: January Entry</strong>
+                            <p>On January 1, record:</p>
+                            <ul style="margin-top: 0.5rem; margin-left: 2rem;">
+                                <li>Debit Prepaid Insurance (Asset) $12,000</li>
+                                <li>Credit Cash (Asset) $12,000</li>
+                            </ul>
+                        </div>
+
+                        <div class="example-step">
+                            <strong>Step 2: Monthly Adjustments</strong>
+                            <p>Each month, recognize $1,000 of insurance as expense:</p>
+                            <ul style="margin-top: 0.5rem; margin-left: 2rem;">
+                                <li>January: $1,000</li>
+                                <li>February: $1,000</li>
+                                <li>March: $1,000</li>
+                                <li>...through December: $1,000</li>
+                            </ul>
+                        </div>
+
+                        <div class="example-step">
+                            <strong>Step 3: Year-End Analysis</strong>
+                            <p>By December 31, total recognized: $12,000</p>
+                            <ul style="margin-top: 0.5rem; margin-left: 2rem;">
+                                <li>Total insurance expense for year: $12,000</li>
+                                <li>Prepaid Insurance remaining: $0 (policy expired)</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Depth C -->
+                <div id="prepaid-depth-C" class="depth-content">
+                    <h3>🔴 Advanced Level</h3>
+                    <p>Complex scenarios with multiple prepaid items and adjustments.</p>
+
+                    <div class="worked-example">
+                        <h4>Example 4: Supplies Inventory</h4>
+                        <p><strong>Scenario:</strong> FastForward purchases office supplies for $5,000 on January 15, but expects to use them over the next 6 months.</p>
+
+                        <div class="example-step">
+                            <strong>Step 1: Initial Recording</strong>
+                            <p>On January 15, record:</p>
+                            <ul style="margin-top: 0.5rem; margin-left: 2rem;">
+                                <li>Debit Supplies Inventory (Asset) $5,000</li>
+                                <li>Credit Cash (Asset) $5,000</li>
+                            </ul>
+                        </div>
+
+                        <div class="example-step">
+                            <strong>Step 2: Monthly Usage Analysis</strong>
+                            <p>Each month, estimate usage based on purchases:</p>
+                            <ul style="margin-top: 0.5rem; margin-left: 2rem;">
+                                <li>January: Used $0</li>
+                                <li>February: Used $500</li>
+                                <li>March: Used $200</li>
+                                <li>April: Used $300</li>
+                                <li>...through June: Used $2,000</li>
+                            </ul>
+                        </div>
+
+                        <div class="example-step">
+                            <strong>Step 3: December Adjusting Entry</strong>
+                            <p>On December 31, record:</p>
+                            <ul style="margin-top: 0.5rem; margin-left: 2rem;">
+                                <li>Debit Supplies Expense $2,000 (remaining)</li>
+                                <li>Credit Supplies Inventory (Asset) $2,000</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Interactive Accounting Cycle Flow -->
+            <section class="kp-section">
+                <h2>🎨 Interactive Accounting Cycle with Adjusting</h2>
+                <p>Click on each step to see how adjusting entries complete the accounting cycle:</p>
+
+                <!-- Cycle Visualization -->
+                <div class="accounting-cycle-visual">
+                    <!-- Top Row: Steps 1-4 -->
+                    <div class="cycle-row">
+                        <div class="cycle-node" data-step="1">
+                            <div class="node-icon">📋</div>
+                            <div class="node-content">
+                                <span class="node-label">STEP 1</span>
+                                <span class="node-title">Analyze</span>
+                                <span class="node-desc">Transactions</span>
+                            </div>
+                        </div>
+                        <div class="cycle-connector connector-right">
+                            <svg width="60" height="20">
+                                <defs>
+                                    <linearGradient id="arrowGrad1" x1="0%" y1="0%" x2="100%" y2="0%">
+                                        <stop offset="0%" style="stop-color:#c5a059"/>
+                                        <stop offset="100%" style="stop-color:#1a237e"/>
+                                    </linearGradient>
+                                </defs>
+                                <path d="M0,10 L50,10" stroke="url(#arrowGrad1)" stroke-width="3" fill="none"/>
+                                <polygon points="50,5 60,10 50,15" fill="#1a237e"/>
+                            </svg>
+                        </div>
+                        <div class="cycle-node" data-step="2">
+                            <div class="node-icon">✍️</div>
+                            <div class="node-content">
+                                <span class="node-label">STEP 2</span>
+                                <span class="node-title">Record</span>
+                                <span class="node-desc">Original Entries</span>
+                            </div>
+                        </div>
+                        <div class="cycle-connector connector-right">
+                            <svg width="60" height="20">
+                                <path d="M0,10 L50,10" stroke="url(#arrowGrad1)" stroke-width="3" fill="none"/>
+                                <polygon points="50,5 60,10 50,15" fill="#1a237e"/>
+                            </svg>
+                        </div>
+                        <div class="cycle-node adjust-node" data-step="3">
+                            <div class="adjust-badge">KEY</div>
+                            <div class="node-icon">🔧</div>
+                            <div class="node-content">
+                                <span class="node-label">STEP 3</span>
+                                <span class="node-title">Adjust</span>
+                                <span class="node-desc">Monthly</span>
+                            </div>
+                        </div>
+                        <div class="cycle-connector connector-right">
+                            <svg width="60" height="20">
+                                <path d="M0,10 L50,10" stroke="url(#arrowGrad1)" stroke-width="3" fill="none"/>
+                                <polygon points="50,5 60,10 50,15" fill="#1a237e"/>
+                            </svg>
+                        </div>
+                        <div class="cycle-node" data-step="4">
+                            <div class="node-icon">⚖️</div>
+                            <div class="node-content">
+                                <span class="node-label">STEP 4</span>
+                                <span class="node-title">Trial</span>
+                                <span class="node-desc">Balance</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Bottom Row: Steps 5-6 -->
+                    <div class="cycle-row cycle-row-bottom">
+                        <div class="cycle-connector connector-down">
+                            <svg width="20" height="40">
+                                <defs>
+                                    <linearGradient id="arrowGrad2" x1="0%" y1="0%" x2="0%" y2="100%">
+                                        <stop offset="0%" style="stop-color:#c5a059"/>
+                                        <stop offset="100%" style="stop-color:#27ae60"/>
+                                    </linearGradient>
+                                </defs>
+                                <path d="M10,0 L10,35" stroke="url(#arrowGrad2)" stroke-width="3" fill="none"/>
+                                <polygon points="5,35 10,45 15,35" fill="#27ae60"/>
+                            </svg>
+                        </div>
+                        <div class="cycle-node" data-step="5">
+                            <div class="node-icon">📊</div>
+                            <div class="node-content">
+                                <span class="node-label">STEP 5</span>
+                                <span class="node-title">Financial</span>
+                                <span class="node-desc">Statements</span>
+                            </div>
+                        </div>
+                        <div class="cycle-connector connector-right">
+                            <svg width="60" height="20">
+                                <path d="M0,10 L50,10" stroke="url(#arrowGrad1)" stroke-width="3" fill="none"/>
+                                <polygon points="50,5 60,10 50,15" fill="#27ae60"/>
+                            </svg>
+                        </div>
+                        <div class="cycle-node complete-node" data-step="6">
+                            <div class="complete-badge">✓</div>
+                            <div class="node-icon">🎉</div>
+                            <div class="node-content">
+                                <span class="node-label">STEP 6</span>
+                                <span class="node-title">Complete</span>
+                                <span class="node-desc">Cycle Done</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Step Details Display -->
+                <div id="step-details" class="step-details-panel">
+                    <div class="details-header">
+                        <span class="details-icon" id="details-icon">👆</span>
+                        <span id="details-title">Click on a step above to see details</span>
+                    </div>
+                    <div class="details-content">
+                        <p id="details-desc">Each step in the accounting cycle is interconnected. Click on any step to learn more about what happens at that stage.</p>
+                        <div id="details-journal" class="journal-box" style="display: none;"></div>
+                    </div>
+                </div>
+
+                <style>
+                    /* Accounting Cycle Visual Styles */
+                    .accounting-cycle-visual {
+                        background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+                        border-radius: 20px;
+                        padding: 2rem;
+                        margin: 2rem 0;
+                        box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+                    }
+                    
+                    .cycle-row {
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        gap: 0;
+                        flex-wrap: wrap;
+                    }
+                    
+                    .cycle-row-bottom {
+                        margin-top: 1rem;
+                        padding-left: 80px;
+                    }
+                    
+                    .cycle-node {
+                        display: flex;
+                        align-items: center;
+                        gap: 12px;
+                        padding: 16px 20px;
+                        background: white;
+                        border-radius: 16px;
+                        box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+                        cursor: pointer;
+                        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+                        border: 3px solid transparent;
+                        min-width: 140px;
+                    }
+                    
+                    .cycle-node:hover {
+                        transform: translateY(-5px) scale(1.02);
+                        box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+                    }
+                    
+                    .cycle-node.active {
+                        border-color: #1a237e;
+                        background: linear-gradient(135deg, #1a237e 0%, #283593 100%);
+                        color: white;
+                    }
+                    
+                    .cycle-node.active .node-label,
+                    .cycle-node.active .node-desc {
+                        color: rgba(255,255,255,0.9);
+                    }
+                    
+                    .cycle-node.active .node-icon {
+                        transform: scale(1.1);
+                    }
+                    
+                    .adjust-node {
+                        background: linear-gradient(135deg, #fff3e0 0%, #ffe0b2 100%);
+                        border-color: #ff9800;
+                    }
+                    
+                    .adjust-node.active {
+                        background: linear-gradient(135deg, #ff9800 0%, #f57c00 100%);
+                    }
+                    
+                    .adjust-badge {
+                        position: absolute;
+                        top: -8px;
+                        left: -8px;
+                        background: linear-gradient(135deg, #ff9800 0%, #f57c00 100%);
+                        color: white;
+                        font-size: 10px;
+                        font-weight: 700;
+                        padding: 3px 8px;
+                        border-radius: 10px;
+                        box-shadow: 0 2px 8px rgba(255,152,0,0.4);
+                    }
+                    
+                    .complete-node {
+                        background: linear-gradient(135deg, #e8f5e9 0%, #c8e6c9 100%);
+                        border-color: #4caf50;
+                    }
+                    
+                    .complete-node.active {
+                        background: linear-gradient(135deg, #4caf50 0%, #388e3c 100%);
+                    }
+                    
+                    .complete-badge {
+                        position: absolute;
+                        top: -8px;
+                        left: -8px;
+                        background: linear-gradient(135deg, #4caf50 0%, #388e3c 100%);
+                        color: white;
+                        font-size: 12px;
+                        width: 20px;
+                        height: 20px;
+                        border-radius: 50%;
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        box-shadow: 0 2px 8px rgba(76,175,80,0.4);
+                    }
+                    
+                    .cycle-node {
+                        position: relative;
+                    }
+                    
+                    .node-icon {
+                        font-size: 2rem;
+                        transition: transform 0.3s ease;
+                    }
+                    
+                    .node-content {
+                        display: flex;
+                        flex-direction: column;
+                    }
+                    
+                    .node-label {
+                        font-size: 9px;
+                        font-weight: 700;
+                        color: #1a237e;
+                        letter-spacing: 1px;
+                    }
+                    
+                    .node-title {
+                        font-size: 14px;
+                        font-weight: 700;
+                        color: #2c3e50;
+                        line-height: 1.2;
+                    }
+                    
+                    .node-desc {
+                        font-size: 11px;
+                        color: #7f8c8d;
+                    }
+                    
+                    .cycle-node.active .node-title {
+                        color: white;
+                    }
+                    
+                    .cycle-connector {
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                    }
+                    
+                    .cycle-connector svg {
+                        filter: drop-shadow(0 2px 4px rgba(0,0,0,0.1));
+                    }
+                    
+                    .step-details-panel {
+                        margin-top: 2rem;
+                        padding: 1.5rem;
+                        background: white;
+                        border-radius: 16px;
+                        box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+                        border-left: 5px solid #1a237e;
+                        transition: all 0.3s ease;
+                    }
+                    
+                    .step-details-panel.adjust {
+                        border-left-color: #ff9800;
+                    }
+                    
+                    .step-details-panel.complete {
+                        border-left-color: #4caf50;
+                    }
+                    
+                    .details-header {
+                        display: flex;
+                        align-items: center;
+                        gap: 12px;
+                        margin-bottom: 1rem;
+                    }
+                    
+                    .details-icon {
+                        font-size: 1.5rem;
+                    }
+                    
+                    #details-title {
+                        font-size: 1.2rem;
+                        font-weight: 700;
+                        color: #1a237e;
+                    }
+                    
+                    .details-content {
+                        color: #555;
+                        line-height: 1.7;
+                    }
+                    
+                    .journal-box {
+                        margin-top: 1rem;
+                        padding: 1rem;
+                        background: #f8f9fa;
+                        border-radius: 10px;
+                        font-family: 'Courier New', monospace;
+                        font-size: 0.9rem;
+                    }
+                    
+                    .journal-box .debit {
+                        color: #27ae60;
+                        font-weight: 700;
+                    }
+                    
+                    .journal-box .credit {
+                        color: #e74c3c;
+                        font-weight: 700;
+                    }
+                    
+                    @media (max-width: 768px) {
+                        .accounting-cycle-visual {
+                            padding: 1rem;
+                        }
+                        
+                        .cycle-node {
+                            min-width: 120px;
+                            padding: 12px 16px;
+                        }
+                        
+                        .cycle-row-bottom {
+                            padding-left: 0;
+                        }
+                        
+                        .cycle-connector {
+                            transform: rotate(90deg);
+                            margin: -5px 0;
+                        }
+                        
+                        .cycle-row-bottom .cycle-connector {
+                            transform: rotate(0);
+                        }
+                    }
+                </style>
+
+            <!-- Worked Examples -->
+            <section class="kp-section">
+                <h2>📝 Worked Examples</h2>
+
+                <div class="worked-example">
+                    <h4>Example 1: Prepaid Rent (Single Period)</h4>
+                        <p><strong>Scenario:</strong> FastForward pays $6,000 for 3 months of rent on December 1.</p>
+
+                        <div class="example-step">
+                            <strong>Step 1: Original Entry</strong>
+                            <p>December 1: Debit Prepaid Rent (Asset) $6,000; Credit Cash (Asset) $6,000</p>
+                        </div>
+
+                        <div class="example-step">
+                            <strong>Step 2: Monthly Recognition</strong>
+                            <p>Each month: $2,000</p>
+                        </div>
+
+                        <div class="example-step">
+                            <strong>Step 3: December 31</strong>
+                            <p>Total recognized: $6,000; Total used: $6,000; Remaining: $0 (expired)</p>
+                        </div>
+                    </div>
+                    </div>
+
+                    <div class="professional-tip">
+                        <strong>💡 Professional Insight:</strong> Remember: Prepaid expenses become expenses when used. The adjusting entry only realigns the classification from asset to expense, ensuring proper matching.
+                    </div>
+                </div>
+            </section>
+
+            <!-- Common Misconceptions -->
+            <section class="kp-section">
+                <h2>🚫 Common Misconceptions & Professional Tips</h2>
+
+                <div class="misconception-alert">
+                    <strong>❌ Misconception 1:</strong> "Prepaid expenses are assets, not expenses."
+                        <br><br>
+                        <strong>✅ Reality:</strong> Prepaid expenses are indeed assets initially. However, accounting treats them systematically as <strong>expenses over time</strong> as they're consumed. They appear as expenses on the income statement, but their nature is different from regular expenses.
+                    </div>
+                </div>
+
+                <div class="misconception-alert">
+                    <strong>❌ Misconception 2:</strong> "Adjusting entries are estimates and guesses."
+                        <br><br>
+                        <strong>✅ Reality:</strong> While some judgment is required, adjusting entries follow strict accounting rules based on actual usage data, not guesses.
+                    </div>
+
+                <div class="professional-tip">
+                    <strong>💡 Professional Tip #1:</strong> Always document the basis for adjusting entries. Keep records of original payments, usage schedules, and calculations.
+                    </div>
+
+                <div class="professional-tip">
+                    <strong>💡 Professional Tip #2:</strong> Review adjusting entries carefully. An error in adjusting entry can cascade through financial statements and distort future periods.
+                    </div>
+
+                <div class="professional-tip">
+                    <strong>💡 Professional Tip #3:</strong> Maintain supporting documentation. Prepaid expenses often span multiple periods. Clear records prevent disputes and ensure accurate financial reporting.
+                    </div>
+            </section>
+
+            <!-- Memory Aids -->
+            <section class="kp-section">
+                <h2>🧠 Memory Aids & Quick Reference</h2>
+
+                <div class="memory-aid-card">
+                    <strong>⚡ Quick Recall: The Adjusting Process</strong>
+                    <p style="margin-top: 1rem; font-size: 1.3rem; font-weight: 700;">1. Identify prepaid assets → 2. Determine usage → 3. Record expense amount → 4. Verify trial balance</p>
+                    </div>
+
+                <div class="key-concepts-grid">
+                    <div class="concept-card">
+                        <strong>📖 Prepaid Expense</strong>
+                        <p>An expense paid in advance for future benefit.</p>
+                    </div>
+
+                    <div class="concept-card">
+                        <strong>💼 Adjusted Expense</strong>
+                        <p>The portion expensed in current period. Systematically reduce prepaid asset, increase expense, decrease equity.</p>
+                    </div>
+
+                    <div class="concept-card">
+                        <strong>🔑 Adjusting Entry</strong>
+                        <p>Debit Expense (Increase), Credit Prepaid Expense (Decrease prepaid asset).</p>
+                    </div>
+
+                    <div class="concept-card">
+                        <strong>📖 Trial Balance</strong>
+                        <p>The verification that debits = credits.</p>
+                    </div>
+
+                    <div class="memory-aid-card">
+                        <strong>⚡ Quick Recall: Prepaid vs Regular</strong>
+                        <p>Prepaid = Paid first, expensed over time; Regular = Paid when used.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Glossary -->
+            <section class="kp-section">
+                <h2>📖 Glossary</h2>
+                <div class="key-concepts-grid">
+                    <div class="concept-card">
+                        <strong>Prepaid Expense</strong>
+                        <p>An expense paid in advance before use. Examples: prepaid insurance, prepaid rent, supplies inventory.</p>
+                    </div>
+
+                    <div class="concept-card">
+                        <strong>💼 Adjusted Expense</strong>
+                        <p>The amount recognized as expense for the period. Example: Prepaid Rent $2,000.</p>
+                    </div>
+
+                    <div class="concept-card">
+                        <strong>🔑 Accrual Basis</strong>
+                        <p>Accounting method recognizing revenue/expenses when earned/incurred, not when paid.</p>
+                    </div>
+
+                    <div class="concept-card">
+                        <strong>📖 Adjusting Entry</strong>
+                        <p>The journal entry that transfers from asset to expense: Debit Insurance Expense, Credit Prepaid Insurance (Decrease prepaid asset).</p>
+                    </div>
+
+                    <div class="concept-card">
+                        <strong>📖 Trial Balance</strong>
+                        <p>A test that ensures the accounting equation balances after all adjusting entries for the period.</p>
+                    </div>
+                </div>
+
+                    <div class="concept-card">
+                        <strong>💼 Balance Sheet</strong>
+                        <p>Shows assets (including reduced prepaid), liabilities, equity after adjusting entries.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Final Knowledge Check -->
+            <section class="interactive-section">
+                <h2>🎯 Final Knowledge Check</h2>
+                <p>Test your understanding of Prepaid Expenses and Adjusting Entries:</p>
+
+                <div class="quiz-container" data-success-text="Excellent! You've mastered the fundamentals of accrual accounting and adjusting entries." data-explanation="Prepaid expenses are assets initially that are systematically expensed over time through adjusting entries. Debit Insurance Expense, Credit Prepaid Insurance (Decrease prepaid asset).">
+                    <div class="input-group">
+                        <p><strong>Question 1:</strong> On December 1, FastForward pays $6,000 for 3 months of rent in advance. Is this a prepaid expense?</p>
+                        <label><input type="radio" name="q1" value="correct" data-correct="true"> Yes, it's paid in advance for future benefit</label><br>
+                        <label><input type="radio" name="q1" value="incorrect1" data-correct="false"> No, it's a regular expense</label><br>
+                        <label><input type="radio" name="q1" value="incorrect2" data-correct="false"> Yes, it's an asset</label>
+                    </div>
+
+                    <div class="input-group">
+                        <p><strong>Question 2:</strong> By December 31, what is the adjusting entry?</p>
+                        <label><input type="radio" name="q2" value="correct" data-correct="true"> Debit Insurance Expense, Credit Prepaid Insurance (Decrease prepaid asset)</label><br>
+                        <label><input type="radio" name="q2" value="incorrect1" data-correct="false"> Debit Insurance Expense, Credit Cash (Increase prepaid asset)</label><br>
+                        <label><input type="radio" name="q2" value="incorrect2" data-correct="false"> Debit Insurance Expense, Credit Supplies Inventory (Decrease prepaid asset)</label><br>
+                        <label><input type="radio" name="q2" value="incorrect3" data-correct="false"> Debit Insurance Expense, Credit Cash (Decrease prepaid asset, Increase equity)</label><br>
+                        <label><input type="radio" name="q2" value="incorrect4" data-correct="false"> Debit Insurance Expense, Credit Prepaid Insurance (Increase equity)</label><br>
+                    </div>
+
+                    <button class="btn btn-primary quiz-submit">Submit Answers</button>
+                    <div class="feedback"></div>
+                    <button class="quiz-retry">Try Again</button>
+                </div>
+            </section>
+
+            <!-- Navigation -->
+            <nav class="kp-navigation" style="display: flex; justify-content: space-between; margin-top: 4rem; padding-bottom: 2rem;">
+                <a href="ch03_P2.html" class="btn" style="background: #eee;">← Previous</a>
+                <a href="ch03_P4.html" class="btn btn-primary">Next: Adjusted Revenues →</a>
+            </nav>
+        </article>
+    </main>
+
+    <footer style="margin-top: 5rem; padding: 2rem 0; border-top: 1px solid #ddd; text-align: center; color: #888;">
+        <p>Accounting Essentials | Chapter 3 | Procedure 3</p>
+    </footer>
+
+    <script src="../../components-enhanced.js"></script>
+    <script>
+        const stepDetails = {
+            1: { 
+                title: "Step 1: Analyze Transactions", 
+                desc: "Identify which expenses are prepaid and need adjusting at period-end. Review all transactions to determine which payments relate to future periods.",
+                icon: "📋",
+                journal: null
+            },
+            2: { 
+                title: "Step 2: Record Original Entries", 
+                desc: "Record prepaid expenses as ASSETS when cash is paid in advance. This reflects the future economic benefit the company has paid for.",
+                icon: "✍️",
+                journal: '<span class="debit">Dec 1  Dr. Prepaid Insurance  $12,000</span><br><span class="credit">        Cr. Cash  $12,000</span>'
+            },
+            3: { 
+                title: "Step 3: Monthly Adjustments", 
+                desc: "Each month, recognize the portion of prepaid expense used as actual expense. This is the KEY adjusting entry that ensures proper matching.",
+                icon: "🔧",
+                journal: '<span class="debit">Dec 31  Dr. Insurance Expense  $1,000</span><br><span class="credit">        Cr. Prepaid Insurance  $1,000</span>'
+            },
+            4: { 
+                title: "Step 4: Trial Balance", 
+                desc: "After all adjustments, prepare an adjusted trial balance to verify that total debits still equal total credits.",
+                icon: "⚖️",
+                journal: '<span class="debit">Dr. Insurance Expense  $1,000</span>  |  <span class="credit">Cr. Prepaid Insurance  $1,000</span><br><span style="color: #27ae60; font-weight: bold;">✓ Balanced: Debits = Credits</span>'
+            },
+            5: { 
+                title: "Step 5: Financial Statements", 
+                desc: "Use the adjusted trial balance to prepare accurate financial statements reflecting proper expense recognition.",
+                icon: "📊",
+                journal: 'Income Statement: Insurance Expense = $1,000<br>Balance Sheet: Prepaid Insurance = $11,000'
+            },
+            6: { 
+                title: "Step 6: Complete", 
+                desc: "The accounting cycle is complete! Adjusting entries have ensured accurate financial reporting for the period.",
+                icon: "🎉",
+                journal: '<span style="color: #27ae60; font-size: 1.2rem; font-weight: bold;">✓ All accounts properly adjusted!</span>'
+            }
+        };
+
+        function initCycleNodes() {
+            const nodes = document.querySelectorAll('.cycle-node');
+            const newNodes = [];
+            
+            nodes.forEach(node => {
+                // Clone to remove any existing event listeners
+                const newNode = node.cloneNode(true);
+                node.parentNode.replaceChild(newNode, node);
+                newNodes.push(newNode);
+                
+                // Add click event
+                newNode.addEventListener('click', function() {
+                    const stepNum = this.getAttribute('data-step');
+                    showCycleDetails(stepNum);
+                    
+                    // Update active state
+                    newNodes.forEach(n => n.classList.remove('active'));
+                    this.classList.add('active');
+                });
+                
+                // Add hover animation
+                newNode.addEventListener('mouseenter', function() {
+                    this.style.transform = 'translateY(-5px) scale(1.02)';
+                });
+                newNode.addEventListener('mouseleave', function() {
+                    this.style.transform = '';
+                });
+            });
+        }
+
+        function showCycleDetails(stepNum) {
+            const data = stepDetails[stepNum];
+            const container = document.getElementById('step-details');
+            
+            if (data && container) {
+                const panelClass = stepNum == 3 ? 'adjust' : (stepNum == 6 ? 'complete' : '');
+                const journalHtml = data.journal ? '<div class="journal-box">' + data.journal + '</div>' : '';
+                
+                container.innerHTML = 
+                    '<div class="details-header">' +
+                    '  <span class="details-icon">' + data.icon + '</span>' +
+                    '  <span id="details-title">' + data.title + '</span>' +
+                    '</div>' +
+                    '<div class="details-content">' +
+                    '  <p>' + data.desc + '</p>' +
+                    journalHtml +
+                    '</div>';
+                
+                container.className = 'step-details-panel ' + panelClass;
+            }
+        }
+
+        // Initialize on DOM ready
+        document.addEventListener('DOMContentLoaded', function() {
+            initCycleNodes();
+            
+            // Set first node as active by default
+            const firstNode = document.querySelector('.cycle-node[data-step="1"]');
+            if (firstNode) {
+                firstNode.classList.add('active');
+            }
+        });
+
+        function setPrepaidDepth(depth) {
+            document.querySelectorAll('.depth-btn').forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+
+            document.querySelectorAll('.depth-content').forEach(content => content.classList.remove('active'));
+            document.getElementById('prepaid-depth-' + depth).classList.add('active');
+        }
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,1209 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>C1: Accounts and Journals | ACCOUNTING ESSENTIALS</title>
+    <link rel="stylesheet" href="../../styles.css">
+    <style>
+        /* T-Account Calculator Styles */
+        .taccount-simulator {
+            background: var(--bg-light);
+            padding: 2rem;
+            border-radius: var(--radius-md);
+            max-width: 600px;
+            margin: 2rem auto;
+        }
+        .taccount-row {
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            gap: 1rem;
+            margin: 1rem 0;
+            align-items: center;
+        }
+        .taccount-box {
+            background: var(--white);
+            border: 2px solid var(--primary);
+            border-radius: var(--radius-sm);
+            padding: 1.5rem;
+            min-height: 200px;
+        }
+        .taccount-header {
+            font-weight: 800;
+            color: var(--primary);
+            margin-bottom: 1rem;
+            text-align: center;
+            border-bottom: 2px solid var(--primary-light);
+        }
+        .taccount-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            min-height: 100px;
+        }
+        .taccount-input {
+            padding: 0.5rem;
+            font-size: 1rem;
+            border: 1px solid var(--primary-light);
+            border-radius: var(--radius-sm);
+            width: 100%;
+        }
+        .taccount-balance {
+            background: var(--primary-light);
+            padding: 0.5rem;
+            border-radius: var(--radius-sm);
+            text-align: center;
+            font-weight: 700;
+            min-height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .debit-side { border-right: 2px solid var(--primary-light); }
+        .credit-side { border-left: 2px solid var(--primary-light); }
+    </style>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-50MTQPVR7D"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-50MTQPVR7D');
+</script>
+
+</head>
+
+<body>
+    <header>
+        <div class="container nav-container">
+            <a href="../../index.html" class="logo">ACCOUNTING<span>ESSENTIALS</span></a>
+            <nav class="nav-links">
+                <a href="../../index.html">Home</a>
+                <a href="../part1.html">Part 1</a>
+                <a href="../../part2/part2.html">Part 2</a>
+                <a href="../../part3/part3.html">Part 3</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container">
+        <div class="breadcrumbs">
+            <a href="../../index.html">Home</a> <span>/</span> <a href="../part1.html">Part 1</a> <span>/</span> <a
+                href="ch02.html">Chapter 2</a> <span>/</span> C1
+        </div>
+
+        <article class="animate-fade-in">
+            <div class="kp-header">
+                <h1 style="border-left: 8px solid var(--primary); padding-left: 1rem; margin: 2rem 0;">Accounts and Journals</h1>
+            </div>
+
+            <!-- Learning Objectives -->
+            <section class="kp-section">
+                <h2>🎯 Learning Objectives</h2>
+                <div class="learning-objectives">
+                    <ul>
+                        <li>Understand the analogy between The Diary (Journal) and The Buckets (Ledger)</li>
+                        <li>Explain the Chart of Accounts (COA) and its role in organizing financial information</li>
+                        <li>Apply the process of recording transactions from source documents to journal entries</li>
+                        <li>Master the posting process that transfers journal entries to ledger accounts</li>
+                        <li>Identify key types of source documents used in accounting</li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- Background & Principles -->
+            <section class="kp-section">
+                <h2>📚 Background & Principles</h2>
+                <p>Accounting relies on two fundamental record-keeping systems that work together systematically.</p>
+
+                <div class="key-concepts-grid">
+                    <div class="concept-card">
+                        <strong>📖 The Journal (The Diary)</strong>
+                        <p>A chronological record of all business transactions. Each entry includes date, accounts affected, amounts, and explanation of the event.</p>
+                        <em>Chronological: Records events in the order they occur</em>
+                    </div>
+
+                    <div class="concept-card">
+                        <strong>💼 The Ledger (The Buckets)</strong>
+                        <p>A collection of all account balances. Each account shows cumulative debits and credits, organized by category. The ledger provides the current balance for each account.</p>
+                        <em>Categorized: Similar transactions are grouped together</em>
+                    </div>
+
+                    <div class="concept-card">
+                        <strong>📜 Source Documents</strong>
+                        <p>Paper evidence that supports accounting entries. Examples: checks, invoices, sales receipts, purchase orders.</p>
+                        <em>Verifiable: Creates an audit trail and supports each entry</em>
+                    </div>
+                </div>
+
+                <div class="professional-tip">
+                    <strong>💡 Key Principle: The Documentation Trail</strong>
+                    <p>Every transaction must be supported by appropriate source documents. This ensures accuracy, prevents fraud, and creates a reliable audit trail for financial review.</p>
+                </div>
+            </section>
+
+            <!-- Key Concepts -->
+            <section class="kp-section">
+                <h2>🔑 Key Concepts</h2>
+                <div class="key-concepts-grid">
+                    <div class="concept-card">
+                        <strong>Chart of Accounts (COA)</strong>
+                        <p>A master list of all account types used by a business. Each account has a unique ID number and name for easy identification.</p>
+                    </div>
+
+                    <div class="concept-card">
+                        <strong>Account Structure</strong>
+                        <p>Assets (100s), Liabilities (200s), Equity (300s), Revenues (400s), Expenses (500s-600s). Numbers indicate account category.</p>
+                    </div>
+
+                    <div class="concept-card">
+                        <strong>Double-Entry Principle</strong>
+                        <p>Every transaction affects at least two accounts with equal debits and credits. This is foundation of accurate accounting.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Visual Flow Diagram -->
+            <section class="kp-section">
+                <h2>🎨 Visual: The Accounting Record-Keeping Flow</h2>
+                <p>Watch how information flows from source documents through the accounting system:</p>
+
+                <style>
+                    /* Compact Horizontal Flow Diagram */
+                    .accounting-flow-compact {
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        gap: 0;
+                        margin: 2rem 0;
+                        flex-wrap: wrap;
+                        padding: 1.5rem;
+                        background: var(--bg-light);
+                        border-radius: var(--radius-md);
+                    }
+                    .flow-box-compact {
+                        padding: 1rem 1.5rem;
+                        border-radius: var(--radius-sm);
+                        text-align: center;
+                        min-width: 160px;
+                        max-width: 200px;
+                        transition: all 0.3s ease;
+                    }
+                    .flow-box-compact:hover {
+                        transform: translateY(-3px) scale(1.02);
+                        box-shadow: var(--shadow-md);
+                    }
+                    .flow-box-compact.source-doc {
+                        background: linear-gradient(135deg, #3498db, #2980b9);
+                        color: white;
+                        border: none;
+                    }
+                    .flow-box-compact.journal-entry {
+                        background: linear-gradient(135deg, #f39c12, #e67e22);
+                        color: white;
+                        border: none;
+                    }
+                    .flow-box-compact.ledger {
+                        background: linear-gradient(135deg, #27ae60, #2ecc71);
+                        color: white;
+                        border: none;
+                    }
+                    .flow-box-compact.financial {
+                        background: linear-gradient(135deg, #9b59b6, #8e44ad);
+                        color: white;
+                        border: none;
+                    }
+                    .flow-box-compact h4 {
+                        margin: 0 0 0.25rem 0;
+                        font-size: 1rem;
+                    }
+                    .flow-box-compact p {
+                        margin: 0;
+                        font-size: 0.8rem;
+                        opacity: 0.9;
+                    }
+                    .flow-box-compact .icon {
+                        font-size: 1.8rem;
+                        margin-bottom: 0.5rem;
+                        display: block;
+                    }
+                    .flow-box-compact .step-num {
+                        display: inline-flex;
+                        align-items: center;
+                        justify-content: center;
+                        width: 22px;
+                        height: 22px;
+                        background: rgba(255,255,255,0.3);
+                        border-radius: 50%;
+                        font-size: 0.75rem;
+                        font-weight: 700;
+                        margin-bottom: 0.35rem;
+                    }
+                    /* Animated arrow */
+                    .flow-arrow-compact {
+                        font-size: 1.5rem;
+                        color: var(--primary);
+                        animation: bounce-right 1.5s ease-in-out infinite;
+                        padding: 0 0.5rem;
+                    }
+                    @keyframes bounce-right {
+                        0%, 100% { transform: translateX(0); }
+                        50% { transform: translateX(5px); }
+                    }
+                    /* Compact legend */
+                    .flow-legend-compact {
+                        display: flex;
+                        justify-content: center;
+                        gap: 1.5rem;
+                        margin-top: 1.5rem;
+                        flex-wrap: wrap;
+                    }
+                    .legend-item-compact {
+                        display: flex;
+                        align-items: center;
+                        gap: 0.4rem;
+                        font-size: 0.8rem;
+                    }
+                    .legend-color-compact {
+                        width: 14px;
+                        height: 14px;
+                        border-radius: 3px;
+                    }
+                    /* Process flow indicator */
+                    .flow-process {
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        gap: 1rem;
+                        margin-top: 1.5rem;
+                        padding: 1rem;
+                        background: var(--white);
+                        border-radius: var(--radius-sm);
+                    }
+                    .process-step {
+                        display: flex;
+                        align-items: center;
+                        gap: 0.5rem;
+                        font-size: 0.85rem;
+                        color: var(--text-muted);
+                    }
+                    .process-step.active {
+                        color: var(--primary);
+                        font-weight: 600;
+                    }
+                    .process-arrow {
+                        color: var(--primary-light);
+                    }
+                </style>
+
+                <div class="accounting-flow-compact">
+                    <!-- Step 1: Source Documents -->
+                    <div class="flow-box-compact source-doc">
+                        <span class="icon">📄</span>
+                        <span class="step-num">1</span>
+                        <h4>Source Documents</h4>
+                        <p>Receipts, Invoices, Checks</p>
+                    </div>
+
+                    <div class="flow-arrow-compact">→</div>
+
+                    <!-- Step 2: Journal -->
+                    <div class="flow-box-compact journal-entry">
+                        <span class="icon">📝</span>
+                        <span class="step-num">2</span>
+                        <h4>General Journal</h4>
+                        <p>Debits & Credits</p>
+                    </div>
+
+                    <div class="flow-arrow-compact">→</div>
+
+                    <!-- Step 3: Ledger -->
+                    <div class="flow-box-compact ledger">
+                        <span class="icon">📊</span>
+                        <span class="step-num">3</span>
+                        <h4>General Ledger</h4>
+                        <p>Running Balances</p>
+                    </div>
+
+                    <div class="flow-arrow-compact">→</div>
+
+                    <!-- Step 4: Financial Statements -->
+                    <div class="flow-box-compact financial">
+                        <span class="icon">📈</span>
+                        <span class="step-num">4</span>
+                        <h4>Financial Statements</h4>
+                        <p>Reports</p>
+                    </div>
+                </div>
+
+                <!-- Compact Legend -->
+                <div class="flow-legend-compact">
+                    <div class="legend-item-compact">
+                        <div class="legend-color-compact" style="background: linear-gradient(135deg, #3498db, #2980b9);"></div>
+                        <span>1. Source</span>
+                    </div>
+                    <div class="legend-item-compact">
+                        <div class="legend-color-compact" style="background: linear-gradient(135deg, #f39c12, #e67e22);"></div>
+                        <span>2. Journal</span>
+                    </div>
+                    <div class="legend-item-compact">
+                        <div class="legend-color-compact" style="background: linear-gradient(135deg, #27ae60, #2ecc71);"></div>
+                        <span>3. Ledger</span>
+                    </div>
+                    <div class="legend-item-compact">
+                        <div class="legend-color-compact" style="background: linear-gradient(135deg, #9b59b6, #8e44ad);"></div>
+                        <span>4. Statements</span>
+                    </div>
+                </div>
+
+                <!-- Process Description -->
+                <div class="flow-process">
+                    <div class="process-step active">📄 Identify</div>
+                    <span class="process-arrow">→</span>
+                    <div class="process-step">📝 Record</div>
+                    <span class="process-arrow">→</span>
+                    <div class="process-step">📊 Organize</div>
+                    <span class="process-arrow">→</span>
+                    <div class="process-step">📈 Report</div>
+                </div>
+
+                <div class="professional-tip" style="margin-top: 1.5rem;">
+                    <strong>💡 Key Insight:</strong> The accounting cycle: <strong>Source → Journal → Ledger → Statements</strong>. Each step builds on the previous one.
+                </div>
+            </section>
+
+            <!-- Interactive Exercise -->
+            <section class="kp-section">
+                <h3>🎯 Interactive Exercise: Matching Source Documents to Accounts</h3>
+                <p>Match each source document with the accounts it would affect:</p>
+
+                <div class="quiz-container" data-explanation="Source documents provide evidence for transactions. Invoices record purchases (Supplies A/P), sales receipts record revenue (Cash + Revenue), checks record payments (Cash), and purchase orders track assets ordered (Equipment)." data-hints="Think about what the document represents - money coming in, going out, or something being acquired.">
+                    <div class="input-group">
+                        <p><strong>Document 1:</strong> A sales receipt for $500 cash received from customer</p>
+                        <label><input type="radio" name="doc1" value="a" data-correct="true"> Debit Cash $500; Credit Revenue $500</label><br><br>
+                        <label><input type="radio" name="doc1" value="b" data-correct="false"> Debit Revenue $500; Credit Cash $500</label><br><br>
+                        <label><input type="radio" name="doc1" value="c" data-correct="false"> Debit Accounts Receivable $500; Credit Revenue $500</label>
+                    </div>
+
+                    <div class="input-group">
+                        <p><strong>Document 2:</strong> An invoice for office supplies costing $200, purchased on credit</p>
+                        <label><input type="radio" name="doc2" value="a" data-correct="false"> Debit Cash $200; Credit Supplies $200</label><br><br>
+                        <label><input type="radio" name="doc2" value="b" data-correct="true"> Debit Office Supplies $200; Credit Accounts Payable $200</label><br><br>
+                        <label><input type="radio" name="doc2" value="c" data-correct="false"> Debit Supplies Expense $200; Credit Cash $200</label>
+                    </div>
+
+                    <div class="input-group">
+                        <p><strong>Document 3:</strong> A check written to pay $1,000 rent for the month</p>
+                        <label><input type="radio" name="doc3" value="a" data-correct="false"> Debit Rent Revenue $1,000; Credit Cash $1,000</label><br><br>
+                        <label><input type="radio" name="doc3" value="b" data-correct="false"> Debit Cash $1,000; Credit Rent Expense $1,000</label><br><br>
+                        <label><input type="radio" name="doc3" value="c" data-correct="true"> Debit Rent Expense $1,000; Credit Cash $1,000</label>
+                    </div>
+
+                    <div class="input-group">
+                        <p><strong>Document 4:</strong> Purchase order for $5,000 computer equipment</p>
+                        <label><input type="radio" name="doc4" value="a" data-correct="true"> No entry - purchase order is not a transaction</label><br><br>
+                        <label><input type="radio" name="doc4" value="b" data-correct="false"> Debit Equipment $5,000; Credit Cash $5,000</label><br><br>
+                        <label><input type="radio" name="doc4" value="c" data-correct="false"> Debit Equipment $5,000; Credit Accounts Payable $5,000</label>
+                    </div>
+
+                    <button class="btn btn-primary quiz-submit">Check Document Matches</button>
+                    <div class="feedback"></div>
+                    <button class="quiz-retry">Try Again</button>
+                </div>
+            </section>
+
+            <!-- Source Document Comparison -->
+            <section class="kp-section">
+                <h2>📋 Common Source Documents</h2>
+                <p>Different types of transactions are supported by different source documents:</p>
+
+                <div class="table-scroll">
+                    <table class="comparison-table">
+                        <thead>
+                            <tr>
+                                <th>Document Type</th>
+                                <th>Example</th>
+                                <th>Accounts Affected</th>
+                                <th>Direction</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>Sales Invoice</strong></td>
+                                <td>Bill sent to customer for goods/services</td>
+                                <td>Accounts Receivable, Revenue</td>
+                                <td>Asset ↑, Equity ↑</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Purchase Invoice</strong></td>
+                                <td>Bill received from supplier</td>
+                                <td>Supplies/Equipment, Accounts Payable</td>
+                                <td>Asset ↑, Liability ↑</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Check</strong></td>
+                                <td>Payment to creditor/employee</td>
+                                <td>Cash, Liability/Expense</td>
+                                <td>Asset ↓, Liability ↓ or Equity ↓</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Receipt</strong></td>
+                                <td>Cash received from customer</td>
+                                <td>Cash, Accounts Receivable</td>
+                                <td>Asset ↑, Asset ↓</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Purchase Order</strong></td>
+                                <td>Order placed for goods</td>
+                                <td>No entry (promise to buy)</td>
+                                <td>Until goods received</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="professional-tip" style="margin-top: 2rem;">
+                    <strong>💡 Professional Insight:</strong> Not every paper document results in an accounting entry! Purchase orders represent an INTENT to buy, not an actual transaction. Only record when goods/services are actually received or performed.
+                </div>
+            </section>
+
+            <!-- Deep Dive -->
+            <section class="kp-section">
+                <h2>🔍 Deep Dive</h2>
+                <p>Explore accounting record-keeping at different levels of depth:</p>
+
+                <div class="depth-toggle">
+                    <button class="depth-btn active" onclick="setDepth('A')">Depth A: Foundational</button>
+                    <button class="depth-btn" onclick="setDepth('B')">Depth B: Standard</button>
+                    <button class="depth-btn" onclick="setDepth('C')">Depth C: Advanced</button>
+                </div>
+
+                <!-- Depth A -->
+                <div id="depth-A" class="depth-content active">
+                    <h3>🟢 Foundational Level</h3>
+                    <p>Basic understanding of how to record transactions using accounts and journals.</p>
+                    <div class="worked-example">
+                        <h4>Example: Simple Cash Transaction</h4>
+                        <p><strong>Scenario:</strong> You receive $1,000 cash from a customer for services.</p>
+                        <div class="example-step">
+                            <strong>Step 1: Identify the event</strong>
+                            <p>Cash increased, Services revenue earned</p>
+                        </div>
+                        <div class="example-step">
+                            <strong>Step 2: Determine accounts</strong>
+                            <p>Debit Cash, Credit Services Revenue</p>
+                        </div>
+                        <div class="example-step">
+                            <strong>Step 3: Record in journal</strong>
+                            <p>Debit Cash $1,000 / Credit Services Revenue $1,000</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Depth B -->
+                <div id="depth-B" class="depth-content">
+                    <h3>🟡 Standard Level</h3>
+                    <p>Complete journal entries with proper formatting and posting process.</p>
+
+                    <div class="worked-example">
+                        <h4>Example: Purchase on Credit</h4>
+                        <p><strong>Scenario:</strong> Buy equipment for $5,000 on credit from a supplier.</p>
+                        <div class="example-step">
+                            <strong>Step 1: Identify affected accounts</strong>
+                            <p>Equipment (Asset) increases, Accounts Payable (Liability) increases</p>
+                        </div>
+                        <div class="example-step">
+                            <strong>Step 2: Apply debit/credit rules</strong>
+                            <p>Asset accounts increase with debit, liability accounts increase with credit</p>
+                        </div>
+                        <div class="example-step">
+                            <strong>Step 3: Verify balance</strong>
+                            <p>Assets $5,000 = Liabilities $5,000 + Equity $0 ✓</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Depth C -->
+                <div id="depth-C" class="depth-content">
+                    <h3>🔴 Advanced Level</h3>
+                    <p>Complex transactions requiring multiple accounts and careful analysis of timing.</p>
+
+                    <div class="worked-example">
+                        <h4>Example: Compound Transaction with Multiple Steps</h4>
+                        <p><strong>Scenario:</strong> A company provides consulting services for $3,000. Customer pays $500 immediately and agrees to pay remaining $2,500 in 60 days.</p>
+
+                        <div class="example-step">
+                            <strong>Step 1: Analyze the transaction components</strong>
+                            <p>Total revenue = $3,000 (service fully performed under accrual accounting)</p>
+                            <p>Cash received = $500 (immediate payment)</p>
+                            <p>Accounts Receivable = $2,500 (amount owed by customer)</p>
+                        </div>
+
+                        <div class="example-step">
+                            <strong>Step 2: Determine debit and credit accounts</strong>
+                            <p>Cash (Asset) increases by $500 → Debit</p>
+                            <p>Accounts Receivable (Asset) increases by $2,500 → Debit</p>
+                            <p>Services Revenue (Equity) increases by $3,000 → Credit</p>
+                        </div>
+
+                        <div class="example-step">
+                            <strong>Step 3: Verify double-entry principle</strong>
+                            <p>Total Debits: $500 (Cash) + $2,500 (A/R) = $3,000</p>
+                            <p>Total Credits: $3,000 (Revenue)</p>
+                            <p>✓ Entry is balanced: Debits = Credits</p>
+                        </div>
+                    </div>
+
+                    <div class="worked-example">
+                        <h4>Advanced Example: Multi-Account Purchase</h4>
+                        <p><strong>Scenario:</strong> Purchase equipment for $15,000: pay $5,000 cash now and finance remaining $10,000 with a note payable.</p>
+
+                        <div class="example-step">
+                            <strong>Step 1: Identify affected accounts</strong>
+                            <p>Equipment (Asset) increases by $15,000</p>
+                            <p>Cash (Asset) decreases by $5,000</p>
+                            <p>Notes Payable (Liability) increases by $10,000</p>
+                        </div>
+
+                        <div class="example-step">
+                            <strong>Step 2: Apply debit/credit rules</strong>
+                            <p>Debit Equipment $15,000 (Asset increase)</p>
+                            <p>Credit Cash $5,000 (Asset decrease)</p>
+                            <p>Credit Notes Payable $10,000 (Liability increase)</p>
+                        </div>
+
+                        <div class="example-step">
+                            <strong>Step 3: Verify accounting equation</strong>
+                            <p>Assets: +$15,000 (Equipment) - $5,000 (Cash) = +$10,000</p>
+                            <p>Liabilities: +$10,000 (Notes Payable)</p>
+                            <p>Equity: No change</p>
+                            <p>✓ Equation balances: Assets ↑ = Liabilities ↑</p>
+                        </div>
+                    </div>
+                </div>
+                        <div class="example-step">
+                            <strong>Step 2: Record partial receipt</strong>
+                            <p>Debit Cash $1,000 / Credit Unearned Revenue $1,000</p>
+                        </div>
+                        <div class="example-step">
+                            <strong>Step 3: Record final payment</strong>
+                            <p>Debit Unearned Revenue $1,000 / Credit Accounts Receivable $1,000 (reduce liability)</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Interactive T-Account Simulator -->
+            <section class="kp-section">
+                <h2>🎮 Interactive T-Account Simulator</h2>
+                <p>Practice recording transactions by entering debits and credits. Watch the balance update in real-time:</p>
+
+                <style>
+                    /* T-Account Simulator Styles */
+                    .taccount-simulator {
+                        background: var(--bg-light);
+                        padding: 2rem;
+                        border-radius: var(--radius-md);
+                        max-width: 900px;
+                        margin: 2rem auto;
+                    }
+                    .taccount-row {
+                        display: grid;
+                        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+                        gap: 2rem;
+                        margin-bottom: 2rem;
+                    }
+                    .taccount-wrapper {
+                        background: var(--white);
+                        border-radius: var(--radius-md);
+                        overflow: hidden;
+                        box-shadow: var(--shadow-md);
+                        transition: all 0.3s ease;
+                    }
+                    .taccount-wrapper:hover {
+                        box-shadow: var(--shadow-lg);
+                        transform: translateY(-3px);
+                    }
+                    .taccount-header {
+                        padding: 1rem 1.5rem;
+                        font-weight: 700;
+                        text-align: center;
+                        color: white;
+                        font-size: 1.1rem;
+                    }
+                    .taccount-header.asset {
+                        background: linear-gradient(135deg, var(--primary), var(--primary-light));
+                    }
+                    .taccount-header.liability {
+                        background: linear-gradient(135deg, var(--error), #c0392b);
+                    }
+                    .taccount-header.equity {
+                        background: linear-gradient(135deg, var(--success), #27ae60);
+                    }
+                    .taccount-header.expense {
+                        background: linear-gradient(135deg, var(--warning), #f39c12);
+                    }
+                    .taccount-grid {
+                        display: grid;
+                        grid-template-columns: 1fr 1fr;
+                        min-height: 100px;
+                    }
+                    .taccount-side {
+                        padding: 1rem;
+                        position: relative;
+                    }
+                    .taccount-side.debit {
+                        background: linear-gradient(to bottom, rgba(39, 174, 96, 0.1), rgba(39, 174, 96, 0.05));
+                        border-right: 2px solid var(--success-light);
+                    }
+                    .taccount-side.credit {
+                        background: linear-gradient(to bottom, rgba(231, 76, 60, 0.1), rgba(231, 76, 60, 0.05));
+                        border-left: 2px solid var(--error-light);
+                    }
+                    .taccount-label {
+                        font-size: 0.75rem;
+                        font-weight: 700;
+                        text-transform: uppercase;
+                        letter-spacing: 1px;
+                        margin-bottom: 0.5rem;
+                        text-align: center;
+                    }
+                    .taccount-label.debit { color: var(--success); }
+                    .taccount-label.credit { color: var(--error); }
+                    .taccount-input {
+                        width: 100%;
+                        padding: 0.75rem;
+                        border: 2px solid #ddd;
+                        border-radius: var(--radius-sm);
+                        font-size: 1rem;
+                        text-align: center;
+                        transition: all 0.3s ease;
+                        background: white;
+                    }
+                    .taccount-input:focus {
+                        outline: none;
+                        border-color: var(--primary);
+                        box-shadow: 0 0 0 3px rgba(26, 35, 126, 0.1);
+                    }
+                    .taccount-balance {
+                        padding: 1rem;
+                        background: var(--bg-light);
+                        text-align: center;
+                        font-weight: 700;
+                        border-top: 1px solid #eee;
+                    }
+                    .taccount-balance .amount {
+                        font-size: 1.3rem;
+                        color: var(--primary);
+                    }
+                    /* Balance check card */
+                    .balance-check {
+                        background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+                        color: white;
+                        padding: 2rem;
+                        border-radius: var(--radius-md);
+                        text-align: center;
+                        margin-top: 2rem;
+                    }
+                    .balance-check h3 {
+                        margin: 0 0 1.5rem 0;
+                        font-size: 1.3rem;
+                    }
+                    .balance-row {
+                        display: grid;
+                        grid-template-columns: repeat(3, 1fr);
+                        gap: 1.5rem;
+                        margin-bottom: 1.5rem;
+                    }
+                    .balance-item {
+                        background: rgba(255,255,255,0.15);
+                        padding: 1rem;
+                        border-radius: var(--radius-sm);
+                    }
+                    .balance-item .label {
+                        font-size: 0.85rem;
+                        opacity: 0.9;
+                        margin-bottom: 0.5rem;
+                    }
+                    .balance-item .value {
+                        font-size: 1.5rem;
+                        font-weight: 800;
+                    }
+                    .balance-status {
+                        padding: 1rem;
+                        border-radius: var(--radius-sm);
+                        font-weight: 700;
+                        font-size: 1.1rem;
+                    }
+                    .balance-status.balanced {
+                        background: rgba(39, 174, 96, 0.2);
+                        color: #2ecc71;
+                    }
+                    .balance-status.unbalanced {
+                        background: rgba(231, 76, 60, 0.2);
+                        color: #e74c3c;
+                    }
+                    /* Buttons */
+                    .simulator-buttons {
+                        display: flex;
+                        justify-content: center;
+                        gap: 1rem;
+                        margin-top: 1.5rem;
+                    }
+                    .simulator-buttons .btn {
+                        min-width: 150px;
+                    }
+                </style>
+
+                <div class="taccount-simulator">
+                    <!-- First row of T-accounts -->
+                    <div class="taccount-row">
+                        <!-- Cash T-Account -->
+                        <div class="taccount-wrapper">
+                            <div class="taccount-header asset">💵 Cash (Asset 101)</div>
+                            <div class="taccount-grid">
+                                <div class="taccount-side debit">
+                                    <div class="taccount-label debit">Debit ↑</div>
+                                    <input type="number" class="taccount-input" id="cash-debit" placeholder="$0" oninput="updateBalance()">
+                                </div>
+                                <div class="taccount-side credit">
+                                    <div class="taccount-label credit">Credit ↑</div>
+                                    <input type="number" class="taccount-input" id="cash-credit" placeholder="$0" oninput="updateBalance()">
+                                </div>
+                            </div>
+                            <div class="taccount-balance">
+                                Balance: <span class="amount" id="cash-balance">$0.00</span>
+                            </div>
+                        </div>
+
+                        <!-- Revenue T-Account -->
+                        <div class="taccount-wrapper">
+                            <div class="taccount-header equity">📈 Revenue (400)</div>
+                            <div class="taccount-grid">
+                                <div class="taccount-side debit">
+                                    <div class="taccount-label debit">Debit ↑</div>
+                                    <input type="number" class="taccount-input" id="revenue-debit" placeholder="$0" oninput="updateBalance()">
+                                </div>
+                                <div class="taccount-side credit">
+                                    <div class="taccount-label credit">Credit ↑</div>
+                                    <input type="number" class="taccount-input" id="revenue-credit" placeholder="$0" oninput="updateBalance()">
+                                </div>
+                            </div>
+                            <div class="taccount-balance">
+                                Balance: <span class="amount" id="revenue-balance">$0.00</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Second row of T-accounts -->
+                    <div class="taccount-row">
+                        <!-- Supplies T-Account -->
+                        <div class="taccount-wrapper">
+                            <div class="taccount-header asset">📦 Supplies (Asset 106)</div>
+                            <div class="taccount-grid">
+                                <div class="taccount-side debit">
+                                    <div class="taccount-label debit">Debit ↑</div>
+                                    <input type="number" class="taccount-input" id="supplies-debit" placeholder="$0" oninput="updateBalance()">
+                                </div>
+                                <div class="taccount-side credit">
+                                    <div class="taccount-label credit">Credit ↑</div>
+                                    <input type="number" class="taccount-input" id="supplies-credit" placeholder="$0" oninput="updateBalance()">
+                                </div>
+                            </div>
+                            <div class="taccount-balance">
+                                Balance: <span class="amount" id="supplies-balance">$0.00</span>
+                            </div>
+                        </div>
+
+                        <!-- Accounts Payable T-Account -->
+                        <div class="taccount-wrapper">
+                            <div class="taccount-header liability">📋 Accounts Payable (201)</div>
+                            <div class="taccount-grid">
+                                <div class="taccount-side debit">
+                                    <div class="taccount-label debit">Debit ↑</div>
+                                    <input type="number" class="taccount-input" id="ap-debit" placeholder="$0" oninput="updateBalance()">
+                                </div>
+                                <div class="taccount-side credit">
+                                    <div class="taccount-label credit">Credit ↑</div>
+                                    <input type="number" class="taccount-input" id="ap-credit" placeholder="$0" oninput="updateBalance()">
+                                </div>
+                            </div>
+                            <div class="taccount-balance">
+                                Balance: <span class="amount" id="ap-balance">$0.00</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Balance Check Section -->
+                    <div class="balance-check">
+                        <h3>⚖️ Balance Verification</h3>
+                        <div class="balance-row">
+                            <div class="balance-item">
+                                <div class="label">Total Debits</div>
+                                <div class="value" id="total-debits">$0.00</div>
+                            </div>
+                            <div class="balance-item">
+                                <div class="label">Total Credits</div>
+                                <div class="value" id="total-credits">$0.00</div>
+                            </div>
+                            <div class="balance-item">
+                                <div class="label">Difference</div>
+                                <div class="value" id="balance-difference">$0.00</div>
+                            </div>
+                        </div>
+                        <div id="balance-status" class="balance-status balanced">
+                            Enter amounts to check balance
+                        </div>
+                    </div>
+
+                    <!-- Action Buttons -->
+                    <div class="simulator-buttons">
+                        <button class="btn btn-primary" onclick="resetSimulator()">🔄 Clear All</button>
+                        <button class="btn" style="background: white; color: var(--primary);" onclick="checkBalance()">✓ Verify Balance</button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Worked Examples -->
+            <section class="kp-section">
+                <h2>📝 Worked Examples</h2>
+                <p>Practice step-by-step transaction recording:</p>
+
+                <div class="worked-example">
+                    <h4>Example 1: Service Revenue Recorded</h4>
+                    <p><strong>Scenario:</strong> FastForward provides consulting services for $2,500 and receives cash immediately.</p>
+
+                    <div class="example-step">
+                        <strong>Step 1: Identify the transaction</strong>
+                        <p>Cash is received (asset increases), Revenue is earned (equity increases)</p>
+                    </div>
+
+                    <div class="example-step">
+                        <strong>Step 2: Determine accounts affected</strong>
+                        <p>Cash (Asset) - increases with debit</p>
+                        <p>Consulting Revenue (Equity) - increases with credit</p>
+                    </div>
+
+                    <div class="example-step">
+                        <strong>Step 3: Record journal entry</strong>
+                        <div style="background: var(--bg-light); padding: 1rem; border-radius: var(--radius-sm); margin-top: 0.5rem;">
+                            <p><strong>General Journal</strong></p>
+                            <p>Dr. Cash $2,500 | Cr. Consulting Revenue $2,500</p>
+                            <p style="font-size: 0.9rem; color: var(--text-muted);">"To record consulting services provided for cash"</p>
+                        </div>
+                    </div>
+
+                    <div class="professional-tip">
+                        <strong>✅ Verification:</strong> Assets increased by $2,500, Equity increased by $2,500. The accounting equation remains balanced.
+                    </div>
+                </div>
+
+                <div class="worked-example">
+                    <h4>Example 2: Purchase on Credit</h4>
+                    <p><strong>Scenario:</strong> FastForward purchases office equipment for $3,200 on credit from Office Supplies Inc.</p>
+
+                    <div class="example-step">
+                        <strong>Step 1: Identify the transaction</strong>
+                        <p>Equipment is acquired (asset increases), Amount is owed (liability increases)</p>
+                    </div>
+
+                    <div class="example-step">
+                        <strong>Step 2: Determine accounts affected</strong>
+                        <p>Equipment (Asset) - increases with debit</p>
+                        <p>Accounts Payable (Liability) - increases with credit</p>
+                    </div>
+
+                    <div class="example-step">
+                        <strong>Step 3: Record journal entry</strong>
+                        <div style="background: var(--bg-light); padding: 1rem; border-radius: var(--radius-sm); margin-top: 0.5rem;">
+                            <p><strong>General Journal</strong></p>
+                            <p>Dr. Equipment $3,200 | Cr. Accounts Payable $3,200</p>
+                            <p style="font-size: 0.9rem; color: var(--text-muted);">"To record equipment purchased on credit"</p>
+                        </div>
+                    </div>
+
+                    <div class="professional-tip">
+                        <strong>✅ Verification:</strong> Assets increased by $3,200, Liabilities increased by $3,200. The accounting equation remains balanced.
+                    </div>
+                </div>
+
+                <div class="worked-example">
+                    <h4>Example 3: Payment of Expense</h4>
+                    <p><strong>Scenario:</strong> FastForward pays $800 rent for the current month.</p>
+
+                    <div class="example-step">
+                        <strong>Step 1: Identify the transaction</strong>
+                        <p>Cash is paid (asset decreases), Rent expense is incurred (equity decreases)</p>
+                    </div>
+
+                    <div class="example-step">
+                        <strong>Step 2: Determine accounts affected</strong>
+                        <p>Rent Expense (Equity) - increases with debit (reduces equity)</p>
+                        <p>Cash (Asset) - decreases with credit</p>
+                    </div>
+
+                    <div class="example-step">
+                        <strong>Step 3: Record journal entry</strong>
+                        <div style="background: var(--bg-light); padding: 1rem; border-radius: var(--radius-sm); margin-top: 0.5rem;">
+                            <p><strong>General Journal</strong></p>
+                            <p>Dr. Rent Expense $800 | Cr. Cash $800</p>
+                            <p style="font-size: 0.9rem; color: var(--text-muted);">"To record rent payment for current month"</p>
+                        </div>
+                    </div>
+
+                    <div class="professional-tip">
+                        <strong>✅ Verification:</strong> Assets decreased by $800, Equity decreased by $800 (through expense). The accounting equation remains balanced.
+                    </div>
+                </div>
+            </section>
+
+            <!-- Common Misconceptions -->
+            <section class="kp-section">
+                <h2>🚫 Common Misconceptions & Professional Tips</h2>
+
+                <div class="misconception-alert">
+                    <strong>❌ Misconception 1:</strong> "Debits always mean adding value, credits always mean subtracting."
+                    <br><br>
+                    <strong>✅ Reality:</strong> The direction of debit or credit depends on the account type. For assets and expenses, debits increase them. For liabilities, equity, and revenues, credits increase them.
+                </div>
+
+                <div class="misconception-alert">
+                    <strong>❌ Misconception 2:</strong> "You can have multiple debits or multiple credits for a single transaction."
+                    <br><br>
+                    <strong>✅ Reality:</strong> In a standard journal entry, you must have at least one debit AND at least one credit. The total debits must equal total credits, but the individual count can vary.
+                </div>
+
+                <div class="misconception-alert">
+                    <strong>❌ Misconception 3:</strong> "The ledger is just a backup of the journal."
+                    <br><br>
+                    <strong>✅ Reality:</strong> The ledger is essential for calculating balances and preparing financial statements. It provides organized, summarized data that the journal alone cannot efficiently deliver.
+                </div>
+
+                <div class="professional-tip">
+                    <strong>💡 Professional Tip #1:</strong> Always identify which accounts are affected BEFORE determining debit or credit. This prevents errors in account classification.
+                </div>
+
+                <div class="professional-tip">
+                    <strong>💡 Professional Tip #2:</strong> Use the accounting equation as your guide. Ask: "Does this transaction increase or decrease assets? What about liabilities or equity?" This ensures your entry will maintain the balance.
+                </div>
+
+                <div class="professional-tip">
+                    <strong>💡 Professional Tip #3:</strong> Maintain the double-entry principle religiously. If debits don't equal credits, investigate immediately. The imbalance indicates an error that must be corrected.
+                </div>
+            </section>
+
+            <!-- Memory Aids -->
+            <section class="kp-section">
+                <h2>🧠 Memory Aids & Quick Reference</h2>
+
+                <div class="memory-aid-card">
+                    <strong>⚡ Quick Recall: The Recording Process</strong>
+                    <p>1. Source Document → 2. Identify Transaction → 3. Record in Journal → 4. Post to Ledger</p>
+                </div>
+
+                <div class="key-concepts-grid">
+                    <div class="concept-card">
+                        <strong>📖 The Journal</strong>
+                        <p>Chronological record of all transactions with dates and explanations.</p>
+                    </div>
+
+                    <div class="concept-card">
+                        <strong>💼 The Ledger</strong>
+                        <p>Categorized collection of T-accounts showing cumulative balances.</p>
+                    </div>
+
+                    <div class="concept-card">
+                        <strong>📜 Source Documents</strong>
+                        <p>Paper evidence supporting each accounting entry and transaction.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Further Reading -->
+            <section class="kp-section">
+                <h3>📖 Further Reading</h3>
+                <div class="key-concepts-grid">
+                    <div class="concept-card">
+                        <strong>The Accounting Cycle</strong>
+                        <p>The complete process of identifying, recording, and reporting business transactions from source documents through financial statements.</p>
+                    </div>
+                    <div class="concept-card">
+                        <strong>Special Journals</strong>
+                        <p>Subsidiary journals for high-volume transaction types like sales, purchases, cash receipts, and cash payments.</p>
+                    </div>
+                    <div class="concept-card">
+                        <strong>Subsidiary Ledgers</strong>
+                        <p>Detailed ledgers supporting control accounts (e.g., Accounts Receivable subsidiary showing each customer's balance).</p>
+                    </div>
+                    <div class="concept-card">
+                        <strong>Trial Balance</strong>
+                        <p>A report listing all account balances to verify that total debits equal total credits before preparing financial statements.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Glossary -->
+            <section class="kp-section">
+                <h2>📖 Glossary</h2>
+                <div class="key-concepts-grid">
+                    <div class="concept-card">
+                        <strong>Accounts</strong>
+                        <p>Economic resources controlled by a business (assets) or claims on those resources (liabilities, equity).</p>
+                    </div>
+
+                    <div class="concept-card">
+                        <strong>Chart of Accounts (COA)</strong>
+                        <p>A systematic list of all account types used by a business, each with a unique ID number for organization and reference.</p>
+                    </div>
+
+                    <div class="concept-card">
+                        <strong>General Journal</strong>
+                        <p>The initial book of entry where all transactions are recorded chronologically before being posted to the ledger.</p>
+                    </div>
+
+                    <div class="concept-card">
+                        <strong>Ledger</strong>
+                        <p>A book or system that contains all the individual T-accounts, showing the running balance for each account as debits and credits are posted.</p>
+                    </div>
+
+                    <div class="concept-card">
+                        <strong>Posting</strong>
+                        <p>The process of transferring transaction data from the journal to the appropriate ledger accounts, updating account balances.</p>
+                    </div>
+
+                    <div class="concept-card">
+                        <strong>Double-Entry Accounting</strong>
+                        <p>An accounting system based on the principle that every transaction has equal debits and credits, ensuring the accounting equation always balances.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Final Knowledge Check -->
+            <section class="interactive-section">
+                <h2>🎯 Final Knowledge Check</h2>
+                <p>Test your understanding of Accounts and Journals:</p>
+
+                <div class="quiz-container" data-success-text="Excellent! You've mastered the fundamentals of accounting record-keeping." data-explanation="For assets and expenses, debits increase them. For liabilities, equity, and revenues, credits increase them. Total debits must equal total credits.">
+                    <div class="input-group">
+                        <p><strong>Question 1:</strong> You receive $5,000 cash from a customer for services. Which accounts are affected?</p>
+                        <label><input type="radio" name="q1" value="correct1" data-correct="true"> Debit Cash $5,000; Credit Services Revenue $5,000</label><br>
+                        <label><input type="radio" name="q1" value="incorrect1" data-correct="false"> Debit Services Revenue $5,000; Credit Cash $5,000</label><br>
+                        <label><input type="radio" name="q1" value="incorrect2" data-correct="false"> Debit Cash $5,000; Credit Accounts Receivable $5,000</label>
+                    </div>
+
+                    <div class="input-group">
+                        <p><strong>Question 2:</strong> You buy equipment for $3,000 on credit from a supplier. What is the journal entry?</p>
+                        <label><input type="radio" name="q2" value="correct2" data-correct="true"> Debit Equipment $3,000; Credit Accounts Payable $3,000</label><br>
+                        <label><input type="radio" name="q2" value="incorrect1" data-correct="false"> Debit Equipment $3,000; Credit Cash $3,000</label><br>
+                        <label><input type="radio" name="q2" value="incorrect2" data-correct="false"> Debit Cash $3,000; Credit Cash Discount $3,000</label>
+                    </div>
+
+                    <div class="input-group">
+                        <p><strong>Question 3:</strong> What is the purpose of the ledger?</p>
+                        <label><input type="radio" name="q3" value="correct" data-correct="true"> To track cumulative balances of all accounts</label><br>
+                        <label><input type="radio" name="q3" value="incorrect1" data-correct="false"> To record transactions chronologically</label><br>
+                        <label><input type="radio" name="q3" value="incorrect2" data-correct="false"> To verify the accuracy of financial records</label>
+                    </div>
+
+                    <button class="btn btn-primary quiz-submit">Submit Answers</button>
+                    <div class="feedback"></div>
+                    <button class="quiz-retry">Try Again</button>
+                </div>
+            </section>
+
+            <!-- Navigation -->
+            <nav class="kp-navigation" style="display: flex; justify-content: space-between; margin-top: 4rem; padding-bottom: 2rem;">
+                <a href="ch02.html" class="btn" style="background: #eee;">← Chapter 2 Hub</a>
+                <a href="ch02_A1.html" class="btn btn-primary">Next: Debits & Credits →</a>
+            </nav>
+        </article>
+    </main>
+
+    <footer style="margin-top: 5rem; padding: 2rem 0; border-top: 1px solid #ddd; text-align: center; color: #888;">
+        <p>Accounting Essentials | Chapter 2 | Concept 1</p>
+    </footer>
+
+    <script src="../../components-enhanced.js"></script>
+    <script>
+        function setDepth(depth) {
+            document.querySelectorAll('.depth-btn').forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+
+            document.querySelectorAll('.depth-content').forEach(content => content.classList.remove('active'));
+            document.getElementById(`depth-${depth}`).classList.add('active');
+        }
+
+        function updateBalance() {
+            // Get all inputs by their new IDs
+            const cashDebit = parseFloat(document.getElementById('cash-debit').value) || 0;
+            const cashCredit = parseFloat(document.getElementById('cash-credit').value) || 0;
+            const revenueDebit = parseFloat(document.getElementById('revenue-debit').value) || 0;
+            const revenueCredit = parseFloat(document.getElementById('revenue-credit').value) || 0;
+            const suppliesDebit = parseFloat(document.getElementById('supplies-debit').value) || 0;
+            const suppliesCredit = parseFloat(document.getElementById('supplies-credit').value) || 0;
+            const apDebit = parseFloat(document.getElementById('ap-debit').value) || 0;
+            const apCredit = parseFloat(document.getElementById('ap-credit').value) || 0;
+
+            // Calculate balances for each account
+            const cashBalance = cashDebit - cashCredit;
+            const revenueBalance = revenueCredit - revenueDebit;
+            const suppliesBalance = suppliesDebit - suppliesCredit;
+            const apBalance = apCredit - apDebit;
+
+            // Update individual account balances
+            document.getElementById('cash-balance').textContent = '$' + Math.abs(cashBalance).toFixed(2);
+            document.getElementById('revenue-balance').textContent = '$' + Math.abs(revenueBalance).toFixed(2);
+            document.getElementById('supplies-balance').textContent = '$' + Math.abs(suppliesBalance).toFixed(2);
+            document.getElementById('ap-balance').textContent = '$' + Math.abs(apBalance).toFixed(2);
+
+            // Calculate total debits and credits
+            const totalDebits = cashDebit + revenueDebit + suppliesDebit + apDebit;
+            const totalCredits = cashCredit + revenueCredit + suppliesCredit + apCredit;
+            const difference = totalDebits - totalCredits;
+
+            // Update summary
+            document.getElementById('total-debits').textContent = '$' + totalDebits.toFixed(2);
+            document.getElementById('total-credits').textContent = '$' + totalCredits.toFixed(2);
+            document.getElementById('balance-difference').textContent = '$' + Math.abs(difference).toFixed(2);
+
+            // Update balance status
+            const status = document.getElementById('balance-status');
+            if (Math.abs(difference) < 0.01 && (totalDebits > 0 || totalCredits > 0)) {
+                status.textContent = '✓ BALANCED - Debits equal Credits!';
+                status.className = 'balance-status balanced';
+            } else if (totalDebits === 0 && totalCredits === 0) {
+                status.textContent = 'Enter amounts to check balance';
+                status.className = 'balance-status balanced';
+            } else {
+                status.textContent = '✗ UNBALANCED - Debits (' + totalDebits.toFixed(2) + ') ≠ Credits (' + totalCredits.toFixed(2) + ')';
+                status.className = 'balance-status unbalanced';
+            }
+        }
+
+        function resetSimulator() {
+            const inputs = ['cash-debit', 'cash-credit', 'revenue-debit', 'revenue-credit', 
+                           'supplies-debit', 'supplies-credit', 'ap-debit', 'ap-credit'];
+            inputs.forEach(id => {
+                document.getElementById(id).value = '';
+            });
+            updateBalance();
+        }
+
+        function checkBalance() {
+            const totalDebits = parseFloat(document.getElementById('total-debits').textContent.replace('$', '')) || 0;
+            const totalCredits = parseFloat(document.getElementById('total-credits').textContent.replace('$', '')) || 0;
+            const status = document.getElementById('balance-status');
+
+            if (Math.abs(totalDebits - totalCredits) < 0.01) {
+                status.textContent = '✓ PERFECT BALANCE! Debits = Credits';
+                status.className = 'balance-status balanced';
+            } else {
+                status.textContent = '✗ Difference: $' + Math.abs(totalDebits - totalCredits).toFixed(2);
+                status.className = 'balance-status unbalanced';
+            }
+        }
+    </script>
+</body>
+
+</html>

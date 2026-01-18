@@ -1,0 +1,696 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>P2: Financial Statements | ACCOUNTING ESSENTIALS</title>
+    <link rel="stylesheet" href="../../styles.css">
+    <style>
+        /* Financial Statement Flow Animation */
+        .statement-flow {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0;
+            margin: 2rem auto;
+            max-width: 900px;
+        }
+        .flow-row {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 1rem;
+            width: 100%;
+        }
+        .flow-row.horizontal {
+            flex-wrap: wrap;
+        }
+        .statement-box {
+            padding: 1.5rem 2rem;
+            background: var(--white);
+            border-radius: var(--radius-md);
+            box-shadow: var(--shadow-md);
+            text-align: center;
+            min-width: 200px;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+        .statement-box:hover {
+            transform: translateY(-5px) scale(1.02);
+            box-shadow: var(--shadow-lg);
+        }
+        .statement-box.income-stmt {
+            border-top: 5px solid var(--primary);
+        }
+        .statement-box.income-stmt h4 {
+            color: var(--primary);
+        }
+        .statement-box.retained-earnings {
+            border-top: 5px solid var(--secondary);
+        }
+        .statement-box.retained-earnings h4 {
+            color: var(--secondary);
+        }
+        .statement-box.balance-sheet {
+            border-top: 5px solid var(--success);
+        }
+        .statement-box.balance-sheet h4 {
+            color: var(--success);
+        }
+        .statement-box.cash-flow {
+            border-top: 5px solid var(--info);
+        }
+        .statement-box.cash-flow h4 {
+            color: var(--info);
+        }
+        .statement-box h4 {
+            margin: 0 0 0.5rem 0;
+            font-size: 1.1rem;
+        }
+        .statement-box p {
+            margin: 0;
+            font-size: 0.9rem;
+            color: var(--text-muted);
+        }
+        .flow-arrow {
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: var(--primary);
+            animation: bounce 1.5s ease-in-out infinite;
+        }
+        .flow-arrow.down {
+            color: var(--primary);
+        }
+        .flow-arrow.right {
+            color: var(--primary);
+        }
+        .flow-arrow.curved {
+            font-size: 3rem;
+            color: var(--primary-light);
+        }
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-8px); }
+        }
+        .formula-display {
+            background: linear-gradient(135deg, var(--bg-light) 0%, var(--white) 100%);
+            padding: 2rem;
+            border-radius: var(--radius-md);
+            margin: 2rem 0;
+            font-family: monospace;
+            font-size: 1.1rem;
+        }
+        /* Connector lines */
+        .connector-line {
+            width: 3px;
+            height: 40px;
+            background: linear-gradient(to bottom, var(--primary-light), var(--primary));
+        }
+        .connector-line-horizontal {
+            height: 3px;
+            width: 60px;
+            background: linear-gradient(to right, var(--primary-light), var(--primary));
+        }
+        .connector-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+    </style>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-50MTQPVR7D"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-50MTQPVR7D');
+</script>
+
+</head>
+
+<body>
+    <header>
+        <div class="container nav-container">
+            <a href="../../index.html" class="logo">ACCOUNTING<span>ESSENTIALS</span></a>
+            <nav class="nav-links">
+                <a href="../../index.html">Home</a>
+                <a href="../part1.html">Part 1</a>
+                <a href="../../part2/part2.html">Part 2</a>
+                <a href="../../part3/part3.html">Part 3</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container">
+        <div class="breadcrumbs">
+            <a href="../../index.html">Home</a> <span>/</span> <a href="../part1.html">Part 1</a> <span>/</span> <a
+                href="ch01.html">Chapter 1</a> <span>/</span> P2
+        </div>
+
+        <article class="animate-fade-in">
+            <div class="kp-header">
+                <h1 style="border-left: 8px solid var(--primary-dark); padding-left: 1rem; margin: 2rem 0;">Financial Statements</h1>
+            </div>
+
+            <!-- Learning Objectives -->
+            <section class="kp-section">
+                <h2>🎯 Learning Objectives</h2>
+                <div class="learning-objectives">
+                    <ul>
+                        <li>Understand the four primary financial statements and their relationships</li>
+                        <li>Identify the components and structure of each statement type</li>
+                        <li>Explain how statements articulate (link) together in the accounting cycle</li>
+                        <li>Apply financial statement concepts to practical business scenarios</li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- Background & Principles -->
+            <section class="kp-section">
+                <h2>📚 Background & Principles</h2>
+                <p>Financial statements are the <strong>end products</strong> of the accounting cycle. They provide a comprehensive view of a company's financial health and performance for various stakeholders.</p>
+
+                <div class="key-concepts-grid">
+                    <div class="concept-card">
+                        <strong>🎯 Primary Purpose</strong>
+                        <p>Provide decision-useful information to external users (investors, creditors, government) and internal users (management).</p>
+                    </div>
+
+                    <div class="concept-card">
+                        <strong>🔗 Core Principle: Articulation</strong>
+                        <p>Statements are "articulated" — the ending balance of one statement becomes the beginning balance of the next. They form an interconnected chain.</p>
+                    </div>
+
+                    <div class="concept-card">
+                        <strong>⏱ Periodic Reporting</strong>
+                        <p>Financial statements are prepared for specific time periods (monthly, quarterly, annually) rather than continuously.</p>
+                    </div>
+                </div>
+
+                <div class="professional-tip" style="margin-top: 2rem;">
+                    <strong>💡 Professional Insight:</strong> The four financial statements, along with the Statement of Cash Flows, tell a complete story of a company's financial activities for a period.
+                </div>
+            </section>
+
+            <!-- Key Concepts -->
+            <section class="kp-section">
+                <h2>🔑 Key Concepts</h2>
+                <div class="key-concepts-grid">
+                    <div class="concept-card">
+                        <strong>Income Statement (Statement of Operations)</strong>
+                        <p>Reports revenues, expenses, and net income (profit or loss) for a specific period.</p>
+                        <em>Measures performance over time</em>
+                    </div>
+
+                    <div class="concept-card">
+                        <strong>Balance Sheet (Statement of Financial Position)</strong>
+                        <p>Reports assets, liabilities, and equity at a specific point in time. Shows what the company owns and owes.</p>
+                        <em>Snapshot of financial position</em>
+                    </div>
+
+                    <div class="concept-card">
+                        <strong>Statement of Retained Earnings</strong>
+                        <p>Explains changes in equity from the beginning to end of a period. Shows net income and dividends.</p>
+                        <em>Bridge between periods</em>
+                    </div>
+
+                    <div class="concept-card">
+                        <strong>Statement of Cash Flows</strong>
+                        <p>Reports cash receipts and payments during a period. Shows cash generated and used.</p>
+                        <em>Cash management focus</em>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Deep Dive with Depth Toggle -->
+            <section class="kp-section">
+                <h2>🔍 Deep Dive</h2>
+                <p>Explore financial statements at different levels of detail:</p>
+
+                <div class="depth-toggle">
+                    <button class="depth-btn active" onclick="setStatementDepth('overview')">Overview</button>
+                    <button class="depth-btn" onclick="setStatementDepth('structure')">Structure & Format</button>
+                    <button class="depth-btn" onclick="setStatementDepth('analysis')">Advanced Analysis</button>
+                </div>
+
+                <!-- Overview Level -->
+                <div id="stmt-overview" class="depth-content active">
+                    <h3>🟢 Overview: The Four Statements</h3>
+                    <p>The four primary financial statements work together to provide a complete financial picture:</p>
+
+                    <div class="card-grid" style="margin-top: 2rem;">
+                        <div class="content-card" style="border-top: 4px solid var(--primary);">
+                            <h4 style="color: var(--primary);">1. Income Statement</h4>
+                            <p><strong>Purpose:</strong> Show profitability</p>
+                            <p><strong>Key Formula:</strong> Revenues - Expenses = Net Income</p>
+                            <p><strong>Time Perspective:</strong> Video (flow of events over period)</p>
+                        </div>
+
+                        <div class="content-card" style="border-top: 4px solid var(--secondary);">
+                            <h4 style="color: var(--secondary);">2. Balance Sheet</h4>
+                            <p><strong>Purpose:</strong> Show financial position</p>
+                            <p><strong>Key Formula:</strong> Assets = Liabilities + Equity</p>
+                            <p><strong>Time Perspective:</strong> Photograph (snapshot at point in time)</p>
+                        </div>
+
+                        <div class="content-card" style="border-top: 4px solid var(--success);">
+                            <h4 style="color: var(--success);">3. Statement of Retained Earnings</h4>
+                            <p><strong>Purpose:</strong> Show equity changes</p>
+                            <p><strong>Key Formula:</strong> Beginning RE + Net Income - Dividends = Ending RE</p>
+                            <p><strong>Time Perspective:</strong> Movie sequel (connects periods)</p>
+                        </div>
+
+                        <div class="content-card" style="border-top: 4px solid var(--info);">
+                            <h4 style="color: var(--info);">4. Statement of Cash Flows</h4>
+                            <p><strong>Purpose:</strong> Show cash movement</p>
+                            <p><strong>Key Insight:</strong> Explains liquidity and solvency</p>
+                            <p><strong>Time Perspective:</strong> Flow of lifeblood (continuous monitoring)</p>
+                        </div>
+                    </div>
+
+                    <div class="professional-tip">
+                        <strong>💡 Key Understanding:</strong> All four statements are "articulated" — the ending balance of one becomes the beginning balance of the next. This ensures consistency and accuracy across all statements.
+                    </div>
+                </div>
+
+                <!-- Structure Level -->
+                <div id="stmt-structure" class="depth-content">
+                    <h3>🟡 Structure & Format Details</h3>
+                    <p>Each statement follows a standardized structure:</p>
+
+                    <div class="worked-example">
+                        <h4>Standard Statement Header</h4>
+                        <p>Every financial statement begins with three lines:</p>
+                        <ul style="margin-top: 1rem;">
+                            <li><strong>Line 1:</strong> Company name</li>
+                            <li><strong>Line 2:</strong> Statement name</li>
+                            <li><strong>Line 3:</strong> Accounting period covered</li>
+                        </ul>
+                    </div>
+
+                    <div class="worked-example">
+                        <h4>Format Conventions</h4>
+                        <ul style="margin-top: 1rem;">
+                            <li><strong>Single-Step Format:</strong> All amounts in one column (simpler)</li>
+                            <li><strong>Multi-Step Format:</strong> Debits and credits shown separately</li>
+                            <li><strong>Classified Format:</strong> Categories grouped with subtotals</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Analysis Level -->
+                <div id="stmt-analysis" class="depth-content">
+                    <h3>🔴 Advanced Analysis</h3>
+                    <p>Advanced concepts and relationships between statements:</p>
+
+                    <div class="key-concepts-grid">
+                        <div class="concept-card">
+                            <strong>Cross-Statement Reconciliation</strong>
+                            <p>Key numbers must reconcile across statements:</p>
+                            <ul style="margin-top: 0.5rem;">
+                                <li>Net Income → Statement of Retained Earnings (or to Balance Sheet Equity)</li>
+                                <li>Ending Cash Balance must equal Cash on Balance Sheet</li>
+                                <li>Change in Retained Earnings must match Equity change on Balance Sheet</li>
+                            </ul>
+                        </div>
+
+                        <div class="concept-card">
+                            <strong>Ratio Analysis</strong>
+                            <p>Financial statements enable performance analysis:</p>
+                            <ul style="margin-top: 0.5rem;">
+                                <li><strong>Liquidity Ratio:</strong> Current Assets / Current Liabilities</li>
+                                <li><strong>Profit Margin:</strong> Net Income / Revenue</li>
+                                <li><strong>ROA:</strong> Net Income / Average Total Assets</li>
+                            </ul>
+                        </div>
+
+                        <div class="concept-card">
+                            <strong>Trend Analysis</strong>
+                            <p>Comparing statements across periods reveals financial health trends:</p>
+                            <ul style="margin-top: 0.5rem;">
+                                <li>Growing revenue indicates business expansion</li>
+                                <li>Increasing expenses may signal operational problems</li>
+                                <li>Changes in equity reflect owner decisions</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Visual Animation of Statement Flow -->
+            <section class="kp-section">
+                <h2>🎨 Visual: Financial Statement Flow</h2>
+                <p>Interactive visualization showing how the four statements connect and articulate together:</p>
+
+                <div class="statement-flow">
+                    <!-- Row 1: Income Statement -->
+                    <div class="flow-row">
+                        <div class="statement-box income-stmt">
+                            <h4>📊 Income Statement</h4>
+                            <p>Revenues − Expenses</p>
+                            <p style="font-weight: 600; margin-top: 0.5rem; color: var(--primary);">→ Net Income</p>
+                        </div>
+                    </div>
+
+                    <!-- Arrow Down -->
+                    <div class="connector-line"></div>
+                    <div class="flow-arrow down">↓</div>
+
+                    <!-- Row 2: Retained Earnings -->
+                    <div class="flow-row">
+                        <div class="statement-box retained-earnings">
+                            <h4>📈 Statement of Retained Earnings</h4>
+                            <p>Beg. RE + Net Income − Dividends</p>
+                            <p style="font-weight: 600; margin-top: 0.5rem; color: var(--secondary);">→ Ending RE</p>
+                        </div>
+                    </div>
+
+                    <!-- Arrow Down -->
+                    <div class="connector-line"></div>
+                    <div class="flow-arrow down">↓</div>
+
+                    <!-- Row 3: Balance Sheet and Cash Flow -->
+                    <div class="flow-row horizontal">
+                        <div class="statement-box balance-sheet">
+                            <h4>📋 Balance Sheet</h4>
+                            <p>Assets = Liabilities + Equity</p>
+                            <p style="font-weight: 600; margin-top: 0.5rem; color: var(--success);">← Includes Ending RE</p>
+                        </div>
+
+                        <div class="connector-container">
+                            <div class="connector-line-horizontal"></div>
+                            <div class="flow-arrow right">→</div>
+                        </div>
+
+                        <div class="statement-box cash-flow">
+                            <h4>💵 Statement of Cash Flows</h4>
+                            <p>Operating − Investing − Financing</p>
+                            <p style="font-weight: 600; margin-top: 0.5rem; color: var(--info);">→ Cash Change</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Legend -->
+                <div style="display: flex; justify-content: center; gap: 2rem; margin-top: 2rem; flex-wrap: wrap;">
+                    <div style="display: flex; align-items: center; gap: 0.5rem;">
+                        <div style="width: 20px; height: 20px; background: var(--primary); border-radius: 4px;"></div>
+                        <span style="font-size: 0.9rem;">Income Statement</span>
+                    </div>
+                    <div style="display: flex; align-items: center; gap: 0.5rem;">
+                        <div style="width: 20px; height: 20px; background: var(--secondary); border-radius: 4px;"></div>
+                        <span style="font-size: 0.9rem;">Retained Earnings</span>
+                    </div>
+                    <div style="display: flex; align-items: center; gap: 0.5rem;">
+                        <div style="width: 20px; height: 20px; background: var(--success); border-radius: 4px;"></div>
+                        <span style="font-size: 0.9rem;">Balance Sheet</span>
+                    </div>
+                    <div style="display: flex; align-items: center; gap: 0.5rem;">
+                        <div style="width: 20px; height: 20px; background: var(--info); border-radius: 4px;"></div>
+                        <span style="font-size: 0.9rem;">Cash Flow</span>
+                    </div>
+                </div>
+
+                <div class="professional-tip" style="margin-top: 2rem;">
+                    <strong>💡 Key Insight:</strong> All statements are <strong>articulated</strong> — data flows from one to the next. Net Income from the Income Statement becomes part of Retained Earnings, which flows to the Balance Sheet.
+                </div>
+            </section>
+
+            <!-- Interactive Simulator -->
+            <section class="kp-section">
+                <h2>🎮 Interactive Financial Statement Simulator</h2>
+                <p>Enter values and watch how all four statements update in real-time:</p>
+
+                <div class="simulator-container">
+                    <div class="input-group">
+                        <label for="sim-revenue">Revenues ($)</label>
+                        <input type="number" id="sim-revenue" value="10000" step="100" oninput="simulateStatements()">
+                    </div>
+                    <div class="input-group">
+                        <label for="sim-expenses">Total Expenses ($)</label>
+                        <input type="number" id="sim-expenses" value="7000" step="100" oninput="simulateStatements()">
+                    </div>
+                    <div class="input-group">
+                        <label for="sim-begin-equity">Beginning Equity ($)</label>
+                        <input type="number" id="sim-begin-equity" value="20000" step="100" oninput="simulateStatements()">
+                    </div>
+                    <div class="input-group">
+                        <label for="sim-dividends">Dividends Paid ($)</label>
+                        <input type="number" id="sim-dividends" value="1000" step="100" oninput="simulateStatements()">
+                    </div>
+
+                    <div class="formula-display" style="margin-top: 2rem;">
+                        <p style="color: var(--primary);">Net Income = $<span id="sim-net-income">3,000</span></p>
+                        <p style="margin-top: 1rem;">Ending Equity = <span id="sim-end-equity">$24,000</span></p>
+                        <p style="margin-top: 1rem;">Total Assets = <span id="sim-assets">$27,000</span></p>
+                    </div>
+
+                    <div class="equation-display" style="margin-top: 2rem;">
+                        <div class="equation-part">
+                            <h4 style="color: var(--primary);">Income Stmt</h4>
+                            <p>Shows Net Income</p>
+                        </div>
+                        <div class="equation-part">
+                            <h4 style="color: var(--secondary);">Balance Sheet</h4>
+                            <p>Shows Financial Position</p>
+                        </div>
+                        <div style="font-size: 2rem;">→</div>
+                        <div class="equation-part">
+                            <h4 style="color: var(--success);">Both Articulated</h4>
+                            <p>Link Equity Changes</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Worked Examples -->
+            <section class="kp-section">
+                <h2>📝 Worked Examples</h2>
+
+                <div class="worked-example">
+                    <h4>Example 1: Single Transaction Analysis</h4>
+                    <p><strong>Scenario:</strong> FastForward earns $10,000 revenue and pays $7,000 in expenses.</p>
+
+                    <div class="example-step">
+                        <strong>Step 1: Income Statement</strong>
+                        <p>Revenues: $10,000</p>
+                        <p>Expenses: $7,000</p>
+                        <p><strong>Net Income: $3,000</strong></p>
+                    </div>
+
+                    <div class="example-step">
+                        <strong>Step 2: Statement of Retained Earnings</strong>
+                        <p>Beginning RE: $0</p>
+                        <p>Add Net Income: +$3,000</p>
+                        <p>Less Dividends: -$500</p>
+                        <p><strong>Ending RE: $2,500</strong></p>
+                    </div>
+
+                    <div class="example-step">
+                        <strong>Step 3: Balance Sheet Verification</strong>
+                        <p>Assuming no other equity changes:</p>
+                        <p>Ending Equity: Beginning ($0) + Ending RE ($2,500) = <strong>$2,500</strong></p>
+                    </div>
+
+                    <div class="professional-tip">
+                        <strong>💡 Professional Insight:</strong> Notice how Net Income ($3,000) from Income Statement becomes the increase in Retained Earnings. The statements are correctly articulated.
+                    </div>
+                </div>
+            </section>
+
+            <!-- Common Misconceptions -->
+            <section class="kp-section">
+                <h2>🚫 Common Misconceptions & Professional Tips</h2>
+
+                <div class="misconception-alert">
+                    <strong>❌ Misconception 1:</strong> "Financial statements are independent of each other."
+                    <br><br>
+                    <strong>✅ Reality:</strong> Financial statements are <strong>articulated</strong> — they're designed to work together. Numbers on the Balance Sheet must reconcile with the Statement of Retained Earnings. Net Income from the Income Statement must match the change in equity on the Balance Sheet.
+                </div>
+
+                <div class="misconception-alert">
+                    <strong>❌ Misconception 2:</strong> "Profit means the company has lots of cash."
+                    <br><br>
+                    <strong>✅ Reality:</strong> Profit means Net Income (Revenues - Expenses). A profitable company can have negative cash flow if it's investing heavily in equipment or inventory. The Balance Sheet shows financial position, not cash availability.
+                </div>
+
+                <div class="misconception-alert">
+                    <strong>❌ Misconception 3:</strong> "Equity never decreases."
+                    <br><br>
+                    <strong>✅ Reality:</strong> Equity <strong>does</strong> decrease — through dividends or net losses. In a healthy, growing company, equity should increase over time through retained earnings. Decreases in equity are normal when owners withdraw profits or when the company experiences losses.
+                </div>
+
+                <div class="professional-tip">
+                    <strong>💡 Professional Tip #1:</strong> Always verify articulation across statements. If Net Income is $10,000 and Retained Earnings increase by $8,000, but Balance Sheet Equity only increased by $6,000, something is wrong.
+                </div>
+
+                <div class="professional-tip">
+                    <strong>💡 Professional Tip #2:</strong> Use financial statements together. A single statement gives limited information. For complete analysis, review all four statements and the relationships between them.
+                </div>
+
+                <div class="professional-tip">
+                    <strong>💡 Professional Tip #3:</strong> Understand the time element. Income Statement covers a period (performance), while Balance Sheet shows a specific point (position). The Statement of Retained Earnings bridges periods (continuity).
+                </div>
+            </section>
+
+            <!-- Memory Aids -->
+            <section class="kp-section">
+                <h2>🧠 Memory Aids & Quick Reference</h2>
+
+                <div class="memory-aid-card">
+                    <strong>⚡ Quick Recall: Four Statement Types</strong>
+                    <p style="margin-top: 1rem;"><strong>Income Statement:</strong> Revenues - Expenses = Net Income (Performance)</p>
+                    <p style="margin-top: 0.5rem;"><strong>Balance Sheet:</strong> Assets = Liabilities + Equity (Position)</p>
+                    <p style="margin-top: 0.5rem;"><strong>Retained Earnings:</strong> Beg. RE + NI - Dividends = End. RE (Equity Bridge)</p>
+                    <p style="margin-top: 0.5rem;"><strong>Cash Flow:</strong> Inflows - Outflows = Cash Change (Liquidity)</p>
+                </div>
+
+                <div class="formula-display" style="margin-top: 2rem;">
+                    <p style="text-align: center; font-weight: 700; font-size: 1.2rem;">
+                        <strong>The Golden Equation of Financial Statements:</strong><br><br>
+                        Assets = Liabilities + Equity<br>
+                        ↓<br>
+                        Net Income = Ending Equity - Beginning Equity - Dividends + New Stock - Treasury Stock
+                    </p>
+                </div>
+
+                <h3 style="margin-top: 2rem;">📖 Further Reading</h3>
+                <div class="key-concepts-grid">
+                    <div class="concept-card">
+                        <strong>Financial Accounting Standards Board (FASB)</strong>
+                        <p>US body that establishes GAAP for financial statement presentation.</p>
+                    </div>
+                    <div class="concept-card">
+                        <strong>International Accounting Standards Board (IASB)</strong>
+                        <p>Global body that establishes IFRS for financial reporting.</p>
+                    </div>
+                    <div class="concept-card">
+                        <strong>SEC Filings (10-K)</strong>
+                        <p>Public companies file annual reports with detailed financial statements.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Glossary -->
+            <section class="kp-section">
+                <h2>📖 Glossary</h2>
+                <div class="key-concepts-grid">
+                    <div class="concept-card">
+                        <strong>Financial Statements</strong>
+                        <p>Structured reports presenting a company's financial information for external decision-making.</p>
+                    </div>
+                    <div class="concept-card">
+                        <strong>Income Statement</strong>
+                        <p>Financial statement showing revenues, expenses, and net income over an accounting period.</p>
+                    </div>
+                    <div class="concept-card">
+                        <strong>Balance Sheet</strong>
+                        <p>Statement of financial position showing assets, liabilities, and equity at a specific point in time.</p>
+                    </div>
+                    <div class="concept-card">
+                        <strong>Statement of Retained Earnings</strong>
+                        <p>Statement explaining changes in a company's equity over a period due to net income and dividends.</p>
+                    </div>
+                    <div class="concept-card">
+                        <strong>Statement of Cash Flows</strong>
+                        <p>Statement showing cash receipts and payments during a period, categorized by operating, investing, and financing activities.</p>
+                    </div>
+                    <div class="concept-card">
+                        <strong>Articulation</strong>
+                        <p>The process of ensuring that all financial statements link together consistently, with the ending balance of one statement becoming the beginning balance of the next.</p>
+                    </div>
+                    <div class="concept-card">
+                        <strong>Periodicity</strong>
+                        <p>The assumption that an entity's life can be divided into artificial time periods (months, quarters, years) for reporting purposes.</p>
+                    </div>
+                    <div class="concept-card">
+                        <strong>Accrual Accounting</strong>
+                        <p>An accounting method where revenues and expenses are recorded when earned or incurred, regardless of when cash is received or paid.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Final Knowledge Check -->
+            <section class="interactive-section">
+                <h2>🎯 Final Knowledge Check</h2>
+                <p>Test your understanding of Financial Statements:</p>
+
+                <div class="quiz-container" data-success-text="Excellent! You've mastered the four financial statements and their interrelationships." data-explanation="Financial statements are articulated: Net Income flows to Retained Earnings, which affects Equity on the Balance Sheet. All four statements must reconcile.">
+                    <div class="input-group">
+                        <p><strong>Question 1:</strong> What is the primary purpose of the Income Statement?</p>
+                        <label><input type="radio" name="final1" value="wrong1" data-correct="false"> To show cash position</label><br>
+                        <label><input type="radio" name="final1" value="correct" data-correct="true"> To measure profitability over a period</label><br>
+                        <label><input type="radio" name="final1" value="wrong2" data-correct="false"> To show financial position</label>
+                    </div>
+
+                    <div class="input-group">
+                        <p><strong>Question 2:</strong> Which formula represents the accounting equation (Assets = Liabilities + Equity)?</p>
+                        <label><input type="radio" name="final2" value="correct" data-correct="true"> Income Statement formula (Net Income increases equity)</label><br>
+                        <label><input type="radio" name="final2" value="wrong1" data-correct="false"> Balance Sheet only</label><br>
+                        <label><input type="radio" name="final2" value="wrong2" data-correct="false"> Cash Flow only</label>
+                    </div>
+
+                    <div class="input-group">
+                        <p><strong>Question 3:</strong> How does Net Income from the Income Statement affect the Balance Sheet?</p>
+                        <label><input type="radio" name="final3" value="correct" data-correct="true"> Increases equity (through Retained Earnings)</label><br>
+                        <label><input type="radio" name="final3" value="wrong1" data-correct="false"> Increases assets (through cash)</label><br>
+                        <label><input type="radio" name="final3" value="wrong2" data-correct="false"> Decreases liabilities (through debt)</label>
+                    </div>
+
+                    <div class="input-group">
+                        <p><strong>Question 4:</strong> What is the key characteristic that makes financial statements "articulated"?</p>
+                        <label><input type="radio" name="final4" value="wrong1" data-correct="false"> They are prepared by different departments</label><br>
+                        <label><input type="radio" name="final4" value="correct" data-correct="true"> Ending balances of one statement become beginning balances of the next</label><br>
+                        <label><input type="radio" name="final4" value="wrong2" data-correct="false"> All statements use the same accounting period</label>
+                    </div>
+
+                    <button class="btn btn-primary quiz-submit">Submit All Answers</button>
+                    <div class="feedback"></div>
+                    <button class="quiz-retry">Try Again</button>
+                </div>
+            </section>
+
+            <!-- Navigation -->
+            <nav class="kp-navigation" style="display: flex; justify-content: space-between; margin-top: 4rem; padding-bottom: 2rem;">
+                <a href="ch01_P1.html" class="btn" style="background: #eee;">← Previous: Transaction Analysis</a>
+                <a href="../part1.html" class="btn btn-primary">Complete Part 1 Foundations →</a>
+            </nav>
+        </article>
+    </main>
+
+    <footer style="margin-top: 5rem; padding: 2rem 0; border-top: 1px solid #ddd; text-align: center; color: #888;">
+        <p>Accounting Essentials | Chapter 1 | Procedure 2</p>
+    </footer>
+
+    <script src="../../components-enhanced.js"></script>
+    <script>
+        function setStatementDepth(depth) {
+            document.querySelectorAll('.depth-btn').forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+
+            document.querySelectorAll('.depth-content').forEach(content => content.classList.remove('active'));
+            document.getElementById(`stmt-${depth}`).classList.add('active');
+        }
+
+        function simulateStatements() {
+            const revenue = parseFloat(document.getElementById('sim-revenue').value) || 0;
+            const expenses = parseFloat(document.getElementById('sim-expenses').value) || 0;
+            const beginEquity = parseFloat(document.getElementById('sim-begin-equity').value) || 0;
+            const dividends = parseFloat(document.getElementById('sim-dividends').value) || 0;
+
+            const netIncome = revenue - expenses;
+            const endEquity = beginEquity + netIncome - dividends;
+
+            document.getElementById('sim-net-income').textContent = netIncome.toLocaleString();
+            document.getElementById('sim-end-equity').textContent = endEquity.toLocaleString();
+
+            // Assets = Liabilities + Equity
+            // Assuming no assets/liabilities directly, calculate total assets
+            const totalAssets = endEquity; // Simplified: Assets ≈ Equity for this demo
+            document.getElementById('sim-assets').textContent = totalAssets.toLocaleString();
+        }
+    </script>
+</body>
+
+</html>

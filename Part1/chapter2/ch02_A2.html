@@ -1,0 +1,755 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>A2: Debt Ratio Analysis | ACCOUNTING ESSENTIALS</title>
+    <link rel="stylesheet" href="../../styles.css">
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-50MTQPVR7D"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-50MTQPVR7D');
+</script>
+
+</head>
+
+<body>
+    <header>
+        <div class="container nav-container">
+            <a href="../../index.html" class="logo">ACCOUNTS<span>MASTER</span></a>
+            <nav class="nav-links">
+                <a href="../../index.html">Home</a>
+                <a href="../part1.html">Part 1</a>
+                <a href="../../part2/part2.html">Part 2</a>
+                <a href="../../part3/part3.html">Part 3</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container">
+        <div class="breadcrumbs">
+            <a href="../../index.html">Home</a> <span>/</span> <a href="../part1.html">Part 1</a> <span>/</span> <a
+                href="ch02.html">Chapter 2</a> <span>/</span> A2
+        </div>
+
+        <article class="animate-fade-in">
+            <div class="kp-header">
+                <h1 style="border-left: 8px solid var(--error); padding-left: 1rem; margin: 2rem 0;">Debt Ratio Analysis
+                </h1>
+            </div>
+
+            <!-- Learning Objectives -->
+            <section class="kp-section">
+                <h2>🎯 Learning Objectives</h2>
+                <div class="learning-objectives">
+                    <ul>
+                        <li>Understand the risk-reward trade-off of using debt (leverage)</li>
+                        <li>Calculate Debt Ratio to assess financial risk and solvency</li>
+                        <li>Compare debt ratios across different industries</li>
+                        <li>Evaluate company's ability to meet long-term obligations</li>
+                        <li>Make strategic financing decisions based on debt analysis</li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- Background & Principles -->
+            <section class="kp-section">
+                <h2>📚 Background & Principles</h2>
+                <p>The debt ratio is a key solvency ratio that measures the extent to which a company relies on borrowed money to finance its assets.</p>
+
+                <div class="concept-card" style="margin: 1.5rem 0;">
+                    <strong>Core Principle:</strong> Debt is financial leverage. It amplifies returns in good times but magnifies losses in bad times. Understanding this balance is crucial for financial analysis.
+                </div>
+
+                <p>Creditors prefer lower debt ratios (less risk), while shareholders may accept higher ratios if they're industry-appropriate and generate returns exceeding interest costs.</p>
+
+                <div class="professional-tip">
+                    <strong>💡 Key Insight:</strong> The debt ratio doesn't tell you if debt is GOOD or BAD. It tells you how RISKY the capital structure is. High debt can be brilliant (if ROA > interest rate) or disastrous (if revenue is volatile).
+                </div>
+            </section>
+
+            <!-- Key Concepts -->
+            <section class="kp-section">
+                <h2>🔑 Key Concepts</h2>
+                <div class="key-concepts-grid">
+                    <div class="concept-card">
+                        <strong>Leverage</strong>
+                        <p>Using debt to amplify returns. Positive when asset returns exceed borrowing costs, negative when they don't.</p>
+                    </div>
+
+                    <div class="concept-card">
+                        <strong>Solvency</strong>
+                        <p>Ability to meet long-term obligations and continue business operations indefinitely.</p>
+                    </div>
+
+                    <div class="concept-card">
+                        <strong>OPM (Other People's Money)</strong>
+                        <p>Borrowed capital that allows you to earn returns on money you don't own, increasing shareholder returns.</p>
+                    </div>
+
+                    <div class="concept-card">
+                        <strong>Fixed Obligations</strong>
+                        <p>Debt payments that must be made regardless of revenue, creating risk during downturns.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Visual Debt Ratio Diagram -->
+            <section class="kp-section">
+                <h2>🎨 Visual: Understanding Debt Ratio</h2>
+                <p>See how debt and equity finance assets:</p>
+
+                <style>
+                    /* Debt Ratio Visual Styles */
+                    .debt-ratio-visual {
+                        display: flex;
+                        flex-direction: column;
+                        align-items: center;
+                        gap: 1.5rem;
+                        margin: 2rem 0;
+                        padding: 2rem;
+                        background: var(--bg-light);
+                        border-radius: var(--radius-md);
+                    }
+                    .ratio-bar-container {
+                        width: 100%;
+                        max-width: 700px;
+                        display: flex;
+                        height: 60px;
+                        border-radius: var(--radius-sm);
+                        overflow: hidden;
+                        box-shadow: var(--shadow-md);
+                    }
+                    .ratio-bar {
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        color: white;
+                        font-weight: 700;
+                        font-size: 1.1rem;
+                        transition: all 0.5s ease;
+                        cursor: pointer;
+                    }
+                    .ratio-bar:hover {
+                        filter: brightness(1.1);
+                        transform: scaleY(1.1);
+                    }
+                    .ratio-bar.equity {
+                        background: linear-gradient(135deg, var(--primary), var(--primary-light));
+                    }
+                    .ratio-bar.debt {
+                        background: linear-gradient(135deg, var(--error), var(--error-light));
+                    }
+                    .ratio-labels {
+                        display: flex;
+                        justify-content: space-between;
+                        width: 100%;
+                        max-width: 700px;
+                        font-size: 0.85rem;
+                        font-weight: 600;
+                    }
+                    .ratio-label-eq {
+                        color: var(--primary);
+                        display: flex;
+                        align-items: center;
+                        gap: 0.5rem;
+                    }
+                    .ratio-label-debt {
+                        color: var(--error);
+                        display: flex;
+                        align-items: center;
+                        gap: 0.5rem;
+                    }
+                    .ratio-formula {
+                        background: var(--white);
+                        padding: 1.5rem 2rem;
+                        border-radius: var(--radius-sm);
+                        text-align: center;
+                        box-shadow: var(--shadow-sm);
+                    }
+                    .ratio-formula h4 {
+                        color: var(--text-muted);
+                        font-size: 0.85rem;
+                        margin-bottom: 0.75rem;
+                    }
+                    .ratio-formula .formula {
+                        font-size: 1.4rem;
+                        font-weight: 700;
+                        color: var(--primary);
+                    }
+                    .ratio-formula .formula span {
+                        color: var(--error);
+                    }
+                    .ratio-result {
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        gap: 1rem;
+                        margin-top: 1rem;
+                        padding: 1rem 2rem;
+                        background: var(--bg-light);
+                        border-radius: var(--radius-sm);
+                    }
+                    .ratio-result .value {
+                        font-size: 2rem;
+                        font-weight: 900;
+                        color: var(--error);
+                    }
+                    .ratio-result .eval {
+                        font-weight: 700;
+                        padding: 0.5rem 1rem;
+                        border-radius: var(--radius-sm);
+                    }
+                    .ratio-result .eval.low {
+                        background: rgba(39, 174, 96, 0.1);
+                        color: var(--success);
+                    }
+                    .ratio-result .eval.moderate {
+                        background: rgba(241, 196, 15, 0.1);
+                        color: var(--warning);
+                    }
+                    .ratio-result .eval.high {
+                        background: rgba(231, 76, 60, 0.1);
+                        color: var(--error);
+                    }
+                    /* Slider control */
+                    .ratio-slider-container {
+                        width: 100%;
+                        max-width: 500px;
+                        text-align: center;
+                    }
+                    .ratio-slider {
+                        width: 100%;
+                        height: 8px;
+                        border-radius: 4px;
+                        background: linear-gradient(to right, var(--success), var(--warning), var(--error));
+                        outline: none;
+                        -webkit-appearance: none;
+                        cursor: pointer;
+                    }
+                    .ratio-slider::-webkit-slider-thumb {
+                        -webkit-appearance: none;
+                        width: 24px;
+                        height: 24px;
+                        border-radius: 50%;
+                        background: var(--primary);
+                        cursor: pointer;
+                        box-shadow: var(--shadow-md);
+                        transition: transform 0.2s;
+                    }
+                    .ratio-slider::-webkit-slider-thumb:hover {
+                        transform: scale(1.2);
+                    }
+                    .slider-labels {
+                        display: flex;
+                        justify-content: space-between;
+                        margin-top: 0.5rem;
+                        font-size: 0.75rem;
+                        color: var(--text-muted);
+                    }
+                </style>
+
+                <div class="debt-ratio-visual">
+                    <!-- Interactive Bar -->
+                    <div class="ratio-bar-container">
+                        <div class="ratio-bar equity" id="equity-bar" style="width: 60%;">
+                            <span id="equity-text">60%</span>
+                        </div>
+                        <div class="ratio-bar debt" id="debt-bar" style="width: 40%;">
+                            <span id="debt-text">40%</span>
+                        </div>
+                    </div>
+
+                    <!-- Labels -->
+                    <div class="ratio-labels">
+                        <div class="ratio-label-eq">
+                            <span>●</span> EQUITY (Your money)
+                        </div>
+                        <div class="ratio-label-debt">
+                            <span>●</span> DEBT (Bank's money)
+                        </div>
+                    </div>
+
+                    <!-- Formula Display -->
+                    <div class="ratio-formula">
+                        <h4>DEBT RATIO FORMULA</h4>
+                        <div class="formula">
+                            <span>Total Liabilities</span> ÷ Total Assets
+                        </div>
+                        <p style="font-size: 0.85rem; color: var(--text-muted); margin-top: 0.5rem;">What % of assets are financed by debt?</p>
+                    </div>
+
+                    <!-- Slider Control -->
+                    <div class="ratio-slider-container">
+                        <input type="range" class="ratio-slider" min="0" max="100" value="40" id="ratio-slider" oninput="updateRatioVisual(this.value)">
+                        <div class="slider-labels">
+                            <span>0% (No Debt)</span>
+                            <span>50%</span>
+                            <span>100% (All Debt)</span>
+                        </div>
+                    </div>
+
+                    <!-- Result Display -->
+                    <div class="ratio-result">
+                        <span style="font-weight: 600; color: var(--text-muted);">Debt Ratio:</span>
+                        <span class="value" id="ratio-value">40%</span>
+                        <span class="eval moderate" id="ratio-eval">MODERATE RISK</span>
+                    </div>
+                </div>
+
+                <div class="professional-tip" style="margin-top: 1.5rem;">
+                    <strong>💡 Key Insight:</strong> Debt ratio shows how much of your assets are "owned by the bank" vs. owned by shareholders. Higher = more risk.
+                </div>
+            </section>
+
+            <!-- Industry Comparison -->
+            <section class="kp-section">
+                <h2>📊 Industry Debt Ratio Benchmarks</h2>
+                <p>What's "normal" depends on the industry:</p>
+
+                <style>
+                    .industry-benchmark {
+                        display: grid;
+                        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+                        gap: 1.5rem;
+                        margin-top: 1.5rem;
+                    }
+                    .benchmark-card {
+                        background: var(--white);
+                        padding: 1.5rem;
+                        border-radius: var(--radius-md);
+                        text-align: center;
+                        box-shadow: var(--shadow-sm);
+                        border-top: 4px solid var(--primary);
+                        transition: all 0.3s ease;
+                    }
+                    .benchmark-card:hover {
+                        transform: translateY(-5px);
+                        box-shadow: var(--shadow-md);
+                    }
+                    .benchmark-card h4 {
+                        color: var(--primary);
+                        margin-bottom: 0.5rem;
+                    }
+                    .benchmark-card .ratio {
+                        font-size: 1.8rem;
+                        font-weight: 900;
+                        margin: 0.5rem 0;
+                    }
+                    .benchmark-card .reason {
+                        font-size: 0.85rem;
+                        color: var(--text-muted);
+                    }
+                    .benchmark-card.low { border-top-color: var(--success); }
+                    .benchmark-card.low .ratio { color: var(--success); }
+                    .benchmark-card.moderate { border-top-color: var(--warning); }
+                    .benchmark-card.moderate .ratio { color: var(--warning); }
+                    .benchmark-card.high { border-top-color: var(--error); }
+                    .benchmark-card.high .ratio { color: var(--error); }
+                </style>
+
+                <div class="industry-benchmark">
+                    <div class="benchmark-card low">
+                        <h4>⚡ Utilities</h4>
+                        <div class="ratio">50-70%</div>
+                        <div class="reason">Stable income allows safe high debt</div>
+                    </div>
+                    <div class="benchmark-card low">
+                        <h4>🏦 Banks</h4>
+                        <div class="ratio">80-90%</div>
+                        <div class="reason">Debt is their product, not risk</div>
+                    </div>
+                    <div class="benchmark-card moderate">
+                        <h4>🏭 Manufacturing</h4>
+                        <div class="ratio">40-55%</div>
+                        <div class="reason">Capital intensive but stable</div>
+                    </div>
+                    <div class="benchmark-card high">
+                        <h4>💻 Tech Startups</h4>
+                        <div class="ratio">10-30%</div>
+                        <div class="reason">Volatile income = avoid debt</div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Deep Dive -->
+            <section class="kp-section">
+                <h2>🔍 Deep Dive</h2>
+                <p>Explore debt ratio analysis at different levels of depth:</p>
+
+                <div class="depth-toggle">
+                    <button class="depth-btn active" onclick="setDepth('A')">Depth A: Foundational</button>
+                    <button class="depth-btn" onclick="setDepth('B')">Depth B: Standard</button>
+                    <button class="depth-btn" onclick="setDepth('C')">Depth C: Advanced</button>
+                </div>
+
+                <!-- Depth A -->
+                <div id="depth-A" class="depth-content active">
+                    <h3>🟢 Foundational Level</h3>
+                    <p>Understanding basic debt ratio concept and formula.</p>
+
+                    <div class="worked-example">
+                        <h4>Risk vs. Reward</h4>
+                        <p><strong>Analogy: The Double-Edged Sword</strong></p>
+                        <p>Debt is like using a lever. It allows you to lift more (buy more assets) than you could with just your own strength (Equity).</p>
+                        <div class="example-step">
+                            <strong>The Upside (OPM):</strong>
+                            <p>You use "Other People's Money" to make profit for yourself. If profit > interest cost, you win big.</p>
+                        </div>
+                        <div class="example-step">
+                            <strong>The Downside (Risk):</strong>
+                            <p>Debt payments are <strong>fixed</strong>. If you have a bad month, you still must pay the bank. If you can't, you go bankrupt.</p>
+                        </div>
+                    </div>
+
+                    <div style="background: var(--bg-dark); color: var(--white); padding: 2rem; border-radius: var(--radius-md); text-align: center; margin: 2rem 0;">
+                        <h3 style="color: var(--secondary-light);">Debt Ratio Formula</h3>
+                        <div style="font-size: 1.5rem; font-weight: 700; margin-top: 1rem;">
+                            Debt Ratio = <span style="border-bottom: 2px solid white;">Total Liabilities</span> / <span
+                                style="border-top: 2px solid transparent;">Total Assets</span>
+                        </div>
+                        <p style="margin-top: 1rem; font-size: 0.9rem; color: var(--text-muted);">* How much of your stuff (Assets) is actually owned by the bank (Liabilities)?</p>
+                    </div>
+                </div>
+
+                <!-- Depth B -->
+                <div id="depth-B" class="depth-content">
+                    <h3>🟡 Standard Level</h3>
+                    <p>Understanding industry benchmarks and making comparisons.</p>
+
+                    <div class="worked-example">
+                        <h4>Industry Benchmarks: No "Right" Answer</h4>
+                        <p>Is 50% debt high? It depends on how stable your income is.</p>
+                        <div class="table-scroll">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Industry</th>
+                                        <th>Typical Debt Ratio</th>
+                                        <th>Why?</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>Utilities (Electric/Water)</td>
+                                        <td>High (50% - 70%)</td>
+                                        <td><strong>Stable Income.</strong> People always pay water bills, so these companies can safely carry more debt.</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Tech Startups</td>
+                                        <td>Low (10% - 30%)</td>
+                                        <td><strong>Volatile Income.</strong> Profits are unpredictable, so fixed debt payments are too risky.</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Retail</td>
+                                        <td>Moderate (40% - 50%)</td>
+                                        <td>Needs debt to expand stores, but margins are thin.</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Manufacturing</td>
+                                        <td>Moderate (30% - 50%)</td>
+                                        <td>Capital-intensive but relatively stable demand for products.</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <div class="worked-example">
+                        <h4>Calculation Example</h4>
+                        <p><strong>Scenario:</strong> A company has total liabilities of $40,000 and total assets of $100,000.</p>
+                        <div class="example-step">
+                            <strong>Step 1: Identify values</strong>
+                            <p>Total Liabilities = $40,000, Total Assets = $100,000</p>
+                        </div>
+                        <div class="example-step">
+                            <strong>Step 2: Apply formula</strong>
+                            <p>Debt Ratio = $40,000 / $100,000 = 0.40</p>
+                        </div>
+                        <div class="example-step">
+                            <strong>Step 3: Convert to percentage</strong>
+                            <p>Debt Ratio = 40%</p>
+                        </div>
+                        <div class="example-step">
+                            <strong>Step 4: Interpret</strong>
+                            <p>40% of assets are financed by debt, 60% by equity. This is generally considered moderate risk.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Depth C -->
+                <div id="depth-C" class="depth-content">
+                    <h3>🔴 Advanced Level</h3>
+                    <p>Strategic financing decisions and risk management.</p>
+
+                    <div class="worked-example">
+                        <h4>Comparing Companies Across Industries</h4>
+                        <p><strong>Scenario:</strong> Company A (Utility) has 60% debt ratio. Company B (Tech Startup) has 25% debt ratio. Which is riskier?</p>
+                        <div class="example-step">
+                            <strong>Analysis:</strong>
+                            <p>Utility: 60% is NORMAL for industry. Stable cash flows make this debt manageable.</p>
+                            <p>Tech Startup: 25% is actually HIGH for industry. Volatile revenue makes even moderate debt very risky.</p>
+                        </div>
+                        <div class="example-step">
+                            <strong>Conclusion:</strong>
+                            <p>Company B is actually RISKIER despite lower debt ratio because of industry context.</p>
+                        </div>
+                    </div>
+
+                    <div class="worked-example">
+                        <h4>Debt Covenants and Financial Flexibility</h4>
+                        <p><strong>Scenario:</strong> A company borrows $1,000,000 with a debt covenant limiting debt ratio to 50%.</p>
+                        <div class="example-step">
+                            <strong>Current situation:</strong>
+                            <p>Assets: $1,800,000, Liabilities: $900,000, Debt Ratio: 50% (exactly at limit)</p>
+                        </div>
+                        <div class="example-step">
+                            <strong>Expansion consideration:</strong>
+                            <p>To buy $200,000 equipment, company must raise $400,000 (new assets $2M, maintaining 50% ratio)</p>
+                        </div>
+                        <div class="example-step">
+                            <strong>Strategic options:</strong>
+                            <p>1. Raise equity (sell stock), 2. Pay down existing debt first, 3. Renegotiate covenant</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Interactive Calculator -->
+            <section class="interactive-section">
+                <h2>🎨 Interactive Solvency Calculator</h2>
+                <p>Adjust liabilities and assets to see how company's risk profile changes.</p>
+                <div class="simulator-container">
+                    <div class="input-group">
+                        <label for="debt-liab">Total Liabilities ($)</label>
+                        <input type="number" id="debt-liab" value="40000" oninput="calcDebtRatio()">
+                    </div>
+                    <div class="input-group">
+                        <label for="debt-assets">Total Assets ($)</label>
+                        <input type="number" id="debt-assets" value="100000" oninput="calcDebtRatio()">
+                    </div>
+                    <div
+                        style="margin-top: 2rem; padding: 2rem; background: var(--white); border-radius: var(--radius-sm); border: 2px solid var(--error); text-align: center;">
+                        <h4 style="color: var(--text-muted); font-size: 0.8rem;">DEBT RATIO</h4>
+                        <div id="debt-result" style="font-size: 3rem; font-weight: 900; color: var(--error);">40.0%
+                        </div>
+                        <div id="debt-eval" style="margin-top: 0.5rem; font-weight: 700; color: var(--warning);">
+                            MODERATE RISK</div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Common Misconceptions -->
+            <section class="kp-section">
+                <h2>🚫 Common Misconceptions & Professional Tips</h2>
+
+                <div class="misconception-alert">
+                    <strong>❌ Misconception 1:</strong> "Lower debt ratio is always better."
+                    <br><br>
+                    <strong>✅ Reality:</strong> Extremely low debt ratios may indicate overly conservative management, missing growth opportunities. The goal is OPTIMAL, not MINIMAL debt.
+                </div>
+
+                <div class="misconception-alert">
+                    <strong>❌ Misconception 2:</strong> "All companies should aim for the same debt ratio."
+                    <br><br>
+                    <strong>✅ Reality:</strong> Acceptable debt ratios vary dramatically by industry due to cash flow stability. Compare only to industry peers, not across industries.
+                </div>
+
+                <div class="misconception-alert">
+                    <strong>❌ Misconception 3:</strong> "Debt ratio tells you if a company can pay its bills."
+                    <br><br>
+                    <strong>✅ Reality:</strong> Debt ratio measures capital structure, not liquidity. For ability to pay short-term obligations, use liquidity ratios (Current Ratio, Quick Ratio).
+                </div>
+
+                <div class="professional-tip">
+                    <strong>💡 Professional Tip #1:</strong> Always compare debt ratio to industry averages. A 60% ratio is fine for utilities but dangerous for tech startups.
+                </div>
+
+                <div class="professional-tip">
+                    <strong>💡 Professional Tip #2:</strong> Look at debt ratio trends over time. Increasing ratios may signal deteriorating financial health or aggressive expansion.
+                </div>
+
+                <div class="professional-tip">
+                    <strong>💡 Professional Tip #3:</strong> Consider the cost of debt versus returns. If ROA exceeds interest rate, debt creates value. If not, debt destroys value.
+                </div>
+            </section>
+
+            <!-- Memory Aids -->
+            <section class="kp-section">
+                <h2>🧠 Memory Aids & Quick Reference</h2>
+
+                <div class="memory-aid-card">
+                    <strong>⚡ Quick Recall: Debt Ratio Formula</strong>
+                    <p><strong>Debt Ratio = Total Liabilities ÷ Total Assets</strong></p>
+                    <p>Result: Percentage of assets financed by creditors (higher = more risk)</p>
+                </div>
+
+                <div class="key-concepts-grid">
+                    <div class="concept-card">
+                        <strong>📊 Low Risk</strong>
+                        <p>Debt ratio < 30%. Highly conservative, limited growth leverage, but very stable.</p>
+                    </div>
+
+                    <div class="concept-card">
+                        <strong>⚖️ Moderate Risk</strong>
+                        <p>Debt ratio 30% - 60%. Balanced approach to debt and equity financing.</p>
+                    </div>
+
+                    <div class="concept-card">
+                        <strong>⚠️ High Risk</strong>
+                        <p>Debt ratio > 60%. Highly leveraged, vulnerable to economic downturns.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Glossary -->
+            <section class="kp-section">
+                <h2>📖 Glossary</h2>
+                <div class="key-concepts-grid">
+                    <div class="concept-card">
+                        <strong>Debt Ratio</strong>
+                        <p>Total liabilities divided by total assets. Measures proportion of assets financed by creditors rather than shareholders.</p>
+                    </div>
+
+                    <div class="concept-card">
+                        <strong>Leverage</strong>
+                        <p>Use of borrowed capital to increase potential returns. Amplifies both gains and losses.</p>
+                    </div>
+
+                    <div class="concept-card">
+                        <strong>Solvency</strong>
+                        <p>Long-term financial health. Ability to meet obligations and continue operating indefinitely.</p>
+                    </div>
+
+                    <div class="concept-card">
+                        <strong>OPM (Other People's Money)</strong>
+                        <p>Using debt capital to generate returns for equity holders, magnifying shareholder wealth.</p>
+                    </div>
+
+                    <div class="concept-card">
+                        <strong>Fixed Obligations</strong>
+                        <p>Debt payments that must be paid regardless of revenue, creating financial risk.</p>
+                    </div>
+
+                    <div class="concept-card">
+                        <strong>Debt Covenant</strong>
+                        <p>Contractual terms limiting borrower's actions, often including maximum debt ratio requirements.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Final Knowledge Check -->
+            <section class="interactive-section">
+                <h2>🎯 Final Knowledge Check</h2>
+                <p>Test your understanding of Debt Ratio Analysis:</p>
+
+                <div class="quiz-container" data-success-text="Excellent! You've mastered debt ratio analysis." data-explanation="Financing with equity (selling stock) increases assets without increasing liabilities, which lowers overall debt ratio and financial risk.">
+                    <div class="input-group">
+                        <p><strong>Question 1:</strong> A company has $50,000 liabilities and $200,000 assets. What is the debt ratio?</p>
+                        <label><input type="radio" name="q1" value="correct" data-correct="true"> 25%</label><br>
+                        <label><input type="radio" name="q1" value="incorrect1" data-correct="false"> 20%</label><br>
+                        <label><input type="radio" name="q1" value="incorrect2" data-correct="false"> 40%</label>
+                    </div>
+
+                    <div class="input-group">
+                        <p><strong>Question 2:</strong> Which industry typically has the HIGHEST acceptable debt ratio?</p>
+                        <label><input type="radio" name="q2" value="correct" data-correct="true"> Utilities</label><br>
+                        <label><input type="radio" name="q2" value="incorrect1" data-correct="false"> Technology startups</label><br>
+                        <label><input type="radio" name="q2" value="incorrect2" data-correct="false"> Retail</label>
+                    </div>
+
+                    <div class="input-group">
+                        <p><strong>Question 3:</strong> FastForward has a debt ratio of 75%. Management wants to reduce financial risk. Which action should they take?</p>
+                        <label><input type="radio" name="q3" value="incorrect1" data-correct="false"> Borrow $50,000 from bank to buy new equipment.</label><br>
+                        <label><input type="radio" name="q3" value="correct" data-correct="true"> Issue $50,000 in additional Common Stock.</label><br>
+                        <label><input type="radio" name="q3" value="incorrect2" data-correct="false"> Buy supplies on credit.</label>
+                    </div>
+
+                    <button class="btn btn-primary quiz-submit">Submit Answers</button>
+                    <div class="feedback"></div>
+                    <button class="quiz-retry">Try Again</button>
+                </div>
+            </section>
+
+            <!-- Navigation -->
+            <nav class="kp-navigation" style="display: flex; justify-content: space-between; margin-top: 4rem; padding-bottom: 2rem;">
+                <a href="ch02_A1.html" class="btn" style="background: #eee;">← Previous: Recording</a>
+                <a href="ch02_P1.html" class="btn btn-primary">Next: Trial Balance →</a>
+            </nav>
+        </article>
+    </main>
+
+    <footer style="margin-top: 5rem; padding: 2rem 0; border-top: 1px solid #ddd; text-align: center; color: #888;">
+        <p>Accounting Essentials | Chapter 2 | Analysis 2</p>
+    </footer>
+
+    <script src="../../components-enhanced.js"></script>
+    <script>
+        function setDepth(depth) {
+            document.querySelectorAll('.depth-btn').forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+
+            document.querySelectorAll('.depth-content').forEach(content => content.classList.remove('active'));
+            document.getElementById(`depth-${depth}`).classList.add('active');
+        }
+
+        function updateRatioVisual(value) {
+            const debtPercent = parseInt(value);
+            const equityPercent = 100 - debtPercent;
+
+            // Update bar widths
+            document.getElementById('equity-bar').style.width = equityPercent + '%';
+            document.getElementById('debt-bar').style.width = debtPercent + '%';
+
+            // Update bar text
+            document.getElementById('equity-text').textContent = equityPercent + '%';
+            document.getElementById('debt-text').textContent = debtPercent + '%';
+
+            // Update result display
+            const ratioValue = document.getElementById('ratio-value');
+            const ratioEval = document.getElementById('ratio-eval');
+
+            ratioValue.textContent = debtPercent + '%';
+
+            if (debtPercent < 30) {
+                ratioEval.textContent = 'LOW RISK';
+                ratioEval.className = 'eval low';
+            } else if (debtPercent <= 60) {
+                ratioEval.textContent = 'MODERATE RISK';
+                ratioEval.className = 'eval moderate';
+            } else {
+                ratioEval.textContent = 'HIGH RISK';
+                ratioEval.className = 'eval high';
+            }
+        }
+
+        function calcDebtRatio() {
+            const liab = parseFloat(document.getElementById('debt-liab').value) || 0;
+            const assets = parseFloat(document.getElementById('debt-assets').value) || 1;
+            const ratio = (liab / assets) * 100;
+
+            const resultElem = document.getElementById('debt-result');
+            const evalElem = document.getElementById('debt-eval');
+
+            resultElem.textContent = ratio.toFixed(1) + "%";
+
+            if (ratio < 30) {
+                evalElem.textContent = "LOW RISK";
+                evalElem.style.color = "var(--success)";
+            } else if (ratio <= 60) {
+                evalElem.textContent = "MODERATE RISK";
+                evalElem.style.color = "var(--warning)";
+            } else {
+                evalElem.textContent = "HIGH RISK";
+                evalElem.style.color = "var(--error)";
+            }
+        }
+    </script>
+</body>
+
+</html>

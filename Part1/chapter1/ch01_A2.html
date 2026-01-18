@@ -1,0 +1,678 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>A2: Return on Assets (ROA) | ACCOUNTING ESSENTIALS</title>
+    <link rel="stylesheet" href="../../styles.css">
+    <style>
+        .roa-formula-box {
+            background: var(--primary);
+            color: var(--white);
+            padding: 2.5rem;
+            border-radius: var(--radius-md);
+            text-align: center;
+            margin: 2rem 0;
+        }
+        .roa-formula-box h3 {
+            color: var(--secondary-light);
+            margin-bottom: 1.5rem;
+            font-size: 1.3rem;
+        }
+        .formula-display {
+            font-size: 2rem;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+        .formula-fraction {
+            display: inline-flex;
+            flex-direction: column;
+            align-items: center;
+            vertical-align: middle;
+        }
+        .formula-numerator {
+            border-bottom: 3px solid white;
+            padding-bottom: 0.5rem;
+            margin-bottom: 0.25rem;
+        }
+        .formula-denominator {
+            padding-top: 0.25rem;
+        }
+        .formula-operator {
+            font-size: 2.5rem;
+            font-weight: 800;
+        }
+        .roa-note {
+            font-size: 0.85rem;
+            margin-top: 1.5rem;
+            opacity: 0.85;
+            font-style: italic;
+        }
+        .benchmark-table th {
+            background: var(--primary);
+            color: white;
+        }
+        .benchmark-table tr:nth-child(even) {
+            background: var(--bg-light);
+        }
+        .calculator-result {
+            transition: all 0.3s ease;
+        }
+        .calculator-result.high {
+            color: var(--success);
+        }
+        .calculator-result.medium {
+            color: var(--warning);
+        }
+        .calculator-result.low {
+            color: var(--error);
+        }
+    </style>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-50MTQPVR7D"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-50MTQPVR7D');
+</script>
+
+</head>
+
+<body>
+    <header>
+        <div class="container nav-container">
+            <a href="../../index.html" class="logo">ACCOUNTING<span>ESSENTIALS</span></a>
+            <nav class="nav-links">
+                <a href="../../index.html">Home</a>
+                <a href="../part1.html">Part 1</a>
+                <a href="../../part2/part2.html">Part 2</a>
+                <a href="../../part3/part3.html">Part 3</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container">
+        <div class="breadcrumbs">
+            <a href="../../index.html">Home</a> <span>/</span> <a href="../part1.html">Part 1</a> <span>/</span> <a
+                href="ch01.html">Chapter 1</a> <span>/</span> A2
+        </div>
+
+        <article class="animate-fade-in">
+            <div class="kp-header">
+                <h1 style="border-left: 8px solid var(--info); padding-left: 1rem; margin: 2rem 0;">Return on Assets (ROA)</h1>
+            </div>
+
+            <!-- Learning Objectives -->
+            <section class="kp-section">
+                <h2>🎯 Learning Objectives</h2>
+                <div class="learning-objectives">
+                    <ul>
+                        <li>Understand Return on Assets (ROA) as a profitability and efficiency measure</li>
+                        <li>Calculate ROA using the formula: Net Income ÷ Average Total Assets</li>
+                        <li>Explain why Average Total Assets is used instead of Ending Total Assets</li>
+                        <li>Interpret ROA results and compare across industries</li>
+                        <li>Apply ROA analysis to evaluate management performance</li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- Background & Principles -->
+            <section class="kp-section">
+                <h2>📚 Background & Principles</h2>
+                <p>Return on Assets (ROA) is a <strong>profitability ratio</strong> that measures how efficiently a company uses its assets to generate profit. It answers the fundamental business question: <strong>"For every dollar invested in assets, how many cents of profit did the company earn?"</strong></p>
+
+                <div class="key-concepts-grid">
+                    <div class="concept-card">
+                        <strong>📊 Profitability Measure</strong>
+                        <p>ROA shows the percentage of profit generated from each dollar of assets invested.</p>
+                    </div>
+                    <div class="concept-card">
+                        <strong>⚡ Efficiency Indicator</strong>
+                        <p>Higher ROA means better asset utilization and more efficient operations.</p>
+                    </div>
+                    <div class="concept-card">
+                        <strong>🎯 Management Performance</strong>
+                        <p>Used to evaluate how effectively management deploys company resources.</p>
+                    </div>
+                    <div class="concept-card">
+                        <strong>📈 Investment Decision</strong>
+                        <p>Investors use ROA to compare companies and assess potential returns.</p>
+                    </div>
+                </div>
+
+                <div class="professional-tip" style="margin-top: 2rem;">
+                    <strong>💡 Core Principle:</strong> ROA is most useful when <strong>comparing companies in the same industry</strong>. A 10% ROA might be excellent for a utility company but mediocre for a software company due to different asset requirements.
+                </div>
+            </section>
+
+            <!-- Key Concepts -->
+            <section class="kp-section">
+                <h2>🔑 Key Concepts</h2>
+                <div class="card-grid">
+                    <div class="content-card" style="border-top: 4px solid var(--primary);">
+                        <h3 style="color: var(--primary);">1. Net Income</h3>
+                        <p><strong>Definition:</strong> The bottom line profit after all expenses, interest, and taxes have been deducted from revenue.</p>
+                        <p><strong>Where found:</strong> Income Statement (bottom line)</p>
+                        <p><strong>Key point:</strong> Represents the return available to all investors, not just shareholders.</p>
+                    </div>
+
+                    <div class="content-card" style="border-top: 4px solid var(--secondary);">
+                        <h3 style="color: var(--secondary);">2. Total Assets</h3>
+                        <p><strong>Definition:</strong> The sum of all economic resources controlled by the company (cash, receivables, inventory, equipment, etc.).</p>
+                        <p><strong>Where found:</strong> Balance Sheet</p>
+                        <p><strong>Key point:</strong> Represents the total investment deployed to generate profits.</p>
+                    </div>
+
+                    <div class="content-card" style="border-top: 4px solid var(--success);">
+                        <h3 style="color: var(--success);">3. Average Total Assets</h3>
+                        <p><strong>Formula:</strong> (Beginning Assets + Ending Assets) ÷ 2</p>
+                        <p><strong>Why average:</strong> Net income is earned over time, so we use average assets for fair comparison.</p>
+                        <p><strong>Key point:</strong> Using ending assets alone can distort results if assets changed significantly during the year.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ROA Formula Section -->
+            <section class="kp-section">
+                <h2>📐 The ROA Formula</h2>
+                
+                <div class="roa-formula-box">
+                    <h3>The Formula</h3>
+                    <div class="formula-display">
+                        <span>ROA =</span>
+                        <div class="formula-fraction">
+                            <span class="formula-numerator">Net Income</span>
+                            <span class="formula-denominator">Average Total Assets</span>
+                        </div>
+                        <span>× 100%</span>
+                    </div>
+                    <p class="roa-note">* Average Total Assets = (Beginning Assets + Ending Assets) ÷ 2</p>
+                </div>
+
+                <div class="worked-example">
+                    <h4>Example: Interpreting ROA</h4>
+                    <p><strong>Scenario:</strong> A company has Net Income of $500,000 and Average Total Assets of $5,000,000.</p>
+                    
+                    <div class="example-step">
+                        <strong>Step 1: Apply the Formula</strong>
+                        <p>ROA = $500,000 ÷ $5,000,000 = 0.10 = <strong>10%</strong></p>
+                    </div>
+
+                    <div class="example-step">
+                        <strong>Step 2: Interpret the Result</strong>
+                        <p>The company generates <strong>$0.10 of profit for every $1.00 invested in assets</strong>, or equivalently, <strong>10 cents profit per dollar of assets</strong>.</p>
+                    </div>
+
+                    <div class="professional-tip">
+                        <strong>💡 Professional Insight:</strong> A 10% ROA means the company is earning 10 cents in profit for every dollar tied up in assets. This return should exceed the company's cost of capital to create shareholder value.
+                    </div>
+                </div>
+            </section>
+
+            <!-- Industry Benchmarks -->
+            <section class="kp-section">
+                <h2>🏭 Industry Benchmarks</h2>
+                <p>Is a 10% ROA good? <strong>It depends on the industry.</strong> Capital-intensive industries (like airlines, utilities) usually have lower ROAs because they require massive asset investments. Service-based industries (like software, consulting) often have higher ROAs because their asset base is relatively small.</p>
+
+                <div class="table-scroll">
+                    <table class="benchmark-table financial-table">
+                        <thead>
+                            <tr>
+                                <th>Industry</th>
+                                <th>Typical ROA</th>
+                                <th>Reasoning</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>Software / Technology</strong></td>
+                                <td>15% - 25%</td>
+                                <td>Relatively low asset base (computers, office equipment) compared to high profit margins from intellectual property.</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Financial Services</strong></td>
+                                <td>8% - 15%</td>
+                                <td>Moderate asset requirements with consistent profit generation from interest and fees.</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Retail</strong></td>
+                                <td>5% - 12%</td>
+                                <td>Requires significant investment in inventory and store space assets, creating lower efficiency ratios.</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Manufacturing</strong></td>
+                                <td>4% - 10%</td>
+                                <td>Heavy machinery, factories, and equipment create large asset bases that reduce overall efficiency.</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Utilities / Energy</strong></td>
+                                <td>2% - 6%</td>
+                                <td>Massive infrastructure investments (power plants, grids, pipelines) require billions in assets.</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Real Estate (REITs)</strong></td>
+                                <td>3% - 8%</td>
+                                <td>Property holdings create large asset bases; returns come primarily from rental income and appreciation.</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="misconception-alert" style="margin-top: 2rem;">
+                    <strong>⚠️ Common Error:</strong> Comparing ROA across industries without accounting for different capital requirements.
+                    <br><br>
+                    <strong>✅ Correct Approach:</strong> Always compare ROA within the same industry. A 5% ROA for a utility company may be excellent, while the same 5% ROA for a software company would be disappointing.
+                </div>
+            </section>
+
+            <!-- Interactive ROA Calculator -->
+            <section class="kp-section">
+                <h2>🧮 Interactive ROA Calculator</h2>
+                <p>Enter the financial data to calculate Return on Assets for <strong>FastForward</strong> and see their performance.</p>
+
+                <div class="simulator-container" id="roa-calculator">
+                    <div class="equation-display">
+                        <div class="formula-fraction" style="padding: 2rem; background: var(--bg-light); border-radius: var(--radius-sm);">
+                            <div style="font-weight: 700; margin-bottom: 0.5rem;">ROA Calculator</div>
+                            <div class="formula-fraction">
+                                <span class="formula-numerator">
+                                    <input type="number" id="roa-income" value="5000" style="width: 120px; padding: 0.5rem; text-align: center; font-size: 1rem;">
+                                </span>
+                                <span class="formula-denominator">
+                                    <input type="number" id="roa-assets" value="50000" style="width: 120px; padding: 0.5rem; text-align: center; font-size: 1rem;">
+                                </span>
+                            </div>
+                            <div style="margin-top: 1rem; font-weight: 700;">× 100% = <span id="roa-result" style="color: var(--primary);">10.00%</span></div>
+                        </div>
+                    </div>
+                    
+                    <div class="input-group" style="margin-top: 1.5rem;">
+                        <label for="roa-income">Net Income ($)</label>
+                        <input type="number" id="roa-income-value" value="5000" step="100" placeholder="Enter net income">
+                    </div>
+                    <div class="input-group">
+                        <label for="roa-assets">Average Total Assets ($)</label>
+                        <input type="number" id="roa-assets-value" value="50000" step="100" placeholder="Enter average assets">
+                    </div>
+
+                    <div id="roa-feedback" class="calculator-result high" style="text-align: center; margin-top: 1.5rem; padding: 1rem; background: var(--bg-light); border-radius: var(--radius-sm);">
+                        <strong>Result:</strong> <span id="roa-calculated">10.00%</span> — Excellent performance!
+                    </div>
+                </div>
+
+                <script>
+                    document.getElementById('roa-income-value').addEventListener('input', calculateROA);
+                    document.getElementById('roa-assets-value').addEventListener('input', calculateROA);
+
+                    function calculateROA() {
+                        const income = parseFloat(document.getElementById('roa-income-value').value) || 0;
+                        const assets = parseFloat(document.getElementById('roa-assets-value').value) || 1;
+                        const roa = (income / assets) * 100;
+                        
+                        const resultEl = document.getElementById('roa-calculated');
+                        const feedbackEl = document.getElementById('roa-feedback');
+                        
+                        resultEl.textContent = roa.toFixed(2) + '%';
+                        
+                        if (roa >= 15) {
+                            feedbackEl.className = 'calculator-result high';
+                            feedbackEl.innerHTML = `<strong>Result:</strong> ${roa.toFixed(2)}% — <span style="color: var(--success);">Excellent! Industry-leading efficiency.</span>`;
+                        } else if (roa >= 8) {
+                            feedbackEl.className = 'calculator-result medium';
+                            feedbackEl.innerHTML = `<strong>Result:</strong> ${roa.toFixed(2)}% — <span style="color: var(--warning);">Good performance, competitive.</span>`;
+                        } else if (roa >= 4) {
+                            feedbackEl.className = 'calculator-result medium';
+                            feedbackEl.innerHTML = `<strong>Result:</strong> ${roa.toFixed(2)}% — <span style="color: var(--warning);">Average. Room for improvement.</span>`;
+                        } else {
+                            feedbackEl.className = 'calculator-result low';
+                            feedbackEl.innerHTML = `<strong>Result:</strong> ${roa.toFixed(2)}% — <span style="color: var(--error);">Low. Assets not generating sufficient profit.</span>`;
+                        }
+                    }
+                </script>
+            </section>
+
+            <!-- Worked Examples -->
+            <section class="kp-section">
+                <h2>📝 Worked Examples</h2>
+
+                <div class="worked-example">
+                    <h4>Example 1: Comparing Two Companies</h4>
+                    <p><strong>Scenario:</strong> Compare two companies in the same industry:</p>
+                    <ul>
+                        <li><strong>Company A:</strong> Net Income = $2M, Average Assets = $10M (ROA = 20%)</li>
+                        <li><strong>Company B:</strong> Net Income = $3M, Average Assets = $30M (ROA = 10%)</li>
+                    </ul>
+
+                    <div class="example-step">
+                        <strong>Analysis:</strong>
+                        <p>Although Company B has <strong>more absolute profit</strong> ($3M vs $2M), Company A is <strong>more efficient</strong> at generating returns from its asset base.</p>
+                    </div>
+
+                    <div class="example-step">
+                        <strong>Investment Implication:</strong>
+                        <p>If you had $10M to invest, Company A would likely generate <strong>$2M in profit</strong> (20% × $10M), while Company B would only generate <strong>$1M</strong> (10% × $10M).</p>
+                    </div>
+
+                    <div class="professional-tip">
+                        <strong>💡 Key Takeaway:</strong> Always look at <strong>efficiency ratios</strong> like ROA, not just absolute numbers. A smaller, more efficient company can create more value than a larger, inefficient one.
+                    </div>
+                </div>
+
+                <div class="worked-example">
+                    <h4>Example 2: Using Average Assets</h4>
+                    <p><strong>Scenario:</strong> FastForward has the following asset balances:</p>
+                    <ul>
+                        <li>Beginning Assets: $40,000</li>
+                        <li>Ending Assets: $60,000</li>
+                        <li>Net Income: $8,000</li>
+                    </ul>
+
+                    <div class="example-step">
+                        <strong>Step 1: Calculate Average Assets</strong>
+                        <p>Average Assets = ($40,000 + $60,000) ÷ 2 = <strong>$50,000</strong></p>
+                    </div>
+
+                    <div class="example-step">
+                        <strong>Step 2: Calculate ROA</strong>
+                        <p>ROA = $8,000 ÷ $50,000 = <strong>16%</strong></p>
+                    </div>
+
+                    <div class="example-step">
+                        <strong>Step 3: Why Not Use Ending Assets?</strong>
+                        <p>If we used Ending Assets ($60,000): ROA = $8,000 ÷ $60,000 = 13.33%</p>
+                        <p>This would understate performance since profits were earned throughout the year when assets were lower on average.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Deep Dive with Depth Toggle -->
+            <section class="kp-section">
+                <h2>🔍 Deep Dive</h2>
+                <p>Explore ROA analysis at different levels of depth:</p>
+
+                <div class="depth-toggle">
+                    <button class="depth-btn active" onclick="setROADepth('A')">Depth A: Foundational</button>
+                    <button class="depth-btn" onclick="setROADepth('B')">Depth B: Standard</button>
+                    <button class="depth-btn" onclick="setROADepth('C')">Depth C: Advanced</button>
+                </div>
+
+                <!-- Depth A -->
+                <div id="roa-depth-A" class="depth-content active">
+                    <h3>🟢 Foundational Level</h3>
+                    <p>Basic understanding of ROA and how to interpret it.</p>
+
+                    <div class="key-concepts-grid">
+                        <div class="concept-card">
+                            <strong>High ROA (>15%)</strong>
+                            <p>Excellent efficiency. Company generates strong profits from its assets. May indicate competitive advantage or efficient operations.</p>
+                        </div>
+                        <div class="concept-card">
+                            <strong>Average ROA (8-15%)</strong>
+                            <p>Normal efficiency. Typical for well-managed companies in most industries. Indicates reasonable asset utilization.</p>
+                        </div>
+                        <div class="concept-card">
+                            <strong>Low ROA (<8%)</strong>
+                            <p>Poor efficiency. Assets are not generating sufficient returns. May indicate operational issues or industry challenges.</p>
+                        </div>
+                    </div>
+
+                    <div class="professional-tip">
+                        <strong>💡 Quick Rule:</strong> A ROA at or above your industry's average is "good." Above average is "excellent." Below average warrants investigation.
+                    </div>
+                </div>
+
+                <!-- Depth B -->
+                <div id="roa-depth-B" class="depth-content">
+                    <h3>🟡 Standard Level</h3>
+                    <p>Detailed analysis of ROA components and trends.</p>
+
+                    <div class="worked-example">
+                        <h4>Analyzing ROA Trends</h4>
+                        <p><strong>Scenario:</strong> A company's ROA has declined from 12% to 8% over 3 years. What might cause this?</p>
+                        
+                        <div class="example-step">
+                            <strong>Possible Causes:</strong>
+                            <ul>
+                                <li><strong>Asset Growth:</strong> Company invested in new assets that haven't yet generated proportional returns (common in expansion phases)</li>
+                                <li><strong>Margin Compression:</strong> Net income declined due to increased competition or rising costs</li>
+                                <li><strong>Inefficient Investments:</strong> Poor capital allocation decisions</li>
+                                <li><strong>Industry Changes:</strong> Market disruption affecting all industry players</li>
+                            </ul>
+                        </div>
+
+                        <div class="example-step">
+                            <strong>Diagnostic Approach:</strong>
+                            <p>Decompose ROA: ROA = Net Profit Margin × Asset Turnover</p>
+                            <p>This reveals whether the issue is <strong>profit margins</strong> (pricing/costs) or <strong>asset efficiency</strong> (volume/asset utilization).</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Depth C -->
+                <div id="roa-depth-C" class="depth-content">
+                    <h3>🔴 Advanced Level</h3>
+                    <p>Advanced applications and limitations of ROA.</p>
+
+                    <div class="key-concepts-grid">
+                        <div class="concept-card">
+                            <strong>DuPont Analysis</strong>
+                            <p>ROA = Net Profit Margin × Asset Turnover. This decomposition helps identify whether performance issues stem from operations (margin) or asset utilization (turnover).</p>
+                        </div>
+
+                        <div class="concept-card">
+                            <strong>Limitations of ROA</strong>
+                            <p>• Doesn't consider financing (debt vs equity)
+                            <br>• Accounting policies can affect reported assets
+                            <br>• Historical cost accounting may understate asset values
+                            <br>• Not useful for service companies with minimal assets</p>
+                        </div>
+
+                        <div class="concept-card">
+                            <strong>Better Alternatives</strong>
+                            <p>• ROE (Return on Equity) for shareholders
+                            <br>• ROCE (Return on Capital Employed) for total capital
+                            <br>• ROIC (Return on Invested Capital) for comprehensive analysis</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Common Misconceptions -->
+            <section class="kp-section">
+                <h2>🚫 Common Misconceptions & Professional Tips</h2>
+
+                <div class="misconception-alert">
+                    <strong>❌ Misconception 1:</strong> "A higher ROA always means a better company."
+                    <br><br>
+                    <strong>✅ Reality:</strong> ROA can be artificially high if a company has very old assets (recorded at historical cost, much lower than current market value). A declining ROA might actually indicate successful reinvestment in new, productive assets.
+                </div>
+
+                <div class="misconception-alert">
+                    <strong>❌ Misconception 2:</strong> "ROA tells you everything about a company's profitability."
+                    <br><br>
+                    <strong>✅ Reality:</strong> ROA measures <strong>return on assets</strong>, not total profitability. A company with low ROA but massive assets can still have large absolute profits. Use ROA with other metrics for complete analysis.
+                </div>
+
+                <div class="misconception-alert">
+                    <strong>❌ Misconception 3:</strong> "You can compare any company's ROA to any other."
+                    <br><br>
+                    <strong>✅ Reality:</strong> ROA is most meaningful when comparing <strong>companies in the same industry</strong>. Different industries have vastly different capital requirements that make cross-industry ROA comparisons misleading.
+                </div>
+
+                <div class="professional-tip">
+                    <strong>💡 Professional Tip #1:</strong> Always look at ROA trends over time. A stable or improving ROA is more meaningful than a single year's figure.
+                </div>
+
+                <div class="professional-tip">
+                    <strong>💡 Professional Tip #2:</strong> When analyzing a potential investment, compare the target's ROA to industry averages and to its historical performance.
+                </div>
+
+                <div class="professional-tip">
+                    <strong>💡 Professional Tip #3:</strong> Consider the economic cycle when interpreting ROA. A "low" ROA during a recession might be excellent performance given the conditions.
+                </div>
+            </section>
+
+            <!-- Memory Aids -->
+            <section class="kp-section">
+                <h2>🧠 Memory Aids & Quick Reference</h2>
+
+                <div class="memory-aid-card">
+                    <strong>⚡ Quick Recall: ROA Formula</strong>
+                    <p style="margin-top: 1rem;"><strong>ROA = Net Income ÷ Average Assets</strong></p>
+                    <p>Higher = More efficient at using assets to generate profit.</p>
+                </div>
+
+                <div class="memory-aid-card">
+                    <strong>⚡ Quick Recall: Average Assets</strong>
+                    <p style="margin-top: 1rem;"><strong>Average Assets = (Beginning + Ending) ÷ 2</strong></p>
+                    <p>Use average because income is earned over time, not at a single point.</p>
+                </div>
+
+                <div class="memory-aid-card">
+                    <strong>⚡ Quick Recall: Interpretation Guide</strong>
+                    <p style="margin-top: 1rem;"><strong>> 15%:</strong> Excellent | <strong>8-15%:</strong> Good | <strong>< 8%:</strong> Needs improvement</p>
+                    <p>Always compare within the same industry!</p>
+                </div>
+
+                <h3 style="margin-top: 2rem;">📖 Further Reading</h3>
+                <div class="key-concepts-grid">
+                    <div class="concept-card">
+                        <strong>DuPont Analysis</strong>
+                        <p>Breaking ROA into profit margin and asset turnover components for deeper insight.</p>
+                    </div>
+                    <div class="concept-card">
+                        <strong>Return on Equity (ROE)</strong>
+                        <p>Similar measure focusing on shareholder return rather than total asset efficiency.</p>
+                    </div>
+                    <div class="concept-card">
+                        <strong>Asset Turnover Ratio</strong>
+                        <p>Measures revenue generated per dollar of assets, complementing ROA analysis.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Glossary -->
+            <section class="kp-section">
+                <h2>📖 Glossary</h2>
+                <div class="key-concepts-grid">
+                    <div class="concept-card">
+                        <strong>Return on Assets (ROA)</strong>
+                        <p>Profitability ratio measuring how efficiently a company uses assets to generate profit.</p>
+                    </div>
+                    <div class="concept-card">
+                        <strong>Net Income</strong>
+                        <p>Total profit after all expenses, interest, and taxes have been deducted from revenue.</p>
+                    </div>
+                    <div class="concept-card">
+                        <strong>Average Total Assets</strong>
+                        <p>Mean of beginning and ending asset balances for a reporting period.</p>
+                    </div>
+                    <div class="concept-card">
+                        <strong>Profitability Ratio</strong>
+                        <p>Financial metric that measures a company's ability to generate profits from operations.</p>
+                    </div>
+                    <div class="concept-card">
+                        <strong>Efficiency Ratio</strong>
+                        <p>Metric that measures how well a company uses its assets and resources to generate revenue.</p>
+                    </div>
+                    <div class="concept-card">
+                        <strong>Capital Intensity</strong>
+                        <p>Degree to which a company relies on physical assets to generate revenue and profit.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Final Knowledge Check -->
+            <section class="interactive-section">
+                <h2>🎯 Final Knowledge Check</h2>
+                <p>Test your understanding of Return on Assets:</p>
+
+                <div class="quiz-container" data-success-text="Excellent! You've mastered Return on Assets analysis." data-explanation="Using ending assets ($60,000) instead of average ($50,000) would give ROA = $8,000 ÷ $60,000 = 13.33%, understating the true return. Average assets provide a fairer measure since income is earned throughout the year.">
+                    <div class="input-group">
+                        <p><strong>Question 1:</strong> Why do we use Average Total Assets instead of Ending Total Assets in the ROA formula?</p>
+                        <label><input type="radio" name="roa1" value="a" data-correct="true"> Net income is earned over time, so average assets provide fairer comparison</label><br>
+                        <label><input type="radio" name="roa1" value="b" data-correct="false"> Ending assets are always more accurate</label><br>
+                        <label><input type="radio" name="roa1" value="c" data-correct="false"> Average assets are required by GAAP</label>
+                    </div>
+
+                    <div class="input-group">
+                        <p><strong>Question 2:</strong> Company X has Net Income of $1M and Average Assets of $5M. What is the ROA?</p>
+                        <label><input type="radio" name="roa2" value="a" data-correct="false"> 5%</label><br>
+                        <label><input type="radio" name="roa2" value="b" data-correct="true"> 20%</label><br>
+                        <label><input type="radio" name="roa2" value="c" data-correct="false"> 200%</label>
+                    </div>
+
+                    <div class="input-group">
+                        <p><strong>Question 3:</strong> Which statement about ROA is TRUE?</p>
+                        <label><input type="radio" name="roa3" value="a" data-correct="false"> ROA can be directly compared across all industries</label><br>
+                        <label><input type="radio" name="roa3" value="b" data-correct="true"> A 20% ROA means $0.20 profit for every $1.00 of assets</label><br>
+                        <label><input type="radio" name="roa3" value="c" data-correct="false"> Higher ROA always means a better company</label>
+                    </div>
+
+                    <button class="btn btn-primary quiz-submit">Submit All Answers</button>
+                    <div class="feedback"></div>
+                    <button class="quiz-retry">Try Again</button>
+                </div>
+            </section>
+
+            <!-- Navigation -->
+            <nav class="kp-navigation" style="display: flex; justify-content: space-between; margin-top: 4rem; padding-bottom: 2rem;">
+                <a href="ch01_A1.html" class="btn" style="background: #eee;">← Previous: Accounting Equation</a>
+                <a href="ch01_P1.html" class="btn btn-primary">Next: Transaction Analysis →</a>
+            </nav>
+        </article>
+    </main>
+
+    <footer style="margin-top: 5rem; padding: 2rem 0; border-top: 1px solid #ddd; text-align: center; color: #888;">
+        <p>Accounting Essentials | Chapter 1 | Analysis 2</p>
+    </footer>
+
+    <script src="../../components-enhanced.js"></script>
+    <script>
+        function setROADepth(depth) {
+            document.querySelectorAll('.depth-btn').forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+
+            document.querySelectorAll('.depth-content').forEach(content => content.classList.remove('active'));
+            document.getElementById(`roa-depth-${depth}`).classList.add('active');
+        }
+
+        // Calculator functionality
+        document.getElementById('roa-income-value').addEventListener('input', calculateROA);
+        document.getElementById('roa-assets-value').addEventListener('input', calculateROA);
+
+        function calculateROA() {
+            const income = parseFloat(document.getElementById('roa-income-value').value) || 0;
+            const assets = parseFloat(document.getElementById('roa-assets-value').value) || 1;
+            const roa = (income / assets) * 100;
+            
+            const resultEl = document.getElementById('roa-calculated');
+            const feedbackEl = document.getElementById('roa-feedback');
+            
+            resultEl.textContent = roa.toFixed(2) + '%';
+            
+            if (roa >= 15) {
+                feedbackEl.className = 'calculator-result high';
+                feedbackEl.innerHTML = `<strong>Result:</strong> ${roa.toFixed(2)}% — <span style="color: var(--success);">Excellent! Industry-leading efficiency.</span>`;
+            } else if (roa >= 8) {
+                feedbackEl.className = 'calculator-result medium';
+                feedbackEl.innerHTML = `<strong>Result:</strong> ${roa.toFixed(2)}% — <span style="color: var(--warning);">Good performance, competitive.</span>`;
+            } else if (roa >= 4) {
+                feedbackEl.className = 'calculator-result medium';
+                feedbackEl.innerHTML = `<strong>Result:</strong> ${roa.toFixed(2)}% — <span style="color: var(--warning);">Average. Room for improvement.</span>`;
+            } else {
+                feedbackEl.className = 'calculator-result low';
+                feedbackEl.innerHTML = `<strong>Result:</strong> ${roa.toFixed(2)}% — <span style="color: var(--error);">Low. Assets not generating sufficient profit.</span>`;
+            }
+        }
+    </script>
+</body>
+
+</html>

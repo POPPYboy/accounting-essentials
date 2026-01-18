@@ -1,0 +1,651 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>A1: Recording Transactions & Analysis | ACCOUNTING ESSENTIALS</title>
+    <link rel="stylesheet" href="../../styles.css">
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-50MTQPVR7D"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-50MTQPVR7D');
+</script>
+
+</head>
+
+<body>
+    <header>
+        <div class="container nav-container">
+            <a href="../../index.html" class="logo">ACCOUNTS<span>MASTER</span></a>
+            <nav class="nav-links">
+                <a href="../../index.html">Home</a>
+                <a href="../part1.html">Part 1</a>
+                <a href="../../part2/part2.html">Part 2</a>
+                <a href="../../part3/part3.html">Part 3</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container">
+        <div class="breadcrumbs">
+            <a href="../../index.html">Home</a> <span>/</span> <a href="../part1.html">Part 1</a> <span>/</span> <a
+                href="ch02.html">Chapter 2</a> <span>/</span> A1
+        </div>
+
+        <article class="animate-fade-in">
+            <div class="kp-header">
+                <h1 style="border-left: 8px solid var(--accent); padding-left: 1rem; margin: 2rem 0;">Recording Transactions
+                & Analysis</h1>
+            </div>
+
+            <!-- Learning Objectives -->
+            <section class="kp-section">
+                <h2>🎯 Learning Objectives</h2>
+                <div class="learning-objectives">
+                    <ul>
+                        <li>Understand the 4-step accounting recording process: Analyze → Journalize → Post → Trial Balance</li>
+                        <li>Identify which accounts are affected by transactions</li>
+                        <li>Apply double-entry principles to create balanced journal entries</li>
+                        <li>Master compound entries that affect three or more accounts</li>
+                        <li>Recognize the importance of source documents in accounting</li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- Background & Principles -->
+            <section class="kp-section">
+                <h2>📚 Background & Principles</h2>
+                <p>The accounting recording process is systematic and sequential. Each transaction follows a predictable path from source document through journal to ledger and finally to trial balance.</p>
+
+                <div class="concept-card" style="margin: 1.5rem 0;">
+                    <strong>Core Principle:</strong> Every transaction must be recorded following strict procedures to ensure accuracy, maintain audit trails, and prevent fraud. The accounting equation must always balance after each transaction.
+                </div>
+
+                <p>This systematic approach ensures that financial information is reliable, verifiable, and useful for decision-making.</p>
+
+                <div class="professional-tip">
+                    <strong>💡 Key Insight:</strong> The recording process creates two views of your data: chronological (journal) and by account (ledger). Both perspectives are essential for accurate financial reporting.
+                </div>
+            </section>
+
+            <!-- Key Concepts -->
+            <section class="kp-section">
+                <h2>🔑 Key Concepts</h2>
+                <div class="key-concepts-grid">
+                    <div class="concept-card">
+                        <strong>Analysis</strong>
+                        <p>The process of examining source documents to identify which accounts are affected and whether they increase or decrease.</p>
+                    </div>
+
+                    <div class="concept-card">
+                        <strong>Journalizing</strong>
+                        <p>Recording transactions chronologically in the general journal, showing which accounts are debited and credited.</p>
+                    </div>
+
+                    <div class="concept-card">
+                        <strong>Posting</strong>
+                        <p>Transferring journal entry amounts to appropriate ledger accounts, updating account balances.</p>
+                    </div>
+
+                    <div class="concept-card">
+                        <strong>Compound Entry</strong>
+                        <p>A journal entry that affects three or more accounts, with equal total debits and total credits.</p>
+                    </div>
+
+                    <div class="concept-card">
+                        <strong>Audit Trail</strong>
+                        <p>The chronological path from source documents through journal to ledger that allows verification of transactions.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Visual Recording Process Flow -->
+            <section class="kp-section">
+                <h2>🎨 Visual: The Recording Process Flow</h2>
+                <p>Watch how information flows through the accounting recording system:</p>
+
+                <style>
+                    /* Compact Horizontal Recording Flow */
+                    .recording-flow-compact {
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        gap: 0;
+                        margin: 2rem 0;
+                        flex-wrap: wrap;
+                        padding: 1.5rem;
+                        background: var(--bg-light);
+                        border-radius: var(--radius-md);
+                    }
+                    .recording-box-compact {
+                        padding: 1rem 1.5rem;
+                        border-radius: var(--radius-sm);
+                        text-align: center;
+                        min-width: 140px;
+                        max-width: 180px;
+                        transition: all 0.3s ease;
+                    }
+                    .recording-box-compact:hover {
+                        transform: translateY(-3px) scale(1.02);
+                        box-shadow: var(--shadow-md);
+                    }
+                    .recording-box-compact.step-1 {
+                        background: linear-gradient(135deg, #3498db, #2980b9);
+                        color: white;
+                        border: none;
+                    }
+                    .recording-box-compact.step-2 {
+                        background: linear-gradient(135deg, #f39c12, #e67e22);
+                        color: white;
+                        border: none;
+                    }
+                    .recording-box-compact.step-3 {
+                        background: linear-gradient(135deg, #27ae60, #2ecc71);
+                        color: white;
+                        border: none;
+                    }
+                    .recording-box-compact.step-4 {
+                        background: linear-gradient(135deg, #9b59b6, #8e44ad);
+                        color: white;
+                        border: none;
+                    }
+                    .recording-box-compact h4 {
+                        margin: 0 0 0.25rem 0;
+                        font-size: 0.95rem;
+                    }
+                    .recording-box-compact p {
+                        margin: 0;
+                        font-size: 0.75rem;
+                        opacity: 0.9;
+                    }
+                    .recording-box-compact .icon {
+                        font-size: 1.6rem;
+                        margin-bottom: 0.4rem;
+                        display: block;
+                    }
+                    .recording-box-compact .step-num {
+                        display: inline-flex;
+                        align-items: center;
+                        justify-content: center;
+                        width: 20px;
+                        height: 20px;
+                        background: rgba(255,255,255,0.3);
+                        border-radius: 50%;
+                        font-size: 0.7rem;
+                        font-weight: 700;
+                        margin-bottom: 0.35rem;
+                    }
+                    /* Animated arrow */
+                    .recording-arrow-compact {
+                        font-size: 1.3rem;
+                        color: var(--primary);
+                        animation: bounce-right 1.5s ease-in-out infinite;
+                        padding: 0 0.3rem;
+                    }
+                    @keyframes bounce-right {
+                        0%, 100% { transform: translateX(0); }
+                        50% { transform: translateX(5px); }
+                    }
+                    /* Compact legend */
+                    .recording-legend-compact {
+                        display: flex;
+                        justify-content: center;
+                        gap: 1.2rem;
+                        margin-top: 1.5rem;
+                        flex-wrap: wrap;
+                    }
+                    .legend-item-compact {
+                        display: flex;
+                        align-items: center;
+                        gap: 0.35rem;
+                        font-size: 0.75rem;
+                    }
+                    .legend-color-compact {
+                        width: 12px;
+                        height: 12px;
+                        border-radius: 3px;
+                    }
+                    /* Compact process steps */
+                    .recording-process-compact {
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        gap: 0.8rem;
+                        margin-top: 1.5rem;
+                        padding: 1rem;
+                        background: var(--white);
+                        border-radius: var(--radius-sm);
+                        flex-wrap: wrap;
+                    }
+                    .process-step-compact {
+                        display: flex;
+                        align-items: center;
+                        gap: 0.35rem;
+                        font-size: 0.8rem;
+                        color: var(--text-muted);
+                    }
+                    .process-step-compact.active {
+                        color: var(--primary);
+                        font-weight: 600;
+                    }
+                    .process-arrow-compact {
+                        color: var(--primary-light);
+                        font-size: 0.9rem;
+                    }
+                </style>
+
+                <div class="recording-flow-compact">
+                    <!-- Step 1: Analyze -->
+                    <div class="recording-box-compact step-1">
+                        <span class="icon">🔍</span>
+                        <span class="step-num">1</span>
+                        <h4>ANALYZE</h4>
+                        <p>Source Documents</p>
+                    </div>
+
+                    <div class="recording-arrow-compact">→</div>
+
+                    <!-- Step 2: Journalize -->
+                    <div class="recording-box-compact step-2">
+                        <span class="icon">✍️</span>
+                        <span class="step-num">2</span>
+                        <h4>JOURNALIZE</h4>
+                        <p>Debits & Credits</p>
+                    </div>
+
+                    <div class="recording-arrow-compact">→</div>
+
+                    <!-- Step 3: Post -->
+                    <div class="recording-box-compact step-3">
+                        <span class="icon">📤</span>
+                        <span class="step-num">3</span>
+                        <h4>POST</h4>
+                        <p>Update Balances</p>
+                    </div>
+
+                    <div class="recording-arrow-compact">→</div>
+
+                    <!-- Step 4: Trial Balance -->
+                    <div class="recording-box-compact step-4">
+                        <span class="icon">⚖️</span>
+                        <span class="step-num">4</span>
+                        <h4>TRIAL BALANCE</h4>
+                        <p>Verify</p>
+                    </div>
+                </div>
+
+                <!-- Compact Legend -->
+                <div class="recording-legend-compact">
+                    <div class="legend-item-compact">
+                        <div class="legend-color-compact" style="background: linear-gradient(135deg, #3498db, #2980b9);"></div>
+                        <span>1. Analyze</span>
+                    </div>
+                    <div class="legend-item-compact">
+                        <div class="legend-color-compact" style="background: linear-gradient(135deg, #f39c12, #e67e22);"></div>
+                        <span>2. Journalize</span>
+                    </div>
+                    <div class="legend-item-compact">
+                        <div class="legend-color-compact" style="background: linear-gradient(135deg, #27ae60, #2ecc71);"></div>
+                        <span>3. Post</span>
+                    </div>
+                    <div class="legend-item-compact">
+                        <div class="legend-color-compact" style="background: linear-gradient(135deg, #9b59b6, #8e44ad);"></div>
+                        <span>4. Trial Balance</span>
+                    </div>
+                </div>
+
+                <!-- Compact Process Description -->
+                <div class="recording-process-compact">
+                    <div class="process-step-compact active">🔍 Identify</div>
+                    <span class="process-arrow-compact">→</span>
+                    <div class="process-step-compact">✍️ Record</div>
+                    <span class="process-arrow-compact">→</span>
+                    <div class="process-step-compact">📤 Transfer</div>
+                    <span class="process-arrow-compact">→</span>
+                    <div class="process-step-compact">⚖️ Verify</div>
+                </div>
+
+                <div class="professional-tip" style="margin-top: 1.5rem;">
+                    <strong>💡 Key Insight:</strong> The 4-step process (<strong>A</strong>nalyze → <strong>J</strong>ournalize → <strong>P</strong>ost → <strong>T</strong>rial Balance) ensures accuracy.
+                </div>
+            </section>
+
+            <!-- Deep Dive -->
+            <section class="kp-section">
+                <h2>🔍 Deep Dive</h2>
+                <p>Explore the recording process at different levels of depth:</p>
+
+                <div class="depth-toggle">
+                    <button class="depth-btn active" onclick="setDepth('A')">Depth A: Foundational</button>
+                    <button class="depth-btn" onclick="setDepth('B')">Depth B: Standard</button>
+                    <button class="depth-btn" onclick="setDepth('C')">Depth C: Advanced</button>
+                </div>
+
+                <!-- Depth A -->
+                <div id="depth-A" class="depth-content active">
+                    <h3>🟢 Foundational Level</h3>
+                    <p>Understanding the basic 4-step process with simple examples.</p>
+
+                    <div class="worked-example">
+                        <h4>The 4-Step Recording Process</h4>
+                        <p><strong>Analogy: The Detective's Workflow</strong></p>
+                        <p>Imagine you are a detective building a case. You follow a strict process:</p>
+                        <div class="example-step">
+                            <strong>Step 1: Analyze (The Investigation)</strong>
+                            <p>Look at the evidence (Source Documents) to decide what happened.</p>
+                        </div>
+                        <div class="example-step">
+                            <strong>Step 2: Journalize (The Narrative)</strong>
+                            <p>Write down the story in chronological order in the Journal.</p>
+                        </div>
+                        <div class="example-step">
+                            <strong>Step 3: Post (The Filing)</strong>
+                            <p>Sort the information into specific case files (The Ledger).</p>
+                        </div>
+                        <div class="example-step">
+                            <strong>Step 4: Trial Balance (The Fact Check)</strong>
+                            <p>Ensure all your evidence aligns (Debits = Credits).</p>
+                        </div>
+                    </div>
+
+                    <div class="card-grid" style="margin-top: 2rem;">
+                        <!-- Step1 -->
+                        <div class="content-card" style="border-top: 4px solid var(--primary);">
+                            <h3>1. Analyze</h3>
+                            <p><strong>Input:</strong> Source Documents (Bills, Checks).</p>
+                            <p><strong>Action:</strong> Determine which accounts are affected and in what direction. Use the equation: Assets = Liab + Equity.</p>
+                        </div>
+                        <!-- Step 2 -->
+                        <div class="content-card" style="border-top: 4px solid var(--secondary);">
+                            <h3>2. Journalize</h3>
+                            <p><strong>Input:</strong> Analysis from Step 1.</p>
+                            <p><strong>Action:</strong> Record in the General Journal. <em>Rule: Debits first, Credits indented.</em></p>
+                        </div>
+                        <!-- Step 3 -->
+                        <div class="content-card" style="border-top: 4px solid var(--success);">
+                            <h3>3. Post</h3>
+                            <p><strong>Input:</strong> Journal Entry.</p>
+                            <p><strong>Action:</strong> Copy numbers to the General Ledger. This updates the <em>balance</em> of each account.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Depth B -->
+                <div id="depth-B" class="depth-content">
+                    <h3>🟡 Standard Level</h3>
+                    <p>Handling compound entries and understanding the full recording cycle.</p>
+
+                    <div class="worked-example">
+                        <h4>Practice: Handling Compound Entries</h4>
+                        <p>Sometimes one action affects three or more accounts. This is a <strong>Compound Entry</strong>.</p>
+                        <div
+                            style="background: var(--bg-light); padding: 1.5rem; border-radius: var(--radius-sm); border-left: 4px solid var(--info); margin-bottom: 2rem;">
+                            <strong>Scenario (Buying with Split Payment):</strong> FastForward buys a $10,000 Super-Computer.
+                            They pay $2,000 Cash now and promise to pay the remaining $8,000 later (Note Payable).
+                        </div>
+
+                        <p><strong>The Logic:</strong> You got one big thing ($10k Computer) and paid related to two sources (Cash + Debt).</p>
+
+                        <div class="example-step">
+                            <strong>Step 1: Identify affected accounts</strong>
+                            <p>Equipment (Asset) increases, Cash (Asset) decreases, Notes Payable (Liability) increases</p>
+                        </div>
+                        <div class="example-step">
+                            <strong>Step 2: Determine debit/credit direction</strong>
+                            <p>Asset increases use debit, asset decreases use credit, liability increases use credit</p>
+                        </div>
+                        <div class="example-step">
+                            <strong>Step 3: Create journal entry</strong>
+                            <p>Debit Equipment $10,000, Credit Cash $2,000, Credit Notes Payable $8,000</p>
+                        </div>
+                        <div class="example-step">
+                            <strong>Step 4: Verify balance</strong>
+                            <p>Debits: $10,000 = Credits: $2,000 + $8,000 = $10,000 ✓</p>
+                        </div>
+                    </div>
+
+                    <div class="table-scroll">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Account</th>
+                                    <th>Category</th>
+                                    <th>Analysis</th>
+                                    <th>Entry</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><strong>Equipment</strong></td>
+                                    <td>Asset (+A)</td>
+                                    <td>We gained $10,000 of value.</td>
+                                    <td style="font-weight: 700; color: var(--primary);">Debit $10,000</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Cash</strong></td>
+                                    <td>Asset (-A)</td>
+                                    <td>We lost $2,000 of liquid cash.</td>
+                                    <td style="font-weight: 700; color: var(--secondary-dark);">Credit $2,000</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Notes Payable</strong></td>
+                                    <td>Liability (+L)</td>
+                                    <td>We increased our debt by $8,000.</td>
+                                    <td style="font-weight: 700; color: var(--secondary-dark);">Credit $8,000</td>
+                                </tr>
+                                <tr style="background-color: #f0f0f0;">
+                                    <td colspan="3" style="text-align: right; font-weight: bold;">Check:</td>
+                                    <td style="font-weight: bold;">$10,000 Dr = $10,000 Cr</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- Depth C -->
+                <div id="depth-C" class="depth-content">
+                    <h3>🔴 Advanced Level</h3>
+                    <p>Complex scenarios and error correction in transaction recording.</p>
+
+                    <div class="worked-example">
+                        <h4>Error Correction Example</h4>
+                        <p><strong>Scenario:</strong> You discover that a $500 office supplies purchase was incorrectly recorded as $50.</p>
+                        <div class="example-step">
+                            <strong>Original incorrect entry:</strong>
+                            <p>Debit Office Supplies $50, Credit Cash $50</p>
+                        </div>
+                        <div class="example-step">
+                            <strong>Correcting entry:</strong>
+                            <p>Debit Office Supplies $450, Credit Cash $450 (to correct the difference)</p>
+                        </div>
+                        <div class="example-step">
+                            <strong>Result after correction:</strong>
+                            <p>Office Supplies: $50 + $450 = $500 ✓, Cash: $50 + $450 = $500 ✓</p>
+                        </div>
+                    </div>
+
+                    <div class="worked-example">
+                        <h4>Reversing Entry Example</h4>
+                        <p><strong>Scenario:</strong> An accrual adjusting entry was made at month-end for $1,000 of salaries. The next month, salaries are actually paid $1,200.</p>
+                        <div class="example-step">
+                            <strong>Adjusting entry (end of Month 1):</strong>
+                            <p>Debit Salaries Expense $1,000, Credit Salaries Payable $1,000</p>
+                        </div>
+                        <div class="example-step">
+                            <strong>Payment entry (Month 2):</strong>
+                            <p>Debit Salaries Expense $200, Debit Salaries Payable $1,000, Credit Cash $1,200</p>
+                        </div>
+                        <div class="example-step">
+                            <strong>Net result:</strong>
+                            <p>Total Salaries Expense: $1,000 + $200 = $1,200 (actual payment), Salaries Payable: $0 (cleared)</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Common Misconceptions -->
+            <section class="kp-section">
+                <h2>🚫 Common Misconceptions & Professional Tips</h2>
+
+                <div class="misconception-alert">
+                    <strong>❌ Misconception 1:</strong> "You can skip the posting step and go directly to financial statements."
+                    <br><br>
+                    <strong>✅ Reality:</strong> Posting to the ledger is essential. Financial statements are prepared from ledger account balances, not directly from journal entries. Without posting, you cannot determine current account balances.
+                </div>
+
+                <div class="misconception-alert">
+                    <strong>❌ Misconception 2:</strong> "If the trial balance balances, all entries must be correct."
+                    <br><br>
+                    <strong>✅ Reality:</strong> A balanced trial balance only proves debits equal credits. It doesn't catch errors like recording to the wrong account, omitting a transaction entirely, or transposing digits.
+                </div>
+
+                <div class="misconception-alert">
+                    <strong>❌ Misconception 3:</strong> "Compound entries are only for very large transactions."
+                    <br><br>
+                    <strong>✅ Reality:</strong> Any transaction that affects three or more accounts requires a compound entry. This can be for small amounts if multiple account categories are involved.
+                </div>
+
+                <div class="professional-tip">
+                    <strong>💡 Professional Tip #1:</strong> Always document source documents for every transaction. They provide evidence for audits and help verify accuracy of entries.
+                </div>
+
+                <div class="professional-tip">
+                    <strong>💡 Professional Tip #2:</strong> When posting, reference the journal entry number. This creates an audit trail that allows you to trace amounts back to their source.
+                </div>
+
+                <div class="professional-tip">
+                    <strong>💡 Professional Tip #3:</strong> Prepare a trial balance after each posting period (daily, weekly, or monthly) to catch errors early when they're easier to fix.
+                </div>
+            </section>
+
+            <!-- Memory Aids -->
+            <section class="kp-section">
+                <h2>🧠 Memory Aids & Quick Reference</h2>
+
+                <div class="memory-aid-card">
+                    <strong>⚡ Quick Recall: The Recording Process</strong>
+                    <p>1. <strong>A</strong>nalyze → 2. <strong>J</strong>ournalize → 3. <strong>P</strong>ost → 4. <strong>T</strong>rial Balance</p>
+                </div>
+
+                <div class="key-concepts-grid">
+                    <div class="concept-card">
+                        <strong>📖 Analyze</strong>
+                        <p>Identify accounts affected, determine direction of change (increase/decrease).</p>
+                    </div>
+
+                    <div class="concept-card">
+                        <strong>✍️ Journalize</strong>
+                        <p>Record chronologically with debits first, credits indented, and explanation.</p>
+                    </div>
+
+                    <div class="concept-card">
+                        <strong>📂 Post</strong>
+                        <p>Transfer to ledger accounts, update running balances.</p>
+                    </div>
+
+                    <div class="concept-card">
+                        <strong>⚖️ Trial Balance</strong>
+                        <p>Verify that total debits equal total credits.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Glossary -->
+            <section class="kp-section">
+                <h2>📖 Glossary</h2>
+                <div class="key-concepts-grid">
+                    <div class="concept-card">
+                        <strong>Source Documents</strong>
+                        <p>Paper evidence that supports accounting entries (invoices, receipts, checks, purchase orders).</p>
+                    </div>
+
+                    <div class="concept-card">
+                        <strong>General Journal</strong>
+                        <p>The chronological record of all business transactions, showing accounts debited and credited with explanations.</p>
+                    </div>
+
+                    <div class="concept-card">
+                        <strong>General Ledger</strong>
+                        <p>The collection of all accounts used by a business, showing cumulative balances for each account.</p>
+                    </div>
+
+                    <div class="concept-card">
+                        <strong>Posting</strong>
+                        <p>The process of transferring amounts from the journal to the ledger accounts.</p>
+                    </div>
+
+                    <div class="concept-card">
+                        <strong>Compound Entry</strong>
+                        <p>A journal entry involving three or more accounts, still maintaining equal debits and credits.</p>
+                    </div>
+
+                    <div class="concept-card">
+                        <strong>Trial Balance</strong>
+                        <p>A list of all ledger account balances to verify that total debits equal total credits.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Final Knowledge Check -->
+            <section class="interactive-section">
+                <h2>🎯 Final Knowledge Check</h2>
+                <p>Test your understanding of Recording Transactions & Analysis:</p>
+
+                <div class="quiz-container" data-success-text="Excellent! You've mastered the recording process." data-explanation="Posting is the process of transferring entries from the journal to the ledger. This step is crucial for organizing transactions by account rather than by date.">
+                    <div class="input-group">
+                        <p><strong>Question 1:</strong> Which step in the recording process ensures that you can see the current balance of the 'Accounts Receivable' account?</p>
+                        <label><input type="radio" name="q1" value="incorrect1" data-correct="false"> Step 1: Analysis</label><br>
+                        <label><input type="radio" name="q1" value="correct" data-correct="true"> Step 3: Posting</label><br>
+                        <label><input type="radio" name="q1" value="incorrect2" data-correct="false"> Step 2: Journalizing</label>
+                    </div>
+
+                    <div class="input-group">
+                        <p><strong>Question 2:</strong> A compound entry affects:</p>
+                        <label><input type="radio" name="q2" value="incorrect1" data-correct="false"> Exactly two accounts</label><br>
+                        <label><input type="radio" name="q2" value="correct" data-correct="true"> Three or more accounts</label><br>
+                        <label><input type="radio" name="q2" value="incorrect2" data-correct="false"> Only balance sheet accounts</label>
+                    </div>
+
+                    <div class="input-group">
+                        <p><strong>Question 3:</strong> In a compound entry, what must be equal?</p>
+                        <label><input type="radio" name="q3" value="correct" data-correct="true"> Total debits and total credits</label><br>
+                        <label><input type="radio" name="q3" value="incorrect1" data-correct="false"> Number of debits and credits</label><br>
+                        <label><input type="radio" name="q3" value="incorrect2" data-correct="false"> Asset and liability amounts</label>
+                    </div>
+
+                    <button class="btn btn-primary quiz-submit">Submit Answers</button>
+                    <div class="feedback"></div>
+                    <button class="quiz-retry">Try Again</button>
+                </div>
+            </section>
+
+            <!-- Navigation -->
+            <nav class="kp-navigation" style="display: flex; justify-content: space-between; margin-top: 4rem; padding-bottom: 2rem;">
+                <a href="ch02_C2.html" class="btn" style="background: #eee;">← Previous: Debits & Credits</a>
+                <a href="ch02_A2.html" class="btn btn-primary">Next: Debt Ratio →</a>
+            </nav>
+        </article>
+    </main>
+
+    <footer style="margin-top: 5rem; padding: 2rem 0; border-top: 1px solid #ddd; text-align: center; color: #888;">
+        <p>Accounting Essentials | Chapter 2 | Analysis 1</p>
+    </footer>
+
+    <script src="../../components-enhanced.js"></script>
+    <script>
+        function setDepth(depth) {
+            document.querySelectorAll('.depth-btn').forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+
+            document.querySelectorAll('.depth-content').forEach(content => content.classList.remove('active'));
+            document.getElementById(`depth-${depth}`).classList.add('active');
+        }
+    </script>
+</body>
+
+</html>

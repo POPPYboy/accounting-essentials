@@ -1,0 +1,587 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactive: Account Classification | ACCOUNTING ESSENTIALS</title>
+    <link rel="stylesheet" href="../../styles.css">
+    <style>
+        /* Matching Game Styles */
+        .game-container {
+            background: var(--bg-light);
+            padding: 30px;
+            border-radius: var(--radius-md);
+            margin: 20px 0;
+        }
+
+        .game-header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .score-display {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary);
+            margin: 10px 0;
+        }
+
+        .matching-area {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            margin: 20px 0;
+        }
+
+        .column-title {
+            text-align: center;
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 20px;
+        }
+
+        .account-card {
+            background: var(--white);
+            padding: 20px;
+            border-radius: var(--radius-sm);
+            margin: 10px 0;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .account-card:hover {
+            transform: scale(1.02);
+            box-shadow: var(--shadow-sm);
+        }
+
+        .account-card.selected {
+            border-color: var(--accent);
+            background: var(--primary-light);
+            color: var(--white);
+        }
+
+        .account-card.matched {
+            background: var(--success-light);
+            border-color: var(--success);
+            cursor: not-allowed;
+            opacity: 0.6;
+        }
+
+        .account-card.incorrect {
+            background: var(--error-light);
+            border-color: var(--error);
+            animation: shake 0.5s;
+        }
+
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-10px); }
+            75% { transform: translateX(10px); }
+        }
+
+        .category-card {
+            background: var(--primary);
+            color: var(--white);
+            padding: 25px;
+            border-radius: var(--radius-sm);
+            margin: 15px 0;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-align: center;
+            font-size: 1.1rem;
+            font-weight: 600;
+            border: 3px solid transparent;
+        }
+
+        .category-card:hover {
+            transform: scale(1.05);
+            background: var(--primary-light);
+        }
+
+        .category-card.selected {
+            border-color: var(--accent);
+            background: var(--secondary);
+        }
+
+        /* Assets Category Colors */
+        .category-card[data-category="assets"] {
+            background: linear-gradient(135deg, var(--primary), var(--primary-light));
+        }
+
+        /* Liabilities Category Colors */
+        .category-card[data-category="liabilities"] {
+            background: linear-gradient(135deg, var(--error), var(--error-light));
+        }
+
+        /* Equity Category Colors */
+        .category-card[data-category="equity"] {
+            background: linear-gradient(135deg, var(--success), var(--success-light));
+        }
+
+        /* Revenue Category Colors */
+        .category-card[data-category="revenue"] {
+            background: linear-gradient(135deg, var(--secondary), var(--secondary-light));
+        }
+
+        /* Expenses Category Colors */
+        .category-card[data-category="expenses"] {
+            background: linear-gradient(135deg, var(--warning), var(--warning-light));
+        }
+
+        /* Game Feedback */
+        .game-feedback {
+            text-align: center;
+            padding: 20px;
+            border-radius: var(--radius-md);
+            margin: 20px 0;
+            font-size: 1.2rem;
+            font-weight: 600;
+            display: none;
+        }
+
+        .game-feedback.show {
+            display: block;
+            animation: fadeIn 0.5s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .timer {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--text-main);
+            text-align: center;
+            margin: 10px 0;
+        }
+
+        .hint-box {
+            background: var(--info-light);
+            border-left: 4px solid var(--info);
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: var(--radius-sm);
+        }
+
+        /* Progress Bar */
+        .game-progress {
+            background: var(--text-muted);
+            height: 10px;
+            border-radius: 5px;
+            overflow: hidden;
+            margin: 20px 0;
+        }
+
+        .game-progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--success), var(--info));
+            transition: width 0.3s ease;
+        }
+
+        /* Confetti Animation */
+        .confetti {
+            position: fixed;
+            width: 10px;
+            height: 10px;
+            background: var(--accent);
+            animation: confetti-fall 3s linear infinite;
+        }
+
+        @keyframes confetti-fall {
+            0% { transform: translateY(-100vh) rotate(0deg); opacity: 1; }
+            100% { transform: translateY(100vh) rotate(720deg); opacity: 0; }
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .matching-area {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-50MTQPVR7D"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-50MTQPVR7D');
+</script>
+
+</head>
+
+<body>
+    <header>
+        <div class="container nav-container">
+            <a href="../../index.html" class="logo">ACCOUNTING<span>ESSENTIALS</span></a>
+            <nav class="nav-links">
+                <a href="../../index.html">Home</a>
+                <a href="../part1.html">Part 1</a>
+                <a href="../../part2/part2.html">Part 2</a>
+                <a href="../../part3/part3.html">Part 3</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container">
+        <div class="breadcrumbs">
+            <a href="../../index.html">Home</a> <span>/</span> <a href="../part1.html">Part 1</a> <span>/</span> <a href="ch03.html">Chapter 3</a> <span>/</span> Interactive
+        </div>
+
+        <article class="animate-fade-in">
+            <h1 style="border-left: 8px solid var(--accent); padding-left: 1rem; margin: 2rem 0;">🎮 Interactive Learning: Account Classification Game</h1>
+
+            <section class="interactive-section">
+                <h2>Account Classification Matching Game</h2>
+                <p>Click account names to match them with the correct accounting element classification. This helps you quickly identify account types!</p>
+
+                <div class="game-container">
+                    <div class="game-header">
+                        <h3>🎯 Classification Challenge</h3>
+                        <div class="timer">⏱️ Time: <span id="game-timer">00:00</span></div>
+                        <div class="score-display">Score: <span id="game-score">0</span> / <span id="total-accounts">10</span></div>
+                        <div class="game-progress">
+                            <div class="game-progress-fill" id="progress-fill" style="width: 0%;"></div>
+                        </div>
+                    </div>
+
+                    <div class="hint-box">
+                        <h4>💡 Quick Reference Guide:</h4>
+                        <ul>
+                            <li><strong>Assets:</strong> Resources owned by the business that provide future economic benefits (Cash, Equipment, Inventory)</li>
+                            <li><strong>Liabilities:</strong> Debts owed to outsiders (Accounts Payable, Notes Payable)</li>
+                            <li><strong>Owner's Equity:</strong> Owner's interest in the business (Common Stock, Retained Earnings)</li>
+                            <li><strong>Revenue:</strong> Income earned from selling goods or providing services</li>
+                            <li><strong>Expenses:</strong> Costs incurred in the course of business operations (Rent, Wages, Supplies)</li>
+                        </ul>
+                    </div>
+
+                    <div class="matching-area">
+                        <!-- Left: Account Cards -->
+                        <div>
+                            <h3 class="column-title">📋 Accounts to Classify</h3>
+                            <div id="accounts-container">
+                                <div class="account-card" data-account="cash" data-category="assets">Cash</div>
+                                <div class="account-card" data-account="accounts-payable" data-category="liabilities">Accounts Payable</div>
+                                <div class="account-card" data-account="common-stock" data-category="equity">Common Stock</div>
+                                <div class="account-card" data-account="service-revenue" data-category="revenue">Service Revenue</div>
+                                <div class="account-card" data-account="rent-expense" data-category="expenses">Rent Expense</div>
+                                <div class="account-card" data-account="equipment" data-category="assets">Equipment</div>
+                                <div class="account-card" data-account="notes-payable" data-category="liabilities">Notes Payable</div>
+                                <div class="account-card" data-account="retained-earnings" data-category="equity">Retained Earnings</div>
+                                <div class="account-card" data-account="supplies-expense" data-category="expenses">Supplies Expense</div>
+                                <div class="account-card" data-account="sales-revenue" data-category="revenue">Sales Revenue</div>
+                            </div>
+                        </div>
+
+                        <!-- Right: Categories -->
+                        <div>
+                            <h3 class="column-title">🏷️ Accounting Elements Classification</h3>
+                            <div class="category-card" data-category="assets">
+                                <div style="font-size: 2rem;">💰</div>
+                                <div>Assets</div>
+                                <div style="font-size: 0.8rem; margin-top: 5px;">Resources owned</div>
+                            </div>
+                            <div class="category-card" data-category="liabilities">
+                                <div style="font-size: 2rem;">📊</div>
+                                <div>Liabilities</div>
+                                <div style="font-size: 0.8rem; margin-top: 5px;">Debts owed</div>
+                            </div>
+                            <div class="category-card" data-category="equity">
+                                <div style="font-size: 2rem;">👤</div>
+                                <div>Owner's Equity</div>
+                                <div style="font-size: 0.8rem; margin-top: 5px;">Owner's interest</div>
+                            </div>
+                            <div class="category-card" data-category="revenue">
+                                <div style="font-size: 2rem;">📈</div>
+                                <div>Revenue</div>
+                                <div style="font-size: 0.8rem; margin-top: 5px;">Income earned</div>
+                            </div>
+                            <div class="category-card" data-category="expenses">
+                                <div style="font-size: 2rem;">💸</div>
+                                <div>Expenses</div>
+                                <div style="font-size: 0.8rem; margin-top: 5px;">Costs incurred</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="game-feedback" id="game-feedback"></div>
+
+                    <div style="text-align: center; margin-top: 20px;">
+                        <button class="btn btn-primary" onclick="startGame()" id="start-btn">Start Game</button>
+                        <button class="btn btn-outline" onclick="resetGame()" id="reset-btn" style="display: none;">Restart</button>
+                    </div>
+                </div>
+            </section>
+
+            <section class="interactive-section">
+                <h2>📚 Accounting Elements Review</h2>
+                <p>Understanding the relationship between the five basic elements of the accounting equation:</p>
+
+                <div style="background: var(--primary-dark); color: var(--white); padding: 30px; border-radius: var(--radius-md); margin: 20px 0;">
+                    <h3 style="color: var(--white); text-align: center; margin: 20px 0;">
+                        Assets = Liabilities + Owner's Equity
+                    </h3>
+                    <p style="text-align: center; margin: 20px 0;">
+                        + Revenue - Expenses = Net Income
+                    </p>
+                </div>
+
+                <div class="card-grid">
+                    <div class="content-card">
+                        <h4>💰 Assets</h4>
+                        <p>Resources owned by the business that provide future economic benefits.</p>
+                        <ul style="margin-top: 10px;">
+                            <li><strong>Current Assets:</strong> Cash, Accounts Receivable, Inventory</li>
+                            <li><strong>Non-current Assets:</strong> Equipment, Buildings, Land</li>
+                        </ul>
+                    </div>
+                    <div class="content-card">
+                        <h4>📊 Liabilities</h4>
+                        <p>Debts the business must repay in the future.</p>
+                        <ul style="margin-top: 10px;">
+                            <li><strong>Current Liabilities:</strong> Accounts Payable, Wages Payable</li>
+                            <li><strong>Non-current Liabilities:</strong> Notes Payable, Bonds Payable</li>
+                        </ul>
+                    </div>
+                    <div class="content-card">
+                        <h4>👤 Owner's Equity</h4>
+                        <p>The owner's interest in the business after liabilities are deducted.</p>
+                        <ul style="margin-top: 10px;">
+                            <li><strong>Contributed Capital:</strong> Investment by owners (Common Stock)</li>
+                            <li><strong>Retained Earnings:</strong> Accumulated net income not distributed</li>
+                        </ul>
+                    </div>
+                    <div class="content-card">
+                        <h4>📈 Revenue</h4>
+                        <p>Income earned from selling goods or providing services.</p>
+                        <ul style="margin-top: 10px;">
+                            <li>Service Revenue</li>
+                            <li>Sales Revenue</li>
+                            <li>Interest Revenue</li>
+                        </ul>
+                    </div>
+                    <div class="content-card">
+                        <h4>💸 Expenses</h4>
+                        <p>Costs incurred in the course of business operations.</p>
+                        <ul style="margin-top: 10px;">
+                            <li>Rent Expense</li>
+                            <li>Salaries Expense</li>
+                            <li>Supplies Expense</li>
+                            <li>Utilities Expense</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <div style="display: flex; justify-content: space-between; margin-top: 4rem; padding-bottom: 2rem;">
+                <a href="../chapter2/ch02_INTERACTIVE.html" class="btn" style="background: #eee;">← Previous Chapter</a>
+                <a href="../chapter4/ch04_INTERACTIVE.html" class="btn btn-primary">Next: Chapter 4 Interactive →</a>
+            </div>
+        </article>
+    </main>
+
+    <script src="../../components.js"></script>
+    <script>
+        // ==================== Account Classification Game ====================
+        let selectedAccount = null;
+        let selectedCategory = null;
+        let score = 0;
+        let totalAccounts = 10;
+        let gameStarted = false;
+        let timerInterval = null;
+        let seconds = 0;
+
+        function startGame() {
+            gameStarted = true;
+            score = 0;
+            seconds = 0;
+
+            document.getElementById('start-btn').style.display = 'none';
+            document.getElementById('reset-btn').style.display = 'inline-block';
+
+            updateScore();
+            startTimer();
+
+            // Enable game interactions
+            document.querySelectorAll('.account-card').forEach(card => {
+                card.style.cursor = 'pointer';
+            });
+        }
+
+        function resetGame() {
+            gameStarted = false;
+            score = 0;
+            seconds = 0;
+            selectedAccount = null;
+            selectedCategory = null;
+
+            clearInterval(timerInterval);
+
+            document.getElementById('game-timer').textContent = '00:00';
+            document.getElementById('start-btn').style.display = 'inline-block';
+            document.getElementById('reset-btn').style.display = 'none';
+
+            // Reset all cards
+            document.querySelectorAll('.account-card').forEach(card => {
+                card.classList.remove('selected', 'matched', 'incorrect');
+                card.style.display = 'flex';
+            });
+
+            document.querySelectorAll('.category-card').forEach(cat => {
+                cat.classList.remove('selected');
+            });
+
+            updateScore();
+            document.getElementById('game-feedback').classList.remove('show');
+
+            // Shuffle accounts
+            const container = document.getElementById('accounts-container');
+            const cards = Array.from(container.children);
+            cards.sort(() => Math.random() - 0.5);
+            cards.forEach(card => container.appendChild(card));
+        }
+
+        function startTimer() {
+            timerInterval = setInterval(() => {
+                seconds++;
+                const mins = Math.floor(seconds / 60).toString().padStart(2, '0');
+                const secs = (seconds % 60).toString().padStart(2, '0');
+                document.getElementById('game-timer').textContent = `${mins}:${secs}`;
+            }, 1000);
+        }
+
+        function updateScore() {
+            document.getElementById('game-score').textContent = score;
+            const percentage = (score / totalAccounts) * 100;
+            document.getElementById('progress-fill').style.width = percentage + '%';
+        }
+
+        function showFeedback(message, type) {
+            const feedback = document.getElementById('game-feedback');
+            feedback.textContent = message;
+            feedback.className = 'game-feedback show ' + type;
+
+            if (type === 'success') {
+                feedback.style.background = 'var(--success-light)';
+                feedback.style.color = 'var(--success-dark)';
+            } else if (type === 'error') {
+                feedback.style.background = 'var(--error-light)';
+                feedback.style.color = 'var(--error-dark)';
+            }
+        }
+
+        function checkMatch() {
+            if (!selectedAccount || !selectedCategory) return;
+
+            const accountCategory = selectedAccount.dataset.category;
+            const categoryType = selectedCategory.dataset.category;
+
+            if (accountCategory === categoryType) {
+                // Correct match
+                score++;
+                selectedAccount.classList.add('matched');
+                selectedAccount.style.display = 'none';
+                updateScore();
+                showFeedback('✓ Correct!', 'success');
+
+                // Check if all accounts matched
+                if (score === totalAccounts) {
+                    clearInterval(timerInterval);
+                    setTimeout(() => {
+                        showCompletion();
+                    }, 500);
+                }
+            } else {
+                // Incorrect match
+                selectedAccount.classList.add('incorrect');
+                showFeedback('✗ Incorrect, try again!', 'error');
+                setTimeout(() => {
+                    selectedAccount.classList.remove('incorrect');
+                }, 500);
+            }
+
+            // Reset selections
+            selectedAccount.classList.remove('selected');
+            selectedCategory.classList.remove('selected');
+            selectedAccount = null;
+            selectedCategory = null;
+        }
+
+        function showCompletion() {
+            showFeedback(`🎉 Congratulations! Final Time: ${document.getElementById('game-timer').textContent}`, 'success');
+            createConfetti();
+
+            // Show reset button
+            document.getElementById('reset-btn').style.display = 'inline-block';
+        }
+
+        function createConfetti() {
+            for (let i = 0; i < 50; i++) {
+                const confetti = document.createElement('div');
+                confetti.className = 'confetti';
+                confetti.style.left = Math.random() * 100 + 'vw';
+                confetti.style.background = ['#1a237e', '#c5a059', '#27ae60', '#e74c3c', '#f1c40f'][Math.floor(Math.random() * 5)];
+                confetti.style.animationDelay = Math.random() * 2 + 's';
+                document.body.appendChild(confetti);
+
+                setTimeout(() => {
+                    confetti.remove();
+                }, 3000);
+            }
+        }
+
+        // Initialize game interactions
+        document.addEventListener('DOMContentLoaded', function() {
+            // Account card click handlers
+            document.querySelectorAll('.account-card').forEach(card => {
+                card.addEventListener('click', function() {
+                    if (!gameStarted) return;
+                    if (this.classList.contains('matched')) return;
+
+                    // Remove selected from other accounts
+                    document.querySelectorAll('.account-card').forEach(c => c.classList.remove('selected'));
+
+                    // Select this account
+                    this.classList.add('selected');
+                    selectedAccount = this;
+
+                    // Check if we have both selections
+                    if (selectedCategory) {
+                        checkMatch();
+                    }
+                });
+            });
+
+            // Category card click handlers
+            document.querySelectorAll('.category-card').forEach(category => {
+                category.addEventListener('click', function() {
+                    if (!gameStarted) return;
+
+                    // Remove selected from other categories
+                    document.querySelectorAll('.category-card').forEach(c => c.classList.remove('selected'));
+
+                    // Select this category
+                    this.classList.add('selected');
+                    selectedCategory = this;
+
+                    // Check if we have both selections
+                    if (selectedAccount) {
+                        checkMatch();
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+
+</html>

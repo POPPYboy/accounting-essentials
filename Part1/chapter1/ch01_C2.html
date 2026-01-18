@@ -1,0 +1,657 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>C2: Ethics and GAAP | ACCOUNTING ESSENTIALS</title>
+    <link rel="stylesheet" href="../../styles.css">
+    <style>
+        /* Fraud Triangle SVG Styles */
+        .fraud-triangle-container {
+            position: relative;
+            width: 100%;
+            max-width: 700px;
+            height: 480px;
+            margin: 2rem auto;
+            overflow: visible;
+        }
+        
+        .fraud-triangle-svg {
+            width: 100%;
+            height: 100%;
+            overflow: visible;
+        }
+        
+        .triangle-bg {
+            fill: rgba(26, 35, 126, 0.05);
+            stroke: var(--primary);
+            stroke-width: 2;
+            transition: all 0.3s ease;
+        }
+        
+        .triangle-bg:hover {
+            fill: rgba(26, 35, 126, 0.1);
+        }
+        
+        .node-circle {
+            cursor: pointer;
+            transition: all 0.3s ease;
+            filter: drop-shadow(0 4px 6px rgba(0,0,0,0.1));
+        }
+        
+        .node-circle:hover {
+            filter: drop-shadow(0 8px 15px rgba(0,0,0,0.2));
+            transform: scale(1.08);
+            transform-origin: center;
+        }
+        
+        .node-text {
+            font-size: 18px;
+            font-weight: bold;
+            text-anchor: middle;
+            dominant-baseline: middle;
+            pointer-events: none;
+        }
+        
+        .node-subtext {
+            font-size: 13px;
+            text-anchor: middle;
+            dominant-baseline: middle;
+            pointer-events: none;
+        }
+        
+        .node-description {
+            font-size: 12px;
+            fill: var(--text-main);
+        }
+        
+        .connection-line {
+            stroke: var(--primary-light);
+            stroke-width: 3;
+            stroke-dasharray: 10,5;
+            animation: dashFlow 2s linear infinite;
+        }
+        
+        @keyframes dashFlow {
+            to {
+                stroke-dashoffset: -30;
+            }
+        }
+        
+        .center-text {
+            font-size: 18px;
+            font-weight: bold;
+            fill: var(--primary);
+            text-anchor: middle;
+        }
+        
+        .tooltip-box {
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            pointer-events: none;
+        }
+        
+        .fraud-node:hover .tooltip-box {
+            opacity: 1;
+        }
+        
+        /* Ensure tooltips are above everything */
+        .tooltip-box rect {
+            fill: #ffffff;
+        }
+    </style>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-50MTQPVR7D"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-50MTQPVR7D');
+</script>
+
+</head>
+
+<body>
+    <header>
+        <div class="container nav-container">
+            <a href="../../index.html" class="logo">ACCOUNTING<span>ESSENTIALS</span></a>
+            <nav class="nav-links">
+                <a href="../../index.html">Home</a>
+                <a href="../part1.html">Part 1</a>
+                <a href="../../part2/part2.html">Part 2</a>
+                <a href="../../part3/part3.html">Part 3</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container">
+        <div class="breadcrumbs">
+            <a href="../../index.html">Home</a> <span>/</span> <a href="../part1.html">Part 1</a> <span>/</span> <a
+                href="ch01.html">Chapter 1</a> <span>/</span> C2
+        </div>
+
+        <article class="animate-fade-in">
+            <div class="kp-header">
+                <h1 style="border-left: 8px solid var(--secondary); padding-left: 1rem; margin: 2rem 0;">Ethics and GAAP</h1>
+            </div>
+
+            <!-- Learning Objectives -->
+            <section class="kp-section">
+                <h2>🎯 Learning Objectives</h2>
+                <div class="learning-objectives">
+                    <ul>
+                        <li>Understand the fundamental importance of ethics in accounting</li>
+                        <li>Explain the Fraud Triangle (Opportunity, Pressure, Rationalization)</li>
+                        <li>Identify key GAAP principles: Measurement, Revenue Recognition, Expense Recognition, Full Disclosure</li>
+                        <li>Compare GAAP (US) vs IFRS (International) approaches</li>
+                        <li>Apply ethical reasoning to accounting scenarios</li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- Background & Principles -->
+            <section class="kp-section">
+                <h2>📚 Background & Principles</h2>
+                <p>Ethics in accounting is not about personal beliefs—it's about maintaining the <strong>public trust</strong> in financial information. When accountants and businesses act unethically, the consequences ripple through:</p>
+
+                <div class="key-concepts-grid">
+                    <div class="concept-card">
+                        <strong>🏛️ Loss of Investor Confidence</strong>
+                        <p>Unethical financial reporting causes stock price declines and capital flight</p>
+                    </div>
+                    <div class="concept-card">
+                        <strong>👔 Legal & Regulatory Consequences</strong>
+                        <p>Fines, lawsuits, loss of professional licenses, and even prison time</p>
+                    </div>
+                    <div class="concept-card">
+                        <strong>🏢 Reputation Damage</strong>
+                        <p>Once lost, trust is almost impossible to regain</p>
+                    </div>
+                    <div class="concept-card">
+                        <strong>💰 Economic Impact</strong>
+                        <p>Misallocation of resources harms entire economy</p>
+                    </div>
+                </div>
+
+                <div class="professional-tip" style="margin-top: 2rem;">
+                    <strong>💡 Core Principle:</strong> Accounting ethics is about <strong>professional independence</strong>—making decisions based on facts and standards, not on pressure from management or personal gain.
+                </div>
+            </section>
+
+            <!-- Fraud Triangle -->
+            <section class="kp-section">
+                <h2>🔺 The Fraud Triangle</h2>
+                <p>Research shows that three factors are typically present when "good" people commit fraud. All three sides of this triangle must be present for fraud to occur:</p>
+
+                <div class="fraud-triangle-container">
+                    <svg class="fraud-triangle-svg" viewBox="0 0 700 450" xmlns="http://www.w3.org/2000/svg">
+                        <!-- Triangle Background -->
+                        <polygon class="triangle-bg" points="350,70 180,385 520,385"/>
+
+                        <!-- Connection Lines with Animation -->
+                        <line class="connection-line" x1="350" y1="90" x2="200" y2="375"/>
+                        <line class="connection-line" x1="200" y1="375" x2="500" y2="375"/>
+                        <line class="connection-line" x1="500" y1="375" x2="350" y2="90"/>
+
+                        <!-- Center Text -->
+                        <text class="center-text" x="350" y="260">FRAUD TRIANGLE</text>
+                        <text x="350" y="285" font-size="14" fill="#7f8c8d" text-anchor="middle">All three factors must be present</text>
+
+                        <!-- Top Node: Opportunity -->
+                        <g class="fraud-node" data-factor="opportunity">
+                            <circle class="node-circle" cx="350" cy="70" r="85" fill="#f39c12"/>
+                            <text class="node-text" x="350" y="58" fill="white" font-size="22" font-weight="bold">OPPORTUNITY</text>
+                            <text class="node-subtext" x="350" y="88" fill="white" font-size="14">"The Safe is Open"</text>
+                            <!-- Tooltip -->
+                            <g class="tooltip-box">
+                                <rect x="200" y="170" width="300" height="120" rx="10" fill="white" stroke="#f39c12" stroke-width="3" filter="drop-shadow(0 4px 8px rgba(0,0,0,0.15))"/>
+                                <text x="350" y="200" font-size="15" font-weight="bold" fill="#f39c12" text-anchor="middle">1. Opportunity</text>
+                                <text x="350" y="228" font-size="14" fill="#2c3e50" text-anchor="middle">Weak internal controls</text>
+                                <text x="350" y="252" font-size="14" fill="#2c3e50" text-anchor="middle">and easy access to assets</text>
+                                <text x="350" y="276" font-size="14" fill="#2c3e50" text-anchor="middle">create fraud possibilities</text>
+                            </g>
+                        </g>
+
+                        <!-- Bottom-Left Node: Pressure -->
+                        <g class="fraud-node" data-factor="pressure">
+                            <circle class="node-circle" cx="180" cy="385" r="85" fill="#e74c3c"/>
+                            <text class="node-text" x="180" y="370" fill="white" font-size="20" font-weight="bold">PRESSURE</text>
+                            <text class="node-subtext" x="180" y="402" fill="white" font-size="14">"I Have Debts"</text>
+                            <!-- Tooltip -->
+                            <g class="tooltip-box">
+                                <rect x="5" y="340" width="300" height="120" rx="10" fill="white" stroke="#e74c3c" stroke-width="3" filter="drop-shadow(0 4px 8px rgba(0,0,0,0.15))"/>
+                                <text x="155" y="370" font-size="15" font-weight="bold" fill="#e74c3c" text-anchor="middle">2. Pressure</text>
+                                <text x="155" y="398" font-size="14" fill="#2c3e50" text-anchor="middle">Financial problems</text>
+                                <text x="155" y="422" font-size="14" fill="#2c3e50" text-anchor="middle">unrealistic performance goals</text>
+                                <text x="155" y="446" font-size="14" fill="#2c3e50" text-anchor="middle">or personal emergencies</text>
+                            </g>
+                        </g>
+
+                        <!-- Bottom-Right Node: Rationalization -->
+                        <g class="fraud-node" data-factor="rationalization">
+                            <circle class="node-circle" cx="520" cy="385" r="85" fill="#3498db"/>
+                            <text class="node-text" x="520" y="370" fill="white" font-size="20" font-weight="bold">RATIONALIZATION</text>
+                            <text class="node-subtext" x="520" y="402" fill="white" font-size="14">"They Owe Me"</text>
+                            <!-- Tooltip -->
+                            <g class="tooltip-box">
+                                <rect x="395" y="340" width="300" height="120" rx="10" fill="white" stroke="#3498db" stroke-width="3" filter="drop-shadow(0 4px 8px rgba(0,0,0,0.15))"/>
+                                <text x="545" y="370" font-size="15" font-weight="bold" fill="#3498db" text-anchor="middle">3. Rationalization</text>
+                                <text x="545" y="398" font-size="14" fill="#2c3e50" text-anchor="middle">"I'm just borrowing"</text>
+                                <text x="545" y="422" font-size="14" fill="#2c3e50" text-anchor="middle">or "they owe me"</text>
+                                <text x="545" y="446" font-size="14" fill="#2c3e50" text-anchor="middle">justifying fraudulent acts</text>
+                            </g>
+                        </g>
+                    </svg>
+                </div>
+
+                <script>
+                    // Add hover interactivity for fraud triangle nodes
+                    document.querySelectorAll('.fraud-node').forEach(node => {
+                        node.addEventListener('mouseenter', function() {
+                            const tooltip = this.querySelector('.tooltip-box');
+                            if (tooltip) tooltip.style.opacity = '1';
+                        });
+                        node.addEventListener('mouseleave', function() {
+                            const tooltip = this.querySelector('.tooltip-box');
+                            if (tooltip) tooltip.style.opacity = '0';
+                        });
+                    });
+                </script>
+
+                <div class="worked-example">
+                    <h4>Real-World Case: Luckin Coffee Financial Fraud (2020)</h4>
+                    <p>This coffee chain, once hailed as the "Starbucks of China," self-disclosed financial fraud in April 2020:</p>
+                    <ul>
+                        <li><strong>Pressure:</strong> The company needed to maintain a high-growth image to secure financing; founders had signed performance-based agreements with investors</li>
+                        <li><strong>Opportunity:</strong> During rapid expansion, internal controls were weak; the COO and team fabricated sales data</li>
+                        <li><strong>Rationalization:</strong> Management claimed "This is for the company's development, not for personal gain"</li>
+                    </ul>
+                    <p style="color: var(--error);"><strong>Result:</strong> Stock price plummeted 75%; eventually delisted from NASDAQ; paid $180 million to investors; SEC imposed a $100 million penalty.</p>
+                </div>
+
+                <div class="professional-tip" style="margin-top: 1.5rem;">
+                    <strong>💡 Key Lesson:</strong> Even "star startups" can collapse due to the Fraud Triangle. Robust internal controls and ethical corporate culture are essential for fraud prevention.
+                </div>
+            </section>
+
+            <!-- GAAP Principles -->
+            <section class="kp-section">
+                <h2>⚖️ Generally Accepted Accounting Principles (GAAP)</h2>
+                <p>GAAP provides the "rules of the road" for financial accounting. Its primary goals are <strong>Relevance, Reliability, and Comparability</strong>.</p>
+
+                <h3 style="margin-top: 2rem;">The Four Fundamental Principles</h3>
+
+                <!-- Depth Toggle -->
+                <div class="depth-toggle">
+                    <button class="depth-btn active" onclick="setGAAPDepth('overview')">Overview</button>
+                    <button class="depth-btn" onclick="setGAAPDepth('detailed')">Detailed Examples</button>
+                    <button class="depth-btn" onclick="setGAAPDepth('advanced')">Advanced Applications</button>
+                </div>
+
+                <!-- Overview Level -->
+                <div id="gaap-overview" class="depth-content active">
+                    <div class="card-grid" style="margin-top: 2rem;">
+                        <div class="content-card" style="border-top: 4px solid var(--primary);">
+                            <h3 style="color: var(--primary);">1. Measurement Principle (Cost Principle)</h3>
+                            <p><strong>Rule:</strong> Assets should be recorded at their <strong>historical cost</strong>—what the business actually paid for them.</p>
+                            <p><strong>Why it matters:</strong> Cost is <strong>objective and verifiable</strong>. Market value is subjective and changes daily.</p>
+                            <div class="misconception-alert">
+                                <strong>⚠️ Common Error:</strong> Recording assets at their "fair market value" violates GAAP unless specific exception applies.
+                            </div>
+                        </div>
+
+                        <div class="content-card" style="border-top: 4px solid var(--secondary);">
+                            <h3 style="color: var(--secondary);">2. Revenue Recognition Principle</h3>
+                            <p><strong>Rule:</strong> Revenue should be recognized when <strong>earned</strong> and <strong>realizable</strong>.</p>
+                            <p><strong>When is it earned?</strong> When service is performed or product is delivered</p>
+                            <p><strong>When is it realizable?</strong> When collection is reasonably assured</p>
+                            <div class="professional-tip">
+                                <strong>💡 Professional Insight:</strong> This principle prevents companies from "booking" revenue too early to inflate profits.
+                            </div>
+                        </div>
+
+                        <div class="content-card" style="border-top: 4px solid var(--success);">
+                            <h3 style="color: var(--success);">3. Expense Recognition (Matching Principle)</h3>
+                            <p><strong>Rule:</strong> Expenses should be recorded in the <strong>same period</strong> as the revenues they helped generate.</p>
+                            <p><strong>Example:</strong> If December sales use electricity purchased in November, we record the expense in December (not November).</p>
+                            <div class="misconception-alert">
+                                <strong>⚠️ Common Error:</strong> Recording expenses when paid (cash basis) rather than when incurred (accrual basis).
+                            </div>
+                        </div>
+
+                        <div class="content-card" style="border-top: 4px solid var(--info);">
+                            <h3 style="color: var(--info);">4. Full Disclosure Principle</h3>
+                            <p><strong>Rule:</strong> Financial statements should include all information that would affect users' decisions.</p>
+                            <p><strong>Where disclosed?</strong> In notes to financial statements (not in main body of statements)</p>
+                            <div class="professional-tip">
+                                <strong>💡 Professional Insight:</strong> Notes are crucial for understanding contingencies, lawsuits, lease terms, and subsequent events.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Detailed Level -->
+                <div id="gaap-detailed" class="depth-content">
+                    <h3>🟡 Detailed Worked Examples</h3>
+
+                    <div class="worked-example">
+                        <h4>Example 1: Measurement Principle</h4>
+                        <p><strong>Scenario:</strong> Java Joint purchased a delivery van in 2020 for $25,000. By 2024, the van is still in use but market value is $18,000.</p>
+
+                        <div class="example-step">
+                            <strong>Step 1: Apply Measurement Principle</strong>
+                            <p>Record van at <strong>$25,000</strong> (historical cost)</p>
+                        </div>
+
+                        <div class="example-step">
+                            <strong>Step 2: NOT Market Value</strong>
+                            <p>Do NOT record at $18,000 (market value) without justification</p>
+                        </div>
+
+                        <div class="misconception-alert">
+                            <strong>Why? Because:</strong> The $25,000 payment is a verified fact. The $18,000 market value is an estimate that changes regularly.
+                        </div>
+                    </div>
+
+                    <div class="worked-example">
+                        <h4>Example 2: Revenue Recognition</h4>
+                        <p><strong>Scenario:</strong> A consulting firm signs a contract in December 2024 for $50,000 work to be performed in January 2025. Client pays $25,000 in December and $25,000 in January.</p>
+
+                        <div class="example-step">
+                            <strong>Step 1: Apply Revenue Recognition</strong>
+                            <p>Is revenue earned in December? <strong>NO</strong>—work hasn't been performed yet.</p>
+                        </div>
+
+                        <div class="example-step">
+                            <strong>Step 2: Treat December Payment</strong>
+                            <p>The $25,000 received in December is <strong>Unearned Revenue</strong> (a liability)</p>
+                        </div>
+
+                        <div class="example-step">
+                            <strong>Step 3: Recognize Revenue in January</strong>
+                            <p>When work is performed, convert $25,000 from Unearned Revenue to Revenue, recognize remaining $25,000 from January payment</p>
+                        </div>
+                    </div>
+
+                    <div class="worked-example">
+                        <h4>Example 3: Expense Recognition (Matching)</h4>
+                        <p><strong>Scenario:</strong> Company receives $2,000 utility bill in January 2025 for electricity used in December 2024.</p>
+
+                        <div class="example-step">
+                            <strong>Step 1: Identify Period</strong>
+                            <p>Electricity was used (benefited) in <strong>December 2024</strong></p>
+                        </div>
+
+                        <div class="example-step">
+                            <strong>Step 2: Apply Matching Principle</strong>
+                            <p>Record $2,000 utility expense in <strong>December 2024</strong> (when it was used), NOT January 2025 (when bill was paid)</p>
+                        </div>
+
+                        <div class="professional-tip">
+                            <strong>💡 Why This Matters:</strong> December's financial statements show the true cost of generating December revenue. Otherwise, December profit would be overstated.
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Advanced Level -->
+                <div id="gaap-advanced" class="depth-content">
+                    <h3>🔴 Advanced Applications & Edge Cases</h3>
+
+                    <div class="key-concepts-grid">
+                        <div class="concept-card">
+                            <strong>Industry-Specific GAAP</strong>
+                            <p>Different industries have specialized GAAP guidance (e.g., software revenue recognition, construction percentage-of-completion)</p>
+                        </div>
+
+                        <div class="concept-card">
+                            <strong>Materiality Concept</strong>
+                            <p>Small amounts that wouldn't affect user decisions may be ignored or aggregated. No bright-line test—requires judgment.</p>
+                        </div>
+
+                        <div class="concept-card">
+                            <strong>Conservatism Principle</strong>
+                            <p>When in doubt, choose the option that is less likely to overstate assets/income. Better to understate than overstate.</p>
+                        </div>
+
+                        <div class="concept-card">
+                            <strong>Going Concern Assumption</strong>
+                            <p>Assume business will continue operating indefinitely. Don't liquidate assets at "fire sale" prices unless evidence suggests otherwise.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- GAAP vs IFRS -->
+            <section class="kp-section">
+                <h2>🌍 GAAP vs IFRS</h2>
+                <p>The US uses <strong>GAAP</strong> (FASB standards), while most of the world uses <strong>IFRS</strong> (IASB standards). Convergence efforts continue, but significant differences remain:</p>
+
+                <div class="table-scroll">
+                    <table class="comparison-table">
+                        <thead>
+                            <tr>
+                                <th>Aspect</th>
+                                <th>GAAP (US)</th>
+                                <th>IFRS (International)</th>
+                                <th>Impact</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>Approach</strong></td>
+                                <td>Rule-based (specific rules for situations)</td>
+                                <td>Principle-based (general principles require judgment)</td>
+                                <td>GAAP more detailed; IFRS more flexible</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Inventory Valuation</strong></td>
+                                <td>LIFO, FIFO, Weighted Average allowed</td>
+                                <td>FIFO prohibited in most cases; similar to FIFO</td>
+                                <td>Different costs in inflation vs deflation</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Research & Development</strong></td>
+                                <td>Expensed immediately</td>
+                                <td>Can be capitalized if criteria met</td>
+                                <td>IFRS can show higher assets/income</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Impairment Testing</strong></td>
+                                <td>Required when indicators present</td>
+                                <td>Annual review required for all assets</td>
+                                <td>More frequent testing under IFRS</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Extraordinary Items</strong></td>
+                                <td>Shown separately below net income</td>
+                                <td>Generally prohibited; merged with operations</td>
+                                <td>GAAP highlights unusual events more</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="interactive-section">
+                    <h3>Interactive: Classification Challenge</h3>
+                    <p>For each scenario, determine whether GAAP or IFRS treatment would apply differently:</p>
+
+                    <div class="quiz-container" data-explanation="Under GAAP, LIFO is allowed. Under IFRS, LIFO is generally prohibited. IFRS emphasizes showing current costs (FIFO-like)." data-hints="Think about how inventory costing rules differ between US and international standards.">
+                        <div class="input-group">
+                            <p><strong>Scenario 1:</strong> During rising prices, company uses LIFO for inventory. Is this acceptable?</p>
+                            <label><input type="radio" name="ifrs1" value="gaap" data-correct="true"> GAAP: Yes, LIFO allowed</label><br>
+                            <label><input type="radio" name="ifrs1" value="ifrs" data-correct="false"> IFRS: No, LIFO prohibited</label>
+                        </div>
+
+                        <div class="input-group">
+                            <p><strong>Scenario 2:</strong> R&D costs for new software project. Can these be capitalized (recorded as asset)?</p>
+                            <label><input type="radio" name="ifrs2" value="gaap" data-correct="false"> GAAP: Must expense immediately</label><br>
+                            <label><input type="radio" name="ifrs2" value="ifrs" data-correct="true"> IFRS: May capitalize if criteria met</label>
+                        </div>
+
+                        <button class="btn btn-primary quiz-submit">Check Classification</button>
+                        <div class="feedback"></div>
+                        <button class="quiz-retry">Try Again</button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Common Misconceptions -->
+            <section class="kp-section">
+                <h2>🚫 Common Misconceptions & Professional Tips</h2>
+
+                <div class="misconception-alert">
+                    <strong>❌ Misconception 1:</strong> "Ethics are just personal opinions—there's no right or wrong."
+                    <br><br>
+                    <strong>✅ Reality:</strong> While ethics involve judgment, <strong>professional accounting ethics</strong> are codified in standards (AICPA Code of Professional Conduct, SEC rules). Violations have objective consequences.
+                </div>
+
+                <div class="misconception-alert">
+                    <strong>❌ Misconception 2:</strong> "Following GAAP is enough—ethics don't matter."
+                    <br><br>
+                    <strong>✅ Reality:</strong> GAAP is about <strong>how to measure and report</strong>. Ethics is about <strong>what to measure and report</strong>. You can follow GAAP technically while still being unethical (e.g., aggressive interpretation, hiding information).
+                </div>
+
+                <div class="misconception-alert">
+                    <strong>❌ Misconception 3:</strong> "Only people who commit fraud are unethical."
+                    <br><br>
+                    <strong>✅ Reality:</strong> <strong>Passive participation</strong> in unethical behavior (looking the other way, not questioning suspicious entries) is also unethical. Silence can be complicity.
+                </div>
+
+                <div class="professional-tip">
+                    <strong>💡 Professional Tip #1:</strong> Always document your reasoning. If an entry seems unusual but management insists, <strong>write a memo explaining your concern</strong> and keep it in your files.
+                </div>
+
+                <div class="professional-tip">
+                    <strong>💡 Professional Tip #2:</strong> Establish clear "lines of communication." Know when to escalate to your supervisor, internal audit, or even external regulators if you encounter unethical pressure.
+                </div>
+
+                <div class="professional-tip">
+                    <strong>💡 Professional Tip #3:</strong> Stay updated on accounting standards. GAAP and IFRS evolve. A practice acceptable yesterday may be questionable tomorrow.
+                </div>
+            </section>
+
+            <!-- Memory Aids -->
+            <section class="kp-section">
+                <h2>🧠 Memory Aids & Quick Reference</h2>
+
+                <div class="memory-aid-card">
+                    <strong>⚡ Quick Recall: The Four GAAP Principles</strong>
+                    <p style="margin-top: 1rem;"><strong>Measurement</strong> = Historical Cost (What you paid)</p>
+                    <p><strong>Revenue Recognition</strong> = Earned & Realizable (When delivered & collectable)</p>
+                    <p><strong>Expense Recognition</strong> = Matching (Same period as revenue helped generate)</p>
+                    <p><strong>Full Disclosure</strong> = All material information (Even if unfavorable)</p>
+                </div>
+
+                <div class="memory-aid-card">
+                    <strong>⚡ Quick Recall: Fraud Triangle</strong>
+                    <p style="margin-top: 1rem;"><strong>Opportunity</strong> + <strong>Pressure</strong> + <strong>Rationalization</strong> = <strong>Fraud Risk</strong></p>
+                    <p>Remove any one side → No fraud (even if other two exist)</p>
+                </div>
+
+                <h3 style="margin-top: 2rem;">📖 Further Reading</h3>
+                <div class="key-concepts-grid">
+                    <div class="concept-card">
+                        <strong>AICPA Code of Professional Conduct</strong>
+                        <p>The ethical standard for US CPAs</p>
+                    </div>
+                    <div class="concept-card">
+                        <strong>Sarbanes-Oxley Act (SOX)</strong>
+                        <p>2002 law strengthening internal controls and auditor independence after corporate scandals</p>
+                    </div>
+                    <div class="concept-card">
+                        <strong>FASB (Financial Accounting Standards Board)</strong>
+                        <p>US body that establishes GAAP</p>
+                    </div>
+                    <div class="concept-card">
+                        <strong>IASB (International Accounting Standards Board)</strong>
+                        <p>Global body that establishes IFRS</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Glossary -->
+            <section class="kp-section">
+                <h2>📖 Glossary</h2>
+                <div class="key-concepts-grid">
+                    <div class="concept-card">
+                        <strong>Ethics</strong>
+                        <p>Moral principles that govern the conduct of individuals and organizations</p>
+                    </div>
+                    <div class="concept-card">
+                        <strong>GAAP</strong>
+                        <p>Generally Accepted Accounting Principles—the common set of accounting standards in the US</p>
+                    </div>
+                    <div class="concept-card">
+                        <strong>IFRS</strong>
+                        <p>International Financial Reporting Standards—global accounting standards used in 140+ countries</p>
+                    </div>
+                    <div class="concept-card">
+                        <strong>Fraud Triangle</strong>
+                        <p>Model explaining three conditions (opportunity, pressure, rationalization) that lead to fraud</p>
+                    </div>
+                    <div class="concept-card">
+                        <strong>Full Disclosure</strong>
+                        <p>GAAP principle requiring all material information to be included in financial statements</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Final Knowledge Check -->
+            <section class="interactive-section">
+                <h2>🎯 Final Knowledge Check</h2>
+                <p>Test your understanding of Ethics and GAAP:</p>
+
+                <div class="quiz-container" data-success-text="Excellent! You've mastered accounting ethics and GAAP principles." data-explanation="Revenue is earned when service is performed, regardless of cash receipt. December payment is unearned revenue (liability) until January.">
+                    <div class="input-group">
+                        <p><strong>Question 1:</strong> A company signs contract in December for work in January. Client pays in December. When is revenue recognized?</p>
+                        <label><input type="radio" name="final1" value="dec" data-correct="false"> December (when cash received)</label><br>
+                        <label><input type="radio" name="final1" value="jan" data-correct="true"> January (when work performed)</label>
+                    </div>
+
+                    <div class="input-group">
+                        <p><strong>Question 2:</strong> Which three factors form the Fraud Triangle?</p>
+                        <label><input type="radio" name="final2" value="wrong1" data-correct="false"> Greed, Pressure, Opportunity</label><br>
+                        <label><input type="radio" name="final2" value="correct" data-correct="true"> Opportunity, Pressure, Rationalization</label><br>
+                        <label><input type="radio" name="final2" value="wrong2" data-correct="false"> Opportunity, Greed, Rationalization</label>
+                    </div>
+
+                    <div class="input-group">
+                        <p><strong>Question 3:</strong> What principle requires recording assets at historical cost?</p>
+                        <label><input type="radio" name="final3" value="revenue" data-correct="false"> Revenue Recognition Principle</label><br>
+                        <label><input type="radio" name="final3" value="measurement" data-correct="true"> Measurement Principle (Cost Principle)</label><br>
+                        <label><input type="radio" name="final3" value="disclosure" data-correct="false"> Full Disclosure Principle</label>
+                    </div>
+
+                    <button class="btn btn-primary quiz-submit">Submit All Answers</button>
+                    <div class="feedback"></div>
+                    <button class="quiz-retry">Try Again</button>
+                </div>
+            </section>
+
+            <!-- Navigation -->
+            <nav class="kp-navigation" style="display: flex; justify-content: space-between; margin-top: 4rem; padding-bottom: 2rem;">
+                <a href="ch01_C1.html" class="btn" style="background: #eee;">← Previous: Purpose & Users</a>
+                <a href="ch01_A1.html" class="btn btn-primary">Next: Accounting Equation →</a>
+            </nav>
+        </article>
+    </main>
+
+    <footer style="margin-top: 5rem; padding: 2rem 0; border-top: 1px solid #ddd; text-align: center; color: #888;">
+        <p>Accounting Essentials | Chapter 1 | Concept 2</p>
+    </footer>
+
+    <script src="../../components-enhanced.js"></script>
+    <script>
+        function setGAAPDepth(depth) {
+            document.querySelectorAll('.depth-btn').forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+
+            document.querySelectorAll('.depth-content').forEach(content => content.classList.remove('active'));
+            document.getElementById(`gaap-${depth}`).classList.add('active');
+        }
+    </script>
+</body>
+
+</html>

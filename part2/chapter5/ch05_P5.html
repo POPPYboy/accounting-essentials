@@ -1,0 +1,709 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>P5 (App 5A): Periodic Purchases | ACCOUNTING ESSENTIALS</title>
+    <link rel="stylesheet" href="../../styles.css">
+    <style>
+        .receipt-box-diagram {
+            display: flex;
+            gap: 2rem;
+            justify-content: center;
+            align-items: flex-start;
+            margin: 2rem 0;
+            flex-wrap: wrap;
+        }
+        .receipt-box {
+            background: var(--bg-light);
+            border: 3px dashed var(--primary);
+            border-radius: var(--radius-md);
+            padding: 1.5rem;
+            text-align: center;
+            min-width: 180px;
+            transition: transform 0.3s ease;
+        }
+        .receipt-box:hover {
+            transform: translateY(-5px);
+        }
+        .receipt-box h4 {
+            margin: 0 0 0.5rem 0;
+            color: var(--primary);
+        }
+        .receipt-box p {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            margin: 0;
+        }
+        .receipt-box .account-type {
+            display: inline-block;
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            margin-top: 0.5rem;
+        }
+        .dr-box { background: #e3f2fd; color: #1565c0; }
+        .cr-box { background: #fce4ec; color: #c62828; }
+        .equation-flow {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 1rem;
+            margin: 2rem 0;
+            flex-wrap: wrap;
+        }
+        .equation-term {
+            background: var(--primary);
+            color: var(--white);
+            padding: 1rem 1.5rem;
+            border-radius: var(--radius-sm);
+            font-weight: 600;
+        }
+        .equation-operator {
+            font-size: 1.5rem;
+            color: var(--secondary);
+            font-weight: 700;
+        }
+        .comparison-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        .comparison-table th, .comparison-table td {
+            padding: 1rem;
+            text-align: left;
+            border-bottom: 1px solid #e0e0e0;
+        }
+        .comparison-table th {
+            background: var(--primary);
+            color: var(--white);
+        }
+        .comparison-table tr:nth-child(even) {
+            background: var(--bg-light);
+        }
+        .comparison-table tr:hover {
+            background: #e8f5e9;
+        }
+        .journal-entry {
+            background: #f5f5f5;
+            border-radius: var(--radius-sm);
+            padding: 1rem;
+            margin: 0.5rem 0;
+            font-family: 'Courier New', monospace;
+        }
+        .journal-entry .debit {
+            color: var(--primary);
+            font-weight: 600;
+        }
+        .journal-entry .credit {
+            color: var(--secondary);
+            font-weight: 600;
+        }
+    </style>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-50MTQPVR7D"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-50MTQPVR7D');
+</script>
+
+</head>
+
+<body>
+    <header>
+        <div class="container nav-container">
+            <a href="../../index.html" class="logo">ACCOUNTING<span>ESSENTIALS</span></a>
+            <nav class="nav-links">
+                <a href="../../index.html">Home</a>
+                <a href="../../Part1/part1.html">Part 1</a>
+                <a href="../../part2/part2.html">Part 2</a>
+                <a href="../../part3/part3.html">Part 3</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container">
+        <div class="breadcrumbs">
+            <a href="../../index.html">Home</a> <span>/</span> <a href="../../part2/part2.html">Part 2</a> <span>/</span> <a href="ch05.html">Chapter 5</a> <span>/</span> P5
+        </div>
+
+        <article class="animate-fade-in">
+            <div class="kp-header">
+                <h1 style="border-left: 8px solid var(--primary-light); padding-left: 1rem; margin: 2rem 0;">Periodic Purchases (App 5A)</h1>
+            </div>
+
+            <!-- Learning Objectives -->
+            <section class="kp-section">
+                <h2>🎯 Learning Objectives</h2>
+                <div class="learning-objectives">
+                    <ul>
+                        <li>Understand the periodic inventory system and its key characteristics</li>
+                        <li>Distinguish between perpetual and periodic inventory systems</li>
+                        <li>Record purchases, purchase returns, and purchase discounts in a periodic system</li>
+                        <li>Calculate net purchases and understand freight-in treatment</li>
+                        <li>Prepare adjusting entries for inventory at period-end</li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- Background & Principles -->
+            <section class="kp-section">
+                <h2>📚 Background & Principles</h2>
+                <p>In a periodic inventory system, the Inventory account is not updated with each purchase or sale. Instead, all purchases are recorded in temporary "Purchases" accounts throughout the period, and the actual inventory balance is determined only at year-end through physical counting.</p>
+
+                <div class="concept-card" style="margin: 1.5rem 0;">
+                    <strong>Core Principle:</strong> The periodic system separates the recording of purchases from the inventory asset. Purchases are tracked in temporary accounts, and only at period-end is the true inventory balance determined and COGS calculated.
+                </div>
+
+                <p>This system is simpler to implement but provides less real-time information about inventory levels. It works well for businesses with lower transaction volumes or less valuable inventory.</p>
+
+                <div class="professional-tip">
+                    <strong>💡 Key Insight:</strong> The periodic system is like putting all your receipts in a box during the year and only counting your actual inventory at year-end to see what you have left. The difference between what you started with plus what you bought minus what you have left tells you what you sold.
+                </div>
+            </section>
+
+            <!-- Key Concepts -->
+            <section class="kp-section">
+                <h2>🔑 Key Concepts</h2>
+                <div class="key-concepts-grid">
+                    <div class="concept-card">
+                        <strong>Purchases Account</strong>
+                        <p>Temporary debit account that records the cost of all goods purchased for resale during the period. Closed at year-end.</p>
+                    </div>
+
+                    <div class="concept-card">
+                        <strong>Purchase Returns and Allowances</strong>
+                        <p>Contra-purchases account with credit balance. Records goods returned to suppliers or price adjustments granted.</p>
+                    </div>
+
+                    <div class="concept-card">
+                        <strong>Purchase Discounts</strong>
+                        <p>Contra-purchases account with credit balance. Records savings from early payment under credit terms.</p>
+                    </div>
+
+                    <div class="concept-card">
+                        <strong>Freight-In</strong>
+                        <p>Temporary debit account for shipping costs paid by the buyer. These costs are part of inventory cost.</p>
+                    </div>
+
+                    <div class="concept-card">
+                        <strong>Net Purchases</strong>
+                        <p>Gross Purchases minus Purchase Returns and Allowances minus Purchase Discounts. Plus Freight-In equals cost of goods available for sale.</p>
+                    </div>
+
+                    <div class="concept-card">
+                        <strong>Physical Inventory Count</strong>
+                        <p>Year-end process of counting actual inventory on hand. Used to determine ending inventory and COGS.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Deep Dive -->
+            <section class="kp-section">
+                <h2>🔍 Deep Dive</h2>
+                <p>Explore periodic purchases at different levels of depth:</p>
+
+                <div class="depth-toggle">
+                    <button class="depth-btn active" onclick="setDepth('A')">Depth A: Foundational</button>
+                    <button class="depth-btn" onclick="setDepth('B')">Depth B: Standard</button>
+                    <button class="depth-btn" onclick="setDepth('C')">Depth C: Advanced</button>
+                </div>
+
+                <!-- Depth A -->
+                <div id="depth-A" class="depth-content active">
+                    <h3>🟢 Foundational Level</h3>
+                    <p>Understanding the periodic system "Receipt Box" analogy.</p>
+
+                    <div class="worked-example">
+                        <h4>The Receipt Box Analogy</h4>
+                        <p><strong>Analogy: The Temporary Boxes</strong></p>
+                        <p>Imagine you're cleaning your room all year but don't actually organize anything until December.</p>
+
+                        <div class="example-step">
+                            <strong>During the Year:</strong>
+                            <p>Instead of putting clothes in your closet immediately, you throw them in a "Dirty Clothes" pile (Purchases).</p>
+                        </div>
+                        <div class="example-step">
+                            <strong>Returns?</strong>
+                            <p>If you return something to the store, you put the receipt in a separate "Returns" box (Purchase Returns).</p>
+                        </div>
+                        <div class="example-step">
+                            <strong>Year-End (December):</strong>
+                            <p>You finally count what you actually have in your closet (Physical Count), then calculate what you must have worn/worn out.</p>
+                        </div>
+                    </div>
+
+                    <div class="receipt-box-diagram">
+                        <div class="receipt-box">
+                            <h4>📦 Purchases</h4>
+                            <p>All purchase receipts</p>
+                            <span class="account-type dr-box">Debit (Temp)</span>
+                        </div>
+                        <div class="receipt-box">
+                            <h4>↩️ Returns</h4>
+                            <p>Returned items</p>
+                            <span class="account-type cr-box">Credit (Contra)</span>
+                        </div>
+                        <div class="receipt-box">
+                            <h4>💰 Discounts</h4>
+                            <p>Early payment savings</p>
+                            <span class="account-type cr-box">Credit (Contra)</span>
+                        </div>
+                        <div class="receipt-box">
+                            <h4>🚚 Freight-In</h4>
+                            <p>Shipping costs</p>
+                            <span class="account-type dr-box">Debit (Temp)</span>
+                        </div>
+                    </div>
+
+                    <div style="background: var(--bg-dark); color: var(--white); padding: 2rem; border-radius: var(--radius-md); text-align: center; margin: 2rem 0;">
+                        <h3 style="color: var(--secondary-light);">Net Purchases Formula</h3>
+                        <div style="font-size: 1.5rem; font-weight: 700; margin-top: 1rem;">
+                            Net Purchases = Gross Purchases - Returns - Discounts
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Depth B -->
+                <div id="depth-B" class="depth-content">
+                    <h3>🟡 Standard Level</h3>
+                    <p>Recording transactions and understanding account treatment.</p>
+
+                    <div class="worked-example">
+                        <h4>Recording Purchase Transactions</h4>
+                        <p><strong>Scenario:</strong> Company purchases $10,000 of merchandise on credit, terms 2/10, n/30. Freight costs $500.</p>
+
+                        <div class="example-step">
+                            <strong>Entry 1: Purchase (Credit)</strong>
+                            <div class="journal-entry">
+                                <span class="debit">Debit: Purchases</span> $10,000<br>
+                                <span class="credit">Credit: Accounts Payable</span> $10,000
+                            </div>
+                        </div>
+                        <div class="example-step">
+                            <strong>Entry 2: Freight Payment</strong>
+                            <div class="journal-entry">
+                                <span class="debit">Debit: Freight-In</span> $500<br>
+                                <span class="credit">Credit: Cash</span> $500
+                            </div>
+                        </div>
+                        <div class="example-step">
+                            <strong>Entry 3: Early Payment (within 10 days)</strong>
+                            <div class="journal-entry">
+                                <span class="debit">Debit: Accounts Payable</span> $10,000<br>
+                                <span class="credit">Credit: Cash</span> $9,800<br>
+                                <span class="credit">Credit: Purchase Discounts</span> $200
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="worked-example">
+                        <h4>Recording Purchase Returns</h4>
+                        <p><strong>Scenario:</strong> Company returns $1,000 of defective merchandise to supplier.</p>
+
+                        <div class="example-step">
+                            <strong>Return Entry:</strong>
+                            <div class="journal-entry">
+                                <span class="debit">Debit: Accounts Payable</span> $1,000<br>
+                                <span class="credit">Credit: Purchase Returns and Allowances</span> $1,000
+                            </div>
+                        </div>
+                        <div class="example-step">
+                            <strong>Why contra account?</strong>
+                            <p>Purchase Returns and Allowances has a credit balance (normal for contra-purchases). This reduces total purchases for COGS calculation.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Depth C -->
+                <div id="depth-C" class="depth-content">
+                    <h3>🔴 Advanced Level</h3>
+                    <p>Complex scenarios and period-end adjustments.</p>
+
+                    <div class="worked-example">
+                        <h4>Year-End COGS Calculation</h4>
+                        <p><strong>Scenario:</strong> Beginning Inventory $15,000, Gross Purchases $80,000, Purchase Returns $3,000, Purchase Discounts $1,500, Freight-In $2,500, Physical Count Ending Inventory $18,000.</p>
+
+                        <div class="example-step">
+                            <strong>Step 1: Calculate Net Purchases</strong>
+                            <p>Net Purchases = $80,000 - $3,000 - $1,500 = $75,500</p>
+                        </div>
+                        <div class="example-step">
+                            <strong>Step 2: Calculate Cost of Goods Available</strong>
+                            <p>Available = Beginning + Net Purchases + Freight-In</p>
+                            <p>Available = $15,000 + $75,500 + $2,500 = $93,000</p>
+                        </div>
+                        <div class="example-step">
+                            <strong>Step 3: Calculate COGS</strong>
+                            <p>COGS = Available - Ending Inventory</p>
+                            <p>COGS = $93,000 - $18,000 = $75,000</p>
+                        </div>
+                    </div>
+
+                    <div class="worked-example">
+                        <h4>Adjusting Entry at Year-End</h4>
+                        <p><strong>After physical count shows $18,000 ending inventory:</strong></p>
+
+                        <div class="example-step">
+                            <strong>Adjusting Entry:</strong>
+                            <div class="journal-entry">
+                                <span class="debit">Debit: Cost of Goods Sold</span> $75,000<br>
+                                <span class="debit">Debit: Purchase Returns and Allowances</span> $3,000<br>
+                                <span class="debit">Debit: Purchase Discounts</span> $1,500<br>
+                                <span class="debit">Debit: Freight-In</span> $2,500<br>
+                                <span class="credit">Credit: Purchases</span> $80,000<br>
+                                <span class="credit">Credit: Inventory (Ending)</span> $18,000
+                            </div>
+                        </div>
+                        <div class="example-step">
+                            <strong>Alternative (simpler) entry:</strong>
+                            <div class="journal-entry">
+                                <span class="debit">Debit: Cost of Goods Sold</span> $75,000<br>
+                                <span class="credit">Credit: Inventory (Ending)</span> $18,000<br>
+                                <span class="credit">Credit: Purchases</span> $57,000
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Interactive Net Purchases Calculator -->
+            <section class="kp-section">
+                <h2>🎨 Interactive: Net Purchases Calculator</h2>
+                <p>Calculate net purchases by entering your gross purchases and adjusting for returns, discounts, and freight.</p>
+
+                <div class="simulator-container">
+                    <div class="input-group">
+                        <label>Gross Purchases ($)</label>
+                        <input type="number" id="netp-gross" value="50000" oninput="calcNetP()">
+                    </div>
+                    <div class="card-grid" style="grid-template-columns: repeat(3, 1fr); gap: 0.5rem;">
+                        <div class="input-group">
+                            <label style="font-size: 0.7rem;">Purchase Returns ($)</label>
+                            <input type="number" id="netp-ret" value="2000" oninput="calcNetP()">
+                        </div>
+                        <div class="input-group">
+                            <label style="font-size: 0.7rem;">Purchase Discounts ($)</label>
+                            <input type="number" id="netp-disc" value="1000" oninput="calcNetP()">
+                        </div>
+                        <div class="input-group">
+                            <label style="font-size: 0.7rem;">Freight-In ($)</label>
+                            <input type="number" id="netp-frt" value="1500" oninput="calcNetP()">
+                        </div>
+                    </div>
+
+                    <div class="equation-flow">
+                        <div class="equation-term" id="term-gross">$50,000</div>
+                        <div class="equation-operator">−</div>
+                        <div class="equation-term" id="term-ret">$2,000</div>
+                        <div class="equation-operator">−</div>
+                        <div class="equation-term" id="term-disc">$1,000</div>
+                        <div class="equation-operator">+</div>
+                        <div class="equation-term" id="term-frt">$1,500</div>
+                    </div>
+
+                    <div style="margin-top: 2rem; padding: 2rem; background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%); color: var(--white); border-radius: var(--radius-sm); text-align: center;">
+                        <span style="font-size: 0.9rem; color: var(--secondary-light); text-transform: uppercase; letter-spacing: 1px;">Net Purchases</span>
+                        <div id="netp-res" style="font-size: 3rem; font-weight: 900;">$48,500</div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Perpetual vs Periodic Comparison -->
+            <section class="kp-section">
+                <h2>📊 Perpetual vs Periodic: Purchases Comparison</h2>
+                <p>Understanding how the same transaction is recorded differently in each system.</p>
+
+                <div class="table-scroll">
+                    <table class="comparison-table">
+                        <thead>
+                            <tr>
+                                <th>Transaction</th>
+                                <th>Perpetual Entry</th>
+                                <th>Periodic Entry</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>Purchase $1,000 goods on credit</strong></td>
+                                <td>
+                                    <div class="journal-entry">
+                                        <span class="debit">Dr: Inventory</span> $1,000<br>
+                                        <span class="credit">Cr: Accounts Payable</span> $1,000
+                                    </div>
+                                    <small style="color: var(--text-muted);">Updates inventory immediately</small>
+                                </td>
+                                <td>
+                                    <div class="journal-entry">
+                                        <span class="debit">Dr: Purchases</span> $1,000<br>
+                                        <span class="credit">Cr: Accounts Payable</span> $1,000
+                                    </div>
+                                    <small style="color: var(--text-muted);">Temporary purchases account</small>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><strong>Return $200 of goods</strong></td>
+                                <td>
+                                    <div class="journal-entry">
+                                        <span class="debit">Dr: Accounts Payable</span> $200<br>
+                                        <span class="credit">Cr: Inventory</span> $200
+                                    </div>
+                                    <small style="color: var(--text-muted);">Reduces inventory account</small>
+                                </td>
+                                <td>
+                                    <div class="journal-entry">
+                                        <span class="debit">Dr: Accounts Payable</span> $200<br>
+                                        <span class="credit">Cr: Purchase Returns</span> $200
+                                    </div>
+                                    <small style="color: var(--text-muted);">Contra-purchases account</small>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><strong>Pay $50 freight on purchase</strong></td>
+                                <td>
+                                    <div class="journal-entry">
+                                        <span class="debit">Dr: Inventory</span> $50<br>
+                                        <span class="credit">Cr: Cash</span> $50
+                                    </div>
+                                    <small style="color: var(--text-muted);">Capitalized in inventory</small>
+                                </td>
+                                <td>
+                                    <div class="journal-entry">
+                                        <span class="debit">Dr: Freight-In</span> $50<br>
+                                        <span class="credit">Cr: Cash</span> $50
+                                    </div>
+                                    <small style="color: var(--text-muted);">Temporary account</small>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><strong>Pay within discount period (2% discount)</strong></td>
+                                <td>
+                                    <div class="journal-entry">
+                                        <span class="debit">Dr: Accounts Payable</span> $1,000<br>
+                                        <span class="credit">Cr: Cash</span> $980<br>
+                                        <span class="credit">Cr: Inventory</span> $20
+                                    </div>
+                                    <small style="color: var(--text-muted);">Reduces inventory cost</small>
+                                </td>
+                                <td>
+                                    <div class="journal-entry">
+                                        <span class="debit">Dr: Accounts Payable</span> $1,000<br>
+                                        <span class="credit">Cr: Cash</span> $980<br>
+                                        <span class="credit">Cr: Purchase Discounts</span> $20
+                                    </div>
+                                    <small style="color: var(--text-muted);">Contra-purchases account</small>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- Common Misconceptions -->
+            <section class="kp-section">
+                <h2>🚫 Common Misconceptions & Professional Tips</h2>
+
+                <div class="misconception-alert">
+                    <strong>❌ Misconception 1:</strong> "Purchases account shows the inventory asset."
+                    <br><br>
+                    <strong>✅ Reality:</strong> Purchases is a TEMPORARY expense-type account, not the Inventory asset. In periodic systems, the actual Inventory account (asset) is only updated at year-end. Purchases tracks what you bought, not what you have.
+                </div>
+
+                <div class="misconception-alert">
+                    <strong>❌ Misconception 2:</strong> "Freight-In is an expense."
+                    <br><br>
+                    <strong>✅ Reality:</strong> Freight-In is a temporary account that gets added to inventory cost. It's not a period expense—it ultimately becomes part of COGS when inventory is sold, or remains in Ending Inventory if unsold.
+                </div>
+
+                <div class="misconception-alert">
+                    <strong>❌ Misconception 3:</strong> "Periodic systems are obsolete."
+                    <br><br>
+                    <strong>✅ Reality:</strong> Periodic systems are still used by small businesses, retailers with low inventory turnover, and organizations where the cost of perpetual systems exceeds benefits. They're simpler and cheaper to maintain.
+                </div>
+
+                <div class="professional-tip">
+                    <strong>💡 Professional Tip #1:</strong> Keep all purchase invoices and freight bills organized throughout the year. They'll be needed for year-end inventory valuation and audit purposes.
+                </div>
+
+                <div class="professional-tip">
+                    <strong>💡 Professional Tip #2:</strong> Reconcile purchase accounts monthly. Large or unusual entries in Purchases, Returns, or Discounts may indicate errors or fraud.
+                </div>
+
+                <div class="professional-tip">
+                    <strong>💡 Professional Tip #3:</strong> Physical inventory counts should be done carefully and independently. Use count teams and pre-numbered count sheets to ensure accuracy.
+                </div>
+            </section>
+
+            <!-- Memory Aids -->
+            <section class="kp-section">
+                <h2>🧠 Memory Aids & Quick Reference</h2>
+
+                <div class="memory-aid-card">
+                    <strong>⚡ Quick Recall: Net Purchases Formula</strong>
+                    <p><strong>Net Purchases = Gross Purchases − Purchase Returns − Purchase Discounts</strong></p>
+                    <p><strong>Cost of Goods Available = Beginning Inventory + Net Purchases + Freight-In</strong></p>
+                    <p><strong>COGS = Cost of Goods Available − Ending Inventory</strong></p>
+                </div>
+
+                <div class="key-concepts-grid">
+                    <div class="concept-card">
+                        <strong>📦 Purchases (Dr)</strong>
+                        <p>Temporary account. Debit for all goods purchased. Closed at year-end.</p>
+                    </div>
+
+                    <div class="concept-card">
+                        <strong>↩️ Purchase Returns (Cr)</strong>
+                        <p>Contra-purchases. Credit for goods returned to suppliers.</p>
+                    </div>
+
+                    <div class="concept-card">
+                        <strong>💰 Purchase Discounts (Cr)</strong>
+                        <p>Contra-purchases. Credit for early payment savings.</p>
+                    </div>
+
+                    <div class="concept-card">
+                        <strong>🚚 Freight-In (Dr)</strong>
+                        <p>Temporary account. Debit for shipping costs. Part of inventory cost.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Glossary -->
+            <section class="kp-section">
+                <h2>📖 Glossary</h2>
+                <div class="key-concepts-grid">
+                    <div class="concept-card">
+                        <strong>Purchases Account</strong>
+                        <p>Temporary debit account recording cost of goods purchased for resale during the period. Closed at year-end.</p>
+                    </div>
+
+                    <div class="concept-card">
+                        <strong>Purchase Returns and Allowances</strong>
+                        <p>Contra-purchases account with credit balance. Records goods returned or price adjustments from suppliers.</p>
+                    </div>
+
+                    <div class="concept-card">
+                        <strong>Purchase Discounts</strong>
+                        <p>Contra-purchases account with credit balance. Records savings from early payment under credit terms.</p>
+                    </div>
+
+                    <div class="concept-card">
+                        <strong>Freight-In</strong>
+                        <p>Temporary debit account for transportation costs on purchases. Added to inventory cost.</p>
+                    </div>
+
+                    <div class="concept-card">
+                        <strong>Net Purchases</strong>
+                        <p>Gross Purchases minus Purchase Returns and Allowances minus Purchase Discounts.</p>
+                    </div>
+
+                    <div class="concept-card">
+                        <strong>Periodic Inventory System</strong>
+                        <p>Inventory system where inventory is not updated continuously. Balance determined by physical count at period-end.</p>
+                    </div>
+
+                    <div class="concept-card">
+                        <strong>Cost of Goods Available for Sale</strong>
+                        <p>Beginning Inventory + Net Purchases + Freight-In. Total cost of all goods that could have been sold.</p>
+                    </div>
+
+                    <div class="concept-card">
+                        <strong>Physical Inventory Count</strong>
+                        <p>Year-end process of counting actual inventory on hand to determine ending inventory balance.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Final Knowledge Check -->
+            <section class="interactive-section">
+                <h2>🎯 Final Knowledge Check</h2>
+                <p>Test your understanding of Periodic Purchases:</p>
+
+                <div class="quiz-container" data-success-text="Excellent! You've mastered periodic purchases." data-explanation="In a periodic system, purchases are recorded in a temporary Purchases account, not directly to Inventory. The Inventory account is only updated at year-end after physical counting.">
+                    <div class="input-group">
+                        <p><strong>Question 1:</strong> In a periodic system, when goods are purchased, which account is debited?</p>
+                        <label><input type="radio" name="q1" value="incorrect1" data-correct="false"> Merchandise Inventory</label><br>
+                        <label><input type="radio" name="q1" value="correct" data-correct="true"> Purchases</label><br>
+                        <label><input type="radio" name="q1" value="incorrect2" data-correct="false"> Cost of Goods Sold</label>
+                    </div>
+
+                    <div class="input-group">
+                        <p><strong>Question 2:</strong> Purchase Returns and Allowances has what normal balance?</p>
+                        <label><input type="radio" name="q2" value="incorrect1" data-correct="false"> Debit (like Purchases)</label><br>
+                        <label><input type="radio" name="q2" value="correct" data-correct="true"> Credit (contra-purchases account)</label><br>
+                        <label><input type="radio" name="q2" value="incorrect2" data-correct="false"> Neither - it's an asset</label>
+                    </div>
+
+                    <div class="input-group">
+                        <p><strong>Question 3:</strong> Freight-In is best described as:</p>
+                        <label><input type="radio" name="q3" value="incorrect1" data-correct="false"> A period expense on the income statement</label><br>
+                        <label><input type="radio" name="q3" value="incorrect2" data-correct="false"> A reduction of purchases</label><br>
+                        <label><input type="radio" name="q3" value="correct" data-correct="true"> Part of inventory cost (added to Cost of Goods Available)</label>
+                    </div>
+
+                    <div class="input-group">
+                        <p><strong>Question 4:</strong> When is the Inventory account updated in a periodic system?</p>
+                        <label><input type="radio" name="q4" value="correct" data-correct="true"> Only at year-end after physical count</label><br>
+                        <label><input type="radio" name="q4" value="incorrect1" data-correct="false"> Every time a purchase is made</label><br>
+                        <label><input type="radio" name="q4" value="incorrect2" data-correct="false"> Every time a sale is made</label>
+                    </div>
+
+                    <div class="input-group">
+                        <p><strong>Question 5:</strong> Net Purchases equals:</p>
+                        <label><input type="radio" name="q5" value="incorrect1" data-correct="false"> Gross Purchases + Returns + Discounts</label><br>
+                        <label><input type="radio" name="q5" value="incorrect2" data-correct="false"> Purchases - Freight-In</label><br>
+                        <label><input type="radio" name="q5" value="correct" data-correct="true"> Gross Purchases - Returns - Discounts</label>
+                    </div>
+
+                    <button class="btn btn-primary quiz-submit">Submit Answers</button>
+                    <div class="feedback"></div>
+                    <button class="quiz-retry">Try Again</button>
+                </div>
+            </section>
+
+            <!-- Navigation -->
+            <nav class="kp-navigation" style="display: flex; justify-content: space-between; margin-top: 4rem; padding-bottom: 2rem;">
+                <a href="ch05_P4.html" class="btn" style="background: #eee;">← Previous: Periodic System Overview</a>
+                <a href="ch05.html" class="btn" style="background: var(--info); color: white;">Chapter 5 Hub</a>
+                <a href="ch05_P6.html" class="btn btn-primary">Next: Periodic COGS →</a>
+            </nav>
+        </article>
+    </main>
+
+    <footer style="margin-top: 5rem; padding: 2rem 0; border-top: 1px solid #ddd; text-align: center; color: #888;">
+        <p>Accounting Essentials | Chapter 5 | Procedure 5</p>
+    </footer>
+
+    <script src="../../components-enhanced.js"></script>
+    <script>
+        function setDepth(depth) {
+            document.querySelectorAll('.depth-btn').forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+
+            document.querySelectorAll('.depth-content').forEach(content => content.classList.remove('active'));
+            document.getElementById(`depth-${depth}`).classList.add('active');
+        }
+
+        function calcNetP() {
+            const gross = parseFloat(document.getElementById('netp-gross').value) || 0;
+            const ret = parseFloat(document.getElementById('netp-ret').value) || 0;
+            const disc = parseFloat(document.getElementById('netp-disc').value) || 0;
+            const frt = parseFloat(document.getElementById('netp-frt').value) || 0;
+
+            const net = gross - ret - disc + frt;
+
+            document.getElementById('term-gross').textContent = '$' + gross.toLocaleString();
+            document.getElementById('term-ret').textContent = '$' + ret.toLocaleString();
+            document.getElementById('term-disc').textContent = '$' + disc.toLocaleString();
+            document.getElementById('term-frt').textContent = '$' + frt.toLocaleString();
+
+            document.getElementById('netp-res').textContent = '$' + net.toLocaleString();
+        }
+    </script>
+</body>
+
+</html>

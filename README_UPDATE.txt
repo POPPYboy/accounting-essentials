@@ -1,0 +1,1 @@
+Done. Implemented clean ch04_P2.html with a structured 6-step closing flow, updated ch04_P3.html with a robust Reversing Entries module (A/B/C depth), and refreshed ch04_PRACTICE.html to provide coherent practice tasks. Also added a Chapter 4 Practice Case hub link and a consolidated hub page for Chapter 6 (prep placeholder).

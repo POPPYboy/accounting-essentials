@@ -1,0 +1,621 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactive: AIS Operations Center | ACCOUNTING ESSENTIALS</title>
+    <link rel="stylesheet" href="../../styles.css">
+    <style>
+        :root {
+            --desk-color: #2c3e50;
+            --terminal-bg: #000;
+            --terminal-text: #0f0;
+            --accent: #3498db;
+        }
+
+        body {
+            background-color: #f4f7f6;
+        }
+
+        /* Mission Control HUD */
+        .mission-control {
+            background: var(--white);
+            border-radius: var(--radius-lg);
+            padding: 2rem;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            margin-bottom: 2rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .mission-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 2px solid #eee;
+            padding-bottom: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .level-indicator {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .level-dot {
+            width: 15px;
+            height: 15px;
+            border-radius: 50%;
+            background: #ddd;
+            transition: all 0.3s ease;
+        }
+
+        .level-dot.active {
+            background: var(--accent);
+            transform: scale(1.2);
+        }
+
+        .level-dot.completed {
+            background: var(--success);
+        }
+
+        /* Level Views */
+        .level-view {
+            display: none;
+            animation: fadeIn 0.5s ease;
+        }
+
+        .level-view.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Level 1: System Architect */
+        .scenario-card {
+            background: #f8f9fa;
+            border-left: 5px solid var(--primary);
+            padding: 2rem;
+            margin-bottom: 2rem;
+            border-radius: 0 var(--radius-md) var(--radius-md) 0;
+        }
+
+        .choice-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .system-choice {
+            background: white;
+            border: 2px solid #eee;
+            border-radius: var(--radius-md);
+            padding: 1.5rem;
+            cursor: pointer;
+            transition: all 0.2s;
+            text-align: center;
+        }
+
+        .system-choice:hover {
+            border-color: var(--accent);
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .system-choice h3 {
+            color: var(--primary);
+            margin-bottom: 1rem;
+        }
+
+        /* Level 2: The Desk (Enhanced) */
+        .accounting-desk {
+            background-color: #dcb386;
+            border-radius: var(--radius-lg);
+            padding: 2rem;
+            position: relative;
+            min-height: 500px;
+            box-shadow: inset 0 0 50px rgba(0, 0, 0, 0.2);
+            border: 10px solid #8d6e4e;
+        }
+
+        .journals-rack {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            flex-wrap: wrap;
+            margin-bottom: 2rem;
+        }
+
+        .journal-book {
+            width: 100px;
+            height: 140px;
+            background: var(--journal-color, #444);
+            color: white;
+            border-radius: 5px 10px 10px 5px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            font-size: 0.9rem;
+            font-weight: bold;
+            cursor: pointer;
+            box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.3);
+            border-left: 8px solid rgba(0, 0, 0, 0.2);
+            transition: transform 0.2s;
+        }
+
+        .journal-book.drag-over {
+            transform: scale(1.1);
+            box-shadow: 0 0 20px yellow;
+        }
+
+        .ledgers-panel {
+            position: absolute;
+            top: 2rem;
+            right: 2rem;
+            width: 200px;
+            background: rgba(255, 255, 255, 0.9);
+            padding: 1rem;
+            border-radius: 10px;
+            font-size: 0.8rem;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .ledger-item {
+            display: flex;
+            justify-content: space-between;
+            border-bottom: 1px solid #ddd;
+            padding: 5px 0;
+        }
+
+        .doc-stack {
+            position: absolute;
+            bottom: 2rem;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        .doc-card {
+            width: 180px;
+            height: 240px;
+            background: #fffdf5;
+            border: 1px solid #ddd;
+            padding: 1rem;
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.2);
+            font-family: 'Courier New', monospace;
+            cursor: grab;
+            transition: transform 0.2s;
+            user-select: none;
+        }
+
+        .doc-card:active {
+            cursor: grabbing;
+            transform: scale(1.05);
+        }
+
+        /* Level 3: The Analyst */
+        .analytics-dashboard {
+            background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+            color: white;
+            padding: 2rem;
+            border-radius: var(--radius-lg);
+        }
+
+        .metric-card {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 1.5rem;
+            border-radius: var(--radius-md);
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .metric-value {
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: var(--accent);
+        }
+
+        .metric-label {
+            color: #94a3b8;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .decision-panel {
+            display: flex;
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+
+        /* Modals & Feedback */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+
+        .modal-content {
+            background: white;
+            padding: 2rem;
+            border-radius: var(--radius-lg);
+            max-width: 500px;
+            text-align: center;
+            animation: popIn 0.3s;
+        }
+
+        @keyframes popIn {
+            from {
+                transform: scale(0.8);
+                opacity: 0;
+            }
+
+            to {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+    </style>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-50MTQPVR7D"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-50MTQPVR7D');
+</script>
+
+</head>
+
+<body>
+    <header>
+        <div class="container nav-container">
+            <a href="../../index.html" class="logo">ACCOUNTING<span>ESSENTIALS</span></a>
+            <nav class="nav-links">
+                <a href="../../index.html">Home</a>
+                <a href="../../Part1/part1.html">Part 1</a>
+                <a href="../../part2/part2.html">Part 2</a>
+                <a href="../../part3/part3.html">Part 3</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container">
+        <div class="breadcrumbs">
+            <a href="../../index.html">Home</a> <span>/</span>
+            <a href="../../part3/part3.html">Part 3</a> <span>/</span>
+            <a href="ch07.html">Chapter 7</a> <span>/</span> Interactive
+        </div>
+
+        <article class="animate-fade-in">
+            <div class="kp-header">
+                <h1 style="border-left: 8px solid var(--accent); padding-left: 1rem; margin: 2rem 0;">AIS Operations
+                    Center</h1>
+                <p>Complete 3 missions to master Accounting Information Systems: Design, Process, and Analyze.</p>
+            </div>
+
+            <section class="mission-control">
+                <div class="mission-header">
+                    <h2>Current Mission: <span id="mission-title">Level 1 - System Architect</span></h2>
+                    <div class="level-indicator">
+                        <div class="level-dot active" id="dot-1"></div>
+                        <div class="level-dot" id="dot-2"></div>
+                        <div class="level-dot" id="dot-3"></div>
+                    </div>
+                </div>
+
+                <!-- LEVEL 1: PRINCIPLES -->
+                <div id="level-1" class="level-view active">
+                    <div class="scenario-card">
+                        <h3>Client Profile: "StartUp Inc."</h3>
+                        <p><strong>Background:</strong> A small, rapidly growing tech startup with limited cash but high
+                            volume of small transactions. Their business model changes every 6 months.</p>
+                        <p><strong>Goal:</strong> Recommend the best AIS configuration based on the Principles of
+                            Compatibility, Flexibility, and Cost-Benefit.</p>
+                    </div>
+
+                    <div class="choice-grid">
+                        <div class="system-choice" onclick="checkLevel1('ERP')">
+                            <h3>Option A: Enterprise ERP</h3>
+                            <p>Multi-million dollar system (SAP/Oracle). High control, rigid structure.</p>
+                        </div>
+                        <div class="system-choice" onclick="checkLevel1('SAAS')">
+                            <h3>Option B: Cloud SaaS</h3>
+                            <p>Subscription-based (Xero/QBO). Low entry cost, highly flexible APIs.</p>
+                        </div>
+                        <div class="system-choice" onclick="checkLevel1('MANUAL')">
+                            <h3>Option C: Manual Ledgers</h3>
+                            <p>Paper journals. Zero tech cost, slow processing, difficult to scale.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- LEVEL 2: PROCESSING -->
+                <div id="level-2" class="level-view">
+                    <h3>Processing Center</h3>
+                    <p>File the source documents into the correct Special Journals. Watch the Subsidiary Ledgers update
+                        automatically!</p>
+
+                    <div class="accounting-desk">
+                        <div class="ledgers-panel">
+                            <h4>Subsidiary Ledgers</h4>
+                            <div class="ledger-item">
+                                <span>Cust. A (AR)</span>
+                                <span id="ar-cust-a">$0</span>
+                            </div>
+                            <div class="ledger-item">
+                                <span>Supp. X (AP)</span>
+                                <span id="ap-supp-x">$0</span>
+                            </div>
+                            <div style="margin-top:10px; font-weight:bold; border-top:2px solid #ccc; padding-top:5px;">
+                                <span>Cash Balance</span>
+                                <span id="cash-bal">$10,000</span>
+                            </div>
+                        </div>
+
+                        <div class="journals-rack">
+                            <div class="journal-book" data-type="SJ" style="--journal-color: #e74c3c;">Sales<br>Journal
+                            </div>
+                            <div class="journal-book" data-type="CRJ" style="--journal-color: #3498db;">Cash<br>Receipts
+                            </div>
+                            <div class="journal-book" data-type="PJ" style="--journal-color: #f1c40f; color:#333;">
+                                Purchases<br>Journal</div>
+                            <div class="journal-book" data-type="CPJ" style="--journal-color: #9b59b6;">Cash<br>Payments
+                            </div>
+                            <div class="journal-book" data-type="GJ" style="--journal-color: #2ecc71;">
+                                General<br>Journal</div>
+                        </div>
+
+                        <div class="doc-stack" id="doc-stack">
+                            <!-- Documents injected here -->
+                        </div>
+
+                        <div
+                            style="position: absolute; bottom: 10px; width: 100%; text-align: center; color: #5a4a3a; font-size: 0.9rem;">
+                            Drag documents to the journals above.
+                        </div>
+                    </div>
+                </div>
+
+                <!-- LEVEL 3: ANALYSIS -->
+                <div id="level-3" class="level-view">
+                    <h3>Financial Analysis</h3>
+                    <p>Review the dashboard metrics and make a financial decision based on Chapter 7 concepts (A1).</p>
+
+                    <div class="analytics-dashboard">
+                        <div class="metric-card">
+                            <div class="metric-label">Average Daily Purchases</div>
+                            <div class="metric-value">$2,000</div>
+                        </div>
+                        <div class="metric-card">
+                            <div class="metric-label">Average Accounts Payable</div>
+                            <div class="metric-value">$90,000</div>
+                        </div>
+
+                        <div style="background: rgba(255,255,255,0.05); padding: 1rem; border-radius: 8px;">
+                            <h4>Decision Scenario</h4>
+                            <p>Supplier X offers terms <strong>2/10, n/30</strong> (2% discount if paid in 10 days).
+                                Compare our current Days' Payable Outstanding (DPO) to the credit terms.</p>
+                            <p id="analysis-prompt">Calculate DPO = Avg AP / Daily Purchases.</p>
+                        </div>
+
+                        <div class="decision-panel">
+                            <button class="btn" style="flex:1; background:#ef4444; color:white;"
+                                onclick="checkLevel3('SLOW')">
+                                Keep paying slowly (Current DPO > 30)
+                            </button>
+                            <button class="btn" style="flex:1; background:#10b981; color:white;"
+                                onclick="checkLevel3('FAST')">
+                                Pay faster to take discount (DPO is high!)
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+            </section>
+        </article>
+    </main>
+
+    <!-- Feedback Modal -->
+    <div class="modal-overlay" id="feedback-modal">
+        <div class="modal-content">
+            <h2 id="modal-title">Result</h2>
+            <p id="modal-msg">Message</p>
+            <button class="btn btn-primary" id="modal-btn" onclick="nextLevel()">Continue</button>
+        </div>
+    </div>
+
+    <footer style="margin-top: 5rem; padding: 2rem 0; border-top: 1px solid #ddd; text-align: center; color: #888;">
+        <p>Accounting Essentials | Chapter 7 | AIS Simulation</p>
+    </footer>
+
+    <script>
+        // --- Game State ---
+        let currentLevel = 1;
+        let score = 0;
+        
+        // --- Level 1 Logic ---
+        function checkLevel1(choice) {
+            const modal = document.getElementById('feedback-modal');
+            const title = document.getElementById('modal-title');
+            const msg = document.getElementById('modal-msg');
+            const btn = document.getElementById('modal-btn');
+
+            modal.style.display = 'flex';
+            
+            if (choice === 'SAAS') {
+                title.textContent = '✅ Excellent Choice!';
+                title.style.color = 'var(--success)';
+                msg.textContent = 'Correct! A Cloud SaaS solution offers the Flexibility needed for a startup and the Low Cost required by their budget. It balances the principles perfectly.';
+                btn.onclick = () => { advanceLevel(2); };
+            } else if (choice === 'ERP') {
+                title.textContent = '❌ Too Expensive/Rigid';
+                title.style.color = 'var(--error)';
+                msg.textContent = 'An Enterprise ERP is powerful but violates the Cost-Benefit principle for a small startup. It is also too rigid for their changing model.';
+                btn.onclick = () => { modal.style.display = 'none'; };
+            } else {
+                title.textContent = '❌ Not Scalable';
+                title.style.color = 'var(--error)';
+                msg.textContent = 'Manual ledgers are cheap but violate the Compatibility principle for a "rapidly growing tech startup". They verify quickly become overwhelmed.';
+                btn.onclick = () => { modal.style.display = 'none'; };
+            }
+        }
+
+        // --- Level 2 Logic (The Desk) ---
+        const level2Docs = [
+            { id: 1, type: "Sales Inv", desc: "Sold to Cust. A on Credit", amt: 500, target: "SJ", ar: 500, cash: 0, ap: 0 },
+            { id: 2, type: "Purchase Inv", desc: "Bought from Supp. X", amt: 2000, target: "PJ", ar: 0, cash: 0, ap: 2000 },
+            { id: 3, type: "Check Stub", desc: "Paid Supp. X", amt: 1000, target: "CPJ", ar: 0, cash: -1000, ap: -1000 },
+            { id: 4, type: "Cash Tape", desc: "Cash Sales", amt: 200, target: "CRJ", ar: 0, cash: 200, ap: 0 }
+        ];
+        let docIndex = 0;
+        let ledgers = { ar: 0, ap: 0, cash: 10000 };
+
+        function  initLevel2() {
+            renderDoc();
+            setupDragDrop();
+        }
+
+        function renderDoc() {
+            if (docIndex >= level2Docs.length) {
+                // Level Complete
+                setTimeout(() => {
+                    showModal("✅ Processing Complete", "All transactions recorded and ledgers updated. Now let's analyze the data.", () => advanceLevel(3));
+                }, 500);
+                return;
+            }
+
+      doc = level2Docs[docIndex];
+            const stack = document.getElementById('doc-stack');
+            stack.innerHTML = `
+                <div class="doc-card" id="current-doc" draggable="true">
+                    <div style="border-bottom:2px solid #333; margin-bottom:10px; font-weight:bold;">${doc.type}</div>
+                    <p>${doc.desc}</p>
+                    <h2 style="color:var(--primary); margin-top:2rem;">$${doc.amt}</h2>
+                </div>
+            `;
+            
+            const el = document.getElementById('current-doc');
+            el.addEventListener('dragstart', (e) => {
+                e.dataTransfer.setData('text/plain', doc.target);
+                el.style.opacity = '0.5';
+            });
+            el.addEventListener('dragend', () => el.style.opacity = '1');
+        }
+
+        function setupDragDrop() {
+            document.querySelectorAll('.journal-book').forEach(zone => {
+                zone.addEventListener('dragover', e => {
+                    e.preventDefault();
+                    zone.classList.add('drag-over');
+                });
+                zone.addEventListener('dragleave', () => zone.classList.remove('drag-over'));
+                zone.addEventListener('drop', e => {
+                    e.preventDefault();
+                    zone.classList.remove('drag-over');
+                    const target = e.dataTransfer.getData('text/plain');
+                    const zoneType = zone.getAttribute('data-type');
+                    
+                    if (target === zoneType) {
+                        processTransaction();
+                    } else {
+                        // Shake effect could go here
+                        alert('Wrong Journal! Try again.');
+                    }
+                });
+            });
+        }
+
+        function processTransaction() {
+            const doc = level2Docs[docIndex];
+            
+            // Update Ledgers
+            ledgers.ar += doc.ar;
+            ledgers.ap += doc.ap;
+            ledgers.cash += doc.cash;
+            
+            updateLedgerDisplay();
+            
+            docIndex++;
+            renderDoc();
+        }
+
+        function updateLedgerDisplay() {
+            document.getElementById('ar-cust-a').textContent = `$${ledgers.ar}`;
+            document.getElementById('ap-supp-x').textContent = `$${ledgers.ap}`;
+            document.getElementById('cash-bal').textContent = `$${ledgers.cash}`;
+            
+            // Highlight effect
+            document.querySelector('.ledgers-panel').style.background = '#fff8e1';
+            setTimeout(() => document.querySelector('.ledgers-panel').style.background = 'rgba(255,255,255,0.9)', 300);
+        }
+
+        // --- Lelysis) ---
+        function checkLevel3(choice) {
+            // DPO = 90,000 / 2,000 = 45   // Terms are 2/10, n/30.
+            // We are taking 45 days. We are late (bad) OR we are just slow.
+            // But usually 45 days > 30 days is a problem.
+            // AND paying in 10 days saves 36% APR. 
+            // Correct choice is generally to pay faster or at least on time. The prompt says "Pay faster to take discount (DPO is high!)".
+            
+            if (choice === 'FAST') {
+                 showModal("🏆 Certification Earned!", 
+                 "Correct! Your DPO is 45 days ($90k / $2k). This exceeds the 30-day term and misses the 10-day discount. Paying faster improves relations and saves money.", 
+                 () => location.reload()); // Or redirect to hub
+            } else {
+                 showModal("⚠️ Financial Risk", 
+                 "Incorrect. Your DPO is 45 days, which means you are paying 15 days LATE (n/30). You are also missing a valuable 2% discount.", 
+                 () => document.getElementById('feedback-modal').style.display = 'none');
+            }
+        }
+
+        // --- Helper Functions ---
+        function advanceLevel(lvl) {
+            document.getElementById('feedback-modal').style.display = 'none';
+            document.querySelectorAll('.level-view').forEach(el => el.classList.remove('active'));
+            document.querySelectorAll('.level-dot').forEach(el => el.classList.remove('active'));
+            
+            document.getElementById(`level-${lvl}`).classList.add('active');
+            document.getElementById(`dot-${lvl}`).classList.add('active');
+            document.getElementById(`dot-${lvl-1}`).classList.add('completed');
+            
+            currentLevel = lvl;
+            const titles = ["", "Level 1 - System Architect", "Level 2 - Processing Center", "Level 3 - Financial Analysis"];
+            document.getElementById('mission-title').textContent = titles[lvl];
+            
+            if (lvl === 2) initLevel2();
+        }
+
+        function showModal(title, msg, action) {
+            const modal = document.getElementById('feedback-modal');
+            document.getElementById('modal-title').textContent = title;
+            document.getElementById('modal-msg').textContent = msg;
+            document.getElementById('modal-btn').onclick = action;
+            modal.style.display = 'flex';
+        }
+
+    </script>
+</body>
+
+</html>

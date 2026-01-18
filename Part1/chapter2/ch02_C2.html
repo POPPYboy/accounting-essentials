@@ -1,0 +1,610 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>C2: Debits, Credits, and Double-Entry | ACCOUNTING ESSENTIALS</title>
+    <link rel="stylesheet" href="../../styles.css">
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-50MTQPVR7D"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-50MTQPVR7D');
+</script>
+
+</head>
+
+<body>
+    <header>
+        <div class="container nav-container">
+            <a href="../../index.html" class="logo">ACCOUNTS<span>MASTER</span></a>
+            <nav class="nav-links">
+                <a href="../../index.html">Home</a>
+                <a href="../part1.html">Part 1</a>
+                <a href="../../part2/part2.html">Part 2</a>
+                <a href="../../part3/part3.html">Part 3</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container">
+        <div class="breadcrumbs">
+            <a href="../../index.html">Home</a> <span>/</span> <a href="../part1.html">Part 1</a> <span>/</span> <a
+                href="ch02.html">Chapter 2</a> <span>/</span> C2
+        </div>
+
+        <article class="animate-fade-in">
+            <div class="kp-header">
+                <h1 style="border-left: 8px solid var(--secondary); padding-left: 1rem; margin: 2rem 0;">Debits, Credits,
+                and Double-Entry</h1>
+            </div>
+
+            <!-- Learning Objectives -->
+            <section class="kp-section">
+                <h2>🎯 Learning Objectives</h2>
+                <div class="learning-objectives">
+                    <ul>
+                        <li>Understand that "debit" simply means LEFT and "credit" simply means RIGHT</li>
+                        <li>Apply the DEALER mnemonic to remember normal account balances</li>
+                        <li>Use the Golden Rule: Total Debits MUST equal Total Credits</li>
+                        <li>Determine which accounts are debited and credited in transactions</li>
+                        <li>Recognize normal balances for different account categories</li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- Background & Principles -->
+            <section class="kp-section">
+                <h2>📚 Background & Principles</h2>
+                <p>Double-entry accounting is the foundation of modern financial record-keeping. It ensures that every transaction is recorded with at least two entries that balance each other.</p>
+
+                <div class="concept-card" style="margin: 1.5rem 0;">
+                    <strong>Core Principle:</strong> The accounting equation (Assets = Liabilities + Equity) must always balance. This means every transaction affects at least two accounts, and total debits always equal total credits.
+                </div>
+
+                <p>This system originated in 15th-century Italy and revolutionized business record-keeping by ensuring mathematical accuracy and preventing errors.</p>
+
+                <div class="professional-tip">
+                    <strong>💡 Historical Context:</strong> Luca Pacioli, a Franciscan friar, documented double-entry bookkeeping in 1494. His system is still used by businesses worldwide today.
+                </div>
+            </section>
+
+            <!-- Key Concepts -->
+            <section class="kp-section">
+                <h2>🔑 Key Concepts</h2>
+                <div class="key-concepts-grid">
+                    <div class="concept-card">
+                        <strong>Debit (Dr)</strong>
+                        <p>Simply means LEFT side of an account. NOT "good" or "bad"—just a position. Whether a debit is an increase or decrease depends on account type.</p>
+                    </div>
+
+                    <div class="concept-card">
+                        <strong>Credit (Cr)</strong>
+                        <p>Simply means RIGHT side of an account. Like debit, it's just a position. The effect depends on whether account is an asset, liability, equity, revenue, or expense.</p>
+                    </div>
+
+                    <div class="concept-card">
+                        <strong>Double-Entry System</strong>
+                        <p>Every transaction affects at least two accounts, and total debits equal total credits. This ensures that accounting equation always balances.</p>
+                    </div>
+
+                    <div class="concept-card">
+                        <strong>Normal Balance</strong>
+                        <p>The side that INCREASES an account. Assets and expenses have a debit normal balance. Liabilities, equity, and revenues have a credit normal balance.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Visual Debit/Credit Flow Diagram -->
+            <section class="kp-section">
+                <h2>🎨 Visual: The Accounting Equation with Debits & Credits</h2>
+                <p>Click on each account type to see how debits and credits affect it:</p>
+
+                <style>
+                    .equation-flow {
+                        position: relative;
+                        width: 100%;
+                        height: 350px;
+                        margin: 2rem 0;
+                        background: var(--bg-light);
+                        border-radius: var(--radius-md);
+                        padding: 2rem;
+                    }
+                    .account-box {
+                        position: absolute;
+                        padding: 1.2rem 1.5rem;
+                        border-radius: var(--radius-sm);
+                        font-weight: 700;
+                        font-size: 0.9rem;
+                        transition: var(--transition);
+                        cursor: pointer;
+                        text-align: center;
+                        min-width: 130px;
+                    }
+                    .account-box:hover {
+                        transform: scale(1.08);
+                        box-shadow: var(--shadow-lg);
+                    }
+                    .account-box.assets { top: 30px; left: 40px; background: var(--primary); color: var(--white); }
+                    .account-box.liabilities { top: 30px; left: 300px; background: var(--error); color: var(--white); }
+                    .account-box.equity { top: 30px; left: 560px; background: var(--success); color: var(--white); }
+                    .effect-label {
+                        position: absolute;
+                        font-size: 0.75rem;
+                        font-weight: 600;
+                        padding: 0.4rem 0.8rem;
+                        border-radius: var(--radius-sm);
+                    }
+                    .debit-plus { top: 110px; left: 80px; background: var(--primary-light); color: var(--primary-dark); }
+                    .credit-plus { top: 110px; left: 320px; background: var(--error-light); color: var(--error-dark); }
+                    .debit-minus { top: 110px; left: 580px; background: var(--success-light); color: var(--success-dark); }
+                    .credit-minus { top: 200px; left: 80px; background: var(--primary-light); color: var(--primary-dark); }
+                    .credit-plus-2 { top: 200px; left: 320px; background: var(--error-light); color: var(--error-dark); }
+                    .debit-minus-2 { top: 200px; left: 580px; background: var(--success-light); color: var(--success-dark); }
+                </style>
+
+                <div class="equation-flow">
+                    <div class="account-box assets" onclick="showAccountEffect('assets')">
+                        ASSETS
+                        <small>Use accounts</small>
+                    </div>
+                    <div class="account-box liabilities" onclick="showAccountEffect('liabilities')">
+                        LIABILITIES
+                        <small>Source accounts</small>
+                    </div>
+                    <div class="account-box equity" onclick="showAccountEffect('equity')">
+                        EQUITY
+                        <small>Owner accounts</small>
+                    </div>
+
+                    <div class="effect-label debit-plus">Debit = INCREASE</div>
+                    <div class="effect-label credit-plus">Credit = INCREASE</div>
+                    <div class="effect-label debit-minus">Debit = DECREASE</div>
+                    <div class="effect-label credit-minus">Credit = DECREASE</div>
+                    <div class="effect-label credit-plus-2">Credit = INCREASE</div>
+                    <div class="effect-label debit-minus-2">Debit = DECREASE</div>
+                </div>
+
+                <div id="account-effect-status" style="text-align: center; margin-top: 2rem; padding: 1rem; background: var(--bg-light); border-radius: var(--radius-sm); font-size: 1.1rem; font-weight: 600;">
+                    Click account boxes above to see debit/credit effects!
+                </div>
+
+                <div class="interactive-section">
+                    <h3>Interactive Exercise: Determine Debit or Credit</h3>
+                    <p>For each transaction, select whether to debit or credit the specified account:</p>
+
+                    <div class="quiz-container" data-explanation="Assets increase with debits. To decrease cash (an asset), credit it. Liabilities increase with credits. To reduce a payable, debit it. Revenues increase with credits." data-hints="Think: Is this an asset, liability, equity, revenue, or expense account? Then determine if it's increasing or decreasing.">
+                        <div class="input-group">
+                            <p><strong>Transaction 1:</strong> Pay $1,000 cash to supplier (reduce cash)</p>
+                            <label><input type="radio" name="trans1" value="debit" data-correct="false"> Debit Cash</label><br><br>
+                            <label><input type="radio" name="trans1" value="credit" data-correct="true"> Credit Cash</label>
+                        </div>
+
+                        <div class="input-group">
+                            <p><strong>Transaction 2:</strong> Record revenue earned of $5,000</p>
+                            <label><input type="radio" name="trans2" value="debit" data-correct="false"> Debit Revenue</label><br><br>
+                            <label><input type="radio" name="trans2" value="credit" data-correct="true"> Credit Revenue</label>
+                        </div>
+
+                        <div class="input-group">
+                            <p><strong>Transaction 3:</strong> Purchase supplies on credit (increase accounts payable)</p>
+                            <label><input type="radio" name="trans3" value="debit" data-correct="false"> Debit Accounts Payable</label><br><br>
+                            <label><input type="radio" name="trans3" value="credit" data-correct="true"> Credit Accounts Payable</label>
+                        </div>
+
+                        <button class="btn btn-primary quiz-submit">Check Debit/Credit Entries</button>
+                        <div class="feedback"></div>
+                        <button class="quiz-retry">Try Again</button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Deep Dive -->
+            <section class="kp-section">
+                <h2>🔍 Deep Dive</h2>
+                <p>Explore debits and credits at different levels of depth:</p>
+
+                <div class="depth-toggle">
+                    <button class="depth-btn active" onclick="setDepth('A')">Depth A: Foundational</button>
+                    <button class="depth-btn" onclick="setDepth('B')">Depth B: Standard</button>
+                    <button class="depth-btn" onclick="setDepth('C')">Depth C: Advanced</button>
+                </div>
+
+                <!-- Depth A -->
+                <div id="depth-A" class="depth-content active">
+                    <h3>🟢 Foundational Level</h3>
+                    <p>Understanding the basic left-right concept of debits and credits.</p>
+                    <div class="worked-example">
+                        <h4>Basic Concept: Left vs. Right</h4>
+                        <p><strong>Remember:</strong> Forget what debit cards and credit cards mean in banking. In accounting:</p>
+                        <div class="example-step">
+                            <strong>Debit = Left side</strong>
+                            <p>Always the left side of a T-account</p>
+                        </div>
+                        <div class="example-step">
+                            <strong>Credit = Right side</strong>
+                            <p>Always the right side of a T-account</p>
+                        </div>
+                    </div>
+
+                    <div class="simulator-container" style="max-width: 500px; margin: 2rem auto;">
+                        <div class="t-account">
+                            <div class="t-account-header">Cash Account</div>
+                            <div class="t-account-grid">
+                                <div class="t-account-side left">
+                                    <div style="font-size: 0.7rem; color: var(--text-muted);">DEBIT (Left)</div>
+                                    <div id="dr-entries">
+                                        <input type="number" class="t-input dr" value="1000" step="10"
+                                            style="margin-top: 5px;">
+                                        <input type="number" class="t-input dr" value="500" step="10"
+                                            style="margin-top: 5px;">
+                                    </div>
+                                </div>
+                                <div class="t-account-side">
+                                    <div style="font-size: 0.7rem; color: var(--text-muted);">CREDIT (Right)</div>
+                                    <div id="cr-entries">
+                                        <input type="number" class="t-input cr" value="300" step="10"
+                                            style="margin-top: 5px;">
+                                    </div>
+                                </div>
+                            </div>
+                            <div
+                                style="border-top: 2px solid var(--primary-dark); padding: 0.5rem; display: flex; justify-content: space-between; font-weight: 800;">
+                                <div>Balance: <span id="t-balance-side">Debit</span></div>
+                                <div id="t-balance-amount">$1,200</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Depth B -->
+                <div id="depth-B" class="depth-content">
+                    <h3>🟡 Standard Level</h3>
+                    <p>The DEALER mnemonic for remembering normal balances.</p>
+
+                    <div class="worked-example">
+                        <h4>The DEALER Rule</h4>
+                        <p><strong>How to remember which side increases which account type:</strong></p>
+                        <div class="example-step">
+                            <strong>D-E-A (The Lefties)</strong>
+                            <p><strong>D</strong>ividends, <strong>E</strong>xpenses, <strong>A</strong>ssets → Increase on DEBIT (left)</p>
+                        </div>
+                        <div class="example-step">
+                            <strong>L-E-R (The Righties)</strong>
+                            <p><strong>L</strong>iabilities, <strong>E</strong>quity, <strong>R</strong>evenue → Increase on CREDIT (right)</p>
+                        </div>
+                    </div>
+
+                    <div class="card-grid" style="margin-top: 2rem;">
+                        <!-- Group 1: DEA -->
+                        <div class="content-card" style="border-top: 6px solid var(--primary);">
+                            <h3 style="color: var(--primary);">D-E-A (The Lefties)</h3>
+                            <p style="font-weight: 700;">Dividends | Expenses | Assets</p>
+                            <p>To INCREASE these, you go <strong>LEFT (Debit)</strong>.</p>
+                            <p><em>Analogy: These are "Use" accounts. Using cash (Asset) or paying an Expense "uses" value.</em></p>
+                        </div>
+                        <!-- Group 2: LER -->
+                        <div class="content-card" style="border-top: 6px solid var(--secondary);">
+                            <h3 style="color: var(--secondary);">L-E-R (The Righties)</h3>
+                            <p style="font-weight: 700;">Liabilities | Equity | Revenue</p>
+                            <p>To INCREASE these, you go <strong>RIGHT (Credit)</strong>.</p>
+                            <p><em>Analogy: These are "Source" accounts. They provide value.</em></p>
+                        </div>
+                    </div>
+
+                    <h3 style="margin-top: 2rem;">Summary Table: Normal Balances</h3>
+                    <p>The "Normal Balance" is the side that INCREASES the account.</p>
+                    <div class="table-scroll">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Account Category</th>
+                                    <th>To Increase (+)</th>
+                                    <th>To Decrease (-)</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><strong>Assets</strong> (Cash, Land)</td>
+                                    <td>Debit (Left)</td>
+                                    <td>Credit (Right)</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Liabilities</strong> (Debt)</td>
+                                    <td>Credit (Right)</td>
+                                    <td>Debit (Left)</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Equity</strong> (Stock)</td>
+                                    <td>Credit (Right)</td>
+                                    <td>Debit (Left)</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Dividends</strong></td>
+                                    <td>Debit (Left)</td>
+                                    <td>Credit (Right)</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Revenues</strong></td>
+                                    <td>Credit (Right)</td>
+                                    <td>Debit (Left)</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Expenses</strong></td>
+                                    <td>Debit (Left)</td>
+                                    <td>Credit (Right)</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- Depth C -->
+                <div id="depth-C" class="depth-content">
+                    <h3>🔴 Advanced Level</h3>
+                    <p>Complex transactions and edge cases in double-entry accounting.</p>
+
+                    <div class="worked-example">
+                        <h4>Compound Entry Example</h4>
+                        <p><strong>Scenario:</strong> A company buys equipment for $10,000, paying $2,000 cash and signing a note payable for the remaining $8,000.</p>
+                        <div class="example-step">
+                            <strong>Step 1: Identify affected accounts</strong>
+                            <p>Equipment (Asset) increases by $10,000, Cash (Asset) decreases by $2,000, Notes Payable (Liability) increases by $8,000</p>
+                        </div>
+                        <div class="example-step">
+                            <strong>Step 2: Determine debit/credit</strong>
+                            <p>Debit Equipment $10,000 (asset increase), Credit Cash $2,000 (asset decrease), Credit Notes Payable $8,000 (liability increase)</p>
+                        </div>
+                        <div class="example-step">
+                            <strong>Step 3: Verify balance</strong>
+                            <p>Debits: $10,000 = Credits: $2,000 + $8,000 = $10,000 ✓</p>
+                        </div>
+                    </div>
+
+                    <div class="worked-example">
+                        <h4>Reversing Entries Example</h4>
+                        <p><strong>Scenario:</strong> At month-end, you discover a $500 expense was mistakenly recorded as revenue.</p>
+                        <div class="example-step">
+                            <strong>Original incorrect entry:</strong>
+                            <p>Debit Expense $500, Credit Revenue $500</p>
+                        </div>
+                        <div class="example-step">
+                            <strong>Correcting entry:</strong>
+                            <p>Debit Revenue $500, Credit Expense $500 (reverses the error)</p>
+                        </div>
+                        <div class="example-step">
+                            <strong>Proper entry:</strong>
+                            <p>Debit Revenue $500, Credit Cash $500 (assuming it was a cash expense)</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Common Misconceptions -->
+            <section class="kp-section">
+                <h2>🚫 Common Misconceptions & Professional Tips</h2>
+
+                <div class="misconception-alert">
+                    <strong>❌ Misconception 1:</strong> "Debits always mean 'good' and credits always mean 'bad'."
+                    <br><br>
+                    <strong>✅ Reality:</strong> Debit and credit simply mean left and right. Whether it's positive or negative depends on the account type. Debiting cash (good) increases it, but debiting revenue (bad) decreases it.
+                </div>
+
+                <div class="misconception-alert">
+                    <strong>❌ Misconception 2:</strong> "A credit always increases an account."
+                    <br><br>
+                    <strong>✅ Reality:</strong> Credits increase liabilities, equity, and revenues, but they DECREASE assets and expenses. The direction of effect depends on the account's normal balance.
+                </div>
+
+                <div class="misconception-alert">
+                    <strong>❌ Misconception 3:</strong> "You can have a transaction with only a debit or only a credit."
+                    <br><br>
+                    <strong>✅ Reality:</strong> Double-entry accounting requires AT LEAST one debit AND at least one credit for every transaction. The total debits must equal total credits.
+                </div>
+
+                <div class="professional-tip">
+                    <strong>💡 Professional Tip #1:</strong> Always identify which accounts are affected BEFORE determining debit or credit. Ask: "What did we get?" and "How did we pay for it?"
+                </div>
+
+                <div class="professional-tip">
+                    <strong>💡 Professional Tip #2:</strong> Use the DEALER mnemonic until it becomes second nature. D-E-A accounts increase with debits, L-E-R accounts increase with credits.
+                </div>
+
+                <div class="professional-tip">
+                    <strong>💡 Professional Tip #3:</strong> If your trial balance doesn't balance, check for transposition errors (writing 52 as 25) or slide errors (moving decimal points).
+                </div>
+            </section>
+
+            <!-- Memory Aids -->
+            <section class="kp-section">
+                <h2>🧠 Memory Aids & Quick Reference</h2>
+
+                <div class="memory-aid-card">
+                    <strong>⚡ Quick Recall: DEALER Mnemonic</strong>
+                    <p><strong>D</strong>ividends, <strong>E</strong>xpenses, <strong>A</strong>ssets → DEBIT (Left)</p>
+                    <p><strong>L</strong>iabilities, <strong>E</strong>quity, <strong>R</strong>evenue → CREDIT (Right)</p>
+                </div>
+
+                <div class="key-concepts-grid">
+                    <div class="concept-card">
+                        <strong>📖 Debit</strong>
+                        <p>LEFT side. Increases Assets, Expenses, Dividends. Decreases Liabilities, Equity, Revenue.</p>
+                    </div>
+
+                    <div class="concept-card">
+                        <strong>💳 Credit</strong>
+                        <p>RIGHT side. Increases Liabilities, Equity, Revenue. Decreases Assets, Expenses, Dividends.</p>
+                    </div>
+
+                    <div class="concept-card">
+                        <strong>⚖️ Golden Rule</strong>
+                        <p>Total Debits MUST always equal Total Credits. This ensures the accounting equation balances.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Glossary -->
+            <section class="kp-section">
+                <h2>📖 Glossary</h2>
+                <div class="key-concepts-grid">
+                    <div class="concept-card">
+                        <strong>Debit (Dr)</strong>
+                        <p>An entry on the left side of an account. Whether it increases or decreases the account depends on the account type.</p>
+                    </div>
+
+                    <div class="concept-card">
+                        <strong>Credit (Cr)</strong>
+                        <p>An entry on the right side of an account. Whether it increases or decreases the account depends on the account type.</p>
+                    </div>
+
+                    <div class="concept-card">
+                        <strong>Double-Entry System</strong>
+                        <p>An accounting method where every transaction is recorded in at least two accounts, with equal debits and credits.</p>
+                    </div>
+
+                    <div class="concept-card">
+                        <strong>Normal Balance</strong>
+                        <p>The side (debit or credit) that increases an account. Assets and expenses normally have debit balances. Liabilities, equity, and revenues normally have credit balances.</p>
+                    </div>
+
+                    <div class="concept-card">
+                        <strong>Compound Entry</strong>
+                        <p>A journal entry that affects more than two accounts. Still must have equal total debits and total credits.</p>
+                    </div>
+
+                    <div class="concept-card">
+                        <strong>Simple Entry</strong>
+                        <p>A journal entry that affects exactly two accounts - one debit and one credit. The most common type of entry.</p>
+                    </div>
+
+                    <div class="concept-card">
+                        <strong>Transposition Error</strong>
+                        <p>A type of error where numbers are reversed (e.g., recording 52 as 25). This causes trial balance to be off by a multiple of 9.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Final Knowledge Check -->
+            <section class="interactive-section">
+                <h2>🎯 Final Knowledge Check</h2>
+                <p>Test your understanding of Debits, Credits, and Double-Entry:</p>
+
+                <div class="quiz-container" data-success-text="Excellent! You've mastered the DEALER rules and double-entry system." data-explanation="Revenues increase Equity, which has a normal Credit balance. Therefore, to increase a Revenue account, we Credit it.">
+                    <div class="input-group">
+                        <p><strong>Question 1:</strong> To increase a <strong>Revenue</strong> account, you should:</p>
+                        <label><input type="radio" name="q1" value="incorrect1" data-correct="false"> Debit the account</label><br>
+                        <label><input type="radio" name="q1" value="correct" data-correct="true"> Credit the account</label>
+                    </div>
+
+                    <div class="input-group">
+                        <p><strong>Question 2:</strong> Which accounts normally have a <strong>DEBIT</strong> balance?</p>
+                        <label><input type="radio" name="q2" value="correct" data-correct="true"> Assets and Expenses</label><br>
+                        <label><input type="radio" name="q2" value="incorrect1" data-correct="false"> Liabilities and Revenues</label><br>
+                        <label><input type="radio" name="q2" value="incorrect2" data-correct="false"> Equity and Dividends</label>
+                    </div>
+
+                    <div class="input-group">
+                        <p><strong>Question 3:</strong> The DEALER mnemonic says D-E-A accounts increase with:</p>
+                        <label><input type="radio" name="q3" value="incorrect1" data-correct="false"> Credits</label><br>
+                        <label><input type="radio" name="q3" value="correct" data-correct="true"> Debits</label><br>
+                        <label><input type="radio" name="q3" value="incorrect2" data-correct="false"> Neither, depends</label>
+                    </div>
+
+                    <button class="btn btn-primary quiz-submit">Submit Answers</button>
+                    <div class="feedback"></div>
+                    <button class="quiz-retry">Try Again</button>
+                </div>
+            </section>
+
+            <!-- Navigation -->
+            <nav class="kp-navigation" style="display: flex; justify-content: space-between; margin-top: 4rem; padding-bottom: 2rem;">
+                <a href="ch02_C1.html" class="btn" style="background: #eee;">← Previous: Accounts</a>
+                <a href="ch02_A1.html" class="btn btn-primary">Next: Trans Analysis →</a>
+            </nav>
+        </article>
+    </main>
+
+    <footer style="margin-top: 5rem; padding: 2rem 0; border-top: 1px solid #ddd; text-align: center; color: #888;">
+        <p>Accounting Essentials | Chapter 2 | Concept 2</p>
+    </footer>
+
+    <script src="../../components-enhanced.js"></script>
+    <script>
+        function setDepth(depth) {
+            document.querySelectorAll('.depth-btn').forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+
+            document.querySelectorAll('.depth-content').forEach(content => content.classList.remove('active'));
+            document.getElementById(`depth-${depth}`).classList.add('active');
+        }
+
+        function showAccountEffect(type) {
+            const status = document.getElementById('account-effect-status');
+
+            if (type === 'assets') {
+                status.innerHTML = `
+                    <div style="padding: 1rem;">
+                        <strong>ASSETS (Use Accounts)</strong><br><br>
+                        <span style="color: var(--primary); font-size: 1.3rem;">📈 Debit = INCREASE</span><br><br>
+                        <span style="color: var(--error); font-size: 1.3rem;">📉 Credit = DECREASE</span><br><br>
+                        <em>Examples: Cash, Equipment, Supplies, Inventory</em>
+                    </div>
+                `;
+                status.style.background = 'var(--primary-light)';
+                status.style.color = 'var(--primary-dark)';
+            } else if (type === 'liabilities') {
+                status.innerHTML = `
+                    <div style="padding: 1rem;">
+                        <strong>LIABILITIES (Source Accounts)</strong><br><br>
+                        <span style="color: var(--error); font-size: 1.3rem;">📈 Credit = INCREASE</span><br><br>
+                        <span style="color: var(--primary); font-size: 1.3rem;">📉 Debit = DECREASE</span><br><br>
+                        <em>Examples: Accounts Payable, Notes Payable, Wages Payable</em>
+                    </div>
+                `;
+                status.style.background = 'var(--error-light)';
+                status.style.color = 'var(--error-dark)';
+            } else if (type === 'equity') {
+                status.innerHTML = `
+                    <div style="padding: 1rem;">
+                        <strong>EQUITY (Owner Accounts)</strong><br><br>
+                        <span style="color: var(--success); font-size: 1.3rem;">📈 Credit = INCREASE</span><br><br>
+                        <span style="color: var(--primary); font-size: 1.3rem;">📉 Debit = DECREASE</span><br><br>
+                        <em>Includes: Owner's Capital, Retained Earnings, Common Stock</em><br><br>
+                        <strong>REVENUES:</strong> Increase with Credit (adds to Equity)<br>
+                        <strong>EXPENSES & DIVIDENDS:</strong> Decrease Equity (Debit them)
+                    </div>
+                `;
+                status.style.background = 'var(--success-light)';
+                status.style.color = 'var(--success-dark)';
+            }
+        }
+
+        document.querySelectorAll('.t-input').forEach(input => {
+            input.addEventListener('input', calculateTBalance);
+        });
+
+        function calculateTBalance() {
+            let drTotal = 0;
+            let crTotal = 0;
+            document.querySelectorAll('.t-input.dr').forEach(i => drTotal += (parseFloat(i.value) || 0));
+            document.querySelectorAll('.t-input.cr').forEach(i => crTotal += (parseFloat(i.value) || 0));
+
+            const balanceElem = document.getElementById('t-balance-amount');
+            const sideElem = document.getElementById('t-balance-side');
+
+            if (drTotal >= crTotal) {
+                balanceElem.textContent = "$" + (drTotal - crTotal).toLocaleString();
+                sideElem.textContent = "Debit";
+            } else {
+                balanceElem.textContent = "$" + (crTotal - drTotal).toLocaleString();
+                sideElem.textContent = "Credit";
+            }
+        }
+    </script>
+</body>
+
+</html>

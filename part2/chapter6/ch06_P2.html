@@ -1,0 +1,718 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>P2: LIFO Costing (Periodic) | ACCOUNTING ESSENTIALS</title>
+    <link rel="stylesheet" href="../../styles.css">
+    <style>
+        .lifo-stack {
+            display: flex;
+            flex-direction: column-reverse;
+            align-items: center;
+            gap: 4px;
+            margin: 2rem 0;
+            min-height: 150px;
+        }
+        .lifo-layer {
+            background: linear-gradient(135deg, var(--info) 0%, #0277bd 100%);
+            color: var(--white);
+            border-radius: var(--radius-sm);
+            padding: 0.75rem 1.5rem;
+            text-align: center;
+            font-weight: 600;
+            font-size: 0.85rem;
+            min-width: 140px;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .lifo-layer:hover {
+            transform: scale(1.02);
+        }
+        .lifo-layer.consumed {
+            background: #bdbdbd;
+            opacity: 0.4;
+            text-decoration: line-through;
+        }
+        .lifo-flow {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 1rem;
+            margin: 2rem 0;
+            flex-wrap: wrap;
+        }
+        .lifo-box {
+            background: var(--bg-light);
+            border-radius: var(--radius-md);
+            padding: 1rem 1.5rem;
+            text-align: center;
+            border: 2px solid;
+        }
+        .lifo-box.in {
+            border-color: var(--primary);
+        }
+        .lifo-box.out {
+            border-color: var(--error);
+        }
+        .lifo-box.remaining {
+            border-color: var(--warning);
+        }
+        .lifo-arrow {
+            font-size: 2rem;
+            color: var(--secondary);
+        }
+        .comparison-card {
+            background: var(--bg-light);
+            border-radius: var(--radius-sm);
+            padding: 1rem;
+            margin: 0.5rem 0;
+        }
+        .tax-impact {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin: 1.5rem 0;
+        }
+        .tax-card {
+            background: var(--bg-light);
+            border-radius: var(--radius-md);
+            padding: 1.5rem;
+            text-align: center;
+            border-left: 4px solid;
+        }
+        .tax-card.cogs {
+            border-color: var(--error);
+        }
+        .tax-card.tax {
+            border-color: var(--success);
+        }
+        .tax-card.income {
+            border-color: var(--warning);
+        }
+        .tax-card h4 {
+            margin: 0 0 0.5rem 0;
+            font-size: 0.9rem;
+        }
+        .tax-card.cogs h4 { color: var(--error); }
+        .tax-card.tax h4 { color: var(--success); }
+        .tax-card.income h4 { color: var(--warning); }
+        .warning-banner {
+            background: #fff5f5;
+            border-left: 4px solid var(--error);
+            padding: 1.5rem;
+            border-radius: var(--radius-sm);
+            margin: 1.5rem 0;
+        }
+        .warning-banner h4 {
+            color: var(--error);
+            margin: 0 0 0.5rem 0;
+        }
+        .lifo-controls {
+            display: flex;
+            gap: 1rem;
+            margin: 1.5rem 0;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        .period-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1.5rem 0;
+        }
+        .period-table th, .period-table td {
+            padding: 0.75rem;
+            text-align: center;
+            border: 1px solid #e0e0e0;
+        }
+        .period-table th {
+            background: var(--error);
+            color: var(--white);
+        }
+        .period-table tr:nth-child(even) {
+            background: var(--bg-light);
+        }
+    </style>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-50MTQPVR7D"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-50MTQPVR7D');
+</script>
+
+</head>
+
+<body>
+    <header>
+        <div class="container nav-container">
+            <a href="../../index.html" class="logo">ACCOUNTING<span>ESSENTIALS</span></a>
+            <nav class="nav-links">
+                <a href="../../index.html">Home</a>
+                <a href="../../Part1/part1.html">Part 1</a>
+                <a href="../../part2/part2.html">Part 2</a>
+                <a href="../../part3/part3.html">Part 3</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container">
+        <div class="breadcrumbs">
+            <a href="../../index.html">Home</a> <span>/</span> <a href="../../part2/part2.html">Part 2</a> <span>/</span> <a href="ch06.html">Chapter 6</a> <span>/</span> P2
+        </div>
+
+        <article class="animate-fade-in">
+            <div class="kp-header">
+                <h1 style="border-left: 8px solid var(--error); padding-left: 1rem; margin: 2rem 0;">LIFO (Last-In, First-Out) - Periodic</h1>
+            </div>
+
+            <!-- Learning Objectives -->
+            <section class="kp-section">
+                <h2>🎯 Learning Objectives</h2>
+                <div class="learning-objectives">
+                    <ul>
+                        <li>Understand the LIFO inventory costing assumption and its rationale</li>
+                        <li>Calculate ending inventory and COGS using periodic LIFO</li>
+                        <li>Explain the tax advantages of LIFO during periods of rising prices</li>
+                        <li>Describe the LIFO conformity rule and its implications</li>
+                        <li>Compare LIFO results to FIFO and weighted average methods</li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- Background & Principles -->
+            <section class="kp-section">
+                <h2>📚 Background & Principles</h2>
+                <p>LIFO (Last-In, First-Out) assumes that the newest inventory items are sold first, while the oldest items remain in ending inventory. This method is popular in the United States primarily for its tax benefits during periods of inflation.</p>
+
+                <div class="concept-card" style="margin: 1.5rem 0;">
+                    <strong>Core Principle:</strong> Under LIFO, ending inventory consists of the oldest costs (the "ancient" layer), while COGS consists of the most recent costs. This creates a "first-in, still-here" effect for ending inventory.
+                </div>
+
+                <p>Unlike FIFO, periodic and perpetual LIFO can produce DIFFERENT results. This is because LIFO layers are "unwound" differently depending on when sales occur.</p>
+
+                <div class="professional-tip">
+                    <strong>💡 Key Insight:</strong> Think of LIFO like a coal pile. New coal gets dumped on top, and you always shovel from the TOP. The old coal at the bottom stays there for decades. LIFO keeps old, outdated costs on the balance sheet while sending new, higher costs to COGS.
+                </div>
+            </section>
+
+            <!-- Key Concepts -->
+            <section class="kp-section">
+                <h2>🔑 Key Concepts</h2>
+                <div class="key-concepts-grid">
+                    <div class="concept-card">
+                        <strong>Last-In, First-Out (LIFO)</strong>
+                        <p>Inventory costing method assuming newest costs are sold first, oldest costs remain in ending inventory.</p>
+                    </div>
+
+                    <div class="concept-card">
+                        <strong>Periodic LIFO</strong>
+                        <p>Determining COGS and ending inventory at period-end by taking newest costs first for COGS.</p>
+                    </div>
+
+                    <div class="concept-card">
+                        <strong>Newest Costs to COGS</strong>
+                        <p>LIFO sends the most recent (usually highest in inflation) costs to Cost of Goods Sold.</p>
+                    </div>
+
+                    <div class="concept-card">
+                        <strong>Oldest Costs in Ending Inventory</strong>
+                        <p>Ending inventory reflects the oldest purchase costs, which may be decades old.</p>
+                    </div>
+
+                    <div class="concept-card">
+                        <strong>LIFO Conformity Rule</strong>
+                        <p>IRS requires LIFO for tax purposes ONLY if also used for financial reporting.</p>
+                    </div>
+
+                    <div class="concept-card">
+                        <strong>LIFO Reserve</strong>
+                        <p>Difference between FIFO and LIFO inventory values. Represents deferred taxes.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Deep Dive -->
+            <section class="kp-section">
+                <h2>🔍 Deep Dive</h2>
+                <p>Explore LIFO at different levels of depth:</p>
+
+                <div class="depth-toggle">
+                    <button class="depth-btn active" onclick="setDepth('A')">Depth A: Foundational</button>
+                    <button class="depth-btn" onclick="setDepth('B')">Depth B: Standard</button>
+                    <button class="depth-btn" onclick="setDepth('C')">Depth C: Advanced</button>
+                </div>
+
+                <!-- Depth A -->
+                <div id="depth-A" class="depth-content active">
+                    <h3>🟢 Foundational Level</h3>
+                    <p>Understanding the LIFO concept through the coal pile analogy.</p>
+
+                    <div class="worked-example">
+                        <h4>The Coal Pile Analogy</h4>
+                        <p><strong>Analogy: The Industrial Coal Pile</strong></p>
+                        <p>Imagine a factory yard with a giant coal pile. Trucks arrive and dump new coal ON TOP of the pile.</p>
+
+                        <div class="example-step">
+                            <strong>Usage Pattern:</strong>
+                            <p>When workers need coal, they shovel from the TOP (the newest coal). They never dig to the bottom.</p>
+                        </div>
+                        <div class="example-step">
+                            <strong>What Gets Used:</strong>
+                            <p>The LAST coal dumped on the pile is the FIRST coal used = LIFO.</p>
+                        </div>
+                        <div class="example-step">
+                            <strong>What's Left:</strong>
+                            <p>Ending Inventory = The ancient coal at the bottom (maybe 20+ years old!).</p>
+                        </div>
+                    </div>
+
+                    <div class="lifo-flow">
+                        <div class="lifo-box in">
+                            <div style="font-size: 0.8rem; color: var(--text-muted);">LAST IN</div>
+                            <div style="font-size: 1.2rem; font-weight: 700;">Newest Costs</div>
+                        </div>
+                        <div class="lifo-arrow">→</div>
+                        <div class="lifo-box out">
+                            <div style="font-size: 0.8rem; color: var(--text-muted);">FIRST OUT</div>
+                            <div style="font-size: 1.2rem; font-weight: 700;">COGS</div>
+                        </div>
+                        <div class="lifo-arrow">→</div>
+                        <div class="lifo-box remaining">
+                            <div style="font-size: 0.8rem; color: var(--text-muted);">REMAINS</div>
+                            <div style="font-size: 1.2rem; font-weight: 700;">Oldest Costs</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Depth B -->
+                <div id="depth-B" class="depth-content">
+                    <h3>🟡 Standard Level</h3>
+                    <p>Calculating periodic LIFO step by step.</p>
+
+                    <div class="worked-example">
+                        <h4>Periodic LIFO Calculation</h4>
+                        <p><strong>Given:</strong></p>
+                        <p>Beginning Inventory: 10 units @ $10 = $100</p>
+                        <p>Jan 15 Purchase: 20 units @ $12 = $240</p>
+                        <p>Jan 28 Purchase: 15 units @ $15 = $225</p>
+                        <p>Goods Available for Sale: 45 units = $565</p>
+                        <p>Ending Inventory (physical count): 12 units</p>
+
+                        <div class="example-step">
+                            <strong>Step 1: Identify Ending Inventory Units</strong>
+                            <p>12 units in ending inventory come from the OLDEST purchases (LIFO = newest to COGS).</p>
+                            <p>Take all 10 from Beginning @ $10, then 2 from Jan 15 @ $12.</p>
+                        </div>
+                        <div class="example-step">
+                            <strong>Step 2: Calculate Ending Inventory Value</strong>
+                            <p>10 units × $10 = $100</p>
+                            <p>2 units × $12 = $24</p>
+                            <p>Total = <strong>$124</strong></p>
+                        </div>
+                        <div class="example-step">
+                            <strong>Step 3: Calculate COGS</strong>
+                            <p>COGS = Goods Available - Ending Inventory</p>
+                            <p>COGS = $565 - $124 = <strong>$441</strong></p>
+                        </div>
+                    </div>
+
+                    <table class="period-table">
+                        <thead>
+                            <tr>
+                                <th>Date</th>
+                                <th>Units</th>
+                                <th>Unit Cost</th>
+                                <th>Total Cost</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Beginning</td>
+                                <td>10</td>
+                                <td>$10</td>
+                                <td>$100</td>
+                                <td>10 in ending inventory</td>
+                            </tr>
+                            <tr>
+                                <td>Jan 15</td>
+                                <td>20</td>
+                                <td>$12</td>
+                                <td>$240</td>
+                                <td>2 in ending, 18 to COGS</td>
+                            </tr>
+                            <tr>
+                                <td>Jan 28</td>
+                                <td>15</td>
+                                <td>$15</td>
+                                <td>$225</td>
+                                <td>All 15 to COGS</td>
+                            </tr>
+                            <tr style="background: #e8f5e9; font-weight: 600;">
+                                <td colspan="3">ENDING INVENTORY (12 units)</td>
+                                <td colspan="2">$124 (oldest costs)</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- Depth C -->
+                <div id="depth-C" class="depth-content">
+                    <h3>🔴 Advanced Level</h3>
+                    <p>LIFO Reserve, tax implications, and international considerations.</p>
+
+                    <div class="worked-example">
+                        <h4>LIFO Reserve Analysis</h4>
+                        <p><strong>Comparing FIFO and LIFO:</strong></p>
+                        <div class="comparison-card">
+                            <strong>FIFO Ending Inventory:</strong> $180 (newest costs)<br>
+                            <strong>LIFO Ending Inventory:</strong> $124 (oldest costs)<br>
+                            <strong>LIFO Reserve:</strong> $180 - $124 = <strong>$56</strong>
+                        </div>
+                        <div class="example-step">
+                            <strong>What the Reserve Means:</strong>
+                            <p>The $56 LIFO reserve represents additional income taxes deferred because LIFO assigns higher costs to COGS.</p>
+                        </div>
+                    </div>
+
+                    <div class="warning-banner">
+                        <h4>🚫 IFRS Prohibition</h4>
+                        <p><strong>Unlike U.S. GAAP, IFRS does NOT permit LIFO.</strong></p>
+                        <p>Reason: LIFO often results in outdated inventory values on the balance sheet that don't reflect current market conditions.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Interactive LIFO Simulator -->
+            <section class="kp-section">
+                <h2>🎨 Interactive: LIFO Stack Simulator</h2>
+                <p>Add inventory layers and sell units to see how LIFO consumes the newest layers (top of stack) first.</p>
+
+                <div class="simulator-container">
+                    <div class="lifo-controls">
+                        <div class="input-group">
+                            <label>New Layer Cost ($)</label>
+                            <input type="number" id="lifo-add-cost" value="10" style="width: 100px;">
+                        </div>
+                        <div class="input-group">
+                            <label>Quantity</label>
+                            <input type="number" id="lifo-add-qty" value="1" min="1" max="5" style="width: 80px;">
+                        </div>
+                        <button class="btn btn-primary" onclick="addLIFOLayer()">+ Add Layer (Top)</button>
+                        <button class="btn btn-primary" onclick="sellLIFO()">Sell 1 Unit (Top)</button>
+                        <button class="btn btn-outline" onclick="resetLIFO()">Reset Stack</button>
+                    </div>
+
+                    <div id="lifo-container" class="lifo-stack">
+                        <!-- Layers will be rendered here -->
+                    </div>
+
+                    <div id="lifo-summary" style="background: var(--bg-light); padding: 1rem; border-radius: var(--radius-sm); margin-top: 1rem;">
+                        <strong>Summary:</strong> <span id="lifo-total-units">0</span> units, Total Cost: $<span id="lifo-total-cost">0</span>
+                    </div>
+
+                    <div id="lifo-log" style="margin-top: 1rem; font-family: monospace; font-size: 0.85rem; color: var(--text-muted); text-align: center; max-height: 100px; overflow-y: auto;">
+                        Add inventory layers and sell to see LIFO in action.
+                    </div>
+                </div>
+            </section>
+
+            <!-- Tax Impact -->
+            <section class="kp-section">
+                <h2>💰 LIFO Tax Advantage (Rising Prices)</h2>
+                <p>During inflation, LIFO provides significant tax benefits by matching higher recent costs with current revenue.</p>
+
+                <div class="tax-impact">
+                    <div class="tax-card cogs">
+                        <h4>Higher COGS</h4>
+                        <div style="font-size: 2rem; font-weight: 900;">$441</div>
+                        <div style="font-size: 0.8rem; color: var(--text-muted);">vs FIFO's $385</div>
+                    </div>
+                    <div class="tax-card income">
+                        <h4>Lower Income</h4>
+                        <div style="font-size: 2rem; font-weight: 900;">Lower</div>
+                        <div style="font-size: 0.8rem; color: var(--text-muted);">Higher expenses</div>
+                    </div>
+                    <div class="tax-card tax">
+                        <h4>Lower Taxes</h4>
+                        <div style="font-size: 2rem; font-weight: 900;">$$$</div>
+                        <div style="font-size: 0.8rem; color: var(--text-muted);">Cash savings!</div>
+                    </div>
+                </div>
+
+                <div class="concept-card" style="margin-top: 1rem;">
+                    <strong>📊 The Trade-off:</strong> Lower reported income means lower taxes, improving cash flow. However, LIFO may make the company appear less profitable to investors and lenders.
+                </div>
+            </section>
+
+            <!-- Common Misconceptions -->
+            <section class="kp-section">
+                <h2>🚫 Common Misconceptions & Professional Tips</h2>
+
+                <div class="misconception-alert">
+                    <strong>❌ Misconception 1:</strong> "LIFO means the newest physical items are actually sold first."
+                    <br><br>
+                    <strong>✅ Reality:</strong> LIFO is a COSTING METHOD, not a physical flow assumption. Most businesses using LIFO actually sell their oldest items first. The method simply determines which costs are matched with revenue.
+                </div>
+
+                <div class="misconception-alert">
+                    <strong>❌ Misconception 2:</strong> "LIFO always produces lower income than FIFO."
+                    <br><br>
+                    <strong>✅ Reality:</strong> LIFO produces lower income ONLY during RISING prices. In deflation (falling prices), LIFO would produce HIGHER income because newer (lower) costs go to COGS.
+                </div>
+
+                <div class="misconception-alert">
+                    <strong>❌ Misconception 3:</strong> "Periodic and perpetual LIFO give the same results."
+                    <br><br>
+                    <strong>✅ Reality:</strong> Unlike FIFO, PERIODIC and PERPETUAL LIFO can produce DIFFERENT results. The timing of when sales occur affects which layers are "unwound" first.
+                </div>
+
+                <div class="professional-tip">
+                    <strong>💡 Professional Tip #1:</strong> The LIFO conformity rule means you can't use LIFO for taxes but FIFO for financial reporting. You're all-in or all-out on LIFO.
+                </div>
+
+                <div class="professional-tip">
+                    <strong>💡 Professional Tip #2:</strong> LIFO can create "LIFO liquidation" problems when inventory levels decline, forcing old low costs into COGS and inflating reported income unexpectedly.
+                </div>
+
+                <div class="professional-tip">
+                    <strong>💡 Professional Tip #3:</strong> When comparing companies, remember LIFO companies have older, potentially outdated inventory values on their balance sheets compared to FIFO companies.
+                </div>
+            </section>
+
+            <!-- Memory Aids -->
+            <section class="kp-section">
+                <h2>🧠 Memory Aids & Quick Reference</h2>
+
+                <div class="memory-aid-card">
+                    <strong>⚡ Quick Recall: LIFO Rule</strong>
+                    <p><strong>LIFO = Last-In, First-Out</strong></p>
+                    <p>NEWEST costs → COGS (sold)</p>
+                    <p>OLDEST costs → Ending Inventory (remains)</p>
+                    <p><strong>Rising Prices = High COGS, Low Income, Low Taxes</strong></p>
+                </div>
+
+                <div class="key-concepts-grid">
+                    <div class="concept-card">
+                        <strong>⚫ The Coal Rule</strong>
+                        <p>New on top, new gets used first. Oldest remains at bottom.</p>
+                    </div>
+
+                    <div class="concept-card">
+                        <strong>📦 COGS Contains</strong>
+                        <p>All newest costs until all units accounted for</p>
+                    </div>
+
+                    <div class="concept-card">
+                        <strong>📦 Inventory Contains</strong>
+                        <p>All oldest costs (may be many years old)</p>
+                    </div>
+
+                    <div class="concept-card">
+                        <strong>📈 Rising Prices Effect</strong>
+                        <p>Higher COGS → Lower Income → Lower Taxes</p>
+                    </div>
+
+                    <div class="concept-card">
+                        <strong>🚫 Not Allowed Under</strong>
+                        <p>IFRS prohibits LIFO due to outdated balance sheet values.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Glossary -->
+            <section class="kp-section">
+                <h2>📖 Glossary</h2>
+                <div class="key-concepts-grid">
+                    <div class="concept-card">
+                        <strong>Last-In, First-Out (LIFO)</strong>
+                        <p>Inventory costing method assuming newest costs are sold first, oldest costs remain in ending inventory.</p>
+                    </div>
+
+                    <div class="concept-card">
+                        <strong>Periodic LIFO</strong>
+                        <p>LIFO calculation performed at period-end after all purchases are accumulated.</p>
+                    </div>
+
+                    <div class="concept-card">
+                        <strong>LIFO Reserve</strong>
+                        <p>Difference between FIFO and LIFO inventory values. Represents deferred tax liability.</p>
+                    </div>
+
+                    <div class="concept-card">
+                        <strong>LIFO Conformity Rule</strong>
+                        <p>IRS requirement that LIFO used for tax purposes must also be used for financial reporting.</p>
+                    </div>
+
+                    <div class="concept-card">
+                        <strong>LIFO Liquidation</strong>
+                        <p>Problem when inventory levels decline, forcing old low costs into COGS, inflating income.</p>
+                    </div>
+
+                    <div class="concept-card">
+                        <strong>Perpetual LIFO</strong>
+                        <p>Applying LIFO at each sale transaction. Can differ from periodic LIFO results.</p>
+                    </div>
+
+                    <div class="concept-card">
+                        <strong>Cost Flow Assumption</strong>
+                        <p>Method for matching costs with revenue when specific items cannot be traced. LIFO is a cost flow assumption.</p>
+                    </div>
+
+                    <div class="concept-card">
+                        <strong>IFRS Prohibition</strong>
+                        <p>International accounting standards (IFRS) do not permit LIFO due to outdated inventory values on balance sheets.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Final Knowledge Check -->
+            <section class="interactive-section">
+                <h2>🎯 Final Knowledge Check</h2>
+                <p>Test your understanding of LIFO:</p>
+
+                <div class="quiz-container" data-success-text="Excellent! You've mastered LIFO inventory costing." data-explanation="LIFO assumes newest costs are sold first, so ending inventory consists of the oldest costs. During rising prices, this results in higher COGS, lower income, and lower taxes.">
+                    <div class="input-group">
+                        <p><strong>Question 1:</strong> Under LIFO, which costs flow to Ending Inventory?</p>
+                        <label><input type="radio" name="q1" value="incorrect1" data-correct="false"> The newest (most recent) costs</label><br>
+                        <label><input type="radio" name="q1" value="correct" data-correct="true"> The oldest costs</label><br>
+                        <label><input type="radio" name="q1" value="incorrect2" data-correct="false"> Average of all costs</label>
+                    </div>
+
+                    <div class="input-group">
+                        <p><strong>Question 2:</strong> If prices are rising, LIFO produces:</p>
+                        <label><input type="radio" name="q2" value="correct" data-correct="true"> Higher COGS, lower income, lower taxes</label><br>
+                        <label><input type="radio" name="q2" value="incorrect1" data-correct="false"> Lower COGS, higher income, lower taxes</label><br>
+                        <label><input type="radio" name="q2" value="incorrect2" data-correct="false"> Same results as FIFO</label>
+                    </div>
+
+                    <div class="input-group">
+                        <p><strong>Question 3:</strong> What is the LIFO conformity rule?</p>
+                        <label><input type="radio" name="q3" value="incorrect1" data-correct="false"> LIFO is required for all companies</label><br>
+                        <label><input type="radio" name="q3" value="correct" data-correct="true"> Must use LIFO for taxes AND financial reporting</label><br>
+                        <label><input type="radio" name="q3" value="incorrect2" data-correct="false"> LIFO can be used for either taxes or reporting</label>
+                    </div>
+
+                    <div class="input-group">
+                        <p><strong>Question 4:</strong> Beginning Inventory 10 @ $10, Purchase 20 @ $12, Ending Inventory 15 units. LIFO Ending Inventory value?</p>
+                        <label><input type="radio" name="q4" value="correct" data-correct="true"> $124 (10 @ $10 + 2 @ $12)</label><br>
+                        <label><input type="radio" name="q4" value="incorrect1" data-correct="false"> $180 (15 @ $12)</label><br>
+                        <label><input type="radio" name="q4" value="incorrect2" data-correct="false"> $150 (average cost)</label>
+                    </div>
+
+                    <div class="input-group">
+                        <p><strong>Question 5:</strong> Which accounting standard prohibits LIFO?</p>
+                        <label><input type="radio" name="q5" value="incorrect1" data-correct="false"> U.S. GAAP</label><br>
+                        <label><input type="radio" name="q5" value="correct" data-correct="true"> IFRS</label><br>
+                        <label><input type="radio" name="q5" value="incorrect2" data-correct="false"> Both U.S. GAAP and IFRS</label>
+                    </div>
+
+                    <button class="btn btn-primary quiz-submit">Submit Answers</button>
+                    <div class="feedback"></div>
+                    <button class="quiz-retry">Try Again</button>
+                </div>
+            </section>
+
+            <!-- Navigation -->
+            <nav class="kp-navigation" style="display: flex; justify-content: space-between; margin-top: 4rem; padding-bottom: 2rem;">
+                <a href="ch06_P1.html" class="btn" style="background: #eee;">← Previous: FIFO (Periodic)</a>
+                <a href="ch06.html" class="btn" style="background: var(--info); color: white;">Chapter 6 Hub</a>
+                <a href="ch06_P3.html" class="btn btn-primary">Next: Weighted Average →</a>
+            </nav>
+        </article>
+    </main>
+
+    <footer style="margin-top: 5rem; padding: 2rem 0; border-top: 1px solid #ddd; text-align: center; color: #888;">
+        <p>Accounting Essentials | Chapter 6 | Procedure 2</p>
+    </footer>
+
+    <script src="../../components-enhanced.js"></script>
+    <script>
+        function setDepth(depth) {
+            document.querySelectorAll('.depth-btn').forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+
+            document.querySelectorAll('.depth-content').forEach(content => content.classList.remove('active'));
+            document.getElementById(`depth-${depth}`).classList.add('active');
+        }
+
+        let lifoLayers = [];
+        let lifoLayerId = 0;
+
+        function addLIFOLayer() {
+            const cost = parseFloat(document.getElementById('lifo-add-cost').value) || 0;
+            const qty = parseInt(document.getElementById('lifo-add-qty').value) || 1;
+
+            for (let i = 0; i < qty; i++) {
+                lifoLayers.push({
+                    id: lifoLayerId++,
+                    cost: cost,
+                    added: new Date().toLocaleTimeString()
+                });
+            }
+
+            logLIFO(`Added ${qty} unit(s) @ $${cost} (to TOP of stack)`);
+            renderLIFO();
+        }
+
+        function sellLIFO() {
+            if (lifoLayers.length === 0) {
+                logLIFO("No inventory to sell!");
+                return;
+            }
+
+            // LIFO sells from the end (top of stack - last added)
+            const sold = lifoLayers.pop();
+            logLIFO(`Sold 1 unit from layer ${sold.id} @ $${sold.cost} (top/newest layer)`);
+            renderLIFO();
+        }
+
+        function resetLIFO() {
+            lifoLayers = [];
+            lifoLayerId = 0;
+            logLIFO("Stack reset. Add new layers to begin.");
+            renderLIFO();
+        }
+
+        function logLIFO(message) {
+            const log = document.getElementById('lifo-log');
+            log.innerHTML = `<div>${message}</div>` + log.innerHTML;
+        }
+
+        function renderLIFO() {
+            const container = document.getElementById('lifo-container');
+            const totalUnits = document.getElementById('lifo-total-units');
+            const totalCost = document.getElementById('lifo-total-cost');
+
+            if (lifoLayers.length === 0) {
+                container.innerHTML = '<p style="color: var(--text-muted);">No inventory. Add layers above.</p>';
+                totalUnits.textContent = '0';
+                totalCost.textContent = '0';
+                return;
+            }
+
+            const total = lifoLayers.reduce((sum, layer) => sum + layer.cost, 0);
+            totalUnits.textContent = lifoLayers.length;
+            totalCost.textContent = total.toFixed(2);
+
+            // Render layers (LIFO = newest at end, shown on top due to flex-direction: column-reverse)
+            container.innerHTML = lifoLayers.map((layer, index) => {
+                const width = 120 + (layer.cost * 2);
+                return `<div class="lifo-layer" style="width: ${Math.min(width, 280)}px;" title="Layer ${layer.id}, Cost $${layer.cost}">
+                    Unit ${index + 1} - $${layer.cost}
+                </div>`;
+            }).join('');
+        }
+
+        // Initialize
+        renderLIFO();
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,483 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>P2: Subsidiary Ledgers | ACCOUNTING ESSENTIALS</title>
+    <link rel="stylesheet" href="../../styles.css">
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-50MTQPVR7D"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-50MTQPVR7D');
+</script>
+
+</head>
+
+<body>
+    <header>
+        <div class="container nav-container">
+            <a href="../../index.html" class="logo">ACCOUNTING<span>ESSENTIALS</span></a>
+            <nav class="nav-links">
+                <a href="../../index.html">Home</a>
+                <a href="../../Part1/part1.html">Part 1</a>
+                <a href="../../part2/part2.html">Part 2</a>
+                <a href="../../part3/part3.html">Part 3</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container">
+        <div class="breadcrumbs">
+            <a href="../../index.html">Home</a> <span>/</span> <a href="../../part3/part3.html">Part 3</a>
+            <span>/</span> <a href="ch07.html">Chapter 7</a> <span>/</span> P2
+        </div>
+
+        <article class="animate-fade-in">
+            <div class="kp-header">
+                <h1 style="border-left: 8px solid var(--primary-light); padding-left: 1rem; margin: 2rem 0;">Subsidiary Ledgers</h1>
+            </div>
+
+            <!-- Learning Objectives -->
+            <section class="kp-section">
+                <h2>🎯 Learning Objectives</h2>
+                <div class="learning-objectives">
+                    <ul>
+                        <li>Understand the purpose and structure of subsidiary ledgers</li>
+                        <li>Explain the relationship between control accounts and subsidiary ledgers</li>
+                        <li>Identify common subsidiary ledgers used in accounting systems</li>
+                        <li>Perform the control check to verify ledger accuracy</li>
+                        <li>Describe how transactions flow from journals to subsidiary ledgers</li>
+                        <li>Apply subsidiary ledger information for customer/supplier management</li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- Background & Principles -->
+            <section class="kp-section">
+                <h2>📚 Background & Principles</h2>
+                <p>Subsidiary ledgers are detailed records that support control accounts in the general ledger. They provide itemized information about individual customers, vendors, or other account categories that would otherwise be buried in a single aggregated balance.</p>
+
+                <div class="concept-card" style="margin: 1.5rem 0;">
+                    <strong>Core Principle:</strong> The total of all balances in a subsidiary ledger MUST equal the balance in its corresponding control account in the general ledger. This "control check" ensures accuracy throughout the accounting system.
+                </div>
+
+                <div class="professional-tip">
+                    <strong>💡 Key Insight:</strong> Think of the general ledger as a doorman who counts heads and knows 100 people are in a party, while the subsidiary ledger is the guest list showing exactly WHO is inside—names, how much they owe, and when they arrived.
+                </div>
+            </section>
+
+            <!-- Key Concepts -->
+            <section class="kp-section">
+                <h2>🔑 Key Concepts</h2>
+                <div class="key-concepts-grid">
+                    <div class="concept-card">
+                        <strong>Control Account</strong>
+                        <p>A summary account in the general ledger that shows the total amount owed by a category (e.g., Accounts Receivable Control).</p>
+                    </div>
+
+                    <div class="concept-card">
+                        <strong>Subsidiary Ledger</strong>
+                        <p>A collection of accounts providing detailed information about individual customers, vendors, or items within a control account.</p>
+                    </div>
+
+                    <div class="concept-card">
+                        <strong>Accounts Receivable Subsidiary Ledger</strong>
+                        <p>Contains individual customer accounts showing each customer's balance. Used for billing and collection follow-up.</p>
+                    </div>
+
+                    <div class="concept-card">
+                        <strong>Accounts Payable Subsidiary Ledger</strong>
+                        <p>Contains individual vendor accounts showing amounts owed to each supplier. Used for payment scheduling.</p>
+                    </div>
+
+                    <div class="concept-card">
+                        <strong>Control Check</strong>
+                        <p>The process of verifying that subsidiary ledger totals equal the control account balance.</p>
+                    </div>
+
+                    <div class="concept-card">
+                        <strong>Schedule of Accounts Receivable/Payable</strong>
+                        <p>A report listing all individual account balances in a subsidiary ledger, used for reconciliation.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Deep Dive -->
+            <section class="kp-section">
+                <h2>🔍 Deep Dive</h2>
+                <p>Explore subsidiary ledgers at different levels of depth:</p>
+
+                <div class="depth-toggle">
+                    <button class="depth-btn active" onclick="setDepth('A')">Depth A: Foundational</button>
+                    <button class="depth-btn" onclick="setDepth('B')">Depth B: Standard</button>
+                    <button class="depth-btn" onclick="setDepth('C')">Depth C: Advanced</button>
+                </div>
+
+                <!-- Depth A -->
+                <div id="depth-A" class="depth-content active">
+                    <h3>🟢 Foundational Level</h3>
+                    <p>Understanding the basic concept of subsidiary ledgers.</p>
+
+                    <div class="worked-example">
+                        <h4>The Party Guest List Analogy</h4>
+                        <p><strong>The Doorman vs. The Guest List</strong></p>
+                        <div class="example-step">
+                            <strong>The Doorman (Control Account):</strong>
+                            <p>Stands at the door and counts heads. He knows "100 people are inside" but can't tell you their names.</p>
+                        </div>
+                        <div class="example-step">
+                            <strong>The Guest List (Subsidiary Ledger):</strong>
+                            <p>Has a detailed list: "Alice: $500 balance, Bob: $300 balance, Charlie: $200 balance..."</p>
+                        </div>
+                        <div class="example-step">
+                            <strong>The Golden Rule:</strong>
+                            <p>The total on the guest list MUST match the doorman's count exactly.</p>
+                        </div>
+                    </div>
+
+                    <div class="worked-example">
+                        <h4>Common Subsidiary Ledgers</h4>
+                        <table class="financial-table">
+                            <thead>
+                                <tr><th>Control Account</th><th>Subsidiary Ledger</th><th>Purpose</th></tr>
+                            </thead>
+                            <tbody>
+                                <tr><td>Accounts Receivable</td><td>Customers Sub-Ledger</td><td>Track what each customer owes</td></tr>
+                                <tr><td>Accounts Payable</td><td>Vendors Sub-Ledger</td><td>Track what we owe each supplier</td></tr>
+                                <tr><td>Inventory</td><td>Inventory Sub-Ledger</td><td>Track each product quantity</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- Depth B -->
+                <div id="depth-B" class="depth-content">
+                    <h3>🟡 Standard Level</h3>
+                    <p>Understanding posting procedures and verification.</p>
+
+                    <div class="worked-example">
+                        <h4>The Posting Flow</h4>
+                        <p><strong>How Information Moves Through the System</strong></p>
+                        <div class="example-step">
+                            <strong>Step 1: Record in Journal</strong>
+                            <p>Transaction recorded in Sales Journal or Cash Receipts Journal.</p>
+                        </div>
+                        <div class="example-step">
+                            <strong>Step 2: Post to Subsidiary</strong>
+                            <p>Individual customer account updated DAILY with transaction details.</p>
+                        </div>
+                        <div class="example-step">
+                            <strong>Step 3: Post Column Total</strong>
+                            <p>At month-end, column TOTAL posted to Accounts Receivable Control.</p>
+                        </div>
+                        <div class="example-step">
+                            <strong>Step 4: Control Check</strong>
+                            <p>Schedule of AR = AR Control balance? They MUST match!</p>
+                        </div>
+                    </div>
+
+                    <div class="worked-example">
+                        <h4>Example: Customer Account Activity</h4>
+                        <table class="financial-table">
+                            <thead>
+                                <tr><th>Date</th><th>Description</th><th>Debit</th><th>Credit</th><th>Balance</th></tr>
+                            </thead>
+                            <tbody>
+                                <tr><td>Oct 1</td><td>Invoice #801</td><td>$4,500</td><td></td><td>$4,500</td></tr>
+                                <tr><td>Oct 5</td><td>Payment</td><td></td><td>$4,500</td><td>$0</td></tr>
+                                <tr><td>Oct 10</td><td>Invoice #805</td><td>$2,000</td><td></td><td>$2,000</td></tr>
+                                <tr><td>Oct 20</td><td>Payment</td><td></td><td>$1,000</td><td>$1,000</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- Depth C -->
+                <div id="depth-C" class="depth-content">
+                    <h3>🔴 Advanced Level</h3>
+                    <p>Understanding control account mechanics and error detection.</p>
+
+                    <div class="worked-example">
+                        <h4>Why Use Subsidiary Ledgers?</h4>
+                        <p><strong>Benefits for Management:</strong></p>
+                        <div class="example-step">
+                            <strong>Customer Management:</strong>
+                            <p>Know exactly who owes money, how much, and for how long. Essential for collection efforts.</p>
+                        </div>
+                        <div class="example-step">
+                            <strong>Internal Control:</strong>
+                            <p>Separates detailed tracking from summary reporting. Reduces error risk and fraud opportunity.</p>
+                        </div>
+                        <div class="example-step">
+                            <strong>Error Detection:</strong>
+                            <p>If Control ≠ Subsidiary Total, you know an error exists somewhere in the system.</p>
+                        </div>
+                    </div>
+
+                    <div class="worked-example">
+                        <h4>Common Posting Errors</h4>
+                        <table class="financial-table">
+                            <thead>
+                                <tr><th>Error Type</th><th>Effect on Control Check</th></tr>
+                            </thead>
+                            <tbody>
+                                <tr><td>Posted to wrong customer</td><td>Control still balances, but customer wrong</td></tr>
+                                <tr><td>Math error in subsidiary</td><td>Control ≠ Subsidiary Total</td></tr>
+                                <tr><td>Forgot to post journal total</td><td>Control too low vs. Subsidiary</td></tr>
+                                <tr><td>Posted twice</td><td>Control too high vs. Subsidiary</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Interactive: Control Check Simulator -->
+            <section class="kp-section">
+                <h2>🎨 Interactive: The Control Check</h2>
+                <p>Enter individual customer balances to see if they match the General Ledger control account:</p>
+
+                <div class="simulator-container">
+                    <div class="card-grid" style="grid-template-columns: 1fr 1fr;">
+                        <div class="content-card" style="border-top: 5px solid var(--secondary);">
+                            <h4>Guest List (Subsidiary Ledger)</h4>
+                            <div class="input-group">
+                                <label>Customer Alpha ($)</label>
+                                <input type="number" id="sub-alpha" value="4000" oninput="checkControl()">
+                            </div>
+                            <div class="input-group">
+                                <label>Customer Beta ($)</label>
+                                <input type="number" id="sub-beta" value="6000" oninput="checkControl()">
+                            </div>
+                            <div class="input-group">
+                                <label>Customer Gamma ($)</label>
+                                <input type="number" id="sub-gamma" value="2500" oninput="checkControl()">
+                            </div>
+                            <div style="margin-top: 1rem; padding: 1rem; background: var(--bg-light); border-radius: var(--radius-sm);">
+                                <strong>Subsidiary Total:</strong>
+                                <span id="sub-total" style="font-size: 1.5rem; font-weight: bold;">$12,500</span>
+                            </div>
+                        </div>
+                        <div class="content-card" style="border-top: 5px solid var(--primary); display: flex; flex-direction: column; justify-content: center; align-items: center;">
+                            <h4>Doorman (Control Account)</h4>
+                            <div id="control-total" style="font-size: 2.5rem; font-weight: 800; color: var(--primary);">$12,500</div>
+                            <p style="font-size: 0.8rem; color: var(--text-muted);">Accounts Receivable (GL)</p>
+                            <div id="control-status" style="margin-top: 1rem; padding: 0.5rem 1rem; border-radius: var(--radius-sm); font-weight: bold;"></div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Common Misconceptions -->
+            <section class="kp-section">
+                <h2>🚫 Common Misconceptions & Professional Tips</h2>
+
+                <div class="misconception-alert">
+                    <strong>❌ Misconception 1:</strong> "The control account is more accurate than the subsidiary ledger."
+                    <br><br>
+                    <strong>✅ Reality:</strong> Both should match! The control account is a summary, and the subsidiary provides detail. If they differ, BOTH need to be checked for errors.
+                </div>
+
+                <div class="misconception-alert">
+                    <strong>❌ Misconception 2:</strong> "Transactions are posted to both the control account and subsidiary ledger at the same time."
+                    <br><br>
+                    <strong>✅ Reality:</strong> Individual transactions are posted to subsidiary ledger accounts DAILY, but column totals are posted to control accounts only at MONTH-END.
+                </div>
+
+                <div class="misconception-alert">
+                    <strong>❌ Misconception 3:</strong> "The subsidiary ledger is part of the general ledger."
+                    <br><br>
+                    <strong>✅ Reality:</strong> The subsidiary ledger is a SEPARATE set of accounts that supports (provides detail for) the control account in the general ledger.
+                </div>
+
+                <div class="professional-tip">
+                    <strong>💡 Professional Tip #1:</strong> Always prepare a Schedule of Accounts Receivable at month-end. It should equal your AR Control balance.
+                </div>
+
+                <div class="professional-tip">
+                    <strong>💡 Professional Tip #2:</strong> Use subsidiary ledgers proactively. Review overdue customer accounts to improve cash flow.
+                </div>
+
+                <div class="professional-tip">
+                    <strong>💡 Professional Tip #3:</strong> When errors are discovered, check both the journal entry AND the subsidiary posting to find the source.
+                </div>
+            </section>
+
+            <!-- Memory Aids -->
+            <section class="kp-section">
+                <h2>🧠 Memory Aids & Quick Reference</h2>
+
+                <div class="memory-aid-card">
+                    <strong>⚡ Quick Recall: Control Check</strong>
+                    <p><strong>Subsidiary Total = Control Account Balance</strong></p>
+                    <p>If they don't match, look for:</p>
+                    <p>• Missing postings • Double postings • Math errors • Wrong customer/vendor</p>
+                </div>
+
+                <div class="key-concepts-grid">
+                    <div class="concept-card">
+                        <strong>📊 AR Control</strong>
+                        <p>Summary of all customer receivables. Shows "how much total" but not "who owes."</p>
+                    </div>
+
+                    <div class="concept-card">
+                        <strong>📋 AR Subsidiary</strong>
+                        <p>Detailed customer-by-customer breakdown. Shows "who owes how much."</p>
+                    </div>
+
+                    <div class="concept-card">
+                        <strong>📊 AP Control</strong>
+                        <p>Summary of all amounts owed to vendors. Shows "how much we owe total."</p>
+                    </div>
+
+                    <div class="concept-card">
+                        <strong>📋 AP Subsidiary</strong>
+                        <p>Detailed vendor-by-vendor breakdown. Shows "who we owe and how much."</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Glossary -->
+            <section class="kp-section">
+                <h2>📖 Glossary</h2>
+                <div class="key-concepts-grid">
+                    <div class="concept-card">
+                        <strong>Control Account</strong>
+                        <p>A general ledger account that summarizes the total balance of a subsidiary ledger, providing a summary view of a category of transactions.</p>
+                    </div>
+
+                    <div class="concept-card">
+                        <strong>Subsidiary Ledger</strong>
+                        <p>A group of accounts that provides detailed information supporting a single control account in the general ledger.</p>
+                    </div>
+
+                    <div class="concept-card">
+                        <strong>Accounts Receivable Subsidiary Ledger</strong>
+                        <p>A ledger containing individual customer accounts showing the amount each customer owes and their payment history.</p>
+                    </div>
+
+                    <div class="concept-card">
+                        <strong>Accounts Payable Subsidiary Ledger</strong>
+                        <p>A ledger containing individual vendor accounts showing the amount owed to each supplier and purchase history.</p>
+                    </div>
+
+                    <div class="concept-card">
+                        <strong>Schedule of Accounts Receivable</strong>
+                        <p>A report listing all individual customer balances in the accounts receivable subsidiary ledger, used to verify the control account.</p>
+                    </div>
+
+                    <div class="concept-card">
+                        <strong>Schedule of Accounts Payable</strong>
+                        <p>A report listing all individual vendor balances in the accounts payable subsidiary ledger, used to verify the control account.</p>
+                    </div>
+
+                    <div class="concept-card">
+                        <strong>Posting</strong>
+                        <p>The process of transferring information from journals to ledgers, either individually (daily) or by totals (month-end).</p>
+                    </div>
+
+                    <div class="concept-card">
+                        <strong>Aging of Accounts</strong>
+                        <p>Sorting accounts receivable or payable by how long they've been outstanding, used to assess collection/payment patterns.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Interactive: Knowledge Check -->
+            <section class="interactive-section">
+                <h2>🎯 Knowledge Check: Subsidiary Ledgers</h2>
+                <p>Test your understanding of subsidiary ledgers:</p>
+
+                <div class="quiz-container" data-success-text="Excellent! You understand subsidiary ledgers!" data-explanation="The subsidiary ledger provides detailed customer-by-customer information while the control account shows the total. They must always balance. Individual transactions post daily to subsidiary, but control totals post monthly.">
+                    <div class="input-group">
+                        <p><strong>Question 1:</strong> What does the Accounts Receivable control account show?</p>
+                        <label><input type="radio" name="q1" value="correct" data-correct="true"> Total amount owed by all customers</label><br>
+                        <label><input type="radio" name="q1" value="incorrect1" data-correct="false"> How much each specific customer owes</label><br>
+                        <label><input type="radio" name="q1" value="incorrect2" data-correct="false"> Total cash collected</label>
+                    </div>
+
+                    <div class="input-group">
+                        <p><strong>Question 2:</strong> When are individual transactions posted to the subsidiary ledger?</p>
+                        <label><input type="radio" name="q2" value="correct" data-correct="true"> Daily</label><br>
+                        <label><input type="radio" name="q2" value="incorrect1" data-correct="false"> Only at month-end</label><br>
+                        <label><input type="radio" name="q2" value="incorrect2" data-correct="false"> Weekly</label>
+                    </div>
+
+                    <div class="input-group">
+                        <p><strong>Question 3:</strong> What is the "control check"?</p>
+                        <label><input type="radio" name="q3" value="incorrect1" data-correct="false"> Checking that the bank statement matches</label><br>
+                        <label><input type="radio" name="q3" value="correct" data-correct="true"> Verifying subsidiary total equals control account balance</label><br>
+                        <label><input type="radio" name="q3" value="incorrect2" data-correct="false"> Reconciling cash</label>
+                    </div>
+
+                    <div class="input-group">
+                        <p><strong>Question 4:</strong> When is the column total posted to the control account?</p>
+                        <label><input type="radio" name="q4" value="incorrect1" data-correct="false"> Daily with each transaction</label><br>
+                        <label><input type="radio" name="q4" value="correct" data-correct="true"> At month-end</label><br>
+                        <label><input type="radio" name="q4" value="incorrect2" data-correct="false"> Quarterly</label>
+                    </div>
+
+                    <div class="input-group">
+                        <p><strong>Question 5:</strong> What is a Schedule of Accounts Receivable?</p>
+                        <label><input type="radio" name="q5" value="correct" data-correct="true"> A report listing all customer balances in the subsidiary ledger</label><br>
+                        <label><input type="radio" name="q5" value="incorrect1" data-correct="false"> The same as the general ledger</label><br>
+                        <label><input type="radio" name="q5" value="incorrect2" data-correct="false"> A journal entry</label>
+                    </div>
+
+                    <button class="btn btn-primary quiz-submit">Submit Answers</button>
+                    <div class="feedback"></div>
+                    <button class="quiz-retry">Try Again</button>
+                </div>
+            </section>
+
+            <!-- Navigation -->
+            <nav class="kp-navigation" style="display: flex; justify-content: space-between; margin-top: 4rem; padding-bottom: 2rem;">
+                <a href="ch07_P1.html" class="btn" style="background: #eee;">← Previous: Special Journals</a>
+                <a href="ch07.html" class="btn" style="background: var(--secondary); color: white;">Chapter 7 Hub</a>
+                <a href="ch07_P3.html" class="btn btn-primary">Next: Sales Journal →</a>
+            </nav>
+        </article>
+    </main>
+
+    <footer style="margin-top: 5rem; padding: 2rem 0; border-top: 1px solid #ddd; text-align: center; color: #888;">
+        <p>Accounting Essentials | Chapter 7 | Procedure 2</p>
+    </footer>
+
+    <script src="../../components-enhanced.js"></script>
+    <script>
+        function setDepth(depth) {
+            document.querySelectorAll('.depth-btn').forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+
+            document.querySelectorAll('.depth-content').forEach(content => content.classList.remove('active'));
+            document.getElementById(`depth-${depth}`).classList.add('active');
+        }
+
+        function checkControl() {
+            const alpha = parseFloat(document.getElementById('sub-alpha').value) || 0;
+            const beta = parseFloat(document.getElementById('sub-beta').value) || 0;
+            const gamma = parseFloat(document.getElementById('sub-gamma').value) || 0;
+
+            const subTotal = alpha + beta + gamma;
+            document.getElementById('sub-total').textContent = '$' + subTotal.toLocaleString();
+            document.getElementById('control-total').textContent = '$' + subTotal.toLocaleString();
+
+            const status = document.getElementById('control-status');
+            if (subTotal > 0) {
+                status.textContent = '✓ BALANCED';
+                status.style.background = 'var(--success-light)';
+                status.style.color = 'var(--success-dark)';
+            } else {
+                status.textContent = '⚠ ZERO BALANCE';
+                status.style.background = 'var(--warning-light)';
+                status.style.color = 'var(--warning-dark)';
+            }
+        }
+    </script>
+</body>
+
+</html>

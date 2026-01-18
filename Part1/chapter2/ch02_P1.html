@@ -1,0 +1,834 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>P1: Trial Balance Preparation | ACCOUNTING ESSENTIALS</title>
+    <link rel="stylesheet" href="../../styles.css">
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-50MTQPVR7D"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-50MTQPVR7D');
+</script>
+
+</head>
+
+<body>
+    <header>
+        <div class="container nav-container">
+            <a href="../../index.html" class="logo">ACCOUNTS<span>MASTER</span></a>
+            <nav class="nav-links">
+                <a href="../../index.html">Home</a>
+                <a href="../part1.html">Part 1</a>
+                <a href="../../part2/part2.html">Part 2</a>
+                <a href="../../part3/part3.html">Part 3</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container">
+        <div class="breadcrumbs">
+            <a href="../../index.html">Home</a> <span>/</span> <a href="../part1.html">Part 1</a> <span>/</span> <a
+                href="ch02.html">Chapter 2</a> <span>/</span> P1
+        </div>
+
+        <article class="animate-fade-in">
+            <div class="kp-header">
+                <h1 style="border-left: 8px solid var(--primary-light); padding-left: 1rem; margin: 2rem 0;">Trial Balance
+                Preparation</h1>
+            </div>
+
+            <!-- Learning Objectives -->
+            <section class="kp-section">
+                <h2>🎯 Learning Objectives</h2>
+                <div class="learning-objectives">
+                    <ul>
+                        <li>Understand purpose and structure of trial balance</li>
+                        <li>Prepare trial balance from ledger account balances</li>
+                        <li>Verify that total debits equal total credits</li>
+                        <li>Identify what trial balance can and cannot catch</li>
+                        <li>Apply mathematical tricks to find balancing errors</li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- Background & Principles -->
+            <section class="kp-section">
+                <h2>📚 Background & Principles</h2>
+                <p>The trial balance is an internal accounting report that lists all ledger account balances in debit and credit columns to verify the accuracy of the double-entry system.</p>
+
+                <div class="concept-card" style="margin: 1.5rem 0;">
+                    <strong>Core Principle:</strong> The trial balance serves as a checkpoint. If debits equal credits, it provides (but doesn't guarantee) evidence that the accounting equation is in balance for recorded transactions.
+                </div>
+
+                <p>The trial balance is typically prepared at the end of an accounting period before preparing financial statements.</p>
+
+                <div class="professional-tip">
+                    <strong>💡 Key Insight:</strong> A balanced trial balance doesn't prove accuracy, but an UNBALANCED trial balance definitively proves an error exists. Always investigate discrepancies immediately.
+                </div>
+            </section>
+
+            <!-- Key Concepts -->
+            <section class="kp-section">
+                <h2>🔑 Key Concepts</h2>
+                <div class="key-concepts-grid">
+                    <div class="concept-card">
+                        <strong>Trial Balance</strong>
+                        <p>A list of all account balances with separate debit and credit columns, used to verify that debits equal credits.</p>
+                    </div>
+
+                    <div class="concept-card">
+                        <strong>Unadjusted Trial Balance</strong>
+                        <p>Trial balance prepared before any adjusting entries, showing raw account balances from daily transactions.</p>
+                    </div>
+
+                    <div class="concept-card">
+                        <strong>Adjusted Trial Balance</strong>
+                        <p>Trial balance after adjusting entries, used to prepare financial statements with accurate, up-to-date balances.</p>
+                    </div>
+
+                    <div class="concept-card">
+                        <strong>Mathematical Equality</strong>
+                        <p>The fundamental requirement that total debits must equal total credits, ensuring the accounting equation is maintained.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Visual: Trial Balance Structure -->
+            <section class="kp-section">
+                <h2>🎨 Visual: The Trial Balance Structure</h2>
+                <p>See how trial balance organizes account balances to verify debit-credit equality:</p>
+
+                <style>
+                    /* Trial Balance Visual Styles */
+                    .trial-balance-visual {
+                        margin: 2rem 0;
+                        padding: 2rem;
+                        background: var(--bg-light);
+                        border-radius: var(--radius-md);
+                    }
+                    .tb-header {
+                        display: grid;
+                        grid-template-columns: 2fr 1fr 1fr;
+                        gap: 0;
+                        background: linear-gradient(135deg, var(--primary), var(--primary-light));
+                        color: white;
+                        border-radius: var(--radius-sm) var(--radius-sm) 0 0;
+                        font-weight: 700;
+                    }
+                    .tb-header div {
+                        padding: 1rem 1.5rem;
+                        text-align: center;
+                    }
+                    .tb-header div:first-child {
+                        text-align: left;
+                    }
+                    .tb-row {
+                        display: grid;
+                        grid-template-columns: 2fr 1fr 1fr;
+                        gap: 0;
+                        background: var(--white);
+                        border-bottom: 1px solid #eee;
+                        transition: all 0.3s ease;
+                    }
+                    .tb-row:hover {
+                        background: var(--bg-light);
+                    }
+                    .tb-row:last-child {
+                        border-radius: 0 0 var(--radius-sm) var(--radius-sm);
+                    }
+                    .tb-row.total {
+                        background: linear-gradient(135deg, var(--success), #2ecc71);
+                        color: white;
+                        font-weight: 700;
+                    }
+                    .tb-row.total:hover {
+                        background: linear-gradient(135deg, #27ae60, var(--success));
+                    }
+                    .tb-cell {
+                        padding: 1rem 1.5rem;
+                        text-align: center;
+                        display: flex;
+                        align-items: center;
+                    }
+                    .tb-cell:first-child {
+                        text-align: left;
+                        font-weight: 500;
+                    }
+                    .tb-cell.debit { color: var(--success); font-weight: 700; }
+                    .tb-cell.credit { color: var(--error); font-weight: 700; }
+                    .tb-cell.empty { color: #ccc; font-style: italic; }
+                    /* Balance indicator */
+                    .tb-indicator {
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        gap: 0.5rem;
+                        margin-top: 1.5rem;
+                        padding: 1rem;
+                        background: var(--white);
+                        border-radius: var(--radius-sm);
+                    }
+                    .tb-indicator .icon {
+                        font-size: 1.5rem;
+                    }
+                    .tb-indicator .text {
+                        font-weight: 600;
+                    }
+                    .tb-indicator .text.success { color: var(--success); }
+                    .tb-indicator .text.error { color: var(--error); }
+                    /* Formula box */
+                    .tb-formula {
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        gap: 1rem;
+                        margin-top: 1.5rem;
+                        padding: 1rem;
+                        background: var(--white);
+                        border-radius: var(--radius-sm);
+                        flex-wrap: wrap;
+                    }
+                    .tb-formula-item {
+                        display: flex;
+                        align-items: center;
+                        gap: 0.5rem;
+                        font-weight: 600;
+                    }
+                    .tb-formula-item .value {
+                        color: var(--primary);
+                        font-size: 1.2rem;
+                    }
+                    .tb-formula-item .equals {
+                        color: var(--text-muted);
+                        font-size: 1.5rem;
+                    }
+                    /* Flow diagram */
+                    .tb-flow {
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        gap: 0.5rem;
+                        margin-top: 1.5rem;
+                        flex-wrap: wrap;
+                        padding: 1rem;
+                        background: var(--white);
+                        border-radius: var(--radius-sm);
+                    }
+                    .tb-flow-step {
+                        display: flex;
+                        align-items: center;
+                        gap: 0.5rem;
+                        padding: 0.75rem 1rem;
+                        border-radius: var(--radius-sm);
+                        font-size: 0.85rem;
+                        font-weight: 600;
+                    }
+                    .tb-flow-step.primary {
+                        background: var(--primary-light);
+                        color: white;
+                    }
+                    .tb-flow-step.secondary {
+                        background: var(--secondary-light);
+                        color: white;
+                    }
+                    .tb-flow-step.success {
+                        background: var(--success);
+                        color: white;
+                    }
+                    .tb-flow-arrow {
+                        color: var(--primary);
+                        font-size: 1.2rem;
+                    }
+                </style>
+
+                <div class="trial-balance-visual">
+                    <!-- Trial Balance Table -->
+                    <div class="tb-header">
+                        <div>Account Name</div>
+                        <div>Debit ($)</div>
+                        <div>Credit ($)</div>
+                    </div>
+
+                    <div class="tb-row">
+                        <div class="tb-cell">Cash</div>
+                        <div class="tb-cell debit">8,500</div>
+                        <div class="tb-cell empty">—</div>
+                    </div>
+
+                    <div class="tb-row">
+                        <div class="tb-cell">Accounts Receivable</div>
+                        <div class="tb-cell debit">3,200</div>
+                        <div class="tb-cell empty">—</div>
+                    </div>
+
+                    <div class="tb-row">
+                        <div class="tb-cell">Office Supplies</div>
+                        <div class="tb-cell debit">1,800</div>
+                        <div class="tb-cell empty">—</div>
+                    </div>
+
+                    <div class="tb-row">
+                        <div class="tb-cell">Equipment</div>
+                        <div class="tb-cell debit">12,000</div>
+                        <div class="tb-cell empty">—</div>
+                    </div>
+
+                    <div class="tb-row">
+                        <div class="tb-cell">Accounts Payable</div>
+                        <div class="tb-cell empty">—</div>
+                        <div class="tb-cell credit">5,500</div>
+                    </div>
+
+                    <div class="tb-row">
+                        <div class="tb-cell">Notes Payable</div>
+                        <div class="tb-cell empty">—</div>
+                        <div class="tb-cell credit">8,000</div>
+                    </div>
+
+                    <div class="tb-row">
+                        <div class="tb-cell">Common Stock</div>
+                        <div class="tb-cell empty">—</div>
+                        <div class="tb-cell credit">10,000</div>
+                    </div>
+
+                    <div class="tb-row">
+                        <div class="tb-cell">Service Revenue</div>
+                        <div class="tb-cell empty">—</div>
+                        <div class="tb-cell credit">7,500</div>
+                    </div>
+
+                    <div class="tb-row">
+                        <div class="tb-cell">Rent Expense</div>
+                        <div class="tb-cell debit">3,000</div>
+                        <div class="tb-cell empty">—</div>
+                    </div>
+
+                    <div class="tb-row">
+                        <div class="tb-cell">Salaries Expense</div>
+                        <div class="tb-cell debit">2,500</div>
+                        <div class="tb-cell empty">—</div>
+                    </div>
+
+                    <div class="tb-row total">
+                        <div class="tb-cell">TOTALS</div>
+                        <div class="tb-cell">$31,000</div>
+                        <div class="tb-cell">$31,000</div>
+                    </div>
+                </div>
+
+                <!-- Balance Indicator -->
+                <div class="tb-indicator">
+                    <span class="icon">✅</span>
+                    <span class="text success">BALANCED: Total Debits ($31,000) = Total Credits ($31,000)</span>
+                </div>
+
+                <!-- Formula Display -->
+                <div class="tb-formula">
+                    <div class="tb-formula-item">
+                        <span>Sum of all Debits =</span>
+                        <span class="value">$31,000</span>
+                    </div>
+                    <div class="tb-formula-item equals">=</div>
+                    <div class="tb-formula-item">
+                        <span>Sum of all Credits =</span>
+                        <span class="value">$31,000</span>
+                    </div>
+                </div>
+
+                <!-- Process Flow -->
+                <div class="tb-flow">
+                    <div class="tb-flow-step primary">📋 Ledger Balances</div>
+                    <span class="tb-flow-arrow">→</span>
+                    <div class="tb-flow-step secondary">📊 Trial Balance</div>
+                    <span class="tb-flow-arrow">→</span>
+                    <div class="tb-flow-step success">✅ Verify Equality</div>
+                </div>
+            </section>
+
+            <!-- Deep Dive -->
+            <section class="kp-section">
+                <h2>🔍 Deep Dive</h2>
+                <p>Explore trial balance concepts at different levels of depth:</p>
+
+                <div class="depth-toggle">
+                    <button class="depth-btn active" onclick="setDepth('A')">Depth A: Foundational</button>
+                    <button class="depth-btn" onclick="setDepth('B')">Depth B: Standard</button>
+                    <button class="depth-btn" onclick="setDepth('C')">Depth C: Advanced</button>
+                </div>
+
+                <!-- Depth A -->
+                <div id="depth-A" class="depth-content active">
+                    <h3>🟢 Foundational Level</h3>
+                    <p>Understanding the basic structure and purpose of trial balance.</p>
+
+                    <div class="worked-example">
+                        <h4>The Accounting Checkpoint</h4>
+                        <p><strong>Analogy: The Weight Scale</strong></p>
+                        <p>Imagine a classic two-pan scale. A <strong>Trial Balance</strong> is simply putting all your "Left side" items (Debits) on one pan and all your "Right side" items (Credits) on the other.</p>
+                        <p style="margin-top: 1rem;">If the scale doesn't balance perfectly, you <strong>cannot</strong> close the store and go home. You must find the error.</p>
+                    </div>
+
+                    <h3>Preparation Steps</h3>
+                    <ol style="line-height: 1.8; margin-left: 1.5rem;">
+                        <li><strong>List</strong> every account title and its final balance from the Ledger.</li>
+                        <li><strong>Separate</strong> them into two columns: Debit and Credit.</li>
+                        <li><strong>Sum</strong> both columns. They MUST be equal.</li>
+                    </ol>
+                </div>
+
+                <!-- Depth B -->
+                <div id="depth-B" class="depth-content">
+                    <h3>🟡 Standard Level</h3>
+                    <p>Understanding what trial balance can and cannot detect.</p>
+
+                    <div class="worked-example">
+                        <h4>What It Can (And Cannot) Catch</h4>
+                        <p>The Trial Balance only proves that Debits = Credits. It does NOT prove you are a perfect accountant.</p>
+                        <div class="card-grid">
+                            <div class="content-card">
+                                <h4>It WILL Catch</h4>
+                                <p>Mathematical errors in summing.</p>
+                                <p>Recording only half of an entry (e.g., a Debit without a Credit).</p>
+                            </div>
+                            <div class="content-card" style="border-top: 4px solid var(--error);">
+                                <h4>It WON'T Catch</h4>
+                                <p><strong>Omissions:</strong> Forgetting an entry entirely.</p>
+                                <p><strong>Wrong Account:</strong> Debiting "Supplies" instead of "Equipment" (both are assets, so it still balances).</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="worked-example">
+                        <h4>Common Errors That Still Balance</h4>
+                        <p>These errors are dangerous because trial balance appears correct, but statements will be wrong:</p>
+                        <div class="example-step">
+                            <strong>1. Posting to Wrong Account:</strong>
+                            <p>Debiting "Office Supplies" instead of "Office Equipment" (both asset accounts, balance maintained)</p>
+                        </div>
+                        <div class="example-step">
+                            <strong>2. Transposition Error:</strong>
+                            <p>Writing $520 as $250 (digits swapped, both wrong amounts maintain balance)</p>
+                        </div>
+                        <div class="example-step">
+                            <strong>3. Complete Omission:</strong>
+                            <p>Forgot a transaction entirely. Since no entry was made, nothing is out of balance.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Depth C -->
+                <div id="depth-C" class="depth-content">
+                    <h3>🔴 Advanced Level</h3>
+                    <p>Error detection techniques and working with adjusted trial balances.</p>
+
+                    <div class="worked-example">
+                        <h4>Advanced Error Detection Techniques</h4>
+                        <p>When trial balance doesn't balance, use systematic approaches to identify errors:</p>
+                        <div class="example-step">
+                            <strong>1. Trace Backwards:</strong>
+                            <p>Start from financial statement amounts and trace back to ledger, then to journal entries to find where the error occurred.</p>
+                        </div>
+                        <div class="example-step">
+                            <strong>2. Verify Posting:</strong>
+                            <p>Check if all journal entries were posted correctly to ledger accounts. Look for amounts posted to wrong accounts or posted twice.</p>
+                        </div>
+                        <div class="example-step">
+                            <strong>3. Recalculate Balances:</strong>
+                            <p>Recalculate each ledger account balance from scratch to ensure arithmetic is correct.</p>
+                        </div>
+                    </div>
+
+                    <div class="worked-example">
+                        <h4>Adjusted vs. Unadjusted Trial Balance</h4>
+                        <p><strong>Scenario:</strong> End of month, prepayments and accrued items need adjusting.</p>
+                        <div class="example-step">
+                            <strong>Unadjusted Trial Balance:</strong>
+                            <p>Shows balances from daily transactions only (e.g., Supplies: $5,000, Prepaid Insurance: $2,400)</p>
+                        </div>
+                        <div class="example-step">
+                            <strong>After Adjusting Entries:</strong>
+                            <p>Adjustments made (e.g., Supplies used $1,000, Insurance expired $200)</p>
+                        </div>
+                        <div class="example-step">
+                            <strong>Adjusted Trial Balance:</strong>
+                            <p>Shows updated balances (Supplies: $4,000, Insurance Expense: $200). This is used for financial statements.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Error Detection Tips -->
+            <section class="kp-section">
+                <h2>🎯 Professional Tips: How to Find Differences</h2>
+                <p>If your totals don't match, don't panic. Use these math tricks to find the culprit:</p>
+                <div class="card-grid" style="margin-top: 1rem;">
+                    <!-- Tip 1 -->
+                    <div class="content-card" style="border-left: 4px solid var(--info);">
+                        <h3>Divide by 2</h3>
+                        <p><strong>Scenario:</strong> You are off by $400.</p>
+                        <p><strong>Trick:</strong> $400 / 2 = $200. Look for a $200 entry.</p>
+                        <p><strong>Why?</strong> You likely put a $200 Debit on the Credit side. This doubles the error impact.</p>
+                    </div>
+                    <!-- Tip 2 -->
+                    <div class="content-card" style="border-left: 4px solid var(--warning);">
+                        <h3>Divide by 9</h3>
+                        <p><strong>Scenario:</strong> You are off by $45.</p>
+                        <p><strong>Trick:</strong> Is it divisible by 9? Yes.</p>
+                        <p><strong>Why?</strong> This usually means a <strong>Slide</strong> (wrote $50 as $500) or a <strong>Transposition</strong> (wrote $61 as $16).</p>
+                    </div>
+                    <!-- Tip 3 -->
+                    <div class="content-card" style="border-left: 4px solid var(--success);">
+                        <h3>Check Rounding</h3>
+                        <p><strong>Scenario:</strong> Difference is $0.03.</p>
+                        <p><strong>Trick:</strong> Check for rounding errors in calculations, especially when dealing with percentages or tax calculations.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Interactive Practice -->
+            <section class="interactive-section">
+                <h2>🎨 Interactive Journal Entry Practice</h2>
+                <p>Given the following transaction, select the correct accounts and whether they should be debited or credited.</p>
+
+                <div
+                    style="background: var(--bg-light); padding: 1.5rem; border-radius: 8px; margin: 2rem 0; border-left: 4px solid var(--info);">
+                    <p style="margin: 0; font-size: 1.1rem;"><strong>Transaction Scenario:</strong></p>
+                    <p id="je-scenario" style="margin-top: 0.5rem;">The company purchased office supplies for $500 cash.
+                    </p>
+                </div>
+
+                <div class="card-grid">
+                    <div class="content-card">
+                        <h4>First Account</h4>
+                        <div class="input-group">
+                            <label>Account Name:</label>
+                            <select id="je-account1" class="je-select">
+                                <option value="">Select...</option>
+                                <option value="Cash">Cash</option>
+                                <option value="Supplies">Supplies</option>
+                                <option value="Equipment">Equipment</option>
+                                <option value="Accounts Payable">Accounts Payable</option>
+                                <option value="Accounts Receivable">Accounts Receivable</option>
+                            </select>
+                        </div>
+                        <div class="input-group">
+                            <label>Type:</label>
+                            <select id="je-type1" class="je-select">
+                                <option value="">Select...</option>
+                                <option value="Debit">Debit</option>
+                                <option value="Credit">Credit</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="content-card">
+                        <h4>Second Account</h4>
+                        <div class="input-group">
+                            <label>Account Name:</label>
+                            <select id="je-account2" class="je-select">
+                                <option value="">Select...</option>
+                                <option value="Cash">Cash</option>
+                                <option value="Supplies">Supplies</option>
+                                <option value="Equipment">Equipment</option>
+                                <option value="Accounts Payable">Accounts Payable</option>
+                                <option value="Accounts Receivable">Accounts Receivable</option>
+                            </select>
+                        </div>
+                        <div class="input-group">
+                            <label>Type:</label>
+                            <select id="je-type2" class="je-select">
+                                <option value="">Select...</option>
+                                <option value="Debit">Debit</option>
+                                <option value="Credit">Credit</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <div style="text-align: center; margin-top: 2rem;">
+                    <button class="btn btn-primary" onclick="checkJournalEntry()">Check My Entry</button>
+                    <button class="btn btn-outline" onclick="nextScenario()">Next Scenario</button>
+                </div>
+
+                <div id="je-feedback" style="margin-top: 1.5rem; padding: 1rem; border-radius: 8px; display: none;">
+                </div>
+            </section>
+
+            <!-- Full Trial Balance Exercise -->
+            <section class="interactive-section">
+                <h2>Full Trial Balance Exercise</h2>
+                <p>Categorize these accounts from <strong>FastForward</strong> into the correct columns. The totals must match!</p>
+
+                <div class="table-scroll">
+                    <table class="transaction-table">
+                        <thead>
+                            <tr>
+                                <th>Account</th>
+                                <th>Debit Column</th>
+                                <th>Credit Column</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Cash</td>
+                                <td><input type="number" class="tb-input dr" value="30000"></td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td>Supplies</td>
+                                <td><input type="number" class="tb-input dr" value="2500"></td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td>Accounts Payable</td>
+                                <td></td>
+                                <td><input type="number" class="tb-input cr" value="2500"></td>
+                            </tr>
+                            <tr>
+                                <td>Common Stock</td>
+                                <td></td>
+                                <td><input type="number" class="tb-input cr" value="30000"></td>
+                            </tr>
+                            <tr style="background: #f0f0f0; font-weight: bold;">
+                                <td>Totals</td>
+                                <td id="tb-dr-total">$32,500</td>
+                                <td id="tb-cr-total">$32,500</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div id="p1-status"
+                    style="text-align: center; margin-top: 1rem; font-weight: bold; color: var(--success);">THE BOOKS ARE BALANCED</div>
+            </section>
+
+            <!-- Common Misconceptions -->
+            <section class="kp-section">
+                <h2>🚫 Common Misconceptions & Professional Tips</h2>
+
+                <div class="misconception-alert">
+                    <strong>❌ Misconception 1:</strong> "If trial balance balances, the accounts are correct."
+                    <br><br>
+                    <strong>✅ Reality:</strong> A balanced trial balance only proves mathematical equality. It doesn't catch wrong account classifications, omitted transactions, or transposed digits.
+                </div>
+
+                <div class="misconception-alert">
+                    <strong>❌ Misconception 2:</strong> "Trial balance is prepared for external users."
+                    <br><br>
+                    <strong>✅ Reality:</strong> Trial balance is an INTERNAL document for accountants to verify accuracy. It is not part of the financial statements distributed to external stakeholders.
+                </div>
+
+                <div class="misconception-alert">
+                    <strong>❌ Misconception 3:</strong> "Trial balance is the same as balance sheet."
+                    <br><br>
+                    <strong>✅ Reality:</strong> Trial balance is a verification tool. The balance sheet is a formal financial statement. However, adjusted trial balance data is the SOURCE for the balance sheet.
+                </div>
+
+                <div class="professional-tip">
+                    <strong>💡 Professional Tip #1:</strong> Prepare trial balance at regular intervals (daily, weekly) to catch errors early when they're easier to fix.
+                </div>
+
+                <div class="professional-tip">
+                    <strong>💡 Professional Tip #2:</strong> Use spreadsheet or accounting software with built-in trial balance functionality to minimize manual calculation errors.
+                </div>
+
+                <div class="professional-tip">
+                    <strong>💡 Professional Tip #3:</strong> When trial balance doesn't balance, start with mathematical checks before searching for transaction errors. Most discrepancies are simple arithmetic errors.
+                </div>
+            </section>
+
+            <!-- Memory Aids -->
+            <section class="kp-section">
+                <h2>🧠 Memory Aids & Quick Reference</h2>
+
+                <div class="memory-aid-card">
+                    <strong>⚡ Quick Recall: Trial Balance Purpose</strong>
+                    <p><strong>Verify</strong> that total debits = total credits</p>
+                    <p><strong>Identify</strong> mathematical errors before financial statements</p>
+                    <p><strong>Provide</strong> basis for adjusting entries and financial statements</p>
+                </div>
+
+                <div class="key-concepts-grid">
+                    <div class="concept-card">
+                        <strong>✅ Catches</strong>
+                        <p>Math errors, half entries posted, calculation mistakes</p>
+                    </div>
+
+                    <div class="concept-card">
+                        <strong>❌ Misses</strong>
+                        <p>Omitted transactions, wrong accounts, transposed digits</p>
+                    </div>
+
+                    <div class="concept-card">
+                        <strong>🔍 Error Tricks</strong>
+                        <p>Difference ÷ 2 → debit on wrong side</p>
+                        <p>Difference ÷ 9 → slide or transposition error</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Glossary -->
+            <section class="kp-section">
+                <h2>📖 Glossary</h2>
+                <div class="key-concepts-grid">
+                    <div class="concept-card">
+                        <strong>Trial Balance</strong>
+                        <p>A list of all ledger account balances showing debit and credit totals to verify they are equal.</p>
+                    </div>
+
+                    <div class="concept-card">
+                        <strong>Unadjusted Trial Balance</strong>
+                        <p>Trial balance before adjusting entries, showing balances from regular transactions only.</p>
+                    </div>
+
+                    <div class="concept-card">
+                        <strong>Adjusted Trial Balance</strong>
+                        <p>Trial balance after adjusting entries, used to prepare financial statements.</p>
+                    </div>
+
+                    <div class="concept-card">
+                        <strong>Transposition Error</strong>
+                        <p>Writing digits in wrong order (e.g., 52 as 25), causing error that's usually divisible by 9.</p>
+                    </div>
+
+                    <div class="concept-card">
+                        <strong>Slide Error</strong>
+                        <p>Moving decimal point incorrectly (e.g., $50 as $500), causing large errors.</p>
+                    </div>
+
+                    <div class="concept-card">
+                        <strong>Adjusting Entries</strong>
+                        <p>Journal entries made at period-end to update accounts for accruals, deferrals, and estimates.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Final Knowledge Check -->
+            <section class="interactive-section">
+                <h2>🎯 Final Knowledge Check</h2>
+                <p>Test your understanding of Trial Balance Preparation:</p>
+
+                <div class="quiz-container" data-success-text="Excellent! You've mastered trial balance preparation." data-explanation="Trial balance is an internal verification tool that ensures debits equal credits, but it doesn't guarantee all entries are correct or complete.">
+                    <div class="input-group">
+                        <p><strong>Question 1:</strong> What is the primary purpose of a trial balance?</p>
+                        <label><input type="radio" name="q1" value="correct" data-correct="true"> Verify that total debits equal total credits</label><br>
+                        <label><input type="radio" name="q1" value="incorrect1" data-correct="false"> Prepare financial statements for external users</label><br>
+                        <label><input type="radio" name="q1" value="incorrect2" data-correct="false"> Record new transactions</label>
+                    </div>
+
+                    <div class="input-group">
+                        <p><strong>Question 2:</strong> If trial balance difference is divisible by 9, what type of error is likely?</p>
+                        <label><input type="radio" name="q2" value="correct" data-correct="true"> Transposition or slide error</label><br>
+                        <label><input type="radio" name="q2" value="incorrect1" data-correct="false"> Posted debit on wrong side</label><br>
+                        <label><input type="radio" name="q2" value="incorrect2" data-correct="false"> Omitted transaction</label>
+                    </div>
+
+                    <div class="input-group">
+                        <p><strong>Question 3:</strong> Which of these errors WILL the trial balance detect?</p>
+                        <label><input type="radio" name="q3" value="incorrect1" data-correct="false"> Recording to wrong account</label><br>
+                        <label><input type="radio" name="q3" value="incorrect2" data-correct="false"> Forgetting a transaction entirely</label><br>
+                        <label><input type="radio" name="q3" value="correct" data-correct="true"> Posting only half of an entry</label>
+                    </div>
+
+                    <button class="btn btn-primary quiz-submit">Submit Answers</button>
+                    <div class="feedback"></div>
+                    <button class="quiz-retry">Try Again</button>
+                </div>
+            </section>
+
+            <!-- Navigation -->
+            <nav class="kp-navigation" style="display: flex; justify-content: space-between; margin-top: 4rem; padding-bottom: 2rem;">
+                <a href="ch02_A2.html" class="btn" style="background: #eee;">← Previous: Debt Ratio</a>
+                <a href="../part1.html" class="btn btn-primary">Part 1 Overview →</a>
+            </nav>
+        </article>
+    </main>
+
+    <footer style="margin-top: 5rem; padding: 2rem 0; border-top: 1px solid #ddd; text-align: center; color: #888;">
+        <p>Accounting Essentials | Chapter 2 | Procedure 1</p>
+    </footer>
+
+    <script src="../../components-enhanced.js"></script>
+    <script>
+        function setDepth(depth) {
+            document.querySelectorAll('.depth-btn').forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+
+            document.querySelectorAll('.depth-content').forEach(content => content.classList.remove('active'));
+            document.getElementById(`depth-${depth}`).classList.add('active');
+        }
+
+        // Journal Entry Practice Scenarios
+        const jeScenarios = [
+            {
+                text: "The company purchased office supplies for $500 cash.",
+                answers: [
+                    { account: "Supplies", type: "Debit" },
+                    { account: "Cash", type: "Credit" }
+                ]
+            },
+            {
+                text: "The company purchased equipment for $3,000 on account.",
+                answers: [
+                    { account: "Equipment", type: "Debit" },
+                    { account: "Accounts Payable", type: "Credit" }
+                ]
+            },
+            {
+                text: "The company collected $1,200 from a customer for services previously provided on account.",
+                answers: [
+                    { account: "Cash", type: "Debit" },
+                    { account: "Accounts Receivable", type: "Credit" }
+                ]
+            }
+        ];
+
+        let currentScenario = 0;
+
+        function checkJournalEntry() {
+            const acc1 = document.getElementById('je-account1').value;
+            const type1 = document.getElementById('je-type1').value;
+            const acc2 = document.getElementById('je-account2').value;
+            const type2 = document.getElementById('je-type2').value;
+
+            const scenario = jeScenarios[currentScenario];
+            const feedback = document.getElementById('je-feedback');
+
+            // Check if both answers are correct (order doesn't matter)
+            const isCorrect = (
+                (acc1 === scenario.answers[0].account && type1 === scenario.answers[0].type &&
+                    acc2 === scenario.answers[1].account && type2 === scenario.answers[1].type) ||
+                (acc1 === scenario.answers[1].account && type1 === scenario.answers[1].type &&
+                    acc2 === scenario.answers[0].account && type2 === scenario.answers[0].type)
+            );
+
+            feedback.style.display = 'block';
+            if (isCorrect) {
+                feedback.style.background = 'var(--success-light)';
+                feedback.style.color = 'var(--success-dark)';
+                feedback.innerHTML = '<strong>✓ Correct!</strong> ' + scenario.answers[0].type + ' ' + scenario.answers[0].account + ' and ' + scenario.answers[1].type + ' ' + scenario.answers[1].account + '.';
+            } else {
+                feedback.style.background = 'var(--error-light)';
+                feedback.style.color = 'var(--error-dark)';
+                feedback.innerHTML = '<strong>✗ Incorrect.</strong> Remember: assets increase with debits, and when you pay cash, you credit Cash.';
+            }
+        }
+
+        function nextScenario() {
+            currentScenario = (currentScenario + 1) % jeScenarios.length;
+            document.getElementById('je-scenario').textContent = jeScenarios[currentScenario].text;
+            document.getElementById('je-account1').value = '';
+            document.getElementById('je-type1').value = '';
+            document.getElementById('je-account2').value = '';
+            document.getElementById('je-type2').value = '';
+            document.getElementById('je-feedback').style.display = 'none';
+        }
+    </script>
+</body>
+
+</html>

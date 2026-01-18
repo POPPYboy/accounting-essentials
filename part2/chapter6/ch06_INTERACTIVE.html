@@ -1,0 +1,791 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactive: Financial Ratios | ACCOUNTING ESSENTIALS</title>
+    <link rel="stylesheet" href="../../styles.css">
+    <style>
+        /* Calculator Styles */
+        .calculator-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+            margin: 30px 0;
+        }
+
+        .calculator-card {
+            background: var(--white);
+            border: 2px solid var(--primary);
+            border-radius: var(--radius-md);
+            padding: 25px;
+            transition: all 0.3s ease;
+        }
+
+        .calculator-card:hover {
+            box-shadow: var(--shadow-lg);
+            transform: translateY(-5px);
+        }
+
+        .calculator-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .calculator-icon {
+            font-size: 2rem;
+            margin-right: 15px;
+        }
+
+        .calculator-title {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--primary);
+        }
+
+        .formula-box {
+            background: var(--bg-light);
+            padding: 15px;
+            border-radius: var(--radius-sm);
+            margin-bottom: 15px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9rem;
+            border-left: 4px solid var(--secondary);
+        }
+
+        .input-group {
+            margin: 15px 0;
+        }
+
+        .input-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: 600;
+            color: var(--text-main);
+        }
+
+        .input-group input {
+            width: 100%;
+            padding: 10px;
+            border: 2px solid var(--text-muted);
+            border-radius: var(--radius-sm);
+            font-size: 1rem;
+            transition: border-color 0.3s ease;
+        }
+
+        .input-group input:focus {
+            outline: none;
+            border-color: var(--primary);
+        }
+
+        .result-display {
+            background: var(--primary);
+            color: var(--white);
+            padding: 20px;
+            border-radius: var(--radius-sm);
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .result-value {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin: 10px 0;
+        }
+
+        .result-label {
+            font-size: 0.9rem;
+            opacity: 0.9;
+        }
+
+        /* Inventory Comparison Styles */
+        .comparison-container {
+            background: var(--bg-light);
+            padding: 30px;
+            border-radius: var(--radius-md);
+            margin: 30px 0;
+        }
+
+        .comparison-header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .comparison-table {
+            width: 100%;
+            border-collapse: collapse;
+            background: var(--white);
+            border-radius: var(--radius-sm);
+            overflow: hidden;
+            margin: 20px 0;
+        }
+
+        .comparison-table th,
+        .comparison-table td {
+            padding: 15px;
+            text-align: center;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .comparison-table th {
+            background: var(--primary);
+            color: var(--white);
+            font-weight: 600;
+        }
+
+        .comparison-table tr:hover {
+            background: var(--bg-light);
+        }
+
+        .comparison-table .highlight {
+            background: var(--info-light);
+            font-weight: 600;
+        }
+
+        .comparison-table .highest {
+            background: var(--success-light);
+            color: var(--success-dark);
+            font-weight: 700;
+        }
+
+        .comparison-table .lowest {
+            background: var(--error-light);
+            color: var(--error-dark);
+            font-weight: 700;
+        }
+
+        /* Slider Styles */
+        .slider-container {
+            margin: 20px 0;
+        }
+
+        .slider-label {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+            font-weight: 600;
+        }
+
+        .slider {
+            width: 100%;
+            height: 10px;
+            border-radius: 5px;
+            background: var(--text-muted);
+            outline: none;
+            opacity: 0.7;
+            transition: opacity 0.2s;
+        }
+
+        .slider:hover {
+            opacity: 1;
+        }
+
+        .slider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: var(--primary);
+            cursor: pointer;
+        }
+
+        .slider::-moz-range-thumb {
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: var(--primary);
+            cursor: pointer;
+        }
+
+        /* Chart Styles */
+        .chart-container {
+            background: var(--white);
+            padding: 20px;
+            border-radius: var(--radius-md);
+            margin: 20px 0;
+            height: 300px;
+            display: flex;
+            align-items: flex-end;
+            justify-content: space-around;
+            border: 2px solid var(--primary);
+        }
+
+        .chart-bar {
+            width: 60px;
+            background: var(--primary);
+            margin: 0 10px;
+            transition: all 0.3s ease;
+            position: relative;
+            border-radius: 5px 5px 0 0;
+        }
+
+        .chart-bar:hover {
+            transform: scale(1.05);
+        }
+
+        .chart-bar.fifo {
+            background: var(--success);
+        }
+
+        .chart-bar.lifo {
+            background: var(--error);
+        }
+
+        .chart-bar.weighted {
+            background: var(--secondary);
+        }
+
+        .chart-label {
+            position: absolute;
+            bottom: -25px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 0.8rem;
+            font-weight: 600;
+            white-space: nowrap;
+        }
+
+        .chart-value {
+            position: absolute;
+            top: -25px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-weight: 700;
+            font-size: 0.9rem;
+        }
+
+        /* Explanation Box */
+        .explanation-box {
+            background: var(--info-light);
+            border-left: 4px solid var(--info);
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: var(--radius-sm);
+        }
+
+        .explanation-box h4 {
+            color: var(--info);
+            margin-bottom: 10px;
+        }
+
+        /* Scenario Selector */
+        .scenario-selector {
+            background: var(--white);
+            padding: 20px;
+            border-radius: var(--radius-sm);
+            margin: 20px 0;
+        }
+
+        .scenario-buttons {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .scenario-btn {
+            padding: 10px 20px;
+            background: var(--primary-light);
+            color: var(--white);
+            border: 2px solid var(--primary);
+            border-radius: var(--radius-sm);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 600;
+        }
+
+        .scenario-btn:hover {
+            background: var(--primary);
+        }
+
+        .scenario-btn.active {
+            background: var(--secondary);
+            border-color: var(--secondary);
+        }
+    </style>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-50MTQPVR7D"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-50MTQPVR7D');
+</script>
+
+</head>
+
+<body>
+    <header>
+        <div class="container nav-container">
+            <a href="../../index.html" class="logo">ACCOUNTING<span>ESSENTIALS</span></a>
+            <nav class="nav-links">
+                <a href="../../index.html">Home</a>
+                <a href="../part2.html">Part 2</a>
+                <a href="../../part3/part3.html">Part 3</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container">
+        <div class="breadcrumbs">
+            <a href="../../index.html">Home</a> <span>/</span> <a href="../part2.html">Part 2</a> <span>/</span> <a href="ch06.html">Chapter 6</a> <span>/</span> Interactive
+        </div>
+
+        <article class="animate-fade-in">
+            <h1 style="border-left: 8px solid var(--accent); padding-left: 1rem; margin: 2rem 0;">🎮 Interactive Learning: Ratio Analysis & Inventory Valuation</h1>
+
+            <!-- Section 1: Financial Ratios Calculator -->
+            <section class="interactive-section">
+                <h2>1. Financial Ratios Calculator</h2>
+                <p>Enter financial data to automatically calculate key financial ratios. See how ratio changes affect financial health in real time!</p>
+
+                <div class="calculator-grid">
+                    <!-- Liquidity Ratios -->
+                    <div class="calculator-card">
+                        <div class="calculator-header">
+                            <span class="calculator-icon">💧</span>
+                            <span class="calculator-title">Current Ratio</span>
+                        </div>
+                        <div class="formula-box">
+                            Current Ratio = Current Assets / Current Liabilities
+                        </div>
+                        <div class="input-group">
+                            <label>Current Assets ($)</label>
+                            <input type="number" id="current-assets" value="50000" oninput="calculateLiquidity()">
+                        </div>
+                        <div class="input-group">
+                            <label>Current Liabilities ($)</label>
+                            <input type="number" id="current-liabilities" value="25000" oninput="calculateLiquidity()">
+                        </div>
+                        <div class="result-display">
+                            <div class="result-label">Current Ratio</div>
+                            <div class="result-value" id="current-ratio">2.00</div>
+                        </div>
+                    </div>
+
+                    <!-- Profitability Ratios -->
+                    <div class="calculator-card">
+                        <div class="calculator-header">
+                            <span class="calculator-icon">📈</span>
+                            <span class="calculator-title">Return on Assets (ROA)</span>
+                        </div>
+                        <div class="formula-box">
+                            ROA = Net Income / Average Total Assets × 100%
+                        </div>
+                        <div class="input-group">
+                            <label>Net Income ($)</label>
+                            <input type="number" id="net-income" value="100000" oninput="calculateROA()">
+                        </div>
+                        <div class="input-group">
+                            <label>Average Total Assets ($)</label>
+                            <input type="number" id="average-assets" value="500000" oninput="calculateROA()">
+                        </div>
+                        <div class="result-display">
+                            <div class="result-label">Return on Assets</div>
+                            <div class="result-value" id="roa-result">20.00%</div>
+                        </div>
+                    </div>
+
+                    <!-- Profit Margin -->
+                    <div class="calculator-card">
+                        <div class="calculator-header">
+                            <span class="calculator-icon">💰</span>
+                            <span class="calculator-title">Profit Margin</span>
+                        </div>
+                        <div class="formula-box">
+                            Profit Margin = Net Income / Sales Revenue × 100%
+                        </div>
+                        <div class="input-group">
+                            <label>Net Income ($)</label>
+                            <input type="number" id="profit-margin-income" value="100000" oninput="calculateProfitMargin()">
+                        </div>
+                        <div class="input-group">
+                            <label>Sales Revenue ($)</label>
+                            <input type="number" id="sales-revenue" value="500000" oninput="calculateProfitMargin()">
+                        </div>
+                        <div class="result-display">
+                            <div class="result-label">Profit Margin</div>
+                            <div class="result-value" id="profit-margin-result">20.00%</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="explanation-box">
+                    <h4>💡 Ratio Explanations</h4>
+                    <ul>
+                        <li><strong>Current Ratio:</strong> Measures a company's ability to meet short-term obligations. A ratio > 1.0 indicates that current assets are sufficient to cover current liabilities.</li>
+                        <li><strong>Return on Assets (ROA):</strong> Measures how efficiently a company uses its assets to generate profit. A higher ratio indicates better asset efficiency.</li>
+                        <li><strong>Profit Margin:</strong> Measures the percentage of profit in each dollar of revenue. A higher ratio indicates stronger profitability.</li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- Section 2: Inventory Valuation Comparison -->
+            <section class="interactive-section">
+                <h2>2. Inventory Valuation Method Comparison</h2>
+                <p>Compare effects of different inventory valuation methods in inflationary environments. Adjust parameters and observe changes!</p>
+
+                <div class="comparison-container">
+                    <div class="scenario-selector">
+                        <h4>Select Economic Scenario:</h4>
+                        <div class="scenario-buttons">
+                            <button class="scenario-btn active" onclick="selectScenario('normal')">Normal Prices</button>
+                            <button class="scenario-btn" onclick="selectScenario('inflation')">Inflation</button>
+                            <button class="scenario-btn" onclick="selectScenario('deflation')">Deflation</button>
+                        </div>
+                    </div>
+
+                    <div class="slider-container">
+                        <div class="slider-label">
+                            <span>Initial Inventory Units:</span>
+                            <span id="initial-units">100</span>
+                        </div>
+                        <input type="range" class="slider" id="initial-units-slider" min="50" max="500" value="100" oninput="updateInventory()">
+                    </div>
+
+                    <div class="slider-container">
+                        <div class="slider-label">
+                            <span>Units Sold:</span>
+                            <span id="sold-units">80</span>
+                        </div>
+                        <input type="range" class="slider" id="sold-units-slider" min="10" max="400" value="80" oninput="updateInventory()">
+                    </div>
+
+                    <h3 style="text-align: center; margin: 30px 0;">📊 Inventory Valuation Method Comparison</h3>
+
+                    <table class="comparison-table">
+                        <thead>
+                            <tr>
+                                <th>Valuation Method</th>
+                                <th>Cost of Goods Sold (COGS)</th>
+                                <th>Ending Inventory Value</th>
+                                <th>Gross Profit</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="highlight">
+                                <td><strong>FIFO (FIFO)</strong></td>
+                                <td id="fifo-cogs">$8,000</td>
+                                <td id="fifo-inventory">$2,000</td>
+                                <td id="fifo-gross">$7,000</td>
+                            </tr>
+                            <tr class="highlight">
+                                <td><strong>LIFO (LIFO)</strong></td>
+                                <td id="lifo-cogs">$9,600</td>
+                                <td id="lifo-inventory">$400</td>
+                                <td id="lifo-gross">$5,400</td>
+                            </tr>
+                            <tr class="highlight">
+                                <td><strong>Weighted Average Method</strong></td>
+                                <td id="weighted-cogs">$8,800</td>
+                                <td id="weighted-inventory">$1,200</td>
+                                <td id="weighted-gross">$6,200</td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <div class="chart-container" id="comparison-chart">
+                        <!-- Bars will be generated by JavaScript -->
+                    </div>
+
+                    <div class="explanation-box">
+                        <h4>📚 Method Explanations</h4>
+                        <p><strong>FIFO (First-In, First-Out):</strong> Assumes the first units purchased are the first ones sold. During inflation, this results in a lower cost of goods sold, a higher ending inventory value, and higher gross profit.</p>
+                        <p><strong>LIFO (Last-In, First-Out):</strong> Assumes the last units purchased are the first ones sold. During inflation, this results in a higher cost of goods sold, a lower ending inventory value, and lower gross profit.</p>
+                        <p><strong>Weighted Average Method:</strong> Uses the weighted average cost of all goods available for sale. The results will fall between those of FIFO and LIFO, regardless of price changes.</p>
+                    </div>
+                </div>
+            </section>
+
+            <nav class="kp-navigation" style="display: flex; justify-content: space-between; margin-top: 4rem; padding-bottom: 2rem;">
+                <a href="ch06_A3.html" class="btn" style="background: #eee;">← Previous: LCM & IFRS</a>
+                <a href="ch06.html" class="btn" style="background: var(--info); color: white;">Chapter 6 Hub</a>
+                <a href="ch06_PRACTICE.html" class="btn btn-primary">Next: Chapter 6 Practice →</a>
+            </nav>
+        </article>
+    </main>
+
+    <script src="../../components.js"></script>
+    <script>
+        // ==================== Financial Ratios Calculator ====================
+        function calculateLiquidity() {
+            const currentAssets = parseFloat(document.getElementById('current-assets').value) || 0;
+            const currentLiabilities = parseFloat(document.getElementById('current-liabilities').value) || 0;
+
+            let currentRatio = 0;
+            if (currentLiabilities !== 0) {
+                currentRatio = currentAssets / currentLiabilities;
+            }
+
+            document.getElementById('current-ratio').textContent = currentRatio.toFixed(2);
+
+            // Update color based on ratio
+            const display = document.getElementById('current-ratio').parentNode;
+            if (currentRatio >= 2) {
+                display.style.background = 'var(--success)';
+            } else if (currentRatio >= 1) {
+                display.style.background = 'var(--warning)';
+            } else {
+                display.style.background = 'var(--error)';
+            }
+        }
+
+        function calculateROA() {
+            const netIncome = parseFloat(document.getElementById('net-income').value) || 0;
+            const averageAssets = parseFloat(document.getElementById('average-assets').value) || 0;
+
+            let roa = 0;
+            if (averageAssets !== 0) {
+                roa = (netIncome / averageAssets) * 100;
+            }
+
+            document.getElementById('roa-result').textContent = roa.toFixed(2) + '%';
+        }
+
+        function calculateProfitMargin() {
+            const netIncome = parseFloat(document.getElementById('profit-margin-income').value) || 0;
+            const salesRevenue = parseFloat(document.getElementById('sales-revenue').value) || 0;
+
+            let profitMargin = 0;
+            if (salesRevenue !== 0) {
+                profitMargin = (netIncome / salesRevenue) * 100;
+            }
+
+            document.getElementById('profit-margin-result').textContent = profitMargin.toFixed(2) + '%';
+        }
+
+        // ==================== Inventory Valuation Comparison ====================
+        let currentScenario = 'normal';
+        const priceChanges = {
+            normal: [100, 100, 100, 100, 100],
+            inflation: [100, 105, 110, 115, 120],
+            deflation: [100, 95, 90, 85, 80]
+        };
+
+        function selectScenario(scenario) {
+            currentScenario = scenario;
+
+            // Update button states
+            document.querySelectorAll('.scenario-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            event.target.classList.add('active');
+
+            updateInventory();
+        }
+
+        function updateInventory() {
+            const initialUnits = parseInt(document.getElementById('initial-units-slider').value);
+            const soldUnits = parseInt(document.getElementById('sold-units-slider').value);
+
+            document.getElementById('initial-units').textContent = initialUnits;
+            document.getElementById('sold-units').textContent = soldUnits;
+
+            // Generate inventory layers with prices
+            const purchases = generatePurchases(initialUnits);
+            const sales = Math.min(soldUnits, initialUnits);
+
+            // Calculate for each method
+            const fifo = calculateFIFO(purchases, sales, 15000); // Sales revenue $15,000
+            const lifo = calculateLIFO(purchases, sales, 15000);
+            const weighted = calculateWeightedAverage(purchases, sales, 15000);
+
+            // Update table
+            document.getElementById('fifo-cogs').textContent = '$' + fifo.cogs.toLocaleString();
+            document.getElementById('fifo-inventory').textContent = '$' + fifo.inventory.toLocaleString();
+            document.getElementById('fifo-gross').textContent = '$' + fifo.gross.toLocaleString();
+
+            document.getElementById('lifo-cogs').textContent = '$' + lifo.cogs.toLocaleString();
+            document.getElementById('lifo-inventory').textContent = '$' + lifo.inventory.toLocaleString();
+            document.getElementById('lifo-gross').textContent = '$' + lifo.gross.toLocaleString();
+
+            document.getElementById('weighted-cogs').textContent = '$' + weighted.cogs.toLocaleString();
+            document.getElementById('weighted-inventory').textContent = '$' + weighted.inventory.toLocaleString();
+            document.getElementById('weighted-gross').textContent = '$' + weighted.gross.toLocaleString();
+
+            // Highlight highest and lowest values
+            highlightComparison();
+
+            // Update chart
+            updateChart(fifo, lifo, weighted);
+        }
+
+        function generatePurchases(units) {
+            const purchases = [];
+            const prices = priceChanges[currentScenario];
+            const unitsPerLayer = Math.ceil(units / prices.length);
+
+            for (let i = 0; i < prices.length && purchases.length < units; unitsPerLayer) {
+                const layerUnits = Math.min(unitsPerLayer, units - purchases.length);
+                purchases.push({
+                    units: layerUnits,
+                    price: prices[i],
+                    total: layerUnits * prices[i]
+                });
+            }
+
+            return purchases;
+        }
+
+        function calculateFIFO(purchases, soldUnits, salesRevenue) {
+            let cogs = 0;
+            let inventoryValue = 0;
+            let remainingUnits = purchases.reduce((sum, p) => sum + p.units, 0) - soldUnits;
+
+            // COGS: sell oldest first
+            let toSell = soldUnits;
+            for (const purchase of purchases) {
+                if (toSell <= 0) break;
+
+                const unitsFromLayer = Math.min(purchase.units, toSell);
+                cogs += unitsFromLayer * purchase.price;
+                toSell -= unitsFromLayer;
+            }
+
+            // Inventory: remaining at latest prices
+            let unitsRemaining = remainingUnits;
+            for (let i = purchases.length - 1; i >= 0 && unitsRemaining > 0; i--) {
+                const unitsFromLayer = Math.min(purchases[i].units, unitsRemaining);
+                inventoryValue += unitsFromLayer * purchases[i].price;
+                unitsRemaining -= unitsFromLayer;
+            }
+
+            const gross = salesRevenue - cogs;
+
+            return { cogs, inventory: inventoryValue, gross };
+        }
+
+        function calculateLIFO(purchases, soldUnits, salesRevenue) {
+            let cogs = 0;
+            let inventoryValue = 0;
+            let remainingUnits = purchases.reduce((sum, p) => sum + p.units, 0) - soldUnits;
+
+            // COGS: sell newest first
+            let toSell = soldUnits;
+            for (let i = purchases.length - 1; i >= 0 && toSell > 0; i--) {
+                const unitsFromLayer = Math.min(purchases[i].units, toSell);
+                cogs += unitsFromLayer * purchases[i].price;
+                toSell -= unitsFromLayer;
+            }
+
+            // Inventory: remaining at earliest prices
+            let unitsRemaining = remainingUnits;
+            for (const purchase of purchases) {
+                if (unitsRemaining <= 0) break;
+
+                const unitsFromLayer = Math.min(purchase.units, unitsRemaining);
+                inventoryValue += unitsFromLayer * purchase.price;
+                unitsRemaining -= unitsFromLayer;
+            }
+
+            const gross = salesRevenue - cogs;
+
+            return { cogs, inventory: inventoryValue, gross };
+        }
+
+        function calculateWeightedAverage(purchases, soldUnits, salesRevenue) {
+            const totalUnits = purchases.reduce((sum, p) => sum + p.units, 0);
+            const totalCost = purchases.reduce((sum, p) => sum + p.total, 0);
+            const avgCost = totalCost / totalUnits;
+
+            const cogs = soldUnits * avgCost;
+            const inventoryValue = (totalUnits - soldUnits) * avgCost;
+            const gross = 15000 - cogs;
+
+            return {
+                cogs: Math.round(cogs),
+                inventory: Math.round(inventoryValue),
+                gross: Math.round(gross)
+            };
+        }
+
+        function highlightComparison() {
+            const cogsValues = [
+                parseFloat(document.getElementById('fifo-cogs').textContent.replace(/[$,]/g, '')),
+                parseFloat(document.getElementById('lifo-cogs').textContent.replace(/[$,]/g, '')),
+                parseFloat(document.getElementById('weighted-cogs').textContent.replace(/[$,]/g, ''))
+            ];
+
+            const grossValues = [
+                parseFloat(document.getElementById('fifo-gross').textContent.replace(/[$,]/g, '')),
+                parseFloat(document.getElementById('lifo-gross').textContent.replace(/[$,]/g, '')),
+                parseFloat(document.getElementById('weighted-gross').textContent.replace(/[$,]/g, ''))
+            ];
+
+            const maxCOGS = Math.max(...cogsValues);
+            const minCOGS = Math.min(...cogsValues);
+            const maxGross = Math.max(...grossValues);
+            const minGross = Math.min(...grossValues);
+
+            // Clear previous highlights
+            document.querySelectorAll('.comparison-table td').forEach(td => {
+                td.classList.remove('highest', 'lowest');
+            });
+
+            // Highlight COGS
+            const cogsCells = [
+                document.getElementById('fifo-cogs'),
+                document.getElementById('lifo-cogs'),
+                document.getElementById('weighted-cogs')
+            ];
+
+            cogsCells.forEach((cell, index) => {
+                if (cogsValues[index] === maxCOGS) {
+                    cell.classList.add('highest');
+                }
+                if (cogsValues[index] === minCOGS) {
+                    cell.classList.add('lowest');
+                }
+            });
+
+            // Highlight Gross Profit
+            const grossCells = [
+                document.getElementById('fifo-gross'),
+                document.getElementById('lifo-gross'),
+                document.getElementById('weighted-gross')
+            ];
+
+            grossCells.forEach((cell, index) => {
+                if (grossValues[index] === maxGross) {
+                    cell.classList.add('highest');
+                }
+                if (grossValues[index] === minGross) {
+                    cell.classList.add('lowest');
+                }
+            });
+        }
+
+        function updateChart(fifo, lifo, weighted) {
+            const chart = document.getElementById('comparison-chart');
+            const maxValue = Math.max(fifo.gross, lifo.gross, weighted.gross);
+
+            chart.innerHTML = `
+                <div class="chart-bar fifo" style="height: ${(fifo.gross / maxValue) * 200}px;">
+                    <div class="chart-value">$${fifo.gross.toLocaleString()}</div>
+                    <div class="chart-label">FIFO</div>
+                </div>
+                <div class="chart-bar lifo" style="height: ${(lifo.gross / maxValue) * 200}px;">
+                    <div class="chart-value">$${lifo.gross.toLocaleString()}</div>
+                    <div class="chart-label">LIFO</div>
+                </div>
+                <div class="chart-bar weighted" style="height: ${(weighted.gross / maxValue) * 200}px;">
+                    <div class="chart-value">$${weighted.gross.toLocaleString()}</div>
+                    <div class="chart-label">Weighted Avg</div>
+                </div>
+            `;
+        }
+
+        // Initialize on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            calculateLiquidity();
+            calculateROA();
+            calculateProfitMargin();
+            updateInventory();
+        });
+    </script>
+</body>
+
+</html>

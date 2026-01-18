@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chapter 3 Practice Case | ACCOUNTING ESSENTIALS</title>
+    <link rel="stylesheet" href="../../styles.css">
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-50MTQPVR7D"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-50MTQPVR7D');
+</script>
+
+</head>
+
+<body>
+    <header>
+        <div class="container nav-container">
+            <a href="../../index.html" class="logo">ACCOUNTING<span>ESSENTIALS</span></a>
+            <nav class="nav-links">
+                <a href="../../index.html">Home</a>
+                <a href="../part1.html">Part 1</a>
+                <a href="../../part2/part2.html">Part 2</a>
+                <a href="../../part3/part3.html">Part 3</a>
+            </nav>
+        </div>
+    </header>
+    <main class="container">
+        <div class="breadcrumbs">
+            <a href="../../index.html">Home</a> <span>/</span> <a href="../part1.html">Part 1</a>
+            <span>/</span> <a href="ch03.html">Chapter 3</a> <span>/</span> Practice Case
+        </div>
+        <article class="animate-fade-in">
+            <h1 style="border-left: 8px solid var(--success); padding-left: 1rem; margin: 2rem 0;">
+                🎯 Practical Case: Year-End Adjustments
+            </h1>
+            <div
+                style="background: linear-gradient(135deg, #fa709a 0%, #fee140 100%); color: white; padding: 2rem; border-radius: 12px; margin-bottom: 3rem;">
+                <h2 style="margin-top: 0; color: white;">Your Mission</h2>
+                <p style="font-size: 1.1rem; margin-bottom: 0;">It's December 31, and "MediaMax Agency" needs year-end
+                    adjusting entries. Identify what needs adjustment and prepare the entries!</p>
+            </div>
+            <section class="interactive-section">
+                <h2>Scenario: Identify & Record Adjustments</h2>
+                <p>Review the following situations and prepare the necessary adjusting entries.</p>
+                <div class="content-card" style="margin-bottom: 2rem;">
+                    <h4>Situation 1: Prepaid Insurance</h4>
+                    <p>On July 1, the company paid $1,200 for a 12-month insurance policy. No adjustments have been
+                        made.</p>
+                    <div style="margin-top: 1rem;">
+                        <label><strong>How many months have expired by Dec 31?</strong></label>
+                        <input type="number" id="ins-months" class="practice-input" placeholder="Months"
+                            style="width: 100px; margin-left: 1rem;">
+                        <button class="btn btn-outline" onclick="calcInsurance()"
+                            style="margin-left: 1rem;">Calculate</button>
+                    </div>
+                    <div id="ins-result"
+                        style="margin-top: 1rem; padding: 1rem; background: var(--bg-light); border-radius: 8px; display: none;">
+                        <p><strong>Insurance Expense:</strong> <span id="ins-amount">$0</span></p>
+                        <p style="margin-top: 0.5rem; font-size: 0.9rem; color: var(--text-muted);">Entry: Debit
+                            Insurance Expense, Credit Prepaid Insurance</p>
+                    </div>
+                </div>
+                <div class="content-card" style="margin-bottom: 2rem;">
+                    <h4>Situation 2: Accrued Salaries</h4>
+                    <p>Employees earn $500 per day. The last payday was Friday, Dec 27. Dec 31 is a Tuesday.</p>
+                    <div style="margin-top: 1rem;">
+                        <label><strong>How many days of unpaid salaries?</strong></label>
+                        <input type="number" id="sal-days" class="practice-input" placeholder="Days"
+                            style="width: 100px; margin-left: 1rem;">
+                        <button class="btn btn-outline" onclick="calcSalaries()"
+                            style="margin-left: 1rem;">Calculate</button>
+                    </div>
+                    <div id="sal-result"
+                        style="margin-top: 1rem; padding: 1rem; background: var(--bg-light); border-radius: 8px; display: none;">
+                        <p><strong>Salaries Expense:</strong> <span id="sal-amount">$0</span></p>
+                        <p style="margin-top: 0.5rem; font-size: 0.9rem; color: var(--text-muted);">Entry: Debit
+                            Salaries Expense, Credit Salaries Payable</p>
+                    </div>
+                </div>
+                <div class="content-card">
+                    <h4>Situation 3: Unearned Revenue</h4>
+                    <p>On Nov 1, received $3,000 for 6 months of services in advance. By Dec 31, how much has been
+                        earned?</p>
+                    <div style="margin-top: 1rem;">
+                        <label><strong>Months of service provided:</strong></label>
+                        <input type="number" id="rev-months" class="practice-input" placeholder="Months"
+                            style="width: 100px; margin-left: 1rem;">
+                        <button class="btn btn-outline" onclick="calcRevenue()"
+                            style="margin-left: 1rem;">Calculate</button>
+                    </div>
+                    <div id="rev-result"
+                        style="margin-top: 1rem; padding: 1rem; background: var(--bg-light); border-radius: 8px; display: none;">
+                        <p><strong>Revenue Earned:</strong> <span id="rev-amount">$0</span></p>
+                        <p style="margin-top: 0.5rem; font-size: 0.9rem; color: var(--text-muted);">Entry: Debit
+                            Unearned Revenue, Credit Service Revenue</p>
+                    </div>
+                </div>
+            </section>
+            <section class="interactive-section">
+                <h2>Summary: Complete Adjusting Journal</h2>
+                <p>Record all three adjusting entries in the journal below.</p>
+                <div class="financial-statement-container">
+                    <table class="financial-table">
+                        <thead>
+                            <tr class="border-top">
+                                <th>Date</th>
+                                <th>Account</th>
+                                <th class="text-right">Debit</th>
+                                <th class="text-right">Credit</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Dec 31</td>
+                                <td>Insurance Expense</td>
+                                <td class="text-right"><input type="number" id="final-ins" class="practice-input"
+                                        style="width: 100px;"></td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td></td>
+                                <td style="padding-left: 2rem;">Prepaid Insurance</td>
+                                <td></td>
+                                <td class="text-right"><input type="number" id="final-ins-cr" class="practice-input"
+                                        style="width: 100px;"></td>
+                            </tr>
+                            <tr style="border-top: 1px solid #eee;">
+                                <td>Dec 31</td>
+                                <td>Salaries Expense</td>
+                                <td class="text-right"><input type="number" id="final-sal" class="practice-input"
+                                        style="width: 100px;"></td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td></td>
+                                <td style="padding-left: 2rem;">Salaries Payable</td>
+                                <td></td>
+                                <td class="text-right"><input type="number" id="final-sal-cr" class="practice-input"
+                                        style="width: 100px;"></td>
+                            </tr>
+                            <tr style="border-top: 1px solid #eee;">
+                                <td>Dec 31</td>
+                                <td>Unearned Revenue</td>
+                                <td class="text-right"><input type="number" id="final-rev" class="practice-input"
+                                        style="width: 100px;"></td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td></td>
+                                <td style="padding-left: 2rem;">Service Revenue</td>
+                                <td></td>
+                                <td class="text-right"><input type="number" id="final-rev-cr" class="practice-input"
+                                        style="width: 100px;"></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <button class="btn btn-primary" onclick="checkFinal()" style="margin-top: 1rem;">Check All
+                    Entries</button>
+                <div id="final-feedback" style="margin-top: 1rem; padding: 1rem; border-radius: 8px; display: none;">
+                </div>
+            </section>
+            <div
+                style="text-align: center; margin: 3rem 0; padding: 2rem; background: var(--bg-light); border-radius: 12px;">
+                <h3 style="color: var(--success);">🎉 Great Job!</h3>
+                <p>You've mastered adjusting entries! These ensure revenues and expenses are recorded in the correct
+                    period.</p>
+            </div>
+            <div style="display: flex; justify-content: space-between; margin-top: 4rem; padding-bottom: 2rem;">
+                <a href="../chapter2/ch02_PRACTICE.html" class="btn" style="background: #eee;">← Chapter 2 Practice</a>
+                <a href="../chapter4/ch04_PRACTICE.html" class="btn btn-primary">Next: Chapter 4 Practice →</a>
+            </div>
+        </article>
+    </main>
+    <script src="../../components.js"></script>
+    <script>
+        function calcInsurance() {
+            const months = parseFloat(document.getElementById('ins-months').value) || 0;
+            const amount = (1200 / 12) * months;
+            document.getElementById('ins-amount').textContent = '$' + amount.toFixed(0);
+            document.getElementById('ins-result').style.display = 'block';
+            if (months === 6) {
+                document.getElementById('ins-result').style.background = 'var(--success-light)';
+            }
+        }
+        function calcSalaries() {
+            const days = parseFloat(document.getElementById('sal-days').value) || 0;
+            const amount = 500 * days;
+            document.getElementById('sal-amount').textContent = '$' + amount.toFixed(0);
+            document.getElementById('sal-result').style.display = 'block';
+            if (days === 2) {
+                document.getElementById('sal-result').style.background = 'var(--success-light)';
+            }
+        }
+        function calcRevenue() {
+            const months = parseFloat(document.getElementById('rev-months').value) || 0;
+            const amount = (3000 / 6) * months;
+            document.getElementById('rev-amount').textContent = '$' + amount.toFixed(0);
+            document.getElementById('rev-result').style.display = 'block';
+            if (months === 2) {
+                document.getElementById('rev-result').style.background = 'var(--success-light)';
+            }
+        }
+        function checkFinal() {
+            const ins = parseFloat(document.getElementById('final-ins').value) || 0;
+            const sal = parseFloat(document.getElementById('final-sal').value) || 0;
+            const rev = parseFloat(document.getElementById('final-rev').value) || 0;
+            const feedback = document.getElementById('final-feedback');
+            feedback.style.display = 'block';
+            if (ins === 600 && sal === 1000 && rev === 1000) {
+                feedback.style.background = 'var(--success-light)';
+                feedback.style.color = 'var(--success-dark)';
+                feedback.innerHTML = '<strong>✓ Perfect!</strong> All adjusting entries are correct: Insurance $600, Salaries $1,000, Revenue $1,000.';
+            } else {
+                feedback.style.background = 'var(--warning-light)';
+                feedback.style.color = 'var(--warning-dark)';
+                feedback.innerHTML = '<strong>⚠ Check your calculations.</strong> Insurance: 6 months × $100 = $600. Salaries: 2 days × $500 = $1,000. Revenue: 2 months × $500 = $1,000.';
+            }
+        }
+    </script>
+</body>
+
+</html>

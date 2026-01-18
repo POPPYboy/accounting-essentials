@@ -1,0 +1,705 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>P1: FIFO Costing (Periodic) | ACCOUNTING ESSENTIALS</title>
+    <link rel="stylesheet" href="../../styles.css">
+    <style>
+        .fifo-visual {
+            display: flex;
+            align-items: flex-end;
+            gap: 0.5rem;
+            margin: 2rem 0;
+            padding: 1rem;
+            min-height: 180px;
+            border-radius: var(--radius-md);
+            background: var(--bg-light);
+            border: 1px solid #e0e0e0;
+            overflow-x: auto;
+            justify-content: flex-start; /* Align to the start for queue effect */
+        }
+        .fifo-layer {
+            background: linear-gradient(135deg, var(--primary) 0%, #1565c0 100%);
+            color: var(--white);
+            border-radius: var(--radius-sm);
+            padding: 0.75rem;
+            text-align: center;
+            font-weight: 700;
+            font-size: 0.9rem;
+            min-width: 70px;
+            transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+            animation: fifo-add 0.5s ease-out;
+            position: relative;
+        }
+        .fifo-layer.oldest {
+            box-shadow: 0 0 15px 5px var(--warning-light);
+            border: 2px solid var(--warning);
+        }
+        .fifo-layer.consumed {
+            animation: fifo-remove 0.5s ease-in forwards;
+        }
+        .layer-label {
+            font-size: 0.7rem;
+            opacity: 0.8;
+            font-weight: 400;
+        }
+        @keyframes fifo-add {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes fifo-remove {
+            from { opacity: 1; transform: scale(1); }
+            to { opacity: 0; transform: scale(0.5); width: 0; padding: 0; margin: 0; }
+        }
+        .flow-diagram {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 1rem;
+            margin: 2rem 0;
+            flex-wrap: wrap;
+        }
+        .flow-box {
+            background: var(--bg-light);
+            border-radius: var(--radius-md);
+            padding: 1rem 1.5rem;
+            text-align: center;
+            border: 2px solid;
+        }
+        .flow-box.in {
+            border-color: var(--primary);
+        }
+        .flow-box.out {
+            border-color: var(--success);
+        }
+        .flow-box.remaining {
+            border-color: var(--warning);
+        }
+        .flow-arrow {
+            font-size: 2rem;
+            color: var(--secondary);
+        }
+        .comparison-method {
+            background: var(--bg-light);
+            border-radius: var(--radius-sm);
+            padding: 1rem;
+            margin: 0.5rem 0;
+        }
+        .periodic-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1.5rem 0;
+        }
+        .periodic-table th, .periodic-table td {
+            padding: 0.75rem;
+            text-align: center;
+            border: 1px solid #e0e0e0;
+        }
+        .periodic-table th {
+            background: var(--success);
+            color: var(--white);
+        }
+        .periodic-table tr:nth-child(even) {
+            background: var(--bg-light);
+        }
+        .fifo-controls {
+            display: flex;
+            gap: 1rem;
+            margin: 1.5rem 0;
+            flex-wrap: wrap;
+        }
+        .cost-impact {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin: 1.5rem 0;
+        }
+        .impact-card {
+            background: var(--bg-light);
+            border-radius: var(--radius-md);
+            padding: 1.5rem;
+            text-align: center;
+            border-left: 4px solid;
+        }
+        .impact-card.cogs {
+            border-color: var(--error);
+        }
+        .impact-card.income {
+            border-color: var(--success);
+        }
+        .impact-card.inventory {
+            border-color: var(--info);
+        }
+        .impact-card h4 {
+            margin: 0 0 0.5rem 0;
+            font-size: 0.9rem;
+        }
+        .impact-card.cogs h4 { color: var(--error); }
+        .impact-card.income h4 { color: var(--success); }
+        .impact-card.inventory h4 { color: var(--info); }
+    </style>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-50MTQPVR7D"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-50MTQPVR7D');
+</script>
+
+</head>
+
+<body>
+    <header>
+        <div class="container nav-container">
+            <a href="../../index.html" class="logo">ACCOUNTING<span>ESSENTIALS</span></a>
+            <nav class="nav-links">
+                <a href="../../index.html">Home</a>
+                <a href="../../Part1/part1.html">Part 1</a>
+                <a href="../../part2/part2.html">Part 2</a>
+                <a href="../../part3/part3.html">Part 3</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container">
+        <div class="breadcrumbs">
+            <a href="../../index.html">Home</a> <span>/</span> <a href="../../part2/part2.html">Part 2</a> <span>/</span> <a href="ch06.html">Chapter 6</a> <span>/</span> P1
+        </div>
+
+        <article class="animate-fade-in">
+            <div class="kp-header">
+                <h1 style="border-left: 8px solid var(--success); padding-left: 1rem; margin: 2rem 0;">FIFO (First-In, First-Out) - Periodic</h1>
+            </div>
+
+            <!-- Learning Objectives -->
+            <section class="kp-section">
+                <h2>🎯 Learning Objectives</h2>
+                <div class="learning-objectives">
+                    <ul>
+                        <li>Understand the FIFO inventory costing assumption and when to apply it</li>
+                        <li>Calculate ending inventory and COGS using periodic FIFO</li>
+                        <li>Explain the financial statement impact of FIFO during periods of rising prices</li>
+                        <li>Compare FIFO results to LIFO and weighted average methods</li>
+                        <li>Apply FIFO to real-world inventory management scenarios</li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- Background & Principles -->
+            <section class="kp-section">
+                <h2>📚 Background & Principles</h2>
+                <p>FIFO (First-In, First-Out) assumes that the oldest inventory items are sold first, while the newest items remain in ending inventory. This method matches the actual physical flow of many businesses, especially those dealing with perishable or dated goods.</p>
+
+                <div class="concept-card" style="margin: 1.5rem 0;">
+                    <strong>Core Principle:</strong> Under FIFO, ending inventory consists of the most recently purchased items (the "freshest" costs), while COGS consists of the oldest costs. This creates a "last-in, still-here" effect for ending inventory.
+                </div>
+
+                <p>In periodic FIFO, all purchases during the period are accumulated, then COGS and ending inventory are determined at period-end based on the assumption that oldest costs were sold first.</p>
+
+                <div class="professional-tip">
+                    <strong>💡 Key Insight:</strong> Think of FIFO like a grocery store milk shelf. The oldest milk (first in) is placed at the front and sold first (first out). The fresh milk at the back represents ending inventory with the most recent costs.
+                </div>
+            </section>
+
+            <!-- Key Concepts -->
+            <section class="kp-section">
+                <h2>🔑 Key Concepts</h2>
+                <div class="key-concepts-grid">
+                    <div class="concept-card">
+                        <strong>First-In, First-Out (FIFO)</strong>
+                        <p>Inventory costing method assuming oldest costs are sold first, newest costs remain in ending inventory.</p>
+                    </div>
+
+                    <div class="concept-card">
+                        <strong>Periodic FIFO</strong>
+                        <p>Determining COGS and ending inventory at period-end after all purchases are accumulated.</p>
+                    </div>
+
+                    <div class="concept-card">
+                        <strong>Oldest Costs to COGS</strong>
+                        <p>FIFO sends the earliest (usually lowest in inflation) costs to Cost of Goods Sold.</p>
+                    </div>
+
+                    <div class="concept-card">
+                        <strong>Newest Costs in Ending Inventory</strong>
+                        <p>Ending inventory reflects the most recent purchase costs (highest in inflation).</p>
+                    </div>
+
+                    <div class="concept-card">
+                        <strong>FIFO vs Physical Flow</strong>
+                        <p>FIFO is often a costing assumption, not necessarily the actual physical flow of goods.</p>
+                    </div>
+
+                    <div class="concept-card">
+                        <strong>Price Inflation Impact</strong>
+                        <p>In rising prices, FIFO produces lower COGS, higher income, and higher inventory values.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Deep Dive -->
+            <section class="kp-section">
+                <h2>🔍 Deep Dive</h2>
+                <p>Explore FIFO at different levels of depth:</p>
+
+                <div class="depth-toggle">
+                    <button class="depth-btn active" onclick="setDepth('A')">Depth A: Foundational</button>
+                    <button class="depth-btn" onclick="setDepth('B')">Depth B: Standard</button>
+                    <button class="depth-btn" onclick="setDepth('C')">Depth C: Advanced</button>
+                </div>
+
+                <!-- Depth A -->
+                <div id="depth-A" class="depth-content active">
+                    <h3>🟢 Foundational Level</h3>
+                    <p>Understanding the FIFO concept through the milk shelf analogy.</p>
+
+                    <div class="worked-example">
+                        <h4>The Milk Shelf Analogy</h4>
+                        <p><strong>Analogy: The Grocery Store Milk Aisle</strong></p>
+                        <p>Stock clerks always put new milk at the BACK of the shelf and push older milk to the FRONT.</p>
+
+                        <div class="example-step">
+                            <strong>Customer Behavior:</strong>
+                            <p>Customers naturally grab the front milk (the OLDEST milk available).</p>
+                        </div>
+                        <div class="example-step">
+                            <strong>What Gets Sold:</strong>
+                            <p>The FIRST milk put on the shelf is the FIRST milk sold = FIFO.</p>
+                        </div>
+                        <div class="example-step">
+                            <strong>What's Left:</strong>
+                            <p>Ending Inventory = The freshest, newest milk at the back of the shelf.</p>
+                        </div>
+                    </div>
+
+                    <div class="flow-diagram">
+                        <div class="flow-box in">
+                            <div style="font-size: 0.8rem; color: var(--text-muted);">FIRST IN</div>
+                            <div style="font-size: 1.2rem; font-weight: 700;">Oldest Costs</div>
+                        </div>
+                        <div class="flow-arrow">→</div>
+                        <div class="flow-box out">
+                            <div style="font-size: 0.8rem; color: var(--text-muted);">FIRST OUT</div>
+                            <div style="font-size: 1.2rem; font-weight: 700;">COGS</div>
+                        </div>
+                        <div class="flow-arrow">→</div>
+                        <div class="flow-box remaining">
+                            <div style="font-size: 0.8rem; color: var(--text-muted);">REMAINS</div>
+                            <div style="font-size: 1.2rem; font-weight: 700;">Newest Costs</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Depth B -->
+                <div id="depth-B" class="depth-content">
+                    <h3>🟡 Standard Level</h3>
+                    <p>Calculating periodic FIFO step by step.</p>
+
+                    <div class="worked-example">
+                        <h4>Periodic FIFO Calculation</h4>
+                        <p><strong>Given:</strong></p>
+                        <p>Beginning Inventory: 10 units @ $10 = $100</p>
+                        <p>Jan 15 Purchase: 20 units @ $12 = $240</p>
+                        <p>Jan 28 Purchase: 15 units @ $15 = $225</p>
+                        <p>Goods Available for Sale: 45 units = $565</p>
+                        <p>Ending Inventory (physical count): 12 units</p>
+
+                        <div class="example-step">
+                            <strong>Step 1: Identify Ending Inventory Units</strong>
+                            <p>12 units in ending inventory come from the MOST RECENT purchases.</p>
+                            <p>15 units @ $15 were the last purchased, so take all 12 from this batch.</p>
+                        </div>
+                        <div class="example-step">
+                            <strong>Step 2: Calculate Ending Inventory Value</strong>
+                            <p>12 units × $15 = <strong>$180</strong></p>
+                        </div>
+                        <div class="example-step">
+                            <strong>Step 3: Calculate COGS</strong>
+                            <p>COGS = Goods Available - Ending Inventory</p>
+                            <p>COGS = $565 - $180 = <strong>$385</strong></p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Depth C -->
+                <div id="depth-C" class="depth-content">
+                    <h3>🔴 Advanced Level</h3>
+                    <p>Complete FIFO schedule and comparison with other methods.</p>
+
+                    <table class="periodic-table">
+                        <thead>
+                            <tr>
+                                <th>Date</th>
+                                <th>Units</th>
+                                <th>Unit Cost</th>
+                                <th>Total Cost</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Beginning</td>
+                                <td>10</td>
+                                <td>$10</td>
+                                <td>$100</td>
+                                <td>Sold (FIFO)</td>
+                            </tr>
+                            <tr>
+                                <td>Jan 15</td>
+                                <td>20</td>
+                                <td>$12</td>
+                                <td>$240</td>
+                                <td>Sold (FIFO)</td>
+                            </tr>
+                            <tr>
+                                <td>Jan 28</td>
+                                <td>15</td>
+                                <td>$15</td>
+                                <td>$225</td>
+                                <td>3 sold, 12 remaining</td>
+                            </tr>
+                            <tr style="background: #e8f5e9; font-weight: 600;">
+                                <td colspan="3">ENDING INVENTORY (12 units)</td>
+                                <td colspan="2">$180 (all @ $15)</td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <div class="worked-example">
+                        <h4>Comparison: FIFO vs LIFO vs Weighted Average</h4>
+                        <div class="comparison-method">
+                            <strong>Scenario:</strong> Same purchases, 12 units ending inventory</div>
+                        <div class="cost-impact">
+                            <div class="impact-card cogs">
+                                <h4>FIFO COGS</h4>
+                                <div style="font-size: 2rem; font-weight: 900;">$385</div>
+                                <div style="font-size: 0.8rem; color: var(--text-muted);">Lowest (rising prices)</div>
+                            </div>
+                            <div class="impact-card income">
+                                <h4>FIFO Net Income</h4>
+                                <div style="font-size: 2rem; font-weight: 900;">Highest</div>
+                                <div style="font-size: 0.8rem; color: var(--text-muted);">Lower expenses</div>
+                            </div>
+                            <div class="impact-card inventory">
+                                <h4>FIFO Ending Inv</h4>
+                                <div style="font-size: 2rem; font-weight: 900;">$180</div>
+                                <div style="font-size: 0.8rem; color: var(--text-muted);">Highest (recent costs)</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Interactive FIFO Simulator -->
+            <section class="kp-section">
+                <h2>🎨 Interactive: FIFO Layer Simulator</h2>
+                <p>Add inventory layers and sell units to see how FIFO consumes the oldest layers first.</p>
+
+                <div class="simulator-container">
+                    <div class="fifo-controls">
+                        <div class="input-group">
+                            <label>New Layer Cost ($)</label>
+                            <input type="number" id="fifo-add-cost" value="10" style="width: 100px;">
+                        </div>
+                        <div class="input-group">
+                            <label>Quantity</label>
+                            <input type="number" id="fifo-add-qty" value="1" min="1" max="10" style="width: 80px;">
+                        </div>
+                        <button class="btn btn-primary" onclick="addFIFOLayer()">+ Add Layer</button>
+                        <button class="btn btn-outline" onclick="sellFIFO()">Sell 1 Unit</button>
+                        <button class="btn btn-outline" onclick="resetFIFO()">Reset</button>
+                    </div>
+
+                    <div id="fifo-container" class="fifo-visual">
+                        <!-- Layers will be rendered here -->
+                    </div>
+
+                    <div id="fifo-summary" style="background: var(--bg-light); padding: 1rem; border-radius: var(--radius-sm); margin-top: 1rem;">
+                        <strong>Summary:</strong> <span id="fifo-total-units">0</span> units, Total Cost: $<span id="fifo-total-cost">0</span>
+                    </div>
+
+                    <div id="fifo-log" style="margin-top: 1rem; font-family: monospace; font-size: 0.85rem; color: var(--text-muted); max-height: 100px; overflow-y: auto;">
+                        Add inventory layers and sell to see FIFO in action.
+                    </div>
+                </div>
+            </section>
+
+            <!-- Common Misconceptions -->
+            <section class="kp-section">
+                <h2>🚫 Common Misconceptions & Professional Tips</h2>
+
+                <div class="misconception-alert">
+                    <strong>❌ Misconception 1:</strong> "FIFO means the oldest physical items are always sold first."
+                    <br><br>
+                    <strong>✅ Reality:</strong> FIFO is a COSTING METHOD, not necessarily a physical flow assumption. Many businesses use FIFO for costing but actually sell newer items first. The method just determines which costs are matched with revenue.
+                </div>
+
+                <div class="misconception-alert">
+                    <strong>❌ Misconception 2:</strong> "FIFO always produces higher income than LIFO."
+                    <br><br>
+                    <strong>✅ Reality:</strong> FIFO produces higher income ONLY during RISING prices. In deflation (falling prices), LIFO would produce higher income because newer (lower) costs go to COGS.
+                </div>
+
+                <div class="misconception-alert">
+                    <strong>❌ Misconception 3:</strong> "Periodic and perpetual FIFO always give different results."
+                    <br><br>
+                    <strong>✅ Reality:</strong> FIFO is unique in that PERIODIC and PERPETUAL systems produce IDENTICAL COGS and ending inventory values. This is NOT true for LIFO or weighted average.
+                </div>
+
+                <div class="professional-tip">
+                    <strong>💡 Professional Tip #1:</strong> When prices are rising, FIFO provides a tax disadvantage (higher reported income = higher taxes) but better cash flow from operations (lower COGS means more cash retained in business).
+                </div>
+
+                <div class="professional-tip">
+                    <strong>💡 Professional Tip #2:</strong> For financial analysis, be aware that FIFO companies may appear to have stronger ending inventory values but may also have older "hidden" cost layers if prices have risen significantly.
+                </div>
+
+                <div class="professional-tip">
+                    <strong>💡 Professional Tip #3:</strong> When comparing companies, check which inventory method each uses. A FIFO company and LIFO company with identical physical inventory may report significantly different financials.
+                </div>
+            </section>
+
+            <!-- Memory Aids -->
+            <section class="kp-section">
+                <h2>🧠 Memory Aids & Quick Reference</h2>
+
+                <div class="memory-aid-card">
+                    <strong>⚡ Quick Recall: FIFO Rule</strong>
+                    <p><strong>FIFO = First-In, First-Out</strong></p>
+                    <p>OLDEST costs → COGS (sold)</p>
+                    <p>NEWEST costs → Ending Inventory (remains)</p>
+                    <p><strong>Rising Prices = Low COGS, High Income, High Inventory Value</strong></p>
+                </div>
+
+                <div class="key-concepts-grid">
+                    <div class="concept-card">
+                        <strong>🥛 The Milk Rule</strong>
+                        <p>Oldest to front, newest to back. Oldest sells first. Freshest remains.</p>
+                    </div>
+
+                    <div class="concept-card">
+                        <strong>📦 COGS Contains</strong>
+                        <p>All oldest costs until all units accounted for</p>
+                    </div>
+
+                    <div class="concept-card">
+                        <strong>📦 Inventory Contains</strong>
+                        <p>All newest costs (most recent purchases)</p>
+                    </div>
+
+                    <div class="concept-card">
+                        <strong>📈 Rising Prices Effect</strong>
+                        <p>Lower COGS → Higher Income → Higher Taxes</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Glossary -->
+            <section class="kp-section">
+                <h2>📖 Glossary</h2>
+                <div class="key-concepts-grid">
+                    <div class="concept-card">
+                        <strong>First-In, First-Out (FIFO)</strong>
+                        <p>Inventory costing method assuming oldest costs are sold first, newest costs remain in ending inventory.</p>
+                    </div>
+
+                    <div class="concept-card">
+                        <strong>Periodic FIFO</strong>
+                        <p>FIFO calculation performed at period-end after all purchases are accumulated for the period.</p>
+                    </div>
+
+                    <div class="concept-card">
+                        <strong>Goods Available for Sale</strong>
+                        <p>Beginning Inventory + Net Purchases. Total cost of all goods that could have been sold.</p>
+                    </div>
+
+                    <div class="concept-card">
+                        <strong>Cost Flow Assumption</strong>
+                        <p>Accounting method for matching costs with revenue when specific items cannot be traced. FIFO, LIFO, and weighted average are cost flow assumptions.</p>
+                    </div>
+
+                    <div class="concept-card">
+                        <strong>Perpetual FIFO</strong>
+                        <p>Applying FIFO at each sale transaction. Results in identical COGS and ending inventory as periodic FIFO.</p>
+                    </div>
+
+                    <div class="concept-card">
+                        <strong>Inventory Layers</strong>
+                        <p>Different batches of inventory purchased at different costs. FIFO consumes layers from oldest to newest.</p>
+                    </div>
+
+                    <div class="concept-card">
+                        <strong>Replacement Cost</strong>
+                        <p>Current cost to purchase inventory. FIFO ending inventory approximates current replacement costs.</p>
+                    </div>
+
+                    <div class="concept-card">
+                        <strong>Specific Identification</strong>
+                        <p>Alternative costing method tracking actual cost of each specific item, rather than using cost flow assumptions.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Final Knowledge Check -->
+            <section class="interactive-section">
+                <h2>🎯 Final Knowledge Check</h2>
+                <p>Test your understanding of FIFO:</p>
+
+                <div class="quiz-container" data-success-text="Excellent! You've mastered FIFO inventory costing." data-explanation="FIFO assumes oldest costs are sold first, so ending inventory consists of the newest (most recent) costs. Under periodic FIFO, we value ending inventory using the most recent purchase prices.">
+                    <div class="input-group">
+                        <p><strong>Question 1:</strong> Under FIFO, which costs flow to Ending Inventory?</p>
+                        <label><input type="radio" name="q1" value="correct" data-correct="true"> The newest (most recent) costs</label><br>
+                        <label><input type="radio" name="q1" value="incorrect1" data-correct="false"> The oldest costs</label><br>
+                        <label><input type="radio" name="q1" value="incorrect2" data-correct="false"> Average of all costs</label>
+                    </div>
+
+                    <div class="input-group">
+                        <p><strong>Question 2:</strong> If prices are rising, FIFO produces:</p>
+                        <label><input type="radio" name="q2" value="correct" data-correct="true"> Lower COGS, higher income, higher inventory value</label><br>
+                        <label><input type="radio" name="q2" value="incorrect1" data-correct="false"> Higher COGS, lower income, higher inventory value</label><br>
+                        <label><input type="radio" name="q2" value="incorrect2" data-correct="false"> Same results as LIFO</label>
+                    </div>
+
+                    <div class="input-group">
+                        <p><strong>Question 3:</strong> Periodic FIFO and Perpetual FIFO produce:</p>
+                        <label><input type="radio" name="q3" value="incorrect1" data-correct="false"> Different COGS amounts</label><br>
+                        <label><input type="radio" name="q3" value="incorrect2" data-correct="false"> Different ending inventory values</label><br>
+                        <label><input type="radio" name="q3" value="correct" data-correct="true"> Identical COGS and ending inventory values</label>
+                    </div>
+
+                    <div class="input-group">
+                        <p><strong>Question 4:</strong> Beginning Inventory 10 @ $10, Purchase 20 @ $12, Ending Inventory 15 units. FIFO Ending Inventory value?</p>
+                        <label><input type="radio" name="q4" value="incorrect1" data-correct="false"> $100 (oldest costs)</label><br>
+                        <label><input type="radio" name="q4" value="correct" data-correct="true"> $180 (newest costs: 15 × $12)</label><br>
+                        <label><input type="radio" name="q4" value="incorrect2" data-correct="false"> $150 (average cost)</label>
+                    </div>
+
+                    <div class="input-group">
+                        <p><strong>Question 5:</strong> FIFO is best described as:</p>
+                        <label><input type="radio" name="q5" value="incorrect1" data-correct="false"> A physical flow tracking method</label><br>
+                        <label><input type="radio" name="q5" value="correct" data-correct="true"> A cost flow assumption for matching costs with revenue</label><br>
+                        <label><input type="radio" name="q5" value="incorrect2" data-correct="false"> A tax avoidance strategy</label>
+                    </div>
+
+                    <button class="btn btn-primary quiz-submit">Submit Answers</button>
+                    <div class="feedback"></div>
+                    <button class="quiz-retry">Try Again</button>
+                </div>
+            </section>
+
+            <!-- Navigation -->
+            <nav class="kp-navigation" style="display: flex; justify-content: space-between; margin-top: 4rem; padding-bottom: 2rem;">
+                <a href="ch06_A3.html" class="btn" style="background: #eee;">← Previous: LCM & Inventory Valuation</a>
+                <a href="ch06.html" class="btn" style="background: var(--info); color: white;">Chapter 6 Hub</a>
+                <a href="ch06_P2.html" class="btn btn-primary">Next: LIFO (Periodic) →</a>
+            </nav>
+        </article>
+    </main>
+
+    <footer style="margin-top: 5rem; padding: 2rem 0; border-top: 1px solid #ddd; text-align: center; color: #888;">
+        <p>Accounting Essentials | Chapter 6 | Procedure 1</p>
+    </footer>
+
+    <script src="../../components-enhanced.js"></script>
+    <script>
+        function setDepth(depth) {
+            document.querySelectorAll('.depth-btn').forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+
+            document.querySelectorAll('.depth-content').forEach(content => content.classList.remove('active'));
+            document.getElementById(`depth-${depth}`).classList.add('active');
+        }
+
+        let fifoLayers = [];
+        let layerId = 0;
+
+        function addFIFOLayer() {
+            const cost = parseFloat(document.getElementById('fifo-add-cost').value) || 10;
+            const qty = parseInt(document.getElementById('fifo-add-qty').value) || 1;
+
+            for (let i = 0; i < qty; i++) {
+                fifoLayers.push({
+                    id: layerId++,
+                    cost: cost,
+                });
+            }
+
+            logFIFO(`Added ${qty} unit(s) @ $${cost.toFixed(2)}`);
+            renderFIFO();
+        }
+
+        function sellFIFO() {
+            const container = document.getElementById('fifo-container');
+            if (fifoLayers.length === 0 || container.children.length === 0) {
+                logFIFO("No inventory to sell!");
+                return;
+            }
+
+            // Mark the first element for removal
+            const oldestLayerElement = container.children[0];
+            oldestLayerElement.classList.add('consumed');
+            
+            const sold = fifoLayers[0]; // Get data before removing
+            logFIFO(`Sold 1 unit (ID: ${sold.id}) with cost $${sold.cost.toFixed(2)}.`);
+
+            // Wait for animation to finish, then update state and re-render
+            setTimeout(() => {
+                fifoLayers.shift(); // FIFO: remove from the front
+                renderFIFO();
+            }, 450); // Slightly less than animation duration
+        }
+
+        function resetFIFO() {
+            fifoLayers = [];
+            layerId = 0;
+            logFIFO("Inventory reset. Add new layers to begin.");
+            renderFIFO();
+        }
+
+        function logFIFO(message) {
+            const log = document.getElementById('fifo-log');
+            const newLogEntry = document.createElement('div');
+            newLogEntry.textContent = `[${new Date().toLocaleTimeString()}] ${message}`;
+            log.insertBefore(newLogEntry, log.firstChild);
+        }
+
+        function renderFIFO() {
+            const container = document.getElementById('fifo-container');
+            const totalUnits = document.getElementById('fifo-total-units');
+            const totalCost = document.getElementById('fifo-total-cost');
+
+            if (fifoLayers.length === 0) {
+                container.innerHTML = '<p style="color: var(--text-muted); padding: 2rem;">No inventory. Add layers to begin.</p>';
+                totalUnits.textContent = '0';
+                totalCost.textContent = '0.00';
+                return;
+            }
+
+            const total = fifoLayers.reduce((sum, layer) => sum + layer.cost, 0);
+            totalUnits.textContent = fifoLayers.length;
+            totalCost.textContent = total.toFixed(2);
+
+            container.innerHTML = fifoLayers.map((layer, index) => {
+                const height = Math.max(50, Math.min(20 + (layer.cost * 4), 150));
+                const isOldest = index === 0 ? 'oldest' : '';
+                return `
+                    <div class="fifo-layer ${isOldest}" style="height: ${height}px;" title="Layer ID: ${layer.id} | Cost: $${layer.cost.toFixed(2)}">
+                        <div class="layer-label">Cost</div>
+                        <div>$${layer.cost.toFixed(2)}</div>
+                    </div>`;
+            }).join('');
+        }
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', () => {
+             logFIFO("Simulator ready. Add inventory layers to start.");
+             renderFIFO();
+        });
+    </script>
+</body>
+
+</html>
