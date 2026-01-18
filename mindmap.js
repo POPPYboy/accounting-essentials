@@ -258,11 +258,10 @@ class CourseMindMap {
         });
 
         window.addEventListener('mousemove', e => {
-            const rect = this.canvas.getBoundingClientRect();
-            const dpr = window.devicePixelRatio || 1;
-            // Convert to logical coordinates (same as node positions)
-            this.mouse.x = (e.clientX - rect.left);
-            this.mouse.y = (e.clientY - rect.top);
+            // Use offsetX/offsetY directly for accurate position relative to canvas
+            // This handles DPR scaling and any container positioning automatically
+            this.mouse.x = e.offsetX;
+            this.mouse.y = e.offsetY;
             this.isMouseOver = (
                 this.mouse.x >= 0 && this.mouse.x <= this.width &&
                 this.mouse.y >= 0 && this.mouse.y <= this.height
