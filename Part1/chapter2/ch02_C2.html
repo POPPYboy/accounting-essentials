@@ -24,7 +24,7 @@
 
     <header>
         <div class="container nav-container">
-            <a href="../../index.html" class="logo">ACCOUNTS<span>MASTER</span></a>
+            <a href="../../index.html" class="logo">ACCOUNTING<span>ESSENTIALS</span></a>
             <nav class="nav-links">
                 <a href="../../index.html">Home</a>
                 <a href="../part1.html">Part 1</a>
@@ -183,19 +183,22 @@
                     <div class="quiz-container" data-explanation="Assets increase with debits. To decrease cash (an asset), credit it. Liabilities increase with credits. To reduce a payable, debit it. Revenues increase with credits." data-hints="Think: Is this an asset, liability, equity, revenue, or expense account? Then determine if it's increasing or decreasing.">
                         <div class="input-group">
                             <p><strong>Transaction 1:</strong> Pay $1,000 cash to supplier (reduce cash)</p>
-                            <label><input type="radio" name="trans1" value="debit" data-correct="false"> Debit Cash</label><br><br>
+                            <label><input type="radio" name="trans1" value="debit" data-correct="false"> Debit Cash</label>
+
                             <label><input type="radio" name="trans1" value="credit" data-correct="true"> Credit Cash</label>
                         </div>
 
                         <div class="input-group">
                             <p><strong>Transaction 2:</strong> Record revenue earned of $5,000</p>
-                            <label><input type="radio" name="trans2" value="debit" data-correct="false"> Debit Revenue</label><br><br>
+                            <label><input type="radio" name="trans2" value="debit" data-correct="false"> Debit Revenue</label>
+
                             <label><input type="radio" name="trans2" value="credit" data-correct="true"> Credit Revenue</label>
                         </div>
 
                         <div class="input-group">
                             <p><strong>Transaction 3:</strong> Purchase supplies on credit (increase accounts payable)</p>
-                            <label><input type="radio" name="trans3" value="debit" data-correct="false"> Debit Accounts Payable</label><br><br>
+                            <label><input type="radio" name="trans3" value="debit" data-correct="false"> Debit Accounts Payable</label>
+
                             <label><input type="radio" name="trans3" value="credit" data-correct="true"> Credit Accounts Payable</label>
                         </div>
 
@@ -393,19 +396,22 @@
 
                 <div class="misconception-alert">
                     <strong>❌ Misconception 1:</strong> "Debits always mean 'good' and credits always mean 'bad'."
-                    <br><br>
+                    
+
                     <strong>✅ Reality:</strong> Debit and credit simply mean left and right. Whether it's positive or negative depends on the account type. Debiting cash (good) increases it, but debiting revenue (bad) decreases it.
                 </div>
 
                 <div class="misconception-alert">
                     <strong>❌ Misconception 2:</strong> "A credit always increases an account."
-                    <br><br>
+                    
+
                     <strong>✅ Reality:</strong> Credits increase liabilities, equity, and revenues, but they DECREASE assets and expenses. The direction of effect depends on the account's normal balance.
                 </div>
 
                 <div class="misconception-alert">
                     <strong>❌ Misconception 3:</strong> "You can have a transaction with only a debit or only a credit."
-                    <br><br>
+                    
+
                     <strong>✅ Reality:</strong> Double-entry accounting requires AT LEAST one debit AND at least one credit for every transaction. The total debits must equal total credits.
                 </div>
 
@@ -551,9 +557,12 @@
             if (type === 'assets') {
                 status.innerHTML = `
                     <div style="padding: 1rem;">
-                        <strong>ASSETS (Use Accounts)</strong><br><br>
-                        <span style="color: var(--primary); font-size: 1.3rem;">📈 Debit = INCREASE</span><br><br>
-                        <span style="color: var(--error); font-size: 1.3rem;">📉 Credit = DECREASE</span><br><br>
+                        <strong>ASSETS (Use Accounts)</strong>
+
+                        <span style="color: var(--primary); font-size: 1.3rem;">📈 Debit = INCREASE</span>
+
+                        <span style="color: var(--error); font-size: 1.3rem;">📉 Credit = DECREASE</span>
+
                         <em>Examples: Cash, Equipment, Supplies, Inventory</em>
                     </div>
                 `;
@@ -562,9 +571,12 @@
             } else if (type === 'liabilities') {
                 status.innerHTML = `
                     <div style="padding: 1rem;">
-                        <strong>LIABILITIES (Source Accounts)</strong><br><br>
-                        <span style="color: var(--error); font-size: 1.3rem;">📈 Credit = INCREASE</span><br><br>
-                        <span style="color: var(--primary); font-size: 1.3rem;">📉 Debit = DECREASE</span><br><br>
+                        <strong>LIABILITIES (Source Accounts)</strong>
+
+                        <span style="color: var(--error); font-size: 1.3rem;">📈 Credit = INCREASE</span>
+
+                        <span style="color: var(--primary); font-size: 1.3rem;">📉 Debit = DECREASE</span>
+
                         <em>Examples: Accounts Payable, Notes Payable, Wages Payable</em>
                     </div>
                 `;
@@ -573,10 +585,14 @@
             } else if (type === 'equity') {
                 status.innerHTML = `
                     <div style="padding: 1rem;">
-                        <strong>EQUITY (Owner Accounts)</strong><br><br>
-                        <span style="color: var(--success); font-size: 1.3rem;">📈 Credit = INCREASE</span><br><br>
-                        <span style="color: var(--primary); font-size: 1.3rem;">📉 Debit = DECREASE</span><br><br>
-                        <em>Includes: Owner's Capital, Retained Earnings, Common Stock</em><br><br>
+                        <strong>EQUITY (Owner Accounts)</strong>
+
+                        <span style="color: var(--success); font-size: 1.3rem;">📈 Credit = INCREASE</span>
+
+                        <span style="color: var(--primary); font-size: 1.3rem;">📉 Debit = DECREASE</span>
+
+                        <em>Includes: Owner's Capital, Retained Earnings, Common Stock</em>
+
                         <strong>REVENUES:</strong> Increase with Credit (adds to Equity)<br>
                         <strong>EXPENSES & DIVIDENDS:</strong> Decrease Equity (Debit them)
                     </div>

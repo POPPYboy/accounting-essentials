@@ -12,13 +12,18 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 </head>
 
-<body style="height: 100vh; overflow: hidden; display: flex; flex-direction: column;">
+<body style="min-height: 100vh; display: flex; flex-direction: column;">
     <canvas id="global-bg-canvas"
         style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; background: var(--bg-light); pointer-events: none;"></canvas>
 
     <header style="flex-shrink: 0;">
         <div class="container nav-container">
             <a href="index.html" class="logo">ACCOUNTING<span>ESSENTIALS</span></a>
+            <button id="menu-toggle" class="menu-toggle" aria-label="Toggle Menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
             <nav class="nav-links">
                 <a href="mindmap.html" class="active" style="color: var(--primary); font-weight: 700;">Mind Map</a>
                 <a href="Part1/part1.html">Part 1</a>
@@ -28,14 +33,14 @@
         </div>
     </header>
 
-    <main style="flex-grow: 1; position: relative; overflow: hidden;">
-        <div id="mindmap-canvas-container" style="width: 100%; height: 100%;"></div>
+    <main style="flex: 1; display: flex; flex-direction: column; overflow: hidden;">
+        <div id="mindmap-canvas-container" style="width: 100%; height: calc(100vh - var(--header-height) - 60px); flex: 1; padding-bottom: 60px;"></div>
     </main>
 
     <footer
-        style="padding: 1rem 0; background: rgba(0,0,0,0.05); color: #888; font-size: 0.8rem; text-align: center; flex-shrink: 0;">
-        <div class="container">
-            <p>&copy; 2025 Accounting Essentials. S-A Program, SISU</p>
+        style="padding: 0.75rem 0; background: var(--white); color: var(--text-muted); font-size: 0.8rem; text-align: center; flex-shrink: 0; border-top: 1px solid var(--border-light); height: 50px; display: flex; align-items: center; justify-content: center;">
+        <div class="container" style="margin: 0;">
+            <p style="margin: 0;">&copy; 2025 Accounting Essentials. S-A Program, SISU</p>
         </div>
     </footer>
 

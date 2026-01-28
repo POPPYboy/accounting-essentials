@@ -32,12 +32,12 @@ class BackgroundParticles {
     resize() {
         this.width = window.innerWidth;
         this.height = window.innerHeight;
-        
+
         // Handle high-DPI displays (Retina) for crisp rendering
         const dpr = window.devicePixelRatio || 1;
         this.canvas.width = this.width * dpr;
         this.canvas.height = this.height * dpr;
-        
+
         // Scale the context to match the device pixel ratio
         this.ctx.scale(dpr, dpr);
     }
@@ -129,11 +129,42 @@ class BackgroundParticles {
 
 class InteractiveSystem {
     init() {
+        this.bindMobileMenu();
         this.bindFlipCards();
         this.bindQuizzes();
         this.bindCalculators();
         this.bindFormValidators();
         console.log("Accounting Interactive System Initialized");
+    }
+
+    // Mobile Navigation Toggle
+    bindMobileMenu() {
+        const toggle = document.getElementById('menu-toggle');
+        const nav = document.querySelector('.nav-links');
+
+        if (toggle && nav) {
+            toggle.addEventListener('click', (e) => {
+                e.stopPropagation();
+                toggle.classList.toggle('active');
+                nav.classList.toggle('active');
+            });
+
+            // Close menu when clicking outside
+            document.addEventListener('click', (e) => {
+                if (nav.classList.contains('active') && !nav.contains(e.target) && e.target !== toggle) {
+                    toggle.classList.remove('active');
+                    nav.classList.remove('active');
+                }
+            });
+
+            // Close menu when clicking a link
+            nav.querySelectorAll('a').forEach(link => {
+                link.addEventListener('click', () => {
+                    toggle.classList.remove('active');
+                    nav.classList.remove('active');
+                });
+            });
+        }
     }
 
     // Flip Cards Logic
@@ -160,7 +191,7 @@ class InteractiveSystem {
     checkQuiz(container) {
         const selected = container.querySelector('input[type="radio"]:checked');
         const feedback = container.querySelector('.feedback');
-        
+
         if (!selected) {
             this.showFeedback(feedback, "Please select an answer first.", "incorrect");
             return;
@@ -194,7 +225,7 @@ class InteractiveSystem {
         inputs.forEach(input => {
             const expected = input.dataset.answer.toLowerCase().trim();
             const actual = input.value.toLowerCase().trim();
-            
+
             if (actual === expected) {
                 input.style.borderColor = "var(--success)";
             } else {
@@ -237,7 +268,7 @@ class InteractiveSystem {
         element.textContent = message;
         element.className = `feedback ${type}`;
         element.style.display = 'block';
-        
+
         // Scroll to feedback if on mobile
         if (window.innerWidth < 768) {
             element.scrollIntoView({ behavior: 'smooth', block: 'center' });
@@ -249,7 +280,7 @@ class InteractiveSystem {
         const income = parseFloat(document.getElementById('roa-income').value) || 0;
         const assets = parseFloat(document.getElementById('roa-assets').value) || 0;
         const result = document.getElementById('roa-result');
-        
+
         if (assets > 0) {
             const roa = (income / assets) * 100;
             result.textContent = roa.toFixed(2) + "%";

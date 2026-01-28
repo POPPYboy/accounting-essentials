@@ -321,6 +321,10 @@
             margin: 2rem 0;
         }
         
+        .calculator-merch h3 {
+            color: var(--white) !important;
+        }
+        
         .calc-row {
             display: flex;
             align-items: center;
@@ -568,7 +572,7 @@
                             <span style="margin: 0 1rem;">=</span>
                             <span style="color: var(--warning);">Gross Profit</span>
                         </div>
-                        <p style="font-size: 0.9rem; opacity: 0.9;">Gross Profit must cover all operating expenses to create Net Income</p>
+                        <p style="font-size: 0.9rem; opacity: 0.9; color: white;">Gross Profit must cover all operating expenses to create Net Income</p>
                     </div>
 
                     <div class="merch-cycle">
@@ -660,7 +664,7 @@
                     </div>
 
                     <div class="calculator-merch">
-                        <h3 style="margin-bottom: 1rem; text-align: center;">Merchandising Calculator</h3>
+                        <h3 style="margin-bottom: 1rem; text-align: center; color: white;">Merchandising Calculator</h3>
                         
                         <div class="calc-row">
                             <div class="calc-label">Beginning Inventory ($)</div>
@@ -745,7 +749,8 @@
 
                     <div class="misconception-alert" style="margin-top: 1.5rem;">
                         <strong>⚠️ Common Misconception:</strong> "Cost of Goods Sold is the same as all expenses."
-                        <br><br>
+                        
+
                         <strong>✅ Reality:</strong> COGS is a <strong>direct cost</strong> related to producing or purchasing the goods sold. Operating expenses (rent, salaries, advertising) are <strong>indirect costs</strong> of running the business. Both reduce income, but they're reported separately.
                     </div>
                 </div>
@@ -829,7 +834,8 @@
 
                     <div class="misconception-alert" style="margin-top: 1.5rem;">
                         <strong>⚠️ Advanced Misconception:</strong> "FIFO/LIFO describes the actual physical flow of goods."
-                        <br><br>
+                        
+
                         <strong>✅ Reality:</strong> FIFO and LIFO are <strong>cost flow assumptions</strong>, not physical flow descriptions. A company can physically sell newer items first (LIFO physical flow) but use older costs for accounting (FIFO cost flow). The assumptions are about which costs are matched to sales, not which physical items are sold.
                     </div>
                 </div>
@@ -878,7 +884,7 @@
                 </div>
 
                 <div class="calculator-merch" style="margin-top: 1.5rem;">
-                    <h3 style="margin-bottom: 1rem; text-align: center;">Interactive Cost Flow</h3>
+                    <h3 style="margin-bottom: 1rem; text-align: center; color: white;">Interactive Cost Flow</h3>
                     
                     <div style="display: flex; gap: 1rem; flex-wrap: wrap;">
                         <div style="flex: 1; min-width: 200px;">
@@ -926,25 +932,29 @@
 
                 <div class="misconception-alert">
                     <strong>❌ Misconception 1:</strong> "Gross profit is the same as net income."
-                    <br><br>
+                    
+
                     <strong>✅ Reality:</strong> Gross profit is sales minus cost of goods sold. Net income is gross profit minus ALL operating expenses (rent, salaries, utilities, etc.). A company can have gross profit but still report net loss if expenses exceed gross profit.
                 </div>
 
                 <div class="misconception-alert">
                     <strong>❌ Misconception 2:</strong> "Ending inventory doesn't affect the income statement."
-                    <br><br>
+                    
+
                     <strong>✅ Reality:</strong> Ending inventory directly affects COGS on the income statement. Higher ending inventory = lower COGS = higher gross profit. This is why accurate inventory counts are crucial for income statement accuracy.
                 </div>
 
                 <div class="misconception-alert">
                     <strong>❌ Misconception 3:</strong> "Purchases are the same as Cost of Goods Sold."
-                    <br><br>
+                    
+
                     <strong>✅ Reality:</strong> Purchases are the cost of inventory bought during the period. COGS is the cost of inventory actually sold. The difference is ending inventory (goods purchased but not sold) and beginning inventory (goods sold but not purchased this period).
                 </div>
 
                 <div class="misconception-alert">
                     <strong>❌ Misconception 4:</strong> "The perpetual system always gives better inventory numbers."
-                    <br><br>
+                    
+
                     <strong>✅ Reality:</strong> The perpetual system provides real-time data but requires technology and can have errors (theft, damage, recording mistakes). Physical counts are still needed periodically to verify accuracy. Both systems can be accurate when properly maintained.
                 </div>
 
@@ -1072,36 +1082,46 @@
                 <div class="quiz-container" data-success-text="Excellent! You've mastered merchandising activities and cost flows." data-explanation="Merchandisers differ from service companies by tracking inventory and calculating Cost of Goods Sold. The key formula is: Net Sales - COGS = Gross Profit. COGS itself is calculated as: Beginning Inventory + Purchases - Ending Inventory. The operating cycle of buy-hold-sell-collect drives merchandising cash flows.">
                     <div class="input-group">
                         <p><strong>Question 1:</strong> What is the primary difference between a service company and a merchandiser?</p>
-                        <label><input type="radio" name="q1" value="a" data-correct="false"> Service companies have higher expenses</label><br><br>
-                        <label><input type="radio" name="q1" value="b" data-correct="true"> Merchandisers buy and sell physical goods, tracking inventory and COGS</label><br><br>
+                        <label><input type="radio" name="q1" value="a" data-correct="false"> Service companies have higher expenses</label>
+
+                        <label><input type="radio" name="q1" value="b" data-correct="true"> Merchandisers buy and sell physical goods, tracking inventory and COGS</label>
+
                         <label><input type="radio" name="q1" value="c" data-correct="false"> Service companies cannot make profit</label>
                     </div>
 
                     <div class="input-group">
                         <p><strong>Question 2:</strong> If Beginning Inventory = $10,000, Purchases = $40,000, and Ending Inventory = $8,000, what is COGS?</p>
-                        <label><input type="radio" name="q2" value="a" data-correct="false"> $42,000</label><br><br>
-                        <label><input type="radio" name="q2" value="b" data-correct="true"> $42,000</label><br><br>
+                        <label><input type="radio" name="q2" value="a" data-correct="false"> $42,000</label>
+
+                        <label><input type="radio" name="q2" value="b" data-correct="true"> $42,000</label>
+
                         <label><input type="radio" name="q2" value="c" data-correct="false"> $58,000</label>
                     </div>
 
                     <div class="input-group">
                         <p><strong>Question 3:</strong> Gross profit is calculated as:</p>
-                        <label><input type="radio" name="q3" value="a" data-correct="false"> Sales - All Expenses</label><br><br>
-                        <label><input type="radio" name="q3" value="b" data-correct="true"> Net Sales - Cost of Goods Sold</label><br><br>
+                        <label><input type="radio" name="q3" value="a" data-correct="false"> Sales - All Expenses</label>
+
+                        <label><input type="radio" name="q3" value="b" data-correct="true"> Net Sales - Cost of Goods Sold</label>
+
                         <label><input type="radio" name="q3" value="c" data-correct="false"> Net Sales - Operating Expenses</label>
                     </div>
 
                     <div class="input-group">
                         <p><strong>Question 4:</strong> Which is NOT a component of Cost of Goods Available for Sale?</p>
-                        <label><input type="radio" name="q4" value="a" data-correct="false"> Beginning Inventory</label><br><br>
-                        <label><input type="radio" name="q4" value="b" data-correct="false"> Purchases</label><br><br>
+                        <label><input type="radio" name="q4" value="a" data-correct="false"> Beginning Inventory</label>
+
+                        <label><input type="radio" name="q4" value="b" data-correct="false"> Purchases</label>
+
                         <label><input type="radio" name="q4" value="c" data-correct="true"> Operating Expenses</label>
                     </div>
 
                     <div class="input-group">
                         <p><strong>Question 5:</strong> What does the operating cycle of a merchandiser measure?</p>
-                        <label><input type="radio" name="q5" value="a" data-correct="true"> The time from purchasing inventory to collecting cash from customers</label><br><br>
-                        <label><input type="radio" name="q5" value="b" data-correct="false"> The time from hiring employees to paying salaries</label><br><br>
+                        <label><input type="radio" name="q5" value="a" data-correct="true"> The time from purchasing inventory to collecting cash from customers</label>
+
+                        <label><input type="radio" name="q5" value="b" data-correct="false"> The time from hiring employees to paying salaries</label>
+
                         <label><input type="radio" name="q5" value="c" data-correct="false"> The fiscal year length</label>
                     </div>
 

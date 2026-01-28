@@ -165,46 +165,87 @@
 
                 <div class="card-grid">
                     <div class="content-card">
-                        <div class="t-account" style="max-width: 300px; margin: 0 auto;">
+                        <div class="t-account">
                             <div class="t-account-header">Cash</div>
-                            <div class="t-account-grid">
-                                <div class="t-account-side left">
-                                    <input type="number" id="cash-dr" class="practice-input" placeholder="Debit"
-                                        style="width: 80px;">
+                            <div class="t-account-body">
+                                <div class="t-account-debit">
+                                    <span class="t-account-side-label">Debit</span>
+                                    <input type="number" id="cash-dr" class="practice-input" placeholder="$0">
                                 </div>
-                                <div class="t-account-side">
-                                    <input type="number" id="cash-cr" class="practice-input" placeholder="Credit"
-                                        style="width: 80px;">
+                                <div class="t-account-credit">
+                                    <span class="t-account-side-label">Credit</span>
+                                    <input type="number" id="cash-cr" class="practice-input" placeholder="$0">
                                 </div>
                             </div>
-                            <div style="text-align: center; margin-top: 0.5rem; font-weight: bold;">
-                                Balance: <span id="cash-bal">$0</span>
+                            <div class="t-account-balance-display">
+                                <span class="balance-label">Balance</span>
+                                <span class="balance-amount" id="cash-bal">$0</span>
                             </div>
                         </div>
                     </div>
 
                     <div class="content-card">
-                        <div class="t-account" style="max-width: 300px; margin: 0 auto;">
+                        <div class="t-account">
                             <div class="t-account-header">Equipment</div>
-                            <div class="t-account-grid">
-                                <div class="t-account-side left">
-                                    <input type="number" id="equip-dr" class="practice-input" placeholder="Debit"
-                                        style="width: 80px;">
+                            <div class="t-account-body">
+                                <div class="t-account-debit">
+                                    <span class="t-account-side-label">Debit</span>
+                                    <input type="number" id="equip-dr" class="practice-input" placeholder="$0">
                                 </div>
-                                <div class="t-account-side">
-                                    <input type="number" id="equip-cr" class="practice-input" placeholder="Credit"
-                                        style="width: 80px;">
+                                <div class="t-account-credit">
+                                    <span class="t-account-side-label">Credit</span>
+                                    <input type="number" id="equip-cr" class="practice-input" placeholder="$0">
                                 </div>
                             </div>
-                            <div style="text-align: center; margin-top: 0.5rem; font-weight: bold;">
-                                Balance: <span id="equip-bal">$0</span>
+                            <div class="t-account-balance-display">
+                                <span class="balance-label">Balance</span>
+                                <span class="balance-amount" id="equip-bal">$0</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="content-card">
+                        <div class="t-account">
+                            <div class="t-account-header">Accounts Payable</div>
+                            <div class="t-account-body">
+                                <div class="t-account-debit">
+                                    <span class="t-account-side-label">Debit</span>
+                                    <input type="number" id="ap-dr" class="practice-input" placeholder="$0">
+                                </div>
+                                <div class="t-account-credit">
+                                    <span class="t-account-side-label">Credit</span>
+                                    <input type="number" id="ap-cr" class="practice-input" placeholder="$0">
+                                </div>
+                            </div>
+                            <div class="t-account-balance-display">
+                                <span class="balance-label">Balance</span>
+                                <span class="balance-amount" id="ap-bal">$0</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="content-card">
+                        <div class="t-account">
+                            <div class="t-account-header">Common Stock</div>
+                            <div class="t-account-body">
+                                <div class="t-account-debit">
+                                    <span class="t-account-side-label">Debit</span>
+                                    <input type="number" id="cs-dr" class="practice-input" placeholder="$0">
+                                </div>
+                                <div class="t-account-credit">
+                                    <span class="t-account-side-label">Credit</span>
+                                    <input type="number" id="cs-cr" class="practice-input" placeholder="$0">
+                                </div>
+                            </div>
+                            <div class="t-account-balance-display">
+                                <span class="balance-label">Balance</span>
+                                <span class="balance-amount" id="cs-bal">$0</span>
                             </div>
                         </div>
                     </div>
                 </div>
 
-                <button class="btn btn-primary" onclick="calculateBalances()" style="margin-top: 1rem;">Calculate
-                    Balances</button>
+                <button class="btn btn-primary" onclick="calculateBalances()" style="margin-top: var(--space-xl);">Calculate Balances</button>
             </section>
 
             <!-- Step 3: Trial Balance -->
@@ -308,9 +349,15 @@
             const cashCr = parseFloat(document.getElementById('cash-cr').value) || 0;
             const equipDr = parseFloat(document.getElementById('equip-dr').value) || 0;
             const equipCr = parseFloat(document.getElementById('equip-cr').value) || 0;
+            const apDr = parseFloat(document.getElementById('ap-dr').value) || 0;
+            const apCr = parseFloat(document.getElementById('ap-cr').value) || 0;
+            const csDr = parseFloat(document.getElementById('cs-dr').value) || 0;
+            const csCr = parseFloat(document.getElementById('cs-cr').value) || 0;
 
             document.getElementById('cash-bal').textContent = '$' + (cashDr - cashCr).toLocaleString();
             document.getElementById('equip-bal').textContent = '$' + (equipDr - equipCr).toLocaleString();
+            document.getElementById('ap-bal').textContent = '$' + (apCr - apDr).toLocaleString();
+            document.getElementById('cs-bal').textContent = '$' + (csCr - csDr).toLocaleString();
         }
 
         function checkTrialBalance() {
