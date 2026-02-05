@@ -4,176 +4,475 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Interactive: Accounting Cycle | ACCOUNTING ESSENTIALS</title>
+    <title>Interactive: Full Accounting Cycle Workstation | ACCOUNTING ESSENTIALS</title>
     <link rel="stylesheet" href="../../styles.css">
     <style>
-        /* Transaction Flow Styles */
-        .flow-step {
-            background: var(--white);
-            border: 3px solid var(--primary);
+        /* Accounting Cycle Simulator Styles */
+        /* Main Layout - Desktop: Multi-column, Mobile: Stacked */
+        .cycle-dashboard {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+            margin: 1.5rem 0;
+        }
+
+        /* Top Section: Journal Entry - Full Width */
+        .journal-section {
+            background: var(--bg-light);
+            padding: 1.5rem;
+            border-radius: var(--radius-sm);
+            margin-bottom: 1rem;
+        }
+
+        /* Middle Section: Transactions + Ledger - Side by Side on Desktop */
+        .workspace-grid {
+            display: grid;
+            grid-template-columns: 320px 1fr;
+            gap: 1.5rem;
+            min-height: 500px;
+        }
+
+        @media (max-width: 1100px) {
+            .workspace-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Transaction Queue Panel */
+        .transaction-panel {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 1.5rem;
             border-radius: var(--radius-md);
-            padding: 20px;
-            margin: 15px 0;
+            display: flex;
+            flex-direction: column;
+            max-height: 600px;
+            overflow-y: auto;
+        }
+
+        .transaction-panel h2 {
+            margin: 0 0 1rem;
+            color: white;
+            font-size: 1.25rem;
+        }
+
+        .transaction-panel h3 {
+            color: var(--secondary);
+            font-size: 1rem;
+            margin: 0 0 0.75rem;
+        }
+
+        /* Ledger Panel */
+        .ledger-panel {
+            background: var(--white);
+            border: 2px solid var(--border-light);
+            border-radius: var(--radius-md);
+            padding: 1.5rem;
+            max-height: 600px;
+            overflow-y: auto;
+        }
+
+        .ledger-grid {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(450px, 1fr));
+            gap: 1.5rem;
+        }
+
+        @media (max-width: 1100px) {
+            .ledger-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Bottom Section: Trial Balance - Full Width */
+        .trial-balance-section {
+            background: linear-gradient(135deg, #a18cd1 0%, #fbc2eb 100%);
+            color: #2c3e50;
+            padding: 1.5rem;
+            border-radius: var(--radius-md);
+            margin-top: 1rem;
+        }
+
+        .trial-balance-section h2 {
+            margin: 0 0 1rem;
+            color: white;
+        }
+
+        /* Journal Header */
+        .journal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+            padding-bottom: 1rem;
+            border-bottom: 2px solid var(--border-light);
+        }
+
+        .journal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+            padding-bottom: 1rem;
+            border-bottom: 2px solid var(--border-light);
+        }
+
+        .journal-header h3 {
+            margin: 0;
+            font-size: 1.3rem;
+        }
+
+        .journal-totals {
+            display: flex;
+            gap: 1.5rem;
+            font-size: 0.9rem;
+            color: var(--text-muted);
+        }
+
+        .total-box {
+            text-align: center;
+            padding: 0.5rem 1rem;
+            background: var(--white);
+            border-radius: var(--radius-sm);
+            border: 2px solid var(--border-light);
+        }
+
+        .total-box strong {
+            color: var(--primary);
+        }
+
+        /* Entry Form */
+        .entry-form {
+            background: var(--white);
+            border: 2px solid var(--border-light);
+            border-radius: var(--radius-sm);
+            padding: 1.25rem;
+            margin-bottom: 0.75rem;
+        }
+
+        .entry-header {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 0.75rem;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+
+        .entry-header label {
+            grid-column: span 1;
+            font-weight: 600;
+            font-size: 0.9rem;
+            color: var(--text-muted);
+        }
+
+        .entry-header input,
+        .entry-header select {
+            grid-column: span 1;
+            padding: 0.625rem 0.75rem;
+            border: 2px solid var(--border-light);
+            border-radius: var(--radius-sm);
+            font-size: 0.95rem;
+            font-family: inherit;
+            min-width: 120px;
+        }
+
+        .entry-header button {
+            grid-column: span 2;
+            padding: 0.625rem 1.25rem;
+            border: none;
+            border-radius: var(--radius-sm);
+            font-weight: 600;
+            cursor: pointer;
+        }
+
+        .entry-header label {
+            font-weight: 600;
+            font-size: 0.9rem;
+            color: var(--text-muted);
+        }
+
+        .entry-header input,
+        .entry-header select {
+            padding: 0.625rem 0.75rem;
+            border: 2px solid var(--border-light);
+            border-radius: var(--radius-sm);
+            font-size: 0.95rem;
+            font-family: inherit;
+        }
+
+        .entry-header input:focus,
+        .entry-header select:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 4px rgba(26, 35, 126, 0.1);
+        }
+
+        .entry-header button {
+            padding: 0.625rem 1.25rem;
+            background: var(--primary);
+            color: white;
+            border: none;
+            border-radius: var(--radius-sm);
+            font-weight: 600;
             cursor: pointer;
             transition: all 0.3s ease;
-            position: relative;
         }
 
-        .flow-step:hover {
-            transform: translateX(10px);
-            box-shadow: var(--shadow-md);
-        }
-
-        .flow-step.active {
+        .entry-header button:hover {
             background: var(--primary-light);
-            border-color: var(--accent);
-            color: var(--white);
         }
 
-        .flow-step.active h3 {
-            color: var(--white);
+        .entry-header button:disabled {
+            background: var(--text-muted);
+            cursor: not-allowed;
         }
 
-        .flow-step-content {
-            max-height: 0;
-            overflow: hidden;
-            transition: max-height 0.3s ease;
+        /* Transaction Queue */
+        .transaction-queue {
+            background: var(--white);
+            border: 2px solid var(--border-light);
+            border-radius: var(--radius-sm);
+            padding: 1rem;
+            max-height: 300px;
+            overflow-y: auto;
         }
 
-        .flow-step.active .flow-step-content {
-            max-height: 500px;
+        .transaction-item {
+            padding: 0.75rem;
+            border-bottom: 1px solid var(--border-light);
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
         }
 
-        .flow-number {
-            position: absolute;
-            left: -20px;
-            top: 20px;
-            width: 40px;
-            height: 40px;
-            background: var(--accent);
-            color: var(--white);
+        .transaction-item:hover {
+            background: var(--primary-light);
+        }
+
+        .transaction-item.completed {
+            background: var(--success-light);
+            opacity: 0.6;
+            text-decoration: line-through;
+        }
+
+        .tx-number {
+            background: var(--primary);
+            color: white;
+            width: 28px;
+            height: 28px;
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
             font-weight: 700;
-            font-size: 1.2rem;
+            flex-shrink: 0;
         }
 
-        .flow-arrow {
-            text-align: center;
-            color: var(--text-muted);
-            font-size: 2rem;
-            margin: 5px 0;
+        .tx-desc {
+            flex: 1;
+            font-size: 0.9rem;
         }
 
-        /* Error Spotting Styles */
-        .error-section {
-            background: var(--bg-light);
-            padding: 20px;
-            border-radius: var(--radius-md);
-            margin: 20px 0;
-        }
-
-        .transaction-entry {
+        /* Ledger View */
+        .ledger-section {
             background: var(--white);
-            padding: 15px;
+            border: 2px solid var(--border-light);
             border-radius: var(--radius-sm);
-            margin: 10px 0;
-            border-left: 4px solid var(--success);
+            padding: 1.5rem;
         }
 
-        .transaction-entry.has-error {
-            border-left-color: var(--error);
+        .ledger-grid {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(400px, 1fr));
+            gap: 1.5rem;
         }
 
-        .error-highlight {
-            background: var(--error-light);
-            border: 2px solid var(--error);
-            padding: 2px 5px;
-            border-radius: 4px;
-            cursor: pointer;
-        }
-
-        .error-explanation {
-            background: var(--info-light);
-            border-left: 4px solid var(--info);
-            padding: 15px;
-            margin-top: 10px;
-            border-radius: var(--radius-sm);
-            display: none;
-        }
-
-        .error-explanation.show {
-            display: block;
-            animation: slideDown 0.3s ease;
-        }
-
-        @keyframes slideDown {
-            from {
-                opacity: 0;
-                transform: translateY(-10px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
+        @media (max-width: 1100px) {
+            .ledger-grid {
+                grid-template-columns: 1fr;
             }
         }
 
-        /* Progress Indicator */
-        .progress-container {
-            background: var(--bg-light);
-            padding: 20px;
+        .t-account {
+            border: 2px solid var(--primary);
+            border-radius: var(--radius-sm);
+            overflow: hidden;
+            font-size: 0.9rem;
+        }
+
+        .t-account-header {
+            background: var(--primary);
+            color: white;
+            padding: 0.5rem 0.75rem;
+            font-weight: 600;
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.95rem;
+        }
+
+        .t-account-body {
+            display: flex;
+            min-height: 80px;
+        }
+
+        .t-account-side {
+            flex: 1;
+            min-width: 120px;
+        }
+
+        .t-account-side.debit {
+            background: rgba(26, 35, 126, 0.05);
+        }
+
+        .t-account-side.credit {
+            background: rgba(231, 76, 60, 0.05);
+        }
+
+        .t-side-header {
+            text-align: center;
+            padding: 0.35rem;
+            font-weight: 600;
+            font-size: 0.8rem;
+            border-bottom: 1px solid var(--primary);
+        }
+
+        .t-side-header.debit {
+            background: var(--primary);
+            color: white;
+        }
+
+        .t-side-header.credit {
+            background: var(--error);
+            color: white;
+        }
+
+        .t-entries {
+            min-height: 60px;
+            padding: 0.5rem;
+            font-size: 0.8rem;
+        }
+
+        .t-entry {
+            display: flex;
+            justify-content: space-between;
+            padding: 0.25rem 0;
+            font-size: 0.8rem;
+            border-bottom: 1px solid rgba(0,0,0,0.05);
+        }
+
+        .t-entry.debit-side {
+            border-left: 3px solid var(--primary);
+            padding-left: 0.5rem;
+        }
+
+        .t-entry.credit-side {
+            border-right: 3px solid var(--error);
+            padding-right: 0.5rem;
+        }
+
+        .t-balance {
+            text-align: center;
+            padding: 0.5rem;
+            font-weight: 700;
+            border-top: 2px solid var(--secondary);
+            background: rgba(197, 160, 50, 0.1);
+            font-size: 0.85rem;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .t-balance.negative {
+            color: var(--error);
+        }
+
+        .t-balance.positive {
+            color: var(--success);
+        }
+
+        /* Trial Balance */
+        .trial-balance-section {
+            background: linear-gradient(135deg, #a18cd1 0%, #fbc2eb 100%);
+            color: white;
+            padding: 1.5rem;
             border-radius: var(--radius-md);
-            margin-bottom: 20px;
+            margin-top: 1rem;
         }
 
-        .progress-bar {
-            height: 20px;
-            background: var(--text-muted);
-            border-radius: 10px;
+        .trial-balance-section .trial-table {
+            color: #2c3e50;
+            background: white;
+            border-radius: var(--radius-sm);
             overflow: hidden;
         }
 
-        .progress-fill {
-            height: 100%;
-            background: linear-gradient(90deg, var(--success), var(--info));
-            transition: width 0.5s ease;
+        .trial-balance-section .trial-table th {
+            background: var(--primary);
+            color: white;
+            padding: 0.75rem 0.5rem;
+            text-align: left;
+            border-bottom: 2px solid var(--border-light);
         }
 
-        .progress-text {
+        .trial-balance-section .trial-table td {
+            padding: 0.5rem 0.75rem;
+            border-bottom: 1px solid var(--border-light);
+            color: #2c3e50;
+        }
+
+        .trial-balance-section .trial-table .total-row td {
+            font-weight: 700;
+            border-top: 3px solid var(--primary);
+            background: var(--bg-light);
+        }
+
+        .trial-balance-section h2 {
+            margin: 0 0 1rem;
+            color: white;
+        }
+
+        /* Trial table base styles - overridden in trial-balance-section */
+
+        .trial-status {
             text-align: center;
-            margin-top: 10px;
+            margin-top: 1.5rem;
+            padding: 1rem;
+            border-radius: var(--radius-sm);
             font-weight: 600;
-            color: var(--primary);
         }
 
-        /* Animation */
-        .animate-slide {
-            animation: slideIn 0.5s ease;
+        .trial-status.balanced {
+            background: var(--success-light);
+            color: var(--success);
+            border: 2px solid var(--success);
         }
 
-        @keyframes slideIn {
-            from {
-                opacity: 0;
-                transform: translateX(-20px);
-            }
-            to {
-                opacity: 1;
-                transform: translateX(0);
-            }
+        .trial-status.unbalanced {
+            background: var(--error-light);
+            color: var(--error);
+            border: 2px solid var(--error);
+        }
+
+        /* Animations */
+        .animate-flash {
+            animation: flash 0.5s ease;
+        }
+
+        @keyframes flash {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
         }
     </style>
 <!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-50MTQPVR7D"></script>
 <script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  gtag('config', 'G-50MTQPVR7D');
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
+    gtag('config', 'G-50MTQPVR7D');
 </script>
-
 </head>
 
 <body>
@@ -198,380 +497,608 @@
         </div>
 
         <article class="animate-fade-in">
-            <h1 style="border-left: 8px solid var(--accent); padding-left: 1rem; margin: 2rem 0;">🎮 Interactive Learning: The Accounting Cycle</h1>
+            <h1 style="border-left: 8px solid var(--accent); padding-left: 1rem; margin: 2rem 0;">🔄 Full Accounting Cycle Workstation</h1>
 
-            <!-- Section 1: Accounting Cycle Flowchart -->
-            <section class="interactive-section">
-                <h2>1. Accounting Cycle Flowchart</h2>
-                <p>Click each step to see detailed explanations and examples. Complete the entire accounting cycle!</p>
+            <div class="cycle-dashboard">
+                <!-- Main Panel: Journal + Trial Balance -->
+                <div class="main-panel">
+                    <div class="journal-section">
+                        <div class="journal-header">
+                            <h3>📝 Journal Entry Workstation</h3>
+                            <div class="journal-totals">
+                                <div class="total-box">
+                                    <div>Debit Total</div>
+                                    <div><strong id="debit-total">$0</strong></div>
+                                </div>
+                                <div class="total-box">
+                                    <div>Credit Total</div>
+                                    <div><strong id="credit-total">$0</strong></div>
+                                </div>
+                            </div>
+                        </div>
 
-                <div class="progress-container">
-                    <div class="progress-bar">
-                        <div class="progress-fill" id="cycle-progress" style="width: 0%;"></div>
-                    </div>
-                    <div class="progress-text">Progress: <span id="progress-text">0</span>/9 Steps Completed</div>
-                </div>
+                        <form id="journal-form">
+                            <div class="entry-header">
+                                <label>Date</label>
+                                <input type="date" id="entry-date" required>
 
-                <div class="flow-container">
-                    <!-- Step 1 -->
-                    <div class="flow-step" data-step="1">
-                        <div class="flow-number">1</div>
-                        <h3>Analyze Transactions</h3>
-                        <p>Identify how transactions affect the accounting equation</p>
-                        <div class="flow-step-content">
-                            <p><strong>Example:</strong></p>
-                            <p>Company purchased equipment for $5,000, paid in cash.</p>
-                            <p><strong>Analysis:</strong></p>
-                            <ul>
-                                <li>Assets: Equipment increases by $5,000</li>
-                                <li>Assets: Cash decreases by $5,000</li>
-                                <li>Total assets remain unchanged; the accounting equation stays balanced</li>
-                            </ul>
+                                <label>Account</label>
+                                <select id="entry-account" required>
+                                    <option value="">Select Account</option>
+                                    <optgroup label="Assets">
+                                        <option value="Cash">Cash</option>
+                                        <option value="Accounts Receivable">Accounts Receivable</option>
+                                        <option value="Supplies">Supplies</option>
+                                        <option value="Equipment">Equipment</option>
+                                        <option value="Furniture">Furniture</option>
+                                        <option value="Building">Building</option>
+                                        <option value="Land">Land</option>
+                                        <option value="Inventory">Inventory</option>
+                                        <option value="Prepaid Insurance">Prepaid Insurance</option>
+                                    </optgroup>
+                                    <optgroup label="Liabilities">
+                                        <option value="Accounts Payable">Accounts Payable</option>
+                                        <option value="Notes Payable">Notes Payable</option>
+                                        <option value="Salaries Payable">Salaries Payable</option>
+                                        <option value="Utilities Payable">Utilities Payable</option>
+                                        <option value="Unearned Revenue">Unearned Revenue</option>
+                                        <option value="Interest Payable">Interest Payable</option>
+                                    </optgroup>
+                                    <optgroup label="Equity">
+                                        <option value="Owner's Equity">Owner's Equity</option>
+                                        <option value="Owner's Drawings">Owner's Drawings</option>
+                                        <option value="Retained Earnings">Retained Earnings</option>
+                                        <option value="Common Stock">Common Stock</option>
+                                    </optgroup>
+                                    <optgroup label="Revenue">
+                                        <option value="Service Revenue">Service Revenue</option>
+                                        <option value="Sales Revenue">Sales Revenue</option>
+                                        <option value="Interest Revenue">Interest Revenue</option>
+                                        <option value="Rent Revenue">Rent Revenue</option>
+                                    </optgroup>
+                                    <optgroup label="Expenses">
+                                        <option value="Rent Expense">Rent Expense</option>
+                                        <option value="Salaries Expense">Salaries Expense</option>
+                                        <option value="Wages Expense">Wages Expense</option>
+                                        <option value="Utilities Expense">Utilities Expense</option>
+                                        <option value="Supplies Expense">Supplies Expense</option>
+                                        <option value="Insurance Expense">Insurance Expense</option>
+                                        <option value="Advertising Expense">Advertising Expense</option>
+                                        <option value="Maintenance Expense">Maintenance Expense</option>
+                                        <option value="Depreciation Expense">Depreciation Expense</option>
+                                        <option value="Interest Expense">Interest Expense</option>
+                                        <option value="Telephone Expense">Telephone Expense</option>
+                                        <option value="Travel Expense">Travel Expense</option>
+                                        <option value="Office Expense">Office Expense</option>
+                                    </optgroup>
+                                </select>
+
+                                <label>Type</label>
+                                <select id="entry-type" required>
+                                    <option value="debit">Debit</option>
+                                    <option value="credit">Credit</option>
+                                </select>
+
+                                <label>Amount</label>
+                                <input type="number" id="entry-amount" placeholder="0.00" step="0.01" min="0" required>
+
+                                <button type="submit" id="btn-add-entry" style="background: var(--primary); color: white; padding: 0.5rem 1rem; border: none; border-radius: var(--radius-sm); cursor: pointer;">Add Entry</button>
+                                <button type="button" id="btn-clear" style="background: var(--text-muted); color: white; padding: 0.5rem 1rem; border: none; border-radius: var(--radius-sm); cursor: pointer;">Clear Form</button>
+                            </div>
+                        </form>
+
+                        <!-- Transaction Queue - Now moved to side panel -->
+                        <h4 style="margin: 1rem 0; color: var(--text-muted);">Select transactions from the queue on the right →</h4>
+
+                        <!-- Ledger View -->
+                        <h4 style="margin: 1.5rem 0; color: var(--text-muted);">Ledger Accounts</h4>
+                        <div class="ledger-section">
+                            <div class="ledger-grid" id="ledger-grid">
+                                <!-- T-accounts will be populated here -->
+                            </div>
                         </div>
                     </div>
 
-                    <div class="flow-arrow">↓</div>
+                    <!-- Side Panel: Instructions + Trial Balance -->
+                    <div class="side-panel">
+                        <h2>📋 Transaction Queue</h2>
+                        <p style="font-size: 0.9rem; opacity: 0.9; margin-bottom: 1rem;">
+                            Select transactions from the queue to process. You'll see each transaction post to the ledger accounts in real-time.
+                        </p>
 
-                    <!-- Step 2 -->
-                    <div class="flow-step" data-step="2">
-                        <div class="flow-number">2</div>
-                        <h3>Record Journal Entries</h3>
-                        <p>Record all transactions chronologically in the journal</p>
-                        <div class="flow-step-content">
-                            <p><strong>Format:</strong></p>
-                            <table class="financial-table" style="margin-top: 10px;">
-                                <thead>
-                                    <tr>
-                                        <th>Account</th>
-                                        <th>Debit</th>
-                                        <th>Credit</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td>Equipment</td>
-                                        <td>5,000</td>
-                                        <td></td>
-                                    </tr>
-                                    <tr>
-                                        <td>Cash</td>
-                                        <td></td>
-                                        <td>5,000</td>
-                                    </tr>
-                                </tbody>
-                            </table>
+                        <h3>Available Transactions</h3>
+                        <div id="available-transactions" style="display: flex; flex-direction: column; gap: 0.75rem;">
+                            <!-- Transaction 1 -->
+                            <div class="transaction-item" data-id="1" onclick="selectTransaction(1)">
+                                <span class="tx-number">1</span>
+                                <span class="tx-desc">2026-01-03 - Owner invested $25,000 cash in business</span>
+                            </div>
+                            <!-- Transaction 2 -->
+                            <div class="transaction-item" data-id="2" onclick="selectTransaction(2)">
+                                <span class="tx-number">2</span>
+                                <span class="tx-desc">2026-01-05 - Purchased computer equipment, paid $15,000 cash</span>
+                            </div>
+                            <!-- Transaction 3 -->
+                            <div class="transaction-item" data-id="3" onclick="selectTransaction(3)">
+                                <span class="tx-number">3</span>
+                                <span class="tx-desc">2026-01-08 - Billed client for services, $8,000 on account</span>
+                            </div>
+                            <!-- Transaction 4 -->
+                            <div class="transaction-item" data-id="4" onclick="selectTransaction(4)">
+                                <span class="tx-number">4</span>
+                                <span class="tx-desc">2026-01-10 - Paid January rent $3,000</span>
+                            </div>
+                            <!-- Transaction 5 -->
+                            <div class="transaction-item" data-id="5" onclick="selectTransaction(5)">
+                                <span class="tx-number">5</span>
+                                <span class="tx-desc">2026-01-15 - Performed services, received $12,000 cash</span>
+                            </div>
+                            <!-- Transaction 6 -->
+                            <div class="transaction-item" data-id="6" onclick="selectTransaction(6)">
+                                <span class="tx-number">6</span>
+                                <span class="tx-desc">2026-01-20 - Paid employee salaries $4,000</span>
+                            </div>
+                            <!-- Transaction 7 -->
+                            <div class="transaction-item" data-id="7" onclick="selectTransaction(7)">
+                                <span class="tx-number">7</span>
+                                <span class="tx-desc">2026-01-25 - Purchased office supplies $600 cash</span>
+                            </div>
+                            <!-- Transaction 8 -->
+                            <div class="transaction-item" data-id="8" onclick="selectTransaction(8)">
+                                <span class="tx-number">8</span>
+                                <span class="tx-desc">2026-01-28 - Paid utilities $800 cash</span>
+                            </div>
+                        </div>
+
+                        <div style="margin-top: 2rem;">
+                            <h3>Account Balances Summary</h3>
+                            <div style="background: rgba(255,255,255,0.15); padding: 1rem; border-radius: var(--radius-sm); font-size: 0.9rem;">
+                                <p><strong>Cash:</strong> $<span id="summary-cash">0</span></p>
+                                <p><strong>Accounts Receivable:</strong> $<span id="summary-ar">0</span></p>
+                                <p><strong>Service Revenue:</strong> $<span id="summary-revenue">0</span></p>
+                                <p><strong>Expenses:</strong> $<span id="summary-expenses">0</span></p>
+                            </div>
                         </div>
                     </div>
 
-                    <div class="flow-arrow">↓</div>
+                    <!-- Trial Balance Section -->
+                    <div class="trial-balance-section">
+                        <h2>📊 Trial Balance</h2>
+                        <p style="opacity: 0.9; margin-bottom: 1rem;">
+                            The trial balance shows that total debits equal total credits. Generate entries, post to ledger, then prepare trial balance.
+                        </p>
 
-                    <!-- Step 3 -->
-                    <div class="flow-step" data-step="3">
-                        <div class="flow-number">3</div>
-                        <h3>Post to Ledger</h3>
-                        <p>Transfer journal entries to individual ledger accounts</p>
-                        <div class="flow-step-content">
-                            <p><strong>Process:</strong></p>
-                            <ul>
-                                <li>Record debit amounts to the debit side of corresponding accounts</li>
-                                <li>Record credit amounts to the credit side of corresponding accounts</li>
-                                <li>Maintain original transaction date and reference number</li>
-                            </ul>
-                            <p><strong>Purpose:</strong> Organize transaction information by account type for easier access and analysis</p>
+                        <table class="trial-table">
+                            <thead>
+                                <tr>
+                                    <th>Account</th>
+                                    <th>Debit</th>
+                                    <th>Credit</th>
+                                    <th>Balance</th>
+                                </tr>
+                            </thead>
+                            <tbody id="trial-body">
+                                <!-- Trial balance rows will be populated -->
+                            </tbody>
+                            <tfoot>
+                                <tr class="total-row">
+                                    <td style="text-align: right;" colspan="2"><strong>Totals</strong></td>
+                                    <td><strong id="trial-debit-total">$0</strong></td>
+                                    <td><strong id="trial-credit-total">$0</strong></td>
+                                    <td></td>
+                                </tr>
+                            </tfoot>
+                        </table>
+
+                        <div class="trial-status" id="trial-status">
+                            Add entries to generate trial balance
                         </div>
-                    </div>
 
-                    <div class="flow-arrow">↓</div>
-
-                    <!-- Step 4 -->
-                    <div class="flow-step" data-step="4">
-                        <div class="flow-number">4</div>
-                        <h3>Prepare Unadjusted Trial Balance</h3>
-                        <p>Verify that total debits equal total credits</p>
-                        <div class="flow-step-content">
-                            <p><strong>Purpose:</strong></p>
-                            <ul>
-                                <li>Ensure all journal entries maintain the debit-credit equality</li>
-                                <li>Check for mathematical errors</li>
-                                <li>Identify any omitted entries</li>
-                            </ul>
-                            <p style="color: var(--info);"><strong>Note:</strong> A trial balance cannot detect all errors (e.g., errors of principle, omitted transactions)</p>
-                        </div>
-                    </div>
-
-                    <div class="flow-arrow">↓</div>
-
-                    <!-- Step 5 -->
-                    <div class="flow-step" data-step="5">
-                        <div class="flow-number">5</div>
-                        <h3>Prepare Adjusting Entries</h3>
-                        <p>Update accounts to properly reflect accruals and deferrals</p>
-                        <div class="flow-step-content">
-                            <p><strong>Common Adjustments:</strong></p>
-                            <ul>
-                                <li>Accrued revenues and expenses</li>
-                                <li>Prepaid expense amortization</li>
-                                <li>Depreciation expense</li>
-                                <li>Allowance for doubtful accounts</li>
-                            </ul>
-                            <p><strong>Example:</strong> Monthly depreciation expense of $1,000</p>
-                        </div>
-                    </div>
-
-                    <div class="flow-arrow">↓</div>
-
-                    <!-- Step 6 -->
-                    <div class="flow-step" data-step="6">
-                        <div class="flow-number">6</div>
-                        <h3>Prepare Adjusted Trial Balance</h3>
-                        <p>Verify account balances after adjusting entries</p>
-                        <div class="flow-step-content">
-                            <p><strong>Purpose:</strong></p>
-                            <ul>
-                                <li>Ensure adjusting entries are properly balanced</li>
-                                <li>Provide accurate balances for financial statement preparation</li>
-                            </ul>
-                        </div>
-                    </div>
-
-                    <div class="flow-arrow">↓</div>
-
-                    <!-- Step 7 -->
-                    <div class="flow-step" data-step="7">
-                        <div class="flow-number">7</div>
-                        <h3>Prepare Financial Statements</h3>
-                        <p>Generate the Income Statement, Statement of Owner's Equity, and Balance Sheet</p>
-                        <div class="flow-step-content">
-                            <p><strong>Sequence:</strong></p>
-                            <ol>
-                                <li><strong>Income Statement:</strong> Reports revenues and expenses for the period</li>
-                                <li><strong>Statement of Owner's Equity:</strong> Shows changes in equity during the period</li>
-                                <li><strong>Balance Sheet:</strong> Presents the financial position at period-end</li>
-                            </ol>
-                        </div>
-                    </div>
-
-                    <div class="flow-arrow">↓</div>
-
-                    <!-- Step 8 -->
-                    <div class="flow-step" data-step="8">
-                        <div class="flow-number">8</div>
-                        <h3>Closing Entries</h3>
-                        <p>Transfer temporary account balances to permanent capital accounts</p>
-                        <div class="flow-step-content">
-                            <p><strong>Temporary Accounts (Closed):</strong></p>
-                            <ul>
-                                <li>Revenue accounts</li>
-                                <li>Expense accounts</li>
-                                <li>Drawing/Dividend accounts</li>
-                            </ul>
-                            <p><strong>Permanent Accounts (Not Closed):</strong> Assets, Liabilities, Owner's Equity</p>
-                        </div>
-                    </div>
-
-                    <div class="flow-arrow">↓</div>
-
-                    <!-- Step 9 -->
-                    <div class="flow-step" data-step="9">
-                        <div class="flow-number">9</div>
-                        <h3>Prepare Post-Closing Trial Balance</h3>
-                        <p>Verify the starting point for the next accounting period</p>
-                        <div class="flow-step-content">
-                            <p><strong>Accounts Included:</strong></p>
-                            <ul>
-                                <li>Asset accounts</li>
-                                <li>Liability accounts</li>
-                                <li>Owner's Equity accounts</li>
-                            </ul>
-                            <p><strong>Does NOT Contain:</strong> Revenue, Expense, and Dividend accounts (these have been closed)</p>
-                        </div>
-                    </div>
-                </div>
-
-                <button class="btn btn-primary" onclick="resetCycleProgress()" style="margin-top: 20px;">
-                    Reset Progress
-                </button>
-            </section>
-
-            <!-- Section 2: Error Spotting Exercise -->
-            <section class="interactive-section">
-                <h2>2. Journal Entry Error Spotting Exercise</h2>
-                <p>Find errors in the journal entries below. Click on the highlighted portions to see explanations!</p>
-
-                <div class="error-section">
-                    <h3>Challenge: Find All Errors!</h3>
-                    <p>Errors Found: <span id="errors-found">0</span> / <span id="total-errors">3</span></p>
-
-                    <!-- Entry 1 -->
-                    <div class="transaction-entry" id="entry-1">
-                        <h4>Entry 1: Purchasing Office Supplies</h4>
-                        <p><strong>Transaction:</strong> Company purchased office supplies for $500, paid in cash.</p>
-                        <div style="margin-top: 10px;">
-                            <p><span class="error-highlight" onclick="showError('entry1-1')">Office Supplies</span> &nbsp;&nbsp;&nbsp; <strong>Debit</strong> &nbsp;&nbsp;&nbsp; $500</p>
-                            <p><span class="error-highlight" onclick="showError('entry1-2')">Cash</span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <strong>Credit</strong> &nbsp;&nbsp;&nbsp; $50</p>
-                        </div>
-                        <div class="error-explanation" id="entry1-1">
-                            <p><strong>❌ ERROR:</strong> Account classification is incorrect.</p>
-                            <p><strong>✓ Correct:</strong> Should use "Supplies Expense" account instead of "Office Supplies" asset account.</p>
-                            <p><strong>Reason:</strong> Office supplies are typically consumed within the current period and should be recorded as expenses, not assets.</p>
-                        </div>
-                        <div class="error-explanation" id="entry1-2">
-                            <p><strong>❌ ERROR:</strong> Credit amount is incorrect.</p>
-                            <p><strong>✓ Correct:</strong> Should be $500, not $50.</p>
-                            <p><strong>Reason:</strong> Debits must equal credits. Since the debit is $500, the credit must also be $500.</p>
-                        </div>
-                    </div>
-
-                    <!-- Entry 2 -->
-                    <div class="transaction-entry" id="entry-2">
-                        <h4>Entry 2: Receiving Service Fees</h4>
-                        <p><strong>Transaction:</strong> Company performed services and received $1,000 in cash.</p>
-                        <div style="margin-top: 10px;">
-                            <p><span class="error-highlight" onclick="showError('entry2-1')">Service Revenue</span> &nbsp;&nbsp;&nbsp; <strong>Debit</strong> &nbsp;&nbsp;&nbsp; $1,000</p>
-                            <p>Cash &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <strong>Credit</strong> &nbsp;&nbsp;&nbsp; $1,000</p>
-                        </div>
-                        <div class="error-explanation" id="entry2-1">
-                            <p><strong>❌ ERROR:</strong> Revenue account is recorded in the wrong direction.</p>
-                            <p><strong>✓ Correct:</strong> Should credit "Service Revenue" instead of debiting it.</p>
-                            <p><strong>Rule:</strong> Revenue increases with a credit entry. Cash (an asset) increases with a debit entry. The correct entry is: Debit Cash $1,000, Credit Service Revenue $1,000.</p>
-                        </div>
-                    </div>
-
-                    <!-- Entry 3 -->
-                    <div class="transaction-entry" id="entry-3">
-                        <h4>Entry 3: Paying Rent</h4>
-                        <p><strong>Transaction:</strong> Paid monthly rent of $2,000.</p>
-                        <div style="margin-top: 10px;">
-                            <p>Rent Expense &nbsp;&nbsp;&nbsp; <strong>Debit</strong> &nbsp;&nbsp;&nbsp; $2,000</p>
-                            <p><span class="error-highlight" onclick="showError('entry3-1')">Rent Expense</span> &nbsp;&nbsp;&nbsp; <strong>Credit</strong> &nbsp;&nbsp;&nbsp; $2,000</p>
-                        </div>
-                        <div class="error-explanation" id="entry3-1">
-                            <p><strong>❌ ERROR:</strong> Used the wrong credit account.</p>
-                            <p><strong>✓ Correct:</strong> Should credit "Cash" instead of "Rent Expense".</p>
-                            <p><strong>Rule:</strong> When paying rent, Cash decreases (credit) and Rent Expense increases (debit). The same account cannot be used for both debit and credit in a single entry (with rare exceptions).</p>
-                        </div>
+                        <button class="btn" style="background: var(--white); color: var(--primary); border: 2px solid var(--primary); margin-top: 1.5rem; width: 100%;" onclick="resetCycle()">
+                            Reset Cycle
+                        </button>
                     </div>
                 </div>
-
-                <button class="btn btn-primary" onclick="resetErrorExercise()" style="margin-top: 20px;">
-                    Reset Exercise
-                </button>
-                <div id="completion-message" style="margin-top: 20px; padding: 15px; background: var(--success-light); border-radius: var(--radius-sm); display: none;">
-                    <strong>🎉 Congratulations!</strong> You found all the errors! Keep up the great work!
-                </div>
-            </section>
-
-            <div style="display: flex; justify-content: space-between; margin-top: 4rem; padding-bottom: 2rem;">
-                <a href="../chapter1/ch01_INTERACTIVE.html" class="btn" style="background: #eee;">← Previous Chapter</a>
-                <a href="../chapter3/ch03_INTERACTIVE.html" class="btn btn-primary">Next: Chapter 3 Interactive →</a>
             </div>
         </article>
-    </main>
 
-    <script src="../../components.js"></script>
-    <script>
-        // ==================== Accounting Cycle Flowchart ====================
-        let completedSteps = new Set();
+        <script src="../../components.js"></script>
+        <script>
+            // ==================== Accounting Cycle Workstation ====================
+            
+            // Available transactions to process
+            const availableTransactions = [
+                {
+                    id: 1,
+                    date: '2026-01-03',
+                    desc: 'Owner invested $25,000 cash in business',
+                    account: 'Owner\'s Equity',
+                    type: 'credit',
+                    amount: 25000
+                },
+                {
+                    id: 2,
+                    date: '2026-01-05',
+                    desc: 'Purchased computer equipment, paid $15,000 cash',
+                    account: 'Equipment',
+                    type: 'debit',
+                    amount: 15000
+                },
+                {
+                    id: 3,
+                    date: '2026-01-08',
+                    desc: 'Billed client for services, $8,000 on account',
+                    account: 'Accounts Receivable',
+                    type: 'debit',
+                    amount: 8000
+                },
+                {
+                    id: 4,
+                    date: '2026-01-10',
+                    desc: 'Paid January rent $3,000',
+                    account: 'Rent Expense',
+                    type: 'credit',
+                    amount: 3000
+                },
+                {
+                    id: 5,
+                    date: '2026-01-15',
+                    desc: 'Performed services, received $12,000 cash',
+                    account: 'Cash',
+                    type: 'debit',
+                    amount: 12000
+                },
+                {
+                    id: 6,
+                    date: '2026-01-20',
+                    desc: 'Paid employee salaries $4,000',
+                    account: 'Salaries Expense',
+                    type: 'debit',
+                    amount: 4000
+                },
+                {
+                    id: 7,
+                    date: '2026-01-25',
+                    desc: 'Purchased office supplies $600 cash',
+                    account: 'Supplies',
+                    type: 'debit',
+                    amount: 600
+                },
+                {
+                    id: 8,
+                    date: '2026-01-28',
+                    desc: 'Paid utilities $800 cash',
+                    account: 'Utilities Expense',
+                    type: 'debit',
+                    amount: 800
+                }
+            ];
 
-        function initFlowchart() {
-            const flowSteps = document.querySelectorAll('.flow-step');
+            let processedTransactions = [];
+            let completedTransactionIds = [];
+            let selectedTransaction = null;
 
-            flowSteps.forEach(step => {
-                step.addEventListener('click', function() {
-                    const stepNum = this.dataset.step;
+            // Ledger balances
+            const ledger = {
+                // Assets
+                'Cash': { debit: 0, credit: 0 },
+                'Accounts Receivable': { debit: 0, credit: 0 },
+                'Supplies': { debit: 0, credit: 0 },
+                'Equipment': { debit: 0, credit: 0 },
+                'Furniture': { debit: 0, credit: 0 },
+                'Building': { debit: 0, credit: 0 },
+                'Land': { debit: 0, credit: 0 },
+                'Inventory': { debit: 0, credit: 0 },
+                'Prepaid Insurance': { debit: 0, credit: 0 },
+                // Liabilities
+                'Accounts Payable': { debit: 0, credit: 0 },
+                'Notes Payable': { debit: 0, credit: 0 },
+                'Salaries Payable': { debit: 0, credit: 0 },
+                'Utilities Payable': { debit: 0, credit: 0 },
+                'Unearned Revenue': { debit: 0, credit: 0 },
+                'Interest Payable': { debit: 0, credit: 0 },
+                // Equity
+                'Owner\'s Equity': { debit: 0, credit: 0 },
+                'Owner\'s Drawings': { debit: 0, credit: 0 },
+                'Retained Earnings': { debit: 0, credit: 0 },
+                'Common Stock': { debit: 0, credit: 0 },
+                // Revenue
+                'Service Revenue': { debit: 0, credit: 0 },
+                'Sales Revenue': { debit: 0, credit: 0 },
+                'Interest Revenue': { debit: 0, credit: 0 },
+                'Rent Revenue': { debit: 0, credit: 0 },
+                // Expenses
+                'Rent Expense': { debit: 0, credit: 0 },
+                'Salaries Expense': { debit: 0, credit: 0 },
+                'Wages Expense': { debit: 0, credit: 0 },
+                'Utilities Expense': { debit: 0, credit: 0 },
+                'Supplies Expense': { debit: 0, credit: 0 },
+                'Insurance Expense': { debit: 0, credit: 0 },
+                'Advertising Expense': { debit: 0, credit: 0 },
+                'Maintenance Expense': { debit: 0, credit: 0 },
+                'Depreciation Expense': { debit: 0, credit: 0 },
+                'Interest Expense': { debit: 0, credit: 0 },
+                'Telephone Expense': { debit: 0, credit: 0 },
+                'Travel Expense': { debit: 0, credit: 0 },
+                'Office Expense': { debit: 0, credit: 0 }
+            };
 
-                    // Toggle active state
-                    this.classList.toggle('active');
+            // Journal totals
+            let currentDebitTotal = 0;
+            let currentCreditTotal = 0;
 
-                    // Update progress
-                    if (this.classList.contains('active')) {
-                        completedSteps.add(stepNum);
-                    } else {
-                        completedSteps.delete(stepNum);
-                    }
-
-                    updateProgress();
-                });
-            });
-        }
-
-        function updateProgress() {
-            const totalSteps = 9;
-            const completed = completedSteps.size;
-            const percentage = (completed / totalSteps) * 100;
-
-            document.getElementById('cycle-progress').style.width = percentage + '%';
-            document.getElementById('progress-text').textContent = completed;
-
-            // Check if all steps completed
-            if (completed === totalSteps) {
-                showCompletionBadge();
+            function init() {
+                renderAvailableTransactions();
+                updateAccountBalances();
+                updateJournalTotals();
+                updateTrialBalance();
             }
-        }
 
-        function resetCycleProgress() {
-            completedSteps.clear();
-            document.querySelectorAll('.flow-step').forEach(step => {
-                step.classList.remove('active');
-            });
-            updateProgress();
-        }
-
-        function showCompletionBadge() {
-            const message = document.createElement('div');
-            message.style.cssText = 'position: fixed; top: 20px; right: 20px; background: var(--success-light); color: var(--success-dark); padding: 20px; border-radius: var(--radius-md); border: 2px solid var(--success); z-index: 1000; animation: slideIn 0.5s ease;';
-            message.innerHTML = '<strong>🏆 Achievement Unlocked!</strong><br>Completed the Accounting Cycle!';
-            document.body.appendChild(message);
-
-            setTimeout(() => {
-                message.remove();
-            }, 3000);
-        }
-
-        // ==================== Error Spotting Exercise ====================
-        let foundErrors = 0;
-        const totalErrors = 3;
-        let foundErrorIds = new Set();
-
-        function showError(errorId) {
-            const explanation = document.getElementById(errorId);
-
-            if (!explanation.classList.contains('show')) {
-                explanation.classList.add('show');
-
-                if (!foundErrorIds.has(errorId)) {
-                    foundErrorIds.add(errorId);
-                    foundErrors++;
-                    document.getElementById('errors-found').textContent = foundErrors;
-
-                    // Check if all errors found
-                    if (foundErrors === totalErrors) {
-                        setTimeout(() => {
-                            document.getElementById('completion-message').style.display = 'block';
-                            document.getElementById('completion-message').scrollIntoView({ behavior: 'smooth' });
-                        }, 500);
+            function renderAvailableTransactions() {
+                // Don't re-render the list - it's already in HTML
+                // Just update completed status
+                availableTransactions.forEach((tx) => {
+                    const item = document.querySelector('.transaction-item[data-id="' + tx.id + '"');
+                    if (item) {
+                        const isProcessed = completedTransactionIds.includes(tx.id);
+                        if (isProcessed) {
+                            item.classList.add('completed');
+                            item.removeAttribute('onclick');
+                        } else {
+                            item.classList.remove('completed');
+                            item.setAttribute('onclick', 'selectTransaction(' + tx.id + ')');
+                        }
                     }
+                });
+            }
+
+            function selectTransaction(txId) {
+                // Find transaction by ID
+                if (typeof txId === 'number') {
+                    selectedTransaction = availableTransactions.find(t => t.id === txId);
+                } else {
+                    selectedTransaction = txId;
+                }
+                
+                if (!selectedTransaction) {
+                    console.error('Transaction not found:', txId);
+                    return;
+                }
+                
+                // Update visual selection
+                document.querySelectorAll('.transaction-item').forEach(item => {
+                    item.classList.remove('active');
+                });
+                
+                const selectedElement = document.querySelector('.transaction-item[data-id="' + selectedTransaction.id + '"');
+                if (selectedElement) {
+                    selectedElement.classList.add('active');
+                }
+                
+                // Auto-fill the form with transaction data
+                document.getElementById('entry-date').value = selectedTransaction.date;
+                document.getElementById('entry-account').value = selectedTransaction.account;
+                document.getElementById('entry-type').value = selectedTransaction.type;
+                document.getElementById('entry-amount').value = selectedTransaction.amount;
+                
+                console.log('Selected transaction:', selectedTransaction);
+            }
+
+            function addJournalEntry() {
+                const date = document.getElementById('entry-date').value;
+                const account = document.getElementById('entry-account').value;
+                const type = document.getElementById('entry-type').value;
+                const amount = parseFloat(document.getElementById('entry-amount').value);
+
+                if (!date || !account || !type || !amount || amount <= 0) {
+                    alert('Please fill in all fields with a valid amount.');
+                    return;
+                }
+
+                // Validate account type matches debit/credit
+                const debitAccounts = ['Cash', 'Accounts Receivable', 'Supplies', 'Equipment', 'Furniture', 'Building', 'Land', 'Inventory', 'Prepaid Insurance'];
+                const creditAccounts = ['Accounts Payable', 'Notes Payable', 'Salaries Payable', 'Utilities Payable', 'Unearned Revenue', 'Interest Payable', 'Owner\'s Equity', 'Owner\'s Drawings', 'Retained Earnings', 'Common Stock', 'Service Revenue', 'Sales Revenue', 'Interest Revenue', 'Rent Revenue'];
+                const expenseAccounts = ['Rent Expense', 'Salaries Expense', 'Wages Expense', 'Utilities Expense', 'Supplies Expense', 'Insurance Expense', 'Advertising Expense', 'Maintenance Expense', 'Depreciation Expense', 'Interest Expense', 'Telephone Expense', 'Travel Expense', 'Office Expense'];
+                
+                // Assets and Expenses increase with debit, decrease with credit
+                // Liabilities, Equity, and Revenue increase with credit, decrease with debit
+                let isValid = true;
+                let expectedType = '';
+                
+                if (debitAccounts.includes(account) || expenseAccounts.includes(account)) {
+                    // For assets and expenses: increase with debit (for simplicity, we assume user is recording increase)
+                    expectedType = 'debit';
+                } else if (creditAccounts.includes(account)) {
+                    // For liabilities, equity, revenue: increase with credit (for simplicity, we assume user is recording increase)
+                    expectedType = 'credit';
+                }
+                
+                if (type !== expectedType) {
+                    const accountCategory = debitAccounts.includes(account) ? 'Asset' : 
+                                          creditAccounts.includes(account) ? (account.includes('Revenue') ? 'Revenue' : account.includes('Expense') ? 'Expense' : account.includes('Payable') ? 'Liability' : 'Equity') : 
+                                          'Expense';
+                    alert(`Type is incorrect! ${account} is a ${accountCategory} account which typically uses ${expectedType.toUpperCase()} to increase.\n\nPlease change the type to ${expectedType.toUpperCase()} to record an increase, or if you're recording a decrease, you may need to use the opposite type.`);
+                    return;
+                }
+
+                // Create journal entry
+                const entry = {
+                    id: processedTransactions.length + 1,
+                    date: date,
+                    account: account,
+                    type: type,
+                    amount: amount,
+                    referenceTransaction: selectedTransaction ? selectedTransaction.id : null
+                };
+
+                processedTransactions.push(entry);
+
+                // Post to ledger
+                if (type === 'debit') {
+                    ledger[account].debit += amount;
+                } else {
+                    ledger[account].credit += amount;
+                }
+
+                // Mark original transaction as processed (only if selected from queue)
+                if (selectedTransaction && !completedTransactionIds.includes(selectedTransaction.id)) {
+                    completedTransactionIds.push(selectedTransaction.id);
+                }
+
+                // Update UI
+                clearForm();
+                renderAvailableTransactions();
+                updateAccountBalances();
+                updateJournalTotals();
+                updateTrialBalance();
+                renderLedger();
+            }
+
+            function clearForm() {
+                document.getElementById('entry-date').value = '';
+                document.getElementById('entry-account').value = '';
+                document.getElementById('entry-type').value = '';
+                document.getElementById('entry-amount').value = '';
+                selectedTransaction = null;
+                document.querySelectorAll('.transaction-item').forEach(item => {
+                    item.classList.remove('active');
+                });
+            }
+
+            function updateAccountBalances() {
+                document.getElementById('summary-cash').textContent = calculateBalance('Cash').toLocaleString();
+                document.getElementById('summary-ar').textContent = calculateBalance('Accounts Receivable').toLocaleString();
+                document.getElementById('summary-revenue').textContent = calculateBalance('Service Revenue').toLocaleString();
+                document.getElementById('summary-expenses').textContent = (
+                    calculateBalance('Rent Expense') + 
+                    calculateBalance('Salaries Expense')
+                ).toLocaleString();
+            }
+
+            function calculateBalance(account) {
+                return ledger[account].debit - ledger[account].credit;
+            }
+
+            function updateJournalTotals() {
+                let debitTotal = 0;
+                let creditTotal = 0;
+
+                Object.keys(ledger).forEach(acc => {
+                    debitTotal += ledger[acc].debit;
+                    creditTotal += ledger[acc].credit;
+                });
+
+                document.getElementById('debit-total').textContent = '$' + debitTotal.toLocaleString();
+                document.getElementById('credit-total').textContent = '$' + creditTotal.toLocaleString();
+                currentDebitTotal = debitTotal;
+                currentCreditTotal = creditTotal;
+            }
+
+            function updateTrialBalance() {
+                const tbody = document.getElementById('trial-body');
+                tbody.innerHTML = '';
+
+                const accounts = Object.keys(ledger).filter(acc => ledger[acc].debit !== 0 || ledger[acc].credit !== 0);
+
+                accounts.forEach(acc => {
+                    const balance = calculateBalance(acc);
+                    const row = document.createElement('tr');
+                    row.innerHTML = `
+                        <td>${acc}</td>
+                        <td>${ledger[acc].debit > 0 ? '$' + ledger[acc].debit.toLocaleString() : ''}</td>
+                        <td>${ledger[acc].credit > 0 ? '$' + ledger[acc].credit.toLocaleString() : ''}</td>
+                        <td style="text-align: center;"><strong>$${balance.toLocaleString()}</strong></td>
+                    `;
+                    tbody.appendChild(row);
+                });
+
+                const isBalanced = Math.abs(currentDebitTotal - currentCreditTotal) < 0.01;
+                const status = document.getElementById('trial-status');
+
+                if (isBalanced) {
+                    status.className = 'trial-status balanced';
+                    status.innerHTML = '<strong>✓ Trial Balance is Balanced!</strong><br><span style="font-size: 0.9rem;">Debits equal credits</span>';
+                } else if (processedTransactions.length > 0) {
+                    status.className = 'trial-status unbalanced';
+                    const diff = Math.abs(currentDebitTotal - currentCreditTotal);
+                    status.innerHTML = `<strong>✗ Unbalanced by $${diff.toLocaleString()}</strong><br><span style="font-size: 0.9rem;">Add more entries to balance</span>`;
                 }
             }
-        }
 
-        function resetErrorExercise() {
-            foundErrors = 0;
-            foundErrorIds.clear();
-            document.getElementById('errors-found').textContent = '0';
+            function renderLedger() {
+                const grid = document.getElementById('ledger-grid');
+                grid.innerHTML = '';
 
-            document.querySelectorAll('.error-explanation').forEach(exp => {
-                exp.classList.remove('show');
+                const activeAccounts = Object.keys(ledger).filter(acc => ledger[acc].debit !== 0 || ledger[acc].credit !== 0);
+
+                if (activeAccounts.length === 0) {
+                    grid.innerHTML = '<p style="text-align: center; color: var(--text-muted);">No entries posted yet. Add journal entries to see ledger.</p>';
+                    return;
+                }
+
+                activeAccounts.forEach(acc => {
+                    const balance = calculateBalance(acc);
+                    const isPositive = balance > 0;
+
+                    const tAccount = document.createElement('div');
+                    tAccount.className = 't-account';
+                    tAccount.innerHTML = `
+                        <div class="t-account-header">
+                            <span>${acc}</span>
+                        </div>
+                        <div class="t-account-body">
+                            <div class="t-account-side debit">
+                                <div class="t-side-header debit">Debit</div>
+                                <div class="t-entries" id="${acc}-debit">
+                                    ${ledger[acc].debit > 0 ? 
+                                        '<div class="t-entry debit-side">$' + ledger[acc].debit.toLocaleString() + '</div>' : 
+                                        '<div style="color: var(--text-muted); opacity: 0.5;">-</div>'}
+                                </div>
+                            </div>
+                            <div class="t-account-side credit">
+                                <div class="t-side-header credit">Credit</div>
+                                <div class="t-entries" id="${acc}-credit">
+                                    ${ledger[acc].credit > 0 ? 
+                                        '<div class="t-entry credit-side">$' + ledger[acc].credit.toLocaleString() + '</div>' : 
+                                        '<div style="color: var(--text-muted); opacity: 0.5;">-</div>'}
+                                </div>
+                            </div>
+                            <div class="t-balance ${isPositive ? 'positive' : 'negative'}">
+                                <strong>${isPositive ? '+' : ''}$${balance.toLocaleString()}</strong>
+                            </div>
+                        </div>
+                    `;
+                    grid.appendChild(tAccount);
+                });
+            }
+
+            function resetCycle() {
+                // Reset ledger
+                Object.keys(ledger).forEach(acc => {
+                    ledger[acc] = { debit: 0, credit: 0 };
+                });
+
+                processedTransactions = [];
+                completedTransactionIds = [];
+                clearForm();
+
+                // Reset UI
+                renderAvailableTransactions();
+                updateAccountBalances();
+                updateJournalTotals();
+                updateTrialBalance();
+                renderLedger();
+            }
+
+            // Form submit handler
+            document.getElementById('journal-form').addEventListener('submit', function(e) {
+                e.preventDefault();
+                addJournalEntry();
             });
 
-            document.getElementById('completion-message').style.display = 'none';
-        }
-
-        // Initialize on page load
-        document.addEventListener('DOMContentLoaded', function() {
-            initFlowchart();
-        });
-    </script>
+            // Initialize on page load
+            document.addEventListener('DOMContentLoaded', init);
+        </script>
 </body>
 
 </html>

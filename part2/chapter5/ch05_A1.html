@@ -288,6 +288,8 @@
             overflow: hidden;
             box-shadow: var(--shadow);
             transition: transform 0.3s ease;
+            min-width: 200px;
+            max-width: 280px;
         }
         
         .t-account-ratio:hover {
@@ -322,10 +324,11 @@
         }
         
         .t-account-side-ratio {
-            width: 90px;
+            width: 120px;
             padding: 0.75rem;
             text-align: center;
             font-size: 0.8rem;
+            word-wrap: break-word;
         }
         
         .t-account-side-ratio.debit {
@@ -364,6 +367,26 @@
             font-size: 0.85rem;
             background: var(--bg-light);
             border-top: 2px solid var(--primary);
+        }
+        
+        /* Quiz Options Spacing */
+        .quiz-container .input-group label {
+            display: block;
+            padding: var(--space-sm) var(--space-md);
+            margin: var(--space-xs) 0;
+            background: var(--bg-light);
+            border-radius: var(--radius-sm);
+            cursor: pointer;
+            transition: all var(--transition-fast);
+        }
+        
+        .quiz-container .input-group label:hover {
+            background: var(--primary-glow);
+            transform: translateX(5px);
+        }
+        
+        .quiz-container .input-group input[type="radio"] {
+            margin-right: var(--space-sm);
         }
         
         .timeline-ratio {
@@ -770,7 +793,8 @@
 
                     <div class="misconception-alert" style="margin-top: 1.5rem;">
                         <strong>⚠️ Common Misconception:</strong> "A higher acid-test ratio is always better."
-                        <br><br>
+                        
+
                         <strong>✅ Reality:</strong> An excessively high acid-test ratio (e.g., 3.0+) may indicate the company is holding too much cash that could be invested more productively. The goal is adequate liquidity, not maximization.
                     </div>
                 </div>
@@ -1005,25 +1029,29 @@
 
                 <div class="misconception-alert">
                     <strong>❌ Misconception 1:</strong> "The acid-test ratio should always be above 2.0."
-                    <br><br>
+                    
+
                     <strong>✅ Reality:</strong> A ratio above 1.0 is generally adequate. Many successful companies operate with ratios between 0.5 and 1.0, especially in industries where inventory turns over quickly (grocery stores, restaurants).
                 </div>
 
                 <div class="misconception-alert">
                     <strong>❌ Misconception 2:</strong> "Gross margin is the same as profit."
-                    <br><br>
+                    
+
                     <strong>✅ Reality:</strong> Gross margin is profit BEFORE operating expenses. A company can have a 50% gross margin but still lose money if operating expenses (rent, salaries, marketing) exceed gross profit.
                 </div>
 
                 <div class="misconception-alert">
                     <strong>❌ Misconception 3:</strong> "If acid-test ratio > 1.0, the company has no liquidity problems."
-                    <br><br>
+                    
+
                     <strong>✅ Reality:</strong> A ratio above 1.0 is a snapshot. The company could still have cash flow problems if receivables aren't collectible, if liabilities are due before receivables are collected, or if there's a seasonal pattern.
                 </div>
 
                 <div class="misconception-alert">
                     <strong>❌ Misconception 4:</strong> "Higher gross margin always means better performance."
-                    <br><br>
+                    
+
                     <strong>✅ Reality:</strong> A higher gross margin might come at the cost of lower sales volume. Some companies succeed with lower margins but high volume (Walmart, Costco). Focus on gross profit dollars AND margin percentage.
                 </div>
 
@@ -1144,36 +1172,36 @@
                 <div class="quiz-container" data-success-text="Excellent! You've mastered ratio analysis." data-explanation="The acid-test ratio measures liquidity using only the most liquid assets (excluding inventory). The gross margin ratio measures profitability by showing what percentage of sales remains after covering cost of goods sold. Both should be compared to industry benchmarks and historical trends for meaningful analysis.">
                     <div class="input-group">
                         <p><strong>Question 1:</strong> Which assets are included in the acid-test ratio calculation?</p>
-                        <label><input type="radio" name="q1" value="a" data-correct="false"> All current assets</label><br><br>
-                        <label><input type="radio" name="q1" value="b" data-correct="true"> Cash, marketable securities, and accounts receivable only</label><br><br>
+                        <label><input type="radio" name="q1" value="a" data-correct="false"> All current assets</label>
+                        <label><input type="radio" name="q1" value="b" data-correct="true"> Cash, marketable securities, and accounts receivable only</label>
                         <label><input type="radio" name="q1" value="c" data-correct="false"> Cash, inventory, and accounts receivable</label>
                     </div>
 
                     <div class="input-group">
                         <p><strong>Question 2:</strong> If Quick Assets = $50,000 and Current Liabilities = $40,000, what is the acid-test ratio?</p>
-                        <label><input type="radio" name="q2" value="a" data-correct="false"> 0.80</label><br><br>
-                        <label><input type="radio" name="q2" value="b" data-correct="true"> 1.25</label><br><br>
+                        <label><input type="radio" name="q2" value="a" data-correct="false"> 0.80</label>
+                        <label><input type="radio" name="q2" value="b" data-correct="true"> 1.25</label>
                         <label><input type="radio" name="q2" value="c" data-correct="false"> 2.00</label>
                     </div>
 
                     <div class="input-group">
                         <p><strong>Question 3:</strong> Why is inventory excluded from the acid-test ratio?</p>
-                        <label><input type="radio" name="q3" value="a" data-correct="false"> Inventory is not a current asset</label><br><br>
-                        <label><input type="radio" name="q3" value="b" data-correct="true"> Inventory may be difficult to convert to cash quickly at full value</label><br><br>
+                        <label><input type="radio" name="q3" value="a" data-correct="false"> Inventory is not a current asset</label>
+                        <label><input type="radio" name="q3" value="b" data-correct="true"> Inventory may be difficult to convert to cash quickly at full value</label>
                         <label><input type="radio" name="q3" value="c" data-correct="false"> Inventory is always worth more than its recorded value</label>
                     </div>
 
                     <div class="input-group">
                         <p><strong>Question 4:</strong> Net Sales = $200,000, COGS = $120,000. What is the gross margin ratio?</p>
-                        <label><input type="radio" name="q4" value="a" data-correct="false"> 40%</label><br><br>
-                        <label><input type="radio" name="q4" value="b" data-correct="false"> 60%</label><br><br>
+                        <label><input type="radio" name="q4" value="a" data-correct="false"> 40%</label>
+                        <label><input type="radio" name="q4" value="b" data-correct="false"> 60%</label>
                         <label><input type="radio" name="q4" value="c" data-correct="true"> 40%</label>
                     </div>
 
                     <div class="input-group">
                         <p><strong>Question 5:</strong> A company has a healthy gross margin but declining acid-test ratio. What might this indicate?</p>
-                        <label><input type="radio" name="q5" value="a" data-correct="false"> The company is pricing products too high</label><br><br>
-                        <label><input type="radio" name="q5" value="b" data-correct="true"> The company may be accumulating slow-moving inventory or having collection issues</label><br><br>
+                        <label><input type="radio" name="q5" value="a" data-correct="false"> The company is pricing products too high</label>
+                        <label><input type="radio" name="q5" value="b" data-correct="true"> The company may be accumulating slow-moving inventory or having collection issues</label>
                         <label><input type="radio" name="q5" value="c" data-correct="false"> The company has too much cash</label>
                     </div>
 

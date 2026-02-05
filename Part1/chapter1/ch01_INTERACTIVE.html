@@ -4,199 +4,425 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Interactive: Accounting Equation | ACCOUNTING ESSENTIALS</title>
+    <title>Interactive: Business Day Simulator | ACCOUNTING ESSENTIALS</title>
     <link rel="stylesheet" href="../../styles.css">
     <style>
-        /* Additional styles for interactive elements */
-        .equation-bar {
-            height: 200px;
-            display: flex;
-            align-items: flex-end;
-            justify-content: space-around;
-            padding: 20px;
-            background: var(--bg-light);
-            border-radius: var(--radius-md);
-            margin: 20px 0;
+        /* Business Day Simulator Styles */
+        .dashboard-container {
+            display: grid;
+            grid-template-columns: 1fr 1.5fr;
+            gap: 1.5rem;
+            margin: 1.5rem 0;
         }
 
-        .equation-column {
-            width: 150px;
+        @media (max-width: 900px) {
+            .dashboard-container {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .scenario-panel {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 1.5rem;
+            border-radius: var(--radius-md);
+            height: fit-content;
+        }
+
+        .scenario-panel h2 {
+            color: white;
+            margin: 0 0 1rem 0;
+        }
+
+        .scenario-panel h3 {
+            color: var(--secondary);
+            margin: 0.5rem 0;
+            font-size: 1rem;
+        }
+
+        .business-info {
+            background: rgba(255, 255, 255, 0.15);
+            padding: 1rem;
+            border-radius: var(--radius-sm);
+            margin: 1rem 0;
+        }
+
+        .business-info p {
+            margin: 0.25rem 0;
+            color: rgba(255, 255, 255, 0.95);
+        }
+
+        .equation-display {
+            background: rgba(255, 255, 255, 0.2);
+            padding: 1.5rem;
+            border-radius: var(--radius-sm);
+            margin: 1rem 0;
+        }
+
+        .equation-bars-container {
+            display: flex;
+            justify-content: space-around;
+            align-items: flex-end;
+            height: 220px;
+            padding: 1rem 0 0.5rem 0;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: var(--radius-sm);
+            overflow: hidden;
+        }
+
+        .eq-bar {
+            width: 100px;
             display: flex;
             flex-direction: column;
             align-items: center;
-            transition: all 0.5s cubic-bezier(0.25, 0.8, 0.25, 1);
         }
 
-        .equation-bar-fill {
+        .eq-bar-fill {
             width: 100%;
-            border-radius: 8px 8px 0 0;
+            border-radius: 6px 6px 0 0;
             transition: height 0.5s cubic-bezier(0.25, 0.8, 0.25, 1);
-            min-height: 10px;
+            min-height: 20px;
         }
 
-        .assets-bar { background: linear-gradient(to top, var(--primary), var(--primary-light)); }
-        .liabilities-bar { background: linear-gradient(to top, var(--error), var(--error-light)); }
-        .equity-bar { background: linear-gradient(to top, var(--success), var(--success-light)); }
+        .assets-bar {
+            background: linear-gradient(to top, var(--primary), var(--primary-light));
+        }
 
-        .equation-label {
-            margin-top: 10px;
+        .liabilities-bar {
+            background: linear-gradient(to top, var(--error), var(--error-light));
+        }
+
+        .equity-bar {
+            background: linear-gradient(to top, var(--success), var(--success-light));
+        }
+
+        .eq-bar-label {
             font-weight: 600;
-            color: var(--text-main);
-        }
-
-        .equation-value {
-            font-size: 1.5rem;
-            font-weight: 700;
-            color: var(--primary);
-        }
-
-        /* T-Account Styles */
-        .t-account-container {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
-            margin: 2rem 0;
-        }
-
-        .t-account {
-            background: var(--white);
-            border: 2px solid var(--primary);
-            border-radius: var(--radius-md);
-            padding: 20px;
-            min-height: 250px;
-            position: relative;
-        }
-
-        .t-account-header {
-            text-align: center;
-            font-weight: 700;
-            font-size: 1.2rem;
-            margin-bottom: 20px;
-            color: var(--primary);
-        }
-
-        .t-account-body {
-            display: flex;
-            border-top: 3px solid var(--primary);
-            min-height: 150px;
-        }
-
-        .t-account-side {
-            flex: 1;
-            padding: 10px;
-            min-height: 100px;
-        }
-
-        .t-account-left {
-            border-right: 2px solid var(--primary);
-        }
-
-        .t-account-right {
-            border-left: none;
-        }
-
-        .t-account-label {
-            text-align: center;
-            font-weight: 600;
-            color: var(--text-muted);
-            margin-bottom: 10px;
-        }
-
-        .t-account-balance {
-            border-top: 2px solid var(--secondary);
-            padding-top: 5px;
-            font-weight: 700;
-            text-align: right;
-            margin-top: auto;
-            color: var(--secondary);
-        }
-
-        /* Drag and Drop Styles */
-        .draggable-transaction {
-            background: var(--primary-light);
-            color: var(--white);
-            padding: 10px 15px;
-            border-radius: var(--radius-sm);
-            margin: 5px 0;
-            cursor: grab;
+            margin-top: 0.5rem;
             font-size: 0.9rem;
-            user-select: none;
-            transition: all 0.3s ease;
         }
 
-        .draggable-transaction:hover {
-            background: var(--primary);
-            transform: scale(1.02);
+        .eq-bar-value {
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: var(--primary);
         }
 
-        .draggable-transaction:active {
-            cursor: grabbing;
-        }
-
-        .drop-zone {
-            min-height: 100px;
-            border: 2px dashed var(--text-muted);
+        .equation-formula {
+            text-align: center;
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: white;
+            margin: 1rem 0;
+            padding: 0.75rem;
+            background: rgba(26, 35, 126, 0.3);
             border-radius: var(--radius-sm);
-            padding: 10px;
-            transition: all 0.3s ease;
         }
 
-        .drop-zone.drag-over {
-            border-color: var(--success);
-            background: var(--success-light);
-        }
-
-        .transaction-input-container {
-            background: var(--bg-light);
-            padding: 20px;
+        /* Transaction Queue */
+        .transaction-queue {
+            background: var(--white);
+            border: 2px solid var(--border-light);
             border-radius: var(--radius-md);
-            margin: 20px 0;
+            overflow: hidden;
+        }
+
+        .queue-header {
+            background: var(--bg-light);
+            padding: 1rem;
+            border-bottom: 2px solid var(--border-light);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .queue-header h3 {
+            margin: 0;
+            font-size: 1.1rem;
+        }
+
+        .queue-status {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+        }
+
+        .transaction-list {
+            max-height: 400px;
+            overflow-y: auto;
         }
 
         .transaction-item {
-            padding: 8px 12px;
-            margin: 5px 0;
-            background: var(--white);
-            border-radius: var(--radius-sm);
-            border-left: 4px solid var(--primary);
+            padding: 1rem;
+            border-bottom: 1px solid var(--border-light);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
         }
 
-        .transaction-item.removed {
+        .transaction-item:hover {
+            background: var(--primary-light);
+        }
+
+        .transaction-item.active {
+            background: var(--primary-light);
+            border-left: 4px solid var(--secondary);
+        }
+
+        .transaction-item.completed {
             opacity: 0.5;
             text-decoration: line-through;
+            cursor: not-allowed;
+            background: var(--success-light);
         }
 
-        /* Animation Classes */
-        .animate-grow {
-            animation: grow 0.5s ease-out;
+        .transaction-number {
+            background: var(--primary);
+            color: white;
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 0.85rem;
+            flex-shrink: 0;
         }
 
-        @keyframes grow {
-            from { transform: scaleY(0); }
-            to { transform: scaleY(1); }
+        .transaction-desc {
+            flex: 1;
+            font-size: 0.95rem;
+            line-height: 1.4;
         }
 
-        /* Success Animation */
-        .success-pulse {
-            animation: successPulse 0.5s ease-out;
+        .transaction-amount {
+            font-weight: 600;
+            color: var(--primary);
+            flex-shrink: 0;
         }
 
-        @keyframes successPulse {
-            0% { transform: scale(1); }
-            50% { transform: scale(1.05); }
-            100% { transform: scale(1); }
+        /* Transaction Detail Panel */
+        .transaction-detail {
+            background: var(--white);
+            border: 2px solid var(--border-light);
+            border-radius: var(--radius-md);
+            padding: 1.5rem;
+            margin-top: 1rem;
+        }
+
+        .detail-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+            padding-bottom: 1rem;
+            border-bottom: 2px solid var(--border-light);
+        }
+
+        .detail-header h3 {
+            margin: 0;
+            font-size: 1.2rem;
+        }
+
+        .detail-close {
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--text-muted);
+        }
+
+        .detail-close:hover {
+            color: var(--error);
+        }
+
+        .transaction-analysis {
+            background: var(--bg-light);
+            padding: 1rem;
+            border-radius: var(--radius-sm);
+            margin-bottom: 1rem;
+        }
+
+        .analysis-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr 1fr;
+            gap: 1rem;
+            margin-bottom: 0.75rem;
+            align-items: center;
+        }
+
+        .analysis-label {
+            font-weight: 600;
+            color: var(--text-muted);
+        }
+
+        .analysis-value {
+            font-weight: 700;
+            font-size: 1.1rem;
+            padding: 0.5rem 0.75rem;
+            border-radius: var(--radius-sm);
+            text-align: center;
+        }
+
+        .analysis-value.assets {
+            background: rgba(26, 35, 126, 0.1);
+            color: var(--primary);
+        }
+
+        .analysis-value.liabilities {
+            background: rgba(231, 76, 60, 0.1);
+            color: var(--error);
+        }
+
+        .analysis-value.equity {
+            background: rgba(39, 174, 96, 0.1);
+            color: var(--success);
+        }
+
+        .action-buttons {
+            display: flex;
+            gap: 0.75rem;
+            margin-top: 1rem;
+        }
+
+        .btn-process {
+            flex: 1;
+            padding: 0.875rem 1.5rem;
+            font-size: 1rem;
+        }
+
+        .btn-skip {
+            background: var(--bg-light);
+            color: var(--text-muted);
+            border: 2px solid var(--border-light);
+        }
+
+        .btn-skip:hover {
+            background: var(--border-light);
+        }
+
+        /* Transaction History Table */
+        .history-panel {
+            background: var(--white);
+            border: 2px solid var(--border-light);
+            border-radius: var(--radius-md);
+            margin-top: 1.5rem;
+        }
+
+        .history-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.9rem;
+        }
+
+        .history-table th {
+            background: var(--bg-light);
+            padding: 0.75rem 0.5rem;
+            text-align: left;
+            font-weight: 600;
+            border-bottom: 2px solid var(--border-light);
+        }
+
+        .history-table td {
+            padding: 0.75rem 0.5rem;
+            border-bottom: 1px solid var(--border-light);
+        }
+
+        .history-table tr:last-child td {
+            border-bottom: none;
+        }
+
+        .impact-positive {
+            color: var(--success);
+        }
+
+        .impact-negative {
+            color: var(--error);
+        }
+
+        .impact-neutral {
+            color: var(--text-muted);
+        }
+
+        /* Progress & Feedback */
+        .progress-bar {
+            height: 8px;
+            background: var(--border-light);
+            border-radius: 4px;
+            overflow: hidden;
+            margin: 1rem 0;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--success), var(--info));
+            transition: width 0.5s ease;
+        }
+
+        .feedback-message {
+            padding: 1rem;
+            border-radius: var(--radius-sm);
+            margin-top: 1rem;
+            display: none;
+        }
+
+        .feedback-message.show {
+            display: block;
+            animation: slideIn 0.3s ease;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Animations */
+        .animate-update {
+            animation: updatePulse 0.5s ease;
+        }
+
+        @keyframes updatePulse {
+
+            0%,
+            100% {
+                transform: scale(1);
+            }
+
+            50% {
+                transform: scale(1.05);
+            }
+        }
+
+        .success-badge {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: var(--success);
+            color: white;
+            padding: 1rem 1.5rem;
+            border-radius: var(--radius-md);
+            z-index: 1000;
+            animation: slideIn 0.3s ease;
+            box-shadow: var(--shadow-lg);
         }
     </style>
-<!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-50MTQPVR7D"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  gtag('config', 'G-50MTQPVR7D');
-</script>
-
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-50MTQPVR7D"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+        gtag('config', 'G-50MTQPVR7D');
+    </script>
 </head>
 
 <body>
@@ -217,371 +443,636 @@
 
     <main class="container">
         <div class="breadcrumbs">
-            <a href="../../index.html">Home</a> <span>/</span> <a href="../part1.html">Part 1</a> <span>/</span> <a href="ch01.html">Chapter 1</a> <span>/</span> Interactive
+            <a href="../../index.html">Home</a> <span>/</span> <a href="../part1.html">Part 1</a> <span>/</span> <a
+                href="ch01.html">Chapter 1</a> <span>/</span> Interactive
         </div>
 
         <article class="animate-fade-in">
-            <h1 style="border-left: 8px solid var(--accent); padding-left: 1rem; margin: 2rem 0;">🎮 Interactive Learning Module</h1>
+            <h1 style="border-left: 8px solid var(--accent); padding-left: 1rem; margin: 2rem 0;">🎯 Business Day
+                Simulator: Accounting Equation in Action</h1>
 
-            <!-- Section 1: Accounting Equation Visualizer -->
-            <section class="interactive-section">
-                <h2>1. Accounting Equation Visualizer</h2>
-                <p>Watch how each transaction affects the accounting equation: <strong>Assets = Liabilities + Owner's Equity</strong></p>
 
-                <div class="equation-bar">
-                    <div class="equation-column">
-                        <div class="equation-bar-fill assets-bar" id="assets-bar" style="height: 100px;"></div>
-                        <div class="equation-value" id="assets-value">$100,000</div>
-                        <div class="equation-label">Assets</div>
+
+            <div class="dashboard-container">
+                <!-- Left Panel: Scenario & Equation -->
+                <div class="scenario-panel">
+                    <h2>📦 Startup Business Simulator</h2>
+
+                    <div class="business-info">
+                        <h3>BrightStart Consulting LLC</h3>
+                        <p><strong>Business Type:</strong> Professional Services</p>
+                        <p><strong>Current Month:</strong> January 2026</p>
+                        <p><strong>Your Role:</strong> Staff Accountant</p>
+                        <p style="font-size: 0.85rem; opacity: 0.9; margin-top: 0.5rem;">
+                            Process daily transactions and maintain the accounting equation balance.
+                        </p>
                     </div>
-                    <div class="equation-column">
-                        <div class="equation-bar-fill liabilities-bar" id="liabilities-bar" style="height: 60px;"></div>
-                        <div class="equation-value" id="liabilities-value">$60,000</div>
-                        <div class="equation-label">Liabilities</div>
-                    </div>
-                    <div class="equation-column">
-                        <div class="equation-bar-fill equity-bar" id="equity-bar" style="height: 40px;"></div>
-                        <div class="equation-value" id="equity-value">$40,000</div>
-                        <div class="equation-label">Owner's Equity</div>
-                    </div>
-                </div>
 
-                <div id="equation-status" style="text-align: center; font-size: 1.2rem; font-weight: bold; color: var(--success); margin: 20px 0;">
-                    ✓ Equation Balanced
-                </div>
-
-                <div class="transaction-input-container">
-                    <h3>Select a transaction to see its impact:</h3>
-                    <div id="transaction-list">
-                        <div class="draggable-transaction" data-asset-change="5000" data-liab-change="5000" data-equity-change="0">
-                            1. Purchased equipment $5,000 on account
-                        </div>
-                        <div class="draggable-transaction" data-asset-change="3000" data-liab-change="0" data-equity-change="3000">
-                            2. Owner invested $3,000 cash
-                        </div>
-                        <div class="draggable-transaction" data-asset-change="-2000" data-liab-change="-2000" data-equity-change="0">
-                            3. Paid creditors $2,000
-                        </div>
-                        <div class="draggable-transaction" data-asset-change="1000" data-liab-change="0" data-equity-change="-1000">
-                            4. Paid rent $1,000
-                        </div>
-                        <div class="draggable-transaction" data-asset-change="4000" data-liab-change="0" data-equity-change="4000">
-                            5. Received service fees $4,000 cash
-                        </div>
+                    <div class="equation-formula">
+                        Assets = Liabilities + Owner's Equity
                     </div>
-                    <button class="btn btn-primary" onclick="applySelectedTransaction()" style="margin-top: 15px;">
-                        Apply Selected Transaction
-                    </button>
-                    <button class="btn btn-outline" onclick="resetEquation()" style="margin-top: 15px;">
-                        Reset
-                    </button>
-                </div>
-            </section>
 
-            <!-- Section 2: T-Account Drag and Drop -->
-            <section class="interactive-section">
-                <h2>2. T-Account Drag and Drop Exercise</h2>
-                <p>Drag transaction items to the correct side of the T-accounts (Debit or Credit)</p>
-
-                <div class="card-grid" style="margin: 20px 0;">
-                    <div class="content-card">
-                        <h3>📌 Transaction Scenario</h3>
-                        <p><strong>Company purchased office supplies, paid $500 cash</strong></p>
-                        <div style="background: var(--bg-light); padding: 15px; border-radius: var(--radius-sm); margin-top: 10px;">
-                            <p><strong>Hint:</strong></p>
-                            <ul style="margin-left: 20px;">
-                                <li>Office supplies are assets, increase recorded as debit</li>
-                                <li>Cash is an asset, decrease recorded as credit</li>
-                            </ul>
-                        </div>
-                    </div>
-                    <div class="content-card" style="border: 2px solid var(--info);">
-                        <h3>📦 Drag and Drop Zone</h3>
-                        <div id="drag-source" style="padding: 20px; background: var(--bg-light); border-radius: var(--radius-sm);">
-                            <div class="draggable-transaction" draggable="true" data-account="supplies" data-type="debit">
-                                Office Supplies $500 (Debit)
+                    <div class="equation-display">
+                        <div class="equation-bars-container">
+                            <div class="eq-bar">
+                                <div class="eq-bar-fill assets-bar" id="assets-bar" style="height: 100px;"></div>
+                                <div class="eq-bar-label" style="color: var(--primary);">Assets</div>
+                                <div class="eq-bar-value" id="assets-value">$50,000</div>
                             </div>
-                            <div class="draggable-transaction" draggable="true" data-account="cash" data-type="credit">
-                                Cash $500 (Credit)
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="t-account-container">
-                    <!-- Supplies Account -->
-                    <div class="t-account">
-                        <div class="t-account-header">Office Supplies</div>
-                        <div class="t-account-body">
-                            <div class="t-account-side t-account-left">
-                                <div class="t-account-label">Debit</div>
-                                <div class="drop-zone" id="supplies-debit" data-account="supplies" data-side="debit">
-                                    <!-- Dragged items will appear here -->
+                            <div class="eq-bar">
+                                <div class="eq-bar-fill liabilities-bar" id="liabilities-bar" style="height: 40px;">
                                 </div>
-                                <div class="t-account-balance" id="supplies-debit-balance">$0</div>
+                                <div class="eq-bar-label" style="color: var(--error);">Liabilities</div>
+                                <div class="eq-bar-value" id="liabilities-value">$20,000</div>
                             </div>
-                            <div class="t-account-side t-account-right">
-                                <div class="t-account-label">Credit</div>
-                                <div class="drop-zone" id="supplies-credit" data-account="supplies" data-side="credit">
-                                    <!-- Dragged items will appear here -->
-                                </div>
-                                <div class="t-account-balance" id="supplies-credit-balance">$0</div>
+                            <div class="eq-bar">
+                                <div class="eq-bar-fill equity-bar" id="equity-bar" style="height: 60px;"></div>
+                                <div class="eq-bar-label" style="color: var(--success);">Owner's Equity</div>
+                                <div class="eq-bar-value" id="equity-value">$30,000</div>
                             </div>
+                        </div>
+
+                        <div style="text-align: center; margin-top: 1rem;">
+                            <span id="balance-status"
+                                style="background: var(--success); color: white; padding: 0.5rem 1rem; border-radius: var(--radius-sm); font-weight: 700;">
+                                ✓ Equation Balanced
+                            </span>
                         </div>
                     </div>
 
-                    <!-- Cash Account -->
-                    <div class="t-account">
-                        <div class="t-account-header">Cash</div>
-                        <div class="t-account-body">
-                            <div class="t-account-side t-account-left">
-                                <div class="t-account-label">Debit</div>
-                                <div class="drop-zone" id="cash-debit" data-account="cash" data-side="debit">
-                                    <!-- Dragged items will appear here -->
-                                </div>
-                                <div class="t-account-balance" id="cash-debit-balance">$0</div>
-                            </div>
-                            <div class="t-account-side t-account-right">
-                                <div class="t-account-label">Credit</div>
-                                <div class="drop-zone" id="cash-credit" data-account="cash" data-side="credit">
-                                    <!-- Dragged items will appear here -->
-                                </div>
-                                <div class="t-account-balance" id="cash-credit-balance">$0</div>
-                            </div>
+                    <div
+                        style="background: rgba(255, 255, 255, 0.15); padding: 1rem; border-radius: var(--radius-sm); margin-top: 1rem;">
+                        <h3 style="color: white; margin: 0 0 0.5rem;">Today's Progress</h3>
+                        <div class="progress-bar">
+                            <div class="progress-fill" id="progress-fill" style="width: 0%;"></div>
                         </div>
+                        <p style="color: rgba(255, 255, 255, 0.9); margin-top: 0.5rem; font-size: 0.85rem;">
+                            Transactions Completed: <span id="completed-count">0</span> / <span
+                                id="total-count">0</span>
+                        </p>
                     </div>
+
+                    <div class="feedback-message" id="feedback-message"></div>
                 </div>
 
-                <button class="btn btn-primary" onclick="checkTAccounts()" style="margin-top: 20px;">
-                    Check My Answers
-                </button>
-                <div id="t-account-feedback" style="margin-top: 15px; padding: 15px; border-radius: var(--radius-sm); display: none;"></div>
-            </section>
+                <!-- Right Panel: Transaction Queue -->
+                <div>
+                    <div class="transaction-queue">
+                        <div class="queue-header">
+                            <h3>📋 Transaction Queue</h3>
+                            <span class="queue-status">Select transactions to process</span>
+                        </div>
+                        <div class="transaction-list" id="transaction-list">
+                            <!-- Transaction 1 -->
+                            <div class="transaction-item" data-id="1" onclick="selectTransaction(1)">
+                                <span class="transaction-number">1</span>
+                                <span class="transaction-desc">Owner invested additional cash in business
+                                    ($15,000)</span>
+                                <span class="transaction-amount">→</span>
+                            </div>
+                            <!-- Transaction 2 -->
+                            <div class="transaction-item" data-id="2" onclick="selectTransaction(2)">
+                                <span class="transaction-number">2</span>
+                                <span class="transaction-desc">Purchased office equipment, paid $8,000 cash</span>
+                                <span class="transaction-amount">→</span>
+                            </div>
+                            <!-- Transaction 3 -->
+                            <div class="transaction-item" data-id="3" onclick="selectTransaction(3)">
+                                <span class="transaction-number">3</span>
+                                <span class="transaction-desc">Purchased supplies on account $5,000</span>
+                                <span class="transaction-amount">→</span>
+                            </div>
+                            <!-- Transaction 4 -->
+                            <div class="transaction-item" data-id="4" onclick="selectTransaction(4)">
+                                <span class="transaction-number">4</span>
+                                <span class="transaction-desc">Provided services to client, received $12,000 cash</span>
+                                <span class="transaction-amount">→</span>
+                            </div>
+                            <!-- Transaction 5 -->
+                            <div class="transaction-item" data-id="5" onclick="selectTransaction(5)">
+                                <span class="transaction-number">5</span>
+                                <span class="transaction-desc">Paid $3,000 rent for January</span>
+                                <span class="transaction-amount">→</span>
+                            </div>
+                            <!-- Transaction 6 -->
+                            <div class="transaction-item" data-id="6" onclick="selectTransaction(6)">
+                                <span class="transaction-number">6</span>
+                                <span class="transaction-desc">Paid $2,000 of the supplies purchase on account</span>
+                                <span class="transaction-amount">→</span>
+                            </div>
+                            <!-- Transaction 7 -->
+                            <div class="transaction-item" data-id="7" onclick="selectTransaction(7)">
+                                <span class="transaction-number">7</span>
+                                <span class="transaction-desc">Owner withdrew $5,000 for personal use</span>
+                                <span class="transaction-amount">→</span>
+                            </div>
+                            <!-- Transaction 8 -->
+                            <div class="transaction-item" data-id="8" onclick="selectTransaction(8)">
+                                <span class="transaction-number">8</span>
+                                <span class="transaction-desc">Received $6,000 payment for services already
+                                    billed</span>
+                                <span class="transaction-amount">→</span>
+                            </div>
+                        </div>
+                    </div>
 
-            <div style="display: flex; justify-content: space-between; margin-top: 4rem; padding-bottom: 2rem;">
-                <a href="ch01_P2.html" class="btn" style="background: #eee;">← Back to Procedures</a>
-                <a href="../chapter2/ch02_INTERACTIVE.html" class="btn btn-primary">Next: Chapter 2 Interactive →</a>
+                    <!-- Transaction Detail Panel (shown when transaction selected) -->
+                    <div class="transaction-detail" id="transaction-detail" style="display: none;">
+                        <div class="detail-header">
+                            <h3 id="detail-title">Transaction Details</h3>
+                            <button class="detail-close" onclick="closeDetail()">&times;</button>
+                        </div>
+
+                        <div class="transaction-analysis">
+                            <h4 style="margin: 0 0 1rem;">Analyze this transaction before recording:</h4>
+
+                            <div class="analysis-row">
+                                <span class="analysis-label">Which accounts change?</span>
+                                <div id="accounts-affected" style="display: flex; gap: 0.5rem;"></div>
+                            </div>
+
+                            <div class="analysis-row">
+                                <span class="analysis-label">Increase or Decrease?</span>
+                                <div id="direction-affected" style="display: flex; gap: 0.5rem;"></div>
+                            </div>
+
+                            <div class="analysis-row">
+                                <span class="analysis-label">Impact amounts:</span>
+                            </div>
+
+                            <div
+                                style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 0.75rem; margin-top: 0.5rem;">
+                                <div class="analysis-value assets" id="impact-assets">+ $0</div>
+                                <div class="analysis-value liabilities" id="impact-liabilities">+ $0</div>
+                                <div class="analysis-value equity" id="impact-equity">+ $0</div>
+                            </div>
+                        </div>
+
+                        <div class="action-buttons">
+                            <button class="btn btn-primary btn-process" onclick="processTransaction()">✓ Process
+                                Transaction</button>
+                            <button class="btn btn-skip" onclick="skipTransaction()">✗ Skip Transaction</button>
+                        </div>
+
+                        <div
+                            style="margin-top: 1rem; padding: 1rem; background: var(--info-light); border-left: 4px solid var(--info); border-radius: var(--radius-sm); font-size: 0.85rem;">
+                            <strong>💡 Hint:</strong> <span id="detail-hint"></span>
+                        </div>
+                    </div>
+
+                    <!-- Transaction History -->
+                    <div class="history-panel">
+                        <div class="queue-header">
+                            <h3>📊 Transaction History</h3>
+                            <button class="btn" style="padding: 0.25rem 0.75rem; font-size: 0.85rem;"
+                                onclick="resetSimulator()">Reset</button>
+                        </div>
+                        <table class="history-table">
+                            <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>Description</th>
+                                    <th>Assets Δ</th>
+                                    <th>Liabilities Δ</th>
+                                    <th>Equity Δ</th>
+                                    <th>New Balance</th>
+                                </tr>
+                            </thead>
+                            <tbody id="history-body">
+                                <!-- History will be populated by JavaScript -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
             </div>
         </article>
     </main>
 
     <script src="../../components.js"></script>
     <script>
-        // ==================== Accounting Equation Visualizer ====================
-        let currentAssets = 100000;
-        let currentLiabilities = 60000;
-        let currentEquity = 40000;
-        let maxAmount = 150000;
+        // ==================== Business Day Simulator ====================
+
+        // Helper function to update status
+        function updateStatus(msg, color, borderColor) {
+            const statusEl = document.getElementById('js-status');
+            if (statusEl) {
+                statusEl.innerHTML = msg;
+                if (color) statusEl.style.background = color;
+                if (borderColor) statusEl.style.borderColor = borderColor;
+            }
+        }
+
+        // Global error handler
+        window.onerror = function (msg, url, line, col, error) {
+            console.error('[GLOBAL ERROR]', msg, 'at line', line, 'col', col);
+            updateStatus('🔴 JavaScript Error: ' + msg + ' (Line: ' + line + ')', '#f8d7da', '#dc3545');
+            return false;
+        };
+
+        console.log('[DEBUG] Script started executing');
+
+        // Mark as loaded
+        updateStatus('🟢 JavaScript loaded successfully!', '#d4edda', '#28a745');
+
+        let assets = 50000;
+        let liabilities = 20000;
+        let equity = 30000;
+        let transactions = [
+            {
+                id: 1,
+                desc: "Owner invested additional cash in business",
+                type: "investment",
+                accounts: ["Cash", "Owner's Equity"],
+                directions: ["increase", "increase"],
+                amounts: { assets: 15000, liabilities: 0, equity: 15000 },
+                hint: "Investment increases both Cash (asset) and Owner's Equity"
+            },
+            {
+                id: 2,
+                desc: "Purchased office equipment, paid $8,000 cash",
+                type: "purchase",
+                accounts: ["Equipment", "Cash"],
+                directions: ["increase", "decrease"],
+                amounts: { assets: 0, liabilities: 0, equity: 0 },
+                detail: "Equipment +$8,000, Cash -$8,000 (Net: $0)",
+                hint: "Asset exchange: one asset increases, another decreases"
+            },
+            {
+                id: 3,
+                desc: "Purchased supplies on account $5,000",
+                type: "purchase-credit",
+                accounts: ["Supplies", "Accounts Payable"],
+                directions: ["increase", "increase"],
+                amounts: { assets: 5000, liabilities: 5000, equity: 0 },
+                hint: "Purchasing on credit increases both Supplies (asset) and Accounts Payable (liability)"
+            },
+            {
+                id: 4,
+                desc: "Provided services to client, received $12,000 cash",
+                type: "revenue",
+                accounts: ["Cash", "Service Revenue"],
+                directions: ["increase", "increase"],
+                amounts: { assets: 12000, liabilities: 0, equity: 12000 },
+                hint: "Services for cash increases Cash (asset) and creates Revenue (increases equity)"
+            },
+            {
+                id: 5,
+                desc: "Paid $3,000 rent for January",
+                type: "expense",
+                accounts: ["Rent Expense"],
+                directions: ["decrease"],
+                amounts: { assets: -3000, liabilities: 0, equity: -3000 },
+                hint: "Expenses decrease Cash (asset) and decrease Owner's Equity"
+            },
+            {
+                id: 6,
+                desc: "Paid $2,000 of the supplies purchase on account",
+                type: "payment",
+                accounts: ["Cash", "Accounts Payable"],
+                directions: ["decrease", "decrease"],
+                amounts: { assets: -2000, liabilities: -2000, equity: 0 },
+                hint: "Paying accounts payable reduces both Cash (asset) and the liability"
+            },
+            {
+                id: 7,
+                desc: "Owner withdrew $5,000 for personal use",
+                type: "withdrawal",
+                accounts: ["Cash", "Owner's Equity"],
+                directions: ["decrease", "decrease"],
+                amounts: { assets: -5000, liabilities: 0, equity: -5000 },
+                hint: "Withdrawals decrease both Cash (asset) and Owner's Equity"
+            },
+            {
+                id: 8,
+                desc: "Received $6,000 payment for services already billed",
+                type: "collection",
+                accounts: ["Cash", "Accounts Receivable"],
+                directions: ["increase", "decrease"],
+                amounts: { assets: 0, liabilities: 0, equity: 0 },
+                detail: "Cash +$6,000, Accounts Receivable -$6,000 (Net: $0)",
+                hint: "Collecting payment on account is an asset exchange - no change to equity"
+            }
+        ];
+
+        let completedTransactions = [];
+        let selectedTransaction = null;
+        const maxAssets = 100000;
+
+        function init() {
+            console.log('[DEBUG] init() called');
+            console.log('[DEBUG] Transactions:', transactions.length);
+            console.log('[DEBUG] Completed:', completedTransactions);
+
+            try {
+                // Don't re-render the list - it's already in HTML
+                // Just update the progress counters
+                updateProgress();
+                updateEquationBars();
+                console.log('[DEBUG] Initialization complete');
+
+                // Update status
+                document.getElementById('js-status').innerHTML = '🟢 JavaScript loaded & initialized! Transactions: ' + transactions.length;
+            } catch (error) {
+                console.error('[ERROR] Initialization failed:', error);
+                document.getElementById('js-status').innerHTML = '🔴 Init Error: ' + error.message;
+                document.getElementById('js-status').style.background = '#f8d7da';
+            }
+        }
+
+        function renderTransactionQueue() {
+            console.log('[DEBUG] renderTransactionQueue() called');
+
+            // Update all transaction items based on completion status
+            transactions.forEach((tx) => {
+                const item = document.querySelector(`.transaction-item[data-id="${tx.id}"]`);
+                if (item) {
+                    const isCompleted = completedTransactions.includes(tx.id);
+                    if (isCompleted) {
+                        item.classList.add('completed');
+                        item.removeAttribute('onclick');
+                    } else {
+                        item.classList.remove('completed');
+                        item.setAttribute('onclick', `selectTransaction(${tx.id})`);
+                    }
+                }
+            });
+
+            document.getElementById('total-count').textContent = transactions.length;
+            document.getElementById('completed-count').textContent = completedTransactions.length;
+        }
+
+        function selectTransaction(txId) {
+            console.log('[CLICK] selectTransaction called with:', txId);
+
+            try {
+                // If txId is a number, find the transaction object
+                if (typeof txId === 'number') {
+                    selectedTransaction = transactions.find(t => t.id === txId);
+                    console.log('[DEBUG] Found transaction:', selectedTransaction);
+                } else {
+                    selectedTransaction = txId;
+                }
+
+                if (!selectedTransaction) {
+                    console.error('[ERROR] Transaction not found:', txId);
+                    alert('Transaction not found: ' + txId);
+                    return;
+                }
+
+                const tx = selectedTransaction;
+
+                // Remove active class from all items
+                document.querySelectorAll('.transaction-item').forEach(item => {
+                    item.classList.remove('active');
+                });
+
+                // Add active class to selected
+                const selectedElement = document.querySelector(`.transaction-item[data-id="${tx.id}"]`);
+                if (selectedElement) {
+                    selectedElement.classList.add('active');
+                    console.log('[DEBUG] Added active class to element');
+                }
+
+                // Show detail panel
+                const detailPanel = document.getElementById('transaction-detail');
+                detailPanel.style.display = 'block';
+                console.log('[DEBUG] Detail panel displayed');
+
+                // Populate detail
+                document.getElementById('detail-title').textContent = `Transaction #${tx.id}`;
+                document.getElementById('detail-hint').textContent = tx.hint;
+
+                // Build accounts affected display
+                const accountsDiv = document.getElementById('accounts-affected');
+                accountsDiv.innerHTML = tx.accounts.map((acct, idx) => {
+                    const color = idx === 0 ? 'var(--primary)' : (idx === 1 ? 'var(--error)' : 'var(--success)');
+                    return `<span style="background: ${color}; color: white; padding: 0.5rem 0.75rem; border-radius: var(--radius-sm); font-weight: 600;">${acct}</span>`;
+                }).join(' ');
+
+                // Build direction display
+                const directionDiv = document.getElementById('direction-affected');
+                directionDiv.innerHTML = tx.directions.map((dir, idx) => {
+                    const color = dir === 'increase' ? 'var(--success)' : 'var(--error)';
+                    const icon = dir === 'increase' ? '↑' : '↓';
+                    return `<span style="background: ${color}; color: white; padding: 0.5rem 0.75rem; border-radius: var(--radius-sm); font-weight: 600;">${icon} ${dir}</span>`;
+                }).join(' ');
+
+                // Show impact amounts
+                document.getElementById('impact-assets').textContent = formatAmount(tx.amounts.assets);
+                document.getElementById('impact-liabilities').textContent = formatAmount(tx.amounts.liabilities);
+                document.getElementById('impact-equity').textContent = formatAmount(tx.amounts.equity);
+
+                console.log('[DEBUG] Transaction detail populated successfully');
+            } catch (error) {
+                console.error('[ERROR] in selectTransaction:', error);
+                alert('Error: ' + error.message);
+            }
+        }
+
+        function formatAmount(amount) {
+            return amount >= 0 ? `+ $${amount.toLocaleString()}` : `- $${Math.abs(amount).toLocaleString()}`;
+        }
+
+        function closeDetail() {
+            selectedTransaction = null;
+            document.getElementById('transaction-detail').style.display = 'none';
+            document.querySelectorAll('.transaction-item').forEach(item => {
+                item.classList.remove('active');
+            });
+        }
+
+        function processTransaction() {
+            if (!selectedTransaction) return;
+
+            const tx = selectedTransaction;
+
+            // Update equation
+            assets += tx.amounts.assets;
+            liabilities += tx.amounts.liabilities;
+            equity += tx.amounts.equity;
+
+            // Ensure values don't go negative for display
+            assets = Math.max(0, assets);
+            liabilities = Math.max(0, liabilities);
+            equity = Math.max(0, equity);
+
+            // Mark as completed
+            completedTransactions.push(tx.id);
+
+            // Update displays
+            updateEquationBars();
+            updateProgress();
+            renderTransactionQueue();
+            renderHistory();
+
+            // Close detail panel
+            closeDetail();
+
+            // Check if all done
+            if (completedTransactions.length === transactions.length) {
+                showCompletionBadge();
+            }
+        }
+
+        function skipTransaction() {
+            if (!selectedTransaction) return;
+
+            // Mark as skipped without updating equation
+            completedTransactions.push(selectedTransaction.id);
+
+            // Update displays
+            updateProgress();
+            renderTransactionQueue();
+            renderHistory();
+
+            // Close detail panel
+            closeDetail();
+        }
 
         function updateEquationBars() {
-            const assetsPercent = (currentAssets / maxAmount) * 100;
-            const liabPercent = (currentLiabilities / maxAmount) * 100;
-            const equityPercent = (currentEquity / maxAmount) * 100;
+            // Find the maximum value among all three components for dynamic scaling
+            const maxValue = Math.max(assets, liabilities, equity, 10000); // Minimum 10k to avoid division by zero
+            const scaleFactor = 140; // Maximum height in pixels (leaving room for labels below)
+            const minHeight = 25; // Minimum visible height
+            
+            // Calculate proportional heights based on the largest value
+            const assetsHeight = Math.max((assets / maxValue) * scaleFactor, minHeight);
+            const liabilitiesHeight = Math.max((liabilities / maxValue) * scaleFactor, minHeight);
+            const equityHeight = Math.max((equity / maxValue) * scaleFactor, minHeight);
 
-            document.getElementById('assets-bar').style.height = Math.max(assetsPercent, 5) + '%';
-            document.getElementById('liabilities-bar').style.height = Math.max(liabPercent, 5) + '%';
-            document.getElementById('equity-bar').style.height = Math.max(equityPercent, 5) + '%';
+            document.getElementById('assets-bar').style.height = assetsHeight + 'px';
+            document.getElementById('liabilities-bar').style.height = liabilitiesHeight + 'px';
+            document.getElementById('equity-bar').style.height = equityHeight + 'px';
 
-            document.getElementById('assets-value').textContent = '$' + currentAssets.toLocaleString();
-            document.getElementById('liabilities-value').textContent = '$' + currentLiabilities.toLocaleString();
-            document.getElementById('equity-value').textContent = '$' + currentEquity.toLocaleString();
+            document.getElementById('assets-value').textContent = '$' + assets.toLocaleString();
+            document.getElementById('liabilities-value').textContent = '$' + liabilities.toLocaleString();
+            document.getElementById('equity-value').textContent = '$' + equity.toLocaleString();
 
-            // Check if equation balances
-            const isBalanced = Math.abs(currentAssets - (currentLiabilities + currentEquity)) < 0.01;
-            const status = document.getElementById('equation-status');
+            // Check balance
+            const status = document.getElementById('balance-status');
+            const isBalanced = Math.abs(assets - (liabilities + equity)) < 0.01;
 
             if (isBalanced) {
                 status.textContent = '✓ Equation Balanced';
-                status.style.color = 'var(--success)';
+                status.style.background = 'var(--success)';
             } else {
-                status.textContent = '✗ Equation Unbalanced! Assets must equal Liabilities + Equity';
-                status.style.color = 'var(--error)';
+                status.textContent = '✗ Unbalanced';
+                status.style.background = 'var(--error)';
             }
 
             // Add animation
-            document.querySelector('.equation-bar').classList.add('animate-grow');
+            document.querySelector('.equation-bars-container').classList.add('animate-update');
             setTimeout(() => {
-                document.querySelector('.equation-bar').classList.remove('animate-grow');
+                document.querySelector('.equation-bars-container').classList.remove('animate-update');
             }, 500);
         }
 
-        function applySelectedTransaction() {
-            const transactions = document.querySelectorAll('.draggable-transaction');
-            let selectedTransaction = null;
-
-            transactions.forEach(trans => {
-                if (trans.style.background === 'var(--primary)' || trans.classList.contains('selected')) {
-                    selectedTransaction = trans;
-                }
-            });
-
-            if (!selectedTransaction) {
-                alert('Please select a transaction first (click on a transaction)');
-                return;
-            }
-
-            const assetChange = parseFloat(selectedTransaction.dataset.assetChange);
-            const liabChange = parseFloat(selectedTransaction.dataset.liabChange);
-            const equityChange = parseFloat(selectedTransaction.dataset.equityChange);
-
-            currentAssets += assetChange;
-            currentLiabilities += liabChange;
-            currentEquity += equityChange;
-
-            // Ensure values don't go negative
-            currentAssets = Math.max(0, currentAssets);
-            currentLiabilities = Math.max(0, currentLiabilities);
-            currentEquity = Math.max(0, currentEquity);
-
-            updateEquationBars();
-
-            // Mark transaction as used
-            selectedTransaction.style.opacity = '0.5';
-            selectedTransaction.style.textDecoration = 'line-through';
-            selectedTransaction.classList.add('removed');
+        function updateProgress() {
+            const percent = (completedTransactions.length / transactions.length) * 100;
+            document.getElementById('progress-fill').style.width = percent + '%';
         }
 
-        function resetEquation() {
-            currentAssets = 100000;
-            currentLiabilities = 60000;
-            currentEquity = 40000;
+        function renderHistory() {
+            const tbody = document.getElementById('history-body');
+            tbody.innerHTML = '';
 
-            const transactions = document.querySelectorAll('.draggable-transaction');
-            transactions.forEach(trans => {
-                trans.style.opacity = '1';
-                trans.style.textDecoration = 'none';
-                trans.classList.remove('removed');
+            // Start from initial values, not current values
+            let runningAssets = 50000;
+            let runningLiabilities = 20000;
+            let runningEquity = 30000;
+
+            transactions.forEach((tx, index) => {
+                if (!completedTransactions.includes(tx.id)) return;
+
+                // Update running totals BEFORE displaying
+                runningAssets += tx.amounts.assets;
+                runningLiabilities += tx.amounts.liabilities;
+                runningEquity += tx.amounts.equity;
+
+                const row = document.createElement('tr');
+                const impactClass = tx.amounts.assets >= 0 ? 'impact-positive' : 'impact-negative';
+
+                row.innerHTML = `
+                    <td>${tx.id}</td>
+                    <td>${tx.desc}</td>
+                    <td class="${impactClass}">${formatAmount(tx.amounts.assets)}</td>
+                    <td class="${impactClass}">${formatAmount(tx.amounts.liabilities)}</td>
+                    <td class="${impactClass}">${formatAmount(tx.amounts.equity)}</td>
+                    <td style="font-weight: 700; color: var(--primary);">$${runningAssets.toLocaleString()}</td>
+                `;
+
+                tbody.appendChild(row);
             });
 
-            updateEquationBars();
-        }
-
-        // Click to select transaction
-        document.querySelectorAll('.draggable-transaction').forEach(trans => {
-            trans.addEventListener('click', function() {
-                // Remove selected class from all transactions
-                document.querySelectorAll('.draggable-transaction').forEach(t => {
-                    t.style.background = 'var(--primary-light)';
-                });
-
-                // Add to clicked transaction
-                this.style.background = 'var(--primary)';
-            });
-        });
-
-        // ==================== T-Account Drag and Drop ====================
-        let draggedItem = null;
-
-        function initDragAndDrop() {
-            const draggables = document.querySelectorAll('.draggable-transaction[draggable="true"]');
-            const dropZones = document.querySelectorAll('.drop-zone');
-
-            draggables.forEach(draggable => {
-                draggable.addEventListener('dragstart', function(e) {
-                    draggedItem = this;
-                    this.style.opacity = '0.5';
-                    e.dataTransfer.effectAllowed = 'move';
-                });
-
-                draggable.addEventListener('dragend', function() {
-                    this.style.opacity = '1';
-                    draggedItem = null;
-                });
-            });
-
-            dropZones.forEach(zone => {
-                zone.addEventListener('dragover', function(e) {
-                    e.preventDefault();
-                    this.classList.add('drag-over');
-                });
-
-                zone.addEventListener('dragleave', function() {
-                    this.classList.remove('drag-over');
-                });
-
-                zone.addEventListener('drop', function(e) {
-                    e.preventDefault();
-                    this.classList.remove('drag-over');
-
-                    if (draggedItem) {
-                        // Create a copy of dragged item
-                        const newItem = document.createElement('div');
-                        newItem.className = 'transaction-item';
-                        newItem.innerHTML = draggedItem.innerHTML;
-                        newItem.dataset.account = draggedItem.dataset.account;
-                        newItem.dataset.type = draggedItem.dataset.type;
-
-                        this.appendChild(newItem);
-
-                        // Remove from original source
-                        draggedItem.style.display = 'none';
-
-                        // Update balance
-                        updateTAccountBalance(this.dataset.account, this.dataset.side);
-                    }
-                });
-            });
-        }
-
-        function updateTAccountBalance(account, side) {
-            const sideBalances = {
-                debit: 0,
-                credit: 0
-            };
-
-            const debitZone = document.getElementById(`${account}-debit`);
-            const creditZone = document.getElementById(`${account}-credit`);
-
-            debitZone.querySelectorAll('.transaction-item').forEach(item => {
-                const amount = parseFloat(item.textContent.match(/\$(\d+)/)[1]);
-                sideBalances.debit += amount;
-            });
-
-            creditZone.querySelectorAll('.transaction-item').forEach(item => {
-                const amount = parseFloat(item.textContent.match(/\$(\d+)/)[1]);
-                sideBalances.credit += amount;
-            });
-
-            document.getElementById(`${account}-debit-balance`).textContent = '$' + sideBalances.debit;
-            document.getElementById(`${account}-credit-balance`).textContent = '$' + sideBalances.credit;
-        }
-
-        function checkTAccounts() {
-            const feedback = document.getElementById('t-account-feedback');
-            feedback.style.display = 'block';
-
-            // Check supplies account (should have debit entry)
-            const suppliesDebit = document.getElementById('supplies-debit');
-            const suppliesCredit = document.getElementById('supplies-credit');
-
-            // Check cash account (should have credit entry)
-            const cashDebit = document.getElementById('cash-debit');
-            const cashCredit = document.getElementById('cash-credit');
-
-            const suppliesCorrect = suppliesDebit.children.length === 1 && suppliesCredit.children.length === 0;
-            const cashCorrect = cashCredit.children.length === 1 && cashDebit.children.length === 0;
-
-            if (suppliesCorrect && cashCorrect) {
-                feedback.style.background = 'var(--success-light)';
-                feedback.style.color = 'var(--success-dark)';
-                feedback.innerHTML = '<strong>✓ Perfect!</strong> You correctly recorded office supplies as debit and cash as credit. Asset increases are debited, asset decreases are credited.';
-            } else {
-                let errorMsg = '<strong>✗ Still needs adjustment:</strong><br>';
-                if (!suppliesCorrect) {
-                    errorMsg += '• Office supplies is an asset, increase should be debited<br>';
-                }
-                if (!cashCorrect) {
-                    errorMsg += '• Cash is an asset, decrease should be credited<br>';
-                }
-                feedback.style.background = 'var(--error-light)';
-                feedback.style.color = 'var(--error-dark)';
-                feedback.innerHTML = errorMsg;
+            // Show final balance
+            if (completedTransactions.length > 0) {
+                const finalRow = document.createElement('tr');
+                finalRow.style.background = 'var(--bg-light)';
+                finalRow.innerHTML = `
+                    <td colspan="5" style="text-align: right; font-weight: 700; padding: 1rem;">
+                        Final Balance: Assets $${runningAssets.toLocaleString()} = Liabilities $${runningLiabilities.toLocaleString()} + Equity $${runningEquity.toLocaleString()}
+                    </td>
+                `;
+                tbody.appendChild(finalRow);
             }
         }
 
-        // Initialize drag and drop on page load
-        document.addEventListener('DOMContentLoaded', function() {
-            initDragAndDrop();
+        function showCompletionBadge() {
+            const badge = document.createElement('div');
+            badge.className = 'success-badge';
+            badge.innerHTML = `
+                <h3 style="margin: 0 0 0.5rem;">🎉 Business Day Complete!</h3>
+                <p style="margin: 0;">You've successfully processed all transactions and maintained the accounting equation balance.</p>
+                <p style="margin-top: 0.5rem; font-size: 0.9rem;">Excellent work!</p>
+            `;
+            document.body.appendChild(badge);
+
+            setTimeout(() => {
+                badge.remove();
+            }, 4000);
+        }
+
+        function resetSimulator() {
+            assets = 50000;
+            liabilities = 20000;
+            equity = 30000;
+            completedTransactions = [];
+            selectedTransaction = null;
+
+            document.getElementById('transaction-detail').style.display = 'none';
+
+            updateEquationBars();
+            updateProgress();
+            renderTransactionQueue();
+            renderHistory();
+
+            document.getElementById('feedback-message').classList.remove('show');
+        }
+
+
+
+        // Initialize on page load
+        console.log('[DEBUG] Script loaded, setting up DOMContentLoaded listener');
+        document.addEventListener('DOMContentLoaded', () => {
+            console.log('[DEBUG] DOM content loaded, calling init()');
+
+            // Update status to show main script is working
+            const statusEl = document.getElementById('js-status');
+            if (statusEl) {
+                statusEl.innerHTML = '🟢 Main script initialized! Transactions: ' + transactions.length;
+                statusEl.style.background = '#d4edda';
+                statusEl.style.borderColor = '#28a745';
+            }
+
+            init();
+
+            // Verify all transaction items are clickable
+            const items = document.querySelectorAll('.transaction-item');
+            console.log('[DEBUG] Found transaction items:', items.length);
+            items.forEach((item, idx) => {
+                const onclick = item.getAttribute('onclick');
+                console.log(`[DEBUG] Item ${idx + 1} onclick:`, onclick);
+            });
         });
     </script>
 </body>

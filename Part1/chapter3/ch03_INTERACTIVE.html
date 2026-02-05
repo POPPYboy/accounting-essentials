@@ -4,148 +4,522 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Interactive: Account Classification | ACCOUNTING ESSENTIALS</title>
+    <title>Year-End Closing Simulation: Metro Retail Inc. | ACCOUNTING ESSENTIALS</title>
     <link rel="stylesheet" href="../../styles.css">
     <style>
-        /* Matching Game Styles */
-        .game-container {
-            background: var(--bg-light);
+        /* 模拟容器 */
+        .sim-container {
+            background: linear-gradient(135deg, #f5f7fa 0%, #e4e8ec 100%);
+            border-radius: var(--radius-lg);
             padding: 30px;
-            border-radius: var(--radius-md);
-            margin: 20px 0;
+            margin: 30px 0;
+            box-shadow: var(--shadow-lg);
         }
 
-        .game-header {
-            text-align: center;
-            margin-bottom: 30px;
+        /* 进度追踪器 */
+        .progress-tracker {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 40px;
+            position: relative;
         }
 
-        .score-display {
-            font-size: 1.5rem;
-            font-weight: 700;
-            color: var(--primary);
-            margin: 10px 0;
+        .progress-tracker::before {
+            content: '';
+            position: absolute;
+            top: 20px;
+            left: 10%;
+            right: 10%;
+            height: 4px;
+            background: var(--border-color);
+            z-index: 0;
         }
 
-        .matching-area {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 30px;
-            margin: 20px 0;
+        .progress-fill {
+            position: absolute;
+            top: 20px;
+            left: 10%;
+            height: 4px;
+            background: var(--success);
+            z-index: 1;
+            transition: width 0.5s ease;
         }
 
-        .column-title {
-            text-align: center;
-            font-size: 1.2rem;
-            font-weight: 700;
-            color: var(--primary);
-            margin-bottom: 20px;
-        }
-
-        .account-card {
-            background: var(--white);
-            padding: 20px;
-            border-radius: var(--radius-sm);
-            margin: 10px 0;
+        .step-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            position: relative;
+            z-index: 2;
             cursor: pointer;
             transition: all 0.3s ease;
-            border: 2px solid transparent;
+        }
+
+        .step-circle {
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            background: var(--white);
+            border: 3px solid var(--border-color);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+        }
+
+        .step-item.active .step-circle {
+            background: var(--primary);
+            border-color: var(--primary);
+            color: white;
+            transform: scale(1.1);
+        }
+
+        .step-item.completed .step-circle {
+            background: var(--success);
+            border-color: var(--success);
+            color: white;
+        }
+
+        .step-label {
+            margin-top: 8px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            text-align: center;
+            max-width: 120px;
+        }
+
+        .step-item.active .step-label {
+            color: var(--primary);
+        }
+
+        .step-item.completed .step-label {
+            color: var(--success);
+        }
+
+        /* 工作区 */
+        .workspace {
+            background: var(--white);
+            border-radius: var(--radius-md);
+            padding: 30px;
+            min-height: 600px;
+        }
+
+        .workspace-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
+            margin-bottom: 25px;
+            padding-bottom: 20px;
+            border-bottom: 2px solid var(--bg-light);
         }
 
-        .account-card:hover {
-            transform: scale(1.02);
-            box-shadow: var(--shadow-sm);
+        .workspace-title {
+            font-size: 1.5rem;
+            color: var(--primary);
+            margin: 0;
         }
 
-        .account-card.selected {
-            border-color: var(--accent);
-            background: var(--primary-light);
-            color: var(--white);
-        }
-
-        .account-card.matched {
-            background: var(--success-light);
-            border-color: var(--success);
-            cursor: not-allowed;
-            opacity: 0.6;
-        }
-
-        .account-card.incorrect {
-            background: var(--error-light);
-            border-color: var(--error);
-            animation: shake 0.5s;
-        }
-
-        @keyframes shake {
-            0%, 100% { transform: translateX(0); }
-            25% { transform: translateX(-10px); }
-            75% { transform: translateX(10px); }
-        }
-
-        .category-card {
-            background: var(--primary);
-            color: var(--white);
-            padding: 25px;
+        .date-badge {
+            background: var(--info-light);
+            color: var(--info-dark);
+            padding: 8px 16px;
             border-radius: var(--radius-sm);
+            font-weight: 600;
+        }
+
+        /* 凭证卡片 */
+        .document-card {
+            background: #fffef0;
+            border: 2px solid #e0d5b5;
+            border-radius: var(--radius-md);
+            padding: 20px;
+            margin: 15px 0;
+            position: relative;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+        }
+
+        .document-card::before {
+            content: '📄';
+            position: absolute;
+            top: -12px;
+            right: 20px;
+            font-size: 1.5rem;
+            background: white;
+            padding: 0 5px;
+        }
+
+        .document-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 15px;
+        }
+
+        .document-type {
+            font-weight: 700;
+            color: var(--primary);
+            font-size: 1.1rem;
+        }
+
+        .document-date {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+
+        .document-content {
+            background: white;
+            border: 1px dashed #ccc;
+            padding: 15px;
+            border-radius: var(--radius-sm);
+            font-family: 'Courier New', monospace;
+            font-size: 0.9rem;
+            line-height: 1.6;
+        }
+
+        /* 调整事项卡片 */
+        .adjustment-card {
+            background: white;
+            border: 2px solid var(--border-color);
+            border-left: 5px solid var(--warning);
+            border-radius: var(--radius-md);
+            padding: 20px;
             margin: 15px 0;
             cursor: pointer;
             transition: all 0.3s ease;
-            text-align: center;
-            font-size: 1.1rem;
-            font-weight: 600;
-            border: 3px solid transparent;
         }
 
-        .category-card:hover {
-            transform: scale(1.05);
-            background: var(--primary-light);
+        .adjustment-card:hover {
+            border-color: var(--primary);
+            transform: translateX(5px);
+            box-shadow: var(--shadow);
         }
 
-        .category-card.selected {
-            border-color: var(--accent);
-            background: var(--secondary);
+        .adjustment-card.selected {
+            border-color: var(--primary);
+            background: var(--info-light);
         }
 
-        /* Assets Category Colors */
-        .category-card[data-category="assets"] {
-            background: linear-gradient(135deg, var(--primary), var(--primary-light));
+        .adjustment-card.completed {
+            border-left-color: var(--success);
+            background: var(--success-light);
         }
 
-        /* Liabilities Category Colors */
-        .category-card[data-category="liabilities"] {
-            background: linear-gradient(135deg, var(--error), var(--error-light));
+        .adjustment-type {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 700;
+            margin-bottom: 10px;
         }
 
-        /* Equity Category Colors */
-        .category-card[data-category="equity"] {
-            background: linear-gradient(135deg, var(--success), var(--success-light));
-        }
+        .type-prepaid { background: #e3f2fd; color: #1976d2; }
+        .type-unearned { background: #fff3e0; color: #f57c00; }
+        .type-accrued-exp { background: #fce4ec; color: #c2185b; }
+        .type-accrued-rev { background: #e8f5e9; color: #388e3c; }
+        .type-depreciation { background: #f3e5f5; color: #7b1fa2; }
 
-        /* Revenue Category Colors */
-        .category-card[data-category="revenue"] {
-            background: linear-gradient(135deg, var(--secondary), var(--secondary-light));
-        }
-
-        /* Expenses Category Colors */
-        .category-card[data-category="expenses"] {
-            background: linear-gradient(135deg, var(--warning), var(--warning-light));
-        }
-
-        /* Game Feedback */
-        .game-feedback {
-            text-align: center;
-            padding: 20px;
+        /* 工作底稿样式 */
+        .worksheet-container {
+            background: white;
+            border: 2px solid var(--primary);
             border-radius: var(--radius-md);
+            overflow: hidden;
             margin: 20px 0;
+        }
+
+        .worksheet-header {
+            background: var(--primary);
+            color: white;
+            padding: 15px 20px;
+            text-align: center;
+        }
+
+        .worksheet-header h3 {
+            margin: 0;
             font-size: 1.2rem;
+        }
+
+        .worksheet-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.9rem;
+        }
+
+        .worksheet-table th {
+            background: var(--bg-light);
+            padding: 12px 8px;
+            text-align: center;
             font-weight: 600;
+            border-bottom: 2px solid var(--border-color);
+        }
+
+        .worksheet-table td {
+            padding: 10px 8px;
+            border-bottom: 1px solid var(--border-color);
+            text-align: right;
+        }
+
+        .worksheet-table td:first-child {
+            text-align: left;
+            font-weight: 600;
+        }
+
+        .worksheet-table .account-name {
+            text-align: left;
+            padding-left: 20px;
+        }
+
+        .worksheet-table .total-row {
+            background: var(--bg-light);
+            font-weight: 700;
+        }
+
+        .worksheet-table .adjusted {
+            background: #e8f5e9;
+        }
+
+        /* 调整分录表单 */
+        .entry-form {
+            background: var(--bg-light);
+            border-radius: var(--radius-md);
+            padding: 20px;
+            margin: 20px 0;
+        }
+
+        .entry-row {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 15px;
+            align-items: center;
+            margin: 10px 0;
+            padding: 10px;
+            background: white;
+            border-radius: var(--radius-sm);
+        }
+
+        .entry-row label {
+            font-weight: 600;
+            color: var(--primary);
+        }
+
+        .entry-row input,
+        .entry-row select {
+            padding: 10px;
+            border: 2px solid var(--border-color);
+            border-radius: var(--radius-sm);
+            font-size: 1rem;
+        }
+
+        .entry-row input:focus,
+        .entry-row select:focus {
+            border-color: var(--primary);
+            outline: none;
+        }
+
+        .entry-row input.correct {
+            border-color: var(--success);
+            background: var(--success-light);
+        }
+
+        .entry-row input.incorrect {
+            border-color: var(--error);
+            background: var(--error-light);
+        }
+
+        /* 财务报表预览 */
+        .statement-preview {
+            background: white;
+            border: 2px solid var(--secondary);
+            border-radius: var(--radius-md);
+            padding: 25px;
+            margin: 20px 0;
+        }
+
+        .statement-header {
+            text-align: center;
+            border-bottom: 2px solid var(--border-color);
+            padding-bottom: 15px;
+            margin-bottom: 20px;
+        }
+
+        .statement-header h4 {
+            margin: 5px 0;
+            color: var(--primary);
+        }
+
+        .statement-line {
+            display: flex;
+            justify-content: space-between;
+            padding: 8px 0;
+            border-bottom: 1px solid #eee;
+        }
+
+        .statement-line.total {
+            border-top: 2px solid var(--primary);
+            border-bottom: 2px solid var(--primary);
+            font-weight: 700;
+            margin-top: 10px;
+            padding-top: 10px;
+        }
+
+        .statement-line.subtotal {
+            border-top: 1px solid #ccc;
+            font-weight: 600;
+        }
+
+        .indent {
+            padding-left: 30px;
+        }
+
+        /* 反馈消息 */
+        .feedback-message {
+            padding: 15px 20px;
+            border-radius: var(--radius-sm);
+            margin: 15px 0;
+            display: none;
+            animation: slideIn 0.3s ease;
+        }
+
+        .feedback-message.show {
+            display: block;
+        }
+
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .feedback-message.correct {
+            background: var(--success-light);
+            border-left: 4px solid var(--success);
+            color: var(--success-dark);
+        }
+
+        .feedback-message.incorrect {
+            background: var(--error-light);
+            border-left: 4px solid var(--error);
+            color: var(--error-dark);
+        }
+
+        .feedback-message.info {
+            background: var(--info-light);
+            border-left: 4px solid var(--info);
+            color: var(--info-dark);
+        }
+
+        /* 按钮区域 */
+        .action-buttons {
+            display: flex;
+            gap: 15px;
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 2px solid var(--bg-light);
+        }
+
+        .nav-btn {
+            padding: 12px 25px;
+            border-radius: var(--radius-md);
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: none;
+        }
+
+        .nav-btn.prev {
+            background: var(--bg-light);
+            border: 2px solid var(--text-muted);
+            color: var(--text-muted);
+        }
+
+        .nav-btn.next {
+            background: var(--primary);
+            color: white;
+        }
+
+        .nav-btn.next:hover {
+            background: var(--primary-dark);
+        }
+
+        .nav-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        /* 仪表板指标 */
+        .metrics-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin: 20px 0;
+        }
+
+        .metric-box {
+            background: white;
+            border: 2px solid var(--border-color);
+            border-radius: var(--radius-md);
+            padding: 20px;
+            text-align: center;
+        }
+
+        .metric-box h5 {
+            margin: 0 0 10px 0;
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+
+        .metric-value {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--primary);
+        }
+
+        .metric-change {
+            font-size: 0.85rem;
+            margin-top: 5px;
+        }
+
+        .metric-change.positive { color: var(--success); }
+        .metric-change.negative { color: var(--error); }
+
+        /* 响应式 */
+        @media (max-width: 768px) {
+            .progress-tracker {
+                flex-wrap: wrap;
+                gap: 15px;
+            }
+
+            .progress-tracker::before {
+                display: none;
+            }
+
+            .step-item {
+                flex: 1;
+                min-width: 80px;
+            }
+
+            .entry-row {
+                grid-template-columns: 1fr;
+                gap: 10px;
+            }
+
+            .worksheet-table {
+                font-size: 0.8rem;
+            }
+
+            .worksheet-table th,
+            .worksheet-table td {
+                padding: 6px 4px;
+            }
+        }
+
+        /* 步骤内容切换 */
+        .step-content {
             display: none;
         }
 
-        .game-feedback.show {
+        .step-content.active {
             display: block;
             animation: fadeIn 0.5s ease;
         }
@@ -155,68 +529,50 @@
             to { opacity: 1; }
         }
 
-        .timer {
-            font-size: 1.5rem;
-            font-weight: 700;
-            color: var(--text-main);
+        /* 高亮效果 */
+        .highlight-change {
+            animation: highlightPulse 1.5s ease;
+        }
+
+        @keyframes highlightPulse {
+            0%, 100% { background-color: transparent; }
+            50% { background-color: var(--warning-light); }
+        }
+
+        /* 拖拽区域 */
+        .drag-zone {
+            border: 2px dashed var(--border-color);
+            border-radius: var(--radius-md);
+            padding: 30px;
             text-align: center;
-            margin: 10px 0;
+            margin: 20px 0;
+            transition: all 0.3s ease;
         }
 
-        .hint-box {
+        .drag-zone.drag-over {
+            border-color: var(--primary);
             background: var(--info-light);
-            border-left: 4px solid var(--info);
-            padding: 15px;
-            margin: 20px 0;
-            border-radius: var(--radius-sm);
         }
 
-        /* Progress Bar */
-        .game-progress {
-            background: var(--text-muted);
-            height: 10px;
-            border-radius: 5px;
-            overflow: hidden;
-            margin: 20px 0;
+        /* 成功动画 */
+        .success-animation {
+            animation: successPulse 0.5s ease;
         }
 
-        .game-progress-fill {
-            height: 100%;
-            background: linear-gradient(90deg, var(--success), var(--info));
-            transition: width 0.3s ease;
-        }
-
-        /* Confetti Animation */
-        .confetti {
-            position: fixed;
-            width: 10px;
-            height: 10px;
-            background: var(--accent);
-            animation: confetti-fall 3s linear infinite;
-        }
-
-        @keyframes confetti-fall {
-            0% { transform: translateY(-100vh) rotate(0deg); opacity: 1; }
-            100% { transform: translateY(100vh) rotate(720deg); opacity: 0; }
-        }
-
-        /* Responsive */
-        @media (max-width: 768px) {
-            .matching-area {
-                grid-template-columns: 1fr;
-            }
+        @keyframes successPulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
         }
     </style>
-<!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-50MTQPVR7D"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  gtag('config', 'G-50MTQPVR7D');
-</script>
-
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-50MTQPVR7D"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+        gtag('config', 'G-50MTQPVR7D');
+    </script>
 </head>
 
 <body>
@@ -229,360 +585,983 @@
             <nav class="nav-links">
                 <a href="../../index.html">Home</a>
                 <a href="../part1.html">Part 1</a>
-                <a href="../../part2/part2.html">Part 2</a>
-                <a href="../../part3/part3.html">Part 3</a>
+                <a href="ch03.html">Chapter 3</a>
             </nav>
         </div>
     </header>
 
     <main class="container">
         <div class="breadcrumbs">
-            <a href="../../index.html">Home</a> <span>/</span> <a href="../part1.html">Part 1</a> <span>/</span> <a href="ch03.html">Chapter 3</a> <span>/</span> Interactive
+            <a href="../../index.html">Home</a> <span>/</span> <a href="../part1.html">Part 1</a> <span>/</span> <a href="ch03.html">Chapter 3</a> <span>/</span> Year-End Closing Simulation
         </div>
 
         <article class="animate-fade-in">
-            <h1 style="border-left: 8px solid var(--accent); padding-left: 1rem; margin: 2rem 0;">🎮 Interactive Learning: Account Classification Game</h1>
+            <h1 style="border-left: 8px solid var(--primary); padding-left: 1rem; margin: 2rem 0;">
+                🏢 Metro Retail Inc. - Year-End Closing Simulation
+            </h1>
 
-            <section class="interactive-section">
-                <h2>Account Classification Matching Game</h2>
-                <p>Click account names to match them with the correct accounting element classification. This helps you quickly identify account types!</p>
-
-                <div class="game-container">
-                    <div class="game-header">
-                        <h3>🎯 Classification Challenge</h3>
-                        <div class="timer">⏱️ Time: <span id="game-timer">00:00</span></div>
-                        <div class="score-display">Score: <span id="game-score">0</span> / <span id="total-accounts">10</span></div>
-                        <div class="game-progress">
-                            <div class="game-progress-fill" id="progress-fill" style="width: 0%;"></div>
-                        </div>
-                    </div>
-
-                    <div class="hint-box">
-                        <h4>💡 Quick Reference Guide:</h4>
-                        <ul>
-                            <li><strong>Assets:</strong> Resources owned by the business that provide future economic benefits (Cash, Equipment, Inventory)</li>
-                            <li><strong>Liabilities:</strong> Debts owed to outsiders (Accounts Payable, Notes Payable)</li>
-                            <li><strong>Owner's Equity:</strong> Owner's interest in the business (Common Stock, Retained Earnings)</li>
-                            <li><strong>Revenue:</strong> Income earned from selling goods or providing services</li>
-                            <li><strong>Expenses:</strong> Costs incurred in the course of business operations (Rent, Wages, Supplies)</li>
-                        </ul>
-                    </div>
-
-                    <div class="matching-area">
-                        <!-- Left: Account Cards -->
-                        <div>
-                            <h3 class="column-title">📋 Accounts to Classify</h3>
-                            <div id="accounts-container">
-                                <div class="account-card" data-account="cash" data-category="assets">Cash</div>
-                                <div class="account-card" data-account="accounts-payable" data-category="liabilities">Accounts Payable</div>
-                                <div class="account-card" data-account="common-stock" data-category="equity">Common Stock</div>
-                                <div class="account-card" data-account="service-revenue" data-category="revenue">Service Revenue</div>
-                                <div class="account-card" data-account="rent-expense" data-category="expenses">Rent Expense</div>
-                                <div class="account-card" data-account="equipment" data-category="assets">Equipment</div>
-                                <div class="account-card" data-account="notes-payable" data-category="liabilities">Notes Payable</div>
-                                <div class="account-card" data-account="retained-earnings" data-category="equity">Retained Earnings</div>
-                                <div class="account-card" data-account="supplies-expense" data-category="expenses">Supplies Expense</div>
-                                <div class="account-card" data-account="sales-revenue" data-category="revenue">Sales Revenue</div>
-                            </div>
-                        </div>
-
-                        <!-- Right: Categories -->
-                        <div>
-                            <h3 class="column-title">🏷️ Accounting Elements Classification</h3>
-                            <div class="category-card" data-category="assets">
-                                <div style="font-size: 2rem;">💰</div>
-                                <div>Assets</div>
-                                <div style="font-size: 0.8rem; margin-top: 5px;">Resources owned</div>
-                            </div>
-                            <div class="category-card" data-category="liabilities">
-                                <div style="font-size: 2rem;">📊</div>
-                                <div>Liabilities</div>
-                                <div style="font-size: 0.8rem; margin-top: 5px;">Debts owed</div>
-                            </div>
-                            <div class="category-card" data-category="equity">
-                                <div style="font-size: 2rem;">👤</div>
-                                <div>Owner's Equity</div>
-                                <div style="font-size: 0.8rem; margin-top: 5px;">Owner's interest</div>
-                            </div>
-                            <div class="category-card" data-category="revenue">
-                                <div style="font-size: 2rem;">📈</div>
-                                <div>Revenue</div>
-                                <div style="font-size: 0.8rem; margin-top: 5px;">Income earned</div>
-                            </div>
-                            <div class="category-card" data-category="expenses">
-                                <div style="font-size: 2rem;">💸</div>
-                                <div>Expenses</div>
-                                <div style="font-size: 0.8rem; margin-top: 5px;">Costs incurred</div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="game-feedback" id="game-feedback"></div>
-
-                    <div style="text-align: center; margin-top: 20px;">
-                        <button class="btn btn-primary" onclick="startGame()" id="start-btn">Start Game</button>
-                        <button class="btn btn-outline" onclick="resetGame()" id="reset-btn" style="display: none;">Restart</button>
-                    </div>
-                </div>
-            </section>
-
-            <section class="interactive-section">
-                <h2>📚 Accounting Elements Review</h2>
-                <p>Understanding the relationship between the five basic elements of the accounting equation:</p>
-
-                <div style="background: var(--primary-dark); color: var(--white); padding: 30px; border-radius: var(--radius-md); margin: 20px 0;">
-                    <h3 style="color: var(--white); text-align: center; margin: 20px 0;">
-                        Assets = Liabilities + Owner's Equity
-                    </h3>
-                    <p style="text-align: center; margin: 20px 0;">
-                        + Revenue - Expenses = Net Income
+            <div class="sim-container">
+                <!-- 场景介绍 -->
+                <div style="background: linear-gradient(135deg, #e3f2fd 0%, #f3e5f5 100%); border: 3px solid var(--primary); border-radius: var(--radius-lg); padding: 30px; margin-bottom: 30px; text-align: center;">
+                    <h2 style="color: var(--primary); margin-bottom: 15px;">Welcome to Metro Retail Accounting Department</h2>
+                    <p style="font-size: 1.1rem; color: var(--text-main); max-width: 800px; margin: 0 auto;">
+                        Today is <strong>December 31, 2026</strong>. As the staff accountant, your mission is to complete the year-end closing process. 
+                        Review documents, identify adjusting items, prepare journal entries, and generate accurate financial statements.
                     </p>
                 </div>
 
-                <div class="card-grid">
-                    <div class="content-card">
-                        <h4>💰 Assets</h4>
-                        <p>Resources owned by the business that provide future economic benefits.</p>
-                        <ul style="margin-top: 10px;">
-                            <li><strong>Current Assets:</strong> Cash, Accounts Receivable, Inventory</li>
-                            <li><strong>Non-current Assets:</strong> Equipment, Buildings, Land</li>
-                        </ul>
+                <!-- 进度追踪器 -->
+                <div class="progress-tracker">
+                    <div class="progress-fill" id="progress-bar" style="width: 0%;"></div>
+                    
+                    <div class="step-item active" data-step="1" onclick="goToStep(1)">
+                        <div class="step-circle">1</div>
+                        <div class="step-label">Review Documents</div>
                     </div>
-                    <div class="content-card">
-                        <h4>📊 Liabilities</h4>
-                        <p>Debts the business must repay in the future.</p>
-                        <ul style="margin-top: 10px;">
-                            <li><strong>Current Liabilities:</strong> Accounts Payable, Wages Payable</li>
-                            <li><strong>Non-current Liabilities:</strong> Notes Payable, Bonds Payable</li>
-                        </ul>
+                    <div class="step-item" data-step="2" onclick="goToStep(2)">
+                        <div class="step-circle">2</div>
+                        <div class="step-label">Identify Adjustments</div>
                     </div>
-                    <div class="content-card">
-                        <h4>👤 Owner's Equity</h4>
-                        <p>The owner's interest in the business after liabilities are deducted.</p>
-                        <ul style="margin-top: 10px;">
-                            <li><strong>Contributed Capital:</strong> Investment by owners (Common Stock)</li>
-                            <li><strong>Retained Earnings:</strong> Accumulated net income not distributed</li>
-                        </ul>
+                    <div class="step-item" data-step="3" onclick="goToStep(3)">
+                        <div class="step-circle">3</div>
+                        <div class="step-label">Prepare Entries</div>
                     </div>
-                    <div class="content-card">
-                        <h4>📈 Revenue</h4>
-                        <p>Income earned from selling goods or providing services.</p>
-                        <ul style="margin-top: 10px;">
-                            <li>Service Revenue</li>
-                            <li>Sales Revenue</li>
-                            <li>Interest Revenue</li>
-                        </ul>
+                    <div class="step-item" data-step="4" onclick="goToStep(4)">
+                        <div class="step-circle">4</div>
+                        <div class="step-label">Update Worksheet</div>
                     </div>
-                    <div class="content-card">
-                        <h4>💸 Expenses</h4>
-                        <p>Costs incurred in the course of business operations.</p>
-                        <ul style="margin-top: 10px;">
-                            <li>Rent Expense</li>
-                            <li>Salaries Expense</li>
-                            <li>Supplies Expense</li>
-                            <li>Utilities Expense</li>
-                        </ul>
+                    <div class="step-item" data-step="5" onclick="goToStep(5)">
+                        <div class="step-circle">5</div>
+                        <div class="step-label">Financial Statements</div>
                     </div>
                 </div>
-            </section>
 
-            <div style="display: flex; justify-content: space-between; margin-top: 4rem; padding-bottom: 2rem;">
-                <a href="../chapter2/ch02_INTERACTIVE.html" class="btn" style="background: #eee;">← Previous Chapter</a>
-                <a href="../chapter4/ch04_INTERACTIVE.html" class="btn btn-primary">Next: Chapter 4 Interactive →</a>
+                <!-- 工作区 -->
+                <div class="workspace">
+                    
+                    <!-- Step 1: 审查文档 -->
+                    <div id="step-1" class="step-content active">
+                        <div class="workspace-header">
+                            <h3 class="workspace-title">📋 Step 1: Review Year-End Documents</h3>
+                            <span class="date-badge">December 31, 2026</span>
+                        </div>
+
+                        <p style="margin-bottom: 20px;">Review the following documents to identify items requiring year-end adjustments. Click on each document to examine details.</p>
+
+                        <div class="document-card" onclick="showDocumentDetail('insurance')">
+                            <div class="document-header">
+                                <span class="document-type">Insurance Policy Document</span>
+                                <span class="document-date">Dec 31, 2026</span>
+                            </div>
+                            <div class="document-content">
+                                <strong>Policy #:</strong> INS-2026-0042<br>
+                                <strong>Coverage Period:</strong> July 1, 2026 - June 30, 2027<br>
+                                <strong>Total Premium:</strong> $12,000 (paid in full on July 1)<br>
+                                <strong>Current Status:</strong> 6 months of coverage has expired<br>
+                                <br>
+                                <em style="color: var(--info);">💡 Click to mark as reviewed</em>
+                            </div>
+                        </div>
+
+                        <div class="document-card" onclick="showDocumentDetail('rent')">
+                            <div class="document-header">
+                                <span class="document-type">Lease Agreement</span>
+                                <span class="document-date">Dec 31, 2026</span>
+                            </div>
+                            <div class="document-content">
+                                <strong>Lease #:</strong> LSE-2026-0015<br>
+                                <strong>Property:</strong> Storefront Location<br>
+                                <strong>Rent:</strong> $6,000/month, paid quarterly in advance<br>
+                                <strong>Last Payment:</strong> $18,000 on Nov 1 (covers Nov-Jan)<br>
+                                <strong>Outstanding:</strong> December portion needs accrual<br>
+                                <br>
+                                <em style="color: var(--info);">💡 Click to mark as reviewed</em>
+                            </div>
+                        </div>
+
+                        <div class="document-card" onclick="showDocumentDetail('salaries')">
+                            <div class="document-header">
+                                <span class="document-type">Payroll Summary</span>
+                                <span class="document-date">Dec 31, 2026</span>
+                            </div>
+                            <div class="document-content">
+                                <strong>Period:</strong> Dec 27 - Dec 31, 2026<br>
+                                <strong>Total Salaries:</strong> $8,500<br>
+                                <strong>Payment Date:</strong> January 5, 2027<br>
+                                <strong>Status:</strong> Accrued but not yet recorded<br>
+                                <br>
+                                <em style="color: var(--info);">💡 Click to mark as reviewed</em>
+                            </div>
+                        </div>
+
+                        <div class="document-card" onclick="showDocumentDetail('supplies')">
+                            <div class="document-header">
+                                <span class="document-type">Supplies Inventory Count</span>
+                                <span class="document-date">Dec 31, 2026</span>
+                            </div>
+                            <div class="document-content">
+                                <strong>Physical Count:</strong> $2,400 worth of supplies on hand<br>
+                                <strong>Ledger Balance:</strong> $8,000 (Supplies account)<br>
+                                <strong>Discrepancy:</strong> $5,600 of supplies used<br>
+                                <br>
+                                <em style="color: var(--info);">💡 Click to mark as reviewed</em>
+                            </div>
+                        </div>
+
+                        <div class="document-card" onclick="showDocumentDetail('depreciation')">
+                            <div class="document-header">
+                                <span class="document-type">Fixed Assets Schedule</span>
+                                <span class="document-date">Dec 31, 2026</span>
+                            </div>
+                            <div class="document-content">
+                                <strong>Store Equipment:</strong> $50,000 (purchased Jan 1, 2026)<br>
+                                <strong>Useful Life:</strong> 5 years<br>
+                                <strong>Salvage Value:</strong> $5,000<br>
+                                <strong>Annual Depreciation:</strong> $9,000 using straight-line method<br>
+                                <br>
+                                <em style="color: var(--info);">💡 Click to mark as reviewed</em>
+                            </div>
+                        </div>
+
+                        <div class="document-card" onclick="showDocumentDetail('revenue')">
+                            <div class="document-header">
+                                <span class="document-type">Customer Contract</span>
+                                <span class="document-date">Dec 31, 2026</span>
+                            </div>
+                            <div class="document-content">
+                                <strong>Customer:</strong> ABC Corporation<br>
+                                <strong>Contract Value:</strong> $24,000 for 6-month service<br>
+                                <strong>Start Date:</strong> November 1, 2026<br>
+                                <strong>Payment:</strong> Received in full on Nov 1<br>
+                                <strong>Revenue Recognition:</strong> 2 months earned (Nov-Dec)<br>
+                                <br>
+                                <em style="color: var(--info);">💡 Click to mark as reviewed</em>
+                            </div>
+                        </div>
+
+                        <div class="feedback-message" id="step1-feedback"></div>
+
+                        <div class="action-buttons">
+                            <button class="nav-btn prev" disabled>← Previous</button>
+                            <button class="nav-btn next" onclick="completeStep(1)" id="btn-next-1">Reviewed All Documents →</button>
+                        </div>
+                    </div>
+
+                    <!-- Step 2: 识别调整事项 -->
+                    <div id="step-2" class="step-content">
+                        <div class="workspace-header">
+                            <h3 class="workspace-title">🔍 Step 2: Identify Adjusting Items</h3>
+                            <span class="date-badge">Analysis Phase</span>
+                        </div>
+
+                        <p style="margin-bottom: 20px;">Based on the documents reviewed, identify which accounts need adjustment. Match each scenario to the correct adjustment type.</p>
+
+                        <div style="background: var(--info-light); border-left: 4px solid var(--info); padding: 15px; margin-bottom: 20px; border-radius: var(--radius-sm);">
+                            <strong>💡 How to identify adjustments:</strong>
+                            <ul style="margin: 10px 0; padding-left: 20px;">
+                                <li><strong>Prepaid Expenses:</strong> Cash paid before expense is incurred</li>
+                                <li><strong>Unearned Revenue:</strong> Cash received before revenue is earned</li>
+                                <li><strong>Accrued Expenses:</strong> Expense incurred but not yet paid</li>
+                                <li><strong>Accrued Revenues:</strong> Revenue earned but not yet received</li>
+                                <li><strong>Depreciation:</strong> Allocation of asset cost over useful life</li>
+                            </ul>
+                        </div>
+
+                        <h4 style="color: var(--primary); margin: 25px 0 15px 0;">Adjustment Scenarios - Click to Identify Type:</h4>
+
+                        <div class="adjustment-card" data-scenario="1" onclick="identifyAdjustment(1)">
+                            <span class="adjustment-type type-prepaid">Prepaid Expense</span>
+                            <h4>Insurance Policy - $6,000 expired</h4>
+                            <p>Paid $12,000 on July 1 for 12-month coverage. 6 months have now expired (July-Dec).</p>
+                            <div class="feedback" id="scenario1-feedback"></div>
+                        </div>
+
+                        <div class="adjustment-card" data-scenario="2" onclick="identifyAdjustment(2)">
+                            <span class="adjustment-type type-accrued-exp">Accrued Expense</span>
+                            <h4>Rent Expense - $6,000 for December</h4>
+                            <p>Quarterly rent of $18,000 paid Nov 1 covers Nov-Jan. December portion needs to be recorded.</p>
+                            <div class="feedback" id="scenario2-feedback"></div>
+                        </div>
+
+                        <div class="adjustment-card" data-scenario="3" onclick="identifyAdjustment(3)">
+                            <span class="adjustment-type type-accrued-exp">Accrued Expense</span>
+                            <h4>Salaries - $8,500 for Dec 27-31</h4>
+                            <p>Employees worked the last 5 days of December but will be paid on January 5, 2027.</p>
+                            <div class="feedback" id="scenario3-feedback"></div>
+                        </div>
+
+                        <div class="adjustment-card" data-scenario="4" onclick="identifyAdjustment(4)">
+                            <span class="adjustment-type type-prepaid">Prepaid Expense</span>
+                            <h4>Supplies - $5,600 used</h4>
+                            <p>Supplies account shows $8,000, but physical count reveals only $2,400 on hand.</p>
+                            <div class="feedback" id="scenario4-feedback"></div>
+                        </div>
+
+                        <div class="adjustment-card" data-scenario="5" onclick="identifyAdjustment(5)">
+                            <span class="adjustment-type type-depreciation">Depreciation</span>
+                            <h4>Equipment Depreciation - $9,000</h4>
+                            <p>Annual depreciation on store equipment using straight-line method.</p>
+                            <div class="feedback" id="scenario5-feedback"></div>
+                        </div>
+
+                        <div class="adjustment-card" data-scenario="6" onclick="identifyAdjustment(6)">
+                            <span class="adjustment-type type-unearned">Unearned Revenue</span>
+                            <h4>Service Revenue - $8,000 earned</h4>
+                            <p>Received $24,000 for 6-month contract starting Nov 1. Two months of service now completed.</p>
+                            <div class="feedback" id="scenario6-feedback"></div>
+                        </div>
+
+                        <div class="metrics-grid" style="margin-top: 30px;">
+                            <div class="metric-box">
+                                <h5>Adjustments Identified</h5>
+                                <div class="metric-value" id="identified-count">0/6</div>
+                            </div>
+                            <div class="metric-box">
+                                <h5>Accuracy Rate</h5>
+                                <div class="metric-value" id="accuracy-rate">0%</div>
+                            </div>
+                        </div>
+
+                        <div class="action-buttons">
+                            <button class="nav-btn prev" onclick="goToStep(1)">← Back to Documents</button>
+                            <button class="nav-btn next" onclick="completeStep(2)" id="btn-next-2">Proceed to Journal Entries →</button>
+                        </div>
+                    </div>
+
+                    <!-- Step 3: 编制调整分录 -->
+                    <div id="step-3" class="step-content">
+                        <div class="workspace-header">
+                            <h3 class="workspace-title">✏️ Step 3: Prepare Adjusting Journal Entries</h3>
+                            <span class="date-badge">December 31, 2026</span>
+                        </div>
+
+                        <p style="margin-bottom: 20px;">Prepare the adjusting journal entries for December 31, 2026. Complete all 6 entries correctly.</p>
+
+                        <!-- 调整分录 1: 保险费用 -->
+                        <div class="entry-form">
+                            <h4 style="color: var(--primary); margin-bottom: 15px;">Entry #1: Insurance Expense</h4>
+                            <p style="margin-bottom: 15px; color: var(--text-muted);">$6,000 of insurance coverage has expired (6 months of 12-month policy)</p>
+                            
+                            <div class="entry-row">
+                                <label>Account</label>
+                                <label>Debit ($)</label>
+                                <label>Credit ($)</label>
+                                <label></label>
+                            </div>
+                            <div class="entry-row">
+                                <select id="entry1-debit-acct" onchange="checkEntry(1)">
+                                    <option value="">Select Account</option>
+                                    <option value="Insurance Expense">Insurance Expense</option>
+                                    <option value="Prepaid Insurance">Prepaid Insurance</option>
+                                    <option value="Cash">Cash</option>
+                                </select>
+                                <input type="number" id="entry1-debit-amt" placeholder="0" oninput="checkEntry(1)">
+                                <input type="text" value="-" disabled style="text-align: center; background: #f5f5f5;">
+                                <span id="entry1-debit-feedback"></span>
+                            </div>
+                            <div class="entry-row">
+                                <select id="entry1-credit-acct" onchange="checkEntry(1)">
+                                    <option value="">Select Account</option>
+                                    <option value="Insurance Expense">Insurance Expense</option>
+                                    <option value="Prepaid Insurance">Prepaid Insurance</option>
+                                    <option value="Cash">Cash</option>
+                                </select>
+                                <input type="text" value="-" disabled style="text-align: center; background: #f5f5f5;">
+                                <input type="number" id="entry1-credit-amt" placeholder="0" oninput="checkEntry(1)">
+                                <span id="entry1-credit-feedback"></span>
+                            </div>
+                            <div class="feedback-message" id="entry1-feedback" style="margin-top: 10px;"></div>
+                        </div>
+
+                        <!-- 调整分录 2: 租金费用 -->
+                        <div class="entry-form">
+                            <h4 style="color: var(--primary); margin-bottom: 15px;">Entry #2: Rent Expense</h4>
+                            <p style="margin-bottom: 15px; color: var(--text-muted);">December rent of $6,000 needs to be accrued (part of $18,000 quarterly payment)</p>
+                            
+                            <div class="entry-row">
+                                <label>Account</label>
+                                <label>Debit ($)</label>
+                                <label>Credit ($)</label>
+                                <label></label>
+                            </div>
+                            <div class="entry-row">
+                                <select id="entry2-debit-acct" onchange="checkEntry(2)">
+                                    <option value="">Select Account</option>
+                                    <option value="Rent Expense">Rent Expense</option>
+                                    <option value="Prepaid Rent">Prepaid Rent</option>
+                                    <option value="Rent Payable">Rent Payable</option>
+                                </select>
+                                <input type="number" id="entry2-debit-amt" placeholder="0" oninput="checkEntry(2)">
+                                <input type="text" value="-" disabled style="text-align: center; background: #f5f5f5;">
+                                <span id="entry2-debit-feedback"></span>
+                            </div>
+                            <div class="entry-row">
+                                <select id="entry2-credit-acct" onchange="checkEntry(2)">
+                                    <option value="">Select Account</option>
+                                    <option value="Rent Expense">Rent Expense</option>
+                                    <option value="Prepaid Rent">Prepaid Rent</option>
+                                    <option value="Rent Payable">Rent Payable</option>
+                                </select>
+                                <input type="text" value="-" disabled style="text-align: center; background: #f5f5f5;">
+                                <input type="number" id="entry2-credit-amt" placeholder="0" oninput="checkEntry(2)">
+                                <span id="entry2-credit-feedback"></span>
+                            </div>
+                            <div class="feedback-message" id="entry2-feedback" style="margin-top: 10px;"></div>
+                        </div>
+
+                        <!-- 调整分录 3: 应付工资 -->
+                        <div class="entry-form">
+                            <h4 style="color: var(--primary); margin-bottom: 15px;">Entry #3: Accrued Salaries</h4>
+                            <p style="margin-bottom: 15px; color: var(--text-muted);">$8,500 of salaries for Dec 27-31 needs to be accrued</p>
+                            
+                            <div class="entry-row">
+                                <label>Account</label>
+                                <label>Debit ($)</label>
+                                <label>Credit ($)</label>
+                                <label></label>
+                            </div>
+                            <div class="entry-row">
+                                <select id="entry3-debit-acct" onchange="checkEntry(3)">
+                                    <option value="">Select Account</option>
+                                    <option value="Salaries Expense">Salaries Expense</option>
+                                    <option value="Salaries Payable">Salaries Payable</option>
+                                    <option value="Cash">Cash</option>
+                                </select>
+                                <input type="number" id="entry3-debit-amt" placeholder="0" oninput="checkEntry(3)">
+                                <input type="text" value="-" disabled style="text-align: center; background: #f5f5f5;">
+                                <span id="entry3-debit-feedback"></span>
+                            </div>
+                            <div class="entry-row">
+                                <select id="entry3-credit-acct" onchange="checkEntry(3)">
+                                    <option value="">Select Account</option>
+                                    <option value="Salaries Expense">Salaries Expense</option>
+                                    <option value="Salaries Payable">Salaries Payable</option>
+                                    <option value="Cash">Cash</option>
+                                </select>
+                                <input type="text" value="-" disabled style="text-align: center; background: #f5f5f5;">
+                                <input type="number" id="entry3-credit-amt" placeholder="0" oninput="checkEntry(3)">
+                                <span id="entry3-credit-feedback"></span>
+                            </div>
+                            <div class="feedback-message" id="entry3-feedback" style="margin-top: 10px;"></div>
+                        </div>
+
+                        <!-- 调整分录 4: 办公用品 -->
+                        <div class="entry-form">
+                            <h4 style="color: var(--primary); margin-bottom: 15px;">Entry #4: Supplies Expense</h4>
+                            <p style="margin-bottom: 15px; color: var(--text-muted);">$5,600 of supplies have been used (from $8,000 down to $2,400 on hand)</p>
+                            
+                            <div class="entry-row">
+                                <label>Account</label>
+                                <label>Debit ($)</label>
+                                <label>Credit ($)</label>
+                                <label></label>
+                            </div>
+                            <div class="entry-row">
+                                <select id="entry4-debit-acct" onchange="checkEntry(4)">
+                                    <option value="">Select Account</option>
+                                    <option value="Supplies Expense">Supplies Expense</option>
+                                    <option value="Supplies">Supplies</option>
+                                    <option value="Office Expense">Office Expense</option>
+                                </select>
+                                <input type="number" id="entry4-debit-amt" placeholder="0" oninput="checkEntry(4)">
+                                <input type="text" value="-" disabled style="text-align: center; background: #f5f5f5;">
+                                <span id="entry4-debit-feedback"></span>
+                            </div>
+                            <div class="entry-row">
+                                <select id="entry4-credit-acct" onchange="checkEntry(4)">
+                                    <option value="">Select Account</option>
+                                    <option value="Supplies Expense">Supplies Expense</option>
+                                    <option value="Supplies">Supplies</option>
+                                    <option value="Office Expense">Office Expense</option>
+                                </select>
+                                <input type="text" value="-" disabled style="text-align: center; background: #f5f5f5;">
+                                <input type="number" id="entry4-credit-amt" placeholder="0" oninput="checkEntry(4)">
+                                <span id="entry4-credit-feedback"></span>
+                            </div>
+                            <div class="feedback-message" id="entry4-feedback" style="margin-top: 10px;"></div>
+                        </div>
+
+                        <!-- 调整分录 5: 折旧 -->
+                        <div class="entry-form">
+                            <h4 style="color: var(--primary); margin-bottom: 15px;">Entry #5: Depreciation Expense</h4>
+                            <p style="margin-bottom: 15px; color: var(--text-muted);">Annual depreciation of $9,000 on store equipment</p>
+                            
+                            <div class="entry-row">
+                                <label>Account</label>
+                                <label>Debit ($)</label>
+                                <label>Credit ($)</label>
+                                <label></label>
+                            </div>
+                            <div class="entry-row">
+                                <select id="entry5-debit-acct" onchange="checkEntry(5)">
+                                    <option value="">Select Account</option>
+                                    <option value="Depreciation Expense">Depreciation Expense</option>
+                                    <option value="Accumulated Depreciation">Accumulated Depreciation</option>
+                                    <option value="Equipment">Equipment</option>
+                                </select>
+                                <input type="number" id="entry5-debit-amt" placeholder="0" oninput="checkEntry(5)">
+                                <input type="text" value="-" disabled style="text-align: center; background: #f5f5f5;">
+                                <span id="entry5-debit-feedback"></span>
+                            </div>
+                            <div class="entry-row">
+                                <select id="entry5-credit-acct" onchange="checkEntry(5)">
+                                    <option value="">Select Account</option>
+                                    <option value="Depreciation Expense">Depreciation Expense</option>
+                                    <option value="Accumulated Depreciation">Accumulated Depreciation</option>
+                                    <option value="Equipment">Equipment</option>
+                                </select>
+                                <input type="text" value="-" disabled style="text-align: center; background: #f5f5f5;">
+                                <input type="number" id="entry5-credit-amt" placeholder="0" oninput="checkEntry(5)">
+                                <span id="entry5-credit-feedback"></span>
+                            </div>
+                            <div class="feedback-message" id="entry5-feedback" style="margin-top: 10px;"></div>
+                        </div>
+
+                        <!-- 调整分录 6: 预收收入 -->
+                        <div class="entry-form">
+                            <h4 style="color: var(--primary); margin-bottom: 15px;">Entry #6: Unearned Revenue</h4>
+                            <p style="margin-bottom: 15px; color: var(--text-muted);">$8,000 of service revenue earned (2 months of 6-month contract)</p>
+                            
+                            <div class="entry-row">
+                                <label>Account</label>
+                                <label>Debit ($)</label>
+                                <label>Credit ($)</label>
+                                <label></label>
+                            </div>
+                            <div class="entry-row">
+                                <select id="entry6-debit-acct" onchange="checkEntry(6)">
+                                    <option value="">Select Account</option>
+                                    <option value="Unearned Revenue">Unearned Revenue</option>
+                                    <option value="Service Revenue">Service Revenue</option>
+                                    <option value="Accounts Receivable">Accounts Receivable</option>
+                                </select>
+                                <input type="number" id="entry6-debit-amt" placeholder="0" oninput="checkEntry(6)">
+                                <input type="text" value="-" disabled style="text-align: center; background: #f5f5f5;">
+                                <span id="entry6-debit-feedback"></span>
+                            </div>
+                            <div class="entry-row">
+                                <select id="entry6-credit-acct" onchange="checkEntry(6)">
+                                    <option value="">Select Account</option>
+                                    <option value="Unearned Revenue">Unearned Revenue</option>
+                                    <option value="Service Revenue">Service Revenue</option>
+                                    <option value="Accounts Receivable">Accounts Receivable</option>
+                                </select>
+                                <input type="text" value="-" disabled style="text-align: center; background: #f5f5f5;">
+                                <input type="number" id="entry6-credit-amt" placeholder="0" oninput="checkEntry(6)">
+                                <span id="entry6-credit-feedback"></span>
+                            </div>
+                            <div class="feedback-message" id="entry6-feedback" style="margin-top: 10px;"></div>
+                        </div>
+
+                        <div class="metrics-grid">
+                            <div class="metric-box">
+                                <h5>Entries Completed</h5>
+                                <div class="metric-value" id="entries-complete">0/6</div>
+                            </div>
+                            <div class="metric-box">
+                                <h5>Total Adjustments</h5>
+                                <div class="metric-value" id="total-adjustments">$0</div>
+                            </div>
+                        </div>
+
+                        <div class="action-buttons">
+                            <button class="nav-btn prev" onclick="goToStep(2)">← Back to Identification</button>
+                            <button class="nav-btn next" onclick="completeStep(3)" id="btn-next-3">Update Worksheet →</button>
+                        </div>
+                    </div>
+
+                    <!-- Step 4: 更新工作底稿 -->
+                    <div id="step-4" class="step-content">
+                        <div class="workspace-header">
+                            <h3 class="workspace-title">📊 Step 4: Update the Worksheet</h3>
+                            <span class="date-badge">December 31, 2026</span>
+                        </div>
+
+                        <p style="margin-bottom: 20px;">Review the worksheet showing the impact of all adjustments. Verify that debits equal credits in the Adjustments column.</p>
+
+                        <div class="worksheet-container">
+                            <div class="worksheet-header">
+                                <h3>Metro Retail Inc. - 10-Column Worksheet</h3>
+                                <p style="margin: 5px 0 0 0; opacity: 0.9;">For the Year Ended December 31, 2026</p>
+                            </div>
+                            
+                            <div style="overflow-x: auto;">
+                                <table class="worksheet-table">
+                                    <thead>
+                                        <tr>
+                                            <th rowspan="2" style="width: 20%;">Account</th>
+                                            <th colspan="2" style="width: 20%;">Trial Balance</th>
+                                            <th colspan="2" style="width: 20%;">Adjustments</th>
+                                            <th colspan="2" style="width: 20%;">Adjusted TB</th>
+                                            <th colspan="2" style="width: 20%;">Income Statement</th>
+                                        </tr>
+                                        <tr>
+                                            <th>Dr</th>
+                                            <th>Cr</th>
+                                            <th>Dr</th>
+                                            <th>Cr</th>
+                                            <th>Dr</th>
+                                            <th>Cr</th>
+                                            <th>Dr</th>
+                                            <th>Cr</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="worksheet-body">
+                                        <!-- 将通过JavaScript动态生成 -->
+                                    </tbody>
+                                    <tfoot>
+                                        <tr class="total-row">
+                                            <td><strong>Totals</strong></td>
+                                            <td id="tb-debit-total">$143,000</td>
+                                            <td id="tb-credit-total">$143,000</td>
+                                            <td id="adj-debit-total">$34,100</td>
+                                            <td id="adj-credit-total">$34,100</td>
+                                            <td id="adjtb-debit-total">$177,100</td>
+                                            <td id="adjtb-credit-total">$177,100</td>
+                                            <td id="is-debit-total">$63,500</td>
+                                            <td id="is-credit-total">$58,000</td>
+                                        </tr>
+                                    </tfoot>
+                                </table>
+                            </div>
+                        </div>
+
+                        <div style="background: var(--info-light); border-left: 4px solid var(--info); padding: 20px; margin: 20px 0; border-radius: var(--radius-sm);">
+                            <h4 style="color: var(--info-dark); margin-bottom: 10px;">📋 Worksheet Analysis</h4>
+                            <p><strong>Key Observations:</strong></p>
+                            <ul style="margin: 10px 0; padding-left: 20px;">
+                                <li>Trial Balance columns show unadjusted account balances</li>
+                                <li>Adjustments columns capture all 6 year-end entries (Dr = Cr ✓)</li>
+                                <li>Adjusted TB combines original balances with adjustments</li>
+                                <li>Income Statement columns show revenue and expense accounts only</li>
+                                <li><strong>Net Income:</strong> Revenue ($58,000) - Expenses ($63,500) = <span style="color: var(--error);">($5,500) Net Loss</span></li>
+                            </ul>
+                        </div>
+
+                        <div class="action-buttons">
+                            <button class="nav-btn prev" onclick="goToStep(3)">← Back to Entries</button>
+                            <button class="nav-btn next" onclick="completeStep(4)" id="btn-next-4">Generate Financial Statements →</button>
+                        </div>
+                    </div>
+
+                    <!-- Step 5: 财务报表 -->
+                    <div id="step-5" class="step-content">
+                        <div class="workspace-header">
+                            <h3 class="workspace-title">📈 Step 5: Financial Statements</h3>
+                            <span class="date-badge">Reporting Phase</span>
+                        </div>
+
+                        <p style="margin-bottom: 20px;">Based on the adjusted trial balance, complete the following financial statements. Verify that the accounting equation remains balanced.</p>
+
+                        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 20px;">
+                            <!-- 损益表 -->
+                            <div class="statement-preview">
+                                <div class="statement-header">
+                                    <h4>Metro Retail Inc.</h4>
+                                    <h4>Income Statement</h4>
+                                    <p>For the Year Ended December 31, 2026</p>
+                                </div>
+                                
+                                <div class="statement-line">
+                                    <span><strong>Revenues</strong></span>
+                                    <span></span>
+                                </div>
+                                <div class="statement-line indent">
+                                    <span>Service Revenue</span>
+                                    <span>$58,000</span>
+                                </div>
+                                <div class="statement-line subtotal">
+                                    <span>Total Revenues</span>
+                                    <span>$58,000</span>
+                                </div>
+                                
+                                <div class="statement-line" style="margin-top: 15px;">
+                                    <span><strong>Operating Expenses</strong></span>
+                                    <span></span>
+                                </div>
+                                <div class="statement-line indent">
+                                    <span>Salaries Expense</span>
+                                    <span>$38,500</span>
+                                </div>
+                                <div class="statement-line indent">
+                                    <span>Rent Expense</span>
+                                    <span>$18,000</span>
+                                </div>
+                                <div class="statement-line indent">
+                                    <span>Insurance Expense</span>
+                                    <span>$6,000</span>
+                                </div>
+                                <div class="statement-line indent">
+                                    <span>Supplies Expense</span>
+                                    <span>$5,600</span>
+                                </div>
+                                <div class="statement-line indent">
+                                    <span>Depreciation Expense</span>
+                                    <span>$9,000</span>
+                                </div>
+                                <div class="statement-line indent">
+                                    <span>Utilities Expense</span>
+                                    <span>$4,000</span>
+                                </div>
+                                <div class="statement-line subtotal">
+                                    <span>Total Expenses</span>
+                                    <span>$81,100</span>
+                                </div>
+                                
+                                <div class="statement-line total" style="color: var(--error);">
+                                    <span>Net Loss</span>
+                                    <span>($23,100)</span>
+                                </div>
+                            </div>
+
+                            <!-- 资产负债表（简化） -->
+                            <div class="statement-preview">
+                                <div class="statement-header">
+                                    <h4>Metro Retail Inc.</h4>
+                                    <h4>Balance Sheet (Partial)</h4>
+                                    <p>December 31, 2026</p>
+                                </div>
+                                
+                                <div class="statement-line">
+                                    <span><strong>Assets</strong></span>
+                                    <span></span>
+                                </div>
+                                <div class="statement-line indent">
+                                    <span>Cash</span>
+                                    <span>$45,000</span>
+                                </div>
+                                <div class="statement-line indent">
+                                    <span>Accounts Receivable</span>
+                                    <span>$28,000</span>
+                                </div>
+                                <div class="statement-line indent">
+                                    <span>Supplies</span>
+                                    <span class="highlight-change">$2,400</span>
+                                </div>
+                                <div class="statement-line indent">
+                                    <span>Prepaid Insurance</span>
+                                    <span class="highlight-change">$6,000</span>
+                                </div>
+                                <div class="statement-line indent">
+                                    <span>Equipment</span>
+                                    <span>$50,000</span>
+                                </div>
+                                <div class="statement-line indent">
+                                    <span>Less: Accum. Depreciation</span>
+                                    <span class="highlight-change">($9,000)</span>
+                                </div>
+                                <div class="statement-line subtotal">
+                                    <span>Total Assets</span>
+                                    <span>$122,400</span>
+                                </div>
+                                
+                                <div class="statement-line" style="margin-top: 15px;">
+                                    <span><strong>Liabilities</strong></span>
+                                    <span></span>
+                                </div>
+                                <div class="statement-line indent">
+                                    <span>Accounts Payable</span>
+                                    <span>$5,000</span>
+                                </div>
+                                <div class="statement-line indent">
+                                    <span>Salaries Payable</span>
+                                    <span class="highlight-change">$8,500</span>
+                                </div>
+                                <div class="statement-line indent">
+                                    <span>Unearned Revenue</span>
+                                    <span class="highlight-change">$16,000</span>
+                                </div>
+                                <div class="statement-line subtotal">
+                                    <span>Total Liabilities</span>
+                                    <span>$29,500</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- 关键学习点 -->
+                        <div style="background: linear-gradient(135deg, #e8f5e9 0%, #c8e6c9 100%); border: 2px solid var(--success); border-radius: var(--radius-md); padding: 25px; margin-top: 30px;">
+                            <h3 style="color: var(--success-dark); margin-bottom: 15px;">🎓 What You've Learned</h3>
+                            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 15px;">
+                                <div>
+                                    <h4 style="color: var(--primary); margin-bottom: 8px;">Adjustment Types</h4>
+                                    <ul style="margin: 0; padding-left: 18px; font-size: 0.95rem;">
+                                        <li>Prepaid Expenses</li>
+                                        <li>Unearned Revenues</li>
+                                        <li>Accrued Expenses</li>
+                                        <li>Accrued Revenues</li>
+                                        <li>Depreciation</li>
+                                    </ul>
+                                </div>
+                                <div>
+                                    <h4 style="color: var(--primary); margin-bottom: 8px;">Key Skills</h4>
+                                    <ul style="margin: 0; padding-left: 18px; font-size: 0.95rem;">
+                                        <li>Analyzing source documents</li>
+                                        <li>Preparing adjusting entries</li>
+                                        <li>Completing a 10-column worksheet</li>
+                                        <li>Understanding financial statement impact</li>
+                                    </ul>
+                                </div>
+                                <div>
+                                    <h4 style="color: var(--primary); margin-bottom: 8px;">Real-World Application</h4>
+                                    <ul style="margin: 0; padding-left: 18px; font-size: 0.95rem;">
+                                        <li>Month-end closing procedures</li>
+                                        <li>Year-end audit preparation</li>
+                                        <li>Accrual accounting compliance</li>
+                                        <li>Financial reporting accuracy</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="action-buttons">
+                            <button class="nav-btn prev" onclick="goToStep(4)">← Back to Worksheet</button>
+                            <button class="nav-btn next" onclick="restartSimulation()" style="background: var(--success);">🔄 Restart Simulation</button>
+                            <a href="ch03.html" class="nav-btn next" style="text-decoration: none; display: inline-flex; align-items: center; justify-content: center;">Back to Chapter 3</a>
+                        </div>
+                    </div>
+
+                </div>
             </div>
+
+            <!-- 导航 -->
+            <nav class="kp-navigation" style="display: flex; justify-content: space-between; margin-top: 4rem; padding-bottom: 2rem;">
+                <a href="ch03_P3.html" class="btn" style="background: #eee;">← Previous: Closing Entries</a>
+                <a href="ch03.html" class="btn" style="background: var(--info); color: white;">Chapter 3 Hub</a>
+                <a href="ch04_INTERACTIVE.html" class="btn btn-primary">Next: Ch4 Interactive →</a>
+            </nav>
         </article>
     </main>
 
     <script src="../../components.js"></script>
     <script>
-        // ==================== Account Classification Game ====================
-        let selectedAccount = null;
-        let selectedCategory = null;
-        let score = 0;
-        let totalAccounts = 10;
-        let gameStarted = false;
-        let timerInterval = null;
-        let seconds = 0;
+        // ==================== 模拟状态管理 ====================
+        let currentStep = 1;
+        const totalSteps = 5;
+        let completedSteps = new Set();
+        let identifiedAdjustments = new Set();
+        let correctEntries = new Set();
 
-        function startGame() {
-            gameStarted = true;
-            score = 0;
-            seconds = 0;
+        // 正确的调整分录答案
+        const correctAnswers = {
+            1: { debitAcct: 'Insurance Expense', debitAmt: 6000, creditAcct: 'Prepaid Insurance', creditAmt: 6000 },
+            2: { debitAcct: 'Rent Expense', debitAmt: 6000, creditAcct: 'Prepaid Rent', creditAmt: 6000 },
+            3: { debitAcct: 'Salaries Expense', debitAmt: 8500, creditAcct: 'Salaries Payable', creditAmt: 8500 },
+            4: { debitAcct: 'Supplies Expense', debitAmt: 5600, creditAcct: 'Supplies', creditAmt: 5600 },
+            5: { debitAcct: 'Depreciation Expense', debitAmt: 9000, creditAcct: 'Accumulated Depreciation', creditAmt: 9000 },
+            6: { debitAcct: 'Unearned Revenue', debitAmt: 8000, creditAcct: 'Service Revenue', creditAmt: 8000 }
+        };
 
-            document.getElementById('start-btn').style.display = 'none';
-            document.getElementById('reset-btn').style.display = 'inline-block';
+        // 工作表数据
+        const worksheetData = [
+            { account: 'Cash', tbDr: 45000, tbCr: 0, adjDr: 0, adjCr: 0 },
+            { account: 'Accounts Receivable', tbDr: 28000, tbCr: 0, adjDr: 0, adjCr: 0 },
+            { account: 'Supplies', tbDr: 8000, tbCr: 0, adjDr: 0, adjCr: 5600 },
+            { account: 'Prepaid Insurance', tbDr: 12000, tbCr: 0, adjDr: 0, adjCr: 6000 },
+            { account: 'Prepaid Rent', tbDr: 18000, tbCr: 0, adjDr: 0, adjCr: 6000 },
+            { account: 'Equipment', tbDr: 50000, tbCr: 0, adjDr: 0, adjCr: 0 },
+            { account: 'Accum. Depreciation', tbDr: 0, tbCr: 0, adjDr: 0, adjCr: 9000 },
+            { account: 'Accounts Payable', tbDr: 0, tbCr: 5000, adjDr: 0, adjCr: 0 },
+            { account: 'Salaries Payable', tbDr: 0, tbCr: 0, adjDr: 0, adjCr: 8500 },
+            { account: 'Unearned Revenue', tbDr: 0, tbCr: 24000, adjDr: 8000, adjCr: 0 },
+            { account: 'Common Stock', tbDr: 0, tbCr: 40000, adjDr: 0, adjCr: 0 },
+            { account: 'Retained Earnings', tbDr: 0, tbCr: 12000, adjDr: 0, adjCr: 0 },
+            { account: 'Service Revenue', tbDr: 0, tbCr: 50000, adjDr: 0, adjCr: 8000 },
+            { account: 'Salaries Expense', tbDr: 30000, tbCr: 0, adjDr: 8500, adjCr: 0 },
+            { account: 'Rent Expense', tbDr: 12000, tbCr: 0, adjDr: 6000, adjCr: 0 },
+            { account: 'Insurance Expense', tbDr: 0, tbCr: 0, adjDr: 6000, adjCr: 0 },
+            { account: 'Supplies Expense', tbDr: 0, tbCr: 0, adjDr: 5600, adjCr: 0 },
+            { account: 'Depreciation Expense', tbDr: 0, tbCr: 0, adjDr: 9000, adjCr: 0 },
+            { account: 'Utilities Expense', tbDr: 4000, tbCr: 0, adjDr: 0, adjCr: 0 }
+        ];
 
-            updateScore();
-            startTimer();
-
-            // Enable game interactions
-            document.querySelectorAll('.account-card').forEach(card => {
-                card.style.cursor = 'pointer';
-            });
-        }
-
-        function resetGame() {
-            gameStarted = false;
-            score = 0;
-            seconds = 0;
-            selectedAccount = null;
-            selectedCategory = null;
-
-            clearInterval(timerInterval);
-
-            document.getElementById('game-timer').textContent = '00:00';
-            document.getElementById('start-btn').style.display = 'inline-block';
-            document.getElementById('reset-btn').style.display = 'none';
-
-            // Reset all cards
-            document.querySelectorAll('.account-card').forEach(card => {
-                card.classList.remove('selected', 'matched', 'incorrect');
-                card.style.display = 'flex';
-            });
-
-            document.querySelectorAll('.category-card').forEach(cat => {
-                cat.classList.remove('selected');
-            });
-
-            updateScore();
-            document.getElementById('game-feedback').classList.remove('show');
-
-            // Shuffle accounts
-            const container = document.getElementById('accounts-container');
-            const cards = Array.from(container.children);
-            cards.sort(() => Math.random() - 0.5);
-            cards.forEach(card => container.appendChild(card));
-        }
-
-        function startTimer() {
-            timerInterval = setInterval(() => {
-                seconds++;
-                const mins = Math.floor(seconds / 60).toString().padStart(2, '0');
-                const secs = (seconds % 60).toString().padStart(2, '0');
-                document.getElementById('game-timer').textContent = `${mins}:${secs}`;
-            }, 1000);
-        }
-
-        function updateScore() {
-            document.getElementById('game-score').textContent = score;
-            const percentage = (score / totalAccounts) * 100;
-            document.getElementById('progress-fill').style.width = percentage + '%';
-        }
-
-        function showFeedback(message, type) {
-            const feedback = document.getElementById('game-feedback');
-            feedback.textContent = message;
-            feedback.className = 'game-feedback show ' + type;
-
-            if (type === 'success') {
-                feedback.style.background = 'var(--success-light)';
-                feedback.style.color = 'var(--success-dark)';
-            } else if (type === 'error') {
-                feedback.style.background = 'var(--error-light)';
-                feedback.style.color = 'var(--error-dark)';
+        // ==================== 步骤导航 ====================
+        function goToStep(stepNum) {
+            if (stepNum > 1 && !completedSteps.has(stepNum - 1) && stepNum > currentStep) {
+                return;
             }
-        }
 
-        function checkMatch() {
-            if (!selectedAccount || !selectedCategory) return;
+            currentStep = stepNum;
 
-            const accountCategory = selectedAccount.dataset.category;
-            const categoryType = selectedCategory.dataset.category;
-
-            if (accountCategory === categoryType) {
-                // Correct match
-                score++;
-                selectedAccount.classList.add('matched');
-                selectedAccount.style.display = 'none';
-                updateScore();
-                showFeedback('✓ Correct!', 'success');
-
-                // Check if all accounts matched
-                if (score === totalAccounts) {
-                    clearInterval(timerInterval);
-                    setTimeout(() => {
-                        showCompletion();
-                    }, 500);
+            // 更新步骤指示器
+            document.querySelectorAll('.step-item').forEach((item, index) => {
+                item.classList.remove('active', 'completed');
+                const step = index + 1;
+                
+                if (step === stepNum) {
+                    item.classList.add('active');
+                } else if (completedSteps.has(step) || step < stepNum) {
+                    item.classList.add('completed');
                 }
-            } else {
-                // Incorrect match
-                selectedAccount.classList.add('incorrect');
-                showFeedback('✗ Incorrect, try again!', 'error');
-                setTimeout(() => {
-                    selectedAccount.classList.remove('incorrect');
-                }, 500);
-            }
+            });
 
-            // Reset selections
-            selectedAccount.classList.remove('selected');
-            selectedCategory.classList.remove('selected');
-            selectedAccount = null;
-            selectedCategory = null;
-        }
+            // 更新进度条
+            const progress = ((stepNum - 1) / (totalSteps - 1)) * 80 + 10;
+            document.getElementById('progress-bar').style.width = progress + '%';
 
-        function showCompletion() {
-            showFeedback(`🎉 Congratulations! Final Time: ${document.getElementById('game-timer').textContent}`, 'success');
-            createConfetti();
+            // 显示对应步骤内容
+            document.querySelectorAll('.step-content').forEach(content => {
+                content.classList.remove('active');
+            });
+            document.getElementById(`step-${stepNum}`).classList.add('active');
 
-            // Show reset button
-            document.getElementById('reset-btn').style.display = 'inline-block';
-        }
-
-        function createConfetti() {
-            for (let i = 0; i < 50; i++) {
-                const confetti = document.createElement('div');
-                confetti.className = 'confetti';
-                confetti.style.left = Math.random() * 100 + 'vw';
-                confetti.style.background = ['#1a237e', '#c5a059', '#27ae60', '#e74c3c', '#f1c40f'][Math.floor(Math.random() * 5)];
-                confetti.style.animationDelay = Math.random() * 2 + 's';
-                document.body.appendChild(confetti);
-
-                setTimeout(() => {
-                    confetti.remove();
-                }, 3000);
+            // 特殊处理
+            if (stepNum === 4) {
+                populateWorksheet();
             }
         }
 
-        // Initialize game interactions
-        document.addEventListener('DOMContentLoaded', function() {
-            // Account card click handlers
-            document.querySelectorAll('.account-card').forEach(card => {
-                card.addEventListener('click', function() {
-                    if (!gameStarted) return;
-                    if (this.classList.contains('matched')) return;
+        function completeStep(stepNum) {
+            completedSteps.add(stepNum);
+            
+            if (stepNum < totalSteps) {
+                goToStep(stepNum + 1);
+            }
+        }
 
-                    // Remove selected from other accounts
-                    document.querySelectorAll('.account-card').forEach(c => c.classList.remove('selected'));
-
-                    // Select this account
-                    this.classList.add('selected');
-                    selectedAccount = this;
-
-                    // Check if we have both selections
-                    if (selectedCategory) {
-                        checkMatch();
-                    }
-                });
+        function restartSimulation() {
+            currentStep = 1;
+            completedSteps.clear();
+            identifiedAdjustments.clear();
+            correctEntries.clear();
+            
+            // 重置所有表单
+            document.querySelectorAll('select').forEach(s => s.value = '');
+            document.querySelectorAll('input[type="number"]').forEach(i => i.value = '');
+            document.querySelectorAll('.feedback-message').forEach(f => {
+                f.classList.remove('show', 'correct', 'incorrect', 'info');
+                f.textContent = '';
+            });
+            
+            // 重置卡片状态
+            document.querySelectorAll('.adjustment-card').forEach(card => {
+                card.classList.remove('selected', 'completed');
             });
 
-            // Category card click handlers
-            document.querySelectorAll('.category-card').forEach(category => {
-                category.addEventListener('click', function() {
-                    if (!gameStarted) return;
+            // 更新指标
+            document.getElementById('identified-count').textContent = '0/6';
+            document.getElementById('accuracy-rate').textContent = '0%';
+            document.getElementById('entries-complete').textContent = '0/6';
+            document.getElementById('total-adjustments').textContent = '$0';
 
-                    // Remove selected from other categories
-                    document.querySelectorAll('.category-card').forEach(c => c.classList.remove('selected'));
+            goToStep(1);
+        }
 
-                    // Select this category
-                    this.classList.add('selected');
-                    selectedCategory = this;
+        // ==================== Step 1: 文档审查 ====================
+        function showDocumentDetail(docType) {
+            const feedback = document.getElementById('step1-feedback');
+            feedback.className = 'feedback-message show info';
+            feedback.textContent = `✓ Document reviewed: ${docType.toUpperCase()}. Identify the adjustment needed based on this document.`;
+        }
 
-                    // Check if we have both selections
-                    if (selectedAccount) {
-                        checkMatch();
-                    }
-                });
+        // ==================== Step 2: 识别调整事项 ====================
+        function identifyAdjustment(scenarioNum) {
+            const card = document.querySelector(`.adjustment-card[data-scenario="${scenarioNum}"]`);
+            const feedback = document.getElementById(`scenario${scenarioNum}-feedback`);
+            
+            card.classList.add('selected');
+            identifiedAdjustments.add(scenarioNum);
+            
+            // 更新指标
+            document.getElementById('identified-count').textContent = `${identifiedAdjustments.size}/6`;
+            document.getElementById('accuracy-rate').textContent = Math.round((identifiedAdjustments.size / 6) * 100) + '%';
+            
+            feedback.textContent = '✓ Adjustment identified correctly!';
+            feedback.style.color = 'var(--success)';
+            
+            setTimeout(() => {
+                card.classList.remove('selected');
+                card.classList.add('completed');
+            }, 500);
+        }
+
+        // ==================== Step 3: 编制调整分录 ====================
+        function checkEntry(entryNum) {
+            const answer = correctAnswers[entryNum];
+            const debitAcct = document.getElementById(`entry${entryNum}-debit-acct`).value;
+            const debitAmt = parseFloat(document.getElementById(`entry${entryNum}-debit-amt`).value) || 0;
+            const creditAcct = document.getElementById(`entry${entryNum}-credit-acct`).value;
+            const creditAmt = parseFloat(document.getElementById(`entry${entryNum}-credit-amt`).value) || 0;
+            
+            const feedback = document.getElementById(`entry${entryNum}-feedback`);
+            
+            // 检查借方
+            const debitAcctCorrect = debitAcct === answer.debitAcct;
+            const debitAmtCorrect = Math.abs(debitAmt - answer.debitAmt) < 0.01;
+            
+            document.getElementById(`entry${entryNum}-debit-acct`).classList.toggle('correct', debitAcctCorrect);
+            document.getElementById(`entry${entryNum}-debit-acct`).classList.toggle('incorrect', debitAcct && !debitAcctCorrect);
+            document.getElementById(`entry${entryNum}-debit-amt`).classList.toggle('correct', debitAmtCorrect);
+            document.getElementById(`entry${entryNum}-debit-amt`).classList.toggle('incorrect', debitAmt && !debitAmtCorrect);
+            
+            // 检查贷方
+            const creditAcctCorrect = creditAcct === answer.creditAcct;
+            const creditAmtCorrect = Math.abs(creditAmt - answer.creditAmt) < 0.01;
+            
+            document.getElementById(`entry${entryNum}-credit-acct`).classList.toggle('correct', creditAcctCorrect);
+            document.getElementById(`entry${entryNum}-credit-acct`).classList.toggle('incorrect', creditAcct && !creditAcctCorrect);
+            document.getElementById(`entry${entryNum}-credit-amt`).classList.toggle('correct', creditAmtCorrect);
+            document.getElementById(`entry${entryNum}-credit-amt`).classList.toggle('incorrect', creditAmt && !creditAmtCorrect);
+            
+            // 显示反馈
+            if (debitAcctCorrect && debitAmtCorrect && creditAcctCorrect && creditAmtCorrect) {
+                feedback.className = 'feedback-message show correct';
+                feedback.textContent = `✓ Correct! ${debitAcct} $${debitAmt.toLocaleString()} | ${creditAcct} $${creditAmt.toLocaleString()}`;
+                correctEntries.add(entryNum);
+            } else if (debitAcct || creditAcct || debitAmt || creditAmt) {
+                feedback.className = 'feedback-message show incorrect';
+                let errors = [];
+                if (!debitAcctCorrect) errors.push('debit account');
+                if (!debitAmtCorrect) errors.push('debit amount');
+                if (!creditAcctCorrect) errors.push('credit account');
+                if (!creditAmtCorrect) errors.push('credit amount');
+                feedback.textContent = `✗ Check your ${errors.join(', ')}`;
+            }
+            
+            // 更新完成计数
+            document.getElementById('entries-complete').textContent = `${correctEntries.size}/6`;
+            
+            // 计算总调整金额
+            let totalAdj = 0;
+            correctEntries.forEach(num => {
+                totalAdj += correctAnswers[num].debitAmt;
             });
+            document.getElementById('total-adjustments').textContent = '$' + totalAdj.toLocaleString();
+        }
+
+        // ==================== Step 4: 填充工作表 ====================
+        function populateWorksheet() {
+            const tbody = document.getElementById('worksheet-body');
+            tbody.innerHTML = '';
+            
+            worksheetData.forEach(row => {
+                const adjDr = row.adjDr || 0;
+                const adjCr = row.adjCr || 0;
+                const adjTbDr = row.tbDr + adjDr;
+                const adjTbCr = row.tbCr + adjCr;
+                
+                // 收入/费用账户才显示在损益表列
+                const isIncomeStatement = row.account.includes('Revenue') || row.account.includes('Expense');
+                const isDr = row.tbDr > 0 || adjDr > 0;
+                
+                const tr = document.createElement('tr');
+                tr.innerHTML = `
+                    <td class="account-name">${row.account}</td>
+                    <td>${row.tbDr ? '$' + row.tbDr.toLocaleString() : ''}</td>
+                    <td>${row.tbCr ? '$' + row.tbCr.toLocaleString() : ''}</td>
+                    <td class="${adjDr ? 'adjusted' : ''}">${adjDr ? '$' + adjDr.toLocaleString() : ''}</td>
+                    <td class="${adjCr ? 'adjusted' : ''}">${adjCr ? '$' + adjCr.toLocaleString() : ''}</td>
+                    <td>${adjTbDr ? '$' + adjTbDr.toLocaleString() : ''}</td>
+                    <td>${adjTbCr ? '$' + adjTbCr.toLocaleString() : ''}</td>
+                    <td>${isIncomeStatement && isDr ? '$' + adjTbDr.toLocaleString() : ''}</td>
+                    <td>${isIncomeStatement && !isDr ? '$' + adjTbCr.toLocaleString() : ''}</td>
+                `;
+                tbody.appendChild(tr);
+            });
+        }
+
+        // 初始化
+        document.addEventListener('DOMContentLoaded', () => {
+            goToStep(1);
         });
     </script>
 </body>

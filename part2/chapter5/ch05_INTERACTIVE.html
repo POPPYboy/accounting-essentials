@@ -1,0 +1,2186 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GreenMart Supermarket - Quarterly Inventory Management | ACCOUNTING ESSENTIALS</title>
+    <link rel="stylesheet" href="../../styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Lato:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-50MTQPVR7D"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+        gtag('config', 'G-50MTQPVR7D');
+    </script>
+    <style>
+        :root {
+            --gm-primary: #1B5E20;
+            --gm-primary-light: #4CAF50;
+            --gm-primary-dark: #0D3B10;
+            --gm-accent: #E65100;
+            --gm-accent-light: #FF9800;
+            --gm-bg-cream: #FAF7F2;
+            --gm-text-dark: #212121;
+            --gm-text-muted: #757575;
+            --gm-border: #E0E0E0;
+            --gm-card-bg: #FFFFFF;
+            --gm-success: #2E7D32;
+            --gm-warning: #F57C00;
+            --gm-error: #C62828;
+            --gm-info: #1565C0;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Lato', sans-serif;
+            background: var(--gm-bg-cream);
+            color: var(--gm-text-dark);
+            line-height: 1.6;
+        }
+
+        h1, h2, h3, h4 {
+            font-family: 'Playfair Display', serif;
+        }
+
+        /* Header Styles */
+        .gm-header {
+            background: linear-gradient(135deg, var(--gm-primary) 0%, var(--gm-primary-dark) 100%);
+            color: white;
+            padding: 3rem 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .gm-header::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -10%;
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
+            border-radius: 50%;
+        }
+
+        .gm-header-content {
+            position: relative;
+            z-index: 1;
+        }
+
+        .gm-logo {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .gm-logo-icon {
+            width: 60px;
+            height: 60px;
+            background: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+        }
+
+        .gm-logo-text {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5rem;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+        }
+
+        .gm-subtitle {
+            font-size: 1.25rem;
+            opacity: 0.9;
+            font-weight: 300;
+        }
+
+        /* Dashboard Stats */
+        .gm-dashboard {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 1.5rem;
+            margin: -3rem 0 3rem 0;
+            position: relative;
+            z-index: 10;
+        }
+
+        .gm-stat-card {
+            background: white;
+            border-radius: 16px;
+            padding: 1.5rem;
+            box-shadow: 0 4px 24px rgba(0,0,0,0.08);
+            border: 1px solid var(--gm-border);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .gm-stat-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 32px rgba(0,0,0,0.12);
+        }
+
+        .gm-stat-label {
+            font-size: 0.875rem;
+            color: var(--gm-text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 0.5rem;
+        }
+
+        .gm-stat-value {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--gm-primary);
+        }
+
+        .gm-stat-change {
+            font-size: 0.875rem;
+            margin-top: 0.25rem;
+        }
+
+        .gm-stat-change.positive { color: var(--gm-success); }
+        .gm-stat-change.negative { color: var(--gm-error); }
+
+        /* Section Cards */
+        .gm-section {
+            background: white;
+            border-radius: 20px;
+            padding: 2.5rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 2px 16px rgba(0,0,0,0.06);
+            border: 1px solid var(--gm-border);
+        }
+
+        .gm-section-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 2rem;
+            padding-bottom: 1.5rem;
+            border-bottom: 2px solid var(--gm-bg-cream);
+        }
+
+        .gm-section-icon {
+            width: 56px;
+            height: 56px;
+            background: linear-gradient(135deg, var(--gm-primary-light) 0%, var(--gm-primary) 100%);
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.75rem;
+            color: white;
+            box-shadow: 0 4px 12px rgba(27, 94, 32, 0.3);
+        }
+
+        .gm-section-title {
+            flex: 1;
+        }
+
+        .gm-section-title h2 {
+            font-size: 1.75rem;
+            color: var(--gm-text-dark);
+            margin-bottom: 0.25rem;
+        }
+
+        .gm-section-title p {
+            color: var(--gm-text-muted);
+            font-size: 1rem;
+        }
+
+        /* Tab Navigation */
+        .gm-tabs {
+            display: flex;
+            gap: 0.75rem;
+            margin-bottom: 2rem;
+            border-bottom: 2px solid var(--gm-border);
+            padding-bottom: 0;
+        }
+
+        .gm-tab {
+            padding: 1rem 1.75rem;
+            background: transparent;
+            border: none;
+            border-bottom: 3px solid transparent;
+            font-family: 'Lato', sans-serif;
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--gm-text-muted);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            bottom: -2px;
+        }
+
+        .gm-tab:hover {
+            color: var(--gm-primary);
+        }
+
+        .gm-tab.active {
+            color: var(--gm-primary);
+            border-bottom-color: var(--gm-primary);
+        }
+
+        /* Transaction Tables */
+        .gm-table-container {
+            overflow-x: auto;
+            border-radius: 12px;
+            border: 1px solid var(--gm-border);
+        }
+
+        .gm-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.95rem;
+        }
+
+        .gm-table th {
+            background: var(--gm-bg-cream);
+            padding: 1rem 1.25rem;
+            text-align: left;
+            font-weight: 600;
+            color: var(--gm-text-dark);
+            border-bottom: 2px solid var(--gm-border);
+        }
+
+        .gm-table td {
+            padding: 1rem 1.25rem;
+            border-bottom: 1px solid var(--gm-border);
+            vertical-align: middle;
+        }
+
+        .gm-table tr:hover td {
+            background: rgba(27, 94, 32, 0.02);
+        }
+
+        .gm-table .date-cell {
+            font-weight: 600;
+            color: var(--gm-primary);
+            white-space: nowrap;
+        }
+
+        .gm-table .amount-cell {
+            font-family: 'Courier New', monospace;
+            font-weight: 600;
+            text-align: right;
+        }
+
+        .gm-table .status-badge {
+            display: inline-block;
+            padding: 0.375rem 0.875rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+
+        .status-pending { background: #FFF3E0; color: #E65100; }
+        .status-received { background: #E8F5E9; color: #2E7D32; }
+        .status-paid { background: #E3F2FD; color: #1565C0; }
+        .status-discount { background: #F3E5F5; color: #7B1FA2; }
+
+        /* Input Fields */
+        .gm-input {
+            width: 100%;
+            padding: 0.75rem 1rem;
+            border: 2px solid var(--gm-border);
+            border-radius: 8px;
+            font-family: 'Lato', sans-serif;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .gm-input:focus {
+            outline: none;
+            border-color: var(--gm-primary-light);
+            box-shadow: 0 0 0 3px rgba(76, 175, 80, 0.1);
+        }
+
+        .gm-input.correct {
+            border-color: var(--gm-success);
+            background: #E8F5E9;
+        }
+
+        .gm-input.incorrect {
+            border-color: var(--gm-error);
+            background: #FFEBEE;
+        }
+
+        /* Buttons */
+        .gm-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.875rem 1.75rem;
+            border: none;
+            border-radius: 10px;
+            font-family: 'Lato', sans-serif;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .gm-btn-primary {
+            background: linear-gradient(135deg, var(--gm-primary) 0%, var(--gm-primary-dark) 100%);
+            color: white;
+            box-shadow: 0 4px 12px rgba(27, 94, 32, 0.3);
+        }
+
+        .gm-btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(27, 94, 32, 0.4);
+        }
+
+        .gm-btn-secondary {
+            background: white;
+            color: var(--gm-primary);
+            border: 2px solid var(--gm-primary);
+        }
+
+        .gm-btn-secondary:hover {
+            background: var(--gm-primary);
+            color: white;
+        }
+
+        .gm-btn-accent {
+            background: linear-gradient(135deg, var(--gm-accent) 0%, #BF360C 100%);
+            color: white;
+        }
+
+        /* Method Selector */
+        .gm-method-selector {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .gm-method-btn {
+            flex: 1;
+            min-width: 140px;
+            padding: 1.25rem;
+            background: white;
+            border: 2px solid var(--gm-border);
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-align: center;
+        }
+
+        .gm-method-btn:hover {
+            border-color: var(--gm-primary-light);
+            transform: translateY(-2px);
+        }
+
+        .gm-method-btn.active {
+            border-color: var(--gm-primary);
+            background: linear-gradient(135deg, #E8F5E9 0%, #C8E6C9 100%);
+            box-shadow: 0 4px 16px rgba(27, 94, 32, 0.15);
+        }
+
+        .gm-method-btn .method-icon {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .gm-method-btn .method-name {
+            font-weight: 700;
+            color: var(--gm-text-dark);
+            margin-bottom: 0.25rem;
+        }
+
+        .gm-method-btn .method-desc {
+            font-size: 0.8rem;
+            color: var(--gm-text-muted);
+        }
+
+        /* Inventory Ledger */
+        .gm-ledger {
+            background: var(--gm-bg-cream);
+            border-radius: 16px;
+            padding: 1.5rem;
+            margin-top: 1.5rem;
+        }
+
+        .gm-ledger-header {
+            display: grid;
+            grid-template-columns: 1.5fr 1fr 1fr 1fr 1fr;
+            gap: 1rem;
+            padding: 0.75rem 1rem;
+            background: var(--gm-primary);
+            color: white;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+
+        .gm-ledger-row {
+            display: grid;
+            grid-template-columns: 1.5fr 1fr 1fr 1fr 1fr;
+            gap: 1rem;
+            padding: 1rem;
+            background: white;
+            border-radius: 8px;
+            margin-top: 0.5rem;
+            border: 1px solid var(--gm-border);
+            transition: all 0.3s ease;
+        }
+
+        .gm-ledger-row:hover {
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        .gm-ledger-row.highlight {
+            background: #FFF8E1;
+            border-color: var(--gm-accent);
+            transform: scale(1.02);
+        }
+
+        .gm-ledger-row.cogs-row {
+            background: #FFEBEE;
+            border-color: var(--gm-error);
+        }
+
+        /* Calculator Cards */
+        .gm-calculator-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+
+        .gm-calc-card {
+            background: linear-gradient(135deg, white 0%, var(--gm-bg-cream) 100%);
+            border: 2px solid var(--gm-border);
+            border-radius: 16px;
+            padding: 1.75rem;
+            transition: all 0.3s ease;
+        }
+
+        .gm-calc-card:hover {
+            border-color: var(--gm-primary-light);
+            box-shadow: 0 8px 24px rgba(0,0,0,0.08);
+        }
+
+        .gm-calc-card.highlight {
+            border-color: var(--gm-accent);
+            background: linear-gradient(135deg, white 0%, #FFF3E0 100%);
+        }
+
+        .gm-calc-label {
+            font-size: 0.9rem;
+            color: var(--gm-text-muted);
+            margin-bottom: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .gm-calc-input-group {
+            display: flex;
+            gap: 0.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .gm-calc-input {
+            flex: 1;
+            padding: 0.875rem;
+            border: 2px solid var(--gm-border);
+            border-radius: 8px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            text-align: center;
+        }
+
+        .gm-calc-result {
+            padding: 1rem;
+            background: var(--gm-primary);
+            color: white;
+            border-radius: 8px;
+            text-align: center;
+            font-size: 1.25rem;
+            font-weight: 700;
+            min-height: 56px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .gm-calc-result.correct {
+            background: var(--gm-success);
+        }
+
+        .gm-calc-result.incorrect {
+            background: var(--gm-error);
+        }
+
+        /* Financial Report */
+        .gm-report {
+            background: white;
+            border: 2px solid var(--gm-border);
+            border-radius: 16px;
+            padding: 2rem;
+            margin-top: 2rem;
+        }
+
+        .gm-report-header {
+            text-align: center;
+            margin-bottom: 2rem;
+            padding-bottom: 1.5rem;
+            border-bottom: 2px solid var(--gm-border);
+        }
+
+        .gm-report-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.75rem;
+            color: var(--gm-primary);
+            margin-bottom: 0.5rem;
+        }
+
+        .gm-report-subtitle {
+            color: var(--gm-text-muted);
+            font-size: 1rem;
+        }
+
+        .gm-report-section {
+            margin-bottom: 1.5rem;
+        }
+
+        .gm-report-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 0.75rem 0;
+            border-bottom: 1px dashed var(--gm-border);
+        }
+
+        .gm-report-row.total {
+            border-top: 3px double var(--gm-text-dark);
+            border-bottom: none;
+            padding-top: 1rem;
+            margin-top: 0.5rem;
+            font-weight: 700;
+            font-size: 1.1rem;
+        }
+
+        .gm-report-row.highlight {
+            background: #E8F5E9;
+            margin: 0 -1rem;
+            padding: 0.75rem 1rem;
+            border-radius: 8px;
+            border-bottom: none;
+        }
+
+        /* Feedback Messages */
+        .gm-feedback {
+            display: none;
+            padding: 1.25rem 1.5rem;
+            border-radius: 12px;
+            margin: 1.5rem 0;
+            font-weight: 500;
+        }
+
+        .gm-feedback.show {
+            display: block;
+            animation: slideIn 0.3s ease;
+        }
+
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .gm-feedback.success {
+            background: #E8F5E9;
+            border: 2px solid var(--gm-success);
+            color: var(--gm-success);
+        }
+
+        .gm-feedback.error {
+            background: #FFEBEE;
+            border: 2px solid var(--gm-error);
+            color: var(--gm-error);
+        }
+
+        .gm-feedback.info {
+            background: #E3F2FD;
+            border: 2px solid var(--gm-info);
+            color: var(--gm-info);
+        }
+
+        /* Purchase Order Card */
+        .gm-po-card {
+            background: white;
+            border: 2px solid var(--gm-border);
+            border-radius: 16px;
+            padding: 2rem;
+            margin-bottom: 1.5rem;
+            transition: all 0.3s ease;
+        }
+
+        .gm-po-card:hover {
+            border-color: var(--gm-primary-light);
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+        }
+
+        .gm-po-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 1.5rem;
+            padding-bottom: 1rem;
+            border-bottom: 2px solid var(--gm-bg-cream);
+        }
+
+        .gm-po-number {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.5rem;
+            color: var(--gm-primary);
+            font-weight: 700;
+        }
+
+        .gm-po-status {
+            display: inline-block;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+        }
+
+        /* Progress Indicator */
+        .gm-progress-container {
+            margin: 2rem 0;
+        }
+
+        .gm-progress-bar {
+            height: 12px;
+            background: var(--gm-border);
+            border-radius: 6px;
+            overflow: hidden;
+        }
+
+        .gm-progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--gm-primary-light) 0%, var(--gm-primary) 100%);
+            border-radius: 6px;
+            transition: width 0.5s ease;
+        }
+
+        .gm-progress-text {
+            text-align: center;
+            margin-top: 0.75rem;
+            color: var(--gm-text-muted);
+            font-size: 0.95rem;
+        }
+
+        /* Grid Layouts */
+        .gm-grid-2 {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 2rem;
+        }
+
+        @media (max-width: 768px) {
+            .gm-grid-2 {
+                grid-template-columns: 1fr;
+            }
+            
+            .gm-dashboard {
+                margin-top: -2rem;
+            }
+            
+            .gm-tabs {
+                overflow-x: auto;
+                flex-wrap: nowrap;
+            }
+            
+            .gm-tab {
+                white-space: nowrap;
+                padding: 0.75rem 1rem;
+                font-size: 0.9rem;
+            }
+        }
+
+        /* Tooltip */
+        .gm-tooltip {
+            position: relative;
+            cursor: help;
+        }
+
+        .gm-tooltip::after {
+            content: attr(data-tip);
+            position: absolute;
+            bottom: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            padding: 0.75rem 1rem;
+            background: var(--gm-text-dark);
+            color: white;
+            border-radius: 8px;
+            font-size: 0.85rem;
+            white-space: nowrap;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+            z-index: 100;
+        }
+
+        .gm-tooltip:hover::after {
+            opacity: 1;
+            visibility: visible;
+            bottom: calc(100% + 8px);
+        }
+
+        /* Comparison View */
+        .gm-comparison {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        @media (max-width: 768px) {
+            .gm-comparison {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .gm-comparison-card {
+            background: white;
+            border: 2px solid var(--gm-border);
+            border-radius: 16px;
+            padding: 2rem;
+            position: relative;
+        }
+
+        .gm-comparison-card.perpetual {
+            border-color: var(--gm-primary);
+            background: linear-gradient(135deg, white 0%, #E8F5E9 100%);
+        }
+
+        .gm-comparison-card.periodic {
+            border-color: var(--gm-accent);
+            background: linear-gradient(135deg, white 0%, #FFF3E0 100%);
+        }
+
+        .gm-comparison-badge {
+            position: absolute;
+            top: -12px;
+            left: 50%;
+            transform: translateX(-50%);
+            padding: 0.5rem 1.5rem;
+            border-radius: 20px;
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+
+        .gm-comparison-badge.perpetual {
+            background: var(--gm-primary);
+            color: white;
+        }
+
+        .gm-comparison-badge.periodic {
+            background: var(--gm-accent);
+            color: white;
+        }
+
+        /* Animation for updates */
+        .gm-animate-pulse {
+            animation: pulse 0.5s ease;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.02); }
+        }
+    </style>
+</head>
+
+<body>
+    <canvas id="global-bg-canvas"
+        style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; background: var(--gm-bg-cream); pointer-events: none;"></canvas>
+
+    <!-- Navigation -->
+    <header>
+        <div class="container nav-container">
+            <a href="../../index.html" class="logo">ACCOUNTING<span>ESSENTIALS</span></a>
+            <button id="menu-toggle" class="menu-toggle" aria-label="Toggle Menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+            <nav class="nav-links">
+                <a href="../../index.html">Home</a>
+                <a href="../../Part1/part1.html">Part 1</a>
+                <a href="../../part2/part2.html">Part 2</a>
+                <a href="../../part3/part3.html">Part 3</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <div class="gm-header">
+        <div class="container gm-header-content">
+            <div class="breadcrumbs" style="margin-bottom: 1.5rem; opacity: 0.9;">
+                <a href="../../index.html" style="color: white;">Home</a> 
+                <span style="color: rgba(255,255,255,0.6);">/</span> 
+                <a href="../../part2/part2.html" style="color: white;">Part 2</a>
+                <span style="color: rgba(255,255,255,0.6);">/</span> 
+                <a href="ch05.html" style="color: white;">Chapter 5</a>
+                <span style="color: rgba(255,255,255,0.6);">/</span> 
+                <span style="color: rgba(255,255,255,0.8);">Interactive Simulation</span>
+            </div>
+            
+            <div class="gm-logo">
+                <div class="gm-logo-icon">🛒</div>
+                <div>
+                    <div class="gm-logo-text">GreenMart Supermarket</div>
+                    <div class="gm-subtitle">Quarterly Inventory Management Simulation — Q1 2024</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <main class="container">
+        <!-- Dashboard Stats -->
+        <div class="gm-dashboard">
+            <div class="gm-stat-card">
+                <div class="gm-stat-label">Total Revenue</div>
+                <div class="gm-stat-value" id="stat-revenue">$0</div>
+                <div class="gm-stat-change positive">+12.5% vs Q4</div>
+            </div>
+            <div class="gm-stat-card">
+                <div class="gm-stat-label">Gross Profit</div>
+                <div class="gm-stat-value" id="stat-profit">$0</div>
+                <div class="gm-stat-change positive" id="stat-margin">0% margin</div>
+            </div>
+            <div class="gm-stat-card">
+                <div class="gm-stat-label">Inventory Turnover</div>
+                <div class="gm-stat-value" id="stat-turnover">0.0x</div>
+                <div class="gm-stat-change">Industry avg: 8x</div>
+            </div>
+            <div class="gm-stat-card">
+                <div class="gm-stat-label">Ending Inventory</div>
+                <div class="gm-stat-value" id="stat-inventory">$0</div>
+                <div class="gm-stat-change" id="stat-units">0 units</div>
+            </div>
+        </div>
+
+        <!-- Progress Bar -->
+        <div class="gm-progress-container">
+            <div class="gm-progress-bar">
+                <div class="gm-progress-fill" id="overall-progress" style="width: 0%;"></div>
+            </div>
+            <div class="gm-progress-text">
+                Simulation Progress: <strong id="progress-percent">0%</strong> Complete | 
+                <span id="progress-modules">0/4 Modules</span>
+            </div>
+        </div>
+
+        <!-- Module 1: Purchase Management -->
+        <section class="gm-section animate-fade-in" id="module-purchases">
+            <div class="gm-section-header">
+                <div class="gm-section-icon">📦</div>
+                <div class="gm-section-title">
+                    <h2>Module 1: Purchase Management</h2>
+                    <p>Manage purchase orders, receipts, and payment terms with supplier discounts</p>
+                </div>
+            </div>
+
+            <div class="gm-tabs">
+                <button class="gm-tab active" onclick="showPurchaseTab('po-create')">Create PO</button>
+                <button class="gm-tab" onclick="showPurchaseTab('po-receive')">Goods Receipt</button>
+                <button class="gm-tab" onclick="showPurchaseTab('po-invoice')">Invoice Matching</button>
+                <button class="gm-tab" onclick="showPurchaseTab('po-discount')">Discount Calculator</button>
+            </div>
+
+            <!-- PO Create Tab -->
+            <div id="tab-po-create" class="tab-content active">
+                <div class="gm-po-card">
+                    <div class="gm-po-header">
+                        <div>
+                            <div class="gm-po-number">PO-2024-001</div>
+                            <div style="color: var(--gm-text-muted); margin-top: 0.25rem;">FreshFoods Distributors Inc.</div>
+                        </div>
+                        <span class="gm-po-status status-pending">📝 Draft</span>
+                    </div>
+
+                    <div style="margin-bottom: 1.5rem;">
+                        <p style="margin-bottom: 1rem;"><strong>Scenario:</strong> GreenMart needs to stock up on organic produce for the Spring season. Create a purchase order for the following items:</p>
+                        
+                        <div class="gm-table-container">
+                            <table class="gm-table">
+                                <thead>
+                                    <tr>
+                                        <th>Item</th>
+                                        <th>Quantity</th>
+                                        <th>Unit Cost</th>
+                                        <th>Total</th>
+                                        <th>Your Input</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>🥬 Organic Kale (cases)</td>
+                                        <td>50</td>
+                                        <td>$24.00</td>
+                                        <td>$1,200</td>
+                                        <td><input type="number" class="gm-input" id="po-kale" placeholder="$" oninput="checkPO('kale', 1200)"></td>
+                                    </tr>
+                                    <tr>
+                                        <td>🍎 Gala Apples (boxes)</td>
+                                        <td>80</td>
+                                        <td>$18.50</td>
+                                        <td>$1,480</td>
+                                        <td><input type="number" class="gm-input" id="po-apples" placeholder="$" oninput="checkPO('apples', 1480)"></td>
+                                    </tr>
+                                    <tr>
+                                        <td>🥑 Hass Avocados (cases)</td>
+                                        <td>40</td>
+                                        <td>$32.00</td>
+                                        <td>$1,280</td>
+                                        <td><input type="number" class="gm-input" id="po-avocados" placeholder="$" oninput="checkPO('avocados', 1280)"></td>
+                                    </tr>
+                                    <tr>
+                                        <td>🥕 Baby Carrots (bags)</td>
+                                        <td>100</td>
+                                        <td>$8.75</td>
+                                        <td>$875</td>
+                                        <td><input type="gm-input" class="gm-input" id="po-carrots" placeholder="$" oninput="checkPO('carrots', 875)"></td>
+                                    </tr>
+                                </tbody>
+                                <tfoot style="background: var(--gm-bg-cream);">
+                                    <tr>
+                                        <td colspan="3" style="text-align: right; font-weight: 700;">Purchase Order Total:</td>
+                                        <td style="font-weight: 700; color: var(--gm-primary);">$4,835</td>
+                                        <td><input type="number" class="gm-input" id="po-total" placeholder="Total $" oninput="checkPO('total', 4835)"></td>
+                                    </tr>
+                                </tfoot>
+                            </table>
+                        </div>
+                    </div>
+
+                    <div style="display: flex; gap: 1rem; align-items: center;">
+                        <button class="gm-btn gm-btn-primary" onclick="submitPO()">
+                            ✅ Submit Purchase Order
+                        </button>
+                        <span style="color: var(--gm-text-muted);">Terms: 2/10, n/30</span>
+                    </div>
+                </div>
+
+                <div class="gm-feedback" id="po-feedback"></div>
+            </div>
+
+            <!-- Goods Receipt Tab -->
+            <div id="tab-po-receive" class="tab-content" style="display: none;">
+                <div class="gm-po-card">
+                    <div class="gm-po-header">
+                        <div>
+                            <div class="gm-po-number">GR-2024-001</div>
+                            <div style="color: var(--gm-text-muted); margin-top: 0.25rem;">Receiving Report — PO-2024-001</div>
+                        </div>
+                        <span class="gm-po-status status-received">📋 Received</span>
+                    </div>
+
+                    <p style="margin-bottom: 1.5rem;"><strong>Date:</strong> January 12, 2024 | <strong>Received by:</strong> M. Johnson</p>
+
+                    <p style="margin-bottom: 1rem;">Record the journal entry for goods receipt (FOB Shipping Point, freight $245 prepaid by supplier):</p>
+
+                    <div class="gm-grid-2">
+                        <div>
+                            <h4 style="margin-bottom: 1rem; color: var(--gm-primary);">📗 Journal Entry</h4>
+                            <div style="background: var(--gm-bg-cream); padding: 1.5rem; border-radius: 12px;">
+                                <div style="margin-bottom: 1rem;">
+                                    <label style="display: block; margin-bottom: 0.5rem; font-weight: 600;">Debit: Inventory</label>
+                                    <input type="number" class="gm-input" id="gr-inventory" placeholder="$" oninput="checkReceipt('inventory', 5080)">
+                                </div>
+                                <div>
+                                    <label style="display: block; margin-bottom: 0.5rem; font-weight: 600;">Credit: Accounts Payable</label>
+                                    <input type="number" class="gm-input" id="gr-ap" placeholder="$" oninput="checkReceipt('ap', 5080)">
+                                </div>
+                            </div>
+                        </div>
+                        <div>
+                            <h4 style="margin-bottom: 1rem; color: var(--gm-accent);">💡 Calculation Helper</h4>
+                            <div style="background: #FFF3E0; padding: 1.5rem; border-radius: 12px;">
+                                <p style="margin-bottom: 0.75rem;">Purchase Total: <strong>$4,835</strong></p>
+                                <p style="margin-bottom: 0.75rem;">Freight-In: <strong>$245</strong></p>
+                                <p style="border-top: 1px dashed var(--gm-accent); padding-top: 0.75rem; font-weight: 700;">
+                                    Total Inventory Cost: <span style="color: var(--gm-accent);">$5,080</span>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="gm-feedback" id="gr-feedback"></div>
+            </div>
+
+            <!-- Invoice Matching Tab -->
+            <div id="tab-po-invoice" class="tab-content" style="display: none;">
+                <div class="gm-po-card">
+                    <div class="gm-po-header">
+                        <div>
+                            <div class="gm-po-number">INV-FF-2847</div>
+                            <div style="color: var(--gm-text-muted); margin-top: 0.25rem;">FreshFoods Distributors — Invoice Matching</div>
+                        </div>
+                        <span class="gm-po-status status-paid">✓ Matched</span>
+                    </div>
+
+                    <p style="margin-bottom: 1.5rem;">Perform three-way matching: Compare Purchase Order, Goods Receipt, and Supplier Invoice.</p>
+
+                    <div class="gm-table-container" style="margin-bottom: 1.5rem;">
+                        <table class="gm-table">
+                            <thead>
+                                <tr>
+                                    <th>Document</th>
+                                    <th>Reference</th>
+                                    <th>Amount</th>
+                                    <th>Status</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>📄 Purchase Order</td>
+                                    <td>PO-2024-001</td>
+                                    <td class="amount-cell">$4,835.00</td>
+                                    <td><span class="status-badge status-received">✓</span></td>
+                                </tr>
+                                <tr>
+                                    <td>📦 Goods Receipt</td>
+                                    <td>GR-2024-001</td>
+                                    <td class="amount-cell">$5,080.00</td>
+                                    <td><span class="status-badge status-received">✓</span></td>
+                                </tr>
+                                <tr style="background: #FFF8E1;">
+                                    <td>🧾 Supplier Invoice</td>
+                                    <td>INV-FF-2847</td>
+                                    <td class="amount-cell">$5,080.00</td>
+                                    <td><span class="status-badge status-discount">Check</span></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div style="background: var(--gm-bg-cream); padding: 1.5rem; border-radius: 12px;">
+                        <h4 style="margin-bottom: 1rem;">📝 Three-Way Matching Verification</h4>
+                        <p style="margin-bottom: 1rem;">Does the invoice amount match the goods received? Are there any discrepancies?</p>
+                        
+                        <div style="display: flex; gap: 1rem; flex-wrap: wrap;">
+                            <button class="gm-btn gm-btn-primary" onclick="checkMatching(true)">
+                                ✓ All Documents Match
+                            </button>
+                            <button class="gm-btn gm-btn-secondary" onclick="checkMatching(false)">
+                                ⚠ Discrepancy Found
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="gm-feedback" id="matching-feedback"></div>
+            </div>
+
+            <!-- Discount Calculator Tab -->
+            <div id="tab-po-discount" class="tab-content" style="display: none;">
+                <div class="gm-po-card">
+                    <div class="gm-po-header">
+                        <div>
+                            <div class="gm-po-number">Payment Processing</div>
+                            <div style="color: var(--gm-text-muted); margin-top: 0.25rem;">Terms: 2/10, n/30</div>
+                        </div>
+                        <span class="gm-po-status status-discount">🎯 Discount Available</span>
+                    </div>
+
+                    <div class="gm-grid-2">
+                        <div>
+                            <h4 style="margin-bottom: 1rem;">Payment Terms Explained</h4>
+                            <p style="margin-bottom: 1rem;"><strong>2/10, n/30</strong> means:</p>
+                            <ul style="margin-left: 1.5rem; margin-bottom: 1.5rem;">
+                                <li style="margin-bottom: 0.5rem;"><strong>2%</strong> discount if paid within <strong>10 days</strong></li>
+                                <li style="margin-bottom: 0.5rem;">Net amount due in <strong>30 days</strong></li>
+                            </ul>
+                            
+                            <div style="background: #E8F5E9; padding: 1.25rem; border-radius: 12px; margin-bottom: 1.5rem;">
+                                <p style="font-weight: 600; color: var(--gm-success); margin-bottom: 0.5rem;">💰 Discount Opportunity</p>
+                                <p>Invoice Date: January 12, 2024<br>
+                                Today's Date: January 20, 2024<br>
+                                <strong>Days elapsed: 8 days ✓</strong></p>
+                            </div>
+                        </div>
+                        
+                        <div>
+                            <h4 style="margin-bottom: 1rem;">Calculate Payment</h4>
+                            <div class="gm-calculator-grid" style="margin: 0;">
+                                <div class="gm-calc-card" style="margin-bottom: 1rem;">
+                                    <div class="gm-calc-label">Invoice Amount</div>
+                                    <div class="gm-calc-input-group">
+                                        <input type="number" class="gm-calc-input" id="disc-invoice" value="5080" readonly>
+                                    </div>
+                                </div>
+                                <div class="gm-calc-card" style="margin-bottom: 1rem;">
+                                    <div class="gm-calc-label">Discount % (2%)</div>
+                                    <div class="gm-calc-input-group">
+                                        <input type="number" class="gm-calc-input" id="disc-percent" value="2" readonly>
+                                    </div>
+                                </div>
+                                <div class="gm-calc-card highlight">
+                                    <div class="gm-calc-label">Discount Amount</div>
+                                    <div class="gm-calc-input-group">
+                                        <input type="number" class="gm-calc-input" id="disc-amount" placeholder="$" oninput="checkDiscount('amount', 101.60)">
+                                    </div>
+                                    <div class="gm-calc-result" id="disc-amount-result">Calculate</div>
+                                </div>
+                                <div class="gm-calc-card highlight">
+                                    <div class="gm-calc-label">Payment Due</div>
+                                    <div class="gm-calc-input-group">
+                                        <input type="number" class="gm-calc-input" id="disc-payment" placeholder="$" oninput="checkDiscount('payment', 4978.40)">
+                                    </div>
+                                    <div class="gm-calc-result" id="disc-payment-result">Calculate</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="gm-feedback" id="discount-feedback"></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Module 2: Inventory Management -->
+        <section class="gm-section animate-fade-in" id="module-inventory">
+            <div class="gm-section-header">
+                <div class="gm-section-icon">📊</div>
+                <div class="gm-section-title">
+                    <h2>Module 2: Inventory Management</h2>
+                    <p>Track inventory using different cost flow methods: FIFO, LIFO, and Weighted Average</p>
+                </div>
+            </div>
+
+            <p style="margin-bottom: 1.5rem;">GreenMart tracks its inventory of Organic Quinoa (bulk, per kg). Select a costing method to see how it affects COGS and ending inventory.</p>
+
+            <!-- Method Selector -->
+            <div class="gm-method-selector">
+                <div class="gm-method-btn active" onclick="setInventoryMethod('FIFO')">
+                    <div class="method-icon">⬆️</div>
+                    <div class="method-name">FIFO</div>
+                    <div class="method-desc">First-In, First-Out</div>
+                </div>
+                <div class="gm-method-btn" onclick="setInventoryMethod('LIFO')">
+                    <div class="method-icon">⬇️</div>
+                    <div class="method-name">LIFO</div>
+                    <div class="method-desc">Last-In, First-Out</div>
+                </div>
+                <div class="gm-method-btn" onclick="setInventoryMethod('WA')">
+                    <div class="method-icon">⚖️</div>
+                    <div class="method-name">Weighted Avg</div>
+                    <div class="method-desc">Average Cost Method</div>
+                </div>
+            </div>
+
+            <!-- Inventory Data -->
+            <div style="background: var(--gm-bg-cream); padding: 1.5rem; border-radius: 12px; margin-bottom: 1.5rem;">
+                <h4 style="margin-bottom: 1rem;">📦 Q1 Inventory Transactions — Organic Quinoa</h4>
+                
+                <div class="gm-table-container">
+                    <table class="gm-table">
+                        <thead>
+                            <tr>
+                                <th>Date</th>
+                                <th>Transaction</th>
+                                <th>Units</th>
+                                <th>Unit Cost</th>
+                                <th>Total Cost</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td class="date-cell">Jan 1</td>
+                                <td>Beginning Inventory</td>
+                                <td>200 kg</td>
+                                <td>$4.50</td>
+                                <td class="amount-cell">$900</td>
+                            </tr>
+                            <tr>
+                                <td class="date-cell">Jan 15</td>
+                                <td>Purchase</td>
+                                <td>300 kg</td>
+                                <td>$4.80</td>
+                                <td class="amount-cell">$1,440</td>
+                            </tr>
+                            <tr>
+                                <td class="date-cell">Feb 1</td>
+                                <td>Purchase</td>
+                                <td>400 kg</td>
+                                <td>$5.00</td>
+                                <td class="amount-cell">$2,000</td>
+                            </tr>
+                            <tr>
+                                <td class="date-cell">Feb 20</td>
+                                <td>Purchase</td>
+                                <td>250 kg</td>
+                                <td>$5.20</td>
+                                <td class="amount-cell">$1,300</td>
+                            </tr>
+                            <tr>
+                                <td class="date-cell">Mar 10</td>
+                                <td>Purchase</td>
+                                <td>350 kg</td>
+                                <td>$5.50</td>
+                                <td class="amount-cell">$1,925</td>
+                            </tr>
+                            <tr style="background: var(--gm-primary); color: white; font-weight: 700;">
+                                <td colspan="2">Total Available for Sale</td>
+                                <td>1,500 kg</td>
+                                <td>—</td>
+                                <td class="amount-cell">$7,565</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div style="background: white; padding: 1rem; border-radius: 8px; margin-top: 1rem; border-left: 4px solid var(--gm-accent);">
+                    <strong>Physical Count (March 31):</strong> 450 kg remaining in inventory | <strong>Units Sold:</strong> 1,050 kg
+                </div>
+            </div>
+
+            <!-- Inventory Ledger -->
+            <div class="gm-ledger" id="inventory-ledger">
+                <h4 style="margin-bottom: 1rem;">📗 Inventory Ledger — <span id="ledger-method-name">FIFO Method</span></h4>
+                
+                <div class="gm-ledger-header">
+                    <div>Inventory Layer</div>
+                    <div>Units</div>
+                    <div>Unit Cost</div>
+                    <div>Layer Cost</div>
+                    <div>Status</div>
+                </div>
+
+                <div id="ledger-content">
+                    <!-- FIFO Default -->
+                    <div class="gm-ledger-row cogs-row">
+                        <div><strong>COGS (1,050 units sold)</strong></div>
+                        <div>1,050</div>
+                        <div>Various</div>
+                        <div style="font-weight: 700; color: var(--gm-error);">$5,190</div>
+                        <div><span class="status-badge status-pending">Calculate</span></div>
+                    </div>
+                    <div class="gm-ledger-row highlight">
+                        <div>Ending Inventory</div>
+                        <div>450</div>
+                        <div>$5.50</div>
+                        <div style="font-weight: 700; color: var(--gm-success);">$2,375</div>
+                        <div><span class="status-badge status-received">✓</span></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Calculations -->
+            <div class="gm-calculator-grid" style="margin-top: 2rem;">
+                <div class="gm-calc-card">
+                    <div class="gm-calc-label">Goods Available for Sale</div>
+                    <div class="gm-calc-input-group">
+                        <input type="number" class="gm-calc-input" value="7565" readonly>
+                    </div>
+                    <div class="gm-calc-result">$7,565</div>
+                </div>
+                <div class="gm-calc-card highlight">
+                    <div class="gm-calc-label">Ending Inventory (<span id="method-label-ei">FIFO</span>)</div>
+                    <div class="gm-calc-input-group">
+                        <input type="number" class="gm-calc-input" id="calc-ei" placeholder="$" oninput="checkInventoryCalc('ei')">
+                    </div>
+                    <div class="gm-calc-result" id="result-ei">Enter amount</div>
+                </div>
+                <div class="gm-calc-card highlight">
+                    <div class="gm-calc-label">COGS (<span id="method-label-cogs">FIFO</span>)</div>
+                    <div class="gm-calc-input-group">
+                        <input type="number" class="gm-calc-input" id="calc-cogs" placeholder="$" oninput="checkInventoryCalc('cogs')">
+                    </div>
+                    <div class="gm-calc-result" id="result-cogs">Enter amount</div>
+                </div>
+            </div>
+
+            <div class="gm-feedback" id="inventory-feedback"></div>
+        </section>
+
+        <!-- Module 3: Sales Management -->
+        <section class="gm-section animate-fade-in" id="module-sales">
+            <div class="gm-section-header">
+                <div class="gm-section-icon">💰</div>
+                <div class="gm-section-title">
+                    <h2>Module 3: Sales Management</h2>
+                    <p>Process sales orders and automatically calculate Cost of Goods Sold</p>
+                </div>
+            </div>
+
+            <div class="gm-tabs">
+                <button class="gm-tab active" onclick="showSalesTab('so-create')">Sales Orders</button>
+                <button class="gm-tab" onclick="showSalesTab('so-cogs')">COGS Calculation</button>
+                <button class="gm-tab" onclick="showSalesTab('so-returns')">Sales Returns</button>
+            </div>
+
+            <!-- Sales Orders Tab -->
+            <div id="tab-so-create" class="tab-content active">
+                <div class="gm-grid-2">
+                    <div class="gm-po-card">
+                        <div class="gm-po-header">
+                            <div>
+                                <div class="gm-po-number">SO-2024-015</div>
+                                <div style="color: var(--gm-text-muted); margin-top: 0.25rem;">Corporate Client: TechCorp Inc.</div>
+                            </div>
+                            <span class="gm-po-status status-received">📦 Shipped</span>
+                        </div>
+
+                        <p style="margin-bottom: 1rem;"><strong>Date:</strong> February 15, 2024</p>
+
+                        <table class="gm-table" style="margin-bottom: 1.5rem;">
+                            <thead>
+                                <tr>
+                                    <th>Item</th>
+                                    <th>Qty</th>
+                                    <th>Unit Price</th>
+                                    <th>Total</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Premium Coffee Beans</td>
+                                    <td>50</td>
+                                    <td>$12.00</td>
+                                    <td class="amount-cell">$600</td>
+                                </tr>
+                                <tr>
+                                    <td>Organic Honey</td>
+                                    <td>30</td>
+                                    <td>$8.50</td>
+                                    <td class="amount-cell">$255</td>
+                                </tr>
+                                <tr>
+                                    <td>Artisan Bread</td>
+                                    <td>40</td>
+                                    <td>$6.75</td>
+                                    <td class="amount-cell">$270</td>
+                                </tr>
+                                <tr style="background: var(--gm-bg-cream); font-weight: 700;">
+                                    <td colspan="3" style="text-align: right;">Subtotal:</td>
+                                    <td class="amount-cell">$1,125</td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                        <div style="background: #E3F2FD; padding: 1.25rem; border-radius: 12px;">
+                            <p style="margin-bottom: 0.75rem;"><strong>Terms:</strong> 1/15, n/45</p>
+                            <p style="font-size: 0.9rem; color: var(--gm-text-muted);">Credit sale — invoice to follow</p>
+                        </div>
+                    </div>
+
+                    <div>
+                        <h4 style="margin-bottom: 1rem;">Record Sales Transaction</h4>
+                        <p style="margin-bottom: 1.5rem;">Create the journal entry for this sale (perpetual system):</p>
+
+                        <div style="background: var(--gm-bg-cream); padding: 1.5rem; border-radius: 12px; margin-bottom: 1.5rem;">
+                            <div style="margin-bottom: 1.25rem;">
+                                <label style="display: block; margin-bottom: 0.5rem; font-weight: 600; color: var(--gm-primary);">
+                                    1. Debit: Accounts Receivable
+                                </label>
+                                <input type="number" class="gm-input" id="sale-ar" placeholder="$" oninput="checkSaleEntry('ar', 1125)">
+                            </div>
+                            <div style="margin-bottom: 1.25rem;">
+                                <label style="display: block; margin-bottom: 0.5rem; font-weight: 600; color: var(--gm-primary);">
+                                    2. Credit: Sales Revenue
+                                </label>
+                                <input type="number" class="gm-input" id="sale-revenue" placeholder="$" oninput="checkSaleEntry('revenue', 1125)">
+                            </div>
+                            <div>
+                                <label style="display: block; margin-bottom: 0.5rem; font-weight: 600; color: var(--gm-error);">
+                                    3. Debit: Cost of Goods Sold
+                                </label>
+                                <input type="number" class="gm-input" id="sale-cogs" placeholder="$" oninput="checkSaleEntry('cogs', 675)">
+                            </div>
+                        </div>
+
+                        <button class="gm-btn gm-btn-primary" onclick="submitSaleEntry()">
+                            ✓ Record Sale
+                        </button>
+                    </div>
+                </div>
+
+                <div class="gm-feedback" id="sale-feedback"></div>
+            </div>
+
+            <!-- COGS Calculation Tab -->
+            <div id="tab-so-cogs" class="tab-content" style="display: none;">
+                <div class="gm-po-card">
+                    <h4 style="margin-bottom: 1.5rem;">Understanding COGS in Perpetual System</h4>
+                    
+                    <p style="margin-bottom: 1.5rem;">In a perpetual inventory system, COGS is calculated and recorded <strong>at the time of each sale</strong>. Using FIFO:</p>
+
+                    <div class="gm-grid-2">
+                        <div style="background: var(--gm-bg-cream); padding: 1.5rem; border-radius: 12px;">
+                            <h5 style="margin-bottom: 1rem; color: var(--gm-primary);">Coffee Beans (50 units)</h5>
+                            <p style="margin-bottom: 0.75rem;">Beginning Inventory: 20 units @ $5.00 = $100</p>
+                            <p style="margin-bottom: 0.75rem;">Purchase Jan 10: 40 units @ $5.50 = $220</p>
+                            <p style="border-top: 1px dashed var(--gm-border); padding-top: 0.75rem; margin-top: 0.75rem;">
+                                <strong>FIFO COGS:</strong><br>
+                                20 units @ $5.00 = $100<br>
+                                30 units @ $5.50 = $165<br>
+                                <strong style="color: var(--gm-accent);">Total = $265</strong>
+                            </p>
+                        </div>
+                        <div style="background: var(--gm-bg-cream); padding: 1.5rem; border-radius: 12px;">
+                            <h5 style="margin-bottom: 1rem; color: var(--gm-primary);">Organic Honey (30 units)</h5>
+                            <p style="margin-bottom: 0.75rem;">Beginning Inventory: 15 units @ $4.00 = $60</p>
+                            <p style="margin-bottom: 0.75rem;">Purchase Jan 12: 25 units @ $4.20 = $105</p>
+                            <p style="border-top: 1px dashed var(--gm-border); padding-top: 0.75rem; margin-top: 0.75rem;">
+                                <strong>FIFO COGS:</strong><br>
+                                15 units @ $4.00 = $60<br>
+                                15 units @ $4.20 = $63<br>
+                                <strong style="color: var(--gm-accent);">Total = $123</strong>
+                            </p>
+                        </div>
+                    </div>
+
+                    <div style="background: #E8F5E9; padding: 1.5rem; border-radius: 12px; margin-top: 1.5rem; text-align: center;">
+                        <p style="font-size: 1.1rem;">
+                            <strong>Total COGS for SO-2024-015:</strong> 
+                            <span style="font-size: 1.5rem; color: var(--gm-success);">$265 + $123 + $287 = $675</span>
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Sales Returns Tab -->
+            <div id="tab-so-returns" class="tab-content" style="display: none;">
+                <div class="gm-po-card">
+                    <div class="gm-po-header">
+                        <div>
+                            <div class="gm-po-number">RMA-2024-003</div>
+                            <div style="color: var(--gm-text-muted); margin-top: 0.25rem;">Sales Return — SO-2024-015</div>
+                        </div>
+                        <span class="gm-po-status status-pending">🔄 Processing</span>
+                    </div>
+
+                    <p style="margin-bottom: 1.5rem;"><strong>Date:</strong> February 22, 2024 | Customer returned 10 bags of Premium Coffee Beans (damaged packaging).</p>
+
+                    <div class="gm-grid-2">
+                        <div>
+                            <h5 style="margin-bottom: 1rem;">Return Details</h5>
+                            <div style="background: var(--gm-bg-cream); padding: 1.25rem; border-radius: 12px;">
+                                <p style="margin-bottom: 0.75rem;"><strong>Item:</strong> Premium Coffee Beans</p>
+                                <p style="margin-bottom: 0.75rem;"><strong>Quantity Returned:</strong> 10 units</p>
+                                <p style="margin-bottom: 0.75rem;"><strong>Sale Price:</strong> $12.00/unit</p>
+                                <p style="margin-bottom: 0.75rem;"><strong>Original Cost:</strong> $5.50/unit (FIFO layer)</p>
+                                <p style="border-top: 1px dashed var(--gm-border); padding-top: 0.75rem;">
+                                    <strong>Refund Amount:</strong> <span style="color: var(--gm-accent);">$120.00</span>
+                                </p>
+                            </div>
+                        </div>
+
+                        <div>
+                            <h5 style="margin-bottom: 1rem;">Record Return (Perpetual System)</h5>
+                            <div style="background: #FFEBEE; padding: 1.25rem; border-radius: 12px; margin-bottom: 1rem;">
+                                <p style="font-size: 0.9rem; margin-bottom: 0.75rem;"><strong>Reverse the Sale:</strong></p>
+                                <div style="margin-bottom: 0.75rem;">
+                                    <label style="font-size: 0.85rem;">Debit: Sales Returns & Allowances</label>
+                                    <input type="number" class="gm-input" id="return-sales" placeholder="$" oninput="checkReturnEntry('sales', 120)">
+                                </div>
+                                <div>
+                                    <label style="font-size: 0.85rem;">Credit: Accounts Receivable</label>
+                                    <input type="number" class="gm-input" id="return-ar" placeholder="$" oninput="checkReturnEntry('ar', 120)">
+                                </div>
+                            </div>
+
+                            <div style="background: #E8F5E9; padding: 1.25rem; border-radius: 12px;">
+                                <p style="font-size: 0.9rem; margin-bottom: 0.75rem;"><strong>Restore Inventory:</strong></p>
+                                <div style="margin-bottom: 0.75rem;">
+                                    <label style="font-size: 0.85rem;">Debit: Inventory</label>
+                                    <input type="number" class="gm-input" id="return-inventory" placeholder="$" oninput="checkReturnEntry('inventory', 55)">
+                                </div>
+                                <div>
+                                    <label style="font-size: 0.85rem;">Credit: COGS</label>
+                                    <input type="number" class="gm-input" id="return-cogs" placeholder="$" oninput="checkReturnEntry('cogs', 55)">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <button class="gm-btn gm-btn-primary" style="margin-top: 1.5rem;" onclick="submitReturnEntry()">
+                        ✓ Process Return
+                    </button>
+                </div>
+
+                <div class="gm-feedback" id="return-feedback"></div>
+            </div>
+        </section>
+
+        <!-- Module 4: Financial Analysis -->
+        <section class="gm-section animate-fade-in" id="module-analysis">
+            <div class="gm-section-header">
+                <div class="gm-section-icon">📈</div>
+                <div class="gm-section-title">
+                    <h2>Module 4: Financial Analysis</h2>
+                    <p>Generate reports and analyze key performance indicators</p>
+                </div>
+            </div>
+
+            <div class="gm-tabs">
+                <button class="gm-tab active" onclick="showAnalysisTab('gross-profit')">Gross Profit Report</button>
+                <button class="gm-tab" onclick="showAnalysisTab('turnover')">Inventory Turnover</button>
+                <button class="gm-tab" onclick="showAnalysisTab('ratios')">Key Ratios</button>
+            </div>
+
+            <!-- Gross Profit Tab -->
+            <div id="tab-gross-profit" class="tab-content active">
+                <div class="gm-grid-2">
+                    <div>
+                        <div class="gm-report">
+                            <div class="gm-report-header">
+                                <div class="gm-report-title">Gross Profit Analysis</div>
+                                <div class="gm-report-subtitle">GreenMart Supermarket — Q1 2024</div>
+                            </div>
+
+                            <div class="gm-report-section">
+                                <div class="gm-report-row">
+                                    <span>Net Sales Revenue</span>
+                                    <input type="number" class="gm-input" id="gp-sales" style="width: 150px; text-align: right;" placeholder="$" oninput="updateGrossProfit()">
+                                </div>
+                                <div class="gm-report-row">
+                                    <span>Sales Returns & Allowances</span>
+                                    <input type="number" class="gm-input" id="gp-returns" style="width: 150px; text-align: right;" placeholder="$" value="120" oninput="updateGrossProfit()">
+                                </div>
+                                <div class="gm-report-row">
+                                    <span>Sales Discounts</span>
+                                    <input type="number" class="gm-input" id="gp-discounts" style="width: 150px; text-align: right;" placeholder="$" value="85" oninput="updateGrossProfit()">
+                                </div>
+                                <div class="gm-report-row total">
+                                    <span>Net Sales</span>
+                                    <span id="gp-net-sales" style="font-family: 'Courier New', monospace;">Calculate →</span>
+                                </div>
+                            </div>
+
+                            <div class="gm-report-section">
+                                <div class="gm-report-row">
+                                    <span>Beginning Inventory (Jan 1)</span>
+                                    <span style="font-family: 'Courier New', monospace;">$12,450</span>
+                                </div>
+                                <div class="gm-report-row">
+                                    <span>Purchases</span>
+                                    <span style="font-family: 'Courier New', monospace;">$48,320</span>
+                                </div>
+                                <div class="gm-report-row">
+                                    <span>Freight-In</span>
+                                    <span style="font-family: 'Courier New', monospace;">$1,240</span>
+                                </div>
+                                <div class="gm-report-row">
+                                    <span>Purchase Returns</span>
+                                    <span style="font-family: 'Courier New', monospace;">($890)</span>
+                                </div>
+                                <div class="gm-report-row">
+                                    <span>Purchase Discounts</span>
+                                    <span style="font-family: 'Courier New', monospace;">($580)</span>
+                                </div>
+                                <div class="gm-report-row total">
+                                    <span>Net Purchases</span>
+                                    <span style="font-family: 'Courier New', monospace;">$48,090</span>
+                                </div>
+                                <div class="gm-report-row">
+                                    <span>Goods Available for Sale</span>
+                                    <span style="font-family: 'Courier New', monospace;">$60,540</span>
+                                </div>
+                                <div class="gm-report-row">
+                                    <span>Ending Inventory (Mar 31)</span>
+                                    <input type="number" class="gm-input" id="gp-ending-inv" style="width: 150px; text-align: right;" placeholder="$" oninput="updateGrossProfit()">
+                                </div>
+                                <div class="gm-report-row total" style="background: #FFEBEE; margin: 0.5rem -1rem; padding: 0.75rem 1rem;">
+                                    <span>Cost of Goods Sold (COGS)</span>
+                                    <span id="gp-cogs" style="font-family: 'Courier New', monospace; color: var(--gm-error);">Calculate →</span>
+                                </div>
+                            </div>
+
+                            <div class="gm-report-section">
+                                <div class="gm-report-row highlight" style="padding: 1rem;">
+                                    <span>GROSS PROFIT</span>
+                                    <span id="gp-total" style="font-family: 'Courier New', monospace; font-size: 1.3rem; color: var(--gm-success);">Calculate →</span>
+                                </div>
+                                <div class="gm-report-row" style="justify-content: flex-end; padding-top: 0.5rem;">
+                                    <span>Gross Profit Margin: <strong id="gp-margin" style="color: var(--gm-primary);">Calculate →</strong></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div>
+                        <h4 style="margin-bottom: 1rem;">Calculation Guide</h4>
+                        
+                        <div style="background: var(--gm-bg-cream); padding: 1.5rem; border-radius: 12px; margin-bottom: 1.5rem;">
+                            <h5 style="margin-bottom: 0.75rem; color: var(--gm-primary);">Formulas:</h5>
+                            <div style="font-size: 0.95rem; line-height: 2;">
+                                <p><strong>Net Sales</strong> = Sales − Returns − Discounts</p>
+                                <p><strong>COGS</strong> = Beg. Inv + Net Purchases − End. Inv</p>
+                                <p><strong>Gross Profit</strong> = Net Sales − COGS</p>
+                                <p><strong>Gross Margin %</strong> = (Gross Profit ÷ Net Sales) × 100</p>
+                            </div>
+                        </div>
+
+                        <div style="background: #E8F5E9; padding: 1.5rem; border-radius: 12px;">
+                            <h5 style="margin-bottom: 0.75rem; color: var(--gm-success);">Hint:</h5>
+                            <p style="font-size: 0.95rem; margin-bottom: 0.5rem;">Net Sales = $58,240 − $120 − $85 = <strong>$58,035</strong></p>
+                            <p style="font-size: 0.95rem; margin-bottom: 0.5rem;">Ending Inventory (FIFO) = <strong>$14,280</strong></p>
+                            <p style="font-size: 0.95rem;">COGS = $60,540 − $14,280 = <strong>$46,260</strong></p>
+                        </div>
+
+                        <div class="gm-feedback" id="gp-feedback" style="margin-top: 1.5rem;"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Inventory Turnover Tab -->
+            <div id="tab-turnover" class="tab-content" style="display: none;">
+                <div class="gm-grid-2">
+                    <div class="gm-po-card">
+                        <h4 style="margin-bottom: 1.5rem;">Inventory Turnover Analysis</h4>
+                        
+                        <div style="background: var(--gm-bg-cream); padding: 1.5rem; border-radius: 12px; margin-bottom: 1.5rem;">
+                            <p style="margin-bottom: 1rem;">Inventory Turnover measures how efficiently a company manages its inventory. A higher ratio indicates faster sales.</p>
+                            
+                            <div style="background: white; padding: 1.25rem; border-radius: 8px; border-left: 4px solid var(--gm-primary);">
+                                <p style="font-weight: 600; margin-bottom: 0.5rem;">Formula:</p>
+                                <p style="font-size: 1.1rem; font-family: 'Courier New', monospace;">
+                                    Turnover = COGS ÷ Average Inventory
+                                </p>
+                            </div>
+                        </div>
+
+                        <div style="margin-bottom: 1.5rem;">
+                            <label style="display: block; margin-bottom: 0.75rem; font-weight: 600;">Calculate Average Inventory:</label>
+                            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+                                <div>
+                                    <label style="font-size: 0.85rem; color: var(--gm-text-muted);">Beginning Inventory</label>
+                                    <input type="number" class="gm-input" value="12450" readonly style="background: var(--gm-bg-cream);">
+                                </div>
+                                <div>
+                                    <label style="font-size: 0.85rem; color: var(--gm-text-muted);">Ending Inventory</label>
+                                    <input type="number" class="gm-input" value="14280" readonly style="background: var(--gm-bg-cream);">
+                                </div>
+                            </div>
+                            <div style="margin-top: 1rem;">
+                                <label style="font-size: 0.85rem; color: var(--gm-text-muted);">Average Inventory (Calculate)</label>
+                                <input type="number" class="gm-input" id="turnover-avg-inv" placeholder="$" oninput="checkTurnover('avg', 13365)">
+                            </div>
+                        </div>
+
+                        <div>
+                            <label style="display: block; margin-bottom: 0.75rem; font-weight: 600;">Calculate Inventory Turnover:</label>
+                            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+                                <div>
+                                    <label style="font-size: 0.85rem; color: var(--gm-text-muted);">COGS</label>
+                                    <input type="number" class="gm-input" value="46260" readonly style="background: var(--gm-bg-cream);">
+                                </div>
+                                <div>
+                                    <label style="font-size: 0.85rem; color: var(--gm-text-muted);">Average Inventory</label>
+                                    <input type="number" class="gm-input" id="turnover-avg-input" placeholder="$" oninput="checkTurnover('input', 13365)">
+                                </div>
+                            </div>
+                            <div style="margin-top: 1rem;">
+                                <label style="font-size: 0.85rem; color: var(--gm-text-muted);">Inventory Turnover Ratio</label>
+                                <input type="number" class="gm-input" id="turnover-ratio" placeholder="x.xx" step="0.01" oninput="checkTurnover('ratio', 3.46)">
+                            </div>
+                        </div>
+
+                        <button class="gm-btn gm-btn-primary" style="margin-top: 1.5rem;" onclick="analyzeTurnover()">
+                            📊 Analyze Performance
+                        </button>
+                    </div>
+
+                    <div>
+                        <h4 style="margin-bottom: 1.5rem;">Industry Benchmarks</h4>
+                        
+                        <div style="background: var(--gm-bg-cream); padding: 1.5rem; border-radius: 12px; margin-bottom: 1.5rem;">
+                            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem; padding-bottom: 1rem; border-bottom: 1px solid var(--gm-border);">
+                                <span>Supermarkets (Grocery)</span>
+                                <span style="font-weight: 700; color: var(--gm-primary);">10-15x</span>
+                            </div>
+                            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem; padding-bottom: 1rem; border-bottom: 1px solid var(--gm-border);">
+                                <span>Department Stores</span>
+                                <span style="font-weight: 700;">6-8x</span>
+                            </div>
+                            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem; padding-bottom: 1rem; border-bottom: 1px solid var(--gm-border);">
+                                <span>Electronics Retailers</span>
+                                <span style="font-weight: 700;">8-12x</span>
+                            </div>
+                            <div style="display: flex; justify-between; align-items: center;">
+                                <span>GreenMart (Q1)</span>
+                                <span id="benchmark-greenmart" style="font-weight: 700; color: var(--gm-accent);">Calculate →</span>
+                            </div>
+                        </div>
+
+                        <div style="background: #E3F2FD; padding: 1.5rem; border-radius: 12px;">
+                            <h5 style="margin-bottom: 0.75rem; color: var(--gm-info);">💡 Interpretation</h5>
+                            <p style="font-size: 0.95rem; margin-bottom: 0.75rem;">A quarterly turnover of 3.46x equates to an annual rate of approximately <strong>13.8x</strong>.</p>
+                            <p style="font-size: 0.95rem;">This places GreenMart <strong>within the healthy range</strong> for grocery retailers, indicating efficient inventory management.</p>
+                        </div>
+
+                        <div class="gm-feedback" id="turnover-feedback" style="margin-top: 1.5rem;"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Key Ratios Tab -->
+            <div id="tab-ratios" class="tab-content" style="display: none;">
+                <div class="gm-calculator-grid">
+                    <div class="gm-calc-card">
+                        <div class="gm-calc-label">Gross Profit Margin</div>
+                        <div class="gm-calc-input-group">
+                            <input type="number" class="gm-calc-input" id="ratio-gpm" placeholder="%" step="0.1" oninput="checkRatio('gpm', 20.3)">
+                        </div>
+                        <div class="gm-calc-result" id="result-gpm">Enter %</div>
+                    </div>
+                    <div class="gm-calc-card">
+                        <div class="gm-calc-label">Operating Profit Margin</div>
+                        <div class="gm-calc-input-group">
+                            <input type="number" class="gm-calc-input" id="ratio-opm" placeholder="%" step="0.1" oninput="checkRatio('opm', 8.5)">
+                        </div>
+                        <div class="gm-calc-result" id="result-opm">Enter %</div>
+                    </div>
+                    <div class="gm-calc-card">
+                        <div class="gm-calc-label">Current Ratio</div>
+                        <div class="gm-calc-input-group">
+                            <input type="number" class="gm-calc-input" id="ratio-current" placeholder="x.xx" step="0.01" oninput="checkRatio('current', 1.85)">
+                        </div>
+                        <div class="gm-calc-result" id="result-current">Enter ratio</div>
+                    </div>
+                    <div class="gm-calc-card">
+                        <div class="gm-calc-label">Quick Ratio</div>
+                        <div class="gm-calc-input-group">
+                            <input type="number" class="gm-calc-input" id="ratio-quick" placeholder="x.xx" step="0.01" oninput="checkRatio('quick', 0.92)">
+                        </div>
+                        <div class="gm-calc-result" id="result-quick">Enter ratio</div>
+                    </div>
+                </div>
+
+                <div class="gm-feedback" id="ratio-feedback" style="margin-top: 1.5rem;"></div>
+            </div>
+        </section>
+
+        <!-- Summary Section -->
+        <section class="gm-section animate-fade-in">
+            <div style="text-align: center; padding: 2rem;">
+                <h2 style="margin-bottom: 1rem; color: var(--gm-primary);">🎉 Simulation Complete!</h2>
+                <p style="font-size: 1.1rem; color: var(--gm-text-muted); margin-bottom: 2rem;">
+                    You've successfully completed all four modules of the GreenMart inventory management simulation.
+                </p>
+                
+                <div style="background: linear-gradient(135deg, #E8F5E9 0%, #C8E6C9 100%); padding: 2rem; border-radius: 16px; display: inline-block;">
+                    <div style="font-size: 3rem; margin-bottom: 0.5rem;">🏆</div>
+                    <div style="font-size: 1.5rem; font-weight: 700; color: var(--gm-primary); margin-bottom: 0.5rem;">Final Score</div>
+                    <div style="font-size: 2.5rem; font-weight: 800; color: var(--gm-success);" id="final-score">0%</div>
+                </div>
+
+                <div style="margin-top: 2rem;">
+                    <button class="gm-btn gm-btn-primary" onclick="location.reload()">
+                        🔄 Restart Simulation
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Navigation -->
+        <nav class="page-nav" style="margin-top: 3rem;">
+            <a href="ch05_P7.html" class="btn btn-prev">← Previous: Periodic Worksheet</a>
+            <a href="ch05_PRACTICE.html" class="btn btn-primary">Next: Practice Case →</a>
+        </nav>
+    </main>
+
+    <footer style="margin-top: 4rem; padding: 3rem 0; background: var(--gm-primary-dark); color: white; text-align: center;">
+        <div class="container">
+            <p style="font-size: 1.25rem; margin-bottom: 0.5rem;">GreenMart Supermarket Simulation</p>
+            <p style="opacity: 0.8;">Accounting Essentials | Chapter 5 | Interactive Learning</p>
+        </div>
+    </footer>
+
+    <script src="../../components.js"></script>
+    <script>
+        // ==================== STATE MANAGEMENT ====================
+        const state = {
+            progress: 0,
+            completedModules: [],
+            inventoryMethod: 'FIFO',
+            poCompleted: false,
+            inventoryCompleted: false,
+            salesCompleted: false,
+            analysisCompleted: false
+        };
+
+        const inventoryData = {
+            FIFO: { ei: 2475, cogs: 5090, explanation: 'FIFO: Use most recent costs for ending inventory' },
+            LIFO: { ei: 2025, cogs: 5540, explanation: 'LIFO: Use oldest costs for ending inventory' },
+            WA: { ei: 2269.50, cogs: 5295.50, explanation: 'WA: Use average cost of $5.043/unit' }
+        };
+
+        // ==================== TAB NAVIGATION ====================
+        function showPurchaseTab(tabId) {
+            document.querySelectorAll('#module-purchases .tab-content').forEach(t => t.style.display = 'none');
+            document.querySelectorAll('#module-purchases .gm-tab').forEach(t => t.classList.remove('active'));
+            document.getElementById('tab-' + tabId).style.display = 'block';
+            event.target.classList.add('active');
+        }
+
+        function showSalesTab(tabId) {
+            document.querySelectorAll('#module-sales .tab-content').forEach(t => t.style.display = 'none');
+            document.querySelectorAll('#module-sales .gm-tab').forEach(t => t.classList.remove('active'));
+            document.getElementById('tab-' + tabId).style.display = 'block';
+            event.target.classList.add('active');
+        }
+
+        function showAnalysisTab(tabId) {
+            document.querySelectorAll('#module-analysis .tab-content').forEach(t => t.style.display = 'none');
+            document.querySelectorAll('#module-analysis .gm-tab').forEach(t => t.classList.remove('active'));
+            document.getElementById('tab-' + tabId).style.display = 'block';
+            event.target.classList.add('active');
+        }
+
+        // ==================== PURCHASE MODULE ====================
+        const poAnswers = {
+            kale: 1200,
+            apples: 1480,
+            avocados: 1280,
+            carrots: 875,
+            total: 4835
+        };
+
+        let poCorrect = 0;
+
+        function checkPO(item, expected) {
+            const input = document.getElementById('po-' + item);
+            const value = parseFloat(input.value);
+            
+            if (Math.abs(value - expected) < 0.01) {
+                input.classList.add('correct');
+                input.classList.remove('incorrect');
+            } else if (input.value !== '') {
+                input.classList.add('incorrect');
+                input.classList.remove('correct');
+            }
+        }
+
+        function submitPO() {
+            let allCorrect = true;
+            for (let item in poAnswers) {
+                const input = document.getElementById('po-' + item);
+                const value = parseFloat(input.value);
+                if (Math.abs(value - poAnswers[item]) >= 0.01) {
+                    allCorrect = false;
+                    input.classList.add('incorrect');
+                }
+            }
+
+            const feedback = document.getElementById('po-feedback');
+            if (allCorrect) {
+                feedback.className = 'gm-feedback success show';
+                feedback.innerHTML = '✅ Excellent! Purchase Order PO-2024-001 created successfully. Total: $4,835';
+                if (!state.poCompleted) {
+                    state.completedModules.push('purchases');
+                    state.poCompleted = true;
+                    updateOverallProgress();
+                }
+            } else {
+                feedback.className = 'gm-feedback error show';
+                feedback.innerHTML = '❌ Please check your calculations. Review the quantity × unit cost for each item.';
+            }
+        }
+
+        function checkReceipt(field, expected) {
+            const input = document.getElementById('gr-' + field);
+            const value = parseFloat(input.value);
+            
+            if (Math.abs(value - expected) < 0.01) {
+                input.classList.add('correct');
+                input.classList.remove('incorrect');
+            } else if (input.value !== '') {
+                input.classList.add('incorrect');
+                input.classList.remove('correct');
+            }
+        }
+
+        function checkMatching(matches) {
+            const feedback = document.getElementById('matching-feedback');
+            if (matches) {
+                feedback.className = 'gm-feedback success show';
+                feedback.innerHTML = '✅ Perfect! All three documents match at $5,080. Invoice approved for payment.';
+            } else {
+                feedback.className = 'gm-feedback error show';
+                feedback.innerHTML = '❌ Actually, all documents match correctly. The freight of $245 is properly included in all three.';
+            }
+        }
+
+        function checkDiscount(field, expected) {
+            const input = document.getElementById('disc-' + field);
+            const result = document.getElementById('disc-' + field + '-result');
+            const value = parseFloat(input.value);
+            
+            if (Math.abs(value - expected) < 0.01) {
+                input.classList.add('correct');
+                input.classList.remove('incorrect');
+                result.className = 'gm-calc-result correct';
+                result.textContent = field === 'amount' ? '✓ $101.60' : '✓ $4,978.40';
+            } else if (input.value !== '') {
+                input.classList.add('incorrect');
+                input.classList.remove('correct');
+                result.className = 'gm-calc-result incorrect';
+                result.textContent = '✗ Try again';
+            }
+        }
+
+        // ==================== INVENTORY MODULE ====================
+        function setInventoryMethod(method) {
+            state.inventoryMethod = method;
+            
+            document.querySelectorAll('.gm-method-btn').forEach(btn => btn.classList.remove('active'));
+            event.target.closest('.gm-method-btn').classList.add('active');
+            
+            document.getElementById('ledger-method-name').textContent = method + ' Method';
+            document.getElementById('method-label-ei').textContent = method;
+            document.getElementById('method-label-cogs').textContent = method;
+            
+            // Reset inputs
+            document.getElementById('calc-ei').value = '';
+            document.getElementById('calc-cogs').value = '';
+            document.getElementById('calc-ei').classList.remove('correct', 'incorrect');
+            document.getElementById('calc-cogs').classList.remove('correct', 'incorrect');
+            document.getElementById('result-ei').className = 'gm-calc-result';
+            document.getElementById('result-ei').textContent = 'Enter amount';
+            document.getElementById('result-cogs').className = 'gm-calc-result';
+            document.getElementById('result-cogs').textContent = 'Enter amount';
+        }
+
+        function checkInventoryCalc(type) {
+            const data = inventoryData[state.inventoryMethod];
+            const input = document.getElementById('calc-' + type);
+            const result = document.getElementById('result-' + type);
+            const value = parseFloat(input.value);
+            const expected = type === 'ei' ? data.ei : data.cogs;
+            
+            if (Math.abs(value - expected) < 1) {
+                input.classList.add('correct');
+                input.classList.remove('incorrect');
+                result.className = 'gm-calc-result correct';
+                result.textContent = '✓ $' + expected.toLocaleString();
+                checkInventoryComplete();
+            } else if (input.value !== '') {
+                input.classList.add('incorrect');
+                input.classList.remove('correct');
+                result.className = 'gm-calc-result incorrect';
+                result.textContent = '✗ ' + data.explanation;
+            }
+        }
+
+        function checkInventoryComplete() {
+            const ei = document.getElementById('calc-ei');
+            const cogs = document.getElementById('calc-cogs');
+            
+            if (ei.classList.contains('correct') && cogs.classList.contains('correct')) {
+                const feedback = document.getElementById('inventory-feedback');
+                feedback.className = 'gm-feedback success show';
+                feedback.innerHTML = `✅ Excellent! Using ${state.inventoryMethod}: Ending Inventory = $${inventoryData[state.inventoryMethod].ei.toLocaleString()}, COGS = $${inventoryData[state.inventoryMethod].cogs.toLocaleString()}`;
+                
+                if (!state.inventoryCompleted) {
+                    state.completedModules.push('inventory');
+                    state.inventoryCompleted = true;
+                    updateOverallProgress();
+                }
+            }
+        }
+
+        // ==================== SALES MODULE ====================
+        function checkSaleEntry(field, expected) {
+            const input = document.getElementById('sale-' + field);
+            const value = parseFloat(input.value);
+            
+            if (Math.abs(value - expected) < 0.01) {
+                input.classList.add('correct');
+                input.classList.remove('incorrect');
+            } else if (input.value !== '') {
+                input.classList.add('incorrect');
+                input.classList.remove('correct');
+            }
+        }
+
+        function submitSaleEntry() {
+            const ar = document.getElementById('sale-ar');
+            const revenue = document.getElementById('sale-revenue');
+            const cogs = document.getElementById('sale-cogs');
+            
+            const arCorrect = Math.abs(parseFloat(ar.value) - 1125) < 0.01;
+            const revCorrect = Math.abs(parseFloat(revenue.value) - 1125) < 0.01;
+            const cogsCorrect = Math.abs(parseFloat(cogs.value) - 675) < 0.01;
+            
+            const feedback = document.getElementById('sale-feedback');
+            if (arCorrect && revCorrect && cogsCorrect) {
+                feedback.className = 'gm-feedback success show';
+                feedback.innerHTML = '✅ Sale recorded correctly! A/R $1,125, Revenue $1,125, COGS $675';
+                if (!state.salesCompleted) {
+                    state.completedModules.push('sales');
+                    state.salesCompleted = true;
+                    updateOverallProgress();
+                }
+            } else {
+                feedback.className = 'gm-feedback error show';
+                feedback.innerHTML = '❌ Please check your entries. Remember to record both the revenue and COGS in perpetual system.';
+            }
+        }
+
+        function checkReturnEntry(field, expected) {
+            const input = document.getElementById('return-' + field);
+            const value = parseFloat(input.value);
+            
+            if (Math.abs(value - expected) < 0.01) {
+                input.classList.add('correct');
+                input.classList.remove('incorrect');
+            } else if (input.value !== '') {
+                input.classList.add('incorrect');
+                input.classList.remove('correct');
+            }
+        }
+
+        function submitReturnEntry() {
+            const fields = ['sales', 'ar', 'inventory', 'cogs'];
+            const expected = [120, 120, 55, 55];
+            let allCorrect = true;
+            
+            fields.forEach((field, i) => {
+                const input = document.getElementById('return-' + field);
+                if (Math.abs(parseFloat(input.value) - expected[i]) >= 0.01) {
+                    allCorrect = false;
+                }
+            });
+            
+            const feedback = document.getElementById('return-feedback');
+            if (allCorrect) {
+                feedback.className = 'gm-feedback success show';
+                feedback.innerHTML = '✅ Return processed correctly! Sales returns $120, Inventory restored $55';
+            } else {
+                feedback.className = 'gm-feedback error show';
+                feedback.innerHTML = '❌ Check your entries. Remember to reverse the sale AND restore inventory (10 units × $5.50 = $55)';
+            }
+        }
+
+        // ==================== ANALYSIS MODULE ====================
+        function updateGrossProfit() {
+            const sales = parseFloat(document.getElementById('gp-sales').value) || 0;
+            const returns = parseFloat(document.getElementById('gp-returns').value) || 0;
+            const discounts = parseFloat(document.getElementById('gp-discounts').value) || 0;
+            const endingInv = parseFloat(document.getElementById('gp-ending-inv').value) || 0;
+            
+            const netSales = sales - returns - discounts;
+            const cogs = 60540 - endingInv;
+            const grossProfit = netSales - cogs;
+            const margin = netSales > 0 ? ((grossProfit / netSales) * 100).toFixed(1) : 0;
+            
+            document.getElementById('gp-net-sales').textContent = netSales > 0 ? '$' + netSales.toLocaleString() : 'Calculate →';
+            document.getElementById('gp-cogs').textContent = endingInv > 0 ? '$' + cogs.toLocaleString() : 'Calculate →';
+            document.getElementById('gp-total').textContent = grossProfit !== 0 ? '$' + grossProfit.toLocaleString() : 'Calculate →';
+            document.getElementById('gp-margin').textContent = margin > 0 ? margin + '%' : 'Calculate →';
+            
+            // Check answers
+            const feedback = document.getElementById('gp-feedback');
+            if (Math.abs(netSales - 58035) < 1 && Math.abs(cogs - 46260) < 1 && Math.abs(grossProfit - 11775) < 1) {
+                feedback.className = 'gm-feedback success show';
+                feedback.innerHTML = '✅ Perfect! Gross Profit: $11,775 | Gross Margin: 20.3%';
+                document.getElementById('stat-revenue').textContent = '$' + sales.toLocaleString();
+                document.getElementById('stat-profit').textContent = '$' + grossProfit.toLocaleString();
+                document.getElementById('stat-margin').textContent = margin + '% margin';
+                
+                if (!state.analysisCompleted) {
+                    state.completedModules.push('analysis');
+                    state.analysisCompleted = true;
+                    updateOverallProgress();
+                }
+            } else if (sales > 0 && endingInv > 0) {
+                feedback.className = 'gm-feedback info show';
+                feedback.innerHTML = '💡 Net Sales = $58,035 | Ending Inventory should be $14,280';
+            }
+        }
+
+        function checkTurnover(field, expected) {
+            const input = document.getElementById('turnover-' + field);
+            const value = parseFloat(input.value);
+            
+            if (Math.abs(value - expected) < 0.1) {
+                input.classList.add('correct');
+                input.classList.remove('incorrect');
+            } else if (input.value !== '') {
+                input.classList.add('incorrect');
+                input.classList.remove('correct');
+            }
+        }
+
+        function analyzeTurnover() {
+            const avg = document.getElementById('turnover-avg-inv');
+            const ratio = document.getElementById('turnover-ratio');
+            
+            const avgCorrect = avg.classList.contains('correct');
+            const ratioCorrect = ratio.classList.contains('correct');
+            
+            const feedback = document.getElementById('turnover-feedback');
+            if (avgCorrect && ratioCorrect) {
+                feedback.className = 'gm-feedback success show';
+                feedback.innerHTML = '✅ Correct! Inventory Turnover = 3.46x quarterly (≈13.8x annually). This is a healthy rate for grocery retail.';
+                document.getElementById('benchmark-greenmart').textContent = '3.46x';
+                document.getElementById('stat-turnover').textContent = '3.46x';
+            } else {
+                feedback.className = 'gm-feedback error show';
+                feedback.innerHTML = '❌ Average Inventory = ($12,450 + $14,280) ÷ 2 = $13,365. Turnover = $46,260 ÷ $13,365 = 3.46';
+            }
+        }
+
+        function checkRatio(type, expected) {
+            const input = document.getElementById('ratio-' + type);
+            const result = document.getElementById('result-' + type);
+            const value = parseFloat(input.value);
+            
+            if (Math.abs(value - expected) < 0.1) {
+                input.classList.add('correct');
+                input.classList.remove('incorrect');
+                result.className = 'gm-calc-result correct';
+                result.textContent = '✓ ' + value + (type.includes('margin') ? '%' : 'x');
+            } else if (input.value !== '') {
+                input.classList.add('incorrect');
+                input.classList.remove('correct');
+                result.className = 'gm-calc-result incorrect';
+                result.textContent = '✗ Try again';
+            }
+        }
+
+        // ==================== PROGRESS TRACKING ====================
+        function updateOverallProgress() {
+            const completed = state.completedModules.length;
+            const total = 4;
+            const percentage = Math.round((completed / total) * 100);
+            
+            document.getElementById('overall-progress').style.width = percentage + '%';
+            document.getElementById('progress-percent').textContent = percentage + '%';
+            document.getElementById('progress-modules').textContent = completed + '/' + total + ' Modules';
+            document.getElementById('final-score').textContent = percentage + '%';
+        }
+
+        // ==================== INITIALIZATION ====================
+        document.addEventListener('DOMContentLoaded', function() {
+            // Initialize dashboard values
+            document.getElementById('stat-revenue').textContent = '$58,240';
+            document.getElementById('stat-profit').textContent = '$11,775';
+            document.getElementById('stat-margin').textContent = '20.3% margin';
+            document.getElementById('stat-turnover').textContent = '3.46x';
+            document.getElementById('stat-inventory').textContent = '$14,280';
+            document.getElementById('stat-units').textContent = '450 units';
+        });
+    </script>
+</body>
+
+</html>
