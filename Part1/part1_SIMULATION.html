@@ -689,11 +689,101 @@
             ],
             
             intermediate: [
-                // 更多复杂交易...
+                // Phase 1: Initial Setup (8 transactions)
+                { id: 1, phase: 1, date: 'Jan 1', description: 'Tesla Shanghai begins operations with $50M investment', hint: 'Investment increases Cash and Common Stock', accounts: { debit: 'Cash', credit: 'Common Stock' }, amount: 50000000 },
+                { id: 2, phase: 1, date: 'Jan 2', description: 'Purchase factory equipment for $30M cash', hint: 'Asset exchange - Equipment up, Cash down', accounts: { debit: 'Equipment', credit: 'Cash' }, amount: 30000000 },
+                { id: 3, phase: 1, date: 'Jan 3', description: 'Obtain $20M bank loan at 6% annual interest', hint: 'Cash increases, Notes Payable increases', accounts: { debit: 'Cash', credit: 'Notes Payable' }, amount: 20000000 },
+                { id: 4, phase: 1, date: 'Jan 5', description: 'Purchase raw materials inventory $8M on account', hint: 'Inventory up, Accounts Payable up', accounts: { debit: 'Inventory', credit: 'Accounts Payable' }, amount: 8000000 },
+                { id: 5, phase: 1, date: 'Jan 7', description: 'Pay $2M for 3-month factory rent in advance', hint: 'Prepaid Rent (asset) increases, Cash decreases', accounts: { debit: 'Prepaid Rent', credit: 'Cash' }, amount: 2000000 },
+                { id: 6, phase: 1, date: 'Jan 8', description: 'Purchase office supplies $50,000 cash', hint: 'Supplies (asset) increases, Cash decreases', accounts: { debit: 'Supplies', credit: 'Cash' }, amount: 50000 },
+                { id: 7, phase: 1, date: 'Jan 10', description: 'Hire employees - no entry required', hint: 'No transaction - hiring is not a financial event', accounts: { debit: 'None', credit: 'None' }, amount: 0 },
+                { id: 8, phase: 1, date: 'Jan 12', description: 'Sign contract with supplier - no entry', hint: 'No transaction - signing is not a financial event', accounts: { debit: 'None', credit: 'None' }, amount: 0 },
+                
+                // Phase 2: Operations (12 transactions)
+                { id: 9, phase: 2, date: 'Jan 15', description: 'Transfer $5M raw materials to production', hint: 'Work in Process up, Raw Materials down', accounts: { debit: 'Work in Process', credit: 'Raw Materials Inventory' }, amount: 5000000 },
+                { id: 10, phase: 2, date: 'Jan 18', description: 'Pay factory workers $800,000 wages', hint: 'Wages Expense increases, Cash decreases', accounts: { debit: 'Wages Expense', credit: 'Cash' }, amount: 800000 },
+                { id: 11, phase: 2, date: 'Jan 20', description: 'Complete production - transfer $6M to finished goods', hint: 'Finished Goods up, Work in Process down', accounts: { debit: 'Finished Goods Inventory', credit: 'Work in Process' }, amount: 6000000 },
+                { id: 12, phase: 2, date: 'Jan 25', description: 'Sell 200 Model 3 @ $35,000 each - all cash', hint: 'Cash up, Revenue up', accounts: { debit: 'Cash', credit: 'Sales Revenue' }, amount: 7000000 },
+                { id: 13, phase: 2, date: 'Jan 25', description: 'Record COGS for 200 vehicles @ $30,000', hint: 'COGS up, Inventory down', accounts: { debit: 'Cost of Goods Sold', credit: 'Finished Goods Inventory' }, amount: 6000000 },
+                { id: 14, phase: 2, date: 'Feb 1', description: 'Sell 300 Model 3 @ $35,000 - 60% cash, 40% credit', hint: 'Cash + AR up, Revenue up', accounts: { debit: 'Cash/AR', credit: 'Sales Revenue' }, amount: 10500000 },
+                { id: 15, phase: 2, date: 'Feb 1', description: 'Record COGS for 300 vehicles sold', hint: 'COGS up, Inventory down', accounts: { debit: 'Cost of Goods Sold', credit: 'Finished Goods Inventory' }, amount: 9000000 },
+                { id: 16, phase: 2, date: 'Feb 5', description: 'Collect $3M from customers on account', hint: 'Cash up, Accounts Receivable down', accounts: { debit: 'Cash', credit: 'Accounts Receivable' }, amount: 3000000 },
+                { id: 17, phase: 2, date: 'Feb 10', description: 'Pay $4M to suppliers on account', hint: 'Accounts Payable down, Cash down', accounts: { debit: 'Accounts Payable', credit: 'Cash' }, amount: 4000000 },
+                { id: 18, phase: 2, date: 'Feb 15', description: 'Pay utilities $150,000', hint: 'Utilities Expense up, Cash down', accounts: { debit: 'Utilities Expense', credit: 'Cash' }, amount: 150000 },
+                { id: 19, phase: 2, date: 'Feb 20', description: 'Purchase additional equipment $5M on credit', hint: 'Equipment up, Accounts Payable up', accounts: { debit: 'Equipment', credit: 'Accounts Payable' }, amount: 5000000 },
+                { id: 20, phase: 2, date: 'Feb 28', description: 'Pay monthly salaries $1.2M', hint: 'Salaries Expense up, Cash down', accounts: { debit: 'Salaries Expense', credit: 'Cash' }, amount: 1200000 },
+                
+                // Phase 3: Adjustments (8 transactions)
+                { id: 21, phase: 3, date: 'Mar 31', description: 'Record 3-month depreciation ($35M equipment, 10-year life)', hint: 'Depreciation Expense up, Accumulated Depreciation up', accounts: { debit: 'Depreciation Expense', credit: 'Accumulated Depreciation' }, amount: 875000 },
+                { id: 22, phase: 3, date: 'Mar 31', description: 'Adjust for 3 months rent expired ($2M ÷ 3)', hint: 'Rent Expense up, Prepaid Rent down', accounts: { debit: 'Rent Expense', credit: 'Prepaid Rent' }, amount: 2000000 },
+                { id: 23, phase: 3, date: 'Mar 31', description: 'Accrue salaries for March $1.3M', hint: 'Salaries Expense up, Salaries Payable up', accounts: { debit: 'Salaries Expense', credit: 'Salaries Payable' }, amount: 1300000 },
+                { id: 24, phase: 3, date: 'Mar 31', description: 'Accrue interest on loan ($20M × 6% × 3/12)', hint: 'Interest Expense up, Interest Payable up', accounts: { debit: 'Interest Expense', credit: 'Interest Payable' }, amount: 300000 },
+                { id: 25, phase: 3, date: 'Mar 31', description: 'Record supplies used $35,000', hint: 'Supplies Expense up, Supplies down', accounts: { debit: 'Supplies Expense', credit: 'Supplies' }, amount: 35000 },
+                { id: 26, phase: 3, date: 'Mar 31', description: 'Accrue warranty expense $200,000', hint: 'Warranty Expense up, Warranty Liability up', accounts: { debit: 'Warranty Expense', credit: 'Estimated Warranty Liability' }, amount: 200000 },
+                { id: 27, phase: 3, date: 'Mar 31', description: 'Recognize unearned revenue $500,000 now earned', hint: 'Unearned Revenue down, Revenue up', accounts: { debit: 'Unearned Revenue', credit: 'Service Revenue' }, amount: 500000 },
+                { id: 28, phase: 3, date: 'Mar 31', description: 'Accrue property taxes $180,000', hint: 'Property Tax Expense up, Property Taxes Payable up', accounts: { debit: 'Property Tax Expense', credit: 'Property Taxes Payable' }, amount: 180000 },
+                
+                // Phase 4: Closing (6 transactions)
+                { id: 29, phase: 4, date: 'Mar 31', description: 'Close revenue accounts to Income Summary', hint: 'Revenue down, Income Summary up', accounts: { debit: 'Sales Revenue', credit: 'Income Summary' }, amount: 18000000 },
+                { id: 30, phase: 4, date: 'Mar 31', description: 'Close expense accounts to Income Summary (Part 1)', hint: 'Income Summary down, Expenses down', accounts: { debit: 'Income Summary', credit: 'COGS' }, amount: 15000000 },
+                { id: 31, phase: 4, date: 'Mar 31', description: 'Close expense accounts (Part 2 - Operating)', hint: 'Income Summary down, Operating Expenses down', accounts: { debit: 'Income Summary', credit: 'Operating Expenses' }, amount: 5995000 },
+                { id: 32, phase: 4, date: 'Mar 31', description: 'Close Income Summary to Retained Earnings', hint: 'Income Summary down, Retained Earnings up (or reverse if loss)', accounts: { debit: 'Income Summary', credit: 'Retained Earnings' }, amount: -2995000 },
+                { id: 33, phase: 4, date: 'Mar 31', description: 'Close dividends to Retained Earnings', hint: 'Retained Earnings down, Dividends down', accounts: { debit: 'Retained Earnings', credit: 'Dividends' }, amount: 0 },
+                { id: 34, phase: 4, date: 'Mar 31', description: 'Post-closing trial balance prepared', hint: 'Verification step - no entry', accounts: { debit: 'None', credit: 'None' }, amount: 0 }
             ],
             
             advanced: [
-                // 最复杂场景...
+                // Phase 1: Initial Setup (8 complex transactions)
+                { id: 1, phase: 1, date: 'Jan 1', description: 'Tesla Shanghai begins with $100M investment from parent and $50M from minority shareholders', hint: 'Two equity accounts: Common Stock and Additional Paid-in Capital', accounts: { debit: 'Cash', credit: 'Common Stock/APIC' }, amount: 150000000 },
+                { id: 2, phase: 1, date: 'Jan 2', description: 'Purchase land $20M, building $40M, equipment $50M - 20% down, balance mortgage', hint: 'Multiple assets, Cash down, Mortgage Payable up', accounts: { debit: 'Assets', credit: 'Cash/Mortgage Payable' }, amount: 110000000 },
+                { id: 3, phase: 1, date: 'Jan 3', description: 'Secure $75M revolving credit facility (unused initially)', hint: 'No entry - contingent liability disclosure only', accounts: { debit: 'None', credit: 'None' }, amount: 0 },
+                { id: 4, phase: 1, date: 'Jan 5', description: 'Purchase inventory: $15M domestic (net 30), $25M import (FOB shipping point, duty $2M)', hint: 'Include freight-in and import duties in inventory cost', accounts: { debit: 'Inventory', credit: 'Cash/AP' }, amount: 42000000 },
+                { id: 5, phase: 1, date: 'Jan 7', description: 'Prepay 6-month rent $6M plus security deposit $2M', hint: 'Prepaid Rent and Security Deposit (non-current)', accounts: { debit: 'Prepaid/Deposit', credit: 'Cash' }, amount: 8000000 },
+                { id: 6, phase: 1, date: 'Jan 10', description: 'Capitalize $3M software development costs (internal use)', hint: 'Intangible Asset up, Cash down', accounts: { debit: 'Software', credit: 'Cash' }, amount: 3000000 },
+                { id: 7, phase: 1, date: 'Jan 12', description: 'Establish $10M petty cash fund', hint: 'Petty Cash (asset) up, Cash down', accounts: { debit: 'Petty Cash', credit: 'Cash' }, amount: 10000000 },
+                { id: 8, phase: 1, date: 'Jan 15', description: 'Issue $50M bonds at 98 (2% discount)', hint: 'Cash $49M, Bond Discount $1M, Bonds Payable $50M', accounts: { debit: 'Cash/Discount', credit: 'Bonds Payable' }, amount: 50000000 },
+                
+                // Phase 2: Complex Operations (16 transactions)
+                { id: 9, phase: 2, date: 'Jan 20', description: 'Begin production - transfer $20M materials to WIP, incur $8M labor and $5M overhead', hint: 'Work in Process includes DM, DL, and MOH', accounts: { debit: 'WIP', credit: 'Materials/Cash/AP' }, amount: 33000000 },
+                { id: 10, phase: 2, date: 'Feb 1', description: 'Complete 2,000 Model 3 at $18,000 cost each, transfer to finished goods', hint: 'FG $36M, reduce WIP', accounts: { debit: 'Finished Goods', credit: 'WIP' }, amount: 36000000 },
+                { id: 11, phase: 2, date: 'Feb 5', description: 'Sell 1,200 Model 3 @ $38,000: 40% cash, 50% credit (net 30), 10% note receivable', hint: 'Multiple debits: Cash, AR, Notes Receivable', accounts: { debit: 'Cash/AR/Notes Rec', credit: 'Revenue' }, amount: 45600000 },
+                { id: 12, phase: 2, date: 'Feb 5', description: 'Record COGS using perpetual system (1,200 × $18,000)', hint: 'COGS $21.6M, reduce FG', accounts: { debit: 'COGS', credit: 'Finished Goods' }, amount: 21600000 },
+                { id: 13, phase: 2, date: 'Feb 10', description: 'Customer returns 50 vehicles - full refund, restore inventory', hint: 'Reverse revenue and COGS', accounts: { debit: 'Revenue/Inventory', credit: 'Cash/COGS' }, amount: 1900000 },
+                { id: 14, phase: 2, date: 'Feb 15', description: 'Grant sales allowance $500,000 for minor defects on 100 vehicles', hint: 'Sales Allowances (contra-revenue) up', accounts: { debit: 'Sales Allowances', credit: 'Cash' }, amount: 500000 },
+                { id: 15, phase: 2, date: 'Feb 20', description: 'Borrow $25M from credit line at 5% interest', hint: 'Cash up, Line of Credit Liability up', accounts: { debit: 'Cash', credit: 'Line of Credit Payable' }, amount: 25000000 },
+                { id: 16, phase: 2, date: 'Feb 25', description: 'Discount AR $10M (net of $200K allowance) to factor for $9.6M cash', hint: 'Loss on factoring $200K', accounts: { debit: 'Cash/Loss', credit: 'AR' }, amount: 10000000 },
+                { id: 17, phase: 2, date: 'Mar 1', description: 'Sell 800 Model Y @ $45,000 with 2/10 n/30 terms', hint: 'Record gross, customer may take discount later', accounts: { debit: 'AR', credit: 'Revenue' }, amount: 36000000 },
+                { id: 18, phase: 2, date: 'Mar 1', description: 'Record COGS for Model Y (800 × $22,000)', hint: 'COGS $17.6M', accounts: { debit: 'COGS', credit: 'Finished Goods' }, amount: 17600000 },
+                { id: 19, phase: 2, date: 'Mar 8', description: 'Customer pays within discount period (2% of $36M)', hint: 'Sales Discounts $720K, Cash $35.28M', accounts: { debit: 'Cash/Sales Discounts', credit: 'AR' }, amount: 36000000 },
+                { id: 20, phase: 2, date: 'Mar 15', description: 'Declare and pay $2M cash dividend', hint: 'Retained Earnings down, Cash down', accounts: { debit: 'Retained Earnings', credit: 'Cash' }, amount: 2000000 },
+                { id: 21, phase: 2, date: 'Mar 18', description: 'Write off $300K uncollectible account (allowance method)', hint: 'Allowance down, AR down - no P&L impact', accounts: { debit: 'Allowance for Doubtful Accounts', credit: 'AR' }, amount: 300000 },
+                { id: 22, phase: 2, date: 'Mar 20', description: 'Repurchase 100,000 shares treasury stock at $25/share', hint: 'Treasury Stock (contra-equity) up, Cash down', accounts: { debit: 'Treasury Stock', credit: 'Cash' }, amount: 2500000 },
+                { id: 23, phase: 2, date: 'Mar 25', description: 'Reissue 40,000 treasury shares at $28/share', hint: 'Cash $1.12M, Treasury Stock $1M, APIC $120K', accounts: { debit: 'Cash', credit: 'Treasury Stock/APIC' }, amount: 1120000 },
+                { id: 24, phase: 2, date: 'Mar 28', description: 'Settle lawsuit - accrue $1.5M estimated liability', hint: 'Lawsuit Expense up, Estimated Liability up', accounts: { debit: 'Lawsuit Expense', credit: 'Estimated Liability' }, amount: 1500000 },
+                
+                // Phase 3: Complex Adjustments (12 transactions)
+                { id: 25, phase: 3, date: 'Mar 31', description: 'Depreciation: Building ($40M, 20yr, SL), Equipment ($50M, 10yr, DDB year 1)', hint: 'Different methods: SL for building, DDB for equipment', accounts: { debit: 'Depreciation Expense', credit: 'Accumulated Depreciation' }, amount: 11667000 },
+                { id: 26, phase: 3, date: 'Mar 31', description: 'Amortize software over 5 years (3 months)', hint: 'Amortization Expense $150K', accounts: { debit: 'Amortization Expense', credit: 'Accumulated Amortization' }, amount: 150000 },
+                { id: 27, phase: 3, date: 'Mar 31', description: 'Rent expired: 3 months of 6-month prepayment', hint: 'Rent Expense $3M, Prepaid down', accounts: { debit: 'Rent Expense', credit: 'Prepaid Rent' }, amount: 3000000 },
+                { id: 28, phase: 3, date: 'Mar 31', description: 'Accrue Q1 interest: Mortgage ($90M × 5% × 3/12) + Bonds (effective interest method)', hint: 'Interest Expense using effective interest method', accounts: { debit: 'Interest Expense', credit: 'Interest Payable/Discount' }, amount: 1625000 },
+                { id: 29, phase: 3, date: 'Mar 31', description: 'Accrue salaries, bonuses, and payroll taxes $2.5M', hint: 'Include employee withholdings and employer taxes', accounts: { debit: 'Salaries Expense', credit: 'Salaries Payable/Taxes Payable' }, amount: 2500000 },
+                { id: 30, phase: 3, date: 'Mar 31', description: 'Estimate bad debts: 3% of $40M AR net of allowance', hint: 'Bad Debt Expense $1.2M, adjust allowance', accounts: { debit: 'Bad Debt Expense', credit: 'Allowance for Doubtful Accounts' }, amount: 1200000 },
+                { id: 31, phase: 3, date: 'Mar 31', description: 'Accrue warranty expense: 2% of $78.2M sales', hint: 'Warranty Expense $1.564M', accounts: { debit: 'Warranty Expense', credit: 'Estimated Warranty Liability' }, amount: 1564000 },
+                { id: 32, phase: 3, date: 'Mar 31', description: 'LCM adjustment: Inventory cost $18M, NRV $16.5M', hint: 'Write down inventory to market', accounts: { debit: 'COGS/Loss', credit: 'Inventory' }, amount: 1500000 },
+                { id: 33, phase: 3, date: 'Mar 31', description: 'Amortize bond discount using effective interest method', hint: 'Discount amortization increases interest expense', accounts: { debit: 'Interest Expense', credit: 'Bond Discount' }, amount: 25000 },
+                { id: 34, phase: 3, date: 'Mar 31', description: 'Recognize deferred revenue now earned $2M', hint: 'Unearned Revenue down, Revenue up', accounts: { debit: 'Unearned Revenue', credit: 'Revenue' }, amount: 2000000 },
+                { id: 35, phase: 3, date: 'Mar 31', description: 'Accrue income taxes payable $3.2M', hint: 'Income Tax Expense up, Taxes Payable up', accounts: { debit: 'Income Tax Expense', credit: 'Income Taxes Payable' }, amount: 3200000 },
+                { id: 36, phase: 3, date: 'Mar 31', description: 'Adjust for AFS securities unrealized gain $500K (OCI)', hint: 'Unrealized Gain-OCI up, Securities up', accounts: { debit: 'Investments', credit: 'Unrealized Gain-OCI' }, amount: 500000 },
+                
+                // Phase 4: Complex Closing (8 transactions)
+                { id: 37, phase: 4, date: 'Mar 31', description: 'Close revenue accounts and contra-revenues to Income Summary', hint: 'Revenues up, Contra-revenues down, net to Income Summary', accounts: { debit: 'Revenues', credit: 'Income Summary' }, amount: 81700000 },
+                { id: 38, phase: 4, date: 'Mar 31', description: 'Close expense accounts (Part 1 - Operating)', hint: 'Operating expenses to Income Summary', accounts: { debit: 'Income Summary', credit: 'Operating Expenses' }, amount: 43216000 },
+                { id: 39, phase: 4, date: 'Mar 31', description: 'Close expense accounts (Part 2 - Non-operating)', hint: 'Interest, taxes, other expenses', accounts: { debit: 'Income Summary', credit: 'Non-operating Expenses' }, amount: 6441000 },
+                { id: 40, phase: 4, date: 'Mar 31', description: 'Close Income Summary to Retained Earnings (net income)', hint: 'Income Summary down, Retained Earnings up', accounts: { debit: 'Income Summary', credit: 'Retained Earnings' }, amount: 32043000 },
+                { id: 41, phase: 4, date: 'Mar 31', description: 'Close OCI accounts to Accumulated OCI', hint: 'Unrealized gains to equity section', accounts: { debit: 'Unrealized Gain-OCI', credit: 'Accumulated OCI' }, amount: 500000 },
+                { id: 42, phase: 4, date: 'Mar 31', description: 'Prepare Statement of Cash Flows (indirect method)', hint: 'Analysis of cash movements - no entry', accounts: { debit: 'None', credit: 'None' }, amount: 0 },
+                { id: 43, phase: 4, date: 'Mar 31', description: 'Prepare Statement of Stockholders Equity', hint: 'Track all equity changes - no entry', accounts: { debit: 'None', credit: 'None' }, amount: 0 },
+                { id: 44, phase: 4, date: 'Mar 31', description: 'Prepare post-closing trial balance', hint: 'Verify debits=credits - no entry', accounts: { debit: 'None', credit: 'None' }, amount: 0 }
             ]
         };
 
