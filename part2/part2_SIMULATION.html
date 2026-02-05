@@ -1,0 +1,564 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Alibaba Global Supply Chain Simulation | Part 2 Comprehensive Practice</title>
+    <link rel="stylesheet" href="../styles.css">
+    <style>
+        :root {
+            --alibaba-orange: #FF6A00;
+            --alibaba-dark: #1a1a1a;
+            --alibaba-gray: #f5f5f5;
+        }
+
+        .simulation-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .alibaba-header {
+            background: linear-gradient(135deg, var(--alibaba-orange) 0%, #ff8533 100%);
+            color: white;
+            padding: 40px;
+            border-radius: 15px;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        .alibaba-logo {
+            font-size: 3rem;
+            font-weight: 800;
+            letter-spacing: 4px;
+            margin-bottom: 10px;
+        }
+
+        .supply-chain-visual {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+        }
+
+        .supply-flow {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin: 30px 0;
+            position: relative;
+        }
+
+        .supply-node {
+            text-align: center;
+            padding: 20px;
+            background: var(--alibaba-gray);
+            border-radius: 15px;
+            min-width: 150px;
+            border: 3px solid transparent;
+            transition: all 0.3s ease;
+        }
+
+        .supply-node:hover {
+            border-color: var(--alibaba-orange);
+            transform: translateY(-5px);
+        }
+
+        .supply-node .icon {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+        }
+
+        .flow-arrow {
+            font-size: 2rem;
+            color: var(--alibaba-orange);
+        }
+
+        .inventory-dashboard {
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            gap: 30px;
+            margin-top: 30px;
+        }
+
+        .costing-methods {
+            background: white;
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+        }
+
+        .method-selector {
+            display: flex;
+            gap: 10px;
+            margin: 20px 0;
+        }
+
+        .method-btn {
+            flex: 1;
+            padding: 15px;
+            border: 3px solid #ddd;
+            background: white;
+            border-radius: 10px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .method-btn.active {
+            border-color: var(--alibaba-orange);
+            background: var(--alibaba-orange);
+            color: white;
+        }
+
+        .impact-comparison {
+            background: white;
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+        }
+
+        .comparison-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        .comparison-table th {
+            background: var(--alibaba-orange);
+            color: white;
+            padding: 15px;
+            text-align: left;
+        }
+
+        .comparison-table td {
+            padding: 12px 15px;
+            border-bottom: 1px solid #eee;
+        }
+
+        .comparison-table .highlight {
+            background: #fff3e0;
+            font-weight: 600;
+        }
+
+        .global-map {
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            color: white;
+            border-radius: 15px;
+            padding: 30px;
+            margin-bottom: 30px;
+        }
+
+        .region-selector {
+            display: flex;
+            gap: 15px;
+            margin: 20px 0;
+            flex-wrap: wrap;
+        }
+
+        .region-btn {
+            padding: 12px 25px;
+            background: rgba(255,255,255,0.1);
+            border: 2px solid rgba(255,255,255,0.3);
+            color: white;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .region-btn:hover, .region-btn.active {
+            background: var(--alibaba-orange);
+            border-color: var(--alibaba-orange);
+        }
+
+        .transaction-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .transaction-card {
+            background: white;
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border-left: 5px solid transparent;
+        }
+
+        .transaction-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 30px rgba(0,0,0,0.15);
+        }
+
+        .transaction-card.purchase {
+            border-left-color: #28a745;
+        }
+
+        .transaction-card.sale {
+            border-left-color: var(--alibaba-orange);
+        }
+
+        .transaction-card.shipping {
+            border-left-color: #007bff;
+        }
+
+        .lcm-panel {
+            background: linear-gradient(135deg, #fff3e0 0%, #ffe0b2 100%);
+            border: 3px solid #ff9800;
+            border-radius: 15px;
+            padding: 25px;
+            margin: 30px 0;
+        }
+
+        .inventory-item-lcm {
+            background: white;
+            border-radius: 10px;
+            padding: 20px;
+            margin: 15px 0;
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr 1fr;
+            gap: 15px;
+            align-items: center;
+        }
+
+        @media (max-width: 768px) {
+            .supply-flow {
+                flex-direction: column;
+                gap: 20px;
+            }
+            
+            .flow-arrow {
+                transform: rotate(90deg);
+            }
+            
+            .inventory-dashboard {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="simulation-container">
+        <!-- Alibaba Header -->
+        <div class="alibaba-header">
+            <div class="alibaba-logo">ALIBABA GROUP</div>
+            <div style="font-size: 1.3rem; margin-bottom: 20px;">Global Supply Chain & Inventory Management Simulation</div>
+            <p style="max-width: 900px; margin: 0 auto; font-size: 1.1rem; opacity: 0.95;">
+                You are the Supply Chain Finance Manager at Alibaba. Manage inventory across global markets, 
+                compare costing methods, and optimize profitability during Q3 2024 sales season.
+            </p>
+            
+            <div class="difficulty-selector" style="margin-top: 30px;">
+                <button class="difficulty-btn" onclick="setDifficulty('beginner')">🟢 Beginner</button>
+                <button class="difficulty-btn" onclick="setDifficulty('intermediate')">🟡 Intermediate</button>
+                <button class="difficulty-btn" onclick="setDifficulty('advanced')">🔴 Advanced</button>
+            </div>
+        </div>
+
+        <!-- Global Supply Chain Visual -->
+        <div class="global-map">
+            <h3 style="margin-bottom: 20px;">🌍 Global Supply Chain Network</h3>
+            <div class="region-selector">
+                <button class="region-btn active" onclick="selectRegion('china')">🇨🇳 China (Manufacturing)</button>
+                <button class="region-btn" onclick="selectRegion('usa')">🇺🇸 USA (Consumer Market)</button>
+                <button class="region-btn" onclick="selectRegion('europe')">🇪🇺 Europe (Distribution)</button>
+                <button class="region-btn" onclick="selectRegion('southeastasia')">🌏 Southeast Asia</button>
+            </div>
+            <p style="opacity: 0.8; margin-top: 15px;">
+                Current Region: <strong id="current-region">China - Manufacturing Hub</strong>
+            </p>
+        </div>
+
+        <!-- Supply Chain Flow -->
+        <div class="supply-chain-visual">
+            <h3>Supply Chain Process Flow</h3>
+            <div class="supply-flow">
+                <div class="supply-node">
+                    <div class="icon">🏭</div>
+                    <h4>Manufacturers</h4>
+                    <p style="font-size: 0.9rem; color: #666;">Foxconn, BYD, etc.</p>
+                </div>
+                <div class="flow-arrow">→</div>
+                <div class="supply-node">
+                    <div class="icon">📦</div>
+                    <h4>Warehouses</h4>
+                    <p style="font-size: 0.9rem; color: #666;">Cainiao Network</p>
+                </div>
+                <div class="flow-arrow">→</div>
+                <div class="supply-node">
+                    <div class="icon">🚢</div>
+                    <h4>Distribution</h4>
+                    <p style="font-size: 0.9rem; color: #666;">Global Logistics</p>
+                </div>
+                <div class="flow-arrow">→</div>
+                <div class="supply-node">
+                    <div class="icon">🛒</div>
+                    <h4>Customers</h4>
+                    <p style="font-size: 0.9rem; color: #666;">B2B & B2C Sales</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Main Workspace -->
+        <div class="inventory-dashboard">
+            <!-- Left Panel - Costing Methods -->
+            <div class="costing-methods">
+                <h3>Inventory Costing Methods</h3>
+                <p style="color: #666; margin-bottom: 20px;">Select method to see real-time impact on financials</p>
+                
+                <div class="method-selector">
+                    <button class="method-btn active" onclick="switchMethod('FIFO')">FIFO</button>
+                    <button class="method-btn" onclick="switchMethod('LIFO')">LIFO</button>
+                    <button class="method-btn" onclick="switchMethod('WA')">Weighted Avg</button>
+                </div>
+
+                <div style="margin-top: 30px;">
+                    <h4>Current Method Impact:</h4>
+                    <div class="metric-card" style="margin-top: 15px;">
+                        <div class="metric-label">Cost of Goods Sold</div>
+                        <div class="metric-value" id="cogs-display">$0</div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="metric-label">Ending Inventory</div>
+                        <div class="metric-value" id="ending-inventory">$0</div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="metric-label">Gross Profit</div>
+                        <div class="metric-value" id="gross-profit">$0</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right Panel - Impact Comparison -->
+            <div class="impact-comparison">
+                <h3>Method Comparison Dashboard</h3>
+                <p style="color: #666; margin-bottom: 20px;">Compare how different methods affect financial statements</p>
+                
+                <table class="comparison-table">
+                    <thead>
+                        <tr>
+                            <th>Metric</th>
+                            <th>FIFO</th>
+                            <th>LIFO</th>
+                            <th>Weighted Avg</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>COGS</td>
+                            <td id="fifo-cogs">$8.5M</td>
+                            <td id="lifo-cogs">$9.2M</td>
+                            <td id="wa-cogs">$8.8M</td>
+                        </tr>
+                        <tr class="highlight">
+                            <td>Gross Profit</td>
+                            <td id="fifo-gp">$12.5M</td>
+                            <td id="lifo-gp">$11.8M</td>
+                            <td id="wa-gp">$12.2M</td>
+                        </tr>
+                        <tr>
+                            <td>Ending Inventory</td>
+                            <td id="fifo-ei">$15.2M</td>
+                            <td id="lifo-ei">$14.5M</td>
+                            <td id="wa-ei">$14.9M</td>
+                        </tr>
+                        <tr>
+                            <td>Tax Impact</td>
+                            <td id="fifo-tax">Higher</td>
+                            <td id="lifo-tax">Lower</td>
+                            <td id="wa-tax">Moderate</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <div style="margin-top: 30px; background: #e3f2fd; padding: 20px; border-radius: 10px;">
+                    <h4>💡 Analysis Insight</h4>
+                    <p id="method-insight">During inflationary periods, LIFO results in higher COGS and lower taxable income. 
+                    FIFO shows higher profits but higher taxes. Weighted Average smooths out price fluctuations.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Transaction Cards -->
+        <h3 style="margin-top: 40px;">Q3 2024 Transactions</h3>
+        <div class="transaction-cards">
+            <div class="transaction-card purchase" onclick="processTransaction('purchase1')">
+                <div style="display: flex; justify-content: space-between; margin-bottom: 10px;">
+                    <span style="background: #28a745; color: white; padding: 5px 15px; border-radius: 15px; font-size: 0.85rem;">PURCHASE</span>
+                    <span style="color: #666;">July 1, 2024</span>
+                </div>
+                <h4>Purchase from Foxconn</h4>
+                <p>10,000 smartphones @ $200/unit</p>
+                <p style="color: var(--alibaba-orange); font-weight: 600; margin-top: 10px;">Amount: $2,000,000</p>
+            </div>
+
+            <div class="transaction-card purchase" onclick="processTransaction('purchase2')">
+                <div style="display: flex; justify-content: space-between; margin-bottom: 10px;">
+                    <span style="background: #28a745; color: white; padding: 5px 15px; border-radius: 15px; font-size: 0.85rem;">PURCHASE</span>
+                    <span style="color: #666;">Aug 15, 2024</span>
+                </div>
+                <h4>Additional Inventory</h4>
+                <p>15,000 smartphones @ $220/unit (price increase due to chip shortage)</p>
+                <p style="color: var(--alibaba-orange); font-weight: 600; margin-top: 10px;">Amount: $3,300,000</p>
+            </div>
+
+            <div class="transaction-card sale" onclick="processTransaction('sale1')">
+                <div style="display: flex; justify-content: space-between; margin-bottom: 10px;">
+                    <span style="background: var(--alibaba-orange); color: white; padding: 5px 15px; border-radius: 15px; font-size: 0.85rem;">SALE</span>
+                    <span style="color: #666;">Sept 10, 2024</span>
+                </div>
+                <h4>Singles' Day Pre-sale</h4>
+                <p>12,000 smartphones sold @ $350/unit</p>
+                <p style="color: var(--alibaba-orange); font-weight: 600; margin-top: 10px;">Revenue: $4,200,000</p>
+            </div>
+
+            <div class="transaction-card shipping" onclick="processTransaction('shipping1')">
+                <div style="display: flex; justify-content: space-between; margin-bottom: 10px;">
+                    <span style="background: #007bff; color: white; padding: 5px 15px; border-radius: 15px; font-size: 0.85rem;">LOGISTICS</span>
+                    <span style="color: #666;">Ongoing</span>
+                </div>
+                <h4>International Shipping</h4>
+                <p>Freight costs: $150,000 | Insurance: $50,000</p>
+                <p style="color: var(--alibaba-orange); font-weight: 600; margin-top: 10px;">Total: $200,000</p>
+            </div>
+        </div>
+
+        <!-- LCM Panel -->
+        <div class="lcm-panel">
+            <h3>⚠️ Lower of Cost or Market (LCM) Analysis</h3>
+            <p style="margin-bottom: 20px;">Market conditions have changed. Evaluate inventory for potential write-downs.</p>
+            
+            <div class="inventory-item-lcm" style="font-weight: 700; background: #333; color: white;">
+                <div>Product Line</div>
+                <div>Quantity</div>
+                <div>Cost/Unit</div>
+                <div>Market/Unit</div>
+                <div>Write-Down</div>
+            </div>
+
+            <div class="inventory-item-lcm">
+                <div><strong>Smartphones - Premium</strong></div>
+                <div>5,000 units</div>
+                <div>$220.00</div>
+                <div>$200.00</div>
+                <div>
+                    <input type="number" placeholder="0" style="width: 100px; padding: 8px; border: 2px solid #ddd; border-radius: 5px;">
+                </div>
+            </div>
+
+            <div class="inventory-item-lcm">
+                <div><strong>Smartphones - Standard</strong></div>
+                <div>3,000 units</div>
+                <div>$200.00</div>
+                <div>$190.00</div>
+                <div>
+                    <input type="number" placeholder="0" style="width: 100px; padding: 8px; border: 2px solid #ddd; border-radius: 5px;">
+                </div>
+            </div>
+
+            <div class="inventory-item-lcm">
+                <div><strong>Accessories (Obsolete)</strong></div>
+                <div>10,000 units</div>
+                <div>$15.00</div>
+                <div>$5.00 (NRV)</div>
+                <div>
+                    <input type="number" placeholder="0" style="width: 100px; padding: 8px; border: 2px solid #ddd; border-radius: 5px;">
+                </div>
+            </div>
+
+            <div style="text-align: center; margin-top: 25px;">
+                <button class="btn-primary" onclick="calculateLCM()">Calculate Total Write-Down</button>
+            </div>
+        </div>
+
+        <!-- Progress Section -->
+        <div class="progress-container" style="background: white; border-radius: 15px; padding: 25px; margin-top: 30px; box-shadow: 0 4px 20px rgba(0,0,0,0.1);">
+            <h3>Simulation Progress</h3>
+            <div style="display: flex; justify-content: space-between; margin: 15px 0;">
+                <span>Transactions Completed: <strong id="progress-count">0 / 45</strong></span>
+                <span>Current Phase: <strong id="current-phase">Global Procurement</strong></span>
+            </div>
+            <div class="progress-bar" style="height: 25px; background: #e9ecef; border-radius: 12px; overflow: hidden;">
+                <div class="progress-fill" id="progress-bar" style="width: 0%; height: 100%; background: var(--alibaba-orange); transition: width 0.5s ease;"></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let currentMethod = 'FIFO';
+        let currentRegion = 'china';
+        let completedTransactions = 0;
+        let totalTransactions = 45;
+
+        function setDifficulty(level) {
+            document.querySelectorAll('.difficulty-btn').forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+            
+            if (level === 'beginner') {
+                totalTransactions = 30;
+            } else if (level === 'intermediate') {
+                totalTransactions = 40;
+            } else {
+                totalTransactions = 50;
+            }
+            document.getElementById('progress-count').textContent = `0 / ${totalTransactions}`;
+        }
+
+        function selectRegion(region) {
+            document.querySelectorAll('.region-btn').forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+            
+            const regionNames = {
+                'china': 'China - Manufacturing Hub',
+                'usa': 'USA - Consumer Market',
+                'europe': 'Europe - Distribution Center',
+                'southeastasia': 'Southeast Asia - Emerging Market'
+            };
+            document.getElementById('current-region').textContent = regionNames[region];
+        }
+
+        function switchMethod(method) {
+            document.querySelectorAll('.method-btn').forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+            currentMethod = method;
+            
+            // Update displays based on method
+            updateMethodImpact(method);
+        }
+
+        function updateMethodImpact(method) {
+            const impacts = {
+                'FIFO': { cogs: '$8.5M', inventory: '$15.2M', gp: '$12.5M' },
+                'LIFO': { cogs: '$9.2M', inventory: '$14.5M', gp: '$11.8M' },
+                'WA': { cogs: '$8.8M', inventory: '$14.9M', gp: '$12.2M' }
+            };
+            
+            document.getElementById('cogs-display').textContent = impacts[method].cogs;
+            document.getElementById('ending-inventory').textContent = impacts[method].inventory;
+            document.getElementById('gross-profit').textContent = impacts[method].gp;
+        }
+
+        function processTransaction(type) {
+            completedTransactions++;
+            const percent = (completedTransactions / totalTransactions) * 100;
+            document.getElementById('progress-count').textContent = `${completedTransactions} / ${totalTransactions}`;
+            document.getElementById('progress-bar').style.width = percent + '%';
+            
+            alert(`Transaction processed successfully!\n\nMethod: ${currentMethod}\nRegion: ${currentRegion}\n\nContinue to next transaction.`);
+        }
+
+        function calculateLCM() {
+            const writeDown1 = 5 * 1000 * 20; // 100,000
+            const writeDown2 = 3 * 1000 * 10; // 30,000
+            const writeDown3 = 10 * 1000 * 10; // 100,000
+            const total = writeDown1 + writeDown2 + writeDown3;
+            
+            alert(`LCM Analysis Complete:\n\nPremium Smartphones: $100,000\nStandard Smartphones: $30,000\nObsolete Accessories: $100,000\n\nTotal Write-Down: $230,000\n\nJournal Entry:\nDr. COGS $230,000\nCr. Inventory $230,000`);
+        }
+    </script>
+</body>
+</html>
