@@ -1,0 +1,727 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NVIDIA Accounting Systems & Internal Controls Simulation</title>
+    <style>
+        :root {
+            --nvidia-green: #76B900;
+            --nvidia-dark: #1a1a1a;
+            --nvidia-gray: #f0f0f0;
+            --success: #4CAF50;
+            --error: #f44336;
+            --warning: #FF9800;
+            --info: #2196F3;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body {
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            background: #f5f5f5;
+            color: #333;
+        }
+
+        /* Navigation */
+        .top-nav {
+            background: var(--nvidia-dark);
+            padding: 0 30px;
+            border-bottom: 3px solid var(--nvidia-green);
+        }
+
+        .top-nav-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 60px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 25px;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            padding: 8px 16px;
+            border-radius: 4px;
+            transition: all 0.3s;
+        }
+
+        .nav-links a:hover, .nav-links a.active {
+            background: var(--nvidia-green);
+            color: var(--nvidia-dark);
+        }
+
+        /* Header */
+        .sim-header {
+            background: linear-gradient(135deg, var(--nvidia-dark) 0%, #2d2d2d 100%);
+            color: white;
+            padding: 40px;
+            text-align: center;
+        }
+
+        .sim-header h1 {
+            font-size: 2.5rem;
+            color: var(--nvidia-green);
+            margin-bottom: 10px;
+        }
+
+        /* Phase Navigation */
+        .phase-nav {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            padding: 20px;
+            background: white;
+            border-bottom: 2px solid #e0e0e0;
+            flex-wrap: wrap;
+        }
+
+        .phase-btn {
+            padding: 12px 24px;
+            border: 2px solid #ddd;
+            background: white;
+            border-radius: 25px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .phase-btn:hover {
+            border-color: var(--nvidia-green);
+            transform: translateY(-2px);
+        }
+
+        .phase-btn.active {
+            background: var(--nvidia-green);
+            color: white;
+            border-color: var(--nvidia-green);
+        }
+
+        .phase-btn.completed {
+            background: var(--success);
+            color: white;
+            border-color: var(--success);
+        }
+
+        /* Main Container */
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 30px;
+        }
+
+        /* Task Cards */
+        .task-card {
+            background: white;
+            border-radius: 12px;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .task-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid #e0e0e0;
+        }
+
+        .task-header h3 {
+            font-size: 1.5rem;
+            color: var(--nvidia-dark);
+        }
+
+        .status-badge {
+            padding: 6px 16px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+        }
+
+        .status-pending { background: #FFF3E0; color: #E65100; }
+        .status-progress { background: #E3F2FD; color: #1565C0; }
+        .status-completed { background: #E8F5E9; color: #2E7D32; }
+
+        /* Document View */
+        .document-view {
+            background: #f8f9fa;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 20px 0;
+            font-family: 'Courier New', monospace;
+        }
+
+        .document-header {
+            text-align: center;
+            border-bottom: 2px solid #333;
+            padding-bottom: 15px;
+            margin-bottom: 20px;
+        }
+
+        /* Journal Tables */
+        .journal-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            font-size: 0.9rem;
+        }
+
+        .journal-table th {
+            background: var(--nvidia-dark);
+            color: white;
+            padding: 12px;
+            text-align: left;
+            border: 1px solid #444;
+        }
+
+        .journal-table td {
+            padding: 12px;
+            border: 1px solid #ddd;
+            vertical-align: top;
+        }
+
+        .journal-table tr:nth-child(even) {
+            background: #f8f9fa;
+        }
+
+        .journal-table input {
+            width: 100%;
+            padding: 8px;
+            border: 2px solid #ddd;
+            border-radius: 4px;
+            font-family: 'Courier New', monospace;
+        }
+
+        .journal-table input:focus {
+            border-color: var(--nvidia-green);
+            outline: none;
+        }
+
+        .journal-table input.correct {
+            border-color: var(--success);
+            background: #E8F5E9;
+        }
+
+        .journal-table input.incorrect {
+            border-color: var(--error);
+            background: #FFEBEE;
+        }
+
+        /* Form Elements */
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #555;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: border-color 0.3s;
+        }
+
+        .form-control:focus {
+            border-color: var(--nvidia-green);
+            outline: none;
+        }
+
+        select.form-control {
+            cursor: pointer;
+        }
+
+        /* Buttons */
+        .btn {
+            padding: 12px 24px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 1rem;
+            transition: all 0.3s;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn-primary {
+            background: var(--nvidia-green);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: #5a8f00;
+            transform: translateY(-2px);
+        }
+
+        .btn-secondary {
+            background: #6c757d;
+            color: white;
+        }
+
+        .btn-outline {
+            background: transparent;
+            border: 2px solid var(--nvidia-green);
+            color: var(--nvidia-green);
+        }
+
+        .btn-outline:hover {
+            background: var(--nvidia-green);
+            color: white;
+        }
+
+        /* Feedback Messages */
+        .feedback {
+            padding: 15px 20px;
+            border-radius: 8px;
+            margin: 15px 0;
+            display: none;
+        }
+
+        .feedback.show {
+            display: block;
+        }
+
+        .feedback.success {
+            background: #E8F5E9;
+            border-left: 4px solid var(--success);
+            color: #2E7D32;
+        }
+
+        .feedback.error {
+            background: #FFEBEE;
+            border-left: 4px solid var(--error);
+            color: #C62828;
+        }
+
+        .feedback.info {
+            background: #E3F2FD;
+            border-left: 4px solid var(--info);
+            color: #1565C0;
+        }
+
+        /* Progress Tracker */
+        .progress-tracker {
+            background: white;
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 30px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .progress-bar {
+            height: 30px;
+            background: #e0e0e0;
+            border-radius: 15px;
+            overflow: hidden;
+            margin: 15px 0;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: var(--nvidia-green);
+            border-radius: 15px;
+            transition: width 0.5s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 600;
+        }
+
+        /* Side by Side Layout */
+        .two-column {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+        }
+
+        @media (max-width: 968px) {
+            .two-column {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Hidden */
+        .hidden { display: none !important; }
+
+        /* Instructions Box */
+        .instructions {
+            background: #FFF3E0;
+            border-left: 4px solid #FF9800;
+            padding: 20px;
+            border-radius: 0 8px 8px 0;
+            margin: 20px 0;
+        }
+
+        .instructions h4 {
+            color: #E65100;
+            margin-bottom: 10px;
+        }
+
+        /* Calculation Worksheet */
+        .worksheet {
+            background: white;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            padding: 20px;
+        }
+
+        .worksheet-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 0;
+            border-bottom: 1px solid #eee;
+        }
+
+        .worksheet-row:last-child {
+            border-bottom: none;
+            font-weight: 700;
+            font-size: 1.1rem;
+            color: var(--nvidia-dark);
+        }
+    </style>
+</head>
+<body>
+    <!-- Top Navigation -->
+    <nav class="top-nav">
+        <div class="top-nav-content">
+            <a href="../index.html" style="color: white; text-decoration: none; font-size: 1.3rem; font-weight: 700;">
+                ACCOUNTING<span style="color: var(--nvidia-green);">ESSENTIALS</span>
+            </a>
+            <div class="nav-links">
+                <a href="../index.html">🏠 Home</a>
+                <a href="part3.html">📚 Part 3</a>
+                <a href="chapter7/ch07.html">📖 Ch 7</a>
+                <a href="chapter8/ch08.html">📖 Ch 8</a>
+                <a href="part3_SIMULATION.html" class="active">🎯 Simulation</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Header -->
+    <header class="sim-header">
+        <h1>🖥️ NVIDIA Corporation</h1>
+        <p style="font-size: 1.2rem; opacity: 0.9;">Accounting Information Systems & Internal Controls Simulation</p>
+        <p style="margin-top: 15px; max-width: 800px; margin-left: auto; margin-right: auto;">
+            You are the Accounting Systems Manager at NVIDIA. Your role involves maintaining special journals, 
+            subsidiary ledgers, internal controls, and preparing month-end reconciliations for Q4 2024.
+        </p>
+    </header>
+
+    <!-- Phase Navigation -->
+    <div class="phase-nav">
+        <button class="phase-btn active" onclick="switchPhase(1)">
+            📓 Phase 1: Special Journals
+        </button>
+        <button class="phase-btn" onclick="switchPhase(2)">
+            📊 Phase 2: Subsidiary Ledgers
+        </button>
+        <button class="phase-btn" onclick="switchPhase(3)">
+            🏦 Phase 3: Bank Reconciliation
+        </button>
+        <button class="phase-btn" onclick="switchPhase(4)">
+            💵 Phase 4: Petty Cash
+        </button>
+        <button class="phase-btn" onclick="switchPhase(5)">
+            📈 Phase 5: Analysis & Ratios
+        </button>
+    </div>
+
+    <!-- Progress Tracker -->
+    <div class="container">
+        <div class="progress-tracker">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
+                <h3>Overall Progress</h3>
+                <span id="progress-text">0% Complete</span>
+            </div>
+            <div class="progress-bar">
+                <div class="progress-fill" id="overall-progress" style="width: 0%">0%</div>
+            </div>
+            <div style="display: flex; justify-content: space-around; margin-top: 15px; flex-wrap: wrap; gap: 10px;">
+                <span>📓 Journal Entries: <strong id="journal-progress">0/8</strong></span>
+                <span>📊 Ledger Postings: <strong id="ledger-progress">0/6</strong></span>
+                <span>🏦 Reconciliations: <strong id="recon-progress">0/1</strong></span>
+                <span>💵 Petty Cash: <strong id="petty-progress">0/3</strong></span>
+                <span>📈 Ratios: <strong id="ratio-progress">0/2</strong></span>
+            </div>
+        </div>
+
+        <!-- PHASE 1: SPECIAL JOURNALS -->
+        <div id="phase1-content">
+            <div class="task-card">
+                <div class="task-header">
+                    <h3>📓 Phase 1: Special Journals - December 2024 Transactions</h3>
+                    <span class="status-badge status-progress">In Progress</span>
+                </div>
+
+                <div class="instructions">
+                    <h4>🎯 Task Objective</h4>
+                    <p>NVIDIA uses special journals to record repetitive transactions. You need to:</p>
+                    <ol style="margin-left: 20px; margin-top: 10px;">
+                        <li>Review each source document (invoice, receipt, check)</li>
+                        <li>Identify the correct special journal</li>
+                        <li>Record the transaction with proper account codes</li>
+                        <li>Calculate and record any discounts</li>
+                    </ol>
+                </div>
+
+                <!-- Transaction 1 -->
+                <div id="transaction-1" style="margin-bottom: 40px;">
+                    <h4 style="color: var(--nvidia-dark); margin-bottom: 15px;">Transaction 1 of 4</h4>
+                    
+                    <div class="document-view">
+                        <div class="document-header">
+                            <h3>🧾 SALES INVOICE</h3>
+                            <p><strong>NVIDIA Corporation</strong></p>
+                            <p>Invoice #SI-2024-1201</p>
+                            <p>Date: December 1, 2024</p>
+                        </div>
+                        <div style="margin-top: 20px;">
+                            <p><strong>Sold to:</strong> GameStop Corp. (Customer #GS-4521)</p>
+                            <p><strong>Terms:</strong> 2/10, n/30</p>
+                            <p><strong>Items:</strong></p>
+                            <ul style="margin-left: 30px; margin-top: 10px;">
+                                <li>50x RTX 4090 Graphics Cards @ $1,600 each = $80,000</li>
+                                <li>Shipping: $500</li>
+                            </ul>
+                            <p style="margin-top: 15px; font-size: 1.2rem;"><strong>Total: $80,500</strong></p>
+                        </div>
+                    </div>
+
+                    <div style="background: #f0f0f0; padding: 20px; border-radius: 8px; margin-top: 20px;">
+                        <h4>Record in Sales Journal:</h4>
+                        <table class="journal-table">
+                            <thead>
+                                <tr>
+                                    <th>Date</th>
+                                    <th>Invoice No.</th>
+                                    <th>Customer Name</th>
+                                    <th>Account Debited (AR Sub.)</th>
+                                    <th>DR Accounts Receivable</th>
+                                    <th>CR Sales Revenue</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><input type="text" id="sj1-date" placeholder="MM/DD/YYYY"></td>
+                                    <td><input type="text" id="sj1-invoice" placeholder="Invoice #"></td>
+                                    <td><input type="text" id="sj1-customer" placeholder="Customer"></td>
+                                    <td><input type="text" id="sj1-account" placeholder="Account Code"></td>
+                                    <td><input type="number" id="sj1-ar" placeholder="0.00"></td>
+                                    <td><input type="number" id="sj1-revenue" placeholder="0.00"></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <button class="btn btn-primary" onclick="validateSalesJournal(1)" style="margin-top: 15px;">
+                            ✓ Record Entry
+                        </button>
+                        <div class="feedback" id="feedback-1"></div>
+                    </div>
+                </div>
+
+                <!-- Continue button -->
+                <div style="text-align: center; margin-top: 30px;">
+                    <button class="btn btn-secondary" onclick="loadNextTransaction()" id="next-tx-btn" disabled>
+                        Next Transaction →
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Other phases will be loaded dynamically -->
+        <div id="phase2-content" class="hidden">
+            <div class="task-card">
+                <h2>Phase 2: Subsidiary Ledgers</h2>
+                <p>Post to Accounts Receivable and Accounts Payable subsidiary ledgers...</p>
+            </div>
+        </div>
+
+        <div id="phase3-content" class="hidden">
+            <div class="task-card">
+                <h2>Phase 3: Bank Reconciliation</h2>
+                <p>Complete month-end bank reconciliation with realistic adjustments...</p>
+            </div>
+        </div>
+
+        <div id="phase4-content" class="hidden">
+            <div class="task-card">
+                <h2>Phase 4: Petty Cash Management</h2>
+                <p>Establish fund, record expenses, and replenish petty cash...</p>
+            </div>
+        </div>
+
+        <div id="phase5-content" class="hidden">
+            <div class="task-card">
+                <h2>Phase 5: Financial Analysis</h2>
+                <p>Calculate and interpret key accounting ratios...</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Global State
+        let currentPhase = 1;
+        let currentTransaction = 1;
+        let totalTransactions = 8;
+        let completedTransactions = [];
+        let progress = {
+            journals: 0,
+            ledgers: 0,
+            reconciliations: 0,
+            pettyCash: 0,
+            ratios: 0
+        };
+
+        // Sales Journal Transaction Data
+        const salesTransactions = [
+            {
+                id: 1,
+                date: '12/01/2024',
+                invoice: 'SI-2024-1201',
+                customer: 'GameStop Corp.',
+                accountCode: 'AR-GS-4521',
+                ar: 80500,
+                revenue: 80500
+            }
+        ];
+
+        // Switch between phases
+        function switchPhase(phaseNum) {
+            currentPhase = phaseNum;
+            
+            // Update buttons
+            document.querySelectorAll('.phase-btn').forEach((btn, index) => {
+                btn.classList.remove('active');
+                if (index + 1 === phaseNum) {
+                    btn.classList.add('active');
+                }
+            });
+            
+            // Show/hide content
+            for (let i = 1; i <= 5; i++) {
+                const content = document.getElementById(`phase${i}-content`);
+                if (content) {
+                    content.classList.toggle('hidden', i !== phaseNum);
+                }
+            }
+        }
+
+        // Validate Sales Journal Entry
+        function validateSalesJournal(txNum) {
+            const tx = salesTransactions[txNum - 1];
+            
+            const userDate = document.getElementById(`sj${txNum}-date`).value;
+            const userInvoice = document.getElementById(`sj${txNum}-invoice`).value;
+            const userCustomer = document.getElementById(`sj${txNum}-customer`).value;
+            const userAccount = document.getElementById(`sj${txNum}-account`).value;
+            const userAR = parseFloat(document.getElementById(`sj${txNum}-ar`).value) || 0;
+            const userRevenue = parseFloat(document.getElementById(`sj${txNum}-revenue`).value) || 0;
+            
+            const feedback = document.getElementById(`feedback-${txNum}`);
+            
+            // Validation checks
+            let errors = [];
+            
+            if (userDate !== tx.date) {
+                errors.push(`Date should be ${tx.date}`);
+                document.getElementById(`sj${txNum}-date`).classList.add('incorrect');
+            } else {
+                document.getElementById(`sj${txNum}-date`).classList.remove('incorrect');
+                document.getElementById(`sj${txNum}-date`).classList.add('correct');
+            }
+            
+            if (userInvoice !== tx.invoice) {
+                errors.push(`Invoice should be ${tx.invoice}`);
+                document.getElementById(`sj${txNum}-invoice`).classList.add('incorrect');
+            } else {
+                document.getElementById(`sj${txNum}-invoice`).classList.remove('incorrect');
+                document.getElementById(`sj${txNum}-invoice`).classList.add('correct');
+            }
+            
+            if (userCustomer.toLowerCase() !== tx.customer.toLowerCase()) {
+                errors.push(`Customer should be "${tx.customer}"`);
+            }
+            
+            if (userAccount !== tx.accountCode) {
+                errors.push(`Account code should be ${tx.accountCode}`);
+            }
+            
+            if (Math.abs(userAR - tx.ar) > 0.01) {
+                errors.push(`AR amount should be $${tx.ar.toLocaleString()}`);
+                document.getElementById(`sj${txNum}-ar`).classList.add('incorrect');
+            } else {
+                document.getElementById(`sj${txNum}-ar`).classList.remove('incorrect');
+                document.getElementById(`sj${txNum}-ar`).classList.add('correct');
+            }
+            
+            if (Math.abs(userRevenue - tx.revenue) > 0.01) {
+                errors.push(`Revenue should be $${tx.revenue.toLocaleString()}`);
+                document.getElementById(`sj${txNum}-revenue`).classList.add('incorrect');
+            } else {
+                document.getElementById(`sj${txNum}-revenue`).classList.remove('incorrect');
+                document.getElementById(`sj${txNum}-revenue`).classList.add('correct');
+            }
+            
+            if (errors.length === 0) {
+                feedback.className = 'feedback show success';
+                feedback.innerHTML = '<strong>✓ Correct!</strong> Sales journal entry recorded successfully.';
+                
+                if (!completedTransactions.includes(txNum)) {
+                    completedTransactions.push(txNum);
+                    progress.journals++;
+                    updateOverallProgress();
+                }
+                
+                document.getElementById('next-tx-btn').disabled = false;
+            } else {
+                feedback.className = 'feedback show error';
+                feedback.innerHTML = '<strong>✗ Errors found:</strong><br>' + errors.join('<br>');
+            }
+        }
+
+        function loadNextTransaction() {
+            // This would load the next transaction
+            // For now, just show a message
+            alert('Loading next transaction... (More transactions would be added here)');
+        }
+
+        function updateOverallProgress() {
+            const totalTasks = 20; // Total tasks across all phases
+            const completed = Object.values(progress).reduce((a, b) => a + b, 0);
+            const percent = Math.round((completed / totalTasks) * 100);
+            
+            document.getElementById('overall-progress').style.width = percent + '%';
+            document.getElementById('overall-progress').textContent = percent + '%';
+            document.getElementById('progress-text').textContent = percent + '% Complete';
+            
+            // Update individual counters
+            document.getElementById('journal-progress').textContent = `${progress.journals}/8`;
+            document.getElementById('ledger-progress').textContent = `${progress.ledgers}/6`;
+            document.getElementById('recon-progress').textContent = `${progress.reconciliations}/1`;
+            document.getElementById('petty-progress').textContent = `${progress.pettyCash}/3`;
+            document.getElementById('ratio-progress').textContent = `${progress.ratios}/2`;
+        }
+    </script>
+</body>
+</html>

@@ -335,8 +335,7 @@ const courseData = {
                         { id: '1a2', code: 'A2', title: 'ROA Analysis', url: 'Part1/chapter1/ch01_A2.html' },
                         { id: '1p1', code: 'P1', title: 'Transaction Anal.', url: 'Part1/chapter1/ch01_P1.html' },
                         { id: '1p2', code: 'P2', title: 'Journal Entries', url: 'Part1/chapter1/ch01_P2.html' },
-                        { id: '1int', code: 'INT', title: 'Interactive', url: 'Part1/chapter1/ch01_INTERACTIVE.html' },
-                        { id: '1pra', code: 'PRAC', title: 'Practice Case', url: 'Part1/chapter1/ch01_PRACTICE.html' }
+                        { id: '1int', code: 'INT', title: 'Interactive', url: 'Part1/chapter1/ch01_INTERACTIVE.html' }
                     ]
                 },
                 {
@@ -347,8 +346,7 @@ const courseData = {
                         { id: '2a1', code: 'A1', title: 'Trial Balance', url: 'Part1/chapter2/ch02_A1.html' },
                         { id: '2a2', code: 'A2', title: 'Error Detection', url: 'Part1/chapter2/ch02_A2.html' },
                         { id: '2p1', code: 'P1', title: 'T-Account Meth.', url: 'Part1/chapter2/ch02_P1.html' },
-                        { id: '2int', code: 'INT', title: 'Interactive', url: 'Part1/chapter2/ch02_INTERACTIVE.html' },
-                        { id: '2pra', code: 'PRAC', title: 'Practice Case', url: 'Part1/chapter2/ch02_PRACTICE.html' }
+                        { id: '2int', code: 'INT', title: 'Interactive', url: 'Part1/chapter2/ch02_INTERACTIVE.html' }
                     ]
                 },
                 {
@@ -362,8 +360,7 @@ const courseData = {
                         { id: '3p4', code: 'P4', title: 'Classified BS', url: 'Part1/chapter3/ch03_P4.html' },
                         { id: '3p5', code: 'P5', title: 'Income Statement', url: 'Part1/chapter3/ch03_P5.html' },
                         { id: '3p6', code: 'P6', title: 'Post-Closing', url: 'Part1/chapter3/ch03_P6.html' },
-                        { id: '3int', code: 'INT', title: 'Interactive', url: 'Part1/chapter3/ch03_INTERACTIVE.html' },
-                        { id: '3pra', code: 'PRAC', title: 'Practice Case', url: 'Part1/chapter3/ch03_PRACTICE.html' }
+                        { id: '3int', code: 'INT', title: 'Interactive', url: 'Part1/chapter3/ch03_INTERACTIVE.html' }
                     ]
                 },
                 {
@@ -374,8 +371,7 @@ const courseData = {
                         { id: '4p1', code: 'P1', title: 'Classified BS', url: 'Part1/chapter4/ch04_P1.html' },
                         { id: '4p2', code: 'P2', title: 'Ratio Analysis', url: 'Part1/chapter4/ch04_P2.html' },
                         { id: '4p3', code: 'P3', title: 'Ratio Practice', url: 'Part1/chapter4/ch04_P3.html' },
-                        { id: '4int', code: 'INT', title: 'Interactive', url: 'Part1/chapter4/ch04_INTERACTIVE.html' },
-                        { id: '4pra', code: 'PRAC', title: 'Practice Case', url: 'Part1/chapter4/ch04_PRACTICE.html' }
+                        { id: '4int', code: 'INT', title: 'Interactive', url: 'Part1/chapter4/ch04_INTERACTIVE.html' }
                     ]
                 }
             ]
@@ -395,8 +391,7 @@ const courseData = {
                         { id: '5p5', code: 'P5', title: 'Adjustments', url: 'part2/chapter5/ch05_P5.html' },
                         { id: '5p6', code: 'P6', title: 'Financial Stmt.', url: 'part2/chapter5/ch05_P6.html' },
                         { id: '5p7', code: 'P7', title: 'Closing Entries', url: 'part2/chapter5/ch05_P7.html' },
-                        { id: '5int', code: 'INT', title: 'Interactive', url: 'part2/chapter5/ch05_INTERACTIVE.html' },
-                        { id: '5pra', code: 'PRAC', title: 'Practice Case', url: 'part2/chapter5/ch05_PRACTICE.html' }
+                        { id: '5int', code: 'INT', title: 'Interactive', url: 'part2/chapter5/ch05_INTERACTIVE.html' }
                     ]
                 },
                 {
@@ -410,8 +405,7 @@ const courseData = {
                         { id: '6p2', code: 'P2', title: 'LIFO Calculations', url: 'part2/chapter6/ch06_P2.html' },
                         { id: '6p3', code: 'P3', title: 'Weighted Avg', url: 'part2/chapter6/ch06_P3.html' },
                         { id: '6p4', code: 'P4', title: 'LCM Analysis', url: 'part2/chapter6/ch06_P4.html' },
-                        { id: '6int', code: 'INT', title: 'Interactive', url: 'part2/chapter6/ch06_INTERACTIVE.html' },
-                        { id: '6pra', code: 'PRAC', title: 'Practice Case', url: 'part2/chapter6/ch06_PRACTICE.html' }
+                        { id: '6int', code: 'INT', title: 'Interactive', url: 'part2/chapter6/ch06_INTERACTIVE.html' }
                     ]
                 }
             ]
@@ -429,8 +423,7 @@ const courseData = {
                         { id: '7p2', code: 'P2', title: 'Adjusting Entry', url: 'part3/chapter7/ch07_P2.html' },
                         { id: '7p3', code: 'P3', title: 'Control Review', url: 'part3/chapter7/ch07_P3.html' },
                         { id: '7p4', code: 'P4', title: 'Document Flow', url: 'part3/chapter7/ch07_P4.html' },
-                        { id: '7int', code: 'INT', title: 'Interactive', url: 'part3/chapter7/ch07_INTERACTIVE.html' },
-                        { id: '7pra', code: 'PRAC', title: 'Practice Case', url: 'part3/chapter7/ch07_PRACTICE.html' }
+                        { id: '7int', code: 'INT', title: 'Interactive', url: 'part3/chapter7/ch07_INTERACTIVE.html' }
                     ]
                 },
                 {
@@ -443,8 +436,7 @@ const courseData = {
                         { id: '8p2', code: 'P2', title: 'Bank Reconciliation', url: 'part3/chapter8/ch08_P2.html' },
                         { id: '8p3', code: 'P3', title: 'Voucher System', url: 'part3/chapter8/ch08_P3.html' },
                         { id: '8p4', code: 'P4', title: 'Cash Over/Short', url: 'part3/chapter8/ch08_P4.html' },
-                        { id: '8int', code: 'INT', title: 'Interactive', url: 'part3/chapter8/ch08_INTERACTIVE.html' },
-                        { id: '8pra', code: 'PRAC', title: 'Practice Case', url: 'part3/chapter8/ch08_PRACTICE.html' }
+                        { id: '8int', code: 'INT', title: 'Interactive', url: 'part3/chapter8/ch08_INTERACTIVE.html' }
                     ]
                 }
             ]

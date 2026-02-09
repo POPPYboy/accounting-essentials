@@ -1,0 +1,2816 @@
+<!DOCTYPE html>  
+<html lang="en">  
+<head>  
+<meta charset="UTF-8">  
+<meta name="viewport" content="width=device-width, initial-scale=1.0">  
+<title>Alibaba Accounting Simulation - Chapters 5 & 6</title>  
+<style>  
+  * { margin: 0; padding: 0; box-sizing: border-box; }  
+    
+  :root {  
+    --primary: #FF6A00;  
+    --primary-dark: #E55B00;  
+    --secondary: #1A1A2E;  
+    --accent: #16213E;  
+    --success: #27AE60;  
+    --error: #E74C3C;  
+    --warning: #F39C12;  
+    --bg: #F0F2F5;  
+    --card: #FFFFFF;  
+    --text: #2C3E50;  
+    --text-light: #7F8C8D;  
+    --border: #E0E0E0;  
+    --highlight: #FFF3E0;  
+  }  
+  
+  body {  
+    font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;  
+    background: var(--bg);  
+    color: var(--text);  
+    line-height: 1.6;  
+  }  
+  
+  /* Header */  
+  .header {  
+    background: linear-gradient(135deg, var(--secondary) 0%, var(--accent) 100%);  
+    color: white;  
+    padding: 0;  
+    position: sticky;  
+    top: 0;  
+    z-index: 1000;  
+    box-shadow: 0 2px 20px rgba(0,0,0,0.3);  
+  }  
+  
+  .header-top {  
+    display: flex;  
+    align-items: center;  
+    justify-content: space-between;  
+    padding: 12px 30px;  
+    border-bottom: 1px solid rgba(255,255,255,0.1);  
+  }  
+  
+  .logo-area {  
+    display: flex;  
+    align-items: center;  
+    gap: 15px;  
+  }  
+  
+  .logo-area .logo-icon {  
+    width: 42px;  
+    height: 42px;  
+    background: var(--primary);  
+    border-radius: 10px;  
+    display: flex;  
+    align-items: center;  
+    justify-content: center;  
+    font-weight: 900;  
+    font-size: 18px;  
+    color: white;  
+  }  
+  
+  .logo-area h1 {  
+    font-size: 20px;  
+    font-weight: 700;  
+  }  
+  
+  .logo-area .subtitle {  
+    font-size: 11px;  
+    opacity: 0.7;  
+    text-transform: uppercase;  
+    letter-spacing: 1px;  
+  }  
+  
+  .progress-bar-container {  
+    display: flex;  
+    align-items: center;  
+    gap: 15px;  
+  }  
+  
+  .progress-text {  
+    font-size: 13px;  
+    opacity: 0.8;  
+    white-space: nowrap;  
+  }  
+  
+  .progress-bar {  
+    width: 200px;  
+    height: 8px;  
+    background: rgba(255,255,255,0.2);  
+    border-radius: 4px;  
+    overflow: hidden;  
+  }  
+  
+  .progress-fill {  
+    height: 100%;  
+    background: linear-gradient(90deg, var(--primary), #FFB74D);  
+    border-radius: 4px;  
+    transition: width 0.5s ease;  
+  }  
+  
+  .score-badge {  
+    background: var(--primary);  
+    padding: 6px 16px;  
+    border-radius: 20px;  
+    font-weight: 700;  
+    font-size: 14px;  
+  }  
+  
+  /* Navigation */  
+  .nav-tabs {  
+    display: flex;  
+    padding: 0 20px;  
+    overflow-x: auto;  
+    scrollbar-width: none;  
+  }  
+  
+  .nav-tabs::-webkit-scrollbar { display: none; }  
+  
+  .nav-tab {  
+    padding: 12px 18px;  
+    cursor: pointer;  
+    font-size: 13px;  
+    font-weight: 500;  
+    white-space: nowrap;  
+    border-bottom: 3px solid transparent;  
+    transition: all 0.3s;  
+    opacity: 0.7;  
+    position: relative;  
+  }  
+  
+  .nav-tab:hover { opacity: 1; background: rgba(255,255,255,0.05); }  
+  
+  .nav-tab.active {  
+    opacity: 1;  
+    border-bottom-color: var(--primary);  
+    color: var(--primary);  
+  }  
+  
+  .nav-tab .tab-badge {  
+    position: absolute;  
+    top: 6px;  
+    right: 4px;  
+    width: 8px;  
+    height: 8px;  
+    border-radius: 50%;  
+    background: var(--success);  
+    display: none;  
+  }  
+  
+  .nav-tab.completed .tab-badge { display: block; }  
+  
+  .nav-tab.locked { opacity: 0.4; cursor: not-allowed; }  
+  
+  /* Main Content */  
+  .main-content {  
+    max-width: 1400px;  
+    margin: 0 auto;  
+    padding: 25px;  
+  }  
+  
+  .module-panel {  
+    display: none;  
+  }  
+  
+  .module-panel.active {  
+    display: block;  
+  }  
+  
+  /* Cards */  
+  .card {  
+    background: var(--card);  
+    border-radius: 12px;  
+    box-shadow: 0 2px 12px rgba(0,0,0,0.06);  
+    margin-bottom: 20px;  
+    overflow: hidden;  
+  }  
+  
+  .card-header {  
+    padding: 18px 24px;  
+    border-bottom: 1px solid var(--border);  
+    display: flex;  
+    align-items: center;  
+    justify-content: space-between;  
+  }  
+  
+  .card-header h3 {  
+    font-size: 16px;  
+    font-weight: 700;  
+  }  
+  
+  .card-header .lo-tag {  
+    background: var(--highlight);  
+    color: var(--primary-dark);  
+    padding: 3px 10px;  
+    border-radius: 12px;  
+    font-size: 11px;  
+    font-weight: 700;  
+  }  
+  
+  .card-body {  
+    padding: 24px;  
+  }  
+  
+  /* Scenario Box */  
+  .scenario-box {  
+    background: linear-gradient(135deg, #FFF8E1 0%, #FFF3E0 100%);  
+    border-left: 4px solid var(--primary);  
+    padding: 20px;  
+    border-radius: 0 8px 8px 0;  
+    margin-bottom: 20px;  
+  }  
+  
+  .scenario-box .scenario-label {  
+    font-size: 11px;  
+    font-weight: 700;  
+    text-transform: uppercase;  
+    letter-spacing: 1px;  
+    color: var(--primary-dark);  
+    margin-bottom: 6px;  
+  }  
+  
+  .scenario-box p {  
+    font-size: 14px;  
+    color: var(--text);  
+  }  
+  
+  /* Journal Entry Table */  
+  .journal-table {  
+    width: 100%;  
+    border-collapse: collapse;  
+    margin-bottom: 15px;  
+  }  
+  
+  .journal-table th {  
+    background: var(--secondary);  
+    color: white;  
+    padding: 10px 14px;  
+    text-align: left;  
+    font-size: 12px;  
+    text-transform: uppercase;  
+    letter-spacing: 0.5px;  
+  }  
+  
+  .journal-table td {  
+    padding: 8px 14px;  
+    border-bottom: 1px solid var(--border);  
+    font-size: 14px;  
+  }  
+  
+  .journal-table tr:hover { background: #FAFAFA; }  
+  
+  .journal-table .credit-row td:first-child {  
+    padding-left: 40px;  
+  }  
+  
+  /* Form Controls */  
+  .form-row {  
+    display: flex;  
+    gap: 12px;  
+    align-items: center;  
+    margin-bottom: 10px;  
+  }  
+  
+  .form-group {  
+    display: flex;  
+    flex-direction: column;  
+    gap: 4px;  
+    flex: 1;  
+  }  
+  
+  .form-group label {  
+    font-size: 11px;  
+    font-weight: 600;  
+    text-transform: uppercase;  
+    letter-spacing: 0.5px;  
+    color: var(--text-light);  
+  }  
+  
+  select, input[type="number"], input[type="text"] {  
+    padding: 10px 14px;  
+    border: 2px solid var(--border);  
+    border-radius: 8px;  
+    font-size: 14px;  
+    font-family: inherit;  
+    transition: border-color 0.3s;  
+    background: white;  
+  }  
+  
+  select:focus, input:focus {  
+    outline: none;  
+    border-color: var(--primary);  
+  }  
+  
+  input[type="number"] {  
+    width: 130px;  
+    text-align: right;  
+    font-family: 'Courier New', monospace;  
+    font-weight: 600;  
+  }  
+  
+  /* Buttons */  
+  .btn {  
+    padding: 10px 24px;  
+    border: none;  
+    border-radius: 8px;  
+    font-size: 14px;  
+    font-weight: 600;  
+    cursor: pointer;  
+    transition: all 0.3s;  
+    font-family: inherit;  
+    display: inline-flex;  
+    align-items: center;  
+    gap: 8px;  
+  }  
+  
+  .btn-primary {  
+    background: var(--primary);  
+    color: white;  
+  }  
+  
+  .btn-primary:hover { background: var(--primary-dark); transform: translateY(-1px); }  
+  
+  .btn-secondary {  
+    background: var(--secondary);  
+    color: white;  
+  }  
+  
+  .btn-secondary:hover { background: var(--accent); }  
+  
+  .btn-success {  
+    background: var(--success);  
+    color: white;  
+  }  
+  
+  .btn-outline {  
+    background: transparent;  
+    border: 2px solid var(--border);  
+    color: var(--text);  
+  }  
+  
+  .btn-outline:hover { border-color: var(--primary); color: var(--primary); }  
+  
+  .btn-sm {  
+    padding: 6px 14px;  
+    font-size: 12px;  
+  }  
+  
+  .btn:disabled {  
+    opacity: 0.5;  
+    cursor: not-allowed;  
+  }  
+  
+  .btn-group {  
+    display: flex;  
+    gap: 10px;  
+    margin-top: 15px;  
+    flex-wrap: wrap;  
+  }  
+  
+  /* Entry Lines Builder */  
+  .entry-builder {  
+    background: #FAFBFC;  
+    border: 2px dashed var(--border);  
+    border-radius: 10px;  
+    padding: 20px;  
+    margin: 15px 0;  
+  }  
+  
+  .entry-line {  
+    display: flex;  
+    align-items: center;  
+    gap: 10px;  
+    margin-bottom: 8px;  
+    padding: 8px;  
+    background: white;  
+    border-radius: 8px;  
+    border: 1px solid var(--border);  
+  }  
+  
+  .entry-line select {  
+    flex: 2;  
+    min-width: 200px;  
+  }  
+  
+  .entry-line .dr-cr-toggle {  
+    display: flex;  
+    gap: 0;  
+    border-radius: 6px;  
+    overflow: hidden;  
+    border: 2px solid var(--border);  
+  }  
+  
+  .dr-cr-toggle button {  
+    padding: 8px 14px;  
+    border: none;  
+    background: white;  
+    cursor: pointer;  
+    font-size: 12px;  
+    font-weight: 700;  
+    transition: all 0.2s;  
+  }  
+  
+  .dr-cr-toggle button.active-dr {  
+    background: #3498DB;  
+    color: white;  
+  }  
+  
+  .dr-cr-toggle button.active-cr {  
+    background: #E74C3C;  
+    color: white;  
+  }  
+  
+  .remove-line {  
+    width: 30px;  
+    height: 30px;  
+    border-radius: 50%;  
+    border: none;  
+    background: #FEE;  
+    color: var(--error);  
+    cursor: pointer;  
+    font-size: 16px;  
+    display: flex;  
+    align-items: center;  
+    justify-content: center;  
+  }  
+  
+  .remove-line:hover { background: var(--error); color: white; }  
+  
+  /* Feedback */  
+  .feedback {  
+    padding: 16px 20px;  
+    border-radius: 10px;  
+    margin: 15px 0;  
+    display: none;  
+    align-items: flex-start;  
+    gap: 12px;  
+    font-size: 14px;  
+    animation: slideIn 0.3s ease;  
+  }  
+  
+  @keyframes slideIn {  
+    from { transform: translateY(-10px); opacity: 0; }  
+    to { transform: translateY(0); opacity: 1; }  
+  }  
+  
+  .feedback.show { display: flex; }  
+  
+  .feedback.correct {  
+    background: #E8F5E9;  
+    border: 1px solid #A5D6A7;  
+    color: #2E7D32;  
+  }  
+  
+  .feedback.incorrect {  
+    background: #FFEBEE;  
+    border: 1px solid #EF9A9A;  
+    color: #C62828;  
+  }  
+  
+  .feedback.info {  
+    background: #E3F2FD;  
+    border: 1px solid #90CAF9;  
+    color: #1565C0;  
+  }  
+  
+  .feedback-icon {  
+    font-size: 20px;  
+    flex-shrink: 0;  
+  }  
+  
+  /* T-Account */  
+  .t-account-grid {  
+    display: grid;  
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));  
+    gap: 15px;  
+    margin: 15px 0;  
+  }  
+  
+  .t-account {  
+    border: 2px solid var(--secondary);  
+    border-radius: 8px;  
+    overflow: hidden;  
+  }  
+  
+  .t-account-title {  
+    background: var(--secondary);  
+    color: white;  
+    text-align: center;  
+    padding: 8px;  
+    font-weight: 700;  
+    font-size: 13px;  
+  }  
+  
+  .t-account-body {  
+    display: grid;  
+    grid-template-columns: 1fr 1fr;  
+    min-height: 80px;  
+  }  
+  
+  .t-debit {  
+    border-right: 2px solid var(--secondary);  
+    padding: 8px;  
+  }  
+  
+  .t-credit {  
+    padding: 8px;  
+  }  
+  
+  .t-debit .t-label, .t-credit .t-label {  
+    font-size: 10px;  
+    text-transform: uppercase;  
+    letter-spacing: 1px;  
+    color: var(--text-light);  
+    text-align: center;  
+    margin-bottom: 5px;  
+  }  
+  
+  .t-entry {  
+    font-size: 13px;  
+    font-family: 'Courier New', monospace;  
+    padding: 2px 0;  
+    text-align: right;  
+  }  
+  
+  .t-balance {  
+    border-top: 2px solid var(--secondary);  
+    font-weight: 700;  
+    margin-top: 5px;  
+    padding-top: 5px;  
+  }  
+  
+  /* Income Statement */  
+  .statement-table {  
+    width: 100%;  
+    border-collapse: collapse;  
+    font-size: 14px;  
+  }  
+  
+  .statement-table th {  
+    text-align: center;  
+    padding: 12px;  
+    background: var(--secondary);  
+    color: white;  
+    font-size: 14px;  
+  }  
+  
+  .statement-table td {  
+    padding: 8px 16px;  
+    border-bottom: 1px solid #EEE;  
+  }  
+  
+  .statement-table .indent-1 { padding-left: 30px; }  
+  .statement-table .indent-2 { padding-left: 50px; }  
+  
+  .statement-table .amount {  
+    text-align: right;  
+    font-family: 'Courier New', monospace;  
+    font-weight: 600;  
+    width: 140px;  
+  }  
+  
+  .statement-table .total-row {  
+    font-weight: 700;  
+    border-top: 2px solid var(--text);  
+  }  
+  
+  .statement-table .double-line {  
+    border-bottom: 4px double var(--text);  
+  }  
+  
+  .statement-table .subtotal-row {  
+    font-weight: 600;  
+    border-top: 1px solid var(--text);  
+  }  
+  
+  .statement-input {  
+    width: 120px;  
+    padding: 6px 10px;  
+    text-align: right;  
+    font-family: 'Courier New', monospace;  
+    font-weight: 600;  
+    border: 2px solid var(--border);  
+    border-radius: 6px;  
+    font-size: 13px;  
+  }  
+  
+  .statement-input:focus {  
+    border-color: var(--primary);  
+    outline: none;  
+  }  
+  
+  .statement-input.correct-input {  
+    border-color: var(--success);  
+    background: #E8F5E9;  
+  }  
+  
+  .statement-input.incorrect-input {  
+    border-color: var(--error);  
+    background: #FFEBEE;  
+  }  
+  
+  /* Inventory Table */  
+  .inv-table {  
+    width: 100%;  
+    border-collapse: collapse;  
+    font-size: 13px;  
+    margin: 15px 0;  
+  }  
+  
+  .inv-table th {  
+    background: var(--accent);  
+    color: white;  
+    padding: 10px 12px;  
+    text-align: center;  
+    font-size: 11px;  
+    text-transform: uppercase;  
+    letter-spacing: 0.5px;  
+  }  
+  
+  .inv-table td {  
+    padding: 8px 12px;  
+    border-bottom: 1px solid var(--border);  
+    text-align: center;  
+    font-family: 'Courier New', monospace;  
+  }  
+  
+  .inv-table tr:nth-child(even) { background: #FAFBFC; }  
+  .inv-table tr:hover { background: #FFF8E1; }  
+  
+  .inv-table .row-label {  
+    text-align: left;  
+    font-family: inherit;  
+    font-weight: 600;  
+  }  
+  
+  /* Ratio Cards */  
+  .ratio-grid {  
+    display: grid;  
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));  
+    gap: 20px;  
+    margin: 15px 0;  
+  }  
+  
+  .ratio-card {  
+    background: linear-gradient(135deg, var(--secondary) 0%, var(--accent) 100%);  
+    color: white;  
+    border-radius: 12px;  
+    padding: 24px;  
+  }  
+  
+  .ratio-card .ratio-name {  
+    font-size: 12px;  
+    text-transform: uppercase;  
+    letter-spacing: 1px;  
+    opacity: 0.8;  
+    margin-bottom: 8px;  
+  }  
+  
+  .ratio-card .ratio-formula {  
+    font-size: 13px;  
+    background: rgba(255,255,255,0.1);  
+    padding: 10px;  
+    border-radius: 6px;  
+    margin: 10px 0;  
+    font-family: 'Courier New', monospace;  
+  }  
+  
+  .ratio-card .ratio-input-area {  
+    margin-top: 15px;  
+  }  
+  
+  .ratio-card input {  
+    background: rgba(255,255,255,0.15);  
+    border: 2px solid rgba(255,255,255,0.3);  
+    color: white;  
+    padding: 10px;  
+    border-radius: 6px;  
+    width: 100%;  
+    font-size: 16px;  
+    font-weight: 700;  
+    text-align: center;  
+    font-family: 'Courier New', monospace;  
+  }  
+  
+  .ratio-card input::placeholder { color: rgba(255,255,255,0.4); }  
+  .ratio-card input:focus { outline: none; border-color: var(--primary); }  
+  
+  /* Two Column Layout */  
+  .two-col {  
+    display: grid;  
+    grid-template-columns: 1fr 1fr;  
+    gap: 20px;  
+  }  
+  
+  .three-col {  
+    display: grid;  
+    grid-template-columns: 1fr 1fr 1fr;  
+    gap: 20px;  
+  }  
+  
+  /* Step Indicator */  
+  .step-indicator {  
+    display: flex;  
+    align-items: center;  
+    gap: 4px;  
+    margin-bottom: 20px;  
+    flex-wrap: wrap;  
+  }  
+  
+  .step-dot {  
+    width: 32px;  
+    height: 32px;  
+    border-radius: 50%;  
+    display: flex;  
+    align-items: center;  
+    justify-content: center;  
+    font-size: 12px;  
+    font-weight: 700;  
+    background: var(--border);  
+    color: var(--text-light);  
+    cursor: pointer;  
+    transition: all 0.3s;  
+  }  
+  
+  .step-dot.active { background: var(--primary); color: white; transform: scale(1.1); }  
+  .step-dot.done { background: var(--success); color: white; }  
+  .step-connector { width: 20px; height: 2px; background: var(--border); }  
+  
+  /* Tooltip */  
+  .hint-btn {  
+    background: none;  
+    border: 2px solid var(--warning);  
+    color: var(--warning);  
+    width: 28px;  
+    height: 28px;  
+    border-radius: 50%;  
+    cursor: pointer;  
+    font-weight: 700;  
+    font-size: 14px;  
+    display: inline-flex;  
+    align-items: center;  
+    justify-content: center;  
+    transition: all 0.2s;  
+  }  
+  
+  .hint-btn:hover { background: var(--warning); color: white; }  
+  
+  .hint-box {  
+    background: #FFF8E1;  
+    border: 1px solid #FFE082;  
+    border-radius: 8px;  
+    padding: 14px 18px;  
+    font-size: 13px;  
+    margin: 10px 0;  
+    display: none;  
+    color: #F57F17;  
+  }  
+  
+  .hint-box.show { display: block; }  
+  
+  /* Welcome / Intro Module */  
+  .welcome-banner {  
+    background: linear-gradient(135deg, var(--secondary) 0%, #0a1628 50%, var(--primary-dark) 100%);  
+    color: white;  
+    border-radius: 16px;  
+    padding: 50px 40px;  
+    text-align: center;  
+    margin-bottom: 30px;  
+    position: relative;  
+    overflow: hidden;  
+  }  
+  
+  .welcome-banner::before {  
+    content: '';  
+    position: absolute;  
+    top: -50%;  
+    left: -50%;  
+    width: 200%;  
+    height: 200%;  
+    background: radial-gradient(circle, rgba(255,106,0,0.1) 0%, transparent 60%);  
+  }  
+  
+  .welcome-banner h2 {  
+    font-size: 36px;  
+    margin-bottom: 10px;  
+    position: relative;  
+  }  
+  
+  .welcome-banner p {  
+    font-size: 16px;  
+    opacity: 0.8;  
+    max-width: 600px;  
+    margin: 0 auto 25px;  
+    position: relative;  
+  }  
+  
+  .module-cards-grid {  
+    display: grid;  
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));  
+    gap: 20px;  
+  }  
+  
+  .module-card {  
+    background: white;  
+    border-radius: 12px;  
+    padding: 24px;  
+    border: 2px solid var(--border);  
+    cursor: pointer;  
+    transition: all 0.3s;  
+    text-align: left;  
+  }  
+  
+  .module-card:hover {  
+    border-color: var(--primary);  
+    transform: translateY(-3px);  
+    box-shadow: 0 8px 25px rgba(0,0,0,0.1);  
+  }  
+  
+  .module-card .mc-chapter {  
+    font-size: 10px;  
+    text-transform: uppercase;  
+    letter-spacing: 1.5px;  
+    color: var(--primary);  
+    font-weight: 700;  
+  }  
+  
+  .module-card h4 {  
+    font-size: 17px;  
+    margin: 8px 0;  
+  }  
+  
+  .module-card p {  
+    font-size: 13px;  
+    color: var(--text-light);  
+    margin-bottom: 12px;  
+  }  
+  
+  .module-card .mc-objectives {  
+    display: flex;  
+    flex-wrap: wrap;  
+    gap: 5px;  
+  }  
+  
+  .module-card .mc-obj {  
+    background: #F0F2F5;  
+    padding: 2px 8px;  
+    border-radius: 4px;  
+    font-size: 10px;  
+    font-weight: 700;  
+    color: var(--text-light);  
+  }  
+  
+  .module-card .mc-status {  
+    margin-top: 12px;  
+    font-size: 12px;  
+    font-weight: 600;  
+  }  
+  
+  .mc-status.not-started { color: var(--text-light); }  
+  .mc-status.in-progress { color: var(--warning); }  
+  .mc-status.completed-status { color: var(--success); }  
+  
+  /* Transaction Scenario Card */  
+  .transaction-card {  
+    background: white;  
+    border: 2px solid var(--border);  
+    border-radius: 10px;  
+    padding: 16px;  
+    margin-bottom: 12px;  
+    transition: all 0.3s;  
+  }  
+  
+  .transaction-card.active-transaction {  
+    border-color: var(--primary);  
+    box-shadow: 0 0 0 3px rgba(255,106,0,0.1);  
+  }  
+  
+  .transaction-card.completed-transaction {  
+    border-color: var(--success);  
+    background: #F9FFF9;  
+  }  
+  
+  .transaction-date {  
+    font-size: 12px;  
+    font-weight: 700;  
+    color: var(--primary);  
+    text-transform: uppercase;  
+  }  
+  
+  .transaction-desc {  
+    font-size: 14px;  
+    margin: 6px 0;  
+  }  
+  
+  .transaction-amount {  
+    font-family: 'Courier New', monospace;  
+    font-weight: 700;  
+    font-size: 16px;  
+    color: var(--secondary);  
+  }  
+  
+  /* Summary Stats */  
+  .stats-row {  
+    display: grid;  
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));  
+    gap: 15px;  
+    margin: 15px 0;  
+  }  
+  
+  .stat-box {  
+    background: white;  
+    border: 2px solid var(--border);  
+    border-radius: 10px;  
+    padding: 16px;  
+    text-align: center;  
+  }  
+  
+  .stat-box .stat-label {  
+    font-size: 11px;  
+    text-transform: uppercase;  
+    letter-spacing: 1px;  
+    color: var(--text-light);  
+  }  
+  
+  .stat-box .stat-value {  
+    font-size: 24px;  
+    font-weight: 800;  
+    font-family: 'Courier New', monospace;  
+    color: var(--secondary);  
+    margin-top: 4px;  
+  }  
+  
+  /* Error Analysis */  
+  .error-scenario {  
+    display: grid;  
+    grid-template-columns: 1fr 1fr;  
+    gap: 20px;  
+  }  
+  
+  .error-effect-table {  
+    width: 100%;  
+    border-collapse: collapse;  
+    font-size: 13px;  
+  }  
+  
+  .error-effect-table th {  
+    background: var(--accent);  
+    color: white;  
+    padding: 8px 12px;  
+    text-align: center;  
+  }  
+  
+  .error-effect-table td {  
+    padding: 8px 12px;  
+    border: 1px solid var(--border);  
+    text-align: center;  
+  }  
+  
+  .arrow-select {  
+    padding: 6px 10px;  
+    border: 2px solid var(--border);  
+    border-radius: 6px;  
+    font-size: 13px;  
+    font-weight: 600;  
+    cursor: pointer;  
+    background: white;  
+  }  
+  
+  .arrow-select:focus { outline: none; border-color: var(--primary); }  
+  
+  /* Comparison Table */  
+  .comparison-grid {  
+    display: grid;  
+    grid-template-columns: 1fr 1fr 1fr;  
+    gap: 15px;  
+  }  
+  
+  .method-column {  
+    border: 2px solid var(--border);  
+    border-radius: 10px;  
+    overflow: hidden;  
+  }  
+  
+  .method-header {  
+    background: var(--accent);  
+    color: white;  
+    padding: 12px;  
+    text-align: center;  
+    font-weight: 700;  
+    font-size: 14px;  
+  }  
+  
+  .method-body {  
+    padding: 15px;  
+  }  
+  
+  .method-row {  
+    display: flex;  
+    justify-content: space-between;  
+    padding: 6px 0;  
+    border-bottom: 1px solid #EEE;  
+    font-size: 13px;  
+  }  
+  
+  .method-row:last-child { border-bottom: none; }  
+  
+  /* LCM Table */  
+  .lcm-table {  
+    width: 100%;  
+    border-collapse: collapse;  
+    font-size: 13px;  
+  }  
+  
+  .lcm-table th {  
+    background: var(--accent);  
+    color: white;  
+    padding: 10px;  
+    text-align: center;  
+  }  
+  
+  .lcm-table td {  
+    padding: 8px 10px;  
+    border: 1px solid var(--border);  
+    text-align: center;  
+  }  
+  
+  .lcm-table input {  
+    width: 100px;  
+    text-align: center;  
+  }  
+  
+  /* Responsive */  
+  @media (max-width: 900px) {  
+    .two-col, .three-col, .comparison-grid, .error-scenario {  
+      grid-template-columns: 1fr;  
+    }  
+    .main-content { padding: 15px; }  
+    .welcome-banner { padding: 30px 20px; }  
+    .welcome-banner h2 { font-size: 24px; }  
+  }  
+  
+  /* Animations */  
+  .fade-in {  
+    animation: fadeIn 0.5s ease;  
+  }  
+  
+  @keyframes fadeIn {  
+    from { opacity: 0; transform: translateY(10px); }  
+    to { opacity: 1; transform: translateY(0); }  
+  }  
+  
+  /* Print styles for statements */  
+  .statement-container {  
+    border: 2px solid var(--secondary);  
+    border-radius: 10px;  
+    overflow: hidden;  
+  }  
+  
+  .statement-header-bar {  
+    background: var(--secondary);  
+    color: white;  
+    text-align: center;  
+    padding: 15px;  
+  }  
+  
+  .statement-header-bar h3 { font-size: 18px; }  
+  .statement-header-bar p { font-size: 13px; opacity: 0.8; }  
+  
+  /* Closing entry */  
+  .closing-step {  
+    background: #FAFBFC;  
+    border: 1px solid var(--border);  
+    border-radius: 8px;  
+    padding: 16px;  
+    margin-bottom: 12px;  
+  }  
+  
+  .closing-step h4 {  
+    font-size: 14px;  
+    color: var(--primary-dark);  
+    margin-bottom: 8px;  
+  }  
+  
+  .completion-banner {  
+    background: linear-gradient(135deg, var(--success), #2ECC71);  
+    color: white;  
+    border-radius: 12px;  
+    padding: 30px;  
+    text-align: center;  
+    margin: 20px 0;  
+    display: none;  
+  }  
+  
+  .completion-banner.show { display: block; }  
+  
+  .completion-banner h3 { font-size: 24px; margin-bottom: 8px; }  
+  
+  /* Scrollbar */  
+  ::-webkit-scrollbar { width: 8px; }  
+  ::-webkit-scrollbar-track { background: #f1f1f1; }  
+  ::-webkit-scrollbar-thumb { background: #ccc; border-radius: 4px; }  
+  ::-webkit-scrollbar-thumb:hover { background: #aaa; }  
+</style>  
+</head>  
+<body>  
+  
+<!-- HEADER -->  
+<div class="header">  
+  <div class="header-top">  
+    <div class="logo-area">  
+      <div class="logo-icon">A</div>  
+      <div>  
+        <h1>Alibaba Group — Accounting Simulator</h1>  
+        <div class="subtitle">Chapters 5 & 6 Interactive Practice</div>  
+      </div>  
+    </div>  
+    <div class="progress-bar-container">  
+      <span class="progress-text" id="progressText">0 / 7 Modules</span>  
+      <div class="progress-bar"><div class="progress-fill" id="progressFill" style="width:0%"></div></div>  
+      <div class="score-badge">Score: <span id="totalScore">0</span></div>  
+    </div>  
+  </div>  
+  <div class="nav-tabs" id="navTabs">  
+    <div class="nav-tab active" onclick="switchModule(0)">🏠 Dashboard<span class="tab-badge"></span></div>  
+    <div class="nav-tab" onclick="switchModule(1)">📦 M1: Purchases<span class="tab-badge"></span></div>  
+    <div class="nav-tab" onclick="switchModule(2)">💰 M2: Sales<span class="tab-badge"></span></div>  
+    <div class="nav-tab" onclick="switchModule(3)">📊 M3: Income Stmt<span class="tab-badge"></span></div>  
+    <div class="nav-tab" onclick="switchModule(4)">📋 M4: Inventory Costing<span class="tab-badge"></span></div>  
+    <div class="nav-tab" onclick="switchModule(5)">⚖️ M5: LCM & Errors<span class="tab-badge"></span></div>  
+    <div class="nav-tab" onclick="switchModule(6)">📈 M6: Ratios<span class="tab-badge"></span></div>  
+    <div class="nav-tab" onclick="switchModule(7)">🔒 M7: Closing<span class="tab-badge"></span></div>  
+  </div>  
+</div>  
+  
+<!-- MAIN CONTENT -->  
+<div class="main-content">  
+  
+<!-- ====== MODULE 0: DASHBOARD ====== -->  
+<div class="module-panel active" id="module0">  
+  <div class="welcome-banner fade-in">  
+    <h2>Welcome to Alibaba's Accounting Department</h2>  
+    <p>You've been hired as a junior accountant at Alibaba Group. Complete all 7 modules to master merchandising operations and inventory management.</p>  
+    <button class="btn btn-primary" onclick="switchModule(1)" style="font-size:16px; padding:14px 40px;">▶ Start Simulation</button>  
+  </div>  
+  
+  <div class="stats-row">  
+    <div class="stat-box">  
+      <div class="stat-label">Company</div>  
+      <div class="stat-value" style="font-size:18px; font-family:inherit;">Alibaba Group</div>  
+    </div>  
+    <div class="stat-box">  
+      <div class="stat-label">Fiscal Year</div>  
+      <div class="stat-value">2024</div>  
+    </div>  
+    <div class="stat-box">  
+      <div class="stat-label">Inventory System</div>  
+      <div class="stat-value" style="font-size:16px;">Perpetual</div>  
+    </div>  
+    <div class="stat-box">  
+      <div class="stat-label">Modules Complete</div>  
+      <div class="stat-value" id="dashModulesComplete">0 / 7</div>  
+    </div>  
+  </div>  
+  
+  <h3 style="margin: 25px 0 15px; font-size:18px;">📚 Learning Modules</h3>  
+  <div class="module-cards-grid">  
+    <div class="module-card" onclick="switchModule(1)">  
+      <div class="mc-chapter">Chapter 5</div>  
+      <h4>Module 1: Purchase Transactions</h4>  
+      <p>Record merchandise purchases, returns, discounts, and freight using the perpetual inventory system.</p>  
+      <div class="mc-objectives">  
+        <span class="mc-obj">C1</span><span class="mc-obj">P1</span><span class="mc-obj">P5</span><span class="mc-obj">P7</span>  
+      </div>  
+      <div class="mc-status not-started" id="mc-status-1">○ Not Started</div>  
+    </div>  
+    <div class="module-card" onclick="switchModule(2)">  
+      <div class="mc-chapter">Chapter 5</div>  
+      <h4>Module 2: Sales Transactions</h4>  
+      <p>Record merchandise sales, customer returns, sales discounts, and recognize revenue properly.</p>  
+      <div class="mc-objectives">  
+        <span class="mc-obj">P2</span><span class="mc-obj">P6</span>  
+      </div>  
+      <div class="mc-status not-started" id="mc-status-2">○ Not Started</div>  
+    </div>  
+    <div class="module-card" onclick="switchModule(3)">  
+      <div class="mc-chapter">Chapter 5</div>  
+      <h4>Module 3: Income Statements</h4>  
+      <p>Prepare both multi-step and single-step income statements from Alibaba's merchandising data.</p>  
+      <div class="mc-objectives">  
+        <span class="mc-obj">P4</span>  
+      </div>  
+      <div class="mc-status not-started" id="mc-status-3">○ Not Started</div>  
+    </div>  
+    <div class="module-card" onclick="switchModule(4)">  
+      <div class="mc-chapter">Chapter 6</div>  
+      <h4>Module 4: Inventory Costing</h4>  
+      <p>Apply FIFO, LIFO, and Weighted Average methods to compute COGS and ending inventory.</p>  
+      <div class="mc-objectives">  
+        <span class="mc-obj">C1</span><span class="mc-obj">P1</span><span class="mc-obj">A1</span>  
+      </div>  
+      <div class="mc-status not-started" id="mc-status-4">○ Not Started</div>  
+    </div>  
+    <div class="module-card" onclick="switchModule(5)">  
+      <div class="mc-chapter">Chapter 6</div>  
+      <h4>Module 5: LCM & Inventory Errors</h4>  
+      <p>Apply Lower of Cost or Market rule and analyze effects of inventory errors on financial statements.</p>  
+      <div class="mc-objectives">  
+        <span class="mc-obj">P2</span><span class="mc-obj">A2</span>  
+      </div>  
+      <div class="mc-status not-started" id="mc-status-5">○ Not Started</div>  
+    </div>  
+    <div class="module-card" onclick="switchModule(6)">  
+      <div class="mc-chapter">Chapters 5 & 6</div>  
+      <h4>Module 6: Financial Ratios</h4>  
+      <p>Calculate acid-test ratio, gross margin ratio, inventory turnover, and days' sales in inventory.</p>  
+      <div class="mc-objectives">  
+        <span class="mc-obj">Ch5-A1</span><span class="mc-obj">Ch6-A3</span>  
+      </div>  
+      <div class="mc-status not-started" id="mc-status-6">○ Not Started</div>  
+    </div>  
+    <div class="module-card" onclick="switchModule(7)">  
+      <div class="mc-chapter">Chapter 5</div>  
+      <h4>Module 7: Adjusting & Closing</h4>  
+      <p>Prepare adjusting entries and closing entries for Alibaba's merchandising accounts at year-end.</p>  
+      <div class="mc-objectives">  
+        <span class="mc-obj">P3</span>  
+      </div>  
+      <div class="mc-status not-started" id="mc-status-7">○ Not Started</div>  
+    </div>  
+  </div>  
+</div>  
+  
+<!-- ====== MODULE 1: PURCHASE TRANSACTIONS ====== -->  
+<div class="module-panel" id="module1">  
+  <div class="card fade-in">  
+    <div class="card-header">  
+      <h3>📦 Module 1: Recording Merchandise Purchases</h3>  
+      <span class="lo-tag">Ch5: C1, P1, P5, P7</span>  
+    </div>  
+    <div class="card-body">  
+      <div class="scenario-box">  
+        <div class="scenario-label">📋 Background</div>  
+        <p>Alibaba Group's e-commerce subsidiary purchases consumer electronics from suppliers in China. As the accountant, you must record each purchase transaction using the <strong>perpetual inventory system</strong>. Credit terms and shipping terms affect how you record these entries.</p>  
+      </div>  
+  
+      <div class="step-indicator" id="m1Steps">  
+        <div class="step-dot active" onclick="showM1Step(0)">1</div><div class="step-connector"></div>  
+        <div class="step-dot" onclick="showM1Step(1)">2</div><div class="step-connector"></div>  
+        <div class="step-dot" onclick="showM1Step(2)">3</div><div class="step-connector"></div>  
+        <div class="step-dot" onclick="showM1Step(3)">4</div><div class="step-connector"></div>  
+        <div class="step-dot" onclick="showM1Step(4)">5</div>  
+      </div>  
+  
+      <!-- Step 1: Basic Purchase -->  
+      <div id="m1s0" class="m1-step">  
+        <div class="transaction-card active-transaction">  
+          <div class="transaction-date">March 1, 2024</div>  
+          <div class="transaction-desc">Alibaba purchases 500 units of wireless earbuds from Supplier Shenzhen Tech Co. at ¥120 per unit on account. Terms: <strong>2/10, n/30</strong>, FOB Shipping Point.</div>  
+          <div class="transaction-amount">Total: ¥60,000</div>  
+        </div>  
+  
+        <p style="margin:15px 0; font-size:14px;"><strong>Record the journal entry for this purchase:</strong></p>  
+          
+        <button class="hint-btn" onclick="toggleHint('m1h1')">?</button>  
+        <div class="hint-box" id="m1h1">Under a perpetual system, merchandise purchases are debited directly to <strong>Merchandise Inventory</strong> (not Purchases). The credit goes to <strong>Accounts Payable</strong> since it's on account. FOB Shipping Point means the buyer bears the freight cost.</div>  
+  
+        <div class="entry-builder" id="m1e1">  
+          <div class="form-row">  
+            <div class="form-group" style="flex:2">  
+              <label>Account</label>  
+              <select id="m1e1_acc1">  
+                <option value="">-- Select Account --</option>  
+                <option value="Merchandise Inventory">Merchandise Inventory</option>  
+                <option value="Purchases">Purchases</option>  
+                <option value="Accounts Payable">Accounts Payable</option>  
+                <option value="Cash">Cash</option>  
+                <option value="Cost of Goods Sold">Cost of Goods Sold</option>  
+                <option value="Sales Revenue">Sales Revenue</option>  
+                <option value="Accounts Receivable">Accounts Receivable</option>  
+                <option value="Freight-In">Freight-In</option>  
+              </select>  
+            </div>  
+            <div class="form-group">  
+              <label>Debit (¥)</label>  
+              <input type="number" id="m1e1_dr1" placeholder="0">  
+            </div>  
+            <div class="form-group">  
+              <label>Credit (¥)</label>  
+              <input type="number" id="m1e1_cr1" placeholder="0">  
+            </div>  
+          </div>  
+          <div class="form-row">  
+            <div class="form-group" style="flex:2">  
+              <label>Account</label>  
+              <select id="m1e1_acc2">  
+                <option value="">-- Select Account --</option>  
+                <option value="Merchandise Inventory">Merchandise Inventory</option>  
+                <option value="Purchases">Purchases</option>  
+                <option value="Accounts Payable">Accounts Payable</option>  
+                <option value="Cash">Cash</option>  
+                <option value="Cost of Goods Sold">Cost of Goods Sold</option>  
+                <option value="Sales Revenue">Sales Revenue</option>  
+                <option value="Accounts Receivable">Accounts Receivable</option>  
+                <option value="Freight-In">Freight-In</option>  
+              </select>  
+            </div>  
+            <div class="form-group">  
+              <label>Debit (¥)</label>  
+              <input type="number" id="m1e1_dr2" placeholder="0">  
+            </div>  
+            <div class="form-group">  
+              <label>Credit (¥)</label>  
+              <input type="number" id="m1e1_cr2" placeholder="0">  
+            </div>  
+          </div>  
+        </div>  
+  
+        <div class="feedback" id="m1f1"></div>  
+        <div class="btn-group">  
+          <button class="btn btn-primary" onclick="checkM1Step1()">✓ Submit Entry</button>  
+          <button class="btn btn-outline btn-sm" onclick="showAnswer('m1s0')">Show Answer</button>  
+        </div>  
+        <div class="hint-box" id="ans_m1s0" style="margin-top:10px;">  
+          <strong>Answer:</strong><br>  
+          Dr. Merchandise Inventory ¥60,000<br>  
+          &nbsp;&nbsp;&nbsp;&nbsp;Cr. Accounts Payable ¥60,000  
+        </div>  
+      </div>  
+  
+      <!-- Step 2: Freight -->  
+      <div id="m1s1" class="m1-step" style="display:none;">  
+        <div class="transaction-card active-transaction">  
+          <div class="transaction-date">March 2, 2024</div>  
+          <div class="transaction-desc">Alibaba pays <strong>¥2,400</strong> cash for freight charges on the March 1 purchase (FOB Shipping Point — buyer pays).</div>  
+          <div class="transaction-amount">Freight: ¥2,400</div>  
+        </div>  
+  
+        <p style="margin:15px 0; font-size:14px;"><strong>Record the freight payment:</strong></p>  
+        <button class="hint-btn" onclick="toggleHint('m1h2')">?</button>  
+        <div class="hint-box" id="m1h2">Under perpetual inventory, freight-in costs are added to <strong>Merchandise Inventory</strong> (they become part of inventory cost). Cash decreases.</div>  
+  
+        <div class="entry-builder">  
+          <div class="form-row">  
+            <div class="form-group" style="flex:2">  
+              <select id="m1e2_acc1">  
+                <option value="">-- Select Account --</option>  
+                <option value="Merchandise Inventory">Merchandise Inventory</option>  
+                <option value="Freight-In">Freight-In</option>  
+                <option value="Delivery Expense">Delivery Expense</option>  
+                <option value="Cash">Cash</option>  
+                <option value="Accounts Payable">Accounts Payable</option>  
+              </select>  
+            </div>  
+            <div class="form-group"><input type="number" id="m1e2_dr1" placeholder="Debit"></div>  
+            <div class="form-group"><input type="number" id="m1e2_cr1" placeholder="Credit"></div>  
+          </div>  
+          <div class="form-row">  
+            <div class="form-group" style="flex:2">  
+              <select id="m1e2_acc2">  
+                <option value="">-- Select Account --</option>  
+                <option value="Merchandise Inventory">Merchandise Inventory</option>  
+                <option value="Freight-In">Freight-In</option>  
+                <option value="Delivery Expense">Delivery Expense</option>  
+                <option value="Cash">Cash</option>  
+                <option value="Accounts Payable">Accounts Payable</option>  
+              </select>  
+            </div>  
+            <div class="form-group"><input type="number" id="m1e2_dr2" placeholder="Debit"></div>  
+            <div class="form-group"><input type="number" id="m1e2_cr2" placeholder="Credit"></div>  
+          </div>  
+        </div>  
+  
+        <div class="feedback" id="m1f2"></div>  
+        <div class="btn-group">  
+          <button class="btn btn-primary" onclick="checkM1Step2()">✓ Submit Entry</button>  
+          <button class="btn btn-outline btn-sm" onclick="showAnswer('m1s1')">Show Answer</button>  
+        </div>  
+        <div class="hint-box" id="ans_m1s1" style="margin-top:10px;">  
+          <strong>Answer:</strong><br>  
+          Dr. Merchandise Inventory ¥2,400<br>  
+          &nbsp;&nbsp;&nbsp;&nbsp;Cr. Cash ¥2,400  
+        </div>  
+      </div>  
+  
+      <!-- Step 3: Purchase Return -->  
+      <div id="m1s2" class="m1-step" style="display:none;">  
+        <div class="transaction-card active-transaction">  
+          <div class="transaction-date">March 5, 2024</div>  
+          <div class="transaction-desc">Alibaba returns 50 defective units (¥120 each) from the March 1 purchase to Supplier Shenzhen Tech Co. and receives a credit memo.</div>  
+          <div class="transaction-amount">Return: ¥6,000</div>  
+        </div>  
+  
+        <p style="margin:15px 0; font-size:14px;"><strong>Record the purchase return:</strong></p>  
+        <button class="hint-btn" onclick="toggleHint('m1h3')">?</button>  
+        <div class="hint-box" id="m1h3">A purchase return reduces <strong>Merchandise Inventory</strong> (credit) and reduces <strong>Accounts Payable</strong> (debit) since the goods were on account.</div>  
+  
+        <div class="entry-builder">  
+          <div class="form-row">  
+            <div class="form-group" style="flex:2">  
+              <select id="m1e3_acc1">  
+                <option value="">-- Select Account --</option>  
+                <option value="Accounts Payable">Accounts Payable</option>  
+                <option value="Purchase Returns">Purchase Returns & Allowances</option>  
+                <option value="Merchandise Inventory">Merchandise Inventory</option>  
+                <option value="Cash">Cash</option>  
+              </select>  
+            </div>  
+            <div class="form-group"><input type="number" id="m1e3_dr1" placeholder="Debit"></div>  
+            <div class="form-group"><input type="number" id="m1e3_cr1" placeholder="Credit"></div>  
+          </div>  
+          <div class="form-row">  
+            <div class="form-group" style="flex:2">  
+              <select id="m1e3_acc2">  
+                <option value="">-- Select Account --</option>  
+                <option value="Accounts Payable">Accounts Payable</option>  
+                <option value="Purchase Returns">Purchase Returns & Allowances</option>  
+                <option value="Merchandise Inventory">Merchandise Inventory</option>  
+                <option value="Cash">Cash</option>  
+              </select>  
+            </div>  
+            <div class="form-group"><input type="number" id="m1e3_dr2" placeholder="Debit"></div>  
+            <div class="form-group"><input type="number" id="m1e3_cr2" placeholder="Credit"></div>  
+          </div>  
+        </div>  
+  
+        <div class="feedback" id="m1f3"></div>  
+        <div class="btn-group">  
+          <button class="btn btn-primary" onclick="checkM1Step3()">✓ Submit Entry</button>  
+          <button class="btn btn-outline btn-sm" onclick="showAnswer('m1s2')">Show Answer</button>  
+        </div>  
+        <div class="hint-box" id="ans_m1s2" style="margin-top:10px;">  
+          <strong>Answer:</strong><br>  
+          Dr. Accounts Payable ¥6,000<br>  
+          &nbsp;&nbsp;&nbsp;&nbsp;Cr. Merchandise Inventory ¥6,000  
+        </div>  
+      </div>  
+  
+      <!-- Step 4: Payment with Discount -->  
+      <div id="m1s3" class="m1-step" style="display:none;">  
+        <div class="transaction-card active-transaction">  
+          <div class="transaction-date">March 10, 2024</div>  
+          <div class="transaction-desc">Alibaba pays Shenzhen Tech Co. in full for the March 1 purchase (after the return), <strong>within the 2% discount period</strong>. Amount owed: ¥54,000. Discount: 2% × ¥54,000 = ¥1,080.</div>  
+          <div class="transaction-amount">Payment: ¥54,000 – ¥1,080 = ¥52,920</div>  
+        </div>  
+  
+        <p style="margin:15px 0; font-size:14px;"><strong>Record the payment with purchase discount (Gross Method):</strong></p>  
+        <button class="hint-btn" onclick="toggleHint('m1h4')">?</button>  
+        <div class="hint-box" id="m1h4">Under the <strong>gross method</strong> with perpetual system: debit Accounts Payable for the full amount (¥54,000), credit Cash for what's actually paid (¥52,920), and credit Merchandise Inventory for the discount (¥1,080) — because discounts reduce inventory cost.</div>  
+  
+        <div class="entry-builder">  
+          <div class="form-row">  
+            <div class="form-group" style="flex:2">  
+              <select id="m1e4_acc1">  
+                <option value="">-- Select Account --</option>  
+                <option value="Accounts Payable">Accounts Payable</option>  
+                <option value="Merchandise Inventory">Merchandise Inventory</option>  
+                <option value="Cash">Cash</option>  
+                <option value="Purchase Discounts">Purchase Discounts</option>  
+              </select>  
+            </div>  
+            <div class="form-group"><input type="number" id="m1e4_dr1" placeholder="Debit"></div>  
+            <div class="form-group"><input type="number" id="m1e4_cr1" placeholder="Credit"></div>  
+          </div>  
+          <div class="form-row">  
+            <div class="form-group" style="flex:2">  
+              <select id="m1e4_acc2">  
+                <option value="">-- Select Account --</option>  
+                <option value="Accounts Payable">Accounts Payable</option>  
+                <option value="Merchandise Inventory">Merchandise Inventory</option>  
+                <option value="Cash">Cash</option>  
+                <option value="Purchase Discounts">Purchase Discounts</option>  
+              </select>  
+            </div>  
+            <div class="form-group"><input type="number" id="m1e4_dr2" placeholder="Debit"></div>  
+            <div class="form-group"><input type="number" id="m1e4_cr2" placeholder="Credit"></div>  
+          </div>  
+          <div class="form-row">  
+            <div class="form-group" style="flex:2">  
+              <select id="m1e4_acc3">  
+                <option value="">-- Select Account --</option>  
+                <option value="Accounts Payable">Accounts Payable</option>  
+                <option value="Merchandise Inventory">Merchandise Inventory</option>  
+                <option value="Cash">Cash</option>  
+                <option value="Purchase Discounts">Purchase Discounts</option>  
+              </select>  
+            </div>  
+            <div class="form-group"><input type="number" id="m1e4_dr3" placeholder="Debit"></div>  
+            <div class="form-group"><input type="number" id="m1e4_cr3" placeholder="Credit"></div>  
+          </div>  
+        </div>  
+  
+        <div class="feedback" id="m1f4"></div>  
+        <div class="btn-group">  
+          <button class="btn btn-primary" onclick="checkM1Step4()">✓ Submit Entry</button>  
+          <button class="btn btn-outline btn-sm" onclick="showAnswer('m1s3')">Show Answer</button>  
+        </div>  
+        <div class="hint-box" id="ans_m1s3" style="margin-top:10px;">  
+          <strong>Answer:</strong><br>  
+          Dr. Accounts Payable ¥54,000<br>  
+          &nbsp;&nbsp;&nbsp;&nbsp;Cr. Merchandise Inventory ¥1,080<br>  
+          &nbsp;&nbsp;&nbsp;&nbsp;Cr. Cash ¥52,920  
+        </div>  
+      </div>  
+  
+      <!-- Step 5: Summary -->  
+      <div id="m1s4" class="m1-step" style="display:none;">  
+        <h4 style="margin-bottom:15px;">📊 Merchandise Inventory T-Account Summary</h4>  
+        <p style="font-size:14px; margin-bottom:15px;">Based on the transactions you recorded, what is the final balance of Merchandise Inventory? Fill in the T-Account:</p>  
+          
+        <div class="t-account" style="max-width:400px;">  
+          <div class="t-account-title">Merchandise Inventory</div>  
+          <div class="t-account-body">  
+            <div class="t-debit">  
+              <div class="t-label">Debit</div>  
+              <div class="t-entry">Mar 1: ¥60,000</div>  
+              <div class="t-entry">Mar 2: ¥2,400</div>  
+            </div>  
+            <div class="t-credit">  
+              <div class="t-label">Credit</div>  
+              <div class="t-entry">Mar 5: ¥6,000</div>  
+              <div class="t-entry">Mar 10: ¥1,080</div>  
+            </div>  
+          </div>  
+        </div>  
+  
+        <div style="margin-top:20px;">  
+          <label style="font-size:14px; font-weight:600;">Ending Inventory Balance: ¥</label>  
+          <input type="number" id="m1_final" placeholder="?" style="width:150px; margin-left:10px;">  
+          <div class="feedback" id="m1f5" style="margin-top:10px;"></div>  
+          <div class="btn-group">  
+            <button class="btn btn-primary" onclick="checkM1Step5()">✓ Verify Balance</button>  
+            <button class="btn btn-outline btn-sm" onclick="showAnswer('m1s4')">Show Answer</button>  
+          </div>  
+          <div class="hint-box" id="ans_m1s4" style="margin-top:10px;">  
+            <strong>Answer:</strong> ¥60,000 + ¥2,400 – ¥6,000 – ¥1,080 = <strong>¥55,320</strong>  
+          </div>  
+        </div>  
+      </div>  
+    </div>  
+  </div>  
+</div>  
+  
+<!-- ====== MODULE 2: SALES TRANSACTIONS ====== -->  
+<div class="module-panel" id="module2">  
+  <div class="card fade-in">  
+    <div class="card-header">  
+      <h3>💰 Module 2: Recording Merchandise Sales</h3>  
+      <span class="lo-tag">Ch5: P2, P6</span>  
+    </div>  
+    <div class="card-body">  
+      <div class="scenario-box">  
+        <div class="scenario-label">📋 Background</div>  
+        <p>Alibaba sells electronics through its Tmall platform. Each sale requires <strong>two entries</strong> under the perpetual system: (1) record the revenue, and (2) record the cost of goods sold. The cost per unit for earbuds is ¥122.93 (¥55,320 ÷ 450 units).</p>  
+      </div>  
+  
+      <div class="step-indicator" id="m2Steps">  
+        <div class="step-dot active" onclick="showM2Step(0)">1</div><div class="step-connector"></div>  
+        <div class="step-dot" onclick="showM2Step(1)">2</div><div class="step-connector"></div>  
+        <div class="step-dot" onclick="showM2Step(2)">3</div>  
+      </div>  
+  
+      <!-- Sale Transaction -->  
+      <div id="m2s0" class="m2-step">  
+        <div class="transaction-card active-transaction">  
+          <div class="transaction-date">March 15, 2024</div>  
+          <div class="transaction-desc">Alibaba sells 200 units of wireless earbuds on account to JD.com at <strong>¥200 per unit</strong>. Terms: 1/10, n/30. Cost per unit: ¥122.93.</div>  
+          <div class="transaction-amount">Revenue: ¥40,000 &nbsp;|&nbsp; Cost: ¥24,586</div>  
+        </div>  
+  
+        <p style="margin:15px 0;font-size:14px;"><strong>Entry 1: Record the Sale</strong></p>  
+        <button class="hint-btn" onclick="toggleHint('m2h1')">?</button>  
+        <div class="hint-box" id="m2h1">For a sale on account: Dr. Accounts Receivable, Cr. Sales Revenue. This records the revenue side.</div>  
+  
+        <div class="entry-builder">  
+          <div class="form-row">  
+            <div class="form-group" style="flex:2">  
+              <select id="m2e1_acc1">  
+                <option value="">-- Select Account --</option>  
+                <option value="Accounts Receivable">Accounts Receivable</option>  
+                <option value="Sales Revenue">Sales Revenue</option>  
+                <option value="Cash">Cash</option>  
+                <option value="Cost of Goods Sold">Cost of Goods Sold</option>  
+                <option value="Merchandise Inventory">Merchandise Inventory</option>  
+              </select>  
+            </div>  
+            <div class="form-group"><input type="number" id="m2e1_dr1" placeholder="Debit"></div>  
+            <div class="form-group"><input type="number" id="m2e1_cr1" placeholder="Credit"></div>  
+          </div>  
+          <div class="form-row">  
+            <div class="form-group" style="flex:2">  
+              <select id="m2e1_acc2">  
+                <option value="">-- Select Account --</option>  
+                <option value="Accounts Receivable">Accounts Receivable</option>  
+                <option value="Sales Revenue">Sales Revenue</option>  
+                <option value="Cash">Cash</option>  
+                <option value="Cost of Goods Sold">Cost of Goods Sold</option>  
+                <option value="Merchandise Inventory">Merchandise Inventory</option>  
+              </select>  
+            </div>  
+            <div class="form-group"><input type="number" id="m2e1_dr2" placeholder="Debit"></div>  
+            <div class="form-group"><input type="number" id="m2e1_cr2" placeholder="Credit"></div>  
+          </div>  
+        </div>  
+  
+        <p style="margin:15px 0;font-size:14px;"><strong>Entry 2: Record the Cost of Goods Sold</strong></p>  
+        <div class="entry-builder">  
+          <div class="form-row">  
+            <div class="form-group" style="flex:2">  
+              <select id="m2e1_acc3">  
+                <option value="">-- Select Account --</option>  
+                <option value="Cost of Goods Sold">Cost of Goods Sold</option>  
+                <option value="Merchandise Inventory">Merchandise Inventory</option>  
+                <option value="Sales Revenue">Sales Revenue</option>  
+              </select>  
+            </div>  
+            <div class="form-group"><input type="number" id="m2e1_dr3" placeholder="Debit"></div>  
+            <div class="form-group"><input type="number" id="m2e1_cr3" placeholder="Credit"></div>  
+          </div>  
+          <div class="form-row">  
+            <div class="form-group" style="flex:2">  
+              <select id="m2e1_acc4">  
+                <option value="">-- Select Account --</option>  
+                <option value="Cost of Goods Sold">Cost of Goods Sold</option>  
+                <option value="Merchandise Inventory">Merchandise Inventory</option>  
+                <option value="Sales Revenue">Sales Revenue</option>  
+              </select>  
+            </div>  
+            <div class="form-group"><input type="number" id="m2e1_dr4" placeholder="Debit"></div>  
+            <div class="form-group"><input type="number" id="m2e1_cr4" placeholder="Credit"></div>  
+          </div>  
+        </div>  
+  
+        <div class="feedback" id="m2f1"></div>  
+        <div class="btn-group">  
+          <button class="btn btn-primary" onclick="checkM2Step1()">✓ Submit Both Entries</button>  
+          <button class="btn btn-outline btn-sm" onclick="showAnswer('m2s0')">Show Answer</button>  
+        </div>  
+        <div class="hint-box" id="ans_m2s0" style="margin-top:10px;">  
+          <strong>Entry 1:</strong> Dr. Accounts Receivable ¥40,000 / Cr. Sales Revenue ¥40,000<br>  
+          <strong>Entry 2:</strong> Dr. Cost of Goods Sold ¥24,586 / Cr. Merchandise Inventory ¥24,586  
+        </div>  
+      </div>  
+  
+      <!-- Sales Return -->  
+      <div id="m2s1" class="m2-step" style="display:none;">  
+        <div class="transaction-card active-transaction">  
+          <div class="transaction-date">March 18, 2024</div>  
+          <div class="transaction-desc">JD.com returns 20 units. Alibaba issues a credit memo for <strong>¥4,000</strong> (20 × ¥200). The cost of returned goods is <strong>¥2,459</strong> (20 × ¥122.93), and they go back to inventory.</div>  
+          <div class="transaction-amount">Sales Return: ¥4,000 &nbsp;|&nbsp; Cost: ¥2,459</div>  
+        </div>  
+  
+        <p style="margin:15px 0;font-size:14px;"><strong>Entry 1: Reverse the revenue</strong></p>  
+        <div class="entry-builder">  
+          <div class="form-row">  
+            <div class="form-group" style="flex:2">  
+              <select id="m2e2_acc1">  
+                <option value="">-- Select --</option>  
+                <option value="Sales Returns and Allowances">Sales Returns & Allowances</option>  
+                <option value="Accounts Receivable">Accounts Receivable</option>  
+                <option value="Sales Revenue">Sales Revenue</option>  
+              </select>  
+            </div>  
+            <div class="form-group"><input type="number" id="m2e2_dr1" placeholder="Dr"></div>  
+            <div class="form-group"><input type="number" id="m2e2_cr1" placeholder="Cr"></div>  
+          </div>  
+          <div class="form-row">  
+            <div class="form-group" style="flex:2">  
+              <select id="m2e2_acc2">  
+                <option value="">-- Select --</option>  
+                <option value="Sales Returns and Allowances">Sales Returns & Allowances</option>  
+                <option value="Accounts Receivable">Accounts Receivable</option>  
+                <option value="Sales Revenue">Sales Revenue</option>  
+              </select>  
+            </div>  
+            <div class="form-group"><input type="number" id="m2e2_dr2" placeholder="Dr"></div>  
+            <div class="form-group"><input type="number" id="m2e2_cr2" placeholder="Cr"></div>  
+          </div>  
+        </div>  
+  
+        <p style="margin:15px 0;font-size:14px;"><strong>Entry 2: Reverse the cost</strong></p>  
+        <div class="entry-builder">  
+          <div class="form-row">  
+            <div class="form-group" style="flex:2">  
+              <select id="m2e2_acc3">  
+                <option value="">-- Select --</option>  
+                <option value="Merchandise Inventory">Merchandise Inventory</option>  
+                <option value="Cost of Goods Sold">Cost of Goods Sold</option>  
+              </select>  
+            </div>  
+            <div class="form-group"><input type="number" id="m2e2_dr3" placeholder="Dr"></div>  
+            <div class="form-group"><input type="number" id="m2e2_cr3" placeholder="Cr"></div>  
+          </div>  
+          <div class="form-row">  
+            <div class="form-group" style="flex:2">  
+              <select id="m2e2_acc4">  
+                <option value="">-- Select --</option>  
+                <option value="Merchandise Inventory">Merchandise Inventory</option>  
+                <option value="Cost of Goods Sold">Cost of Goods Sold</option>  
+              </select>  
+            </div>  
+            <div class="form-group"><input type="number" id="m2e2_dr4" placeholder="Dr"></div>  
+            <div class="form-group"><input type="number" id="m2e2_cr4" placeholder="Cr"></div>  
+          </div>  
+        </div>  
+  
+        <div class="feedback" id="m2f2"></div>  
+        <div class="btn-group">  
+          <button class="btn btn-primary" onclick="checkM2Step2()">✓ Submit Both Entries</button>  
+          <button class="btn btn-outline btn-sm" onclick="showAnswer('m2s1')">Show Answer</button>  
+        </div>  
+        <div class="hint-box" id="ans_m2s1" style="margin-top:10px;">  
+          <strong>Entry 1:</strong> Dr. Sales Returns & Allowances ¥4,000 / Cr. Accounts Receivable ¥4,000<br>  
+          <strong>Entry 2:</strong> Dr. Merchandise Inventory ¥2,459 / Cr. Cost of Goods Sold ¥2,459  
+        </div>  
+      </div>  
+  
+      <!-- Sales Discount -->  
+      <div id="m2s2" class="m2-step" style="display:none;">  
+        <div class="transaction-card active-transaction">  
+          <div class="transaction-date">March 24, 2024</div>  
+          <div class="transaction-desc">JD.com pays the remaining balance within the discount period. Remaining: ¥36,000 (¥40,000 – ¥4,000 return). Discount: 1% × ¥36,000 = <strong>¥360</strong>. Cash received: <strong>¥35,640</strong>.</div>  
+          <div class="transaction-amount">Cash: ¥35,640 &nbsp;|&nbsp; Discount: ¥360</div>  
+        </div>  
+  
+        <p style="margin:15px 0;font-size:14px;"><strong>Record collection with sales discount:</strong></p>  
+        <div class="entry-builder">  
+          <div class="form-row">  
+            <div class="form-group" style="flex:2">  
+              <select id="m2e3_acc1">  
+                <option value="">-- Select --</option>  
+                <option value="Cash">Cash</option>  
+                <option value="Sales Discounts">Sales Discounts</option>  
+                <option value="Accounts Receivable">Accounts Receivable</option>  
+                <option value="Sales Revenue">Sales Revenue</option>  
+              </select>  
+            </div>  
+            <div class="form-group"><input type="number" id="m2e3_dr1" placeholder="Dr"></div>  
+            <div class="form-group"><input type="number" id="m2e3_cr1" placeholder="Cr"></div>  
+          </div>  
+          <div class="form-row">  
+            <div class="form-group" style="flex:2">  
+              <select id="m2e3_acc2">  
+                <option value="">-- Select --</option>  
+                <option value="Cash">Cash</option>  
+                <option value="Sales Discounts">Sales Discounts</option>  
+                <option value="Accounts Receivable">Accounts Receivable</option>  
+              </select>  
+            </div>  
+            <div class="form-group"><input type="number" id="m2e3_dr2" placeholder="Dr"></div>  
+            <div class="form-group"><input type="number" id="m2e3_cr2" placeholder="Cr"></div>  
+          </div>  
+          <div class="form-row">  
+            <div class="form-group" style="flex:2">  
+              <select id="m2e3_acc3">  
+                <option value="">-- Select --</option>  
+                <option value="Cash">Cash</option>  
+                <option value="Sales Discounts">Sales Discounts</option>  
+                <option value="Accounts Receivable">Accounts Receivable</option>  
+              </select>  
+            </div>  
+            <div class="form-group"><input type="number" id="m2e3_dr3" placeholder="Dr"></div>  
+            <div class="form-group"><input type="number" id="m2e3_cr3" placeholder="Cr"></div>  
+          </div>  
+        </div>  
+  
+        <div class="feedback" id="m2f3"></div>  
+        <div class="btn-group">  
+          <button class="btn btn-primary" onclick="checkM2Step3()">✓ Submit Entry</button>  
+          <button class="btn btn-outline btn-sm" onclick="showAnswer('m2s2')">Show Answer</button>  
+        </div>  
+        <div class="hint-box" id="ans_m2s2" style="margin-top:10px;">  
+          <strong>Answer:</strong><br>  
+          Dr. Cash ¥35,640<br>  
+          Dr. Sales Discounts ¥360<br>  
+          &nbsp;&nbsp;&nbsp;&nbsp;Cr. Accounts Receivable ¥36,000  
+        </div>  
+      </div>  
+    </div>  
+  </div>  
+</div>  
+  
+<!-- ====== MODULE 3: INCOME STATEMENTS ====== -->  
+<div class="module-panel" id="module3">  
+  <div class="card fade-in">  
+    <div class="card-header">  
+      <h3>📊 Module 3: Preparing Income Statements</h3>  
+      <span class="lo-tag">Ch5: P4</span>  
+    </div>  
+    <div class="card-body">  
+      <div class="scenario-box">  
+        <div class="scenario-label">📋 Year-End Data — Alibaba Group (Simplified)</div>  
+        <p>Use the following annual figures to prepare both a multi-step and single-step income statement.</p>  
+      </div>  
+  
+      <div class="stats-row">  
+        <div class="stat-box"><div class="stat-label">Sales Revenue</div><div class="stat-value" style="font-size:16px;">¥500,000</div></div>  
+        <div class="stat-box"><div class="stat-label">Sales Returns</div><div class="stat-value" style="font-size:16px;">¥12,000</div></div>  
+        <div class="stat-box"><div class="stat-label">Sales Discounts</div><div class="stat-value" style="font-size:16px;">¥8,000</div></div>  
+        <div class="stat-box"><div class="stat-label">COGS</div><div class="stat-value" style="font-size:16px;">¥288,000</div></div>  
+        <div class="stat-box"><div class="stat-label">Selling Expenses</div><div class="stat-value" style="font-size:16px;">¥65,000</div></div>  
+        <div class="stat-box"><div class="stat-label">Admin Expenses</div><div class="stat-value" style="font-size:16px;">¥42,000</div></div>  
+      </div>  
+  
+      <h4 style="margin:25px 0 15px;">Part A: Multi-Step Income Statement</h4>  
+      <div class="statement-container">  
+        <div class="statement-header-bar">  
+          <h3>Alibaba Group Holding Limited</h3>  
+          <p>Income Statement (Multi-Step)<br>For the Year Ended March 31, 2024</p>  
+        </div>  
+        <table class="statement-table">  
+          <tr><td>Sales Revenue</td><td class="amount">¥500,000</td></tr>  
+          <tr><td class="indent-1">Less: Sales Returns & Allowances</td><td class="amount">¥12,000</td></tr>  
+          <tr><td class="indent-1">Less: Sales Discounts</td><td class="amount">¥8,000</td></tr>  
+          <tr class="subtotal-row"><td><strong>Net Sales</strong></td><td class="amount"><input type="number" class="statement-input" id="m3_netsales" placeholder="?"></td></tr>  
+          <tr><td>Cost of Goods Sold</td><td class="amount">¥288,000</td></tr>  
+          <tr class="subtotal-row"><td><strong>Gross Profit</strong></td><td class="amount"><input type="number" class="statement-input" id="m3_grossprofit" placeholder="?"></td></tr>  
+          <tr><td><strong>Operating Expenses:</strong></td><td></td></tr>  
+          <tr><td class="indent-1">Selling Expenses</td><td class="amount">¥65,000</td></tr>  
+          <tr><td class="indent-1">Administrative Expenses</td><td class="amount">¥42,000</td></tr>  
+          <tr class="subtotal-row"><td class="indent-1"><strong>Total Operating Expenses</strong></td><td class="amount"><input type="number" class="statement-input" id="m3_totalopex" placeholder="?"></td></tr>  
+          <tr class="total-row double-line"><td><strong>Net Income</strong></td><td class="amount"><input type="number" class="statement-input" id="m3_netincome" placeholder="?"></td></tr>  
+        </table>  
+      </div>  
+  
+      <div class="feedback" id="m3f1" style="margin-top:15px;"></div>  
+      <div class="btn-group">  
+        <button class="btn btn-primary" onclick="checkM3()">✓ Check All Amounts</button>  
+        <button class="btn btn-outline btn-sm" onclick="showAnswer('m3ans')">Show Answers</button>  
+      </div>  
+      <div class="hint-box" id="ans_m3ans" style="margin-top:10px;">  
+        Net Sales = 500,000 − 12,000 − 8,000 = <strong>¥480,000</strong><br>  
+        Gross Profit = 480,000 − 288,000 = <strong>¥192,000</strong><br>  
+        Total OpEx = 65,000 + 42,000 = <strong>¥107,000</strong><br>  
+        Net Income = 192,000 − 107,000 = <strong>¥85,000</strong>  
+      </div>  
+    </div>  
+  </div>  
+</div>  
+  
+<!-- ====== MODULE 4: INVENTORY COSTING ====== -->  
+<div class="module-panel" id="module4">  
+  <div class="card fade-in">  
+    <div class="card-header">  
+      <h3>📋 Module 4: Inventory Costing Methods</h3>  
+      <span class="lo-tag">Ch6: C1, P1, A1</span>  
+    </div>  
+    <div class="card-body">  
+      <div class="scenario-box">  
+        <div class="scenario-label">📋 Inventory Data — Alibaba Smart Speakers</div>  
+        <p>Alibaba sells "Tmall Genie" smart speakers. Below are Q1 2024 inventory transactions. Use this data to compute COGS and Ending Inventory under FIFO, LIFO, and Weighted Average (perpetual system).</p>  
+      </div>  
+  
+      <table class="inv-table">  
+        <thead>  
+          <tr><th>Date</th><th>Transaction</th><th>Units</th><th>Unit Cost (¥)</th><th>Total Cost (¥)</th></tr>  
+        </thead>  
+        <tbody>  
+          <tr><td>Jan 1</td><td class="row-label">Beginning Inventory</td><td>100</td><td>150</td><td>15,000</td></tr>  
+          <tr><td>Jan 20</td><td class="row-label">Purchase</td><td>200</td><td>160</td><td>32,000</td></tr>  
+          <tr><td>Feb 10</td><td class="row-label">Sale</td><td>180</td><td>—</td><td>—</td></tr>  
+          <tr><td>Mar 5</td><td class="row-label">Purchase</td><td>150</td><td>170</td><td>25,500</td></tr>  
+          <tr><td>Mar 25</td><td class="row-label">Sale</td><td>120</td><td>—</td><td>—</td></tr>  
+          <tr style="background:#FFF3E0;font-weight:700;">  
+            <td colspan="2" class="row-label">Totals: Available = 450 units, Sold = 300, Ending = 150</td>  
+            <td></td><td></td><td>72,500</td>  
+          </tr>  
+        </tbody>  
+      </table>  
+  
+      <h4 style="margin:25px 0 15px;">Calculate COGS and Ending Inventory under each method:</h4>  
+  
+      <div class="comparison-grid">  
+        <!-- FIFO -->  
+        <div class="method-column">  
+          <div class="method-header" style="background:#2196F3;">FIFO</div>  
+          <div class="method-body">  
+            <p style="font-size:12px; color:var(--text-light); margin-bottom:10px;">First-In, First-Out: oldest costs go to COGS first.</p>  
+            <div class="form-group" style="margin-bottom:10px;">  
+              <label>Cost of Goods Sold (¥)</label>  
+              <input type="number" id="m4_fifo_cogs" placeholder="?" style="width:100%;">  
+            </div>  
+            <div class="form-group">  
+              <label>Ending Inventory (¥)</label>  
+              <input type="number" id="m4_fifo_ei" placeholder="?" style="width:100%;">  
+            </div>  
+          </div>  
+        </div>  
+        <!-- LIFO -->  
+        <div class="method-column">  
+          <div class="method-header" style="background:#FF5722;">LIFO</div>  
+          <div class="method-body">  
+            <p style="font-size:12px; color:var(--text-light); margin-bottom:10px;">Last-In, First-Out: newest costs go to COGS first.</p>  
+            <div class="form-group" style="margin-bottom:10px;">  
+              <label>Cost of Goods Sold (¥)</label>  
+              <input type="number" id="m4_lifo_cogs" placeholder="?" style="width:100%;">  
+            </div>  
+            <div class="form-group">  
+              <label>Ending Inventory (¥)</label>  
+              <input type="number" id="m4_lifo_ei" placeholder="?" style="width:100%;">  
+            </div>  
+          </div>  
+        </div>  
+        <!-- Weighted Average -->  
+        <div class="method-column">  
+          <div class="method-header" style="background:#9C27B0;">Weighted Average</div>  
+          <div class="method-body">  
+            <p style="font-size:12px; color:var(--text-light); margin-bottom:10px;">Recalculate average cost after each purchase.</p>  
+            <div class="form-group" style="margin-bottom:10px;">  
+              <label>Cost of Goods Sold (¥)</label>  
+              <input type="number" id="m4_wa_cogs" placeholder="?" style="width:100%;">  
+            </div>  
+            <div class="form-group">  
+              <label>Ending Inventory (¥)</label>  
+              <input type="number" id="m4_wa_ei" placeholder="?" style="width:100%;">  
+            </div>  
+          </div>  
+        </div>  
+      </div>  
+  
+      <div class="feedback" id="m4f1" style="margin-top:15px;"></div>  
+      <div class="btn-group">  
+        <button class="btn btn-primary" onclick="checkM4()">✓ Check All Methods</button>  
+        <button class="btn btn-outline btn-sm" onclick="toggleHint('m4hint')">💡 Show Calculation Guide</button>  
+        <button class="btn btn-outline btn-sm" onclick="showAnswer('m4ans')">Show Answers</button>  
+      </div>  
+  
+      <div class="hint-box" id="m4hint">  
+        <strong>FIFO (Perpetual):</strong><br>  
+        Feb 10 sale (180): 100×¥150 + 80×¥160 = ¥15,000 + ¥12,800 = ¥27,800<br>  
+        Mar 25 sale (120): 120×¥160 = ¥19,200<br>  
+        Total COGS = ¥47,000; EI = 72,500 − 47,000 = ¥25,500<br><br>  
+        <strong>LIFO (Perpetual):</strong><br>  
+        Feb 10 sale (180): 180×¥160 = ¥28,800<br>  
+        Mar 25 sale (120): 120×¥170 = ¥20,400<br>  
+        Total COGS = ¥49,200; EI = 72,500 − 49,200 = ¥23,300<br><br>  
+        <strong>Weighted Average (Perpetual):</strong><br>  
+        Before Feb 10: (15,000+32,000)/300 = ¥156.67; COGS Feb 10 = 180×156.67 = ¥28,200<br>  
+        After Feb 10: 120 units × ¥156.67 = ¥18,800 remaining<br>  
+        After Mar 5 purchase: (18,800+25,500)/270 = ¥164.07; COGS Mar 25 = 120×164.07 = ¥19,689<br>  
+        Total COGS ≈ ¥47,889; EI ≈ ¥24,611  
+      </div>  
+  
+      <div class="hint-box" id="ans_m4ans" style="margin-top:10px;">  
+        <strong>FIFO:</strong> COGS = ¥47,000, EI = ¥25,500<br>  
+        <strong>LIFO:</strong> COGS = ¥49,200, EI = ¥23,300<br>  
+        <strong>Wtd Avg:</strong> COGS ≈ ¥47,889, EI ≈ ¥24,611  
+      </div>  
+  
+      <!-- Effects Analysis -->  
+      <div style="margin-top:30px;">  
+        <h4>📊 Comparative Analysis: Effects on Financial Statements</h4>  
+        <p style="font-size:14px; margin:10px 0;">When prices are <strong>rising</strong> (as in our data: ¥150 → ¥160 → ¥170), which method produces:</p>  
+          
+        <div class="form-row" style="margin:15px 0;">  
+          <div class="form-group">  
+            <label>Highest Net Income?</label>  
+            <select id="m4_q1">  
+              <option value="">Select...</option>  
+              <option value="FIFO">FIFO</option>  
+              <option value="LIFO">LIFO</option>  
+              <option value="Weighted Average">Weighted Average</option>  
+            </select>  
+          </div>  
+          <div class="form-group">  
+            <label>Lowest Tax Expense?</label>  
+            <select id="m4_q2">  
+              <option value="">Select...</option>  
+              <option value="FIFO">FIFO</option>  
+              <option value="LIFO">LIFO</option>  
+              <option value="Weighted Average">Weighted Average</option>  
+            </select>  
+          </div>  
+          <div class="form-group">  
+            <label>Highest Ending Inventory on B/S?</label>  
+            <select id="m4_q3">  
+              <option value="">Select...</option>  
+              <option value="FIFO">FIFO</option>  
+              <option value="LIFO">LIFO</option>  
+              <option value="Weighted Average">Weighted Average</option>  
+            </select>  
+          </div>  
+        </div>  
+        <div class="feedback" id="m4f2"></div>  
+        <button class="btn btn-secondary btn-sm" onclick="checkM4Analysis()">✓ Check Analysis</button>  
+      </div>  
+    </div>  
+  </div>  
+</div>  
+  
+<!-- ====== MODULE 5: LCM & ERRORS ====== -->  
+<div class="module-panel" id="module5">  
+  <div class="card fade-in">  
+    <div class="card-header">  
+      <h3>⚖️ Module 5: Lower of Cost or Market & Inventory Errors</h3>  
+      <span class="lo-tag">Ch6: P2, A2</span>  
+    </div>  
+    <div class="card-body">  
+      <!-- Part A: LCM -->  
+      <h4 style="margin-bottom:15px;">Part A: Lower of Cost or Market (LCM)</h4>  
+      <div class="scenario-box">  
+        <div class="scenario-label">Scenario</div>  
+        <p>At year-end, Alibaba must apply the LCM rule to its inventory categories. For each item, determine the LCM value and total inventory carrying amount.</p>  
+      </div>  
+  
+      <table class="lcm-table">  
+        <thead>  
+          <tr><th>Product</th><th>Units</th><th>Cost/Unit (¥)</th><th>Market/Unit (¥)</th><th>LCM/Unit (¥)</th><th>Total LCM (¥)</th></tr>  
+        </thead>  
+        <tbody>  
+          <tr>  
+            <td style="text-align:left; font-weight:600;">Smart Speakers</td>  
+            <td>150</td><td>164</td><td>155</td>  
+            <td><input type="number" class="statement-input" id="lcm1_unit" placeholder="?"></td>  
+            <td><input type="number" class="statement-input" id="lcm1_total" placeholder="?"></td>  
+          </tr>  
+          <tr>  
+            <td style="text-align:left; font-weight:600;">Wireless Earbuds</td>  
+            <td>250</td><td>123</td><td>130</td>  
+            <td><input type="number" class="statement-input" id="lcm2_unit" placeholder="?"></td>  
+            <td><input type="number" class="statement-input" id="lcm2_total" placeholder="?"></td>  
+          </tr>  
+          <tr>  
+            <td style="text-align:left; font-weight:600;">Tablets</td>  
+            <td>80</td><td>1200</td><td>1050</td>  
+            <td><input type="number" class="statement-input" id="lcm3_unit" placeholder="?"></td>  
+            <td><input type="number" class="statement-input" id="lcm3_total" placeholder="?"></td>  
+          </tr>  
+          <tr style="background:#FFF3E0; font-weight:700;">  
+            <td colspan="5" style="text-align:right;">Total Inventory at LCM:</td>  
+            <td><input type="number" class="statement-input" id="lcm_total" placeholder="?" style="font-weight:800;"></td>  
+          </tr>  
+        </tbody>  
+      </table>  
+  
+      <div class="feedback" id="m5f1" style="margin-top:10px;"></div>  
+      <div class="btn-group">  
+        <button class="btn btn-primary" onclick="checkLCM()">✓ Check LCM</button>  
+        <button class="btn btn-outline btn-sm" onclick="showAnswer('m5lcm')">Show Answers</button>  
+      </div>  
+      <div class="hint-box" id="ans_m5lcm" style="margin-top:10px;">  
+        Speakers: LCM = ¥155 × 150 = <strong>¥23,250</strong><br>  
+        Earbuds: LCM = ¥123 × 250 = <strong>¥30,750</strong> (cost is lower)<br>  
+        Tablets: LCM = ¥1,050 × 80 = <strong>¥84,000</strong><br>  
+        Total = 23,250 + 30,750 + 84,000 = <strong>¥138,000</strong>  
+      </div>  
+  
+      <!-- Part B: Inventory Errors -->  
+      <h4 style="margin:30px 0 15px;">Part B: Effects of Inventory Errors</h4>  
+      <div class="scenario-box">  
+        <div class="scenario-label">Scenario</div>  
+        <p>Alibaba's warehouse team accidentally <strong>understated ending inventory by ¥20,000</strong> in Year 2024. Determine the effects on the financial statements for 2024 and 2025 (assuming the error is not discovered).</p>  
+      </div>  
+  
+      <p style="font-size:13px; margin-bottom:10px;">For each item, select whether the amount is <strong>Overstated</strong>, <strong>Understated</strong>, or <strong>No Effect</strong>:</p>  
+  
+      <table class="error-effect-table">  
+        <thead>  
+          <tr><th>Financial Item</th><th>Year 2024 Effect</th><th>Year 2025 Effect</th></tr>  
+        </thead>  
+        <tbody>  
+          <tr>  
+            <td style="text-align:left; font-weight:600;">Ending Inventory</td>  
+            <td><select class="arrow-select" id="err1_24"><option value="">--</option><option value="O">Overstated</option><option value="U">Understated</option><option value="N">No Effect</option></select></td>  
+            <td><select class="arrow-select" id="err1_25"><option value="">--</option><option value="O">Overstated</option><option value="U">Understated</option><option value="N">No Effect</option></select></td>  
+          </tr>  
+          <tr>  
+            <td style="text-align:left; font-weight:600;">Cost of Goods Sold</td>  
+            <td><select class="arrow-select" id="err2_24"><option value="">--</option><option value="O">Overstated</option><option value="U">Understated</option><option value="N">No Effect</option></select></td>  
+            <td><select class="arrow-select" id="err3_25"><option value="">--</option><option value="O">Overstated</option><option value="U">Understated</option><option value="N">No Effect</option></select></td>  
+          </tr>  
+          <tr>  
+            <td style="text-align:left; font-weight:600;">Gross Profit</td>  
+            <td><select class="arrow-select" id="err4_24"><option value="">--</option><option value="O">Overstated</option><option value="U">Understated</option><option value="N">No Effect</option></select></td>  
+            <td><select class="arrow-select" id="err5_25"><option value="">--</option><option value="O">Overstated</option><option value="U">Understated</option><option value="N">No Effect</option></select></td>  
+          </tr>  
+          <tr>  
+            <td style="text-align:left; font-weight:600;">Net Income</td>  
+            <td><select class="arrow-select" id="err6_24"><option value="">--</option><option value="O">Overstated</option><option value="U">Understated</option><option value="N">No Effect</option></select></td>  
+            <td><select class="arrow-select" id="err7_25"><option value="">--</option><option value="O">Overstated</option><option value="U">Understated</option><option value="N">No Effect</option></select></td>  
+          </tr>  
+          <tr>  
+            <td style="text-align:left; font-weight:600;">Total Assets</td>  
+            <td><select class="arrow-select" id="err8_24"><option value="">--</option><option value="O">Overstated</option><option value="U">Understated</option><option value="N">No Effect</option></select></td>  
+            <td><select class="arrow-select" id="err9_25"><option value="">--</option><option value="O">Overstated</option><option value="U">Understated</option><option value="N">No Effect</option></select></td>  
+          </tr>  
+        </tbody>  
+      </table>  
+  
+      <div class="feedback" id="m5f2" style="margin-top:10px;"></div>  
+      <div class="btn-group">  
+        <button class="btn btn-primary" onclick="checkErrors()">✓ Check Error Analysis</button>  
+        <button class="btn btn-outline btn-sm" onclick="showAnswer('m5err')">Show Answers</button>  
+      </div>  
+      <div class="hint-box" id="ans_m5err" style="margin-top:10px;">  
+        <strong>2024:</strong> EI Understated → COGS Overstated → Gross Profit Understated → Net Income Understated → Assets Understated<br>  
+        <strong>2025:</strong> EI No Effect (self-corrects at end) → Beg Inv was understated so COGS is Understated → Gross Profit Overstated → Net Income Overstated → Assets No Effect (self-corrects by end of 2025)  
+      </div>  
+    </div>  
+  </div>  
+</div>  
+  
+<!-- ====== MODULE 6: RATIOS ====== -->  
+<div class="module-panel" id="module6">  
+  <div class="card fade-in">  
+    <div class="card-header">  
+      <h3>📈 Module 6: Financial Ratio Analysis</h3>  
+      <span class="lo-tag">Ch5: A1 | Ch6: A3</span>  
+    </div>  
+    <div class="card-body">  
+      <div class="scenario-box">  
+        <div class="scenario-label">📋 Alibaba's Year-End Financial Data</div>  
+        <p>Use the following simplified balance sheet and income statement data to calculate key financial ratios.</p>  
+      </div>  
+  
+      <div class="two-col">  
+        <div>  
+          <h4 style="margin-bottom:10px;">Balance Sheet Items (¥ thousands)</h4>  
+          <table class="inv-table" style="margin:0;">  
+            <tr><td class="row-label">Cash & Cash Equivalents</td><td>¥85,000</td></tr>  
+            <tr><td class="row-label">Short-term Investments</td><td>¥35,000</td></tr>  
+            <tr><td class="row-label">Accounts Receivable (net)</td><td>¥42,000</td></tr>  
+            <tr><td class="row-label">Merchandise Inventory</td><td>¥28,000</td></tr>  
+            <tr><td class="row-label">Prepaid Expenses</td><td>¥5,000</td></tr>  
+            <tr><td class="row-label">Current Liabilities</td><td>¥95,000</td></tr>  
+          </table>  
+        </div>  
+        <div>  
+          <h4 style="margin-bottom:10px;">Income Statement Items (¥ thousands)</h4>  
+          <table class="inv-table" style="margin:0;">  
+            <tr><td class="row-label">Net Sales</td><td>¥480,000</td></tr>  
+            <tr><td class="row-label">Cost of Goods Sold</td><td>¥288,000</td></tr>  
+            <tr><td class="row-label">Gross Profit</td><td>¥192,000</td></tr>  
+            <tr><td class="row-label">Beginning Inventory</td><td>¥32,000</td></tr>  
+            <tr><td class="row-label">Ending Inventory</td><td>¥28,000</td></tr>  
+          </table>  
+        </div>  
+      </div>  
+  
+      <h4 style="margin:25px 0 15px;">Calculate the following ratios:</h4>  
+  
+      <div class="ratio-grid">  
+        <div class="ratio-card">  
+          <div class="ratio-name">Acid-Test Ratio (Quick Ratio)</div>  
+          <div class="ratio-formula">(Cash + Short-term Inv. + A/R) ÷ Current Liabilities</div>  
+          <p style="font-size:12px; opacity:0.7; margin-top:8px;">(85,000 + 35,000 + 42,000) ÷ 95,000</p>  
+          <div class="ratio-input-area">  
+            <input type="text" id="r_acid" placeholder="Enter ratio (e.g., 1.71)">  
+          </div>  
+        </div>  
+        <div class="ratio-card">  
+          <div class="ratio-name">Gross Margin Ratio</div>  
+          <div class="ratio-formula">Gross Profit ÷ Net Sales × 100%</div>  
+          <p style="font-size:12px; opacity:0.7; margin-top:8px;">192,000 ÷ 480,000</p>  
+          <div class="ratio-input-area">  
+            <input type="text" id="r_gm" placeholder="Enter % (e.g., 40.0)">  
+          </div>  
+        </div>  
+        <div class="ratio-card">  
+          <div class="ratio-name">Inventory Turnover</div>  
+          <div class="ratio-formula">COGS ÷ Average Inventory</div>  
+          <p style="font-size:12px; opacity:0.7; margin-top:8px;">288,000 ÷ ((32,000 + 28,000) ÷ 2)</p>  
+          <div class="ratio-input-area">  
+            <input type="text" id="r_invturn" placeholder="Enter ratio (e.g., 9.60)">  
+          </div>  
+        </div>  
+        <div class="ratio-card">  
+          <div class="ratio-name">Days' Sales in Inventory</div>  
+          <div class="ratio-formula">365 ÷ Inventory Turnover</div>  
+          <p style="font-size:12px; opacity:0.7; margin-top:8px;">365 ÷ your answer above</p>  
+          <div class="ratio-input-area">  
+            <input type="text" id="r_dsi" placeholder="Enter days (e.g., 38.0)">  
+          </div>  
+        </div>  
+      </div>  
+  
+      <div class="feedback" id="m6f1" style="margin-top:15px;"></div>  
+      <div class="btn-group">  
+        <button class="btn btn-primary" onclick="checkRatios()">✓ Check All Ratios</button>  
+        <button class="btn btn-outline btn-sm" onclick="showAnswer('m6ans')">Show Answers</button>  
+      </div>  
+      <div class="hint-box" id="ans_m6ans" style="margin-top:10px;">  
+        <strong>Acid-Test:</strong> (85+35+42)/95 = 162/95 = <strong>1.71</strong><br>  
+        <strong>Gross Margin:</strong> 192/480 = <strong>40.0%</strong><br>  
+        <strong>Inv. Turnover:</strong> 288/((32+28)/2) = 288/30 = <strong>9.60</strong><br>  
+        <strong>Days' Sales in Inv.:</strong> 365/9.60 = <strong>38.0 days</strong>  
+      </div>  
+    </div>  
+  </div>  
+</div>  
+  
+<!-- ====== MODULE 7: CLOSING ENTRIES ====== -->  
+<div class="module-panel" id="module7">  
+  <div class="card fade-in">  
+    <div class="card-header">  
+      <h3>🔒 Module 7: Adjusting & Closing Entries</h3>  
+      <span class="lo-tag">Ch5: P3</span>  
+    </div>  
+    <div class="card-body">  
+      <div class="scenario-box">  
+        <div class="scenario-label">📋 Year-End Closing — Alibaba Group</div>  
+        <p>At March 31, 2024, Alibaba must close all temporary accounts (revenue, contra-revenue, expenses) to the Income Summary account, then close Income Summary to Retained Earnings. Use the data from Module 3.</p>  
+      </div>  
+  
+      <div class="stats-row" style="margin-bottom:25px;">  
+        <div class="stat-box"><div class="stat-label">Sales Revenue</div><div class="stat-value" style="font-size:14px;">¥500,000</div></div>  
+        <div class="stat-box"><div class="stat-label">Sales Returns</div><div class="stat-value" style="font-size:14px;">¥12,000</div></div>  
+        <div class="stat-box"><div class="stat-label">Sales Discounts</div><div class="stat-value" style="font-size:14px;">¥8,000</div></div>  
+        <div class="stat-box"><div class="stat-label">COGS</div><div class="stat-value" style="font-size:14px;">¥288,000</div></div>  
+        <div class="stat-box"><div class="stat-label">Selling Exp</div><div class="stat-value" style="font-size:14px;">¥65,000</div></div>  
+        <div class="stat-box"><div class="stat-label">Admin Exp</div><div class="stat-value" style="font-size:14px;">¥42,000</div></div>  
+      </div>  
+  
+      <!-- Closing Entry 1 -->  
+      <div class="closing-step">  
+        <h4>Step 1: Close Revenue Accounts to Income Summary</h4>  
+        <p style="font-size:13px; margin-bottom:10px;">Close all accounts with <strong>credit balances</strong> (revenue) by debiting them and crediting Income Summary.</p>  
+        <div class="form-row">  
+          <div class="form-group" style="flex:2">  
+            <select id="c1_acc1">  
+              <option value="">-- Select Account --</option>  
+              <option value="Sales Revenue">Sales Revenue</option>  
+              <option value="Income Summary">Income Summary</option>  
+              <option value="Sales Returns and Allowances">Sales Returns & Allowances</option>  
+              <option value="Sales Discounts">Sales Discounts</option>  
+              <option value="COGS">Cost of Goods Sold</option>  
+            </select>  
+          </div>  
+          <div class="form-group"><input type="number" id="c1_dr1" placeholder="Debit"></div>  
+          <div class="form-group"><input type="number" id="c1_cr1" placeholder="Credit"></div>  
+        </div>  
+        <div class="form-row">  
+          <div class="form-group" style="flex:2">  
+            <select id="c1_acc2">  
+              <option value="">-- Select Account --</option>  
+              <option value="Sales Revenue">Sales Revenue</option>  
+              <option value="Income Summary">Income Summary</option>  
+            </select>  
+          </div>  
+          <div class="form-group"><input type="number" id="c1_dr2" placeholder="Debit"></div>  
+          <div class="form-group"><input type="number" id="c1_cr2" placeholder="Credit"></div>  
+        </div>  
+      </div>  
+  
+      <!-- Closing Entry 2 -->  
+      <div class="closing-step">  
+        <h4>Step 2: Close Expense & Contra-Revenue Accounts to Income Summary</h4>  
+        <p style="font-size:13px; margin-bottom:10px;">Close all accounts with <strong>debit balances</strong> by crediting them and debiting Income Summary. Total = 12,000 + 8,000 + 288,000 + 65,000 + 42,000 = ¥415,000</p>  
+        <div class="form-row">  
+          <div class="form-group" style="flex:2">  
+            <select id="c2_acc1">  
+              <option value="">-- Select --</option>  
+              <option value="Income Summary">Income Summary</option>  
+              <option value="Sales Returns and Allowances">Sales Returns & Allowances</option>  
+            </select>  
+          </div>  
+          <div class="form-group"><input type="number" id="c2_dr1" placeholder="Debit"></div>  
+          <div class="form-group"><input type="number" id="c2_cr1" placeholder="Credit"></div>  
+        </div>  
+        <div class="form-row">  
+          <div class="form-group" style="flex:2"><label style="padding:10px; font-size:13px;">Cr. Sales Returns & Allow.</label></div>  
+          <div class="form-group"><input type="number" id="c2_cr_sr" placeholder="Credit" style="width:100%;"></div>  
+        </div>  
+        <div class="form-row">  
+          <div class="form-group" style="flex:2"><label style="padding:10px; font-size:13px;">Cr. Sales Discounts</label></div>  
+          <div class="form-group"><input type="number" id="c2_cr_sd" placeholder="Credit" style="width:100%;"></div>  
+        </div>  
+        <div class="form-row">  
+          <div class="form-group" style="flex:2"><label style="padding:10px; font-size:13px;">Cr. Cost of Goods Sold</label></div>  
+          <div class="form-group"><input type="number" id="c2_cr_cogs" placeholder="Credit" style="width:100%;"></div>  
+        </div>  
+        <div class="form-row">  
+          <div class="form-group" style="flex:2"><label style="padding:10px; font-size:13px;">Cr. Selling Expenses</label></div>  
+          <div class="form-group"><input type="number" id="c2_cr_se" placeholder="Credit" style="width:100%;"></div>  
+        </div>  
+        <div class="form-row">  
+          <div class="form-group" style="flex:2"><label style="padding:10px; font-size:13px;">Cr. Admin Expenses</label></div>  
+          <div class="form-group"><input type="number" id="c2_cr_ae" placeholder="Credit" style="width:100%;"></div>  
+        </div>  
+      </div>  
+  
+      <!-- Closing Entry 3 -->  
+      <div class="closing-step">  
+        <h4>Step 3: Close Income Summary to Retained Earnings</h4>  
+        <p style="font-size:13px; margin-bottom:10px;">Income Summary balance = ¥500,000 credit − ¥415,000 debit = ¥85,000 credit (net income). Close it to Retained Earnings.</p>  
+        <div class="form-row">  
+          <div class="form-group" style="flex:2">  
+            <select id="c3_acc1">  
+              <option value="">-- Select --</option>  
+              <option value="Income Summary">Income Summary</option>  
+              <option value="Retained Earnings">Retained Earnings</option>  
+            </select>  
+          </div>  
+          <div class="form-group"><input type="number" id="c3_dr1" placeholder="Debit"></div>  
+          <div class="form-group"><input type="number" id="c3_cr1" placeholder="Credit"></div>  
+        </div>  
+        <div class="form-row">  
+          <div class="form-group" style="flex:2">  
+            <select id="c3_acc2">  
+              <option value="">-- Select --</option>  
+              <option value="Income Summary">Income Summary</option>  
+              <option value="Retained Earnings">Retained Earnings</option>  
+            </select>  
+          </div>  
+          <div class="form-group"><input type="number" id="c3_dr2" placeholder="Debit"></div>  
+          <div class="form-group"><input type="number" id="c3_cr2" placeholder="Credit"></div>  
+        </div>  
+      </div>  
+  
+      <div class="feedback" id="m7f1"></div>  
+      <div class="btn-group">  
+        <button class="btn btn-primary" onclick="checkM7()">✓ Check All Closing Entries</button>  
+        <button class="btn btn-outline btn-sm" onclick="showAnswer('m7ans')">Show Answers</button>  
+      </div>  
+      <div class="hint-box" id="ans_m7ans" style="margin-top:10px;">  
+        <strong>Entry 1:</strong> Dr. Sales Revenue ¥500,000 / Cr. Income Summary ¥500,000<br>  
+        <strong>Entry 2:</strong> Dr. Income Summary ¥415,000 / Cr. Sales Returns ¥12,000, Sales Disc ¥8,000, COGS ¥288,000, Selling Exp ¥65,000, Admin Exp ¥42,000<br>  
+        <strong>Entry 3:</strong> Dr. Income Summary ¥85,000 / Cr. Retained Earnings ¥85,000  
+      </div>  
+  
+      <div class="completion-banner" id="completionBanner">  
+        <h3>🎉 Congratulations!</h3>  
+        <p>You have completed all 7 modules of the Alibaba Accounting Simulation!</p>  
+        <p style="font-size:18px; margin-top:10px;">Final Score: <strong id="finalScoreDisplay">0</strong> / 700</p>  
+      </div>  
+    </div>  
+  </div>  
+</div>  
+  
+</div><!-- end main-content -->  
+  
+<script>  
+// ============ GLOBAL STATE ============  
+let totalScore = 0;  
+let moduleScores = [0,0,0,0,0,0,0,0];  
+let moduleCompleted = [true,false,false,false,false,false,false,false]; // dashboard always "complete"  
+let currentModule = 0;  
+  
+function updateScore(points) {  
+  totalScore += points;  
+  document.getElementById('totalScore').textContent = totalScore;  
+}  
+  
+function updateProgress() {  
+  let completed = moduleCompleted.filter(x=>x).length - 1; // minus dashboard  
+  document.getElementById('progressText').textContent = completed + ' / 7 Modules';  
+  document.getElementById('progressFill').style.width = (completed/7*100) + '%';  
+  document.getElementById('dashModulesComplete').textContent = completed + ' / 7';  
+    
+  for(let i=1;i<=7;i++){  
+    let el = document.getElementById('mc-status-'+i);  
+    if(el){  
+      if(moduleCompleted[i]){  
+        el.textContent = '✓ Completed';  
+        el.className = 'mc-status completed-status';  
+      }  
+    }  
+  }  
+    
+  let tabs = document.querySelectorAll('.nav-tab');  
+  for(let i=1;i<=7;i++){  
+    if(moduleCompleted[i]) tabs[i].classList.add('completed');  
+  }  
+  
+  if(completed === 7){  
+    document.getElementById('completionBanner').classList.add('show');  
+    document.getElementById('finalScoreDisplay').textContent = totalScore;  
+  }  
+}  
+  
+function switchModule(idx) {  
+  currentModule = idx;  
+  document.querySelectorAll('.module-panel').forEach(p => p.classList.remove('active'));  
+  document.getElementById('module'+idx).classList.add('active');  
+  document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));  
+  document.querySelectorAll('.nav-tab')[idx].classList.add('active');  
+}  
+  
+function showFeedback(id, correct, message) {  
+  let el = document.getElementById(id);  
+  el.className = 'feedback show ' + (correct ? 'correct' : 'incorrect');  
+  el.innerHTML = '<span class="feedback-icon">' + (correct ? '✅' : '❌') + '</span><div>' + message + '</div>';  
+}  
+  
+function showInfo(id, message) {  
+  let el = document.getElementById(id);  
+  el.className = 'feedback show info';  
+  el.innerHTML = '<span class="feedback-icon">ℹ️</span><div>' + message + '</div>';  
+}  
+  
+function toggleHint(id) {  
+  let el = document.getElementById(id);  
+  el.classList.toggle('show');  
+}  
+  
+function showAnswer(id) {  
+  let el = document.getElementById('ans_'+id);  
+  if(el) el.classList.toggle('show');  
+}  
+  
+function gv(id) { return parseFloat(document.getElementById(id).value) || 0; }  
+function sv(id) { return document.getElementById(id).value; }  
+  
+// ============ MODULE 1: PURCHASES ============  
+let m1CurrentStep = 0;  
+  
+function showM1Step(step) {  
+  document.querySelectorAll('.m1-step').forEach(s => s.style.display = 'none');  
+  document.getElementById('m1s'+step).style.display = 'block';  
+  let dots = document.querySelectorAll('#m1Steps .step-dot');  
+  dots.forEach((d,i) => { d.className = 'step-dot' + (i===step?' active':'') + (i<m1CurrentStep?' done':''); });  
+  m1CurrentStep = Math.max(m1CurrentStep, step);  
+}  
+  
+function checkM1Step1() {  
+  let acc1=sv('m1e1_acc1'), dr1=gv('m1e1_dr1'), cr1=gv('m1e1_cr1');  
+  let acc2=sv('m1e1_acc2'), dr2=gv('m1e1_dr2'), cr2=gv('m1e1_cr2');  
+    
+  let correct = (acc1==='Merchandise Inventory' && dr1===60000 && cr1===0 &&   
+                 acc2==='Accounts Payable' && dr2===0 && cr2===60000) ||  
+                (acc2==='Merchandise Inventory' && dr2===60000 && cr2===0 &&   
+                 acc1==='Accounts Payable' && dr1===0 && cr1===60000);  
+    
+  if(correct) {  
+    showFeedback('m1f1', true, '<strong>Correct!</strong> Under the perpetual system, purchases are recorded directly to Merchandise Inventory. Since Alibaba bought on account, Accounts Payable is credited.');  
+    updateScore(20);  
+    let dots = document.querySelectorAll('#m1Steps .step-dot');  
+    dots[0].className = 'step-dot done';  
+    setTimeout(()=> showM1Step(1), 1500);  
+  } else {  
+    showFeedback('m1f1', false, 'Not quite. Remember: under the perpetual system, debit <strong>Merchandise Inventory</strong> ¥60,000 and credit <strong>Accounts Payable</strong> ¥60,000. Try again!');  
+  }  
+}  
+  
+function checkM1Step2() {  
+  let acc1=sv('m1e2_acc1'), dr1=gv('m1e2_dr1'), cr1=gv('m1e2_cr1');  
+  let acc2=sv('m1e2_acc2'), dr2=gv('m1e2_dr2'), cr2=gv('m1e2_cr2');  
+    
+  let correct = (acc1==='Merchandise Inventory' && dr1===2400 && !cr1 &&   
+                 acc2==='Cash' && !dr2 && cr2===2400) ||  
+                (acc2==='Merchandise Inventory' && dr2===2400 && !cr2 &&   
+                 acc1==='Cash' && !dr1 && cr1===2400);  
+    
+  if(correct) {  
+    showFeedback('m1f2', true, '<strong>Correct!</strong> Under FOB Shipping Point, the buyer pays freight. In a perpetual system, freight-in is added to Merchandise Inventory cost.');  
+    updateScore(20);  
+    let dots = document.querySelectorAll('#m1Steps .step-dot');  
+    dots[1].className = 'step-dot done';  
+    setTimeout(()=> showM1Step(2), 1500);  
+  } else {  
+    showFeedback('m1f2', false, 'Check again. Debit <strong>Merchandise Inventory</strong> ¥2,400 (adds to cost), credit <strong>Cash</strong> ¥2,400.');  
+  }  
+}  
+  
+function checkM1Step3() {  
+  let acc1=sv('m1e3_acc1'), dr1=gv('m1e3_dr1'), cr1=gv('m1e3_cr1');  
+  let acc2=sv('m1e3_acc2'), dr2=gv('m1e3_dr2'), cr2=gv('m1e3_cr2');  
+    
+  let correct = (acc1==='Accounts Payable' && dr1===6000 && !cr1 &&   
+                 acc2==='Merchandise Inventory' && !dr2 && cr2===6000) ||  
+                (acc2==='Accounts Payable' && dr2===6000 && !cr2 &&   
+                 acc1==='Merchandise Inventory' && !dr1 && cr1===6000);  
+    
+  if(correct) {
+    showFeedback('m1f3', true, '<strong>Correct!</strong> Purchase returns reduce both Accounts Payable and Merchandise Inventory.');
+    updateScore(20);
+    let dots = document.querySelectorAll('#m1Steps .step-dot');
+    dots[2].className = 'step-dot done';
+    setTimeout(()=> showM1Step(3), 1500);
+  } else {
+    showFeedback('m1f3', false, 'Check again. Debit <strong>Accounts Payable</strong> ¥6,000 (reduces what we owe), credit <strong>Merchandise Inventory</strong> ¥6,000 (returns goods).');
+  }
+}
+
+function checkM1Step4() {
+  let acc1=sv('m1e4_acc1'), dr1=gv('m1e4_dr1'), cr1=gv('m1e4_cr1');
+  let acc2=sv('m1e4_acc2'), dr2=gv('m1e4_dr2'), cr2=gv('m1e4_cr2');
+  let acc3=sv('m1e4_acc3'), dr3=gv('m1e4_dr3'), cr3=gv('m1e4_cr3');
+  
+  // Check if AP debited 54000, Cash credited 52920, and MI credited 1080
+  let hasAP = (acc1==='Accounts Payable' && dr1===54000) || (acc2==='Accounts Payable' && dr2===54000) || (acc3==='Accounts Payable' && dr3===54000);
+  let hasCash = (acc1==='Cash' && cr1===52920) || (acc2==='Cash' && cr2===52920) || (acc3==='Cash' && cr3===52920);
+  let hasDiscount = (acc1==='Merchandise Inventory' && cr1===1080) || (acc2==='Merchandise Inventory' && cr2===1080) || (acc3==='Merchandise Inventory' && cr3===1080);
+  
+  let correct = hasAP && hasCash && hasDiscount;
+  
+  if(correct) {
+    showFeedback('m1f4', true, '<strong>Correct!</strong> The full AP is debited, cash paid is credited, and the discount reduces Merchandise Inventory cost.');
+    updateScore(20);
+    let dots = document.querySelectorAll('#m1Steps .step-dot');
+    dots[3].className = 'step-dot done';
+    setTimeout(()=> showM1Step(4), 1500);
+  } else {
+    showFeedback('m1f4', false, 'Need 3 accounts: Dr. Accounts Payable ¥54,000; Cr. Merchandise Inventory ¥1,080 (discount); Cr. Cash ¥52,920.');
+  }
+}
+
+function checkM1Step5() {
+  let balance = gv('m1_final');
+  let correct = balance === 55320;
+  
+  if(correct) {
+    showFeedback('m1f5', true, '<strong>Correct!</strong> Ending Inventory = ¥60,000 + ¥2,400 - ¥6,000 - ¥1,080 = <strong>¥55,320</strong>');
+    updateScore(20);
+    moduleScores[1] = 100;
+    moduleCompleted[1] = true;
+    updateProgress();
+    let dots = document.querySelectorAll('#m1Steps .step-dot');
+    dots[4].className = 'step-dot done';
+  } else {
+    showFeedback('m1f5', false, 'Calculate: 60,000 + 2,400 - 6,000 - 1,080 = ?');
+  }
+}
+
+// ============ MODULE 2: SALES ============
+let m2CurrentStep = 0;
+
+function showM2Step(step) {
+  document.querySelectorAll('.m2-step').forEach(s => s.style.display = 'none');
+  document.getElementById('m2s'+step).style.display = 'block';
+  let dots = document.querySelectorAll('#m2Steps .step-dot');
+  dots.forEach((d,i) => { d.className = 'step-dot' + (i===step?' active':'') + (i<m2CurrentStep?' done':''); });
+  m2CurrentStep = Math.max(m2CurrentStep, step);
+}
+
+function checkM2Entry1() {
+  let acc1=sv('m2e1_acc1'), dr1=gv('m2e1_dr1'), cr1=gv('m2e1_cr1');
+  let acc2=sv('m2e1_acc2'), dr2=gv('m2e1_dr2'), cr2=gv('m2e1_cr2');
+  
+  let correct = (acc1==='Accounts Receivable' && dr1===40000 && !cr1 &&
+                 acc2==='Sales Revenue' && !dr2 && cr2===40000) ||
+                (acc2==='Accounts Receivable' && dr2===40000 && !cr2 &&
+                 acc1==='Sales Revenue' && !dr1 && cr1===40000);
+  
+  if(correct) {
+    showFeedback('m2f1', true, '<strong>Correct!</strong> For credit sales: Dr. Accounts Receivable, Cr. Sales Revenue.');
+    updateScore(20);
+    document.getElementById('m2e2_section').style.display = 'block';
+  } else {
+    showFeedback('m2f1', false, 'For the revenue entry: Dr. Accounts Receivable ¥40,000, Cr. Sales Revenue ¥40,000.');
+  }
+}
+
+function checkM2Entry2() {
+  let acc1=sv('m2e2_acc1'), dr1=gv('m2e2_dr1'), cr1=gv('m2e2_cr1');
+  let acc2=sv('m2e2_acc2'), dr2=gv('m2e2_dr2'), cr2=gv('m2e2_cr2');
+  
+  let correct = (acc1==='Cost of Goods Sold' && dr1===24586 && !cr1 &&
+                 acc2==='Merchandise Inventory' && !dr2 && cr2===24586) ||
+                (acc2==='Cost of Goods Sold' && dr2===24586 && !cr2 &&
+                 acc1==='Merchandise Inventory' && !dr1 && cr1===24586);
+  
+  if(correct) {
+    showFeedback('m2f1', true, '<strong>Correct!</strong> Both entries recorded. Entry 2: Dr. COGS ¥24,586, Cr. Merchandise Inventory ¥24,586.');
+    updateScore(20);
+    let dots = document.querySelectorAll('#m2Steps .step-dot');
+    dots[0].className = 'step-dot done';
+    setTimeout(()=> showM2Step(1), 1500);
+  } else {
+    showFeedback('m2f1', false, 'Entry 2: Dr. COGS ¥24,586 (200 units × ¥122.93), Cr. Merchandise Inventory ¥24,586.');
+  }
+}
+
+function checkM2Step2() {
+  let acc1=sv('m2e3_acc1'), dr1=gv('m2e3_dr1'), cr1=gv('m2e3_cr1');
+  let acc2=sv('m2e3_acc2'), dr2=gv('m2e3_dr2'), cr2=gv('m2e3_cr2');
+  
+  let correct = (acc1==='Sales Returns and Allowances' && dr1===6000 && !cr1 &&
+                 acc2==='Accounts Receivable' && !dr2 && cr2===6000) ||
+                (acc2==='Sales Returns and Allowances' && dr2===6000 && !cr2 &&
+                 acc1==='Accounts Receivable' && !dr1 && cr1===6000);
+  
+  if(correct) {
+    showFeedback('m2f2', true, '<strong>Correct!</strong> Sales returns debit the contra-revenue account.');
+    updateScore(15);
+    document.getElementById('m2_return_inv').style.display = 'block';
+  } else {
+    showFeedback('m2f2', false, 'Dr. Sales Returns and Allowances ¥6,000, Cr. Accounts Receivable ¥6,000.');
+  }
+}
+
+function checkM2ReturnInventory() {
+  let acc1=sv('m2e4_acc1'), dr1=gv('m2e4_dr1'), cr1=gv('m2e4_cr1');
+  let acc2=sv('m2e4_acc2'), dr2=gv('m2e4_dr2'), cr2=gv('m2e4_cr2');
+  
+  let correct = (acc1==='Merchandise Inventory' && dr1===3688 && !cr1 &&
+                 acc2==='Cost of Goods Sold' && !dr2 && cr2===3688) ||
+                (acc2==='Merchandise Inventory' && dr2===3688 && !cr2 &&
+                 acc1==='Cost of Goods Sold' && !dr1 && cr1===3688);
+  
+  if(correct) {
+    showFeedback('m2f3', true, '<strong>Correct!</strong> Returned goods are added back to inventory at cost (30 × ¥122.93 = ¥3,688).');
+    updateScore(15);
+    let dots = document.querySelectorAll('#m2Steps .step-dot');
+    dots[1].className = 'step-dot done';
+    setTimeout(()=> showM2Step(2), 1500);
+  } else {
+    showFeedback('m2f3', false, 'Dr. Merchandise Inventory ¥3,688 (30 × ¥122.93), Cr. COGS ¥3,688.');
+  }
+}
+
+function checkM2Final() {
+  let netSales = gv('m2_net_sales');
+  let grossProfit = gv('m2_gross_profit');
+  
+  let correctNetSales = netSales === 34000; // 40000 - 6000
+  let correctGP = grossProfit === 10096; // 34000 - (24586 - 3688) = 34000 - 20898
+  
+  if(correctNetSales && correctGP) {
+    showFeedback('m2f4', true, '<strong>Excellent!</strong> Net Sales = ¥34,000; COGS = ¥20,898; Gross Profit = ¥10,096.');
+    updateScore(30);
+    moduleScores[2] = 100;
+    moduleCompleted[2] = true;
+    updateProgress();
+  } else if(correctNetSales) {
+    showFeedback('m2f4', false, 'Net Sales is correct (¥34,000). Check Gross Profit: Net Sales - COGS. COGS = 24,586 - 3,688 = ?');
+  } else if(correctGP) {
+    showFeedback('m2f4', false, 'Gross Profit is correct. Check Net Sales: Sales - Returns.');
+  } else {
+    showFeedback('m2f4', false, 'Net Sales = 40,000 - 6,000 = 34,000. COGS = 24,586 - 3,688 = 20,898. Gross Profit = 34,000 - 20,898.');
+  }
+}
+
+// ============ MODULE 3: INCOME STATEMENT ============
+function checkIncomeStatement() {
+  let grossSales = gv('is_gross_sales');
+  let netSales = gv('is_net_sales');
+  let grossProfit = gv('is_gross_profit');
+  let totalOpExp = gv('is_total_opexp');
+  let netIncome = gv('is_net_income');
+  
+  let correct = grossSales === 500000 && netSales === 480000 && 
+                grossProfit === 192000 && totalOpExp === 107000 && 
+                netIncome === 85000;
+  
+  if(correct) {
+    showFeedback('is_feedback', true, '<strong>Perfect!</strong> All calculations are correct!');
+    updateScore(100);
+    moduleScores[3] = 100;
+    moduleCompleted[3] = true;
+    updateProgress();
+  } else {
+    let msg = 'Check your calculations:<br>';
+    if(grossSales !== 500000) msg += '• Gross Sales should be ¥500,000<br>';
+    if(netSales !== 480000) msg += '• Net Sales = 500,000 - 12,000 - 8,000 = 480,000<br>';
+    if(grossProfit !== 192000) msg += '• Gross Profit = 480,000 - 288,000 = 192,000<br>';
+    if(totalOpExp !== 107000) msg += '• Total Op Exp = 65,000 + 42,000 = 107,000<br>';
+    if(netIncome !== 85000) msg += '• Net Income = 192,000 - 107,000 = 85,000<br>';
+    showFeedback('is_feedback', false, msg);
+  }
+}
+
+// ============ MODULE 4: INVENTORY COSTING ============
+function updateCostingComparison() {
+  let cogs1 = gv('cogs_fifo');
+  let end1 = gv('ending_fifo');
+  let cogs2 = gv('cogs_lifo');
+  let end2 = gv('ending_lifo');
+  let cogs3 = gv('cogs_wa');
+  let end3 = gv('ending_wa');
+  
+  document.getElementById('profit_fifo').textContent = '¥' + (400000 - cogs1).toLocaleString();
+  document.getElementById('profit_lifo').textContent = '¥' + (400000 - cogs2).toLocaleString();
+  document.getElementById('profit_wa').textContent = '¥' + (400000 - cogs3).toLocaleString();
+  document.getElementById('inventory_fifo').textContent = '¥' + end1.toLocaleString();
+  document.getElementById('inventory_lifo').textContent = '¥' + end2.toLocaleString();
+  document.getElementById('inventory_wa').textContent = '¥' + end3.toLocaleString();
+}
+
+function checkCostingMethod() {
+  let cogs1 = gv('cogs_fifo');
+  let end1 = gv('ending_fifo');
+  let cogs2 = gv('cogs_lifo');
+  let end2 = gv('ending_lifo');
+  let cogs3 = gv('cogs_wa');
+  let end3 = gv('ending_wa');
+  
+  let correct = cogs1 === 285000 && end1 === 315000 &&
+                cogs2 === 335000 && end2 === 265000 &&
+                cogs3 === 310000 && end3 === 290000;
+  
+  if(correct) {
+    showFeedback('costing_feedback', true, '<strong>Excellent!</strong> All three methods calculated correctly!');
+    updateScore(100);
+    moduleScores[4] = 100;
+    moduleCompleted[4] = true;
+    updateProgress();
+  } else {
+    let msg = 'Check your calculations:<br>';
+    if(cogs1 !== 285000 || end1 !== 315000) msg += '• FIFO: COGS = (1000×100)+(2000×110) = 320,000? No wait, check the units again.<br>';
+    showFeedback('costing_feedback', false, msg + 'Refer to the inventory layers table above.');
+  }
+}
+
+// ============ MODULE 5: LCM & ERRORS ============
+function updateLCM() {
+  let pd = gv('lcm_pd');
+  let sd = gv('lcm_sd');
+  let acc = gv('lcm_acc');
+  
+  let total = (pd * 500) + (sd * 800) + (acc * 300);
+  document.getElementById('lcm_total').textContent = '¥' + total.toLocaleString();
+}
+
+function checkLCM() {
+  let pd = gv('lcm_pd');
+  let sd = gv('lcm_sd');
+  let acc = gv('lcm_acc');
+  let jeAcc = sv('lcm_je_acc');
+  let jeDr = gv('lcm_je_dr');
+  let jeCr = gv('lcm_je_cr');
+  
+  let correctWD = pd === 25 && sd === 20 && acc === 40;
+  let correctJE = jeAcc === 'COGS' && jeDr === 36500 && jeCr === 36500;
+  
+  if(correctWD && correctJE) {
+    showFeedback('lcm_feedback', true, '<strong>Correct!</strong> Write-down = (25×500)+(20×800)+(40×300) = ¥36,500. Entry: Dr. COGS, Cr. Inventory.');
+    updateScore(50);
+  } else if(correctWD) {
+    showFeedback('lcm_feedback', false, 'Write-down amounts are correct (total ¥36,500). Check the journal entry accounts.');
+  } else {
+    showFeedback('lcm_feedback', false, 'Write-down per unit = Cost - Market. Premium: 150-125=25, Standard: 120-100=20, Accessories: 80-40=40.');
+  }
+}
+
+function checkErrorAnalysis() {
+  // This would check the error analysis table
+  showFeedback('error_feedback', true, 'Error analysis recorded. Continue to next module.');
+  moduleScores[5] = 100;
+  moduleCompleted[5] = true;
+  updateProgress();
+}
+
+// ============ MODULE 6: RATIOS ============
+function checkRatios() {
+  let acid = parseFloat(document.getElementById('ratio_acid').value);
+  let gm = parseFloat(document.getElementById('ratio_gm').value);
+  let turn = parseFloat(document.getElementById('ratio_turn').value);
+  let days = parseFloat(document.getElementById('ratio_days').value);
+  
+  let correctAcid = Math.abs(acid - 1.33) < 0.05;
+  let correctGM = Math.abs(gm - 0.40) < 0.02;
+  let correctTurn = Math.abs(turn - 4) < 0.2;
+  let correctDays = Math.abs(days - 91) < 5;
+  
+  let score = 0;
+  if(correctAcid) score += 25;
+  if(correctGM) score += 25;
+  if(correctTurn) score += 25;
+  if(correctDays) score += 25;
+  
+  if(score === 100) {
+    showFeedback('ratio_feedback', true, '<strong>Perfect!</strong> All ratios calculated correctly!');
+    moduleScores[6] = 100;
+    moduleCompleted[6] = true;
+    updateProgress();
+  } else {
+    let msg = 'Check your calculations:<br>';
+    if(!correctAcid) msg += '• Acid-test = (12,000+45,000)/42,800 = 1.33<br>';
+    if(!correctGM) msg += '• Gross Margin = 192,000/480,000 = 40%<br>';
+    if(!correctTurn) msg += '• Inventory Turnover = 288,000/72,000 = 4<br>';
+    if(!correctDays) msg += '• Days Sales = 365/4 = 91 days<br>';
+    showFeedback('ratio_feedback', false, msg);
+  }
+  updateScore(score);
+}
+
+// ============ MODULE 7: CLOSING ENTRIES ============
+function checkM7() {
+  // Check closing entry 1
+  let c1Acc1 = sv('c1_acc1'), c1Dr1 = gv('c1_dr1'), c1Cr1 = gv('c1_cr1');
+  let c1Acc2 = sv('c1_acc2'), c1Dr2 = gv('c1_dr2'), c1Cr2 = gv('c1_cr2');
+  
+  let entry1Correct = (c1Acc1 === 'Sales Revenue' && c1Dr1 === 500000 && c1Acc2 === 'Income Summary' && c1Cr2 === 500000) ||
+                      (c1Acc2 === 'Sales Revenue' && c1Dr2 === 500000 && c1Acc1 === 'Income Summary' && c1Cr1 === 500000);
+  
+  // Check closing entry 2
+  let c2Correct = gv('c2_dr1') === 415000 && gv('c2_cr_sr') === 12000 && 
+                  gv('c2_cr_sd') === 8000 && gv('c2_cr_cogs') === 288000 &&
+                  gv('c2_cr_se') === 65000 && gv('c2_cr_ae') === 42000;
+  
+  // Check closing entry 3
+  let c3Acc1 = sv('c3_acc1'), c3Dr1 = gv('c3_dr1'), c3Acc2 = sv('c3_acc2'), c3Cr2 = gv('c3_cr2');
+  let entry3Correct = (c3Acc1 === 'Income Summary' && c3Dr1 === 85000 && c3Acc2 === 'Retained Earnings' && c3Cr2 === 85000) ||
+                      (c3Acc2 === 'Income Summary' && c3Cr2 === 85000 && c3Acc1 === 'Retained Earnings' && c3Dr1 === 85000);
+  
+  let allCorrect = entry1Correct && c2Correct && entry3Correct;
+  
+  if(allCorrect) {
+    showFeedback('m7f1', true, '<strong>Excellent!</strong> All closing entries are correct! Net income of ¥85,000 has been closed to Retained Earnings.');
+    updateScore(100);
+    moduleScores[7] = 100;
+    moduleCompleted[7] = true;
+    updateProgress();
+  } else {
+    let msg = 'Check your entries:<br>';
+    if(!entry1Correct) msg += '• Entry 1: Close Sales Revenue to Income Summary<br>';
+    if(!c2Correct) msg += '• Entry 2: Total debit to Income Summary should be ¥415,000<br>';
+    if(!entry3Correct) msg += '• Entry 3: Close Income Summary (net income ¥85,000) to Retained Earnings<br>';
+    showFeedback('m7f1', false, msg);
+  }
+}
+
+// Initialize
+updateProgress();
+</script>
+</body>
+</html>

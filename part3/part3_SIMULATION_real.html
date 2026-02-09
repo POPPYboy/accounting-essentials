@@ -1,0 +1,543 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NVIDIA Accounting Systems - Real Practice Simulation</title>
+    <style>
+        :root {
+            --nvidia-green: #76B900;
+            --nvidia-dark: #1a1a1a;
+            --success: #4CAF50;
+            --error: #f44336;
+            --warning: #FF9800;
+            --info: #2196F3;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Segoe UI', sans-serif; background: #f5f5f5; }
+        
+        /* Navigation */
+        .nav-top { background: var(--nvidia-dark); padding: 15px 30px; border-bottom: 3px solid var(--nvidia-green); }
+        .nav-content { max-width: 1400px; margin: 0 auto; display: flex; justify-content: space-between; }
+        .nav-links { display: flex; gap: 20px; }
+        .nav-links a { color: white; text-decoration: none; padding: 8px 16px; border-radius: 4px; transition: 0.3s; }
+        .nav-links a:hover, .nav-links a.active { background: var(--nvidia-green); color: var(--nvidia-dark); }
+        
+        /* Header */
+        .header { background: linear-gradient(135deg, var(--nvidia-dark), #2d2d2d); color: white; padding: 40px; text-align: center; }
+        .header h1 { color: var(--nvidia-green); font-size: 2.5rem; margin-bottom: 15px; }
+        
+        /* Progress Bar */
+        .progress-container { background: white; padding: 20px; margin: 20px auto; max-width: 1400px; border-radius: 10px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
+        .progress-bar { height: 30px; background: #e0e0e0; border-radius: 15px; overflow: hidden; }
+        .progress-fill { height: 100%; background: var(--nvidia-green); display: flex; align-items: center; justify-content: center; color: white; font-weight: bold; transition: width 0.5s; }
+        
+        /* Phase Navigation */
+        .phase-nav { display: flex; justify-content: center; gap: 10px; padding: 20px; background: white; flex-wrap: wrap; }
+        .phase-btn { padding: 12px 24px; border: 2px solid #ddd; background: white; border-radius: 25px; cursor: pointer; font-weight: 600; transition: all 0.3s; }
+        .phase-btn:hover { border-color: var(--nvidia-green); transform: translateY(-2px); }
+        .phase-btn.active { background: var(--nvidia-green); color: white; border-color: var(--nvidia-green); }
+        
+        /* Main Content */
+        .container { max-width: 1400px; margin: 0 auto; padding: 30px; }
+        
+        /* Task Cards */
+        .task-card { background: white; border-radius: 12px; padding: 30px; margin-bottom: 30px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
+        .task-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; padding-bottom: 15px; border-bottom: 2px solid #e0e0e0; }
+        
+        /* Document Styling */
+        .document { background: #f8f9fa; border: 2px solid #e0e0e0; border-radius: 8px; padding: 20px; margin: 20px 0; font-family: 'Courier New', monospace; }
+        .document-header { text-align: center; border-bottom: 2px solid #333; padding-bottom: 15px; margin-bottom: 15px; }
+        
+        /* Tables */
+        table { width: 100%; border-collapse: collapse; margin: 20px 0; }
+        th { background: var(--nvidia-dark); color: white; padding: 12px; text-align: left; border: 1px solid #444; }
+        td { padding: 12px; border: 1px solid #ddd; }
+        tr:nth-child(even) { background: #f8f9fa; }
+        input[type="text"], input[type="number"], select { width: 100%; padding: 10px; border: 2px solid #ddd; border-radius: 4px; font-size: 14px; }
+        input.correct { border-color: var(--success); background: #E8F5E9; }
+        input.incorrect { border-color: var(--error); background: #FFEBEE; }
+        
+        /* Buttons */
+        .btn { padding: 12px 24px; border: none; border-radius: 8px; cursor: pointer; font-weight: 600; font-size: 14px; transition: all 0.3s; margin: 5px; }
+        .btn-primary { background: var(--nvidia-green); color: white; }
+        .btn-primary:hover { background: #5a8f00; }
+        .btn-secondary { background: #6c757d; color: white; }
+        .btn-outline { background: transparent; border: 2px solid var(--nvidia-green); color: var(--nvidia-green); }
+        .btn:disabled { opacity: 0.5; cursor: not-allowed; }
+        
+        /* Feedback */
+        .feedback { padding: 15px; border-radius: 8px; margin: 15px 0; display: none; }
+        .feedback.show { display: block; }
+        .feedback.success { background: #E8F5E9; border-left: 4px solid var(--success); color: #2E7D32; }
+        .feedback.error { background: #FFEBEE; border-left: 4px solid var(--error); color: #C62828; }
+        .feedback.info { background: #E3F2FD; border-left: 4px solid var(--info); color: #1565C0; }
+        
+        /* Hidden */
+        .hidden { display: none !important; }
+        
+        /* Two Column */
+        .two-column { display: grid; grid-template-columns: 1fr 1fr; gap: 30px; }
+        @media (max-width: 968px) { .two-column { grid-template-columns: 1fr; } }
+        
+        /* Status Badges */
+        .badge { padding: 6px 12px; border-radius: 12px; font-size: 12px; font-weight: 600; }
+        .badge-pending { background: #FFF3E0; color: #E65100; }
+        .badge-completed { background: #E8F5E9; color: #2E7D32; }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="nav-top">
+        <div class="nav-content">
+            <a href="../index.html" style="color: white; text-decoration: none; font-size: 1.2rem; font-weight: 700;">ACCOUNTING<span style="color: var(--nvidia-green);">ESSENTIALS</span></a>
+            <div class="nav-links">
+                <a href="../index.html">Home</a>
+                <a href="part3.html">Part 3</a>
+                <a href="chapter7/ch07.html">Ch 7</a>
+                <a href="chapter8/ch08.html">Ch 8</a>
+                <a href="part3_SIMULATION.html" class="active">Simulation</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Header -->
+    <header class="header">
+        <h1>🖥️ NVIDIA Corporation</h1>
+        <p style="font-size: 1.1rem; opacity: 0.9;">Q4 2024 Accounting Systems & Internal Controls Practice</p>
+        <p style="margin-top: 10px; max-width: 800px; margin-left: auto; margin-right: auto; font-size: 0.95rem;">
+            You are the Staff Accountant. Your tasks: record transactions in special journals, post to subsidiary ledgers, 
+            reconcile bank accounts, manage petty cash, and verify internal controls.
+        </p>
+    </header>
+
+    <!-- Progress -->
+    <div class="progress-container">
+        <div style="display: flex; justify-content: space-between; margin-bottom: 10px;">
+            <span><strong>Progress:</strong> <span id="progress-text">Phase 1 of 5</span></span>
+            <span id="completion-text">0% Complete</span>
+        </div>
+        <div class="progress-bar">
+            <div class="progress-fill" id="progress-fill" style="width: 0%">0%</div>
+        </div>
+    </div>
+
+    <!-- Phase Navigation -->
+    <div class="phase-nav">
+        <button class="phase-btn active" onclick="goToPhase(1)">1. Special Journals</button>
+        <button class="phase-btn" onclick="goToPhase(2)">2. Subsidiary Ledgers</button>
+        <button class="phase-btn" onclick="goToPhase(3)">3. Bank Reconciliation</button>
+        <button class="phase-btn" onclick="goToPhase(4)">4. Petty Cash</button>
+        <button class="phase-btn" onclick="goToPhase(5)">5. Internal Controls</button>
+    </div>
+
+    <div class="container">
+        <!-- PHASE 1: Special Journals -->
+        <div id="phase-1" class="task-card">
+            <div class="task-header">
+                <h2>📓 Phase 1: Special Journals (Chapter 7 - P1-P4)</h2>
+                <span class="badge badge-pending">In Progress</span>
+            </div>
+
+            <div class="feedback info show">
+                <strong>Instructions:</strong> Review each source document, identify the correct special journal, and record the transaction. 
+                Remember: <br>
+                • <strong>Sales Journal (SJ):</strong> Credit sales on account<br>
+                • <strong>Cash Receipts Journal (CR):</strong> All cash received<br>
+                • <strong>Purchases Journal (PJ):</strong> Credit purchases on account<br>
+                • <strong>Cash Payments Journal (CP):</strong> All cash paid
+            </div>
+
+            <!-- Document 1 -->
+            <div id="doc-1" style="margin: 30px 0;">
+                <h3 style="margin-bottom: 15px;">Document 1 of 8</h3>
+                <div class="document">
+                    <div class="document-header">
+                        <h3>🧾 SALES INVOICE</h3>
+                        <p>NVIDIA Corporation</p>
+                        <p>Invoice #: SI-2024-1201 | Date: Dec 1, 2024</p>
+                    </div>
+                    <div style="margin-top: 15px;">
+                        <p><strong>Sold to:</strong> GameStop Corp.</p>
+                        <p><strong>Customer #:</strong> GS-4521</p>
+                        <p><strong>Terms:</strong> 2/10, n/30</p>
+                        <p><strong>Items:</strong></p>
+                        <ul style="margin-left: 30px;">
+                            <li>50x RTX 4090 @ $1,600 = $80,000</li>
+                            <li>Shipping: $500</li>
+                        </ul>
+                        <p style="margin-top: 15px;"><strong>Total Amount: $80,500</strong></p>
+                        <p><strong>Payment Status:</strong> On Account (Not yet paid)</p>
+                    </div>
+                </div>
+
+                <div style="background: #f0f0f0; padding: 20px; border-radius: 8px; margin-top: 20px;">
+                    <h4>Step 1: Identify the Journal</h4>
+                    <p style="margin-bottom: 15px;">Which special journal should record this transaction?</p>
+                    <select id="journal-select-1" onchange="checkJournalSelection(1)">
+                        <option value="">-- Select Journal --</option>
+                        <option value="SJ">Sales Journal (SJ)</option>
+                        <option value="CR">Cash Receipts Journal (CR)</option>
+                        <option value="PJ">Purchases Journal (PJ)</option>
+                        <option value="CP">Cash Payments Journal (CP)</option>
+                    </select>
+                    <div class="feedback" id="journal-feedback-1"></div>
+                </div>
+
+                <div id="journal-form-1" class="hidden" style="margin-top: 20px;">
+                    <h4>Step 2: Record in Sales Journal</h4>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Date</th>
+                                <th>Account Debited</th>
+                                <th>Invoice No.</th>
+                                <th>Ref</th>
+                                <th>Accounts Receivable Dr.</th>
+                                <th>Sales Revenue Cr.</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><input type="text" id="sj1-date" placeholder="MM/DD/YYYY"></td>
+                                <td><input type="text" id="sj1-account" placeholder="Customer Account"></td>
+                                <td><input type="text" id="sj1-invoice" placeholder="Invoice #"></td>
+                                <td><input type="text" id="sj1-ref" placeholder="√" style="width: 40px;"></td>
+                                <td><input type="number" id="sj1-ar" placeholder="0.00" step="0.01"></td>
+                                <td><input type="number" id="sj1-rev" placeholder="0.00" step="0.01"></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <button class="btn btn-primary" onclick="validateEntry(1)">Record Entry</button>
+                    <button class="btn btn-outline" onclick="showHint(1)">Need Help?</button>
+                    <div class="feedback" id="entry-feedback-1"></div>
+                </div>
+            </div>
+
+            <!-- Document 2 -->
+            <div id="doc-2" class="hidden" style="margin: 30px 0;">
+                <h3 style="margin-bottom: 15px;">Document 2 of 8</h3>
+                <div class="document">
+                    <div class="document-header">
+                        <h3>💰 CASH RECEIPT</h3>
+                        <p>NVIDIA Corporation</p>
+                        <p>Receipt #: CR-2024-1205 | Date: Dec 5, 2024</p>
+                    </div>
+                    <div style="margin-top: 15px;">
+                        <p><strong>Received from:</strong> Best Buy Inc.</p>
+                        <p><strong>For:</strong> Payment on Invoice #SI-2024-1156</p>
+                        <p><strong>Original Invoice Amount:</strong> $45,000</p>
+                        <p><strong>Payment Terms:</strong> 2/10, n/30 (Paid within discount period)</p>
+                        <p style="margin-top: 15px;"><strong>Amount Received: $44,100</strong></p>
+                        <p><strong>Discount Taken:</strong> $900 (2% of $45,000)</p>
+                        <p><strong>Payment Method:</strong> Check #45821</p>
+                    </div>
+                </div>
+
+                <div style="background: #f0f0f0; padding: 20px; border-radius: 8px; margin-top: 20px;">
+                    <h4>Step 1: Identify the Journal</h4>
+                    <p style="margin-bottom: 15px;">Which special journal should record this transaction?</p>
+                    <select id="journal-select-2" onchange="checkJournalSelection(2)">
+                        <option value="">-- Select Journal --</option>
+                        <option value="SJ">Sales Journal (SJ)</option>
+                        <option value="CR">Cash Receipts Journal (CR)</option>
+                        <option value="PJ">Purchases Journal (PJ)</option>
+                        <option value="CP">Cash Payments Journal (CP)</option>
+                    </select>
+                    <div class="feedback" id="journal-feedback-2"></div>
+                </div>
+
+                <div id="journal-form-2" class="hidden" style="margin-top: 20px;">
+                    <h4>Step 2: Record in Cash Receipts Journal</h4>
+                    <p style="margin-bottom: 10px; color: #666;">Note: This involves Sales Discounts. Make sure to calculate correctly!</p>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Date</th>
+                                <th>Account Credited</th>
+                                <th>Explanation</th>
+                                <th>Cash Dr.</th>
+                                <th>Sales Discount Dr.</th>
+                                <th>Accounts Receivable Cr.</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><input type="text" id="cr2-date" placeholder="MM/DD/YYYY"></td>
+                                <td><input type="text" id="cr2-account" placeholder="Account"></td>
+                                <td><input type="text" id="cr2-exp" placeholder="Invoice #"></td>
+                                <td><input type="number" id="cr2-cash" placeholder="0.00" step="0.01"></td>
+                                <td><input type="number" id="cr2-disc" placeholder="0.00" step="0.01"></td>
+                                <td><input type="number" id="cr2-ar" placeholder="0.00" step="0.01"></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <button class="btn btn-primary" onclick="validateEntry(2)">Record Entry</button>
+                    <button class="btn btn-outline" onclick="showHint(2)">Need Help?</button>
+                    <div class="feedback" id="entry-feedback-2"></div>
+                </div>
+            </div>
+
+            <!-- Navigation -->
+            <div style="display: flex; justify-content: space-between; margin-top: 30px;">
+                <button class="btn btn-secondary" id="prev-doc-btn" onclick="prevDocument()" disabled>← Previous</button>
+                <button class="btn btn-primary" id="next-doc-btn" onclick="nextDocument()" disabled>Next →</button>
+            </div>
+
+            <!-- Complete Phase 1 -->
+            <div id="phase1-complete" class="hidden" style="text-align: center; margin-top: 30px; padding: 30px; background: #E8F5E9; border-radius: 10px;">
+                <h3>🎉 Phase 1 Complete!</h3>
+                <p style="margin: 15px 0;">You have successfully recorded 8 transactions in the special journals.</p>
+                <button class="btn btn-primary" onclick="goToPhase(2)">Continue to Phase 2 →</button>
+            </div>
+        </div>
+
+        <!-- Other phases placeholders -->
+        <div id="phase-2" class="task-card hidden">
+            <h2>Phase 2: Posting to Subsidiary Ledgers (Coming Next)</h2>
+            <p>Post the transactions from special journals to accounts receivable and accounts payable subsidiary ledgers, and verify controlling account balances.</p>
+        </div>
+
+        <div id="phase-3" class="task-card hidden">
+            <h2>Phase 3: Bank Reconciliation (Coming Next)</h2>
+            <p>Complete a realistic month-end bank reconciliation with multiple adjusting items on both bank and book sides.</p>
+        </div>
+
+        <div id="phase-4" class="task-card hidden">
+            <h2>Phase 4: Petty Cash Management (Coming Next)</h2>
+            <p>Establish a petty cash fund, record expenses using the imprest system, and replenish the fund.</p>
+        </div>
+
+        <div id="phase-5" class="task-card hidden">
+            <h2>Phase 5: Internal Controls Verification (Coming Next)</h2>
+            <p>Review segregation of duties, verify documentation procedures, and identify internal control weaknesses.</p>
+        </div>
+    </div>
+
+    <script>
+        // State
+        let currentPhase = 1;
+        let currentDoc = 1;
+        let totalDocs = 8;
+        let completedEntries = [];
+        
+        // Document data
+        const documents = {
+            1: {
+                type: 'SJ',
+                date: '12/01/2024',
+                account: 'GameStop Corp.',
+                invoice: 'SI-2024-1201',
+                ar: 80500,
+                revenue: 80500
+            },
+            2: {
+                type: 'CR',
+                date: '12/05/2024',
+                account: 'Best Buy Inc.',
+                explanation: 'Inv #SI-2024-1156',
+                cash: 44100,
+                discount: 900,
+                ar: 45000
+            }
+        };
+
+        function goToPhase(phaseNum) {
+            currentPhase = phaseNum;
+            
+            // Update buttons
+            document.querySelectorAll('.phase-btn').forEach((btn, idx) => {
+                btn.classList.toggle('active', idx + 1 === phaseNum);
+            });
+            
+            // Show/hide content
+            for (let i = 1; i <= 5; i++) {
+                const content = document.getElementById(`phase-${i}`);
+                if (content) content.classList.toggle('hidden', i !== phaseNum);
+            }
+            
+            // Update progress text
+            document.getElementById('progress-text').textContent = `Phase ${phaseNum} of 5`;
+        }
+
+        function checkJournalSelection(docNum) {
+            const select = document.getElementById(`journal-select-${docNum}`);
+            const feedback = document.getElementById(`journal-feedback-${docNum}`);
+            const form = document.getElementById(`journal-form-${docNum}`);
+            const doc = documents[docNum];
+            
+            if (!select.value) {
+                feedback.className = 'feedback';
+                feedback.innerHTML = '';
+                return;
+            }
+            
+            if (select.value === doc.type) {
+                feedback.className = 'feedback show success';
+                feedback.innerHTML = '<strong>✓ Correct!</strong> This is a ' + getJournalName(doc.type) + ' transaction.';
+                form.classList.remove('hidden');
+                
+                // Disable select
+                select.disabled = true;
+            } else {
+                feedback.className = 'feedback show error';
+                feedback.innerHTML = '<strong>✗ Incorrect.</strong> Think about whether cash is involved and whether this is a sale or purchase.';
+            }
+        }
+
+        function getJournalName(code) {
+            const names = {
+                'SJ': 'Sales Journal (credit sale on account)',
+                'CR': 'Cash Receipts Journal (cash received)',
+                'PJ': 'Purchases Journal (credit purchase)',
+                'CP': 'Cash Payments Journal (cash paid)'
+            };
+            return names[code] || code;
+        }
+
+        function validateEntry(docNum) {
+            const doc = documents[docNum];
+            const feedback = document.getElementById(`entry-feedback-${docNum}`);
+            
+            let errors = [];
+            let allCorrect = true;
+            
+            if (doc.type === 'SJ') {
+                // Validate Sales Journal fields
+                const date = document.getElementById(`sj${docNum}-date`).value;
+                const account = document.getElementById(`sj${docNum}-account`).value;
+                const invoice = document.getElementById(`sj${docNum}-invoice`).value;
+                const ar = parseFloat(document.getElementById(`sj${docNum}-ar`).value) || 0;
+                const rev = parseFloat(document.getElementById(`sj${docNum}-rev`).value) || 0;
+                
+                if (date !== doc.date) {
+                    errors.push(`Date should be ${doc.date}`);
+                    document.getElementById(`sj${docNum}-date`).classList.add('incorrect');
+                    allCorrect = false;
+                } else {
+                    document.getElementById(`sj${docNum}-date`).classList.add('correct');
+                }
+                
+                if (account.toLowerCase() !== doc.account.toLowerCase()) {
+                    errors.push(`Account should be "${doc.account}"`);
+                    document.getElementById(`sj${docNum}-account`).classList.add('incorrect');
+                    allCorrect = false;
+                } else {
+                    document.getElementById(`sj${docNum}-account`).classList.add('correct');
+                }
+                
+                if (invoice !== doc.invoice) {
+                    errors.push(`Invoice # should be ${doc.invoice}`);
+                    document.getElementById(`sj${docNum}-invoice`).classList.add('incorrect');
+                    allCorrect = false;
+                } else {
+                    document.getElementById(`sj${docNum}-invoice`).classList.add('correct');
+                }
+                
+                if (Math.abs(ar - doc.ar) > 0.01) {
+                    errors.push(`AR should be $${doc.ar.toLocaleString()}`);
+                    document.getElementById(`sj${docNum}-ar`).classList.add('incorrect');
+                    allCorrect = false;
+                } else {
+                    document.getElementById(`sj${docNum}-ar`).classList.add('correct');
+                }
+                
+                if (Math.abs(rev - doc.revenue) > 0.01) {
+                    errors.push(`Sales Revenue should be $${doc.revenue.toLocaleString()}`);
+                    document.getElementById(`sj${docNum}-rev`).classList.add('incorrect');
+                    allCorrect = false;
+                } else {
+                    document.getElementById(`sj${docNum}-rev`).classList.add('correct');
+                }
+            } else if (doc.type === 'CR') {
+                // Validate Cash Receipts fields
+                const date = document.getElementById(`cr${docNum}-date`).value;
+                const cash = parseFloat(document.getElementById(`cr${docNum}-cash`).value) || 0;
+                const discount = parseFloat(document.getElementById(`cr${docNum}-disc`).value) || 0;
+                const ar = parseFloat(document.getElementById(`cr${docNum}-ar`).value) || 0;
+                
+                if (date !== doc.date) {
+                    errors.push(`Date should be ${doc.date}`);
+                    allCorrect = false;
+                }
+                
+                if (Math.abs(cash - doc.cash) > 0.01) {
+                    errors.push(`Cash should be $${doc.cash.toLocaleString()} (Original AR ${doc.ar} - Discount ${doc.discount})`);
+                    allCorrect = false;
+                }
+                
+                if (Math.abs(discount - doc.discount) > 0.01) {
+                    errors.push(`Sales Discount should be $${doc.discount.toLocaleString()} (2% of ${doc.ar})`);
+                    allCorrect = false;
+                }
+                
+                if (Math.abs(ar - doc.ar) > 0.01) {
+                    errors.push(`Accounts Receivable should be $${doc.ar.toLocaleString()} (full invoice amount)`);
+                    allCorrect = false;
+                }
+            }
+            
+            if (allCorrect) {
+                feedback.className = 'feedback show success';
+                feedback.innerHTML = '<strong>✓ Correct!</strong> Entry recorded successfully. The debits equal the credits.';
+                
+                if (!completedEntries.includes(docNum)) {
+                    completedEntries.push(docNum);
+                }
+                
+                // Enable next button
+                if (docNum < totalDocs) {
+                    document.getElementById('next-doc-btn').disabled = false;
+                } else {
+                    document.getElementById('phase1-complete').classList.remove('hidden');
+                }
+                
+                updateProgress();
+            } else {
+                feedback.className = 'feedback show error';
+                feedback.innerHTML = '<strong>Please correct the following:</strong><br>' + errors.join('<br>');
+            }
+        }
+
+        function showHint(docNum) {
+            const hints = {
+                1: 'Hint: This is a credit sale (on account). The customer will pay later. Which journal records credit sales?',
+                2: 'Hint: Cash is being received from a customer. Also note the 2% discount. Cash receipts go in which journal?'
+            };
+            
+            const feedback = document.getElementById(`entry-feedback-${docNum}`);
+            feedback.className = 'feedback show info';
+            feedback.innerHTML = hints[docNum] || 'Review the transaction type and determine if cash is involved.';
+        }
+
+        function nextDocument() {
+            document.getElementById(`doc-${currentDoc}`).classList.add('hidden');
+            currentDoc++;
+            document.getElementById(`doc-${currentDoc}`).classList.remove('hidden');
+            
+            document.getElementById('prev-doc-btn').disabled = false;
+            document.getElementById('next-doc-btn').disabled = true;
+            
+            if (currentDoc >= totalDocs) {
+                document.getElementById('next-doc-btn').classList.add('hidden');
+            }
+        }
+
+        function prevDocument() {
+            document.getElementById(`doc-${currentDoc}`).classList.add('hidden');
+            currentDoc--;
+            document.getElementById(`doc-${currentDoc}`).classList.remove('hidden');
+            
+            document.getElementById('next-doc-btn').disabled = completedEntries.includes(currentDoc) ? false : true;
+            document.getElementById('prev-doc-btn').disabled = currentDoc === 1;
+        }
+
+        function updateProgress() {
+            const percent = Math.round((completedEntries.length / totalDocs) * 100);
+            document.getElementById('progress-fill').style.width = percent + '%';
+            document.getElementById('progress-fill').textContent = percent + '%';
+            document.getElementById('completion-text').textContent = `${completedEntries.length}/${totalDocs} Entries Complete`;
+        }
+    </script>
+</body>
+</html>

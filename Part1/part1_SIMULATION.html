@@ -1,0 +1,1157 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tesla Q1 Financial Simulation | Part 1 Comprehensive Practice</title>
+    <link rel="stylesheet" href="../styles.css">
+    <style>
+        :root {
+            --tesla-red: #cc0000;
+            --tesla-dark: #1a1a1a;
+            --tesla-gray: #f4f4f4;
+            --success-green: #28a745;
+            --warning-orange: #ffc107;
+        }
+
+        .simulation-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        /* Header Section */
+        .tesla-header {
+            background: linear-gradient(135deg, var(--tesla-dark) 0%, #333 100%);
+            color: white;
+            padding: 40px;
+            border-radius: 15px;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        .tesla-logo {
+            font-size: 3rem;
+            font-weight: 700;
+            letter-spacing: 8px;
+            margin-bottom: 10px;
+        }
+
+        .scenario-title {
+            font-size: 1.5rem;
+            opacity: 0.9;
+            margin-bottom: 20px;
+        }
+
+        /* Difficulty Selection */
+        .difficulty-selector {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin: 30px 0;
+        }
+
+        .difficulty-btn {
+            padding: 15px 40px;
+            border: 3px solid white;
+            background: transparent;
+            color: white;
+            font-size: 1.1rem;
+            font-weight: 600;
+            border-radius: 30px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .difficulty-btn:hover, .difficulty-btn.active {
+            background: var(--tesla-red);
+            border-color: var(--tesla-red);
+            transform: translateY(-3px);
+        }
+
+        /* Main Workspace */
+        .workspace {
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            gap: 30px;
+            margin-top: 30px;
+        }
+
+        /* Left Panel - Financial Dashboard */
+        .dashboard-panel {
+            background: white;
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+            height: fit-content;
+            position: sticky;
+            top: 20px;
+        }
+
+        .dashboard-title {
+            font-size: 1.3rem;
+            color: var(--tesla-dark);
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 3px solid var(--tesla-red);
+        }
+
+        .metric-card {
+            background: var(--tesla-gray);
+            padding: 15px;
+            border-radius: 10px;
+            margin-bottom: 15px;
+            border-left: 4px solid var(--tesla-red);
+        }
+
+        .metric-label {
+            font-size: 0.9rem;
+            color: #666;
+            margin-bottom: 5px;
+        }
+
+        .metric-value {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--tesla-dark);
+        }
+
+        /* Accounting Equation Display */
+        .equation-display {
+            background: var(--tesla-dark);
+            color: white;
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 20px;
+            text-align: center;
+        }
+
+        .equation-formula {
+            font-size: 1.2rem;
+            margin-bottom: 15px;
+        }
+
+        .equation-bar-container {
+            display: flex;
+            justify-content: space-around;
+            align-items: flex-end;
+            height: 150px;
+            margin: 20px 0;
+        }
+
+        .eq-bar {
+            width: 80px;
+            text-align: center;
+        }
+
+        .eq-bar-fill {
+            width: 100%;
+            border-radius: 5px 5px 0 0;
+            transition: height 0.5s ease;
+            min-height: 30px;
+        }
+
+        .bar-assets { background: var(--success-green); }
+        .bar-liabilities { background: #dc3545; }
+        .bar-equity { background: var(--warning-orange); }
+
+        /* Right Panel - Transaction Area */
+        .transaction-panel {
+            background: white;
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+        }
+
+        .phase-tabs {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 25px;
+            border-bottom: 3px solid var(--tesla-gray);
+            padding-bottom: 15px;
+        }
+
+        .phase-tab {
+            padding: 10px 25px;
+            background: var(--tesla-gray);
+            border: none;
+            border-radius: 20px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .phase-tab.active {
+            background: var(--tesla-red);
+            color: white;
+        }
+
+        .phase-tab.completed {
+            background: var(--success-green);
+            color: white;
+        }
+
+        /* Transaction List */
+        .transaction-list {
+            max-height: 600px;
+            overflow-y: auto;
+        }
+
+        .transaction-item {
+            background: #f8f9fa;
+            border: 2px solid #e9ecef;
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 15px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .transaction-item:hover {
+            border-color: var(--tesla-red);
+            transform: translateX(5px);
+        }
+
+        .transaction-item.completed {
+            border-color: var(--success-green);
+            background: #d4edda;
+        }
+
+        .transaction-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .transaction-date {
+            background: var(--tesla-red);
+            color: white;
+            padding: 5px 15px;
+            border-radius: 15px;
+            font-size: 0.85rem;
+            font-weight: 600;
+        }
+
+        .transaction-amount {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: var(--tesla-dark);
+        }
+
+        .transaction-description {
+            font-size: 1rem;
+            color: #333;
+            margin-bottom: 10px;
+        }
+
+        .transaction-hint {
+            font-size: 0.85rem;
+            color: #666;
+            font-style: italic;
+        }
+
+        /* Journal Entry Form */
+        .journal-entry-form {
+            background: white;
+            border: 3px solid var(--tesla-red);
+            border-radius: 15px;
+            padding: 25px;
+            margin-top: 20px;
+            display: none;
+        }
+
+        .journal-entry-form.active {
+            display: block;
+        }
+
+        .form-title {
+            font-size: 1.3rem;
+            color: var(--tesla-dark);
+            margin-bottom: 20px;
+        }
+
+        .entry-row {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr;
+            gap: 15px;
+            margin-bottom: 15px;
+            align-items: center;
+        }
+
+        .entry-row input, .entry-row select {
+            padding: 12px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            font-size: 1rem;
+        }
+
+        .entry-row input:focus, .entry-row select:focus {
+            border-color: var(--tesla-red);
+            outline: none;
+        }
+
+        .debit-row { border-left: 4px solid var(--success-green); padding-left: 15px; }
+        .credit-row { border-left: 4px solid #dc3545; padding-left: 15px; }
+
+        /* Action Buttons */
+        .action-buttons {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .btn-primary {
+            background: var(--tesla-red);
+            color: white;
+            padding: 12px 30px;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .btn-primary:hover {
+            background: #a00000;
+            transform: translateY(-2px);
+        }
+
+        .btn-secondary {
+            background: #6c757d;
+            color: white;
+            padding: 12px 30px;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+        }
+
+        .btn-hint {
+            background: var(--warning-orange);
+            color: #333;
+            padding: 12px 30px;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+        }
+
+        /* Progress Bar */
+        .progress-container {
+            background: white;
+            border-radius: 15px;
+            padding: 25px;
+            margin-bottom: 30px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+        }
+
+        .progress-bar {
+            height: 30px;
+            background: var(--tesla-gray);
+            border-radius: 15px;
+            overflow: hidden;
+            margin-top: 15px;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--tesla-red), #ff4444);
+            transition: width 0.5s ease;
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            padding-right: 15px;
+            color: white;
+            font-weight: 600;
+        }
+
+        /* Feedback Messages */
+        .feedback-message {
+            padding: 15px 20px;
+            border-radius: 10px;
+            margin-top: 15px;
+            display: none;
+        }
+
+        .feedback-message.success {
+            display: block;
+            background: #d4edda;
+            border-left: 4px solid var(--success-green);
+            color: #155724;
+        }
+
+        .feedback-message.error {
+            display: block;
+            background: #f8d7da;
+            border-left: 4px solid #dc3545;
+            color: #721c24;
+        }
+
+        /* Financial Statements Preview */
+        .statements-preview {
+            background: white;
+            border-radius: 15px;
+            padding: 25px;
+            margin-top: 30px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+        }
+
+        .statement-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+        }
+
+        .statement-table th {
+            background: var(--tesla-dark);
+            color: white;
+            padding: 12px;
+            text-align: left;
+        }
+
+        .statement-table td {
+            padding: 10px 12px;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .statement-table .total-row {
+            font-weight: 700;
+            background: #f8f9fa;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 1200px) {
+            .workspace {
+                grid-template-columns: 1fr;
+            }
+            
+            .dashboard-panel {
+                position: relative;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .difficulty-selector {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .phase-tabs {
+                flex-wrap: wrap;
+            }
+            
+            .entry-row {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation Header -->
+    <header style="background: linear-gradient(135deg, #1a1a1a 0%, #333 100%); padding: 15px 0; margin-bottom: 20px; border-bottom: 3px solid #cc0000;">
+        <div style="max-width: 1400px; margin: 0 auto; padding: 0 20px; display: flex; justify-content: space-between; align-items: center;">
+            <div style="display: flex; align-items: center; gap: 30px;">
+                <a href="../index.html" style="color: white; text-decoration: none; font-size: 1.5rem; font-weight: 700;">ACCOUNTING<span style="color: #cc0000;">ESSENTIALS</span></a>
+            </div>
+            <nav style="display: flex; gap: 20px;">
+                <a href="../index.html" style="color: white; text-decoration: none; padding: 8px 16px; border-radius: 5px; transition: all 0.3s;">🏠 Home</a>
+                <a href="part1.html" style="color: white; text-decoration: none; padding: 8px 16px; border-radius: 5px; transition: all 0.3s;">📚 Part 1</a>
+                <a href="chapter1/ch01.html" style="color: white; text-decoration: none; padding: 8px 16px; border-radius: 5px; transition: all 0.3s;">Ch 1</a>
+                <a href="chapter2/ch02.html" style="color: white; text-decoration: none; padding: 8px 16px; border-radius: 5px; transition: all 0.3s;">Ch 2</a>
+                <a href="chapter3/ch03.html" style="color: white; text-decoration: none; padding: 8px 16px; border-radius: 5px; transition: all 0.3s;">Ch 3</a>
+                <a href="chapter4/ch04.html" style="color: white; text-decoration: none; padding: 8px 16px; border-radius: 5px; transition: all 0.3s;">Ch 4</a>
+            </nav>
+        </div>
+    </header>
+
+    <div class="simulation-container">
+        <!-- Tesla Header -->
+        <div class="tesla-header">
+            <div class="tesla-logo">TESLA</div>
+            <div class="scenario-title">Q1 2024 Financial Simulation - Shanghai Gigafactory</div>
+            <p style="font-size: 1.1rem; opacity: 0.9; max-width: 800px; margin: 0 auto;">
+                You are the Senior Accountant at Tesla Shanghai. Complete the full accounting cycle for Q1 2024, 
+                from initial setup through financial statement preparation.
+            </p>
+            
+            <!-- Difficulty Selection -->
+            <div class="difficulty-selector">
+                <button class="difficulty-btn" onclick="setDifficulty('beginner')" id="btn-beginner">
+                    🟢 Beginner
+                    <br><small>Guided with hints</small>
+                </button>
+                <button class="difficulty-btn" onclick="setDifficulty('intermediate')" id="btn-intermediate">
+                    🟡 Intermediate
+                    <br><small>Partial guidance</small>
+                </button>
+                <button class="difficulty-btn" onclick="setDifficulty('advanced')" id="btn-advanced">
+                    🔴 Advanced
+                    <br><small>Independent work</small>
+                </button>
+            </div>
+        </div>
+
+        <!-- Progress Container -->
+        <div class="progress-container">
+            <h3>Simulation Progress</h3>
+            <div style="display: flex; justify-content: space-between; margin-top: 10px;">
+                <span id="completed-count">0 transactions completed</span>
+                <span id="progress-percent">0%</span>
+            </div>
+            <div class="progress-bar">
+                <div class="progress-fill" id="progress-fill" style="width: 0%">0%</div>
+            </div>
+        </div>
+
+        <!-- Main Workspace -->
+        <div class="workspace">
+            <!-- Left Panel - Dashboard -->
+            <div class="dashboard-panel">
+                <div class="dashboard-title">📊 Financial Dashboard</div>
+                
+                <div class="metric-card">
+                    <div class="metric-label">Total Assets</div>
+                    <div class="metric-value" id="total-assets">$0</div>
+                </div>
+                
+                <div class="metric-card">
+                    <div class="metric-label">Total Liabilities</div>
+                    <div class="metric-value" id="total-liabilities">$0</div>
+                </div>
+                
+                <div class="metric-card">
+                    <div class="metric-label">Stockholders' Equity</div>
+                    <div class="metric-value" id="total-equity">$0</div>
+                </div>
+                
+                <div class="metric-card">
+                    <div class="metric-label">Cash Balance</div>
+                    <div class="metric-value" id="cash-balance">$0</div>
+                </div>
+
+                <div class="metric-card">
+                    <div class="metric-label">Revenue (Q1)</div>
+                    <div class="metric-value" id="q1-revenue">$0</div>
+                </div>
+
+                <div class="metric-card">
+                    <div class="metric-label">Net Income</div>
+                    <div class="metric-value" id="net-income">$0</div>
+                </div>
+
+                <!-- Accounting Equation -->
+                <div class="equation-display">
+                    <div class="equation-formula">Assets = Liabilities + Equity</div>
+                    <div class="equation-bar-container">
+                        <div class="eq-bar">
+                            <div class="eq-bar-fill bar-assets" id="bar-assets" style="height: 10%"></div>
+                            <div style="margin-top: 10px; font-size: 0.9rem;">Assets</div>
+                        </div>
+                        <div class="eq-bar">
+                            <div class="eq-bar-fill bar-liabilities" id="bar-liabilities" style="height: 10%"></div>
+                            <div style="margin-top: 10px; font-size: 0.9rem;">Liab.</div>
+                        </div>
+                        <div class="eq-bar">
+                            <div class="eq-bar-fill bar-equity" id="bar-equity" style="height: 10%"></div>
+                            <div style="margin-top: 10px; font-size: 0.9rem;">Equity</div>
+                        </div>
+                    </div>
+                    <div style="margin-top: 15px; font-size: 0.85rem; opacity: 0.8;">
+                        Complete transactions to see the accounting equation in action
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right Panel - Transactions -->
+            <div class="transaction-panel">
+                <!-- Phase Tabs -->
+                <div class="phase-tabs">
+                    <button class="phase-tab active" onclick="switchPhase(1)">Phase 1: Setup</button>
+                    <button class="phase-tab" onclick="switchPhase(2)">Phase 2: Operations</button>
+                    <button class="phase-tab" onclick="switchPhase(3)">Phase 3: Adjustments</button>
+                    <button class="phase-tab" onclick="switchPhase(4)">Phase 4: Statements</button>
+                </div>
+
+                <!-- Transaction List -->
+                <div class="transaction-list" id="transaction-list">
+                    <!-- Transactions will be loaded dynamically -->
+                </div>
+
+                <!-- Journal Entry Form -->
+                <div class="journal-entry-form" id="journal-form">
+                    <div class="form-title">Record Journal Entry</div>
+                    <div id="current-transaction-info"></div>
+                    
+                    <div class="debit-row">
+                        <select id="debit-account">
+                            <option value="">Select Debit Account</option>
+                        </select>
+                        <input type="number" id="debit-amount" placeholder="Amount">
+                        <span style="color: var(--success-green); font-weight: 600;">DEBIT</span>
+                    </div>
+
+                    <div style="text-align: center; font-size: 1.5rem; color: #666; margin: 10px 0;">↓</div>
+
+                    <div class="credit-row">
+                        <select id="credit-account">
+                            <option value="">Select Credit Account</option>
+                        </select>
+                        <input type="number" id="credit-amount" placeholder="Amount">
+                        <span style="color: #dc3545; font-weight: 600;">CREDIT</span>
+                    </div>
+
+                    <div class="action-buttons">
+                        <button class="btn-primary" onclick="submitEntry()">Submit Entry</button>
+                        <button class="btn-hint" onclick="showHint()" id="hint-btn">Get Hint</button>
+                        <button class="btn-secondary" onclick="skipTransaction()">Skip</button>
+                    </div>
+
+                    <div class="feedback-message" id="entry-feedback"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Financial Statements Preview -->
+        <div class="statements-preview" id="statements-section" style="display: none;">
+            <h3>📈 Financial Statements Summary</h3>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(400px, 1fr)); gap: 20px; margin-top: 20px;">
+                <div>
+                    <h4>Income Statement</h4>
+                    <table class="statement-table" id="income-statement">
+                        <!-- Populated by JS -->
+                    </table>
+                </div>
+                <div>
+                    <h4>Balance Sheet</h4>
+                    <table class="statement-table" id="balance-sheet">
+                        <!-- Populated by JS -->
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // ==================== TESLA Q1 SIMULATION DATA ====================
+        
+        let currentDifficulty = 'beginner';
+        let currentPhase = 1;
+        let completedTransactions = [];
+        let currentTransaction = null;
+        
+        // Financial State
+        let financialState = {
+            cash: 0,
+            accountsReceivable: 0,
+            inventory: 0,
+            equipment: 0,
+            accumulatedDepreciation: 0,
+            accountsPayable: 0,
+            notesPayable: 0,
+            commonStock: 0,
+            retainedEarnings: 0,
+            revenue: 0,
+            costOfGoodsSold: 0,
+            salariesExpense: 0,
+            rentExpense: 0,
+            depreciationExpense: 0,
+            utilitiesExpense: 0
+        };
+
+        // Transactions Database (Full Version - 40 transactions)
+        const transactions = {
+            beginner: [
+                // Phase 1: Initial Setup (10 transactions)
+                { id: 1, phase: 1, date: 'Jan 1', description: 'Tesla Shanghai begins operations with $50M investment from parent company', 
+                  hint: 'Cash increases, Common Stock increases', accounts: { debit: 'Cash', credit: 'Common Stock' }, amount: 50000000 },
+                { id: 2, phase: 1, date: 'Jan 2', description: 'Purchase factory equipment for $30M cash', 
+                  hint: 'Equipment (asset) increases, Cash decreases', accounts: { debit: 'Equipment', credit: 'Cash' }, amount: 30000000 },
+                { id: 3, phase: 1, date: 'Jan 3', description: 'Obtain $20M bank loan for working capital', 
+                  hint: 'Cash increases, Notes Payable (liability) increases', accounts: { debit: 'Cash', credit: 'Notes Payable' }, amount: 20000000 },
+                { id: 4, phase: 1, date: 'Jan 5', description: 'Purchase raw materials inventory for $8M on credit', 
+                  hint: 'Inventory increases, Accounts Payable increases', accounts: { debit: 'Inventory', credit: 'Accounts Payable' }, amount: 8000000 },
+                { id: 5, phase: 1, date: 'Jan 7', description: 'Pay $2M for factory rent (3 months prepaid)', 
+                  hint: 'Prepaid Rent (asset) increases, Cash decreases', accounts: { debit: 'Prepaid Rent', credit: 'Cash' }, amount: 2000000 },
+                
+                // Phase 2: Operations (15 transactions)
+                { id: 6, phase: 2, date: 'Jan 10', description: 'Produce 1,000 Model 3 vehicles using $5M of raw materials', 
+                  hint: 'Inventory (finished goods) increases, Raw Materials decreases', accounts: { debit: 'Finished Goods Inventory', credit: 'Raw Materials Inventory' }, amount: 5000000 },
+                { id: 7, phase: 2, date: 'Jan 15', description: 'Sell 800 Model 3 vehicles at $35,000 each ($28M total) - 50% cash, 50% credit', 
+                  hint: 'Cash + AR increase, Revenue increases', accounts: { debit: 'Cash/AR', credit: 'Sales Revenue' }, amount: 28000000 },
+                { id: 8, phase: 2, date: 'Jan 15', description: 'Record cost of goods sold for vehicles sold ($4M)', 
+                  hint: 'COGS increases, Inventory decreases', accounts: { debit: 'Cost of Goods Sold', credit: 'Inventory' }, amount: 4000000 },
+                { id: 9, phase: 2, date: 'Jan 20', description: 'Pay monthly salaries $1.5M', 
+                  hint: 'Salaries Expense increases, Cash decreases', accounts: { debit: 'Salaries Expense', credit: 'Cash' }, amount: 1500000 },
+                { id: 10, phase: 2, date: 'Jan 25', description: 'Pay $3M to suppliers for previous purchases', 
+                  hint: 'Accounts Payable decreases, Cash decreases', accounts: { debit: 'Accounts Payable', credit: 'Cash' }, amount: 3000000 },
+                
+                // Phase 3: Adjustments (10 transactions)
+                { id: 11, phase: 3, date: 'Mar 31', description: 'Adjust for monthly depreciation on equipment ($250,000)', 
+                  hint: 'Depreciation Expense increases, Accumulated Depreciation increases', accounts: { debit: 'Depreciation Expense', credit: 'Accumulated Depreciation' }, amount: 250000 },
+                { id: 12, phase: 3, date: 'Mar 31', description: 'Adjust for 1 month rent expense ($667,000)', 
+                  hint: 'Rent Expense increases, Prepaid Rent decreases', accounts: { debit: 'Rent Expense', credit: 'Prepaid Rent' }, amount: 667000 },
+                { id: 13, phase: 3, date: 'Mar 31', description: 'Accrue salaries for final week $500,000', 
+                  hint: 'Salaries Expense increases, Salaries Payable increases', accounts: { debit: 'Salaries Expense', credit: 'Salaries Payable' }, amount: 500000 },
+                { id: 14, phase: 3, date: 'Mar 31', description: 'Accrue interest on bank loan $200,000', 
+                  hint: 'Interest Expense increases, Interest Payable increases', accounts: { debit: 'Interest Expense', credit: 'Interest Payable' }, amount: 200000 },
+                
+                // Phase 4: Closing (5 transactions)
+                { id: 15, phase: 4, date: 'Mar 31', description: 'Close revenue accounts to Income Summary', 
+                  hint: 'Revenue decreases, Income Summary increases', accounts: { debit: 'Sales Revenue', credit: 'Income Summary' }, amount: 28000000 },
+                { id: 16, phase: 4, date: 'Mar 31', description: 'Close expense accounts to Income Summary', 
+                  hint: 'Income Summary decreases, Expenses decrease', accounts: { debit: 'Income Summary', credit: 'Various Expenses' }, amount: 7867000 },
+                { id: 17, phase: 4, date: 'Mar 31', description: 'Close Income Summary to Retained Earnings', 
+                  hint: 'Income Summary decreases, Retained Earnings increases', accounts: { debit: 'Income Summary', credit: 'Retained Earnings' }, amount: 20133000 }
+            ],
+            
+            intermediate: [
+                // Phase 1: Initial Setup (8 transactions)
+                { id: 1, phase: 1, date: 'Jan 1', description: 'Tesla Shanghai begins operations with $50M investment', hint: 'Investment increases Cash and Common Stock', accounts: { debit: 'Cash', credit: 'Common Stock' }, amount: 50000000 },
+                { id: 2, phase: 1, date: 'Jan 2', description: 'Purchase factory equipment for $30M cash', hint: 'Asset exchange - Equipment up, Cash down', accounts: { debit: 'Equipment', credit: 'Cash' }, amount: 30000000 },
+                { id: 3, phase: 1, date: 'Jan 3', description: 'Obtain $20M bank loan at 6% annual interest', hint: 'Cash increases, Notes Payable increases', accounts: { debit: 'Cash', credit: 'Notes Payable' }, amount: 20000000 },
+                { id: 4, phase: 1, date: 'Jan 5', description: 'Purchase raw materials inventory $8M on account', hint: 'Inventory up, Accounts Payable up', accounts: { debit: 'Inventory', credit: 'Accounts Payable' }, amount: 8000000 },
+                { id: 5, phase: 1, date: 'Jan 7', description: 'Pay $2M for 3-month factory rent in advance', hint: 'Prepaid Rent (asset) increases, Cash decreases', accounts: { debit: 'Prepaid Rent', credit: 'Cash' }, amount: 2000000 },
+                { id: 6, phase: 1, date: 'Jan 8', description: 'Purchase office supplies $50,000 cash', hint: 'Supplies (asset) increases, Cash decreases', accounts: { debit: 'Supplies', credit: 'Cash' }, amount: 50000 },
+                { id: 7, phase: 1, date: 'Jan 10', description: 'Hire employees - no entry required', hint: 'No transaction - hiring is not a financial event', accounts: { debit: 'None', credit: 'None' }, amount: 0 },
+                { id: 8, phase: 1, date: 'Jan 12', description: 'Sign contract with supplier - no entry', hint: 'No transaction - signing is not a financial event', accounts: { debit: 'None', credit: 'None' }, amount: 0 },
+                
+                // Phase 2: Operations (12 transactions)
+                { id: 9, phase: 2, date: 'Jan 15', description: 'Transfer $5M raw materials to production', hint: 'Work in Process up, Raw Materials down', accounts: { debit: 'Work in Process', credit: 'Raw Materials Inventory' }, amount: 5000000 },
+                { id: 10, phase: 2, date: 'Jan 18', description: 'Pay factory workers $800,000 wages', hint: 'Wages Expense increases, Cash decreases', accounts: { debit: 'Wages Expense', credit: 'Cash' }, amount: 800000 },
+                { id: 11, phase: 2, date: 'Jan 20', description: 'Complete production - transfer $6M to finished goods', hint: 'Finished Goods up, Work in Process down', accounts: { debit: 'Finished Goods Inventory', credit: 'Work in Process' }, amount: 6000000 },
+                { id: 12, phase: 2, date: 'Jan 25', description: 'Sell 200 Model 3 @ $35,000 each - all cash', hint: 'Cash up, Revenue up', accounts: { debit: 'Cash', credit: 'Sales Revenue' }, amount: 7000000 },
+                { id: 13, phase: 2, date: 'Jan 25', description: 'Record COGS for 200 vehicles @ $30,000', hint: 'COGS up, Inventory down', accounts: { debit: 'Cost of Goods Sold', credit: 'Finished Goods Inventory' }, amount: 6000000 },
+                { id: 14, phase: 2, date: 'Feb 1', description: 'Sell 300 Model 3 @ $35,000 - 60% cash, 40% credit', hint: 'Cash + AR up, Revenue up', accounts: { debit: 'Cash/AR', credit: 'Sales Revenue' }, amount: 10500000 },
+                { id: 15, phase: 2, date: 'Feb 1', description: 'Record COGS for 300 vehicles sold', hint: 'COGS up, Inventory down', accounts: { debit: 'Cost of Goods Sold', credit: 'Finished Goods Inventory' }, amount: 9000000 },
+                { id: 16, phase: 2, date: 'Feb 5', description: 'Collect $3M from customers on account', hint: 'Cash up, Accounts Receivable down', accounts: { debit: 'Cash', credit: 'Accounts Receivable' }, amount: 3000000 },
+                { id: 17, phase: 2, date: 'Feb 10', description: 'Pay $4M to suppliers on account', hint: 'Accounts Payable down, Cash down', accounts: { debit: 'Accounts Payable', credit: 'Cash' }, amount: 4000000 },
+                { id: 18, phase: 2, date: 'Feb 15', description: 'Pay utilities $150,000', hint: 'Utilities Expense up, Cash down', accounts: { debit: 'Utilities Expense', credit: 'Cash' }, amount: 150000 },
+                { id: 19, phase: 2, date: 'Feb 20', description: 'Purchase additional equipment $5M on credit', hint: 'Equipment up, Accounts Payable up', accounts: { debit: 'Equipment', credit: 'Accounts Payable' }, amount: 5000000 },
+                { id: 20, phase: 2, date: 'Feb 28', description: 'Pay monthly salaries $1.2M', hint: 'Salaries Expense up, Cash down', accounts: { debit: 'Salaries Expense', credit: 'Cash' }, amount: 1200000 },
+                
+                // Phase 3: Adjustments (8 transactions)
+                { id: 21, phase: 3, date: 'Mar 31', description: 'Record 3-month depreciation ($35M equipment, 10-year life)', hint: 'Depreciation Expense up, Accumulated Depreciation up', accounts: { debit: 'Depreciation Expense', credit: 'Accumulated Depreciation' }, amount: 875000 },
+                { id: 22, phase: 3, date: 'Mar 31', description: 'Adjust for 3 months rent expired ($2M ÷ 3)', hint: 'Rent Expense up, Prepaid Rent down', accounts: { debit: 'Rent Expense', credit: 'Prepaid Rent' }, amount: 2000000 },
+                { id: 23, phase: 3, date: 'Mar 31', description: 'Accrue salaries for March $1.3M', hint: 'Salaries Expense up, Salaries Payable up', accounts: { debit: 'Salaries Expense', credit: 'Salaries Payable' }, amount: 1300000 },
+                { id: 24, phase: 3, date: 'Mar 31', description: 'Accrue interest on loan ($20M × 6% × 3/12)', hint: 'Interest Expense up, Interest Payable up', accounts: { debit: 'Interest Expense', credit: 'Interest Payable' }, amount: 300000 },
+                { id: 25, phase: 3, date: 'Mar 31', description: 'Record supplies used $35,000', hint: 'Supplies Expense up, Supplies down', accounts: { debit: 'Supplies Expense', credit: 'Supplies' }, amount: 35000 },
+                { id: 26, phase: 3, date: 'Mar 31', description: 'Accrue warranty expense $200,000', hint: 'Warranty Expense up, Warranty Liability up', accounts: { debit: 'Warranty Expense', credit: 'Estimated Warranty Liability' }, amount: 200000 },
+                { id: 27, phase: 3, date: 'Mar 31', description: 'Recognize unearned revenue $500,000 now earned', hint: 'Unearned Revenue down, Revenue up', accounts: { debit: 'Unearned Revenue', credit: 'Service Revenue' }, amount: 500000 },
+                { id: 28, phase: 3, date: 'Mar 31', description: 'Accrue property taxes $180,000', hint: 'Property Tax Expense up, Property Taxes Payable up', accounts: { debit: 'Property Tax Expense', credit: 'Property Taxes Payable' }, amount: 180000 },
+                
+                // Phase 4: Closing (6 transactions)
+                { id: 29, phase: 4, date: 'Mar 31', description: 'Close revenue accounts to Income Summary', hint: 'Revenue down, Income Summary up', accounts: { debit: 'Sales Revenue', credit: 'Income Summary' }, amount: 18000000 },
+                { id: 30, phase: 4, date: 'Mar 31', description: 'Close expense accounts to Income Summary (Part 1)', hint: 'Income Summary down, Expenses down', accounts: { debit: 'Income Summary', credit: 'COGS' }, amount: 15000000 },
+                { id: 31, phase: 4, date: 'Mar 31', description: 'Close expense accounts (Part 2 - Operating)', hint: 'Income Summary down, Operating Expenses down', accounts: { debit: 'Income Summary', credit: 'Operating Expenses' }, amount: 5995000 },
+                { id: 32, phase: 4, date: 'Mar 31', description: 'Close Income Summary to Retained Earnings', hint: 'Income Summary down, Retained Earnings up (or reverse if loss)', accounts: { debit: 'Income Summary', credit: 'Retained Earnings' }, amount: -2995000 },
+                { id: 33, phase: 4, date: 'Mar 31', description: 'Close dividends to Retained Earnings', hint: 'Retained Earnings down, Dividends down', accounts: { debit: 'Retained Earnings', credit: 'Dividends' }, amount: 0 },
+                { id: 34, phase: 4, date: 'Mar 31', description: 'Post-closing trial balance prepared', hint: 'Verification step - no entry', accounts: { debit: 'None', credit: 'None' }, amount: 0 }
+            ],
+            
+            advanced: [
+                // Phase 1: Initial Setup (8 complex transactions)
+                { id: 1, phase: 1, date: 'Jan 1', description: 'Tesla Shanghai begins with $100M investment from parent and $50M from minority shareholders', hint: 'Two equity accounts: Common Stock and Additional Paid-in Capital', accounts: { debit: 'Cash', credit: 'Common Stock/APIC' }, amount: 150000000 },
+                { id: 2, phase: 1, date: 'Jan 2', description: 'Purchase land $20M, building $40M, equipment $50M - 20% down, balance mortgage', hint: 'Multiple assets, Cash down, Mortgage Payable up', accounts: { debit: 'Assets', credit: 'Cash/Mortgage Payable' }, amount: 110000000 },
+                { id: 3, phase: 1, date: 'Jan 3', description: 'Secure $75M revolving credit facility (unused initially)', hint: 'No entry - contingent liability disclosure only', accounts: { debit: 'None', credit: 'None' }, amount: 0 },
+                { id: 4, phase: 1, date: 'Jan 5', description: 'Purchase inventory: $15M domestic (net 30), $25M import (FOB shipping point, duty $2M)', hint: 'Include freight-in and import duties in inventory cost', accounts: { debit: 'Inventory', credit: 'Cash/AP' }, amount: 42000000 },
+                { id: 5, phase: 1, date: 'Jan 7', description: 'Prepay 6-month rent $6M plus security deposit $2M', hint: 'Prepaid Rent and Security Deposit (non-current)', accounts: { debit: 'Prepaid/Deposit', credit: 'Cash' }, amount: 8000000 },
+                { id: 6, phase: 1, date: 'Jan 10', description: 'Capitalize $3M software development costs (internal use)', hint: 'Intangible Asset up, Cash down', accounts: { debit: 'Software', credit: 'Cash' }, amount: 3000000 },
+                { id: 7, phase: 1, date: 'Jan 12', description: 'Establish $10M petty cash fund', hint: 'Petty Cash (asset) up, Cash down', accounts: { debit: 'Petty Cash', credit: 'Cash' }, amount: 10000000 },
+                { id: 8, phase: 1, date: 'Jan 15', description: 'Issue $50M bonds at 98 (2% discount)', hint: 'Cash $49M, Bond Discount $1M, Bonds Payable $50M', accounts: { debit: 'Cash/Discount', credit: 'Bonds Payable' }, amount: 50000000 },
+                
+                // Phase 2: Complex Operations (16 transactions)
+                { id: 9, phase: 2, date: 'Jan 20', description: 'Begin production - transfer $20M materials to WIP, incur $8M labor and $5M overhead', hint: 'Work in Process includes DM, DL, and MOH', accounts: { debit: 'WIP', credit: 'Materials/Cash/AP' }, amount: 33000000 },
+                { id: 10, phase: 2, date: 'Feb 1', description: 'Complete 2,000 Model 3 at $18,000 cost each, transfer to finished goods', hint: 'FG $36M, reduce WIP', accounts: { debit: 'Finished Goods', credit: 'WIP' }, amount: 36000000 },
+                { id: 11, phase: 2, date: 'Feb 5', description: 'Sell 1,200 Model 3 @ $38,000: 40% cash, 50% credit (net 30), 10% note receivable', hint: 'Multiple debits: Cash, AR, Notes Receivable', accounts: { debit: 'Cash/AR/Notes Rec', credit: 'Revenue' }, amount: 45600000 },
+                { id: 12, phase: 2, date: 'Feb 5', description: 'Record COGS using perpetual system (1,200 × $18,000)', hint: 'COGS $21.6M, reduce FG', accounts: { debit: 'COGS', credit: 'Finished Goods' }, amount: 21600000 },
+                { id: 13, phase: 2, date: 'Feb 10', description: 'Customer returns 50 vehicles - full refund, restore inventory', hint: 'Reverse revenue and COGS', accounts: { debit: 'Revenue/Inventory', credit: 'Cash/COGS' }, amount: 1900000 },
+                { id: 14, phase: 2, date: 'Feb 15', description: 'Grant sales allowance $500,000 for minor defects on 100 vehicles', hint: 'Sales Allowances (contra-revenue) up', accounts: { debit: 'Sales Allowances', credit: 'Cash' }, amount: 500000 },
+                { id: 15, phase: 2, date: 'Feb 20', description: 'Borrow $25M from credit line at 5% interest', hint: 'Cash up, Line of Credit Liability up', accounts: { debit: 'Cash', credit: 'Line of Credit Payable' }, amount: 25000000 },
+                { id: 16, phase: 2, date: 'Feb 25', description: 'Discount AR $10M (net of $200K allowance) to factor for $9.6M cash', hint: 'Loss on factoring $200K', accounts: { debit: 'Cash/Loss', credit: 'AR' }, amount: 10000000 },
+                { id: 17, phase: 2, date: 'Mar 1', description: 'Sell 800 Model Y @ $45,000 with 2/10 n/30 terms', hint: 'Record gross, customer may take discount later', accounts: { debit: 'AR', credit: 'Revenue' }, amount: 36000000 },
+                { id: 18, phase: 2, date: 'Mar 1', description: 'Record COGS for Model Y (800 × $22,000)', hint: 'COGS $17.6M', accounts: { debit: 'COGS', credit: 'Finished Goods' }, amount: 17600000 },
+                { id: 19, phase: 2, date: 'Mar 8', description: 'Customer pays within discount period (2% of $36M)', hint: 'Sales Discounts $720K, Cash $35.28M', accounts: { debit: 'Cash/Sales Discounts', credit: 'AR' }, amount: 36000000 },
+                { id: 20, phase: 2, date: 'Mar 15', description: 'Declare and pay $2M cash dividend', hint: 'Retained Earnings down, Cash down', accounts: { debit: 'Retained Earnings', credit: 'Cash' }, amount: 2000000 },
+                { id: 21, phase: 2, date: 'Mar 18', description: 'Write off $300K uncollectible account (allowance method)', hint: 'Allowance down, AR down - no P&L impact', accounts: { debit: 'Allowance for Doubtful Accounts', credit: 'AR' }, amount: 300000 },
+                { id: 22, phase: 2, date: 'Mar 20', description: 'Repurchase 100,000 shares treasury stock at $25/share', hint: 'Treasury Stock (contra-equity) up, Cash down', accounts: { debit: 'Treasury Stock', credit: 'Cash' }, amount: 2500000 },
+                { id: 23, phase: 2, date: 'Mar 25', description: 'Reissue 40,000 treasury shares at $28/share', hint: 'Cash $1.12M, Treasury Stock $1M, APIC $120K', accounts: { debit: 'Cash', credit: 'Treasury Stock/APIC' }, amount: 1120000 },
+                { id: 24, phase: 2, date: 'Mar 28', description: 'Settle lawsuit - accrue $1.5M estimated liability', hint: 'Lawsuit Expense up, Estimated Liability up', accounts: { debit: 'Lawsuit Expense', credit: 'Estimated Liability' }, amount: 1500000 },
+                
+                // Phase 3: Complex Adjustments (12 transactions)
+                { id: 25, phase: 3, date: 'Mar 31', description: 'Depreciation: Building ($40M, 20yr, SL), Equipment ($50M, 10yr, DDB year 1)', hint: 'Different methods: SL for building, DDB for equipment', accounts: { debit: 'Depreciation Expense', credit: 'Accumulated Depreciation' }, amount: 11667000 },
+                { id: 26, phase: 3, date: 'Mar 31', description: 'Amortize software over 5 years (3 months)', hint: 'Amortization Expense $150K', accounts: { debit: 'Amortization Expense', credit: 'Accumulated Amortization' }, amount: 150000 },
+                { id: 27, phase: 3, date: 'Mar 31', description: 'Rent expired: 3 months of 6-month prepayment', hint: 'Rent Expense $3M, Prepaid down', accounts: { debit: 'Rent Expense', credit: 'Prepaid Rent' }, amount: 3000000 },
+                { id: 28, phase: 3, date: 'Mar 31', description: 'Accrue Q1 interest: Mortgage ($90M × 5% × 3/12) + Bonds (effective interest method)', hint: 'Interest Expense using effective interest method', accounts: { debit: 'Interest Expense', credit: 'Interest Payable/Discount' }, amount: 1625000 },
+                { id: 29, phase: 3, date: 'Mar 31', description: 'Accrue salaries, bonuses, and payroll taxes $2.5M', hint: 'Include employee withholdings and employer taxes', accounts: { debit: 'Salaries Expense', credit: 'Salaries Payable/Taxes Payable' }, amount: 2500000 },
+                { id: 30, phase: 3, date: 'Mar 31', description: 'Estimate bad debts: 3% of $40M AR net of allowance', hint: 'Bad Debt Expense $1.2M, adjust allowance', accounts: { debit: 'Bad Debt Expense', credit: 'Allowance for Doubtful Accounts' }, amount: 1200000 },
+                { id: 31, phase: 3, date: 'Mar 31', description: 'Accrue warranty expense: 2% of $78.2M sales', hint: 'Warranty Expense $1.564M', accounts: { debit: 'Warranty Expense', credit: 'Estimated Warranty Liability' }, amount: 1564000 },
+                { id: 32, phase: 3, date: 'Mar 31', description: 'LCM adjustment: Inventory cost $18M, NRV $16.5M', hint: 'Write down inventory to market', accounts: { debit: 'COGS/Loss', credit: 'Inventory' }, amount: 1500000 },
+                { id: 33, phase: 3, date: 'Mar 31', description: 'Amortize bond discount using effective interest method', hint: 'Discount amortization increases interest expense', accounts: { debit: 'Interest Expense', credit: 'Bond Discount' }, amount: 25000 },
+                { id: 34, phase: 3, date: 'Mar 31', description: 'Recognize deferred revenue now earned $2M', hint: 'Unearned Revenue down, Revenue up', accounts: { debit: 'Unearned Revenue', credit: 'Revenue' }, amount: 2000000 },
+                { id: 35, phase: 3, date: 'Mar 31', description: 'Accrue income taxes payable $3.2M', hint: 'Income Tax Expense up, Taxes Payable up', accounts: { debit: 'Income Tax Expense', credit: 'Income Taxes Payable' }, amount: 3200000 },
+                { id: 36, phase: 3, date: 'Mar 31', description: 'Adjust for AFS securities unrealized gain $500K (OCI)', hint: 'Unrealized Gain-OCI up, Securities up', accounts: { debit: 'Investments', credit: 'Unrealized Gain-OCI' }, amount: 500000 },
+                
+                // Phase 4: Complex Closing (8 transactions)
+                { id: 37, phase: 4, date: 'Mar 31', description: 'Close revenue accounts and contra-revenues to Income Summary', hint: 'Revenues up, Contra-revenues down, net to Income Summary', accounts: { debit: 'Revenues', credit: 'Income Summary' }, amount: 81700000 },
+                { id: 38, phase: 4, date: 'Mar 31', description: 'Close expense accounts (Part 1 - Operating)', hint: 'Operating expenses to Income Summary', accounts: { debit: 'Income Summary', credit: 'Operating Expenses' }, amount: 43216000 },
+                { id: 39, phase: 4, date: 'Mar 31', description: 'Close expense accounts (Part 2 - Non-operating)', hint: 'Interest, taxes, other expenses', accounts: { debit: 'Income Summary', credit: 'Non-operating Expenses' }, amount: 6441000 },
+                { id: 40, phase: 4, date: 'Mar 31', description: 'Close Income Summary to Retained Earnings (net income)', hint: 'Income Summary down, Retained Earnings up', accounts: { debit: 'Income Summary', credit: 'Retained Earnings' }, amount: 32043000 },
+                { id: 41, phase: 4, date: 'Mar 31', description: 'Close OCI accounts to Accumulated OCI', hint: 'Unrealized gains to equity section', accounts: { debit: 'Unrealized Gain-OCI', credit: 'Accumulated OCI' }, amount: 500000 },
+                { id: 42, phase: 4, date: 'Mar 31', description: 'Prepare Statement of Cash Flows (indirect method)', hint: 'Analysis of cash movements - no entry', accounts: { debit: 'None', credit: 'None' }, amount: 0 },
+                { id: 43, phase: 4, date: 'Mar 31', description: 'Prepare Statement of Stockholders Equity', hint: 'Track all equity changes - no entry', accounts: { debit: 'None', credit: 'None' }, amount: 0 },
+                { id: 44, phase: 4, date: 'Mar 31', description: 'Prepare post-closing trial balance', hint: 'Verify debits=credits - no entry', accounts: { debit: 'None', credit: 'None' }, amount: 0 }
+            ]
+        };
+
+        // Chart of Accounts
+        const chartOfAccounts = [
+            'Cash', 'Accounts Receivable', 'Inventory', 'Prepaid Rent', 
+            'Equipment', 'Accumulated Depreciation', 'Accounts Payable',
+            'Salaries Payable', 'Interest Payable', 'Notes Payable',
+            'Common Stock', 'Retained Earnings', 'Sales Revenue',
+            'Cost of Goods Sold', 'Salaries Expense', 'Rent Expense',
+            'Depreciation Expense', 'Interest Expense', 'Utilities Expense',
+            'Income Summary'
+        ];
+
+        // ==================== INITIALIZATION ====================
+        
+        function init() {
+            populateAccountSelects();
+            loadTransactions();
+            updateDashboard();
+            updateProgress();
+        }
+
+        function populateAccountSelects() {
+            const debitSelect = document.getElementById('debit-account');
+            const creditSelect = document.getElementById('credit-account');
+            
+            // Clear existing options
+            debitSelect.innerHTML = '<option value="">Select Debit Account</option>';
+            creditSelect.innerHTML = '<option value="">Select Credit Account</option>';
+            
+            chartOfAccounts.forEach(account => {
+                debitSelect.innerHTML += `<option value="${account}">${account}</option>`;
+                creditSelect.innerHTML += `<option value="${account}">${account}</option>`;
+            });
+        }
+
+        // ==================== DIFFICULTY SELECTION ====================
+        
+        function setDifficulty(level) {
+            currentDifficulty = level;
+            
+            // Update button states
+            document.querySelectorAll('.difficulty-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            document.getElementById(`btn-${level}`).classList.add('active');
+            
+            // Reset simulation
+            completedTransactions = [];
+            currentPhase = 1;
+            resetFinancialState();
+            
+            // Reset phase tabs to initial state (Phase 1 active, others inactive)
+            document.querySelectorAll('.phase-tab').forEach((tab, index) => {
+                tab.classList.remove('active', 'completed');
+                if (index === 0) {
+                    tab.classList.add('active');
+                }
+            });
+            
+            loadTransactions();
+            updateDashboard();
+            updateProgress();
+            
+            // Hide journal form if open
+            document.getElementById('journal-form').classList.remove('active');
+            
+            // Show confirmation
+            alert(`Difficulty set to: ${level.toUpperCase()}\n\n${getDifficultyDescription(level)}`);
+        }
+
+        function getDifficultyDescription(level) {
+            const descriptions = {
+                beginner: 'Guided mode with detailed hints and account suggestions',
+                intermediate: 'Partial hints - you select accounts with some guidance',
+                advanced: 'Expert mode - minimal guidance, professional-level complexity'
+            };
+            return descriptions[level];
+        }
+
+        // ==================== PHASE MANAGEMENT ====================
+        
+        function switchPhase(phase) {
+            currentPhase = phase;
+            
+            // Update tab states
+            document.querySelectorAll('.phase-tab').forEach((tab, index) => {
+                tab.classList.remove('active');
+                if (index + 1 === phase) {
+                    tab.classList.add('active');
+                } else if (index + 1 < phase) {
+                    tab.classList.add('completed');
+                }
+            });
+            
+            loadTransactions();
+        }
+
+        // ==================== TRANSACTION MANAGEMENT ====================
+        
+        function loadTransactions() {
+            const listContainer = document.getElementById('transaction-list');
+            listContainer.innerHTML = '';
+            
+            const currentTransactions = transactions[currentDifficulty].filter(t => t.phase === currentPhase);
+            
+            currentTransactions.forEach(tx => {
+                const isCompleted = completedTransactions.includes(tx.id);
+                const item = document.createElement('div');
+                item.className = `transaction-item ${isCompleted ? 'completed' : ''}`;
+                item.onclick = () => selectTransaction(tx);
+                
+                item.innerHTML = `
+                    <div class="transaction-header">
+                        <span class="transaction-date">${tx.date}</span>
+                        <span class="transaction-amount">$${tx.amount.toLocaleString()}</span>
+                    </div>
+                    <div class="transaction-description">${tx.description}</div>
+                    ${currentDifficulty !== 'advanced' ? `<div class="transaction-hint">💡 ${tx.hint}</div>` : ''}
+                    ${isCompleted ? '<div style="color: var(--success-green); font-weight: 600; margin-top: 10px;">✓ Completed</div>' : ''}
+                `;
+                
+                listContainer.appendChild(item);
+            });
+        }
+
+        function selectTransaction(tx) {
+            if (completedTransactions.includes(tx.id)) return;
+            
+            currentTransaction = tx;
+            document.getElementById('journal-form').classList.add('active');
+            document.getElementById('current-transaction-info').innerHTML = `
+                <p><strong>Transaction #${tx.id}</strong> - ${tx.date}</p>
+                <p>${tx.description}</p>
+                <p style="color: var(--tesla-red); font-weight: 600;">Amount: $${tx.amount.toLocaleString()}</p>
+            `;
+            
+            // Clear previous inputs
+            document.getElementById('debit-account').value = '';
+            document.getElementById('credit-account').value = '';
+            document.getElementById('debit-amount').value = '';
+            document.getElementById('credit-amount').value = '';
+            document.getElementById('entry-feedback').className = 'feedback-message';
+            document.getElementById('entry-feedback').style.display = 'none';
+        }
+
+        // ==================== JOURNAL ENTRY ====================
+        
+        function submitEntry() {
+            if (!currentTransaction) return;
+            
+            const debitAcct = document.getElementById('debit-account').value;
+            const creditAcct = document.getElementById('credit-account').value;
+            const debitAmt = parseFloat(document.getElementById('debit-amount').value);
+            const creditAmt = parseFloat(document.getElementById('credit-amount').value);
+            
+            // Validation
+            if (!debitAcct || !creditAcct || !debitAmt || !creditAmt) {
+                showFeedback('error', 'Please fill in all fields');
+                return;
+            }
+            
+            if (Math.abs(debitAmt - creditAmt) > 0.01) {
+                showFeedback('error', 'Debits must equal Credits!');
+                return;
+            }
+            
+            if (Math.abs(debitAmt - currentTransaction.amount) > 0.01) {
+                showFeedback('error', `Amount should be $${currentTransaction.amount.toLocaleString()}`);
+                return;
+            }
+            
+            // Check accounts (simplified validation)
+            const expectedDebit = currentTransaction.accounts.debit;
+            const expectedCredit = currentTransaction.accounts.credit;
+            
+            if (!debitAcct.includes(expectedDebit.split('/')[0]) || !creditAcct.includes(expectedCredit.split('/')[0])) {
+                if (currentDifficulty === 'beginner') {
+                    showFeedback('error', `Hint: Debit ${expectedDebit}, Credit ${expectedCredit}`);
+                    return;
+                }
+            }
+            
+            // Success
+            showFeedback('success', '✓ Correct! Entry recorded successfully.');
+            completedTransactions.push(currentTransaction.id);
+            
+            // Update financial state
+            updateFinancialState(debitAcct, creditAcct, debitAmt);
+            
+            // Refresh UI
+            setTimeout(() => {
+                document.getElementById('journal-form').classList.remove('active');
+                loadTransactions();
+                updateDashboard();
+                updateProgress();
+                
+                // Check if phase complete
+                checkPhaseCompletion();
+            }, 1500);
+        }
+
+        function showFeedback(type, message) {
+            const feedback = document.getElementById('entry-feedback');
+            feedback.className = `feedback-message ${type}`;
+            feedback.textContent = message;
+            feedback.style.display = 'block';
+        }
+
+        function showHint() {
+            if (!currentTransaction) return;
+            alert(`💡 HINT:\n\nDebit: ${currentTransaction.accounts.debit}\nCredit: ${currentTransaction.accounts.credit}\nAmount: $${currentTransaction.amount.toLocaleString()}`);
+        }
+
+        function skipTransaction() {
+            if (!currentTransaction) return;
+            completedTransactions.push(currentTransaction.id);
+            document.getElementById('journal-form').classList.remove('active');
+            loadTransactions();
+            updateProgress();
+        }
+
+        // ==================== FINANCIAL STATE MANAGEMENT ====================
+        
+        function resetFinancialState() {
+            Object.keys(financialState).forEach(key => {
+                financialState[key] = 0;
+            });
+        }
+
+        function updateFinancialState(debitAcct, creditAcct, amount) {
+            // Map account names to state properties
+            const accountMap = {
+                'Cash': 'cash',
+                'Accounts Receivable': 'accountsReceivable',
+                'Inventory': 'inventory',
+                'Prepaid Rent': 'prepaidRent',
+                'Equipment': 'equipment',
+                'Accumulated Depreciation': 'accumulatedDepreciation',
+                'Accounts Payable': 'accountsPayable',
+                'Salaries Payable': 'salariesPayable',
+                'Interest Payable': 'interestPayable',
+                'Notes Payable': 'notesPayable',
+                'Common Stock': 'commonStock',
+                'Retained Earnings': 'retainedEarnings',
+                'Sales Revenue': 'revenue',
+                'Service Revenue': 'revenue',
+                'Cost of Goods Sold': 'costOfGoodsSold',
+                'Salaries Expense': 'salariesExpense',
+                'Rent Expense': 'rentExpense',
+                'Depreciation Expense': 'depreciationExpense',
+                'Interest Expense': 'interestExpense',
+                'Utilities Expense': 'utilitiesExpense'
+            };
+            
+            // Simplified update logic
+            // Parse compound accounts like "Cash/AR"
+            const debitAccounts = debitAcct.split('/');
+            const creditAccounts = creditAcct.split('/');
+            
+            // Update financial state based on transaction
+            // This is a simplified version for demonstration
+            debitAccounts.forEach(acct => {
+                const stateKey = accountMap[acct.trim()];
+                if (stateKey && financialState.hasOwnProperty(stateKey)) {
+                    // For asset and expense accounts, debit increases
+                    if (['cash', 'accountsReceivable', 'inventory', 'equipment', 'prepaidRent'].includes(stateKey) ||
+                        stateKey.includes('Expense')) {
+                        financialState[stateKey] += amount / debitAccounts.length;
+                    }
+                }
+            });
+            
+            creditAccounts.forEach(acct => {
+                const stateKey = accountMap[acct.trim()];
+                if (stateKey && financialState.hasOwnProperty(stateKey)) {
+                    // For liability, equity, and revenue accounts, credit increases
+                    if (['accountsPayable', 'notesPayable', 'commonStock', 'retainedEarnings'].includes(stateKey) ||
+                        stateKey === 'revenue') {
+                        financialState[stateKey] += amount / creditAccounts.length;
+                    }
+                    // For asset accounts, credit decreases
+                    if (['cash', 'accountsReceivable', 'inventory', 'prepaidRent'].includes(stateKey)) {
+                        financialState[stateKey] -= amount / creditAccounts.length;
+                    }
+                }
+            });
+        }
+
+        function updateDashboard() {
+            // Calculate totals
+            const totalAssets = financialState.cash + financialState.accountsReceivable + 
+                              financialState.inventory + financialState.equipment;
+            const totalLiabilities = financialState.accountsPayable + financialState.notesPayable;
+            const totalEquity = financialState.commonStock + financialState.retainedEarnings;
+            
+            // Update display
+            document.getElementById('total-assets').textContent = '$' + totalAssets.toLocaleString();
+            document.getElementById('total-liabilities').textContent = '$' + totalLiabilities.toLocaleString();
+            document.getElementById('total-equity').textContent = '$' + totalEquity.toLocaleString();
+            document.getElementById('cash-balance').textContent = '$' + financialState.cash.toLocaleString();
+            document.getElementById('q1-revenue').textContent = '$' + financialState.revenue.toLocaleString();
+            
+            const netIncome = financialState.revenue - financialState.costOfGoodsSold - 
+                            financialState.salariesExpense - financialState.rentExpense;
+            document.getElementById('net-income').textContent = '$' + netIncome.toLocaleString();
+            
+            // Update bars
+            const maxVal = Math.max(totalAssets, totalLiabilities, totalEquity, 1);
+            document.getElementById('bar-assets').style.height = (totalAssets / maxVal * 100) + '%';
+            document.getElementById('bar-liabilities').style.height = (totalLiabilities / maxVal * 100) + '%';
+            document.getElementById('bar-equity').style.height = (totalEquity / maxVal * 100) + '%';
+        }
+
+        function updateProgress() {
+            const totalTx = transactions[currentDifficulty].length;
+            const completed = completedTransactions.length;
+            const percent = Math.round((completed / totalTx) * 100);
+            
+            document.getElementById('completed-count').textContent = `${completed} of ${totalTx} transactions completed`;
+            document.getElementById('progress-percent').textContent = percent + '%';
+            document.getElementById('progress-fill').style.width = percent + '%';
+            document.getElementById('progress-fill').textContent = percent + '%';
+        }
+
+        function checkPhaseCompletion() {
+            const currentTx = transactions[currentDifficulty].filter(t => t.phase === currentPhase);
+            const completedInPhase = currentTx.filter(t => completedTransactions.includes(t.id));
+            
+            if (completedInPhase.length === currentTx.length && currentPhase < 4) {
+                setTimeout(() => {
+                    if (confirm(`Phase ${currentPhase} complete! Move to Phase ${currentPhase + 1}?`)) {
+                        switchPhase(currentPhase + 1);
+                    }
+                }, 500);
+            } else if (completedTransactions.length === transactions[currentDifficulty].length) {
+                showCompletionMessage();
+            }
+        }
+
+        function showCompletionMessage() {
+            document.getElementById('statements-section').style.display = 'block';
+            alert('🎉 Congratulations! You have completed the Tesla Q1 Financial Simulation!\n\nView your financial statements below.');
+        }
+
+        // Initialize on load
+        window.onload = init;
+    </script>
+</body>
+</html>

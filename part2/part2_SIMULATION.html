@@ -1,0 +1,1876 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Alibaba Group - Q1 2024 Integrated Accounting Practice</title>
+<style>
+ * { margin: 0; padding: 0; box-sizing: border-box; }
+ 
+ :root {
+ --primary: #FF6A00;
+ --primary-dark: #E55B00;
+ --secondary: #1A1A2E;
+ --accent: #16213E;
+ --success: #27AE60;
+ --error: #E74C3C;
+ --warning: #F39C12;
+ --bg: #F0F2F5;
+ --card: #FFFFFF;
+ --text: #2C3E50;
+ --text-light: #7F8C8D;
+ --border: #E0E0E0;
+ --highlight: #FFF3E0;
+ }
+ 
+ body {
+ font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+ background: var(--bg);
+ color: var(--text);
+ line-height: 1.6;
+ }
+ 
+  /* Navigation Bar */
+  .top-nav {
+  background: var(--secondary);
+  padding: 0 30px;
+  border-bottom: 1px solid rgba(255,255,255,0.1);
+  }
+  
+  .top-nav-content {
+  max-width: 1400px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 50px;
+  }
+  
+  .top-nav-logo {
+  color: white;
+  font-size: 16px;
+  font-weight: 700;
+  text-decoration: none;
+  letter-spacing: 1px;
+  }
+  
+  .top-nav-logo span {
+  color: var(--primary);
+  }
+  
+  .top-nav-links {
+  display: flex;
+  gap: 30px;
+  }
+  
+  .top-nav-links a {
+  color: rgba(255,255,255,0.8);
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: 500;
+  transition: all 0.3s;
+  padding: 5px 10px;
+  border-radius: 4px;
+  }
+  
+  .top-nav-links a:hover {
+  color: white;
+  background: rgba(255,255,255,0.1);
+  }
+  
+  .top-nav-links a.active {
+  color: var(--primary);
+  background: rgba(255,106,0,0.1);
+  }
+  
+  /* Header */
+  .header {
+  background: linear-gradient(135deg, var(--secondary) 0%, var(--accent) 100%);
+  color: white;
+  padding: 20px 30px;
+  position: sticky;
+  top: 50px;
+  z-index: 1000;
+  box-shadow: 0 2px 20px rgba(0,0,0,0.3);
+  }
+ 
+ .header-content {
+ max-width: 1400px;
+ margin: 0 auto;
+ display: flex;
+ justify-content: space-between;
+ align-items: center;
+ }
+ 
+ .company-info h1 {
+ font-size: 24px;
+ margin-bottom: 5px;
+ }
+ 
+ .company-info p {
+ opacity: 0.8;
+ font-size: 14px;
+ }
+ 
+ .progress-section {
+ text-align: right;
+ }
+ 
+ .progress-bar {
+ width: 300px;
+ height: 10px;
+ background: rgba(255,255,255,0.2);
+ border-radius: 5px;
+ overflow: hidden;
+ margin-top: 8px;
+ }
+ 
+ .progress-fill {
+ height: 100%;
+ background: linear-gradient(90deg, var(--primary), #FFB74D);
+ border-radius: 5px;
+ transition: width 0.5s ease;
+ }
+ 
+ /* Phase Indicator */
+ .phase-indicator {
+ max-width: 1400px;
+ margin: 20px auto;
+ padding: 0 25px;
+ display: flex;
+ justify-content: center;
+ gap: 15px;
+ }
+ 
+  .phase-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 20px;
+    background: white;
+    border-radius: 25px;
+    font-size: 14px;
+    font-weight: 600;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+    opacity: 0.5;
+    transition: all 0.3s;
+    cursor: pointer;
+  }
+  
+  .phase-item:hover {
+    opacity: 0.8;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  }
+  
+  .phase-item.active {
+    background: var(--primary);
+    color: white;
+    opacity: 1;
+    transform: scale(1.05);
+  }
+  
+  .phase-item.active:hover {
+    background: var(--primary-dark);
+  }
+  
+  .phase-item.completed {
+    background: var(--success);
+    color: white;
+    opacity: 1;
+  }
+  
+  .phase-item.completed:hover {
+    background: #229954;
+  }
+ 
+ /* Main Layout */
+ .main-container {
+ max-width: 1400px;
+ margin: 0 auto;
+ padding: 25px;
+ display: grid;
+ grid-template-columns: 1fr 380px;
+ gap: 25px;
+ }
+ 
+ /* Cards */
+ .card {
+ background: var(--card);
+ border-radius: 12px;
+ box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+ margin-bottom: 20px;
+ overflow: hidden;
+ }
+ 
+ .card-header {
+ padding: 18px 24px;
+ border-bottom: 1px solid var(--border);
+ background: linear-gradient(135deg, #FAFBFC 0%, #F0F2F5 100%);
+ }
+ 
+ .card-header h3 {
+ font-size: 18px;
+ color: var(--secondary);
+ }
+ 
+ .card-body {
+ padding: 24px;
+ }
+ 
+ /* Welcome Screen */
+ .welcome-screen {
+ text-align: center;
+ padding: 40px;
+ }
+ 
+ .welcome-screen h2 {
+ font-size: 32px;
+ color: var(--secondary);
+ margin-bottom: 15px;
+ }
+ 
+ .welcome-screen p {
+ font-size: 16px;
+ color: var(--text-light);
+ max-width: 600px;
+ margin: 0 auto 30px;
+ }
+ 
+ .info-box {
+ background: var(--highlight);
+ border-left: 4px solid var(--primary);
+ padding: 20px;
+ border-radius: 0 8px 8px 0;
+ margin: 20px 0;
+ text-align: left;
+ }
+ 
+ .info-box h4 {
+ color: var(--primary-dark);
+ margin-bottom: 10px;
+ }
+ 
+ .info-box ul {
+ margin-left: 20px;
+ }
+ 
+ .info-box li {
+ margin: 8px 0;
+ }
+ 
+ /* Transaction Flow */
+ .transaction-flow {
+ display: flex;
+ flex-direction: column;
+ gap: 15px;
+ }
+ 
+ .transaction-item {
+ background: white;
+ border: 2px solid var(--border);
+ border-radius: 10px;
+ padding: 20px;
+ cursor: pointer;
+ transition: all 0.3s;
+ position: relative;
+ }
+ 
+ .transaction-item:hover:not(.locked) {
+ border-color: var(--primary);
+ transform: translateX(5px);
+ }
+ 
+ .transaction-item.active {
+ border-color: var(--primary);
+ box-shadow: 0 0 0 3px rgba(255,106,0,0.1);
+ }
+ 
+ .transaction-item.completed {
+ border-color: var(--success);
+ background: #F9FFF9;
+ }
+ 
+ .transaction-item.locked {
+ opacity: 0.5;
+ cursor: not-allowed;
+ }
+ 
+ .transaction-date {
+ font-size: 12px;
+ font-weight: 700;
+ color: var(--primary);
+ text-transform: uppercase;
+ margin-bottom: 5px;
+ }
+ 
+ .transaction-title {
+ font-size: 16px;
+ font-weight: 700;
+ margin-bottom: 8px;
+ }
+ 
+ .transaction-desc {
+ font-size: 14px;
+ color: var(--text-light);
+ margin-bottom: 10px;
+ line-height: 1.5;
+ }
+ 
+ .transaction-amount {
+ font-family: 'Courier New', monospace;
+ font-weight: 700;
+ font-size: 15px;
+ color: var(--secondary);
+ }
+ 
+ .transaction-status {
+ position: absolute;
+ top: 20px;
+ right: 20px;
+ padding: 4px 12px;
+ border-radius: 12px;
+ font-size: 12px;
+ font-weight: 600;
+ }
+ 
+ .status-pending {
+ background: #FFF3E0;
+ color: var(--primary-dark);
+ }
+ 
+ .status-completed {
+ background: #E8F5E9;
+ color: var(--success);
+ }
+ 
+  .status-locked {
+  background: #ECEFF1;
+  color: var(--text-light);
+  }
+  
+  .status-available {
+  background: #E3F2FD;
+  color: #1565C0;
+  }
+ 
+ /* Entry Form */
+ .entry-section {
+ background: #FAFBFC;
+ border: 2px dashed var(--border);
+ border-radius: 10px;
+ padding: 20px;
+ margin: 20px 0;
+ }
+ 
+ .form-row {
+ display: flex;
+ gap: 12px;
+ align-items: center;
+ margin-bottom: 12px;
+ padding: 12px;
+ background: white;
+ border-radius: 8px;
+ border: 1px solid var(--border);
+ }
+ 
+ .form-group {
+ display: flex;
+ flex-direction: column;
+ gap: 4px;
+ }
+ 
+ .form-group label {
+ font-size: 11px;
+ font-weight: 600;
+ text-transform: uppercase;
+ letter-spacing: 0.5px;
+ color: var(--text-light);
+ }
+ 
+ select, input[type="number"] {
+ padding: 10px 14px;
+ border: 2px solid var(--border);
+ border-radius: 8px;
+ font-size: 14px;
+ font-family: inherit;
+ transition: border-color 0.3s;
+ background: white;
+ }
+ 
+ select:focus, input:focus {
+ outline: none;
+ border-color: var(--primary);
+ }
+ 
+ input[type="number"] {
+ width: 130px;
+ text-align: right;
+ font-family: 'Courier New', monospace;
+ font-weight: 600;
+ }
+ 
+ /* Buttons */
+ .btn {
+ padding: 12px 24px;
+ border: none;
+ border-radius: 8px;
+ font-size: 14px;
+ font-weight: 600;
+ cursor: pointer;
+ transition: all 0.3s;
+ font-family: inherit;
+ }
+ 
+ .btn-primary {
+ background: var(--primary);
+ color: white;
+ }
+ 
+ .btn-primary:hover {
+ background: var(--primary-dark);
+ transform: translateY(-1px);
+ }
+ 
+ .btn-secondary {
+ background: var(--secondary);
+ color: white;
+ }
+ 
+ .btn-outline {
+ background: transparent;
+ border: 2px solid var(--border);
+ color: var(--text);
+ }
+ 
+ .btn-outline:hover {
+ border-color: var(--primary);
+ color: var(--primary);
+ }
+ 
+  .btn-group {
+  display: flex;
+  gap: 10px;
+  margin-top: 15px;
+  flex-wrap: wrap;
+  }
+  
+  .btn-sm {
+  padding: 8px 16px;
+  font-size: 13px;
+  }
+  
+  /* Phase filter buttons */
+  .phase-filter {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-bottom: 20px;
+  }
+  
+  .phase-filter-btn {
+  padding: 8px 16px;
+  border: 2px solid var(--border);
+  background: white;
+  border-radius: 20px;
+  cursor: pointer;
+  font-size: 13px;
+  font-weight: 600;
+  transition: all 0.3s;
+  }
+  
+  .phase-filter-btn:hover {
+  border-color: var(--primary);
+  color: var(--primary);
+  }
+  
+  .phase-filter-btn.active {
+  background: var(--primary);
+  color: white;
+  border-color: var(--primary);
+  }
+  
+  /* Feedback */
+ .feedback {
+ padding: 16px 20px;
+ border-radius: 10px;
+ margin: 15px 0;
+ display: none;
+ align-items: flex-start;
+ gap: 12px;
+ font-size: 14px;
+ animation: slideIn 0.3s ease;
+ }
+ 
+ @keyframes slideIn {
+ from { transform: translateY(-10px); opacity: 0; }
+ to { transform: translateY(0); opacity: 1; }
+ }
+ 
+ .feedback.show {
+ display: flex;
+ }
+ 
+ .feedback.correct {
+ background: #E8F5E9;
+ border: 1px solid #A5D6A7;
+ color: #2E7D32;
+ }
+ 
+ .feedback.incorrect {
+ background: #FFEBEE;
+ border: 1px solid #EF9A9A;
+ color: #C62828;
+ }
+ 
+ /* T-Accounts Sidebar */
+ .sidebar {
+ position: sticky;
+ top: 100px;
+ height: fit-content;
+ }
+ 
+ .t-account {
+ border: 2px solid var(--secondary);
+ border-radius: 8px;
+ overflow: hidden;
+ margin-bottom: 15px;
+ background: white;
+ }
+ 
+ .t-account-title {
+ background: var(--secondary);
+ color: white;
+ text-align: center;
+ padding: 8px;
+ font-weight: 700;
+ font-size: 13px;
+ }
+ 
+ .t-account-body {
+ display: grid;
+ grid-template-columns: 1fr 1fr;
+ min-height: 100px;
+ font-size: 12px;
+ }
+ 
+ .t-debit {
+ border-right: 2px solid var(--secondary);
+ padding: 8px;
+ }
+ 
+ .t-credit {
+ padding: 8px;
+ }
+ 
+ .t-label {
+ font-size: 10px;
+ text-transform: uppercase;
+ letter-spacing: 1px;
+ color: var(--text-light);
+ text-align: center;
+ margin-bottom: 5px;
+ border-bottom: 1px solid var(--border);
+ padding-bottom: 3px;
+ }
+ 
+ .t-entry {
+ font-family: 'Courier New', monospace;
+ padding: 2px 0;
+ text-align: right;
+ font-size: 11px;
+ }
+ 
+ .t-balance {
+ border-top: 2px solid var(--secondary);
+ font-weight: 700;
+ margin-top: 5px;
+ padding-top: 5px;
+ text-align: right;
+ }
+ 
+ /* Financial Summary */
+ .summary-grid {
+ display: grid;
+ grid-template-columns: 1fr 1fr;
+ gap: 10px;
+ margin-top: 15px;
+ }
+ 
+ .summary-item {
+ background: white;
+ padding: 12px;
+ border-radius: 8px;
+ border: 1px solid var(--border);
+ }
+ 
+ .summary-label {
+ font-size: 11px;
+ color: var(--text-light);
+ text-transform: uppercase;
+ }
+ 
+ .summary-value {
+ font-family: 'Courier New', monospace;
+ font-weight: 700;
+ font-size: 16px;
+ color: var(--secondary);
+ margin-top: 4px;
+ }
+ 
+ /* Costing Method Selector */
+ .method-selector {
+ display: flex;
+ gap: 10px;
+ margin: 15px 0;
+ padding: 15px;
+ background: white;
+ border-radius: 10px;
+ border: 2px solid var(--border);
+ }
+ 
+ .method-btn {
+ flex: 1;
+ padding: 12px;
+ border: 2px solid var(--border);
+ background: white;
+ border-radius: 8px;
+ cursor: pointer;
+ font-weight: 600;
+ transition: all 0.3s;
+ }
+ 
+ .method-btn:hover {
+ border-color: var(--primary);
+ }
+ 
+ .method-btn.active {
+ background: var(--primary);
+ color: white;
+ border-color: var(--primary);
+ }
+ 
+ /* Hint Box */
+ .hint-box {
+ background: #FFF8E1;
+ border: 1px solid #FFE082;
+ border-radius: 8px;
+ padding: 14px 18px;
+ font-size: 13px;
+ margin: 10px 0;
+ display: none;
+ color: #F57F17;
+ }
+ 
+ .hint-box.show {
+ display: block;
+ }
+ 
+ /* Answer Box */
+ .answer-box {
+ background: #E3F2FD;
+ border: 1px solid #90CAF9;
+ border-radius: 8px;
+ padding: 14px 18px;
+ font-size: 13px;
+ margin: 10px 0;
+ display: none;
+ }
+ 
+ .answer-box.show {
+ display: block;
+ }
+ 
+ /* Responsive */
+ @media (max-width: 1100px) {
+ .main-container {
+ grid-template-columns: 1fr;
+ }
+ .sidebar {
+ position: relative;
+ top: 0;
+ display: grid;
+ grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+ gap: 15px;
+ }
+ .phase-indicator {
+ flex-wrap: wrap;
+ }
+ }
+ 
+ /* Statement Form */
+ .statement-form {
+ background: white;
+ border: 2px solid var(--border);
+ border-radius: 10px;
+ padding: 20px;
+ margin: 20px 0;
+ }
+ 
+ .statement-row {
+ display: flex;
+ justify-content: space-between;
+ align-items: center;
+ padding: 10px 0;
+ border-bottom: 1px solid #eee;
+ }
+ 
+ .statement-row.total {
+ font-weight: 700;
+ border-top: 2px solid var(--text);
+ border-bottom: 4px double var(--text);
+ margin-top: 5px;
+ }
+ 
+ .statement-input {
+ width: 150px;
+ padding: 8px;
+ border: 2px solid var(--border);
+ border-radius: 6px;
+ text-align: right;
+ font-family: 'Courier New', monospace;
+ }
+ 
+ .statement-input.correct {
+ border-color: var(--success);
+ background: #E8F5E9;
+ }
+ 
+ .statement-input.incorrect {
+ border-color: var(--error);
+ background: #FFEBEE;
+ }
+ 
+ /* Completion Banner */
+ .completion-banner {
+ background: linear-gradient(135deg, var(--success), #2ECC71);
+ color: white;
+ border-radius: 12px;
+ padding: 30px;
+ text-align: center;
+ margin: 20px 0;
+ display: none;
+ }
+ 
+ .completion-banner.show {
+ display: block;
+ }
+ 
+ .completion-banner h3 {
+ font-size: 28px;
+ margin-bottom: 10px;
+ }
+ 
+ /* Hidden sections */
+ .hidden {
+ display: none !important;
+ }
+</style>
+</head>
+<body>
+
+<!-- Top Navigation Bar -->
+<div class="top-nav">
+  <div class="top-nav-content">
+    <a href="../index.html" class="top-nav-logo">ACCOUNTING<span>ESSENTIALS</span></a>
+    <nav class="top-nav-links">
+      <a href="../index.html">🏠 Home</a>
+      <a href="part2.html">📚 Part 2</a>
+      <a href="chapter5/ch05.html">📖 Ch5</a>
+      <a href="chapter6/ch06.html">📖 Ch6</a>
+      <a href="part2_SIMULATION.html" class="active">🎯 Simulation</a>
+    </nav>
+  </div>
+</div>
+
+<!-- Header -->
+<div class="header">
+ <div class="header-content">
+ <div class="company-info">
+ <h1>🏢 Alibaba Group - Q1 2024 Integrated Accounting Practice</h1>
+ <p>Integrated Merchandising Merchandising & Inventory Management Practice Inventory Practice | Perpetual Inventory System</p>
+ </div>
+ <div class="progress-section">
+ <div>Progress: <span id="progressText">0/12</span> Transactions</div>
+ <div class="progress-bar">
+ <div class="progress-fill" id="progressFill" style="width: 0%"></div>
+ </div>
+ </div>
+ </div>
+</div>
+
+<!-- Phase Indicator -->
+<div class="phase-indicator">
+  <div class="phase-item active" id="phase1" onclick="jumpToPhase(1)" style="cursor: pointer;">
+    <span>📦</span> Purchase Transactions
+  </div>
+  <div class="phase-item" id="phase2" onclick="jumpToPhase(2)" style="cursor: pointer;">
+    <span>💰</span> Sales Transactions
+  </div>
+  <div class="phase-item" id="phase3" onclick="jumpToPhase(3)" style="cursor: pointer;">
+    <span>📊</span> Cost Calculation
+  </div>
+  <div class="phase-item" id="phase4" onclick="jumpToPhase(4)" style="cursor: pointer;">
+    <span>⚖️</span> Period-End Adjustments
+  </div>
+  <div class="phase-item" id="phase5" onclick="jumpToPhase(5)" style="cursor: pointer;">
+    <span>📈</span> Financial Statements
+  </div>
+</div>
+
+<!-- Main Content -->
+<div class="main-container">
+ <!-- Left: Main Content -->
+ <div class="main-content">
+ 
+ <!-- Welcome Screen -->
+ <div class="card" id="welcomeCard">
+ <div class="card-body">
+ <div class="welcome-screen">
+ <h2>🎯 Welcome to Alibaba Accounting Department</h2>
+ <p>You have just been hired as a Junior Accountant at Alibaba Group.2024-Q1alreadystarted,You need to process the complete business cycle from purchases to sales,master core merchandising accounting skills.</p>
+ 
+ <div class="info-box">
+ <h4>📋 Practice Overview</h4>
+ <ul>
+ <li><strong>Phase 1 - PurchaseTransactions:</strong>RecordgoodsPurchase、Freight、returnandDiscount</li>
+ <li><strong>Phase 2 - SalesTransactions:</strong>RecordSales RevenueandCost(Perpetual Inventory System)</li>
+ <li><strong>Phase 3 - Cost Calculation:</strong>applyFIFO/LIFO/Weighted AveragemethodcalculateCOGS</li>
+ <li><strong>Phase 4 - Period-End Adjustments:</strong>inventorywrite-downanddifferencesadjustments</li>
+ <li><strong>Phase 5 - Financial Statements:</strong>PreparationIncome Statementandkeyratiosanalysis</li>
+ </ul>
+ </div>
+ 
+  <div class="info-box">
+  <h4>💡 Important Notes</h4>
+  <ul>
+  <li><strong>Free Navigation:</strong> You can access ANY Phase directly by clicking the Phase buttons above!</li>
+  <li>All transactions are independent exercises with real-time T-Account updates</li>
+  <li>You can switch inventory costing methods anytime (right side) to see different impacts</li>
+  <li>Click on any Phase above to start practicing that specific accounting skill</li>
+  </ul>
+  </div>
+ 
+  <button class="btn btn-primary" onclick="startSimulation()" style="font-size: 16px; padding: 15px 40px;">
+  ▶ Start Practice
+  </button>
+ </div>
+ </div>
+ </div>
+
+  <!-- Transaction List -->
+  <div class="card hidden" id="transactionCard">
+  <div class="card-header">
+  <h3>📋 Transactions - Click any transaction to practice</h3>
+  </div>
+  <div class="card-body">
+  <div class="transaction-flow" id="transactionList">
+ <!-- Transactions will be generated here -->
+ </div>
+ </div>
+ </div>
+
+ <!-- Current Transaction Detail -->
+ <div class="card hidden" id="detailCard">
+ <div class="card-header">
+ <h3 id="detailTitle">📝 Record Journal Entry</h3>
+ </div>
+ <div class="card-body">
+ <div id="detailContent">
+ <!-- Dynamic content -->
+ </div>
+ 
+ <div class="entry-section" id="entryForm">
+ <!-- Entry form -->
+ </div>
+ 
+ <div class="hint-box" id="hintBox"></div>
+ <div class="answer-box" id="answerBox"></div>
+ 
+ <div class="btn-group">
+ <button class="btn btn-primary" id="submitBtn" onclick="submitEntry()">✓ Submit Entry</button>
+ <button class="btn btn-outline" onclick="toggleHint()">💡 Show Hint</button>
+ <button class="btn btn-outline" onclick="toggleAnswer()">👁️ View Answer</button>
+ </div>
+ 
+ <div class="feedback" id="feedback"></div>
+ </div>
+ </div>
+
+ <!-- Financial Statements Phase -->
+ <div class="card hidden" id="statementsCard">
+ <div class="card-header">
+ <h3>📊 PreparationFinancial Statements - Income Statement</h3>
+ </div>
+ <div class="card-body">
+ <p style="margin-bottom: 20px;">Based onCompleted12Transactions,Prepare Alibaba Q1 2024 Income Statement.Please fill in the following amounts:</p>
+ 
+ <div class="statement-form" id="statementForm">
+ <!-- Statement rows will be generated here -->
+ </div>
+ 
+ <div class="btn-group">
+ <button class="btn btn-primary" onclick="checkStatements()">✓ Verify Statement</button>
+ </div>
+ 
+ <div class="feedback" id="stmtFeedback"></div>
+ 
+ <div class="completion-banner" id="completionBanner">
+ <h3>🎉 Congratulations on Completing All Practices！</h3>
+ <p style="font-size: 18px; margin: 10px 0;">You have mastered core merchandising accounting skills</p>
+ <p>Final Score: <strong id="finalScore">0</strong> / 100</p>
+ <button class="btn btn-secondary" onclick="location.reload()" style="margin-top: 15px;">Restart</button>
+ </div>
+ </div>
+ </div>
+
+ </div>
+
+ <!-- Right: Real-time T-Accounts -->
+ <div class="sidebar">
+ 
+ <!-- Costing Method -->
+ <div class="card" style="margin-bottom: 20px;">
+ <div class="card-header">
+ <h3 style="font-size: 14px;">Inventory Costing Method</h3>
+ </div>
+ <div class="card-body" style="padding: 15px;">
+ <div class="method-selector">
+ <button class="method-btn active" onclick="changeMethod('FIFO')">FIFO</button>
+ <button class="method-btn" onclick="changeMethod('LIFO')">LIFO</button>
+ <button class="method-btn" onclick="changeMethod('WA')">Weighted Average</button>
+ </div>
+ <p style="font-size: 12px; color: var(--text-light); text-align: center; margin-top: 10px;">
+ Current Method: <strong id="currentMethod">FIFO</strong>
+ </p>
+ <p style="font-size: 11px; color: var(--text-light); text-align: center; margin-top: 5px;">
+ 💡 Switching methods will recalculate all COGS
+ </p>
+ </div>
+ </div>
+
+ <!-- Merchandise Inventory -->
+ <div class="t-account">
+ <div class="t-account-title">Merchandise Inventory</div>
+ <div class="t-account-body">
+ <div class="t-debit">
+ <div class="t-label">Debit</div>
+ <div id="miDebits"></div>
+ <div class="t-balance" id="miDebitTotal">¥0</div>
+ </div>
+ <div class="t-credit">
+ <div class="t-label">Credit</div>
+ <div id="miCredits"></div>
+ <div class="t-balance" id="miCreditTotal">¥0</div>
+ </div>
+ </div>
+ </div>
+
+ <!-- COGS -->
+ <div class="t-account">
+ <div class="t-account-title">Cost of Goods Sold</div>
+ <div class="t-account-body">
+ <div class="t-debit">
+ <div class="t-label">Debit</div>
+ <div id="cogsDebits"></div>
+ <div class="t-balance" id="cogsBalance">¥0</div>
+ </div>
+ <div class="t-credit">
+ <div class="t-label">Credit</div>
+ <div id="cogsCredits"></div>
+ </div>
+ </div>
+ </div>
+
+ <!-- Sales Revenue -->
+ <div class="t-account">
+ <div class="t-account-title">Sales Revenue</div>
+ <div class="t-account-body">
+ <div class="t-debit">
+ <div class="t-label">Debit</div>
+ <div id="srDebits"></div>
+ </div>
+ <div class="t-credit">
+ <div class="t-label">Credit</div>
+ <div id="srCredits"></div>
+ <div class="t-balance" id="srBalance">¥0</div>
+ </div>
+ </div>
+ </div>
+
+ <!-- Accounts Receivable -->
+ <div class="t-account">
+ <div class="t-account-title">Accounts Receivable</div>
+ <div class="t-account-body">
+ <div class="t-debit">
+ <div class="t-label">Debit</div>
+ <div id="arDebits"></div>
+ <div class="t-balance" id="arBalance">¥0</div>
+ </div>
+ <div class="t-credit">
+ <div class="t-label">Credit</div>
+ <div id="arCredits"></div>
+ </div>
+ </div>
+ </div>
+
+ <!-- Cash -->
+ <div class="t-account">
+ <div class="t-account-title">Cash</div>
+ <div class="t-account-body">
+ <div class="t-debit">
+ <div class="t-label">Debit</div>
+ <div id="cashDebits"></div>
+ <div class="t-balance" id="cashBalance">¥0</div>
+ </div>
+ <div class="t-credit">
+ <div class="t-label">Credit</div>
+ <div id="cashCredits"></div>
+ </div>
+ </div>
+ </div>
+
+ <!-- Financial Summary -->
+ <div class="card">
+ <div class="card-header">
+ <h3 style="font-size: 14px;">Real-time Financial Summary</h3>
+ </div>
+ <div class="card-body" style="padding: 15px;">
+ <div class="summary-grid">
+ <div class="summary-item">
+ <div class="summary-label">Sales Revenue</div>
+ <div class="summary-value" id="sumRevenue">¥0</div>
+ </div>
+ <div class="summary-item">
+ <div class="summary-label">Cost of Goods Sold</div>
+ <div class="summary-value" id="sumCOGS">¥0</div>
+ </div>
+ <div class="summary-item">
+ <div class="summary-label">Gross Profit</div>
+ <div class="summary-value" id="sumGrossProfit">¥0</div>
+ </div>
+ <div class="summary-item">
+ <div class="summary-label">Inventory Balance</div>
+ <div class="summary-value" id="sumInventory">¥0</div>
+ </div>
+ </div>
+ </div>
+ </div>
+
+ </div>
+</div>
+
+<script>
+
+// ==========================================
+// GLOBAL STATE
+// ==========================================
+let currentTransaction = 0;
+let currentMethod = 'FIFO';
+let totalScore = 0;
+let completedTransactions = [];
+
+// T-Account Balances
+let tAccounts = {
+ inventory: { debits: [], credits: [], balance: 0 },
+ cogs: { debits: [], credits: [], balance: 0 },
+ salesRevenue: { debits: [], credits: [], balance: 0 },
+ accountsReceivable: { debits: [], credits: [], balance: 0 },
+ cash: { debits: [], credits: [], balance: 0 }
+};
+
+// Inventory Ledger (for costing methods)
+let inventoryLayers = [];
+
+// Transaction Data - 12 Integrated Transactions
+const transactions = [
+ {
+ id: 1,
+ date: '2024-1-5',
+ phase: 1,
+ title: 'Purchase from Shenzhen Tech Company',
+ description: 'Alibaba purchases from supplier500unitswireless earphones,unit price¥120.Payment terms:2/10, n/30.Delivery terms:FOBShipping Point.',
+ amount: 60000,
+ type: 'purchase',
+ expectedEntry: {
+ debits: [{ account: 'Merchandise Inventory', amount: 60000 }],
+ credits: [{ account: 'Accounts Payable', amount: 60000 }]
+ },
+ hint: 'Perpetual Inventory Systemunder,Purchases are debited directlyMerchandise Inventory.as it is on account,creditAccounts Payable.',
+ answer: 'Dr.:Merchandise Inventory ¥60,000<br>Cr.:Accounts Payable ¥60,000'
+ },
+ {
+ id: 2,
+ date: '2024-1-6',
+ phase: 1,
+ title: 'Pay Freight',
+ description: 'Alibaba paysFOBShipping PointTransactionsFreight¥2,400.As it is FOB Shipping Point,buyer bears freight cost.',
+ amount: 2400,
+ type: 'freight',
+ expectedEntry: {
+ debits: [{ account: 'Merchandise Inventory', amount: 2400 }],
+ credits: [{ account: 'Cash', amount: 2400 }]
+ },
+ hint: 'FOB Shipping Point meansbuyerPay Freight.in Perpetual Inventory System,freight is added to inventory cost.',
+ answer: 'Dr.:Merchandise Inventory ¥2,400<br>Cr.:Cash ¥2,400'
+ },
+ {
+ id: 3,
+ date: '2024-1-8',
+ phase: 1,
+ title: 'Purchase Return',
+ description: 'Alibaba returns50unitsdefective unitsto supplier,receives credit memo.unitsCost¥120.',
+ amount: 6000,
+ type: 'purchase_return',
+ expectedEntry: {
+ debits: [{ account: 'Accounts Payable', amount: 6000 }],
+ credits: [{ account: 'Merchandise Inventory', amount: 6000 }]
+ },
+ hint: 'Purchase ReturnreduceAccounts Payable (debit)andinventory(credit).',
+ answer: 'Dr.:Accounts Payable ¥6,000<br>Cr.:Merchandise Inventory ¥6,000'
+ },
+ {
+ id: 4,
+ date: '2024-1-14',
+ phase: 1,
+ title: 'Payment Within Discount Period',
+ description: 'Alibaba pays within discount period1-5remaining purchase amount(balance after returns¥54,000),enjoys 2% discount.',
+ amount: 52920,
+ discount: 1080,
+ type: 'payment',
+ expectedEntry: {
+ debits: [{ account: 'Accounts Payable', amount: 54000 }],
+ credits: [
+ { account: 'Merchandise Inventory', amount: 1080 },
+ { account: 'Cash', amount: 52920 }
+ ]
+ },
+ hint: 'Under gross method:debit AP full amount¥54,000,creditCash¥52,920,creditMI¥1,080(discount reduces inventory cost).',
+ answer: 'Dr.:Accounts Payable ¥54,000<br>Cr.:Merchandise Inventory ¥1,080<br>Cr.:Cash ¥52,920'
+ },
+ {
+ id: 5,
+ date: '2024-1-15',
+ phase: 2,
+ title: 'Credit Sale - JD.com',
+ description: 'Alibaba sells on credit to JD.com200unitsearphones,unit price¥200.Cost¥122.93/units(total Cost¥24,586).',
+ revenue: 40000,
+ cogs: 24586,
+ type: 'sale_credit',
+ expectedEntry: {
+ debits: [{ account: 'Accounts Receivable', amount: 40000 }],
+ credits: [{ account: 'Sales Revenue', amount: 40000 }]
+ },
+ cogsEntry: {
+ debits: [{ account: 'Cost of Goods Sold', amount: 24586 }],
+ credits: [{ account: 'Merchandise Inventory', amount: 24586 }]
+ },
+ hint: 'Perpetual Inventory SystemneedtwoentryEntry:1) record revenue 2) RecordCostandreduceinventory.firstrecord revenueEntry.',
+ answer: 'Dr.:Accounts Receivable ¥40,000<br>Cr.:Sales Revenue ¥40,000'
+ },
+ {
+ id: 6,
+ date: '2024-1-15',
+ phase: 2,
+ title: 'RecordCost of Goods Sold',
+ description: 'same as aboveentryTransactions,RecordsoldgoodsCost.',
+ type: 'cogs',
+ expectedEntry: {
+ debits: [{ account: 'Cost of Goods Sold', amount: 24586 }],
+ credits: [{ account: 'Merchandise Inventory', amount: 24586 }]
+ },
+ hint: 'The second entry:transferCostfrominventorytoCOGS.',
+ answer: 'Dr.:Cost of Goods Sold ¥24,586<br>Cr.:Merchandise Inventory ¥24,586'
+ },
+ {
+ id: 7,
+ date: '2024-1-20',
+ phase: 2,
+ title: 'Customer Return',
+ description: 'JD.com returns30unitsearphones(unit price¥200).Alibaba accepts returnand restores inventory.Cost¥122.93/units.',
+ revenue: 6000,
+ cogs: 3688,
+ type: 'sales_return',
+ expectedEntry: {
+ debits: [{ account: 'Sales Returns and Allowances', amount: 6000 }],
+ credits: [{ account: 'Accounts Receivable', amount: 6000 }]
+ },
+ inventoryEntry: {
+ debits: [{ account: 'Merchandise Inventory', amount: 3688 }],
+ credits: [{ account: 'Cost of Goods Sold', amount: 3688 }]
+ },
+ hint: 'Sales return requires:1) record return(Dr.recordSales Returns,creditAR)2) restore inventory.do first entry.',
+ answer: 'Dr.:Sales Returns and Allowances ¥6,000<br>Cr.:Accounts Receivable ¥6,000'
+ },
+ {
+ id: 8,
+ date: '2024-1-20',
+ phase: 2,
+ title: 'Restore Returned Goods to Inventory',
+ description: 'transferreturnsgoodsrestoretoinventory.',
+ type: 'return_inventory',
+ expectedEntry: {
+ debits: [{ account: 'Merchandise Inventory', amount: 3688 }],
+ credits: [{ account: 'Cost of Goods Sold', amount: 3688 }]
+ },
+ hint: 'returnsgoodsrestore inventory,while reducing COGS.',
+ answer: 'Dr.:Merchandise Inventory ¥3,688<br>Cr.:Cost of Goods Sold ¥3,688'
+ },
+ {
+ id: 9,
+ date: '2024-2-1',
+ phase: 2,
+ title: 'Cash Sale',
+ description: 'AlibabaCash Sale150unitsearphonesto Tmall customers,unit price¥220.CostbyCurrentinventorycalculate.',
+ revenue: 33000,
+ quantity: 150,
+ type: 'sale_cash',
+ expectedEntry: {
+ debits: [{ account: 'Cash', amount: 33000 }],
+ credits: [{ account: 'Sales Revenue', amount: 33000 }]
+ },
+ hint: 'Cash SaleDr.recordCash,creditSales Revenue.',
+ answer: 'Dr.:Cash ¥33,000<br>Cr.:Sales Revenue ¥33,000'
+ },
+ {
+ id: 10,
+ date: '2024-2-1',
+ phase: 2,
+ title: 'RecordCashCost of Goods Sold',
+ description: 'RecordaboveCash SaleCost(according toselectedcostingmethodcalculate).',
+ type: 'cogs_cash',
+ expectedEntry: {
+ debits: [{ account: 'Cost of Goods Sold', amount: 0 }], // Will be calculated based on method
+ credits: [{ account: 'Merchandise Inventory', amount: 0 }]
+ },
+ hint: 'COGS depends on selected costing method.FIFOusesearliestCost,LIFOuseslatestCost.',
+ answer: 'according tocostingmethodcalculateCOGS'
+ },
+ {
+ id: 11,
+ date: '2024-3-15',
+ phase: 2,
+ title: 'Receive Customer Payment',
+ description: 'Alibaba receives net payment from JD.com(balance after returns),Payment Within Discount Periodenjoys1%Discount.',
+ amount: 33660,
+ discount: 340,
+ type: 'collection',
+ expectedEntry: {
+ debits: [
+ { account: 'Cash', amount: 33660 },
+ { account: 'Sales Discounts', amount: 340 }
+ ],
+ credits: [{ account: 'Accounts Receivable', amount: 34000 }]
+ },
+ hint: 'AR balance=¥40,000-¥6,000=¥34,000.Discount=1%×34,000=¥340.Cash received¥33,660.',
+ answer: 'Dr.:Cash ¥33,660<br>Dr.:Sales Discounts ¥340<br>Cr.:Accounts Receivable ¥34,000'
+ },
+ {
+ id: 12,
+ date: '2024-3-31',
+ phase: 4,
+ title: 'Inventory Write-down Adjustment (LCM)',
+ description: 'Ending inventory book value¥45,000,Net realizable value (NRV)(NRV)¥42,000.record write-down.',
+ amount: 3000,
+ type: 'adjustment',
+ expectedEntry: {
+ debits: [{ account: 'Cost of Goods Sold', amount: 3000 }],
+ credits: [{ account: 'Merchandise Inventory', amount: 3000 }]
+ },
+ hint: 'CostLower of Cost or Marketmethod:When NRV<Cost,write down inventory to NRV.Write-down amount=¥45,000-¥42,000=¥3,000.',
+ answer: 'Dr.:Cost of Goods Sold ¥3,000<br>Cr.:Merchandise Inventory ¥3,000'
+ }
+];
+
+
+// ==========================================
+// INITIALIZATION
+// ==========================================
+function startSimulation() {
+  document.getElementById('welcomeCard').classList.add('hidden');
+  document.getElementById('statementsCard').classList.add('hidden');
+  document.getElementById('transactionCard').classList.remove('hidden');
+  renderTransactionList();
+}
+
+function renderTransactionList() {
+  const list = document.getElementById('transactionList');
+  list.innerHTML = '';
+  
+  // Group transactions by phase
+  const phases = ['Purchase Transactions', 'Sales Transactions', 'Cost Calculation', 'Period-End Adjustments', 'Financial Statements'];
+  let currentPhaseNum = 0;
+  
+  transactions.forEach((tx, index) => {
+  // Add phase header when phase changes
+  if (tx.phase !== currentPhaseNum) {
+  currentPhaseNum = tx.phase;
+  const phaseHeader = document.createElement('div');
+  phaseHeader.className = 'phase-header';
+  phaseHeader.style.cssText = 'background: var(--secondary); color: white; padding: 10px 15px; border-radius: 8px; margin: 20px 0 10px 0; font-weight: 700; font-size: 14px;';
+  phaseHeader.innerHTML = `📌 Phase ${tx.phase}: ${phases[tx.phase - 1] || 'General'}`;
+  list.appendChild(phaseHeader);
+  }
+  
+  const item = document.createElement('div');
+  item.className = 'transaction-item';
+  item.id = 'tx-' + index;
+  
+  if (completedTransactions.includes(index)) {
+  item.classList.add('completed');
+  } else if (index === currentTransaction) {
+  item.classList.add('active');
+  }
+  // Removed locked class - all transactions are now accessible
+  
+  // All transactions are clickable
+  item.onclick = () => showTransaction(index);
+  item.style.cursor = 'pointer';
+  
+  const statusText = completedTransactions.includes(index) ? '✓ Completed' : 
+    (index === currentTransaction ? 'Current' : 'Available');
+  const statusClass = completedTransactions.includes(index) ? 'status-completed' : 
+    (index === currentTransaction ? 'status-pending' : 'status-available');
+  
+  item.innerHTML = `
+  <div class="transaction-date">${tx.date}</div>
+  <div class="transaction-title">${tx.title}</div>
+  <div class="transaction-desc">${tx.description}</div>
+  <span class="transaction-status ${statusClass}">${statusText}</span>
+  `;
+  
+  list.appendChild(item);
+  });
+ }
+
+function showTransaction(index) {
+ currentTransaction = index;
+ const tx = transactions[index];
+ 
+ // Update UI
+ document.querySelectorAll('.transaction-item').forEach((item, i) => {
+ item.classList.remove('active');
+ if (i === index) item.classList.add('active');
+ });
+ 
+ // Show detail card
+ document.getElementById('detailCard').classList.remove('hidden');
+ 
+ // Set content
+ document.getElementById('detailTitle').innerHTML = `📝 ${tx.title}`;
+ document.getElementById('detailContent').innerHTML = `
+ <div style="background: var(--highlight); border-left: 4px solid var(--primary); padding: 15px; border-radius: 0 8px 8px 0; margin-bottom: 20px;">
+ <div style="font-size: 12px; font-weight: 700; color: var(--primary-dark); margin-bottom: 5px;">${tx.date}</div>
+ <p style="margin: 0;">${tx.description}</p>
+ </div>
+ `;
+ 
+ // Generate entry form
+ generateEntryForm(tx);
+ 
+ // Hide hint and answer
+ document.getElementById('hintBox').classList.remove('show');
+ document.getElementById('answerBox').classList.remove('show');
+ document.getElementById('feedback').classList.remove('show');
+}
+
+function generateEntryForm(tx) {
+ const form = document.getElementById('entryForm');
+ let html = '<h4 style="margin-bottom: 15px;">Record Journal Entry:</h4>';
+ 
+ const accounts = [
+ 'Merchandise Inventory', 'Accounts Payable', 'Cash', 'Accounts Receivable',
+ 'Sales Revenue', 'Cost of Goods Sold', 'Sales Returns and Allowances',
+ 'Sales Discounts', 'Freight-In'
+ ];
+ 
+ // Determine number of lines needed
+ const numDebits = tx.expectedEntry.debits.length;
+ const numCredits = tx.expectedEntry.credits.length;
+ const numLines = Math.max(numDebits, numCredits, 2);
+ 
+ for (let i = 0; i < numLines; i++) {
+ html += `
+ <div class="form-row">
+ <div class="form-group" style="flex: 2;">
+ <label>Account</label>
+ <select id="acc-${i}">
+ <option value="">-- Select Account --</option>
+ ${accounts.map(acc => `<option value="${acc}">${acc}</option>`).join('')}
+ </select>
+ </div>
+ <div class="form-group">
+ <label>Debit (¥)</label>
+ <input type="number" id="dr-${i}" placeholder="0">
+ </div>
+ <div class="form-group">
+ <label>Credit (¥)</label>
+ <input type="number" id="cr-${i}" placeholder="0">
+ </div>
+ </div>
+ `;
+ }
+ 
+ form.innerHTML = html;
+}
+
+// ==========================================
+// VALIDATION
+// ==========================================
+function submitEntry() {
+ const tx = transactions[currentTransaction];
+ const expected = tx.expectedEntry;
+ 
+ // Collect user entries
+ let userDebits = [];
+ let userCredits = [];
+ 
+ for (let i = 0; i < 5; i++) {
+ const acc = document.getElementById(`acc-${i}`)?.value;
+ const dr = parseFloat(document.getElementById(`dr-${i}`)?.value) || 0;
+ const cr = parseFloat(document.getElementById(`cr-${i}`)?.value) || 0;
+ 
+ if (acc && dr > 0) userDebits.push({ account: acc, amount: dr });
+ if (acc && cr > 0) userCredits.push({ account: acc, amount: cr });
+ }
+ 
+ // Validate
+ let correct = validateEntry(userDebits, userCredits, expected.debits, expected.credits);
+ 
+ if (correct) {
+ showFeedback('feedback', true, '<strong>✓ Correct！</strong> Entry recorded.');
+ 
+ // Update T-accounts
+ updateTAccounts(userDebits, userCredits);
+ 
+ // Mark as completed
+ if (!completedTransactions.includes(currentTransaction)) {
+ completedTransactions.push(currentTransaction);
+ totalScore += 8; // 12 transactions × 8 = 96 points
+ }
+ 
+  // Update progress
+  updateProgress();
+  
+  // Mark transaction as completed in list
+  renderTransactionList();
+  updatePhaseIndicator();
+  
+  // Show completion message and let user choose where to go next
+  const completionMsg = document.createElement('div');
+  completionMsg.innerHTML = `
+  <div style="margin-top: 15px; padding: 15px; background: #E8F5E9; border-radius: 8px; border-left: 4px solid var(--success);">
+  <strong>✓ Entry Recorded Successfully!</strong><br>
+  <span style="font-size: 13px;">You can continue to another transaction or stay here to review.</span>
+  </div>
+  `;
+  const feedbackEl = document.getElementById('feedback');
+  feedbackEl.parentNode.insertBefore(completionMsg, feedbackEl.nextSibling);
+  
+  // Remove the completion message after 5 seconds
+  setTimeout(() => {
+  if (completionMsg.parentNode) {
+  completionMsg.parentNode.removeChild(completionMsg);
+  }
+  }, 5000);
+ } else {
+ showFeedback('feedback', false, 'EntrynotCorrect.PleasecheckDebit、CreditAccountandAmount.Click"Show Hint"or"View Answer"for help.');
+ }
+}
+
+function validateEntry(userDebits, userCredits, expectedDebits, expectedCredits) {
+ // Check totals balance
+ const totalDr = userDebits.reduce((sum, e) => sum + e.amount, 0);
+ const totalCr = userCredits.reduce((sum, e) => sum + e.amount, 0);
+ 
+ if (Math.abs(totalDr - totalCr) > 0.01) return false;
+ 
+ // Check each expected debit
+ for (let exp of expectedDebits) {
+ let found = userDebits.some(u => 
+ u.account === exp.account && Math.abs(u.amount - exp.amount) < 100
+ );
+ if (!found) return false;
+ }
+ 
+ // Check each expected credit
+ for (let exp of expectedCredits) {
+ let found = userCredits.some(u => 
+ u.account === exp.account && Math.abs(u.amount - exp.amount) < 100
+ );
+ if (!found) return false;
+ }
+ 
+ return true;
+}
+
+function showFeedback(id, isCorrect, message) {
+ const el = document.getElementById(id);
+ el.className = 'feedback show ' + (isCorrect ? 'correct' : 'incorrect');
+ el.innerHTML = message;
+}
+
+
+// ==========================================
+// T-ACCOUNTS UPDATE
+// ==========================================
+function updateTAccounts(debits, credits) {
+ // Update each account
+ debits.forEach(entry => updateAccount(entry.account, entry.amount, 'debit'));
+ credits.forEach(entry => updateAccount(entry.account, entry.amount, 'credit'));
+ 
+ // Render all T-accounts
+ renderTAccounts();
+ updateFinancialSummary();
+}
+
+function updateAccount(account, amount, side) {
+ const tx = transactions[currentTransaction];
+ 
+ switch(account) {
+ case 'Merchandise Inventory':
+ if (side === 'debit') {
+ tAccounts.inventory.debits.push({ amount, desc: tx.title });
+ tAccounts.inventory.balance += amount;
+ } else {
+ tAccounts.inventory.credits.push({ amount, desc: tx.title });
+ tAccounts.inventory.balance -= amount;
+ }
+ break;
+ case 'Cost of Goods Sold':
+ if (side === 'debit') {
+ tAccounts.cogs.debits.push({ amount, desc: tx.title });
+ tAccounts.cogs.balance += amount;
+ } else {
+ tAccounts.cogs.credits.push({ amount, desc: tx.title });
+ tAccounts.cogs.balance -= amount;
+ }
+ break;
+ case 'Sales Revenue':
+ if (side === 'credit') {
+ tAccounts.salesRevenue.credits.push({ amount, desc: tx.title });
+ tAccounts.salesRevenue.balance += amount;
+ } else {
+ tAccounts.salesRevenue.debits.push({ amount, desc: tx.title });
+ tAccounts.salesRevenue.balance -= amount;
+ }
+ break;
+ case 'Accounts Receivable':
+ if (side === 'debit') {
+ tAccounts.accountsReceivable.debits.push({ amount, desc: tx.title });
+ tAccounts.accountsReceivable.balance += amount;
+ } else {
+ tAccounts.accountsReceivable.credits.push({ amount, desc: tx.title });
+ tAccounts.accountsReceivable.balance -= amount;
+ }
+ break;
+ case 'Cash':
+ if (side === 'debit') {
+ tAccounts.cash.debits.push({ amount, desc: tx.title });
+ tAccounts.cash.balance += amount;
+ } else {
+ tAccounts.cash.credits.push({ amount, desc: tx.title });
+ tAccounts.cash.balance -= amount;
+ }
+ break;
+ }
+}
+
+function renderTAccounts() {
+ // Merchandise Inventory
+ renderTAccount('miDebits', 'miCredits', 'miDebitTotal', 'miCreditTotal', 
+ tAccounts.inventory.debits, tAccounts.inventory.credits, tAccounts.inventory.balance);
+ 
+ // COGS
+ renderTAccount('cogsDebits', 'cogsCredits', null, null,
+ tAccounts.cogs.debits, tAccounts.cogs.credits, tAccounts.cogs.balance, 'cogsBalance');
+ 
+ // Sales Revenue
+ renderTAccount('srDebits', 'srCredits', null, null,
+ tAccounts.salesRevenue.debits, tAccounts.salesRevenue.credits, tAccounts.salesRevenue.balance, 'srBalance');
+ 
+ // Accounts Receivable
+ renderTAccount('arDebits', 'arCredits', null, null,
+ tAccounts.accountsReceivable.debits, tAccounts.accountsReceivable.credits, tAccounts.accountsReceivable.balance, 'arBalance');
+ 
+ // Cash
+ renderTAccount('cashDebits', 'cashCredits', null, null,
+ tAccounts.cash.debits, tAccounts.cash.credits, tAccounts.cash.balance, 'cashBalance');
+}
+
+function renderTAccount(debitId, creditId, debitTotalId, creditTotalId, debits, credits, balance, balanceId) {
+ const debitEl = document.getElementById(debitId);
+ const creditEl = document.getElementById(creditId);
+ 
+ if (debitEl) {
+ debitEl.innerHTML = debits.map(e => `<div class="t-entry">¥${e.amount.toLocaleString()}</div>`).join('');
+ }
+ if (creditEl) {
+ creditEl.innerHTML = credits.map(e => `<div class="t-entry">¥${e.amount.toLocaleString()}</div>`).join('');
+ }
+ 
+ if (debitTotalId) {
+ const totalDebits = debits.reduce((sum, e) => sum + e.amount, 0);
+ document.getElementById(debitTotalId).textContent = '¥' + totalDebits.toLocaleString();
+ }
+ if (creditTotalId) {
+ const totalCredits = credits.reduce((sum, e) => sum + e.amount, 0);
+ document.getElementById(creditTotalId).textContent = '¥' + totalCredits.toLocaleString();
+ }
+ if (balanceId) {
+ document.getElementById(balanceId).textContent = '¥' + balance.toLocaleString();
+ }
+}
+
+function updateFinancialSummary() {
+ const revenue = tAccounts.salesRevenue.balance;
+ const cogs = tAccounts.cogs.balance;
+ const grossProfit = revenue - cogs;
+ const inventory = tAccounts.inventory.balance;
+ 
+ document.getElementById('sumRevenue').textContent = '¥' + revenue.toLocaleString();
+ document.getElementById('sumCOGS').textContent = '¥' + cogs.toLocaleString();
+ document.getElementById('sumGrossProfit').textContent = '¥' + grossProfit.toLocaleString();
+ document.getElementById('sumInventory').textContent = '¥' + inventory.toLocaleString();
+}
+
+// ==========================================
+// HELPER FUNCTIONS
+// ==========================================
+function toggleHint() {
+ const tx = transactions[currentTransaction];
+ const hintBox = document.getElementById('hintBox');
+ hintBox.innerHTML = '<strong>💡 Hint:</strong>' + tx.hint;
+ hintBox.classList.toggle('show');
+}
+
+function toggleAnswer() {
+ const tx = transactions[currentTransaction];
+ const answerBox = document.getElementById('answerBox');
+ answerBox.innerHTML = '<strong>✓ Answer:</strong><br>' + tx.answer;
+ answerBox.classList.toggle('show');
+}
+
+function updateProgress() {
+ const completed = completedTransactions.length;
+ const total = transactions.length;
+ const percent = (completed / total) * 100;
+ 
+ document.getElementById('progressText').textContent = `${completed}/${total} Transactions`;
+ document.getElementById('progressFill').style.width = percent + '%';
+}
+
+function updatePhaseIndicator() {
+ const currentPhase = transactions[currentTransaction]?.phase || 5;
+ 
+ for (let i = 1; i <= 5; i++) {
+ const phaseEl = document.getElementById(`phase${i}`);
+ phaseEl.classList.remove('active', 'completed');
+ 
+ if (i < currentPhase) {
+ phaseEl.classList.add('completed');
+ } else if (i === currentPhase) {
+ phaseEl.classList.add('active');
+ }
+ }
+}
+
+function changeMethod(method) {
+ currentMethod = method;
+ document.getElementById('currentMethod').textContent = method === 'WA' ? 'Weighted Average' : method;
+ 
+ // Update button styles
+ document.querySelectorAll('.method-btn').forEach(btn => {
+ btn.classList.remove('active');
+ if (btn.textContent === (method === 'WA' ? 'Weighted Average' : method)) {
+ btn.classList.add('active');
+ }
+ });
+ 
+ // Recalculate COGS (simplified for demo)
+ showFeedback('feedback', true, `Switched to${method === 'WA' ? 'Weighted Average' : method}method.COGSwill be recalculated based on this method.`);
+}
+
+// ==========================================
+// TRANSACTION FILTERING
+// ==========================================
+let currentFilter = 'all';
+
+function filterTransactions(phase) {
+  currentFilter = phase;
+  const list = document.getElementById('transactionList');
+  const items = list.querySelectorAll('.transaction-item, .phase-header');
+  
+  items.forEach(item => {
+    if (item.classList.contains('phase-header')) {
+      // Show/hide phase headers based on filter
+      if (phase === 'all') {
+        item.style.display = 'block';
+      } else {
+        const phaseNum = parseInt(item.textContent.match(/Phase (\d)/)?.[1]);
+        item.style.display = phaseNum === phase ? 'block' : 'none';
+      }
+    } else {
+      // Show/hide transactions based on filter
+      const txIndex = parseInt(item.id.replace('tx-', ''));
+      const tx = transactions[txIndex];
+      if (phase === 'all' || tx.phase === phase) {
+        item.style.display = 'block';
+      } else {
+        item.style.display = 'none';
+      }
+    }
+  });
+  
+  // Update button styles
+  document.querySelectorAll('.card-header .btn-sm').forEach(btn => {
+    btn.style.background = '';
+    btn.style.color = '';
+    btn.style.borderColor = '';
+  });
+  
+  const activeBtn = document.querySelector(`.card-header button[onclick="filterTransactions(${phase === 'all' ? "'all'" : phase})"]`);
+  if (activeBtn) {
+    activeBtn.style.background = 'var(--primary)';
+    activeBtn.style.color = 'white';
+    activeBtn.style.borderColor = 'var(--primary)';
+  }
+}
+
+function jumpToPhase(phaseNum) {
+  startSimulation();
+  
+  // Update phase indicator styling
+  for (let i = 1; i <= 5; i++) {
+    const phaseEl = document.getElementById(`phase${i}`);
+    phaseEl.classList.remove('active', 'completed');
+    if (i < phaseNum) {
+      phaseEl.classList.add('completed');
+    } else if (i === phaseNum) {
+      phaseEl.classList.add('active');
+    }
+  }
+  
+  setTimeout(() => {
+    if (phaseNum === 5) {
+      // Phase 5 is Financial Statements - show statements directly
+      showStatements();
+    } else {
+      // For Phases 1-4, filter and show first transaction
+      filterTransactions(phaseNum);
+      const firstTxInPhase = transactions.findIndex(tx => tx.phase === phaseNum);
+      if (firstTxInPhase !== -1) {
+        showTransaction(firstTxInPhase);
+      }
+    }
+  }, 100);
+}
+
+// ==========================================
+// FINANCIAL STATEMENTS
+// ==========================================
+function showStatements() {
+  document.getElementById('transactionCard').classList.add('hidden');
+  document.getElementById('detailCard').classList.add('hidden');
+  document.getElementById('statementsCard').classList.remove('hidden');
+  
+  // Update phase indicator to show Phase 5 as active
+  for (let i = 1; i <= 5; i++) {
+    const phaseEl = document.getElementById(`phase${i}`);
+    phaseEl.classList.remove('active');
+    if (i < 5) {
+      phaseEl.classList.add('completed');
+    } else if (i === 5) {
+      phaseEl.classList.add('active');
+    }
+  }
+  
+  // Generate statement form
+  const form = document.getElementById('statementForm');
+ form.innerHTML = `
+ <div class="statement-row">
+ <span>Sales Revenue (Sales Revenue)</span>
+ <input type="number" class="statement-input" id="stmt-revenue" placeholder="?">
+ </div>
+ <div class="statement-row">
+ <span style="padding-left: 20px;">Less: Sales Returns (Sales Returns)</span>
+ <input type="number" class="statement-input" id="stmt-returns" placeholder="?">
+ </div>
+ <div class="statement-row">
+ <span style="padding-left: 20px;">Less: Sales Discounts (SalesDiscount)</span>
+ <input type="number" class="statement-input" id="stmt-discounts" placeholder="?">
+ </div>
+ <div class="statement-row total">
+ <span>Net Sales (Net Sales)</span>
+ <input type="number" class="statement-input" id="stmt-net-sales" placeholder="?">
+ </div>
+ <div class="statement-row">
+ <span>Cost of Goods Sold (Cost of Goods Sold)</span>
+ <input type="number" class="statement-input" id="stmt-cogs" placeholder="?">
+ </div>
+ <div class="statement-row total">
+ <span>Gross Profit (Gross Profit)</span>
+ <input type="number" class="statement-input" id="stmt-gross-profit" placeholder="?">
+ </div>
+ `;
+}
+
+function checkStatements() {
+ const revenue = parseFloat(document.getElementById('stmt-revenue').value) || 0;
+ const returns = parseFloat(document.getElementById('stmt-returns').value) || 0;
+ const discounts = parseFloat(document.getElementById('stmt-discounts').value) || 0;
+ const netSales = parseFloat(document.getElementById('stmt-net-sales').value) || 0;
+ const cogs = parseFloat(document.getElementById('stmt-cogs').value) || 0;
+ const grossProfit = parseFloat(document.getElementById('stmt-gross-profit').value) || 0;
+ 
+ const correctRevenue = 73000; // 40000 + 33000
+ const correctReturns = 6000;
+ const correctDiscounts = 340;
+ const correctNetSales = 66660; // 73000 - 6000 - 340
+ const correctCOGS = 23898; // Approximate
+ const correctGP = 42762;
+ 
+ let score = 0;
+ let allCorrect = true;
+ 
+ // Check each field
+ const fields = [
+ { id: 'stmt-revenue', correct: correctRevenue },
+ { id: 'stmt-returns', correct: correctReturns },
+ { id: 'stmt-discounts', correct: correctDiscounts },
+ { id: 'stmt-net-sales', correct: correctNetSales },
+ { id: 'stmt-cogs', correct: correctCOGS },
+ { id: 'stmt-gross-profit', correct: correctGP }
+ ];
+ 
+ fields.forEach(field => {
+ const input = document.getElementById(field.id);
+ const value = parseFloat(input.value) || 0;
+ const isFieldCorrect = Math.abs(value - field.correct) < 1000;
+ 
+ if (isFieldCorrect) {
+ input.classList.add('correct');
+ input.classList.remove('incorrect');
+ score += 1;
+ } else {
+ input.classList.add('incorrect');
+ input.classList.remove('correct');
+ allCorrect = false;
+ }
+ });
+ 
+ if (allCorrect) {
+ totalScore += 4; // 4 points for statements
+ showFeedback('stmtFeedback', true, '<strong>🎉 Perfect！</strong>AllAmountallCorrect！');
+ document.getElementById('completionBanner').classList.add('show');
+ document.getElementById('finalScore').textContent = Math.min(totalScore, 100);
+ } else {
+ showFeedback('stmtFeedback', false, 'partpartialAmountnotCorrect.Pleaseaccording toT-Accountin new calculate.');
+ }
+}
+
+// Initialize
+updateProgress();
+</script>
+</body>
+</html>
