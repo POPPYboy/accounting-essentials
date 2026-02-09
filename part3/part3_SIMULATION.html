@@ -1,13 +1,23 @@
 <!DOCTYPE html>
+<<<<<<< HEAD
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>NVIDIA Accounting Systems - Complete Practice</title>
+=======
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NVIDIA Internal Control & Audit Simulation | Part 3 Comprehensive Practice</title>
+    <link rel="stylesheet" href="../styles.css">
+>>>>>>> bb50dc1eba2afb5abadc143602a2beeba72ab1fe
     <style>
         :root {
             --nvidia-green: #76B900;
             --nvidia-dark: #1a1a1a;
+<<<<<<< HEAD
             --success: #4CAF50;
             --error: #f44336;
             --warning: #FF9800;
@@ -357,10 +367,484 @@
                                 </tbody>
                             </table>
                             <p style="margin-top: 15px; font-size: 1.1rem;"><strong>Ending Balance (Dec 31): $187,700.00</strong></p>
+=======
+            --nvidia-gray: #f0f0f0;
+        }
+
+        .simulation-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .nvidia-header {
+            background: linear-gradient(135deg, var(--nvidia-dark) 0%, #2d2d2d 100%);
+            color: white;
+            padding: 40px;
+            border-radius: 15px;
+            margin-bottom: 30px;
+            text-align: center;
+            border: 3px solid var(--nvidia-green);
+        }
+
+        .nvidia-logo {
+            font-size: 3rem;
+            font-weight: 700;
+            color: var(--nvidia-green);
+            letter-spacing: 6px;
+            margin-bottom: 10px;
+        }
+
+        .control-framework {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+        }
+
+        .coso-framework {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 15px;
+            margin: 30px 0;
+        }
+
+        .coso-component {
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            border: 3px solid #dee2e6;
+            border-radius: 15px;
+            padding: 20px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .coso-component:hover, .coso-component.active {
+            border-color: var(--nvidia-green);
+            background: linear-gradient(135deg, #f0fff0 0%, #e8f5e9 100%);
+            transform: translateY(-5px);
+        }
+
+        .coso-component .icon {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+        }
+
+        .workflow-container {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+        }
+
+        .approval-flow {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin: 30px 0;
+            padding: 30px;
+            background: #f8f9fa;
+            border-radius: 15px;
+            position: relative;
+        }
+
+        .approval-stage {
+            text-align: center;
+            padding: 20px;
+            background: white;
+            border-radius: 15px;
+            min-width: 150px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            border: 3px solid transparent;
+            transition: all 0.3s ease;
+        }
+
+        .approval-stage.pending {
+            border-color: #ffc107;
+        }
+
+        .approval-stage.approved {
+            border-color: var(--nvidia-green);
+            background: #f0fff0;
+        }
+
+        .approval-stage.rejected {
+            border-color: #dc3545;
+            background: #fff0f0;
+        }
+
+        .flow-line {
+            flex: 1;
+            height: 4px;
+            background: #dee2e6;
+            margin: 0 10px;
+            position: relative;
+        }
+
+        .flow-line.completed {
+            background: var(--nvidia-green);
+        }
+
+        .segregation-matrix {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+            overflow-x: auto;
+        }
+
+        .matrix-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        .matrix-table th {
+            background: var(--nvidia-dark);
+            color: white;
+            padding: 15px;
+            text-align: center;
+            border: 1px solid #dee2e6;
+        }
+
+        .matrix-table td {
+            padding: 12px 15px;
+            border: 1px solid #dee2e6;
+            text-align: center;
+        }
+
+        .matrix-table .duty-cell {
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .matrix-table .duty-cell:hover {
+            background: #e8f5e9;
+        }
+
+        .matrix-table .duty-cell.conflict {
+            background: #ffebee;
+            color: #c62828;
+        }
+
+        .matrix-table .duty-cell.ok {
+            background: #e8f5e9;
+            color: #2e7d32;
+        }
+
+        .fraud-detection {
+            background: linear-gradient(135deg, #fff3e0 0%, #ffe0b2 100%);
+            border: 3px solid #ff9800;
+            border-radius: 15px;
+            padding: 30px;
+            margin: 30px 0;
+        }
+
+        .transaction-flag {
+            background: white;
+            border-radius: 10px;
+            padding: 20px;
+            margin: 15px 0;
+            border-left: 5px solid transparent;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .transaction-flag.suspicious {
+            border-left-color: #ff9800;
+            background: #fff8e1;
+        }
+
+        .transaction-flag.fraudulent {
+            border-left-color: #dc3545;
+            background: #ffebee;
+        }
+
+        .transaction-flag.legitimate {
+            border-left-color: var(--nvidia-green);
+            background: #f1f8e9;
+        }
+
+        .bank-rec-workspace {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            margin-top: 30px;
+        }
+
+        .bank-statement, .company-records {
+            background: white;
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+        }
+
+        .reconciliation-worksheet {
+            background: #f8f9fa;
+            border-radius: 10px;
+            padding: 20px;
+            margin-top: 20px;
+        }
+
+        .rec-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 12px 0;
+            border-bottom: 1px solid #dee2e6;
+        }
+
+        .rec-row input {
+            width: 150px;
+            padding: 8px;
+            border: 2px solid #ddd;
+            border-radius: 5px;
+            text-align: right;
+        }
+
+        .rec-row input:focus {
+            border-color: var(--nvidia-green);
+            outline: none;
+        }
+
+        @media (max-width: 768px) {
+            .coso-framework {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .approval-flow {
+                flex-direction: column;
+                gap: 20px;
+            }
+            
+            .flow-line {
+                width: 4px;
+                height: 50px;
+            }
+            
+            .bank-rec-workspace {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="simulation-container">
+        <!-- NVIDIA Header -->
+        <div class="nvidia-header">
+            <div class="nvidia-logo">NVIDIA</div>
+            <div style="font-size: 1.3rem; margin-bottom: 20px;">Internal Control & Financial Audit Simulation</div>
+            <p style="max-width: 900px; margin: 0 auto; font-size: 1.1rem; opacity: 0.9;">
+                You are the Internal Audit Manager at NVIDIA. Implement controls, detect fraud, 
+                reconcile accounts, and ensure compliance across all financial operations.
+            </p>
+            
+            <div class="difficulty-selector" style="margin-top: 30px;">
+                <button class="difficulty-btn" onclick="setDifficulty('beginner')">🟢 Beginner</button>
+                <button class="difficulty-btn" onclick="setDifficulty('intermediate')">🟡 Intermediate</button>
+                <button class="difficulty-btn" onclick="setDifficulty('advanced')">🔴 Advanced</button>
+            </div>
+        </div>
+
+        <!-- COSO Framework -->
+        <div class="control-framework">
+            <h3>🎯 COSO Internal Control Framework</h3>
+            <p style="color: #666; margin-bottom: 20px;">Click each component to implement controls</p>
+            
+            <div class="coso-framework">
+                <div class="coso-component" onclick="implementControl('environment')">
+                    <div class="icon">🏛️</div>
+                    <h4>Control Environment</h4>
+                    <p style="font-size: 0.85rem; color: #666;">Integrity & Ethics</p>
+                </div>
+                <div class="coso-component" onclick="implementControl('risk')">
+                    <div class="icon">⚠️</div>
+                    <h4>Risk Assessment</h4>
+                    <p style="font-size: 0.85rem; color: #666;">Identify Threats</p>
+                </div>
+                <div class="coso-component" onclick="implementControl('activities')">
+                    <div class="icon">🛡️</div>
+                    <h4>Control Activities</h4>
+                    <p style="font-size: 0.85rem; color: #666;">Policies & Procedures</p>
+                </div>
+                <div class="coso-component" onclick="implementControl('information')">
+                    <div class="icon">📊</div>
+                    <h4>Information & Communication</h4>
+                    <p style="font-size: 0.85rem; color: #666;">Data Flow</p>
+                </div>
+                <div class="coso-component" onclick="implementControl('monitoring')">
+                    <div class="icon">🔍</div>
+                    <h4>Monitoring Activities</h4>
+                    <p style="font-size: 0.85rem; color: #666;">Ongoing Reviews</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Segregation of Duties Matrix -->
+        <div class="segregation-matrix">
+            <h3>⚖️ Segregation of Duties Matrix</h3>
+            <p style="color: #666; margin-bottom: 20px;">
+                Assign duties to employees while ensuring proper controls. 
+                <span style="color: #c62828;">Red = Conflict</span> | 
+                <span style="color: #2e7d32;">Green = OK</span>
+            </p>
+            
+            <table class="matrix-table">
+                <thead>
+                    <tr>
+                        <th>Employee</th>
+                        <th>Authorization</th>
+                        <th>Recording</th>
+                        <th>Custody</th>
+                        <th>Reconciliation</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Alice (Manager)</strong></td>
+                        <td class="duty-cell ok" onclick="toggleDuty(this)">✓</td>
+                        <td class="duty-cell" onclick="toggleDuty(this)">-</td>
+                        <td class="duty-cell" onclick="toggleDuty(this)">-</td>
+                        <td class="duty-cell conflict" onclick="toggleDuty(this)">✗</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Bob (Accountant)</strong></td>
+                        <td class="duty-cell" onclick="toggleDuty(this)">-</td>
+                        <td class="duty-cell ok" onclick="toggleDuty(this)">✓</td>
+                        <td class="duty-cell" onclick="toggleDuty(this)">-</td>
+                        <td class="duty-cell ok" onclick="toggleDuty(this)">✓</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Charlie (Cashier)</strong></td>
+                        <td class="duty-cell" onclick="toggleDuty(this)">-</td>
+                        <td class="duty-cell conflict" onclick="toggleDuty(this)">✗</td>
+                        <td class="duty-cell ok" onclick="toggleDuty(this)">✓</td>
+                        <td class="duty-cell" onclick="toggleDuty(this)">-</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Diana (Auditor)</strong></td>
+                        <td class="duty-cell" onclick="toggleDuty(this)">-</td>
+                        <td class="duty-cell" onclick="toggleDuty(this)">-</td>
+                        <td class="duty-cell" onclick="toggleDuty(this)">-</td>
+                        <td class="duty-cell ok" onclick="toggleDuty(this)">✓</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div style="margin-top: 20px; padding: 15px; background: #e3f2fd; border-radius: 10px;">
+                <strong>💡 Control Principle:</strong> The same person should not have authorization, recording, 
+                and custody duties for the same asset. This prevents fraud and errors.
+            </div>
+        </div>
+
+        <!-- Approval Workflow -->
+        <div class="workflow-container">
+            <h3>📋 Purchase Approval Workflow</h3>
+            <p style="color: #666; margin-bottom: 20px;">Process a $500,000 GPU chip purchase order</p>
+            
+            <div class="approval-flow">
+                <div class="approval-stage approved" id="stage1">
+                    <div style="font-size: 2rem; margin-bottom: 10px;">👤</div>
+                    <h4>Department Manager</h4>
+                    <p style="font-size: 0.9rem; color: #666;">Request Initiated</p>
+                    <span style="color: var(--nvidia-green); font-weight: 600;">✓ Approved</span>
+                </div>
+                <div class="flow-line completed"></div>
+                <div class="approval-stage approved" id="stage2">
+                    <div style="font-size: 2rem; margin-bottom: 10px;">💰</div>
+                    <h4>Finance Review</h4>
+                    <p style="font-size: 0.9rem; color: #666;">Budget Check</p>
+                    <span style="color: var(--nvidia-green); font-weight: 600;">✓ Approved</span>
+                </div>
+                <div class="flow-line"></div>
+                <div class="approval-stage pending" id="stage3">
+                    <div style="font-size: 2rem; margin-bottom: 10px;">🔐</div>
+                    <h4>VP Authorization</h4>
+                    <p style="font-size: 0.9rem; color: #666;">>$100K requires VP</p>
+                    <button onclick="approveStage(3)" style="margin-top: 10px; padding: 8px 20px; background: var(--nvidia-green); color: white; border: none; border-radius: 5px; cursor: pointer;">Approve</button>
+                </div>
+                <div class="flow-line"></div>
+                <div class="approval-stage pending" id="stage4">
+                    <div style="font-size: 2rem; margin-bottom: 10px;">📦</div>
+                    <h4>Procurement</h4>
+                    <p style="font-size: 0.9rem; color: #666;">PO Issued</p>
+                    <span style="color: #ffc107; font-weight: 600;">⏳ Pending</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Fraud Detection -->
+        <div class="fraud-detection">
+            <h3>🚨 Fraud Detection Center</h3>
+            <p style="margin-bottom: 20px;">Review flagged transactions and identify potential fraud</p>
+            
+            <div class="transaction-flag suspicious" onclick="analyzeTransaction(1)">
+                <div style="display: flex; justify-content: space-between; margin-bottom: 10px;">
+                    <strong>Transaction #TX-2024-0892</strong>
+                    <span style="background: #ff9800; color: white; padding: 5px 15px; border-radius: 15px; font-size: 0.85rem;">FLAGGED</span>
+                </div>
+                <p><strong>Employee:</strong> John Smith | <strong>Amount:</strong> $25,000</p>
+                <p><strong>Vendor:</strong> TechSupply Co. | <strong>Date:</strong> Weekend</p>
+                <p style="color: #e65100; margin-top: 10px;">⚠️ Unusual: Large payment on Saturday to new vendor</p>
+            </div>
+
+            <div class="transaction-flag fraudulent" onclick="analyzeTransaction(2)">
+                <div style="display: flex; justify-content: space-between; margin-bottom: 10px;">
+                    <strong>Transaction #TX-2024-1056</strong>
+                    <span style="background: #dc3545; color: white; padding: 5px 15px; border-radius: 15px; font-size: 0.85rem;">FRAUD ALERT</span>
+                </div>
+                <p><strong>Employee:</strong> Mary Johnson | <strong>Amount:</strong> $150,000</p>
+                <p><strong>Pattern:</strong> Duplicate invoice #INV-4521 (already paid on 03/15)</p>
+                <p style="color: #c62828; margin-top: 10px;">🛑 Critical: Duplicate payment attempt, same invoice number</p>
+            </div>
+
+            <div class="transaction-flag legitimate" onclick="analyzeTransaction(3)">
+                <div style="display: flex; justify-content: space-between; margin-bottom: 10px;">
+                    <strong>Transaction #TX-2024-1103</strong>
+                    <span style="background: var(--nvidia-green); color: white; padding: 5px 15px; border-radius: 15px; font-size: 0.85rem;">VERIFIED</span>
+                </div>
+                <p><strong>Employee:</strong> David Lee | <strong>Amount:</strong> $75,000</p>
+                <p><strong>Vendor:</strong> Samsung Electronics | <strong>Contract:</strong> Valid</p>
+                <p style="color: #2e7d32; margin-top: 10px;">✓ Legitimate: Matches approved contract #NVIDIA-SAM-2024</p>
+            </div>
+        </div>
+
+        <!-- Bank Reconciliation -->
+        <div class="workflow-container">
+            <h3>🏦 Bank Reconciliation - March 2024</h3>
+            <p style="color: #666; margin-bottom: 20px;">Reconcile NVIDIA's bank statement with company records</p>
+            
+            <div class="bank-rec-workspace">
+                <div class="bank-statement">
+                    <h4>Bank Statement</h4>
+                    <div class="reconciliation-worksheet">
+                        <div class="rec-row">
+                            <span>Balance per Bank</span>
+                            <span>$5,250,000</span>
+                        </div>
+                        <div class="rec-row">
+                            <span>Add: Deposits in Transit</span>
+                            <input type="number" id="deposit-transit" placeholder="0" onchange="updateReconciliation()">
+                        </div>
+                        <div class="rec-row">
+                            <span>Less: Outstanding Checks</span>
+                            <input type="number" id="outstanding-checks" placeholder="0" onchange="updateReconciliation()">
+                        </div>
+                        <div class="rec-row">
+                            <span>Less: Bank Service Charges</span>
+                            <span>$1,250</span>
+                        </div>
+                        <div class="rec-row" style="font-weight: 700; background: #e8f5e9;">
+                            <span>Adjusted Bank Balance</span>
+                            <span id="adj-bank-balance">$5,248,750</span>
+>>>>>>> bb50dc1eba2afb5abadc143602a2beeba72ab1fe
                         </div>
                     </div>
                 </div>
 
+<<<<<<< HEAD
                 <!-- Company Records -->
                 <div class="company-books">
                     <h3>📒 Company Cash Records (Unadjusted)</h3>
@@ -379,10 +863,36 @@
                             <li>Note receivable collected by bank not recorded</li>
                             <li>Interest earned not recorded</li>
                         </ul>
+=======
+                <div class="company-records">
+                    <h4>Company Records</h4>
+                    <div class="reconciliation-worksheet">
+                        <div class="rec-row">
+                            <span>Cash Balance per Books</span>
+                            <span>$5,200,000</span>
+                        </div>
+                        <div class="rec-row">
+                            <span>Add: Notes Receivable Collected</span>
+                            <input type="number" id="notes-collected" placeholder="0" onchange="updateReconciliation()">
+                        </div>
+                        <div class="rec-row">
+                            <span>Less: NSF Check</span>
+                            <input type="number" id="nsf-check" placeholder="0" onchange="updateReconciliation()">
+                        </div>
+                        <div class="rec-row">
+                            <span>Less: Error Correction</span>
+                            <input type="number" id="error-corr" placeholder="0" onchange="updateReconciliation()">
+                        </div>
+                        <div class="rec-row" style="font-weight: 700; background: #e8f5e9;">
+                            <span>Adjusted Book Balance</span>
+                            <span id="adj-book-balance">$5,200,000</span>
+                        </div>
+>>>>>>> bb50dc1eba2afb5abadc143602a2beeba72ab1fe
                     </div>
                 </div>
             </div>
 
+<<<<<<< HEAD
             <!-- Reconciliation Worksheet -->
             <div style="margin-top: 30px;">
                 <h3>Bank Reconciliation Worksheet</h3>
@@ -763,11 +1273,32 @@
                 </div>
                 <p style="margin-top: 20px;">Skills mastered: Special Journals, Subsidiary Ledgers, Bank Reconciliation, Petty Cash, Internal Controls</p>
                 <button class="btn btn-primary" onclick="location.reload()" style="margin-top: 20px;">Restart Simulation</button>
+=======
+            <div style="margin-top: 30px; text-align: center;">
+                <button class="btn-primary" onclick="completeReconciliation()" style="background: var(--nvidia-green); padding: 15px 40px; font-size: 1.1rem;">
+                    Complete Reconciliation
+                </button>
+            </div>
+
+            <div id="reconciliation-feedback" style="margin-top: 20px; padding: 20px; border-radius: 10px; display: none;"></div>
+        </div>
+
+        <!-- Progress -->
+        <div class="progress-container" style="background: white; border-radius: 15px; padding: 25px; margin-top: 30px; box-shadow: 0 4px 20px rgba(0,0,0,0.1);">
+            <h3>Audit Progress</h3>
+            <div style="display: flex; justify-content: space-between; margin: 15px 0;">
+                <span>Controls Implemented: <strong id="controls-count">1 / 5</strong></span>
+                <span>Frauds Detected: <strong id="frauds-count">1 / 3</strong></span>
+            </div>
+            <div class="progress-bar" style="height: 25px; background: #e9ecef; border-radius: 12px; overflow: hidden;">
+                <div class="progress-fill" id="audit-progress" style="width: 25%; height: 100%; background: var(--nvidia-green); transition: width 0.5s ease;"></div>
+>>>>>>> bb50dc1eba2afb5abadc143602a2beeba72ab1fe
             </div>
         </div>
     </div>
 
     <script>
+<<<<<<< HEAD
         // COMPLETE DATA AND FUNCTIONS
         const documents = [
             {
@@ -1482,6 +2013,121 @@
 
         // Initialize on load
         window.onload = init;
+=======
+        let controlsImplemented = 1;
+        let fraudsDetected = 1;
+        let totalTasks = 12;
+
+        function setDifficulty(level) {
+            document.querySelectorAll('.difficulty-btn').forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+        }
+
+        function implementControl(component) {
+            event.target.classList.add('active');
+            controlsImplemented++;
+            updateProgress();
+            
+            const messages = {
+                'environment': 'Control Environment: Set tone at the top with integrity and ethical values',
+                'risk': 'Risk Assessment: Identified financial reporting risks',
+                'activities': 'Control Activities: Implemented approval and verification procedures',
+                'information': 'Information: Established communication channels for control issues',
+                'monitoring': 'Monitoring: Set up ongoing and separate evaluations'
+            };
+            
+            alert(`✓ ${messages[component]}`);
+        }
+
+        function toggleDuty(cell) {
+            if (cell.textContent === '-') {
+                cell.textContent = '✓';
+                cell.classList.remove('conflict');
+                cell.classList.add('ok');
+            } else if (cell.textContent === '✓') {
+                cell.textContent = '✗';
+                cell.classList.remove('ok');
+                cell.classList.add('conflict');
+            } else {
+                cell.textContent = '-';
+                cell.classList.remove('conflict', 'ok');
+            }
+        }
+
+        function approveStage(stage) {
+            const stageEl = document.getElementById(`stage${stage}`);
+            stageEl.classList.remove('pending');
+            stageEl.classList.add('approved');
+            stageEl.querySelector('span:last-child').textContent = '✓ Approved';
+            stageEl.querySelector('span:last-child').style.color = 'var(--nvidia-green)';
+            
+            // Activate next stage
+            if (stage < 4) {
+                const nextStage = document.getElementById(`stage${stage + 1}`);
+                nextStage.classList.remove('pending');
+                nextStage.querySelector('span:last-child').textContent = '⏳ Ready';
+            }
+            
+            updateProgress();
+        }
+
+        function analyzeTransaction(id) {
+            const analyses = {
+                1: 'Suspicious but needs investigation. Weekend payments to new vendors require additional verification.',
+                2: 'CONFIRMED FRAUD! Duplicate invoice payment attempt. Immediate action required.',
+                3: 'Verified legitimate. Matches approved contract and authorized signatures.'
+            };
+            
+            alert(analyses[id]);
+            fraudsDetected++;
+            updateProgress();
+        }
+
+        function updateReconciliation() {
+            // Calculate adjusted balances
+            const bankBalance = 5250000;
+            const deposits = parseFloat(document.getElementById('deposit-transit').value) || 0;
+            const checks = parseFloat(document.getElementById('outstanding-checks').value) || 0;
+            const adjBank = bankBalance + deposits - checks - 1250;
+            document.getElementById('adj-bank-balance').textContent = '$' + adjBank.toLocaleString();
+
+            const bookBalance = 5200000;
+            const notes = parseFloat(document.getElementById('notes-collected').value) || 0;
+            const nsf = parseFloat(document.getElementById('nsf-check').value) || 0;
+            const error = parseFloat(document.getElementById('error-corr').value) || 0;
+            const adjBook = bookBalance + notes - nsf - error;
+            document.getElementById('adj-book-balance').textContent = '$' + adjBook.toLocaleString();
+        }
+
+        function completeReconciliation() {
+            const adjBank = document.getElementById('adj-bank-balance').textContent;
+            const adjBook = document.getElementById('adj-book-balance').textContent;
+            
+            if (adjBank === adjBook) {
+                document.getElementById('reconciliation-feedback').style.display = 'block';
+                document.getElementById('reconciliation-feedback').innerHTML = 
+                    '<strong style="color: var(--nvidia-green);">✓ Reconciliation Successful!</strong><br>' +
+                    'Bank and book balances match. Journal entries prepared for adjustments.';
+                document.getElementById('reconciliation-feedback').style.background = '#e8f5e9';
+                updateProgress();
+            } else {
+                document.getElementById('reconciliation-feedback').style.display = 'block';
+                document.getElementById('reconciliation-feedback').innerHTML = 
+                    '<strong style="color: #dc3545;">✗ Balances Do Not Match</strong><br>' +
+                    'Difference: $' + (parseInt(adjBank.replace(/[^0-9]/g, '')) - parseInt(adjBook.replace(/[^0-9]/g, ''))).toLocaleString() +
+                    '<br>Check your reconciling items.';
+                document.getElementById('reconciliation-feedback').style.background = '#ffebee';
+            }
+        }
+
+        function updateProgress() {
+            const completed = controlsImplemented + fraudsDetected;
+            const percent = Math.min((completed / totalTasks) * 100, 100);
+            document.getElementById('controls-count').textContent = `${controlsImplemented} / 5`;
+            document.getElementById('frauds-count').textContent = `${fraudsDetected} / 3`;
+            document.getElementById('audit-progress').style.width = percent + '%';
+        }
+>>>>>>> bb50dc1eba2afb5abadc143602a2beeba72ab1fe
     </script>
 </body>
 </html>
