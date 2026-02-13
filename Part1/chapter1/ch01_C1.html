@@ -5,447 +5,744 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>C1: Purpose, Users, and Opportunities | ACCOUNTING ESSENTIALS</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght,SOFT@9..144,600,0&amp;family=Manrope:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet">
     <link rel="stylesheet" href="../../styles.css">
     <style>
-        /* Additional styles for this page */
-        .accounting-flow-diagram {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 0;
-            margin: 2rem 0;
-            padding: 2rem;
-            background: var(--bg-light);
-            border-radius: var(--radius-lg);
-            flex-wrap: wrap;
+        :root {
+            --c1-ink: #1a2135;
+            --c1-paper: #f4f0e6;
+            --c1-slate: #d9d2c3;
+            --c1-accent: #005f73;
+            --c1-accent-soft: #d9eef0;
+            --c1-highlight: #ee9b00;
+            --c1-good: #2c8f64;
+            --c1-border: rgba(26, 33, 53, 0.16);
+            --c1-shadow: 0 18px 40px rgba(31, 35, 46, 0.1);
+            --c1-shadow-soft: 0 8px 20px rgba(31, 35, 46, 0.08);
         }
 
-        .flow-node {
-            padding: 1.5rem 2rem;
-            background: var(--white);
-            border: 3px solid var(--primary);
-            border-radius: var(--radius-md);
+        body.c1-redesign {
+            font-family: 'Manrope', sans-serif;
+            color: var(--c1-ink);
+            background:
+                radial-gradient(circle at 12% 8%, rgba(238, 155, 0, 0.08), transparent 30%),
+                radial-gradient(circle at 89% 18%, rgba(0, 95, 115, 0.1), transparent 28%),
+                linear-gradient(180deg, #fcfaf4 0%, #f7f3e8 56%, #f1ebdd 100%);
+        }
+
+        body.c1-redesign .skip-link {
+            position: absolute;
+            left: 1rem;
+            top: -48px;
+            z-index: 2000;
+            padding: 0.65rem 0.9rem;
+            border-radius: 8px;
+            background: #0b6f84;
+            color: #fff;
             font-weight: 700;
-            font-size: 0.95rem;
-            text-align: center;
-            transition: var(--transition);
-            min-width: 140px;
-            box-shadow: var(--shadow);
         }
 
-        .flow-node:hover {
-            transform: translateY(-5px) scale(1.05);
-            box-shadow: var(--shadow-lg);
-            z-index: 10;
+        body.c1-redesign .skip-link:focus {
+            top: 0.75rem;
         }
 
-        .flow-node.identify {
-            border-color: var(--info);
-            background: linear-gradient(135deg, var(--info-light) 0%, var(--white) 100%);
+        body.c1-redesign::before {
+            content: "";
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            background-image:
+                linear-gradient(rgba(0, 0, 0, 0.015) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0, 0, 0, 0.015) 1px, transparent 1px);
+            background-size: 26px 26px;
+            z-index: -1;
         }
 
-        .flow-node.record {
-            border-color: var(--secondary);
-            background: linear-gradient(135deg, rgba(197,160,89,0.2) 0%, var(--white) 100%);
+        body.c1-redesign header {
+            background: rgba(252, 250, 244, 0.92);
+            border-bottom: 1px solid rgba(31, 35, 46, 0.1);
+            box-shadow: 0 8px 24px rgba(35, 41, 60, 0.08);
         }
 
-        .flow-node.communicate {
-            border-color: var(--success);
-            background: linear-gradient(135deg, var(--success-light) 0%, var(--white) 100%);
+        body.c1-redesign .logo {
+            font-family: 'Fraunces', serif;
+            letter-spacing: 0.01em;
         }
 
-        .flow-node small {
-            display: block;
-            margin-top: 0.5rem;
-            font-weight: 500;
-            color: var(--text-muted);
-            font-size: 0.85rem;
+        body.c1-redesign .logo span {
+            color: var(--c1-highlight);
         }
 
-        .flow-arrow {
-            font-size: 2rem;
-            color: var(--primary);
-            padding: 0 0.5rem;
-            font-weight: bold;
+        body.c1-redesign .breadcrumbs {
+            margin-top: 2rem;
+            margin-bottom: 1.2rem;
+            padding: 0.65rem 1rem;
+            background: rgba(255, 255, 255, 0.56);
+            border: 1px solid var(--c1-border);
+            border-radius: 999px;
+            width: fit-content;
+            font-weight: 600;
+            box-shadow: var(--c1-shadow-soft);
+            backdrop-filter: blur(8px);
         }
 
-        @media (max-width: 768px) {
-            .accounting-flow-diagram {
-                flex-direction: column;
-                gap: 1rem;
-                padding: 1.5rem;
-            }
-
-            .flow-arrow {
-                transform: rotate(90deg);
-                padding: 0.5rem 0;
-            }
+        body.c1-redesign article {
+            padding-bottom: 2rem;
         }
 
-        /* Quiz label styles */
-        .quiz-container label {
-            display: block;
-            padding: 1rem;
-            margin-bottom: 0.75rem;
-            background: var(--white);
-            border: 2px solid var(--border-color);
-            border-radius: var(--radius-sm);
-            cursor: pointer;
-            transition: var(--transition);
-        }
-
-        .quiz-container label:hover {
-            border-color: var(--primary);
-            background: var(--primary-light);
-        }
-
-        .quiz-container input[type="radio"] {
-            margin-right: 0.75rem;
-        }
-
-        /* ========== Interactive Accounting Factory ========== */
-        .accounting-factory {
-            background: var(--white);
-            border-radius: var(--radius-lg);
-            box-shadow: var(--shadow-lg);
+        body.c1-redesign .kp-header {
+            margin-bottom: 1.3rem;
+            padding: 2.5rem 2rem 2rem;
+            background:
+                linear-gradient(145deg, #fffdf7 0%, #f0ece0 100%);
+            border: 1px solid rgba(0, 95, 115, 0.24);
+            border-radius: 24px;
+            box-shadow: var(--c1-shadow);
+            position: relative;
             overflow: hidden;
-            margin: 2rem 0;
         }
 
-        .factory-tabs {
+        body.c1-redesign .kp-header::after {
+            content: "CONCEPT C1";
+            position: absolute;
+            top: 1rem;
+            right: 1.2rem;
+            font-size: 0.74rem;
+            letter-spacing: 0.15em;
+            color: rgba(0, 95, 115, 0.6);
+            font-weight: 800;
+        }
+
+        body.c1-redesign .hero-title {
+            font-family: 'Fraunces', serif;
+            font-size: clamp(2rem, 5vw, 3.3rem);
+            line-height: 1.06;
+            margin: 0;
+            border-left: 8px solid var(--c1-highlight);
+            padding-left: 1rem;
+            color: var(--c1-ink);
+        }
+
+        body.c1-redesign .kp-section,
+        body.c1-redesign .interactive-section,
+        body.c1-redesign .accounting-factory {
+            margin: 1.4rem 0;
+            background: linear-gradient(160deg, rgba(255, 255, 255, 0.92), rgba(247, 244, 234, 0.94));
+            border: 1px solid var(--c1-border);
+            border-radius: 18px;
+            padding: 2rem;
+            box-shadow: var(--c1-shadow-soft);
+            position: relative;
+            overflow: hidden;
+        }
+
+        body.c1-redesign .kp-section::before,
+        body.c1-redesign .interactive-section::before,
+        body.c1-redesign .accounting-factory::before {
+            content: "";
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 6px;
+            background: linear-gradient(90deg, var(--c1-accent), var(--c1-highlight));
+        }
+
+        body.c1-redesign h2 {
+            font-family: 'Fraunces', serif;
+            color: var(--c1-ink);
+            margin-bottom: 1rem;
+            letter-spacing: 0;
+        }
+
+        body.c1-redesign h3,
+        body.c1-redesign h4 {
+            color: var(--c1-ink);
+        }
+
+        body.c1-redesign p,
+        body.c1-redesign li {
+            color: rgba(26, 33, 53, 0.88);
+        }
+
+        body.c1-redesign .learning-objectives ul {
+            display: grid;
+            gap: 0.75rem;
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        body.c1-redesign .learning-objectives li {
+            padding: 0.8rem 1rem;
+            border-radius: 12px;
+            border: 1px solid rgba(0, 95, 115, 0.2);
+            background: linear-gradient(135deg, var(--c1-accent-soft), rgba(255, 255, 255, 0.9));
+            font-weight: 600;
+        }
+
+        body.c1-redesign .learning-objectives li::before {
+            content: "✓";
+            position: static;
+            left: auto;
+            top: auto;
+            display: inline-block;
+            margin-right: 0.45rem;
+            color: var(--c1-accent);
+            font-weight: 800;
+        }
+
+        body.c1-redesign .key-concepts-grid,
+        body.c1-redesign .card-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 1rem;
+        }
+
+        body.c1-redesign .concept-card,
+        body.c1-redesign .content-card,
+        body.c1-redesign .worked-example,
+        body.c1-redesign .professional-tip,
+        body.c1-redesign .misconception-alert,
+        body.c1-redesign .memory-aid-card {
+            background: #fffeff;
+            border: 1px solid rgba(0, 95, 115, 0.22);
+            border-radius: 14px;
+            box-shadow: 0 8px 22px rgba(22, 30, 40, 0.08);
+            padding: 1rem 1.1rem;
+        }
+
+        /* Force readable text when legacy inline colors are too light on the new theme */
+        body.c1-redesign .content-card h3[style],
+        body.c1-redesign .concept-card h3[style],
+        body.c1-redesign .content-card p[style],
+        body.c1-redesign .concept-card p[style],
+        body.c1-redesign .factory-content p[style] {
+            color: var(--c1-ink) !important;
+        }
+
+        body.c1-redesign .concept-card em {
+            color: #4f5b70;
+            font-style: normal;
+            font-weight: 600;
+        }
+
+        body.c1-redesign .depth-toggle {
             display: flex;
-            background: var(--primary);
+            flex-wrap: wrap;
+            gap: 0.7rem;
+            margin: 1.2rem 0 1rem;
+        }
+
+        body.c1-redesign .depth-btn {
+            border: 1px solid rgba(0, 95, 115, 0.3);
+            background: rgba(255, 255, 255, 0.75);
+            color: var(--c1-ink);
+            border-radius: 999px;
+            padding: 0.55rem 1rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: transform 180ms ease, box-shadow 180ms ease;
+        }
+
+        body.c1-redesign .depth-btn:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 10px 20px rgba(0, 95, 115, 0.14);
+        }
+
+        body.c1-redesign .depth-btn.active {
+            background: linear-gradient(120deg, #0b6f84, #005f73);
+            color: #fff;
+            border-color: transparent;
+        }
+
+        body.c1-redesign .depth-content {
+            display: none;
+            padding-top: 0.8rem;
+            animation: c1Fade 280ms ease;
+        }
+
+        body.c1-redesign .depth-content.active {
+            display: block;
+        }
+
+        body.c1-redesign .example-step {
+            border-left: 4px solid rgba(0, 95, 115, 0.5);
+            background: #f9fafb;
+            padding: 0.85rem 1rem;
+            border-radius: 0 12px 12px 0;
+            margin-top: 0.75rem;
+        }
+
+        body.c1-redesign .example-step::before {
+            content: none;
+        }
+
+        body.c1-redesign .accounting-flow-diagram {
+            display: grid;
+            grid-template-columns: 1fr auto 1fr auto 1fr;
+            gap: 0.9rem;
+            align-items: center;
+            margin-top: 1.2rem;
+            padding: 1rem;
+            border-radius: 14px;
+            background: linear-gradient(135deg, #f5fbfc, #ecf4f6);
+            border: 1px solid rgba(0, 95, 115, 0.2);
+        }
+
+        body.c1-redesign .flow-node {
+            padding: 1rem;
+            border: 1px solid rgba(0, 95, 115, 0.24);
+            border-radius: 12px;
+            background: #fff;
+            box-shadow: var(--c1-shadow-soft);
+            font-weight: 800;
+            text-align: center;
+        }
+
+        body.c1-redesign .flow-node small {
+            display: block;
+            margin-top: 0.3rem;
+            color: #59657f;
+            font-weight: 600;
+        }
+
+        body.c1-redesign .flow-arrow {
+            color: #0c7287;
+            font-weight: 900;
+            font-size: 1.5rem;
+        }
+
+        body.c1-redesign .comparison-table {
+            width: 100%;
+            border-collapse: collapse;
+            overflow: hidden;
+            border-radius: 14px;
+            border: 1px solid rgba(0, 95, 115, 0.2);
+        }
+
+        body.c1-redesign .comparison-table th {
+            background: linear-gradient(120deg, #0b6f84, #005f73);
+            color: #fff;
+            padding: 0.85rem;
+            text-align: left;
+        }
+
+        body.c1-redesign .comparison-table td {
+            padding: 0.75rem;
+            border-bottom: 1px solid rgba(0, 95, 115, 0.12);
+            background: rgba(255, 255, 255, 0.8);
+        }
+
+        body.c1-redesign .factory-tabs {
+            display: flex;
+            gap: 0.6rem;
+            flex-wrap: wrap;
+            margin-bottom: 1rem;
+        }
+
+        body.c1-redesign .factory-tab {
+            background: rgba(255, 255, 255, 0.9);
+            color: var(--c1-ink);
+            border: 1px solid rgba(0, 95, 115, 0.2);
+            border-radius: 999px;
+            padding: 0.55rem 1rem;
+            font-weight: 700;
+            cursor: pointer;
+        }
+
+        body.c1-redesign .factory-tab.active {
+            background: linear-gradient(120deg, #0b6f84, #005f73);
+            color: #fff;
+            border-color: transparent;
+        }
+
+        body.c1-redesign .factory-content {
+            display: none;
+            animation: c1Fade 260ms ease;
+        }
+
+        body.c1-redesign .factory-content.active {
+            display: block;
+        }
+
+        body.c1-redesign .process-flow-interactive {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 0.7rem;
+            flex-wrap: wrap;
+            padding: 1rem;
+            border-radius: 14px;
+            background: #f7fafb;
+            border: 1px solid rgba(0, 95, 115, 0.15);
+        }
+
+        body.c1-redesign .process-step {
+            text-align: center;
+            cursor: pointer;
+            min-width: 110px;
+        }
+
+        body.c1-redesign .process-icon {
+            width: 76px;
+            height: 76px;
+            border-radius: 50%;
+            border: 2px solid rgba(0, 95, 115, 0.35);
+            display: grid;
+            place-items: center;
+            font-size: 1.8rem;
+            background: #fff;
+            box-shadow: var(--c1-shadow-soft);
+            transition: transform 180ms ease;
+        }
+
+        body.c1-redesign .process-step:hover .process-icon,
+        body.c1-redesign .process-step.active .process-icon {
+            transform: translateY(-2px) scale(1.03);
+            border-color: var(--c1-highlight);
+        }
+
+        body.c1-redesign .process-step-label {
+            margin-top: 0.5rem;
+            font-weight: 800;
+            color: var(--c1-accent);
+            line-height: 1.3;
+        }
+
+        body.c1-redesign .process-detail,
+        body.c1-redesign .career-detail {
+            margin-top: 1rem;
+            padding: 1rem;
+            border-radius: 12px;
+            background: #fff;
+            border: 1px solid rgba(0, 95, 115, 0.2);
+        }
+
+        body.c1-redesign .type-sorter {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 0.9rem;
+            margin: 1rem 0;
+        }
+
+        body.c1-redesign .type-bin {
+            border-radius: 12px;
+            padding: 1rem;
+            background: #fff;
+            border: 1px solid rgba(0, 95, 115, 0.22);
+        }
+
+        body.c1-redesign .type-bin.financial {
+            box-shadow: inset 0 0 0 2px rgba(5, 98, 114, 0.25);
+        }
+
+        body.c1-redesign .type-bin.managerial {
+            box-shadow: inset 0 0 0 2px rgba(44, 143, 100, 0.24);
+        }
+
+        body.c1-redesign .scenario-cards {
+            display: flex;
+            flex-direction: column;
+            gap: 0.55rem;
+            margin-top: 0.8rem;
+        }
+
+        body.c1-redesign .scenario-card {
+            display: flex;
+            gap: 0.55rem;
+            align-items: center;
+            background: #fff;
+            border: 1px solid rgba(0, 95, 115, 0.18);
+            border-radius: 10px;
+            padding: 0.75rem 0.85rem;
+            box-shadow: 0 4px 12px rgba(31, 35, 46, 0.08);
+            cursor: grab;
+        }
+
+        body.c1-redesign .scenario-card:hover {
+            transform: translateX(3px);
+        }
+
+        body.c1-redesign .drag-handle {
+            color: #6b7385;
+        }
+
+        body.c1-redesign .bin-placeholder {
+            margin-top: 0.6rem;
+            border-radius: 10px;
+            border: 1px dashed rgba(0, 95, 115, 0.4);
+            color: #5a6071;
+            text-align: center;
+            padding: 0.8rem;
+        }
+
+        body.c1-redesign .bin-placeholder.filled {
+            border-style: solid;
+            border-color: rgba(44, 143, 100, 0.45);
+            background: rgba(44, 143, 100, 0.12);
+        }
+
+        body.c1-redesign .score-display {
+            margin-top: 1rem;
+            border-radius: 10px;
+            padding: 0.8rem;
+            text-align: center;
+            color: #fff;
+            font-weight: 700;
+            background: linear-gradient(120deg, #0b6f84, #005f73);
+        }
+
+        body.c1-redesign .career-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 0.85rem;
+        }
+
+        body.c1-redesign .career-card {
+            border-radius: 12px;
+            background: #fff;
+            border: 1px solid rgba(0, 95, 115, 0.18);
+            box-shadow: var(--c1-shadow-soft);
+            padding: 1rem;
+            text-align: center;
+            cursor: pointer;
+            transition: transform 180ms ease, box-shadow 180ms ease;
+        }
+
+        body.c1-redesign .career-card:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--c1-shadow);
+        }
+
+        body.c1-redesign .career-card.active {
+            border-color: var(--c1-highlight);
+            background: linear-gradient(135deg, #fffdf5 0%, #f5efe2 100%);
+        }
+
+        body.c1-redesign .career-name {
+            font-weight: 800;
+            color: #0b6f84;
+            line-height: 1.3;
+        }
+
+        body.c1-redesign .career-desc {
+            color: rgba(26, 33, 53, 0.75);
+            line-height: 1.35;
+        }
+
+        body.c1-redesign .quiz-container label {
+            display: block;
+            background: #fff;
+            border: 1px solid rgba(0, 95, 115, 0.24);
+            padding: 0.75rem;
+            border-radius: 10px;
+            margin-bottom: 0.5rem;
+            cursor: pointer;
+        }
+
+        body.c1-redesign .quiz-container label:hover {
+            border-color: var(--c1-highlight);
+            background: #fff8ea;
+        }
+
+        body.c1-redesign .quiz-container input[type="radio"] {
+            margin-right: 0.5rem;
+        }
+
+        body.c1-redesign .quiz-retry {
+            margin-top: 0.6rem;
+            border: 1px solid rgba(0, 95, 115, 0.3);
+            background: #fff;
+            border-radius: 999px;
+            padding: 0.45rem 0.9rem;
+            cursor: pointer;
+            font-weight: 700;
+            color: var(--c1-accent);
+        }
+
+        body.c1-redesign .quiz-retry:hover {
+            background: var(--c1-accent-soft);
+        }
+
+        body.c1-redesign .scenario-card.selected {
+            border-color: var(--c1-accent);
+            box-shadow: 0 0 0 3px rgba(11, 111, 132, 0.2);
+        }
+
+        body.c1-redesign .memory-aid-card,
+        body.c1-redesign .memory-aid-card strong,
+        body.c1-redesign .memory-aid-card p {
+            color: var(--c1-ink) !important;
+        }
+
+        body.c1-redesign .keyboard-drop-controls {
+            margin-top: 0.8rem;
+            padding: 0.9rem;
+            border-radius: 10px;
+            border: 1px solid rgba(0, 95, 115, 0.2);
+            background: rgba(255, 255, 255, 0.75);
+        }
+
+        body.c1-redesign .keyboard-drop-controls p {
+            margin-bottom: 0.65rem;
+        }
+
+        body.c1-redesign .keyboard-drop-controls .btn {
+            margin-right: 0.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        body.c1-redesign [role="button"] {
+            cursor: pointer;
+        }
+
+        body.c1-redesign .depth-btn:focus-visible,
+        body.c1-redesign .factory-tab:focus-visible,
+        body.c1-redesign .process-step:focus-visible,
+        body.c1-redesign .career-card:focus-visible,
+        body.c1-redesign .scenario-card:focus-visible,
+        body.c1-redesign .quiz-retry:focus-visible,
+        body.c1-redesign .btn:focus-visible,
+        body.c1-redesign a:focus-visible {
+            outline: 3px solid var(--c1-highlight);
+            outline-offset: 3px;
+        }
+
+        body.c1-redesign .kp-navigation {
+            display: flex;
+            justify-content: space-between;
+            gap: 0.9rem;
+            margin-top: 2.4rem;
+            padding-bottom: 1rem;
             flex-wrap: wrap;
         }
 
-        .factory-tab {
-            flex: 1;
-            min-width: 150px;
-            padding: 1rem 1.5rem;
-            background: transparent;
-            border: none;
-            color: rgba(255,255,255,0.8);
-            font-size: 0.95rem;
+        body.c1-redesign .kp-navigation .btn {
+            border-radius: 999px;
+            font-weight: 700;
+            border: 1px solid rgba(0, 95, 115, 0.25);
+            background: rgba(255, 255, 255, 0.95);
+            color: var(--c1-accent);
+        }
+
+        body.c1-redesign .kp-navigation .btn.btn-primary {
+            background: linear-gradient(120deg, #0b6f84, #005f73);
+            border-color: transparent;
+            color: #fff;
+        }
+
+        body.c1-redesign .page-footer {
+            margin-top: 3rem;
+            padding: 1.6rem 0 2rem;
+            border-top: 1px solid var(--c1-border);
+            text-align: center;
+            color: rgba(26, 33, 53, 0.68);
             font-weight: 600;
-            cursor: pointer;
-            transition: var(--transition);
-            border-bottom: 4px solid transparent;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 0.5rem;
         }
 
-        .factory-tab:hover {
-            background: rgba(255,255,255,0.1);
-            color: var(--white);
-        }
-
-        .factory-tab.active {
-            background: rgba(255,255,255,0.15);
-            color: var(--white);
-            border-bottom-color: var(--secondary);
-        }
-
-        .factory-content {
-            padding: 2rem;
-            display: none;
-            animation: fadeIn 0.3s ease;
-        }
-
-        .factory-content.active {
-            display: block;
+        @keyframes c1Fade {
+            from {
+                opacity: 0;
+                transform: translateY(8px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
 
         @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
+            from {
+                opacity: 0;
+                transform: translateY(8px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
 
-        /* Tab 1: Process Flow Interactive */
-        .process-flow-interactive {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 1rem;
-            flex-wrap: wrap;
-            padding: 2rem;
-            background: var(--bg-light);
-            border-radius: var(--radius-md);
-            margin-bottom: 2rem;
-        }
+        @media (max-width: 900px) {
+            body.c1-redesign .kp-header::after {
+                display: none;
+            }
 
-        .process-step {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            text-align: center;
-            cursor: pointer;
-            transition: var(--transition);
-        }
+            body.c1-redesign .kp-header,
+            body.c1-redesign .kp-section,
+            body.c1-redesign .interactive-section,
+            body.c1-redesign .accounting-factory {
+                padding: 1.3rem;
+            }
 
-        .process-icon {
-            width: 100px;
-            height: 100px;
-            background: var(--white);
-            border: 4px solid var(--primary);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 2.5rem;
-            margin-bottom: 1rem;
-            transition: var(--transition);
-            box-shadow: var(--shadow);
-        }
+            body.c1-redesign .accounting-flow-diagram {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
 
-        .process-step:hover .process-icon {
-            transform: scale(1.15) rotate(5deg);
-            box-shadow: var(--shadow-lg);
-        }
+            body.c1-redesign .flow-arrow {
+                transform: rotate(90deg);
+                margin: 0 auto;
+            }
 
-        .process-step.active .process-icon {
-            background: var(--primary);
-            color: var(--white);
-            transform: scale(1.2);
-        }
-
-        .process-step-label {
-            font-weight: 700;
-            font-size: 1rem;
-            color: var(--primary);
-        }
-
-        .process-arrow {
-            font-size: 2rem;
-            color: var(--secondary);
-            font-weight: bold;
-        }
-
-        .process-detail {
-            background: var(--white);
-            border-radius: var(--radius-md);
-            padding: 1.5rem;
-            box-shadow: var(--shadow);
-            border-left: 5px solid var(--primary);
-            margin-top: 1rem;
-        }
-
-        .process-detail h4 {
-            color: var(--primary);
-            margin-bottom: 0.75rem;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-
-        .process-detail p {
-            color: var(--text-main);
-            line-height: 1.6;
-        }
-
-        /* Tab 2: Accounting Type Sorter */
-        .type-sorter {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 2rem;
-            margin: 1.5rem 0;
-        }
-
-        @media (max-width: 768px) {
-            .type-sorter {
+            body.c1-redesign .type-sorter {
                 grid-template-columns: 1fr;
             }
         }
 
-        .type-bin {
-            padding: 1.5rem;
-            border-radius: var(--radius-md);
-            min-height: 300px;
+        @media (max-width: 768px) {
+            body.c1-redesign .factory-tabs {
+                display: grid;
+                grid-template-columns: 1fr;
+            }
+
+            body.c1-redesign .factory-tab {
+                width: 100%;
+                text-align: center;
+                line-height: 1.35;
+            }
+
+            body.c1-redesign .process-flow-interactive {
+                flex-direction: column;
+                align-items: stretch;
+                gap: 0.85rem;
+            }
+
+            body.c1-redesign .process-step {
+                width: 100%;
+            }
+
+            body.c1-redesign .process-arrow {
+                transform: rotate(90deg);
+                display: block;
+                width: 100%;
+                text-align: center;
+                margin: 0;
+            }
+
+            body.c1-redesign .career-grid {
+                grid-template-columns: 1fr;
+            }
+
+            body.c1-redesign .hero-title {
+                font-size: clamp(1.6rem, 8vw, 2.2rem);
+            }
+
+            body.c1-redesign .kp-navigation .btn {
+                width: 100%;
+                text-align: center;
+            }
         }
 
-        .type-bin.financial {
-            background: linear-gradient(135deg, var(--info-light) 0%, var(--white) 100%);
-            border: 3px solid var(--info);
-        }
-
-        .type-bin.managerial {
-            background: linear-gradient(135deg, rgba(46,204,113,0.15) 0%, var(--white) 100%);
-            border: 3px solid var(--success);
-        }
-
-        .type-bin h4 {
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            margin-bottom: 1rem;
-            padding-bottom: 0.75rem;
-            border-bottom: 2px solid;
-        }
-
-        .type-bin.financial h4 {
-            color: var(--info);
-            border-bottom-color: var(--info);
-        }
-
-        .type-bin.managerial h4 {
-            color: var(--success);
-            border-bottom-color: var(--success);
-        }
-
-        .scenario-cards {
-            display: flex;
-            flex-direction: column;
-            gap: 0.75rem;
-        }
-
-        .scenario-card {
-            display: flex;
-            align-items: center;
-            gap: 0.75rem;
-            padding: 1rem;
-            background: var(--white);
-            border-radius: var(--radius-sm);
-            cursor: grab;
-            transition: var(--transition);
-            box-shadow: var(--shadow-sm);
-            font-size: 0.95rem;
-        }
-
-        .scenario-card:hover {
-            transform: translateX(5px);
-            box-shadow: var(--shadow);
-        }
-
-        .scenario-card.dragging {
-            opacity: 0.5;
-            cursor: grabbing;
-        }
-
-        .scenario-card .drag-handle {
-            font-size: 1.2rem;
-            color: var(--text-muted);
-        }
-
-        .scenario-card .card-content {
-            flex: 1;
-        }
-
-        .scenario-card.correct {
-            animation: correctPulse 0.5s ease;
-        }
-
-        .scenario-card.placed {
-            display: none;
-        }
-
-        @keyframes correctPulse {
-            0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.05); }
-        }
-
-        .bin-placeholder {
-            text-align: center;
-            padding: 2rem;
-            color: var(--text-muted);
-            font-style: italic;
-            border: 2px dashed currentColor;
-            border-radius: var(--radius-sm);
-            margin-top: 1rem;
-        }
-
-        .bin-placeholder.filled {
-            border: none;
-            padding: 1rem;
-            text-align: left;
-        }
-
-        .score-display {
-            text-align: center;
-            padding: 1rem;
-            background: var(--primary);
-            color: var(--white);
-            border-radius: var(--radius-md);
-            margin-top: 1rem;
-            font-weight: 600;
-        }
-
-        /* Tab 3: Career Explorer */
-        .career-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 1.5rem;
-            margin: 1.5rem 0;
-        }
-
-        .career-card {
-            background: var(--white);
-            border-radius: var(--radius-md);
-            padding: 1.5rem;
-            text-align: center;
-            cursor: pointer;
-            transition: var(--transition);
-            border: 3px solid transparent;
-            box-shadow: var(--shadow);
-        }
-
-        .career-card:hover {
-            transform: translateY(-5px);
-            box-shadow: var(--shadow-lg);
-        }
-
-        .career-card.active {
-            border-color: var(--primary);
-            background: var(--primary-light);
-        }
-
-        .career-icon {
-            font-size: 3rem;
-            margin-bottom: 0.75rem;
-        }
-
-        .career-name {
-            font-weight: 700;
-            font-size: 1rem;
-            color: var(--primary);
-            margin-bottom: 0.5rem;
-        }
-
-        .career-desc {
-            font-size: 0.85rem;
-            color: var(--text-muted);
-        }
-
-        .career-detail {
-            background: var(--bg-light);
-            border-radius: var(--radius-md);
-            padding: 1.5rem;
-            margin-top: 1.5rem;
-            border-left: 5px solid var(--primary);
-        }
-
-        .career-detail h4 {
-            color: var(--primary);
-            margin-bottom: 1rem;
-        }
-
-        .career-detail ul {
-            list-style: none;
-            padding: 0;
-        }
-
-        .career-detail li {
-            padding: 0.5rem 0;
-            padding-left: 1.5rem;
-            position: relative;
-        }
-
-        .career-detail li::before {
-            content: '✓';
-            position: absolute;
-            left: 0;
-            color: var(--success);
-            font-weight: bold;
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+                scroll-behavior: auto !important;
+            }
         }
     </style>
 <!-- Google tag (gtag.js) -->
@@ -458,9 +755,11 @@
   gtag('config', 'G-50MTQPVR7D');
 </script>
 
+    <link rel="stylesheet" href="../../theme-redesign.css">
 </head>
 
-<body>
+<body class="c1-redesign course-redesign">
+    <a href="#main-content" class="skip-link">Skip to main content</a>
     <canvas id="global-bg-canvas"
         style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; background: var(--bg-light); pointer-events: none;"></canvas>
 
@@ -476,7 +775,7 @@
         </div>
     </header>
 
-    <main class="container">
+    <main class="container" id="main-content">
         <div class="breadcrumbs">
             <a href="../../index.html">Home</a> <span>/</span> <a href="../part1.html">Part 1</a> <span>/</span> <a
                 href="ch01.html">Chapter 1</a> <span>/</span> C1
@@ -484,7 +783,7 @@
 
         <article class="animate-fade-in">
             <div class="kp-header">
-                <h1 style="border-left: 8px solid var(--secondary); padding-left: 1rem; margin: 2rem 0;">Purpose, Users, and Opportunities</h1>
+                <h1 class="hero-title">Purpose, Users, and Opportunities</h1>
             </div>
 
             <!-- Learning Objectives -->
@@ -555,9 +854,9 @@
                 <p>Explore accounting fundamentals at different levels of depth. Choose your learning path:</p>
 
                 <div class="depth-toggle">
-                    <button class="depth-btn active" onclick="setDepth('A')">Depth A: Foundational</button>
-                    <button class="depth-btn" onclick="setDepth('B')">Depth B: Standard</button>
-                    <button class="depth-btn" onclick="setDepth('C')">Depth C: Advanced</button>
+                    <button class="depth-btn active" onclick="setDepth('A', event)">Depth A: Foundational</button>
+                    <button class="depth-btn" onclick="setDepth('B', event)">Depth B: Standard</button>
+                    <button class="depth-btn" onclick="setDepth('C', event)">Depth C: Advanced</button>
                 </div>
 
                 <!-- Depth A: Foundational -->
@@ -598,16 +897,16 @@
                     <div class="worked-example">
                         <h4>Standard Example: Week at Java Joint</h4>
                         <p><strong>Scenario:</strong> Over one week, Java Joint:</p>
-                        <ul>
-                            <li>Sold $2,000 worth of coffee (cash sales)</li>
-                            <li>Paid $500 for coffee beans (expense)</li>
-                            <li>Received invoice for $200 electricity (expense, unpaid)</li>
-                            <li>Paid employee wages of $800</li>
-                        </ul>
 
                         <div class="example-step">
                             <strong>Step 1: Identification Phase</strong>
                             <p>All four events are economic events affecting the business. They are identified and ready for recording.</p>
+                            <ul>
+                                <li>Sold $2,000 worth of coffee (cash sales)</li>
+                                <li>Paid $500 for coffee beans (expense)</li>
+                                <li>Received invoice for $200 electricity (expense, unpaid)</li>
+                                <li>Paid employee wages of $800</li>
+                            </ul>
                         </div>
 
                         <div class="example-step">
@@ -707,6 +1006,7 @@
                     <div class="flow-node communicate">
                         3. COMMUNICATE
                         <small>Financial Statements</small>
+                    </div>
                 </div>
             </section>
 
@@ -817,23 +1117,23 @@
                     </p>
 
                     <div class="process-flow-interactive">
-                        <div class="process-step" onclick="showProcessDetail('identify')">
+                        <div class="process-step" role="button" tabindex="0" aria-controls="process-detail" onclick="showProcessDetail('identify')" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();showProcessDetail('identify');}">
                             <div class="process-icon">🔍</div>
                             <div class="process-step-label">IDENTIFY</div>
                         </div>
                         <div class="process-arrow">→</div>
-                        <div class="process-step" onclick="showProcessDetail('record')">
+                        <div class="process-step" role="button" tabindex="0" aria-controls="process-detail" onclick="showProcessDetail('record')" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();showProcessDetail('record');}">
                             <div class="process-icon">📝</div>
                             <div class="process-step-label">RECORD</div>
                         </div>
                         <div class="process-arrow">→</div>
-                        <div class="process-step" onclick="showProcessDetail('communicate')">
+                        <div class="process-step" role="button" tabindex="0" aria-controls="process-detail" onclick="showProcessDetail('communicate')" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();showProcessDetail('communicate');}">
                             <div class="process-icon">📊</div>
                             <div class="process-step-label">COMMUNICATE</div>
                         </div>
                     </div>
 
-                    <div id="process-detail" class="process-detail" style="display: none;">
+                    <div id="process-detail" class="process-detail" style="display: none;" aria-live="polite">
                         <h4 id="detail-title">Step Details</h4>
                         <p id="detail-text">Click on a step above to learn more.</p>
                     </div>
@@ -866,33 +1166,39 @@
                     </div>
 
                     <div class="scenario-cards" id="scenario-pool">
-                        <div class="scenario-card" draggable="true" ondragstart="dragScenario(event)" data-type="financial" id="scenario-1">
+                        <div class="scenario-card" role="button" tabindex="0" draggable="true" onclick="selectScenario('scenario-1')" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();selectScenario('scenario-1');}" ondragstart="dragScenario(event)" data-type="financial" id="scenario-1">
                             <span class="drag-handle">⋮⋮</span>
                             <span class="card-content">Bank deciding on a loan application</span>
                         </div>
-                        <div class="scenario-card" draggable="true" ondragstart="dragScenario(event)" data-type="managerial" id="scenario-2">
+                        <div class="scenario-card" role="button" tabindex="0" draggable="true" onclick="selectScenario('scenario-2')" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();selectScenario('scenario-2');}" ondragstart="dragScenario(event)" data-type="managerial" id="scenario-2">
                             <span class="drag-handle">⋮⋮</span>
                             <span class="card-content">Manager deciding next month's staffing levels</span>
                         </div>
-                        <div class="scenario-card" draggable="true" ondragstart="dragScenario(event)" data-type="financial" id="scenario-3">
+                        <div class="scenario-card" role="button" tabindex="0" draggable="true" onclick="selectScenario('scenario-3')" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();selectScenario('scenario-3');}" ondragstart="dragScenario(event)" data-type="financial" id="scenario-3">
                             <span class="drag-handle">⋮⋮</span>
                             <span class="card-content">Investor analyzing annual reports</span>
                         </div>
-                        <div class="scenario-card" draggable="true" ondragstart="dragScenario(event)" data-type="managerial" id="scenario-4">
+                        <div class="scenario-card" role="button" tabindex="0" draggable="true" onclick="selectScenario('scenario-4')" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();selectScenario('scenario-4');}" ondragstart="dragScenario(event)" data-type="managerial" id="scenario-4">
                             <span class="drag-handle">⋮⋮</span>
                             <span class="card-content">Factory supervisor calculating product costs</span>
                         </div>
-                        <div class="scenario-card" draggable="true" ondragstart="dragScenario(event)" data-type="financial" id="scenario-5">
+                        <div class="scenario-card" role="button" tabindex="0" draggable="true" onclick="selectScenario('scenario-5')" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();selectScenario('scenario-5');}" ondragstart="dragScenario(event)" data-type="financial" id="scenario-5">
                             <span class="drag-handle">⋮⋮</span>
                             <span class="card-content">Government tax agency reviewing tax returns</span>
                         </div>
-                        <div class="scenario-card" draggable="true" ondragstart="dragScenario(event)" data-type="managerial" id="scenario-6">
+                        <div class="scenario-card" role="button" tabindex="0" draggable="true" onclick="selectScenario('scenario-6')" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();selectScenario('scenario-6');}" ondragstart="dragScenario(event)" data-type="managerial" id="scenario-6">
                             <span class="drag-handle">⋮⋮</span>
                             <span class="card-content">CEO creating next year's budget plan</span>
                         </div>
                     </div>
 
-                    <div class="score-display" id="type-score">Score: 0 / 6 Correct</div>
+                    <div class="keyboard-drop-controls" aria-label="Keyboard sorting controls">
+                        <p id="selected-scenario">Selected card: none</p>
+                        <button class="btn btn-outline" type="button" onclick="placeSelectedScenario('financial')">Place in Financial</button>
+                        <button class="btn btn-outline" type="button" onclick="placeSelectedScenario('managerial')">Place in Managerial</button>
+                    </div>
+
+                    <div class="score-display" id="type-score" aria-live="polite">Score: 0 / 6 Correct</div>
                 </div>
 
                 <!-- Tab 3: Career Explorer -->
@@ -902,35 +1208,34 @@
                     </p>
 
                     <div class="career-grid">
-                        <div class="career-card" onclick="showCareerDetail('audit')">
+                        <div class="career-card" role="button" tabindex="0" aria-controls="career-detail" onclick="showCareerDetail('audit', event)" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();showCareerDetail('audit', event);}">
                             <div class="career-icon">🔍</div>
                             <div class="career-name">Auditing</div>
                             <div class="career-desc">Examine financial records</div>
                         </div>
-                        <div class="career-card" onclick="showCareerDetail('tax')">
+                        <div class="career-card" role="button" tabindex="0" aria-controls="career-detail" onclick="showCareerDetail('tax', event)" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();showCareerDetail('tax', event);}">
                             <div class="career-icon">📋</div>
                             <div class="career-name">Taxation</div>
                             <div class="career-desc">Tax planning & compliance</div>
                         </div>
-                        <div class="career-card" onclick="showCareerDetail('managerial')">
+                        <div class="career-card" role="button" tabindex="0" aria-controls="career-detail" onclick="showCareerDetail('managerial', event)" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();showCareerDetail('managerial', event);}">
                             <div class="career-icon">📈</div>
                             <div class="career-name">Managerial</div>
                             <div class="career-desc">Internal business analysis</div>
                         </div>
-                        <div class="career-card" onclick="showCareerDetail('consulting')">
+                        <div class="career-card" role="button" tabindex="0" aria-controls="career-detail" onclick="showCareerDetail('consulting', event)" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();showCareerDetail('consulting', event);}">
                             <div class="career-icon">💼</div>
                             <div class="career-name">Consulting</div>
                             <div class="career-desc">Business advisory services</div>
                         </div>
                     </div>
 
-                    <div id="career-detail" class="career-detail" style="display: none;">
+                    <div id="career-detail" class="career-detail" style="display: none;" aria-live="polite">
                         <h4 id="career-title">Career Details</h4>
                         <p id="career-desc"></p>
                         <ul id="career-skills"></ul>
                     </div>
                 </div>
-            </section>
             </section>
 
             <!-- Common Misconceptions -->
@@ -1058,29 +1363,32 @@
                     </div>
 
                     <button class="btn btn-primary quiz-submit">Submit All Answers</button>
-                    <div class="feedback"></div>
+                    <div class="feedback" aria-live="polite"></div>
                     <button class="quiz-retry">Try Again</button>
                 </div>
             </section>
 
             <!-- Navigation -->
-            <nav class="kp-navigation" style="display: flex; justify-content: space-between; margin-top: 4rem; padding-bottom: 2rem;">
-                <a href="ch01.html" class="btn" style="background: #eee;">← Back to Chapter 1</a>
+            <nav class="kp-navigation">
+                <a href="ch01.html" class="btn">← Back to Chapter 1</a>
                 <a href="ch01_C2.html" class="btn btn-primary">Next: Ethics & GAAP →</a>
             </nav>
         </article>
     </main>
 
-    <footer style="margin-top: 5rem; padding: 2rem 0; border-top: 1px solid #ddd; text-align: center; color: #888;">
+    <footer class="page-footer">
         <p>Accounting Essentials | Chapter 1 | Concept 1</p>
     </footer>
+    <p id="a11y-status" aria-live="polite" style="position: absolute; left: -9999px;"></p>
 
     <script src="../../components-enhanced.js"></script>
     <script>
-        function setDepth(depth) {
+        function setDepth(depth, evt) {
             // Update buttons
             document.querySelectorAll('.depth-btn').forEach(btn => btn.classList.remove('active'));
-            event.target.classList.add('active');
+            if (evt && evt.target) {
+                evt.target.classList.add('active');
+            }
 
             // Update content visibility
             document.querySelectorAll('.depth-content').forEach(content => content.classList.remove('active'));
@@ -1093,18 +1401,18 @@
         const processDetails = {
             identify: {
                 title: "🔍 Step 1: IDENTIFY - Selecting Economic Events",
-                text: "The first step is to determine which business activities should be recorded. Only <strong>economic events</strong> that affect the financial position of the business qualify. This means transactions that change assets, liabilities, or equity. 
-<em>Example:</em> Selling products? YES. Manager's family lunch? NO."
+                text: `The first step is to determine which business activities should be recorded. Only <strong>economic events</strong> that affect the financial position of the business qualify. This means transactions that change assets, liabilities, or equity.
+<em>Example:</em> Selling products? YES. Manager's family lunch? NO.`
             },
             record: {
                 title: "📝 Step 2: RECORD - Journal Entries",
-                text: "Identified events are systematically recorded in chronological order. Each transaction is documented with details like date, amounts, and accounts affected. This creates an <strong>audit trail</strong> that can be traced back if needed.
-<em>Example:</em> Recording sales of $500 when it happens, not waiting until year-end."
+                text: `Identified events are systematically recorded in chronological order. Each transaction is documented with details like date, amounts, and accounts affected. This creates an <strong>audit trail</strong> that can be traced back if needed.
+<em>Example:</em> Recording sales of $500 when it happens, not waiting until year-end.`
             },
             communicate: {
                 title: "📊 Step 3: COMMUNICATE - Financial Statements",
-                text: "Recorded data is summarized into financial reports that stakeholders can understand. These include the <strong>Balance Sheet, Income Statement, and Cash Flow Statement</strong>. The goal is to communicate useful information for decision-making.
-<em>Example:</em> Publishing quarterly reports for investors and creditors."
+                text: `Recorded data is summarized into financial reports that stakeholders can understand. These include the <strong>Balance Sheet, Income Statement, and Cash Flow Statement</strong>. The goal is to communicate useful information for decision-making.
+<em>Example:</em> Publishing quarterly reports for investors and creditors.`
             }
         };
 
@@ -1148,7 +1456,17 @@
 
         // Type Sorter (Drag and Drop)
         let correctCount = 0;
+        let selectedScenarioId = null;
         const totalScenarios = 6;
+
+        function announce(message) {
+            const status = document.getElementById('a11y-status');
+            if (!status) return;
+            status.textContent = '';
+            setTimeout(() => {
+                status.textContent = message;
+            }, 10);
+        }
 
         function dragScenario(event) {
             event.dataTransfer.setData('text/plain', event.target.id);
@@ -1163,37 +1481,67 @@
             event.preventDefault();
             const scenarioId = event.dataTransfer.getData('text/plain');
             const scenario = document.getElementById(scenarioId);
-            
-            if (!scenario) return;
+            placeScenarioInType(scenario, type);
+        }
+
+        function selectScenario(scenarioId) {
+            const scenario = document.getElementById(scenarioId);
+            if (!scenario || scenario.classList.contains('placed')) return;
+
+            document.querySelectorAll('#scenario-pool .scenario-card').forEach(card => card.classList.remove('selected'));
+            scenario.classList.add('selected');
+            selectedScenarioId = scenarioId;
+
+            const selectedText = document.getElementById('selected-scenario');
+            if (selectedText) {
+                selectedText.textContent = 'Selected card: ' + scenario.querySelector('.card-content').textContent;
+            }
+            announce('Selected scenario card');
+        }
+
+        function placeSelectedScenario(type) {
+            if (!selectedScenarioId) {
+                announce('Select a card first');
+                return;
+            }
+            const scenario = document.getElementById(selectedScenarioId);
+            placeScenarioInType(scenario, type);
+        }
+
+        function placeScenarioInType(scenario, type) {
+            if (!scenario || scenario.classList.contains('placed')) return;
 
             scenario.classList.remove('dragging');
             const correctType = scenario.dataset.type;
-            
+
             if (correctType === type) {
-                // Correct!
                 scenario.classList.add('placed');
                 scenario.classList.add('correct');
-                
-                // Add to the bin
+                scenario.classList.remove('selected');
+
                 const placedContainer = document.getElementById(type + '-placed');
                 const placeholder = document.getElementById(type + '-placeholder');
-                
+
                 if (placeholder) {
                     placeholder.classList.add('filled');
                     placeholder.textContent = '✓ Correct!';
                 }
-                
-                // Create new placed card
+
                 const placedCard = document.createElement('div');
                 placedCard.className = 'scenario-card';
                 placedCard.style.background = 'var(--success-light)';
-                placedCard.innerHTML = '<span style="color: var(--success);">✓</span> ' + scenario.querySelector('.card-content').textContent;
+                placedCard.textContent = '✓ ' + scenario.querySelector('.card-content').textContent;
                 placedContainer.appendChild(placedCard);
-                
+
                 correctCount++;
+                selectedScenarioId = null;
+                const selectedText = document.getElementById('selected-scenario');
+                if (selectedText) {
+                    selectedText.textContent = 'Selected card: none';
+                }
                 updateScore();
+                announce('Correctly placed');
             } else {
-                // Wrong - animate shake
                 scenario.style.animation = 'none';
                 scenario.offsetHeight;
                 scenario.style.animation = 'correctPulse 0.5s ease';
@@ -1201,6 +1549,7 @@
                 setTimeout(() => {
                     scenario.style.borderColor = '';
                 }, 1000);
+                announce('Incorrect bin, try again');
             }
         }
 
@@ -1238,7 +1587,7 @@
             }
         };
 
-        function showCareerDetail(career) {
+        function showCareerDetail(career, evt) {
             const data = careerData[career];
             const detail = document.getElementById('career-detail');
             const title = document.getElementById('career-title');
@@ -1267,10 +1616,15 @@
             document.querySelectorAll('.career-card').forEach(card => {
                 card.classList.remove('active');
             });
-            event.target.closest('.career-card').classList.add('active');
+            if (evt && evt.target) {
+                const activeCard = evt.target.closest('.career-card');
+                if (activeCard) {
+                    activeCard.classList.add('active');
+                }
+            }
         }
     </script>
-    <script src="../../components.js"></script>
+    <script src="../../theme-redesign.js"></script>
 </body>
 
 </html>

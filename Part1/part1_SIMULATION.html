@@ -20,6 +20,35 @@
             padding: 20px;
         }
 
+        .skip-link {
+            position: absolute;
+            left: 1rem;
+            top: -48px;
+            z-index: 2000;
+            padding: 0.6rem 0.9rem;
+            border-radius: 8px;
+            background: var(--tesla-red);
+            color: #fff;
+            font-weight: 700;
+            text-decoration: none;
+        }
+
+        .skip-link:focus-visible {
+            top: 0.75rem;
+        }
+
+        .sr-only {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            padding: 0;
+            margin: -1px;
+            overflow: hidden;
+            clip: rect(0, 0, 0, 0);
+            white-space: nowrap;
+            border: 0;
+        }
+
         /* Header Section */
         .tesla-header {
             background: linear-gradient(135deg, var(--tesla-dark) 0%, #333 100%);
@@ -60,7 +89,7 @@
             font-weight: 600;
             border-radius: 30px;
             cursor: pointer;
-            transition: all 0.3s ease;
+            transition: transform 0.3s ease, background-color 0.3s ease, border-color 0.3s ease;
         }
 
         .difficulty-btn:hover, .difficulty-btn.active {
@@ -178,7 +207,7 @@
             border-radius: 20px;
             cursor: pointer;
             font-weight: 600;
-            transition: all 0.3s ease;
+            transition: transform 0.3s ease, background-color 0.3s ease, color 0.3s ease;
         }
 
         .phase-tab.active {
@@ -198,13 +227,17 @@
         }
 
         .transaction-item {
+            display: block;
+            width: 100%;
+            text-align: left;
+            font-family: inherit;
             background: #f8f9fa;
             border: 2px solid #e9ecef;
             border-radius: 10px;
             padding: 20px;
             margin-bottom: 15px;
             cursor: pointer;
-            transition: all 0.3s ease;
+            transition: transform 0.3s ease, border-color 0.3s ease, background-color 0.3s ease;
         }
 
         .transaction-item:hover {
@@ -288,7 +321,11 @@
 
         .entry-row input:focus, .entry-row select:focus {
             border-color: var(--tesla-red);
-            outline: none;
+        }
+
+        .entry-row input:focus-visible, .entry-row select:focus-visible {
+            outline: 3px solid rgba(204, 0, 0, 0.25);
+            outline-offset: 2px;
         }
 
         .debit-row { border-left: 4px solid var(--success-green); padding-left: 15px; }
@@ -310,7 +347,7 @@
             font-size: 1rem;
             font-weight: 600;
             cursor: pointer;
-            transition: all 0.3s ease;
+            transition: transform 0.3s ease, background-color 0.3s ease;
         }
 
         .btn-primary:hover {
@@ -338,6 +375,29 @@
             font-size: 1rem;
             font-weight: 600;
             cursor: pointer;
+        }
+
+        .top-nav-link {
+            color: white;
+            text-decoration: none;
+            padding: 8px 16px;
+            border-radius: 5px;
+            transition: transform 0.3s ease, background-color 0.3s ease, color 0.3s ease;
+        }
+
+        .top-nav-link:hover {
+            background-color: rgba(255, 255, 255, 0.14);
+        }
+
+        .top-nav-link:focus-visible,
+        .difficulty-btn:focus-visible,
+        .phase-tab:focus-visible,
+        .transaction-item:focus-visible,
+        .btn-primary:focus-visible,
+        .btn-secondary:focus-visible,
+        .btn-hint:focus-visible {
+            outline: 3px solid rgba(255, 193, 7, 0.8);
+            outline-offset: 2px;
         }
 
         /* Progress Bar */
@@ -448,9 +508,19 @@
                 grid-template-columns: 1fr;
             }
         }
+
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+                scroll-behavior: auto !important;
+            }
+        }
     </style>
 </head>
 <body>
+    <a href="#main-content" class="skip-link">Skip to main content</a>
     <!-- Navigation Header -->
     <header style="background: linear-gradient(135deg, #1a1a1a 0%, #333 100%); padding: 15px 0; margin-bottom: 20px; border-bottom: 3px solid #cc0000;">
         <div style="max-width: 1400px; margin: 0 auto; padding: 0 20px; display: flex; justify-content: space-between; align-items: center;">
@@ -458,21 +528,21 @@
                 <a href="../index.html" style="color: white; text-decoration: none; font-size: 1.5rem; font-weight: 700;">ACCOUNTING<span style="color: #cc0000;">ESSENTIALS</span></a>
             </div>
             <nav style="display: flex; gap: 20px;">
-                <a href="../index.html" style="color: white; text-decoration: none; padding: 8px 16px; border-radius: 5px; transition: all 0.3s;">🏠 Home</a>
-                <a href="part1.html" style="color: white; text-decoration: none; padding: 8px 16px; border-radius: 5px; transition: all 0.3s;">📚 Part 1</a>
-                <a href="chapter1/ch01.html" style="color: white; text-decoration: none; padding: 8px 16px; border-radius: 5px; transition: all 0.3s;">Ch 1</a>
-                <a href="chapter2/ch02.html" style="color: white; text-decoration: none; padding: 8px 16px; border-radius: 5px; transition: all 0.3s;">Ch 2</a>
-                <a href="chapter3/ch03.html" style="color: white; text-decoration: none; padding: 8px 16px; border-radius: 5px; transition: all 0.3s;">Ch 3</a>
-                <a href="chapter4/ch04.html" style="color: white; text-decoration: none; padding: 8px 16px; border-radius: 5px; transition: all 0.3s;">Ch 4</a>
+                <a href="../index.html" class="top-nav-link">🏠 Home</a>
+                <a href="part1.html" class="top-nav-link">📚 Part 1</a>
+                <a href="chapter1/ch01.html" class="top-nav-link">Ch 1</a>
+                <a href="chapter2/ch02.html" class="top-nav-link">Ch 2</a>
+                <a href="chapter3/ch03.html" class="top-nav-link">Ch 3</a>
+                <a href="chapter4/ch04.html" class="top-nav-link">Ch 4</a>
             </nav>
         </div>
     </header>
 
-    <div class="simulation-container">
+    <main id="main-content" class="simulation-container">
         <!-- Tesla Header -->
         <div class="tesla-header">
             <div class="tesla-logo">TESLA</div>
-            <div class="scenario-title">Q1 2024 Financial Simulation - Shanghai Gigafactory</div>
+            <h1 class="scenario-title">Q1 2024 Financial Simulation - Shanghai Gigafactory</h1>
             <p style="font-size: 1.1rem; opacity: 0.9; max-width: 800px; margin: 0 auto;">
                 You are the Senior Accountant at Tesla Shanghai. Complete the full accounting cycle for Q1 2024, 
                 from initial setup through financial statement preparation.
@@ -497,7 +567,7 @@
 
         <!-- Progress Container -->
         <div class="progress-container">
-            <h3>Simulation Progress</h3>
+            <h2>Simulation Progress</h2>
             <div style="display: flex; justify-content: space-between; margin-top: 10px;">
                 <span id="completed-count">0 transactions completed</span>
                 <span id="progress-percent">0%</span>
@@ -583,24 +653,28 @@
 
                 <!-- Journal Entry Form -->
                 <div class="journal-entry-form" id="journal-form">
-                    <div class="form-title">Record Journal Entry</div>
+                    <h3 class="form-title">Record Journal Entry</h3>
                     <div id="current-transaction-info"></div>
                     
                     <div class="debit-row">
-                        <select id="debit-account">
+                        <label class="sr-only" for="debit-account">Debit Account</label>
+                        <select id="debit-account" name="debit_account" aria-label="Debit Account" autocomplete="off">
                             <option value="">Select Debit Account</option>
                         </select>
-                        <input type="number" id="debit-amount" placeholder="Amount">
+                        <label class="sr-only" for="debit-amount">Debit Amount</label>
+                        <input type="number" id="debit-amount" name="debit_amount" aria-label="Debit Amount" inputmode="decimal" autocomplete="off" placeholder="Amount…">
                         <span style="color: var(--success-green); font-weight: 600;">DEBIT</span>
                     </div>
 
                     <div style="text-align: center; font-size: 1.5rem; color: #666; margin: 10px 0;">↓</div>
 
                     <div class="credit-row">
-                        <select id="credit-account">
+                        <label class="sr-only" for="credit-account">Credit Account</label>
+                        <select id="credit-account" name="credit_account" aria-label="Credit Account" autocomplete="off">
                             <option value="">Select Credit Account</option>
                         </select>
-                        <input type="number" id="credit-amount" placeholder="Amount">
+                        <label class="sr-only" for="credit-amount">Credit Amount</label>
+                        <input type="number" id="credit-amount" name="credit_amount" aria-label="Credit Amount" inputmode="decimal" autocomplete="off" placeholder="Amount…">
                         <span style="color: #dc3545; font-weight: 600;">CREDIT</span>
                     </div>
 
@@ -610,30 +684,30 @@
                         <button class="btn-secondary" onclick="skipTransaction()">Skip</button>
                     </div>
 
-                    <div class="feedback-message" id="entry-feedback"></div>
+                    <div class="feedback-message" id="entry-feedback" aria-live="polite"></div>
                 </div>
             </div>
         </div>
 
         <!-- Financial Statements Preview -->
         <div class="statements-preview" id="statements-section" style="display: none;">
-            <h3>📈 Financial Statements Summary</h3>
+            <h2>📈 Financial Statements Summary</h2>
             <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(400px, 1fr)); gap: 20px; margin-top: 20px;">
                 <div>
-                    <h4>Income Statement</h4>
+                    <h3>Income Statement</h3>
                     <table class="statement-table" id="income-statement">
                         <!-- Populated by JS -->
                     </table>
                 </div>
                 <div>
-                    <h4>Balance Sheet</h4>
+                    <h3>Balance Sheet</h3>
                     <table class="statement-table" id="balance-sheet">
                         <!-- Populated by JS -->
                     </table>
                 </div>
             </div>
         </div>
-    </div>
+    </main>
 
     <script>
         // ==================== TESLA Q1 SIMULATION DATA ====================
@@ -913,8 +987,10 @@
             
             currentTransactions.forEach(tx => {
                 const isCompleted = completedTransactions.includes(tx.id);
-                const item = document.createElement('div');
+                const item = document.createElement('button');
+                item.type = 'button';
                 item.className = `transaction-item ${isCompleted ? 'completed' : ''}`;
+                item.setAttribute('aria-label', `Transaction ${tx.id}, ${tx.date}, amount ${tx.amount.toLocaleString()} dollars`);
                 item.onclick = () => selectTransaction(tx);
                 
                 item.innerHTML = `

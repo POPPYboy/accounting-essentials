@@ -5,7 +5,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Interactive: Business Day Simulator | ACCOUNTING ESSENTIALS</title>
-    <link rel="stylesheet" href="../../styles.css">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght,SOFT@9..144,600,0&amp;family=Manrope:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../styles.css">
     <style>
         /* Business Day Simulator Styles */
         .dashboard-container {
@@ -155,7 +158,7 @@
             padding: 1rem;
             border-bottom: 1px solid var(--border-light);
             cursor: pointer;
-            transition: all 0.3s ease;
+            transition: transform 0.3s ease, opacity 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease, filter 0.3s ease;
             display: flex;
             align-items: center;
             gap: 0.75rem;
@@ -423,10 +426,12 @@
         gtag('js', new Date());
         gtag('config', 'G-50MTQPVR7D');
     </script>
+    <link rel="stylesheet" href="../../theme-redesign.css">
 </head>
 
-<body>
-    <canvas id="global-bg-canvas"
+<body class="course-redesign">
+        <a href="#main-content" class="skip-link">Skip to main content</a>
+<canvas id="global-bg-canvas"
         style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; background: var(--bg-light); pointer-events: none;"></canvas>
 
     <header>
@@ -441,7 +446,7 @@
         </div>
     </header>
 
-    <main class="container">
+    <main class="container" id="main-content">
         <div class="breadcrumbs">
             <a href="../../index.html">Home</a> <span>/</span> <a href="../part1.html">Part 1</a> <span>/</span> <a
                 href="ch01.html">Chapter 1</a> <span>/</span> Interactive
@@ -512,7 +517,7 @@
                         </p>
                     </div>
 
-                    <div class="feedback-message" id="feedback-message"></div>
+                    <div class="feedback-message" aria-live="polite" id="feedback-message"></div>
                 </div>
 
                 <!-- Right Panel: Transaction Queue -->
@@ -524,50 +529,50 @@
                         </div>
                         <div class="transaction-list" id="transaction-list">
                             <!-- Transaction 1 -->
-                            <div class="transaction-item" data-id="1" onclick="selectTransaction(1)">
+                            <div class="transaction-item" data-id="1" onclick="selectTransaction(1)" role="button" tabindex="0" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();this.click();}">
                                 <span class="transaction-number">1</span>
                                 <span class="transaction-desc">Owner invested additional cash in business
                                     ($15,000)</span>
                                 <span class="transaction-amount">→</span>
                             </div>
                             <!-- Transaction 2 -->
-                            <div class="transaction-item" data-id="2" onclick="selectTransaction(2)">
+                            <div class="transaction-item" data-id="2" onclick="selectTransaction(2)" role="button" tabindex="0" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();this.click();}">
                                 <span class="transaction-number">2</span>
                                 <span class="transaction-desc">Purchased office equipment, paid $8,000 cash</span>
                                 <span class="transaction-amount">→</span>
                             </div>
                             <!-- Transaction 3 -->
-                            <div class="transaction-item" data-id="3" onclick="selectTransaction(3)">
+                            <div class="transaction-item" data-id="3" onclick="selectTransaction(3)" role="button" tabindex="0" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();this.click();}">
                                 <span class="transaction-number">3</span>
                                 <span class="transaction-desc">Purchased supplies on account $5,000</span>
                                 <span class="transaction-amount">→</span>
                             </div>
                             <!-- Transaction 4 -->
-                            <div class="transaction-item" data-id="4" onclick="selectTransaction(4)">
+                            <div class="transaction-item" data-id="4" onclick="selectTransaction(4)" role="button" tabindex="0" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();this.click();}">
                                 <span class="transaction-number">4</span>
                                 <span class="transaction-desc">Provided services to client, received $12,000 cash</span>
                                 <span class="transaction-amount">→</span>
                             </div>
                             <!-- Transaction 5 -->
-                            <div class="transaction-item" data-id="5" onclick="selectTransaction(5)">
+                            <div class="transaction-item" data-id="5" onclick="selectTransaction(5)" role="button" tabindex="0" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();this.click();}">
                                 <span class="transaction-number">5</span>
                                 <span class="transaction-desc">Paid $3,000 rent for January</span>
                                 <span class="transaction-amount">→</span>
                             </div>
                             <!-- Transaction 6 -->
-                            <div class="transaction-item" data-id="6" onclick="selectTransaction(6)">
+                            <div class="transaction-item" data-id="6" onclick="selectTransaction(6)" role="button" tabindex="0" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();this.click();}">
                                 <span class="transaction-number">6</span>
                                 <span class="transaction-desc">Paid $2,000 of the supplies purchase on account</span>
                                 <span class="transaction-amount">→</span>
                             </div>
                             <!-- Transaction 7 -->
-                            <div class="transaction-item" data-id="7" onclick="selectTransaction(7)">
+                            <div class="transaction-item" data-id="7" onclick="selectTransaction(7)" role="button" tabindex="0" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();this.click();}">
                                 <span class="transaction-number">7</span>
                                 <span class="transaction-desc">Owner withdrew $5,000 for personal use</span>
                                 <span class="transaction-amount">→</span>
                             </div>
                             <!-- Transaction 8 -->
-                            <div class="transaction-item" data-id="8" onclick="selectTransaction(8)">
+                            <div class="transaction-item" data-id="8" onclick="selectTransaction(8)" role="button" tabindex="0" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();this.click();}">
                                 <span class="transaction-number">8</span>
                                 <span class="transaction-desc">Received $6,000 payment for services already
                                     billed</span>
@@ -1075,6 +1080,7 @@
             });
         });
     </script>
+    <script src="../../theme-redesign.js"></script>
 </body>
 
 </html>

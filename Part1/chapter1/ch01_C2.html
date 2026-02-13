@@ -5,8 +5,379 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>C2: Ethics and GAAP | ACCOUNTING ESSENTIALS</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght,SOFT@9..144,600,0&amp;family=Manrope:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet">
     <link rel="stylesheet" href="../../styles.css">
     <style>
+        :root {
+            --c2-ink: #1a2135;
+            --c2-paper: #f4f0e6;
+            --c2-slate: #d9d2c3;
+            --c2-accent: #005f73;
+            --c2-accent-soft: #d9eef0;
+            --c2-highlight: #ee9b00;
+            --c2-border: rgba(26, 33, 53, 0.16);
+            --c2-shadow: 0 18px 40px rgba(31, 35, 46, 0.1);
+            --c2-shadow-soft: 0 8px 20px rgba(31, 35, 46, 0.08);
+        }
+
+        body.c2-redesign {
+            font-family: 'Manrope', sans-serif;
+            color: var(--c2-ink);
+            background:
+                radial-gradient(circle at 12% 8%, rgba(238, 155, 0, 0.08), transparent 30%),
+                radial-gradient(circle at 89% 18%, rgba(0, 95, 115, 0.1), transparent 28%),
+                linear-gradient(180deg, #fcfaf4 0%, #f7f3e8 56%, #f1ebdd 100%);
+        }
+
+        body.c2-redesign::before {
+            content: "";
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            background-image:
+                linear-gradient(rgba(0, 0, 0, 0.015) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0, 0, 0, 0.015) 1px, transparent 1px);
+            background-size: 26px 26px;
+            z-index: -1;
+        }
+
+        body.c2-redesign .skip-link {
+            position: absolute;
+            left: 1rem;
+            top: -48px;
+            z-index: 2000;
+            padding: 0.65rem 0.9rem;
+            border-radius: 8px;
+            background: #0b6f84;
+            color: #fff;
+            font-weight: 700;
+        }
+
+        body.c2-redesign .skip-link:focus {
+            top: 0.75rem;
+        }
+
+        body.c2-redesign header {
+            background: rgba(252, 250, 244, 0.92);
+            border-bottom: 1px solid rgba(31, 35, 46, 0.1);
+            box-shadow: 0 8px 24px rgba(35, 41, 60, 0.08);
+        }
+
+        body.c2-redesign .logo {
+            font-family: 'Fraunces', serif;
+            letter-spacing: 0.01em;
+        }
+
+        body.c2-redesign .logo span {
+            color: var(--c2-highlight);
+        }
+
+        body.c2-redesign .breadcrumbs {
+            margin-top: 2rem;
+            margin-bottom: 1.2rem;
+            padding: 0.65rem 1rem;
+            background: rgba(255, 255, 255, 0.56);
+            border: 1px solid var(--c2-border);
+            border-radius: 999px;
+            width: fit-content;
+            font-weight: 600;
+            box-shadow: var(--c2-shadow-soft);
+            backdrop-filter: blur(8px);
+        }
+
+        body.c2-redesign article {
+            padding-bottom: 2rem;
+        }
+
+        body.c2-redesign .kp-header {
+            margin-bottom: 1.3rem;
+            padding: 2.5rem 2rem 2rem;
+            background: linear-gradient(145deg, #fffdf7 0%, #f0ece0 100%);
+            border: 1px solid rgba(0, 95, 115, 0.24);
+            border-radius: 24px;
+            box-shadow: var(--c2-shadow);
+            position: relative;
+            overflow: hidden;
+        }
+
+        body.c2-redesign .kp-header::after {
+            content: "CONCEPT C2";
+            position: absolute;
+            top: 1rem;
+            right: 1.2rem;
+            font-size: 0.74rem;
+            letter-spacing: 0.15em;
+            color: rgba(0, 95, 115, 0.6);
+            font-weight: 800;
+        }
+
+        body.c2-redesign .hero-title {
+            font-family: 'Fraunces', serif;
+            font-size: clamp(2rem, 5vw, 3.3rem);
+            line-height: 1.06;
+            margin: 0;
+            border-left: 8px solid var(--c2-highlight);
+            padding-left: 1rem;
+            color: var(--c2-ink);
+        }
+
+        body.c2-redesign .kp-section,
+        body.c2-redesign .interactive-section {
+            margin: 1.4rem 0;
+            background: linear-gradient(160deg, rgba(255, 255, 255, 0.92), rgba(247, 244, 234, 0.94));
+            border: 1px solid var(--c2-border);
+            border-radius: 18px;
+            padding: 2rem;
+            box-shadow: var(--c2-shadow-soft);
+            position: relative;
+            overflow: hidden;
+        }
+
+        body.c2-redesign .kp-section::before,
+        body.c2-redesign .interactive-section::before {
+            content: "";
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 6px;
+            background: linear-gradient(90deg, var(--c2-accent), var(--c2-highlight));
+        }
+
+        body.c2-redesign h2 {
+            font-family: 'Fraunces', serif;
+            color: var(--c2-ink);
+            margin-bottom: 1rem;
+            letter-spacing: 0;
+        }
+
+        body.c2-redesign h3,
+        body.c2-redesign h4,
+        body.c2-redesign p,
+        body.c2-redesign li {
+            color: rgba(26, 33, 53, 0.88);
+        }
+
+        body.c2-redesign .learning-objectives ul {
+            display: grid;
+            gap: 0.75rem;
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        body.c2-redesign .learning-objectives li {
+            padding: 0.8rem 1rem;
+            border-radius: 12px;
+            border: 1px solid rgba(0, 95, 115, 0.2);
+            background: linear-gradient(135deg, var(--c2-accent-soft), rgba(255, 255, 255, 0.9));
+            font-weight: 600;
+        }
+
+        body.c2-redesign .learning-objectives li::before {
+            content: "✓";
+            position: static;
+            display: inline-block;
+            margin-right: 0.45rem;
+            color: var(--c2-accent);
+            font-weight: 800;
+        }
+
+        body.c2-redesign .key-concepts-grid,
+        body.c2-redesign .card-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 1rem;
+        }
+
+        body.c2-redesign .concept-card,
+        body.c2-redesign .content-card,
+        body.c2-redesign .worked-example,
+        body.c2-redesign .professional-tip,
+        body.c2-redesign .misconception-alert,
+        body.c2-redesign .memory-aid-card {
+            background: #fffeff;
+            border: 1px solid rgba(0, 95, 115, 0.22);
+            border-radius: 14px;
+            box-shadow: 0 8px 22px rgba(22, 30, 40, 0.08);
+            padding: 1rem 1.1rem;
+        }
+
+        body.c2-redesign .content-card h3[style],
+        body.c2-redesign .concept-card h3[style],
+        body.c2-redesign .content-card p[style] {
+            color: var(--c2-ink) !important;
+        }
+
+        /* Reset global "content-card > div:last-child" flex rule for nested tip boxes */
+        body.c2-redesign .content-card > div:last-child {
+            display: block;
+            align-items: initial;
+            gap: 0;
+            font-weight: inherit;
+            color: inherit;
+            font-size: inherit;
+        }
+
+        body.c2-redesign .professional-tip::before,
+        body.c2-redesign .misconception-alert::before {
+            content: none;
+        }
+
+        body.c2-redesign .depth-toggle {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.7rem;
+            margin: 1.2rem 0 1rem;
+        }
+
+        body.c2-redesign .depth-btn {
+            border: 1px solid rgba(0, 95, 115, 0.3);
+            background: rgba(255, 255, 255, 0.75);
+            color: var(--c2-ink);
+            border-radius: 999px;
+            padding: 0.55rem 1rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: transform 180ms ease, box-shadow 180ms ease;
+        }
+
+        body.c2-redesign .depth-btn:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 10px 20px rgba(0, 95, 115, 0.14);
+        }
+
+        body.c2-redesign .depth-btn.active {
+            background: linear-gradient(120deg, #0b6f84, #005f73);
+            color: #fff;
+            border-color: transparent;
+        }
+
+        body.c2-redesign .depth-content {
+            display: none;
+            padding-top: 0.8rem;
+            animation: c2Fade 280ms ease;
+        }
+
+        body.c2-redesign .depth-content.active {
+            display: block;
+        }
+
+        body.c2-redesign .example-step {
+            border-left: 4px solid rgba(0, 95, 115, 0.5);
+            background: #f9fafb;
+            padding: 0.85rem 1rem;
+            border-radius: 0 12px 12px 0;
+            margin-top: 0.75rem;
+        }
+
+        body.c2-redesign .example-step::before {
+            content: none;
+        }
+
+        body.c2-redesign .comparison-table {
+            width: 100%;
+            border-collapse: collapse;
+            overflow: hidden;
+            border-radius: 14px;
+            border: 1px solid rgba(0, 95, 115, 0.2);
+        }
+
+        body.c2-redesign .comparison-table th {
+            background: linear-gradient(120deg, #0b6f84, #005f73);
+            color: #fff;
+            padding: 0.85rem;
+            text-align: left;
+        }
+
+        body.c2-redesign .comparison-table td {
+            padding: 0.75rem;
+            border-bottom: 1px solid rgba(0, 95, 115, 0.12);
+            background: rgba(255, 255, 255, 0.8);
+        }
+
+        body.c2-redesign .quiz-container label {
+            display: block;
+            background: #fff;
+            border: 1px solid rgba(0, 95, 115, 0.24);
+            padding: 0.75rem;
+            border-radius: 10px;
+            margin-bottom: 0.5rem;
+            cursor: pointer;
+        }
+
+        body.c2-redesign .quiz-container label:hover {
+            border-color: var(--c2-highlight);
+            background: #fff8ea;
+        }
+
+        body.c2-redesign .quiz-container input[type="radio"] {
+            margin-right: 0.5rem;
+        }
+
+        body.c2-redesign .quiz-retry {
+            margin-top: 0.6rem;
+            border: 1px solid rgba(0, 95, 115, 0.3);
+            background: #fff;
+            border-radius: 999px;
+            padding: 0.45rem 0.9rem;
+            cursor: pointer;
+            font-weight: 700;
+            color: var(--c2-accent);
+        }
+
+        body.c2-redesign .quiz-retry:hover {
+            background: var(--c2-accent-soft);
+        }
+
+        body.c2-redesign .kp-navigation {
+            display: flex;
+            justify-content: space-between;
+            gap: 0.9rem;
+            margin-top: 2.4rem;
+            padding-bottom: 1rem;
+            flex-wrap: wrap;
+        }
+
+        body.c2-redesign .kp-navigation .btn {
+            border-radius: 999px;
+            font-weight: 700;
+            border: 1px solid rgba(0, 95, 115, 0.25);
+            background: rgba(255, 255, 255, 0.95);
+            color: var(--c2-accent);
+        }
+
+        body.c2-redesign .kp-navigation .btn.btn-primary {
+            background: linear-gradient(120deg, #0b6f84, #005f73);
+            border-color: transparent;
+            color: #fff;
+        }
+
+        body.c2-redesign .page-footer {
+            margin-top: 3rem;
+            padding: 1.6rem 0 2rem;
+            border-top: 1px solid var(--c2-border);
+            text-align: center;
+            color: rgba(26, 33, 53, 0.68);
+            font-weight: 600;
+        }
+
+        body.c2-redesign .depth-btn:focus-visible,
+        body.c2-redesign .quiz-retry:focus-visible,
+        body.c2-redesign .btn:focus-visible,
+        body.c2-redesign a:focus-visible {
+            outline: 3px solid var(--c2-highlight);
+            outline-offset: 3px;
+        }
+
+        body.c2-redesign .memory-aid-card,
+        body.c2-redesign .memory-aid-card strong,
+        body.c2-redesign .memory-aid-card p {
+            color: var(--c2-ink) !important;
+        }
+
         /* Fraud Triangle SVG Styles */
         .fraud-triangle-container {
             position: relative;
@@ -15,37 +386,41 @@
             height: 480px;
             margin: 2rem auto;
             overflow: visible;
+            border-radius: 16px;
+            border: 1px solid rgba(0, 95, 115, 0.2);
+            background: linear-gradient(135deg, #f5fbfc, #ecf4f6);
+            padding: 0.75rem;
         }
-        
+
         .fraud-triangle-svg {
             width: 100%;
             height: 100%;
             overflow: visible;
         }
-        
+
         .triangle-bg {
             fill: rgba(26, 35, 126, 0.05);
-            stroke: var(--primary);
+            stroke: #0b6f84;
             stroke-width: 2;
-            transition: all 0.3s ease;
+            transition: fill 0.3s ease;
         }
-        
+
         .triangle-bg:hover {
             fill: rgba(26, 35, 126, 0.1);
         }
-        
+
         .node-circle {
             cursor: pointer;
-            transition: all 0.3s ease;
-            filter: drop-shadow(0 4px 6px rgba(0,0,0,0.1));
+            transition: transform 0.3s ease, filter 0.3s ease;
+            filter: drop-shadow(0 4px 6px rgba(0, 0, 0, 0.1));
         }
-        
+
         .node-circle:hover {
-            filter: drop-shadow(0 8px 15px rgba(0,0,0,0.2));
+            filter: drop-shadow(0 8px 15px rgba(0, 0, 0, 0.2));
             transform: scale(1.08);
             transform-origin: center;
         }
-        
+
         .node-text {
             font-size: 18px;
             font-weight: bold;
@@ -53,52 +428,102 @@
             dominant-baseline: middle;
             pointer-events: none;
         }
-        
+
         .node-subtext {
             font-size: 13px;
             text-anchor: middle;
             dominant-baseline: middle;
             pointer-events: none;
         }
-        
-        .node-description {
-            font-size: 12px;
-            fill: var(--text-main);
-        }
-        
+
         .connection-line {
-            stroke: var(--primary-light);
+            stroke: #2d6f7a;
             stroke-width: 3;
-            stroke-dasharray: 10,5;
+            stroke-dasharray: 10, 5;
             animation: dashFlow 2s linear infinite;
         }
-        
-        @keyframes dashFlow {
-            to {
-                stroke-dashoffset: -30;
-            }
-        }
-        
+
         .center-text {
             font-size: 18px;
             font-weight: bold;
-            fill: var(--primary);
+            fill: #0b6f84;
             text-anchor: middle;
         }
-        
+
         .tooltip-box {
             opacity: 0;
             transition: opacity 0.3s ease;
             pointer-events: none;
         }
-        
+
         .fraud-node:hover .tooltip-box {
             opacity: 1;
         }
-        
-        /* Ensure tooltips are above everything */
+
+        .fraud-node:focus .tooltip-box,
+        .fraud-node.is-active .tooltip-box {
+            opacity: 1;
+        }
+
+        .fraud-node:focus .node-circle,
+        .fraud-node.is-active .node-circle {
+            filter: drop-shadow(0 8px 16px rgba(0, 0, 0, 0.22));
+            transform: scale(1.08);
+            transform-origin: center;
+        }
+
         .tooltip-box rect {
             fill: #ffffff;
+        }
+
+        @keyframes dashFlow {
+            to {
+                stroke-dashoffset: -30;
+            }
+        }
+
+        @keyframes c2Fade {
+            from {
+                opacity: 0;
+                transform: translateY(8px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @media (max-width: 900px) {
+            body.c2-redesign .kp-header::after {
+                display: none;
+            }
+
+            body.c2-redesign .kp-header,
+            body.c2-redesign .kp-section,
+            body.c2-redesign .interactive-section {
+                padding: 1.3rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            body.c2-redesign .kp-navigation .btn {
+                width: 100%;
+                text-align: center;
+            }
+
+            .fraud-triangle-container {
+                height: 420px;
+                padding: 0.4rem;
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+                scroll-behavior: auto !important;
+            }
         }
     </style>
 <!-- Google tag (gtag.js) -->
@@ -111,9 +536,11 @@
   gtag('config', 'G-50MTQPVR7D');
 </script>
 
+    <link rel="stylesheet" href="../../theme-redesign.css">
 </head>
 
-<body>
+<body class="c2-redesign course-redesign">
+    <a href="#main-content" class="skip-link">Skip to main content</a>
     <canvas id="global-bg-canvas"
         style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; background: var(--bg-light); pointer-events: none;"></canvas>
 
@@ -129,7 +556,7 @@
         </div>
     </header>
 
-    <main class="container">
+    <main class="container" id="main-content">
         <div class="breadcrumbs">
             <a href="../../index.html">Home</a> <span>/</span> <a href="../part1.html">Part 1</a> <span>/</span> <a
                 href="ch01.html">Chapter 1</a> <span>/</span> C2
@@ -137,7 +564,7 @@
 
         <article class="animate-fade-in">
             <div class="kp-header">
-                <h1 style="border-left: 8px solid var(--secondary); padding-left: 1rem; margin: 2rem 0;">Ethics and GAAP</h1>
+                <h1 class="hero-title">Ethics and GAAP</h1>
             </div>
 
             <!-- Learning Objectives -->
@@ -203,7 +630,7 @@
                         <text x="350" y="285" font-size="14" fill="#7f8c8d" text-anchor="middle">All three factors must be present</text>
 
                         <!-- Top Node: Opportunity -->
-                        <g class="fraud-node" data-factor="opportunity">
+                        <g class="fraud-node" data-factor="opportunity" role="button" tabindex="0" aria-label="Opportunity details in fraud triangle">
                             <circle class="node-circle" cx="350" cy="70" r="85" fill="#f39c12"/>
                             <text class="node-text" x="350" y="58" fill="white" font-size="22" font-weight="bold">OPPORTUNITY</text>
                             <text class="node-subtext" x="350" y="88" fill="white" font-size="14">"The Safe is Open"</text>
@@ -218,7 +645,7 @@
                         </g>
 
                         <!-- Bottom-Left Node: Pressure -->
-                        <g class="fraud-node" data-factor="pressure">
+                        <g class="fraud-node" data-factor="pressure" role="button" tabindex="0" aria-label="Pressure details in fraud triangle">
                             <circle class="node-circle" cx="180" cy="385" r="85" fill="#e74c3c"/>
                             <text class="node-text" x="180" y="370" fill="white" font-size="20" font-weight="bold">PRESSURE</text>
                             <text class="node-subtext" x="180" y="402" fill="white" font-size="14">"I Have Debts"</text>
@@ -233,7 +660,7 @@
                         </g>
 
                         <!-- Bottom-Right Node: Rationalization -->
-                        <g class="fraud-node" data-factor="rationalization">
+                        <g class="fraud-node" data-factor="rationalization" role="button" tabindex="0" aria-label="Rationalization details in fraud triangle">
                             <circle class="node-circle" cx="520" cy="385" r="85" fill="#3498db"/>
                             <text class="node-text" x="520" y="370" fill="white" font-size="20" font-weight="bold">RATIONALIZATION</text>
                             <text class="node-subtext" x="520" y="402" fill="white" font-size="14">"They Owe Me"</text>
@@ -249,16 +676,64 @@
                     </svg>
                 </div>
 
+                <div class="professional-tip" style="margin-top: 1rem;">
+                    <strong>Triangle Focus Detail:</strong>
+                    <span id="fraud-node-detail-text" aria-live="polite">Select a triangle node to review its risk factor details.</span>
+                </div>
+
                 <script>
-                    // Add hover interactivity for fraud triangle nodes
-                    document.querySelectorAll('.fraud-node').forEach(node => {
-                        node.addEventListener('mouseenter', function() {
-                            const tooltip = this.querySelector('.tooltip-box');
-                            if (tooltip) tooltip.style.opacity = '1';
+                    // Add mouse + keyboard + touch interactivity for fraud triangle nodes
+                    const fraudNodeDetails = {
+                        opportunity: 'Opportunity: weak internal controls and easy access to assets create fraud possibilities.',
+                        pressure: 'Pressure: financial stress, unrealistic targets, or personal emergencies increase fraud risk.',
+                        rationalization: 'Rationalization: people justify fraud with thoughts like "I am just borrowing" or "they owe me".'
+                    };
+
+                    function setFraudNodeActive(activeNode) {
+                        document.querySelectorAll('.fraud-node').forEach(node => {
+                            node.classList.toggle('is-active', node === activeNode);
                         });
-                        node.addEventListener('mouseleave', function() {
-                            const tooltip = this.querySelector('.tooltip-box');
-                            if (tooltip) tooltip.style.opacity = '0';
+                    }
+
+                    function updateFraudDetail(node) {
+                        if (!node) return;
+                        const factor = node.dataset.factor;
+                        const detail = document.getElementById('fraud-node-detail-text');
+                        if (detail && fraudNodeDetails[factor]) {
+                            detail.textContent = fraudNodeDetails[factor];
+                        }
+                    }
+
+                    document.querySelectorAll('.fraud-node').forEach(node => {
+                        node.addEventListener('mouseenter', () => {
+                            setFraudNodeActive(node);
+                            updateFraudDetail(node);
+                        });
+
+                        node.addEventListener('focus', () => {
+                            setFraudNodeActive(node);
+                            updateFraudDetail(node);
+                        });
+
+                        node.addEventListener('mouseleave', () => {
+                            setFraudNodeActive(null);
+                        });
+
+                        node.addEventListener('blur', () => {
+                            setFraudNodeActive(null);
+                        });
+
+                        node.addEventListener('click', () => {
+                            setFraudNodeActive(node);
+                            updateFraudDetail(node);
+                        });
+
+                        node.addEventListener('keydown', (event) => {
+                            if (event.key === 'Enter' || event.key === ' ') {
+                                event.preventDefault();
+                                setFraudNodeActive(node);
+                                updateFraudDetail(node);
+                            }
                         });
                     });
                 </script>
@@ -288,9 +763,9 @@
 
                 <!-- Depth Toggle -->
                 <div class="depth-toggle">
-                    <button class="depth-btn active" onclick="setGAAPDepth('overview')">Overview</button>
-                    <button class="depth-btn" onclick="setGAAPDepth('detailed')">Detailed Examples</button>
-                    <button class="depth-btn" onclick="setGAAPDepth('advanced')">Advanced Applications</button>
+                    <button class="depth-btn active" onclick="setGAAPDepth('overview', event)">Overview</button>
+                    <button class="depth-btn" onclick="setGAAPDepth('detailed', event)">Detailed Examples</button>
+                    <button class="depth-btn" onclick="setGAAPDepth('advanced', event)">Advanced Applications</button>
                 </div>
 
                 <!-- Overview Level -->
@@ -494,7 +969,7 @@
                         </div>
 
                         <button class="btn btn-primary quiz-submit">Check Classification</button>
-                        <div class="feedback"></div>
+                        <div class="feedback" aria-live="polite"></div>
                         <button class="quiz-retry">Try Again</button>
                     </div>
                 </div>
@@ -631,34 +1106,36 @@
                     </div>
 
                     <button class="btn btn-primary quiz-submit">Submit All Answers</button>
-                    <div class="feedback"></div>
+                    <div class="feedback" aria-live="polite"></div>
                     <button class="quiz-retry">Try Again</button>
                 </div>
             </section>
 
             <!-- Navigation -->
-            <nav class="kp-navigation" style="display: flex; justify-content: space-between; margin-top: 4rem; padding-bottom: 2rem;">
-                <a href="ch01_C1.html" class="btn" style="background: #eee;">← Previous: Purpose & Users</a>
+            <nav class="kp-navigation">
+                <a href="ch01_C1.html" class="btn">← Previous: Purpose & Users</a>
                 <a href="ch01_A1.html" class="btn btn-primary">Next: Accounting Equation →</a>
             </nav>
         </article>
     </main>
 
-    <footer style="margin-top: 5rem; padding: 2rem 0; border-top: 1px solid #ddd; text-align: center; color: #888;">
+    <footer class="page-footer">
         <p>Accounting Essentials | Chapter 1 | Concept 2</p>
     </footer>
 
     <script src="../../components-enhanced.js"></script>
     <script>
-        function setGAAPDepth(depth) {
+        function setGAAPDepth(depth, evt) {
             document.querySelectorAll('.depth-btn').forEach(btn => btn.classList.remove('active'));
-            event.target.classList.add('active');
+            if (evt && evt.target) {
+                evt.target.classList.add('active');
+            }
 
             document.querySelectorAll('.depth-content').forEach(content => content.classList.remove('active'));
             document.getElementById(`gaap-${depth}`).classList.add('active');
         }
     </script>
-    <script src="../../components.js"></script>
+    <script src="../../theme-redesign.js"></script>
 </body>
 
 </html>

@@ -5,7 +5,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>C1: Inventory Basics | ACCOUNTING ESSENTIALS</title>
-    <link rel="stylesheet" href="../../styles.css">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght,SOFT@9..144,600,0&amp;family=Manrope:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../styles.css">
     <style>
         /* Additional styles for comprehensive knowledge point */
         .warehouse-rules {
@@ -294,10 +297,12 @@
   gtag('config', 'G-50MTQPVR7D');
 </script>
 
+    <link rel="stylesheet" href="../../theme-redesign.css">
 </head>
 
-<body>
-    <canvas id="global-bg-canvas"
+<body class="course-redesign">
+        <a href="#main-content" class="skip-link">Skip to main content</a>
+<canvas id="global-bg-canvas"
         style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; background: var(--bg-light); pointer-events: none;"></canvas>
 
     <header>
@@ -312,7 +317,7 @@
         </div>
     </header>
 
-    <main class="container">
+    <main class="container" id="main-content">
         <div class="breadcrumbs">
             <a href="../../index.html">Home</a> <span>/</span> <a href="../../part2/part2.html">Part 2</a>
             <span>/</span> <a href="ch06.html">Chapter 6</a> <span>/</span> C1
@@ -571,39 +576,39 @@
 
                         <div class="count-checklist">
                             <div class="checklist-item">
-                                <div class="checklist-box" onclick="toggleCheck(this)">✓</div>
+                                <div class="checklist-box" onclick="toggleCheck(this)" role="button" tabindex="0" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();this.click();}">✓</div>
                                 <div>Pre-numbered inventory tags prepared</div>
                             </div>
                             <div class="checklist-item">
-                                <div class="checklist-box" onclick="toggleCheck(this)">✓</div>
+                                <div class="checklist-box" onclick="toggleCheck(this)" role="button" tabindex="0" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();this.click();}">✓</div>
                                 <div>Counting teams trained and supervised</div>
                             </div>
                             <div class="checklist-item">
-                                <div class="checklist-box" onclick="toggleCheck(this)">✓</div>
+                                <div class="checklist-box" onclick="toggleCheck(this)" role="button" tabindex="0" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();this.click();}">✓</div>
                                 <div>Counters do NOT have inventory custody responsibilities</div>
                             </div>
                             <div class="checklist-item">
-                                <div class="checklist-box" onclick="toggleCheck(this)">✓</div>
+                                <div class="checklist-box" onclick="toggleCheck(this)" role="button" tabindex="0" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();this.click();}">✓</div>
                                 <div>Operations halted during count (no receiving or shipping)</div>
                             </div>
                             <div class="checklist-item">
-                                <div class="checklist-box" onclick="toggleCheck(this)">✓</div>
+                                <div class="checklist-box" onclick="toggleCheck(this)" role="button" tabindex="0" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();this.click();}">✓</div>
                                 <div>Goods in transit identified and ownership confirmed</div>
                             </div>
                             <div class="checklist-item">
-                                <div class="checklist-box" onclick="toggleCheck(this)">✓</div>
+                                <div class="checklist-box" onclick="toggleCheck(this)" role="button" tabindex="0" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();this.click();}">✓</div>
                                 <div>Consigned goods identified and separated (not counted)</div>
                             </div>
                             <div class="checklist-item">
-                                <div class="checklist-box" onclick="toggleCheck(this)">✓</div>
+                                <div class="checklist-box" onclick="toggleCheck(this)" role="button" tabindex="0" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();this.click();}">✓</div>
                                 <div>Damaged/obsolete goods identified and excluded</div>
                             </div>
                             <div class="checklist-item">
-                                <div class="checklist-box" onclick="toggleCheck(this)">✓</div>
+                                <div class="checklist-box" onclick="toggleCheck(this)" role="button" tabindex="0" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();this.click();}">✓</div>
                                 <div>Second count performed for verification</div>
                             </div>
                             <div class="checklist-item">
-                                <div class="checklist-box" onclick="toggleCheck(this)">✓</div>
+                                <div class="checklist-box" onclick="toggleCheck(this)" role="button" tabindex="0" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();this.click();}">✓</div>
                                 <div>Counts reconciled with perpetual records (if applicable)</div>
                             </div>
                         </div>
@@ -620,7 +625,7 @@
                         <p>Inventory should be reported at the lower of its cost OR its current market value. This is a conservatism principle—if inventory value has declined, recognize the loss immediately.</p>
 
                         <div class="decision-tree">
-                            <div class="decision-node-inventory" onclick="this.classList.toggle('expanded')">
+                            <div class="decision-node-inventory" onclick="this.classList.toggle('expanded')" role="button" tabindex="0" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();this.click();}">
                                 <div class="decision-question-inventory">What is "Market Value" in LCM?</div>
                                 <div class="decision-answer-inventory">
                                     <strong>Market Value = Replacement Cost</strong><br>
@@ -630,7 +635,7 @@
                                 </div>
                             </div>
 
-                            <div class="decision-node-inventory" onclick="this.classList.toggle('expanded')">
+                            <div class="decision-node-inventory" onclick="this.classList.toggle('expanded')" role="button" tabindex="0" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();this.click();}">
                                 <div class="decision-question-inventory">How to Apply LCM by Item vs. Category</div>
                                 <div class="decision-answer-inventory">
                                     <strong>By Individual Item:</strong> Apply LCM to each item separately.<br>
@@ -645,7 +650,7 @@
                                 </div>
                             </div>
 
-                            <div class="decision-node-inventory" onclick="this.classList.toggle('expanded')">
+                            <div class="decision-node-inventory" onclick="this.classList.toggle('expanded')" role="button" tabindex="0" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();this.click();}">
                                 <div class="decision-question-inventory">Recording LCM Adjustments</div>
                                 <div class="decision-answer-inventory">
                                     <strong>Journal Entry:</strong><br>
@@ -750,19 +755,19 @@
                         <p style="margin-bottom: 1.5rem; color: var(--text-muted);">Scenario: TechMart bought 100 laptops from Supplier Inc. The shipment is in transit on Dec 31. Terms: FOB Shipping Point.</p>
                         
                         <div class="scenario-display">
-                            <div class="location-card" onclick="checkOwnership(this, 'supplier')">
+                            <div class="location-card" onclick="checkOwnership(this, 'supplier')" role="button" tabindex="0" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();this.click();}">
                                 <div class="location-icon">🏭</div>
                                 <div class="location-name">Supplier's Warehouse</div>
                                 <div class="location-desc" style="font-size: 0.85rem; color: var(--text-muted);">Goods left here on Dec 28</div>
                                 <div class="location-status" style="display: none;"></div>
                             </div>
-                            <div class="location-card" onclick="checkOwnership(this, 'transit')">
+                            <div class="location-card" onclick="checkOwnership(this, 'transit')" role="button" tabindex="0" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();this.click();}">
                                 <div class="location-icon">🚚</div>
                                 <div class="location-name">In Transit</div>
                                 <div class="location-desc" style="font-size: 0.85rem; color: var(--text-muted);">On the truck Dec 28-31</div>
                                 <div class="location-status" style="display: none;"></div>
                             </div>
-                            <div class="location-card" onclick="checkOwnership(this, 'mart')">
+                            <div class="location-card" onclick="checkOwnership(this, 'mart')" role="button" tabindex="0" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();this.click();}">
                                 <div class="location-icon">🏪</div>
                                 <div class="location-name">TechMart Store</div>
                                 <div class="location-desc" style="font-size: 0.85rem; color: var(--text-muted);">Goods arrive Jan 2</div>
@@ -819,19 +824,19 @@
                         <div class="cost-builder">
                             <div class="cost-pool included">
                                 <h4>✅ Include in Inventory</h4>
-                                <div class="cost-item" onclick="selectCost(this, true)" data-correct="true">
+                                <div class="cost-item" onclick="selectCost(this, true)" data-correct="true" role="button" tabindex="0" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();this.click();}">
                                     <div class="cost-checkbox">✓</div>
                                     <div>Invoice Price ($1,000)</div>
                                 </div>
-                                <div class="cost-item" onclick="selectCost(this, true)" data-correct="true">
+                                <div class="cost-item" onclick="selectCost(this, true)" data-correct="true" role="button" tabindex="0" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();this.click();}">
                                     <div class="cost-checkbox">✓</div>
                                     <div>Freight-In ($50)</div>
                                 </div>
-                                <div class="cost-item" onclick="selectCost(this, true)" data-correct="true">
+                                <div class="cost-item" onclick="selectCost(this, true)" data-correct="true" role="button" tabindex="0" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();this.click();}">
                                     <div class="cost-checkbox">✓</div>
                                     <div>Import Duties ($30)</div>
                                 </div>
-                                <div class="cost-item" onclick="selectCost(this, true)" data-correct="true">
+                                <div class="cost-item" onclick="selectCost(this, true)" data-correct="true" role="button" tabindex="0" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();this.click();}">
                                     <div class="cost-checkbox">✓</div>
                                     <div>Insurance During Transit ($15)</div>
                                 </div>
@@ -839,19 +844,19 @@
 
                             <div class="cost-pool excluded">
                                 <h4>❌ Exclude from Inventory</h4>
-                                <div class="cost-item" onclick="selectCost(this, false)" data-correct="false">
+                                <div class="cost-item" onclick="selectCost(this, false)" data-correct="false" role="button" tabindex="0" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();this.click();}">
                                     <div class="cost-checkbox">✗</div>
                                     <div>Purchase Discounts ($20)</div>
                                 </div>
-                                <div class="cost-item" onclick="selectCost(this, false)" data-correct="false">
+                                <div class="cost-item" onclick="selectCost(this, false)" data-correct="false" role="button" tabindex="0" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();this.click();}">
                                     <div class="cost-checkbox">✗</div>
                                     <div>Freight-Out to Customers</div>
                                 </div>
-                                <div class="cost-item" onclick="selectCost(this, false)" data-correct="false">
+                                <div class="cost-item" onclick="selectCost(this, false)" data-correct="false" role="button" tabindex="0" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();this.click();}">
                                     <div class="cost-checkbox">✗</div>
                                     <div>Advertising Costs</div>
                                 </div>
-                                <div class="cost-item" onclick="selectCost(this, false)" data-correct="false">
+                                <div class="cost-item" onclick="selectCost(this, false)" data-correct="false" role="button" tabindex="0" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();this.click();}">
                                     <div class="cost-checkbox">✗</div>
                                     <div>Administrative Salaries</div>
                                 </div>
@@ -879,15 +884,15 @@
                                     Goods shipped FOB Destination on Dec 30 arrive Jan 3. Who owns them on Dec 31?
                                 </div>
                                 <div class="scenario-options">
-                                    <div class="scenario-option" onclick="checkScenario(this, 'a', false)">
+                                    <div class="scenario-option" onclick="checkScenario(this, 'a', false)" role="button" tabindex="0" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();this.click();}">
                                         <div class="scenario-radio"></div>
                                         <div>Buyer (they're almost there)</div>
                                     </div>
-                                    <div class="scenario-option" onclick="checkScenario(this, 'b', true)">
+                                    <div class="scenario-option" onclick="checkScenario(this, 'b', true)" role="button" tabindex="0" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();this.click();}">
                                         <div class="scenario-radio"></div>
                                         <div>Seller (FOB Destination = seller owns until delivery)</div>
                                     </div>
-                                    <div class="scenario-option" onclick="checkScenario(this, 'c', false)">
+                                    <div class="scenario-option" onclick="checkScenario(this, 'c', false)" role="button" tabindex="0" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();this.click();}">
                                         <div class="scenario-radio"></div>
                                         <div>Split between both companies</div>
                                     </div>
@@ -904,15 +909,15 @@
                                     Retailer holds consignor's jewelry. Who includes in inventory?
                                 </div>
                                 <div class="scenario-options">
-                                    <div class="scenario-option" onclick="checkScenario(this, 'a', false)">
+                                    <div class="scenario-option" onclick="checkScenario(this, 'a', false)" role="button" tabindex="0" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();this.click();}">
                                         <div class="scenario-radio"></div>
                                         <div>Retailer (they're holding the goods)</div>
                                     </div>
-                                    <div class="scenario-option" onclick="checkScenario(this, 'b', true)">
+                                    <div class="scenario-option" onclick="checkScenario(this, 'b', true)" role="button" tabindex="0" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();this.click();}">
                                         <div class="scenario-radio"></div>
                                         <div>Consignor/shipper (goods belong to owner until sold)</div>
                                     </div>
-                                    <div class="scenario-option" onclick="checkScenario(this, 'c', false)">
+                                    <div class="scenario-option" onclick="checkScenario(this, 'c', false)" role="button" tabindex="0" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();this.click();}">
                                         <div class="scenario-radio"></div>
                                         <div>Neither (only count when sold)</div>
                                     </div>
@@ -929,15 +934,15 @@
                                     Which cost is inventoriable (included in inventory cost)?
                                 </div>
                                 <div class="scenario-options">
-                                    <div class="scenario-option" onclick="checkScenario(this, 'a', false)">
+                                    <div class="scenario-option" onclick="checkScenario(this, 'a', false)" role="button" tabindex="0" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();this.click();}">
                                         <div class="scenario-radio"></div>
                                         <div>Freight-out to customers (selling expense)</div>
                                     </div>
-                                    <div class="scenario-option" onclick="checkScenario(this, 'b', true)">
+                                    <div class="scenario-option" onclick="checkScenario(this, 'b', true)" role="button" tabindex="0" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();this.click();}">
                                         <div class="scenario-radio"></div>
                                         <div>Freight-in from supplier (get goods ready for sale)</div>
                                     </div>
-                                    <div class="scenario-option" onclick="checkScenario(this, 'c', false)">
+                                    <div class="scenario-option" onclick="checkScenario(this, 'c', false)" role="button" tabindex="0" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();this.click();}">
                                         <div class="scenario-radio"></div>
                                         <div>CEO's salary (administrative overhead)</div>
                                     </div>
@@ -1153,7 +1158,7 @@
                     </div>
 
                     <button class="btn btn-primary quiz-submit">Submit All Answers</button>
-                    <div class="feedback"></div>
+                    <div class="feedback" aria-live="polite"></div>
                     <button class="quiz-retry">Try Again</button>
                 </div>
             </section>
@@ -1379,7 +1384,7 @@
             });
         }
     </script>
-    <script src="../../components.js"></script>
+    <script src="../../theme-redesign.js"></script>
 </body>
 
 </html>

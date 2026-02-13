@@ -5,7 +5,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>GreenMart Supermarket - Quarterly Inventory Management | ACCOUNTING ESSENTIALS</title>
-    <link rel="stylesheet" href="../../styles.css">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght,SOFT@9..144,600,0&amp;family=Manrope:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../styles.css">
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Lato:wght@300;400;600;700&display=swap" rel="stylesheet">
     <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-50MTQPVR7D"></script>
@@ -217,7 +220,7 @@
             font-weight: 600;
             color: var(--gm-text-muted);
             cursor: pointer;
-            transition: all 0.3s ease;
+            transition: transform 0.3s ease, opacity 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease, filter 0.3s ease;
             position: relative;
             bottom: -2px;
         }
@@ -296,7 +299,7 @@
             border-radius: 8px;
             font-family: 'Lato', sans-serif;
             font-size: 1rem;
-            transition: all 0.3s ease;
+            transition: transform 0.3s ease, opacity 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease, filter 0.3s ease;
         }
 
         .gm-input:focus {
@@ -327,7 +330,7 @@
             font-size: 1rem;
             font-weight: 600;
             cursor: pointer;
-            transition: all 0.3s ease;
+            transition: transform 0.3s ease, opacity 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease, filter 0.3s ease;
         }
 
         .gm-btn-primary {
@@ -373,7 +376,7 @@
             border: 2px solid var(--gm-border);
             border-radius: 12px;
             cursor: pointer;
-            transition: all 0.3s ease;
+            transition: transform 0.3s ease, opacity 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease, filter 0.3s ease;
             text-align: center;
         }
 
@@ -433,7 +436,7 @@
             border-radius: 8px;
             margin-top: 0.5rem;
             border: 1px solid var(--gm-border);
-            transition: all 0.3s ease;
+            transition: transform 0.3s ease, opacity 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease, filter 0.3s ease;
         }
 
         .gm-ledger-row:hover {
@@ -464,7 +467,7 @@
             border: 2px solid var(--gm-border);
             border-radius: 16px;
             padding: 1.75rem;
-            transition: all 0.3s ease;
+            transition: transform 0.3s ease, opacity 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease, filter 0.3s ease;
         }
 
         .gm-calc-card:hover {
@@ -623,7 +626,7 @@
             border-radius: 16px;
             padding: 2rem;
             margin-bottom: 1.5rem;
-            transition: all 0.3s ease;
+            transition: transform 0.3s ease, opacity 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease, filter 0.3s ease;
         }
 
         .gm-po-card:hover {
@@ -729,7 +732,7 @@
             white-space: nowrap;
             opacity: 0;
             visibility: hidden;
-            transition: all 0.3s ease;
+            transition: transform 0.3s ease, opacity 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease, filter 0.3s ease;
             z-index: 100;
         }
 
@@ -802,10 +805,12 @@
             50% { transform: scale(1.02); }
         }
     </style>
+    <link rel="stylesheet" href="../../theme-redesign.css">
 </head>
 
-<body>
-    <canvas id="global-bg-canvas"
+<body class="course-redesign">
+        <a href="#main-content" class="skip-link">Skip to main content</a>
+<canvas id="global-bg-canvas"
         style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; background: var(--gm-bg-cream); pointer-events: none;"></canvas>
 
     <!-- Navigation -->
@@ -849,7 +854,7 @@
         </div>
     </div>
 
-    <main class="container">
+    <main class="container" id="main-content">
         <!-- Dashboard Stats -->
         <div class="gm-dashboard">
             <div class="gm-stat-card">
@@ -976,7 +981,7 @@
                     </div>
                 </div>
 
-                <div class="gm-feedback" id="po-feedback"></div>
+                <div class="gm-feedback" aria-live="polite" id="po-feedback"></div>
             </div>
 
             <!-- Goods Receipt Tab -->
@@ -1021,7 +1026,7 @@
                     </div>
                 </div>
 
-                <div class="gm-feedback" id="gr-feedback"></div>
+                <div class="gm-feedback" aria-live="polite" id="gr-feedback"></div>
             </div>
 
             <!-- Invoice Matching Tab -->
@@ -1085,7 +1090,7 @@
                     </div>
                 </div>
 
-                <div class="gm-feedback" id="matching-feedback"></div>
+                <div class="gm-feedback" aria-live="polite" id="matching-feedback"></div>
             </div>
 
             <!-- Discount Calculator Tab -->
@@ -1149,7 +1154,7 @@
                         </div>
                     </div>
 
-                    <div class="gm-feedback" id="discount-feedback"></div>
+                    <div class="gm-feedback" aria-live="polite" id="discount-feedback"></div>
                 </div>
             </div>
         </section>
@@ -1168,17 +1173,17 @@
 
             <!-- Method Selector -->
             <div class="gm-method-selector">
-                <div class="gm-method-btn active" onclick="setInventoryMethod('FIFO')">
+                <div class="gm-method-btn active" onclick="setInventoryMethod('FIFO')" role="button" tabindex="0" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();this.click();}">
                     <div class="method-icon">⬆️</div>
                     <div class="method-name">FIFO</div>
                     <div class="method-desc">First-In, First-Out</div>
                 </div>
-                <div class="gm-method-btn" onclick="setInventoryMethod('LIFO')">
+                <div class="gm-method-btn" onclick="setInventoryMethod('LIFO')" role="button" tabindex="0" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();this.click();}">
                     <div class="method-icon">⬇️</div>
                     <div class="method-name">LIFO</div>
                     <div class="method-desc">Last-In, First-Out</div>
                 </div>
-                <div class="gm-method-btn" onclick="setInventoryMethod('WA')">
+                <div class="gm-method-btn" onclick="setInventoryMethod('WA')" role="button" tabindex="0" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();this.click();}">
                     <div class="method-icon">⚖️</div>
                     <div class="method-name">Weighted Avg</div>
                     <div class="method-desc">Average Cost Method</div>
@@ -1307,7 +1312,7 @@
                 </div>
             </div>
 
-            <div class="gm-feedback" id="inventory-feedback"></div>
+            <div class="gm-feedback" aria-live="polite" id="inventory-feedback"></div>
         </section>
 
         <!-- Module 3: Sales Management -->
@@ -1412,7 +1417,7 @@
                     </div>
                 </div>
 
-                <div class="gm-feedback" id="sale-feedback"></div>
+                <div class="gm-feedback" aria-live="polite" id="sale-feedback"></div>
             </div>
 
             <!-- COGS Calculation Tab -->
@@ -1516,7 +1521,7 @@
                     </button>
                 </div>
 
-                <div class="gm-feedback" id="return-feedback"></div>
+                <div class="gm-feedback" aria-live="polite" id="return-feedback"></div>
             </div>
         </section>
 
@@ -1636,7 +1641,7 @@
                             <p style="font-size: 0.95rem;">COGS = $60,540 − $14,280 = <strong>$46,260</strong></p>
                         </div>
 
-                        <div class="gm-feedback" id="gp-feedback" style="margin-top: 1.5rem;"></div>
+                        <div class="gm-feedback" aria-live="polite" id="gp-feedback" style="margin-top: 1.5rem;"></div>
                     </div>
                 </div>
             </div>
@@ -1727,7 +1732,7 @@
                             <p style="font-size: 0.95rem;">This places GreenMart <strong>within the healthy range</strong> for grocery retailers, indicating efficient inventory management.</p>
                         </div>
 
-                        <div class="gm-feedback" id="turnover-feedback" style="margin-top: 1.5rem;"></div>
+                        <div class="gm-feedback" aria-live="polite" id="turnover-feedback" style="margin-top: 1.5rem;"></div>
                     </div>
                 </div>
             </div>
@@ -1765,7 +1770,7 @@
                     </div>
                 </div>
 
-                <div class="gm-feedback" id="ratio-feedback" style="margin-top: 1.5rem;"></div>
+                <div class="gm-feedback" aria-live="polite" id="ratio-feedback" style="margin-top: 1.5rem;"></div>
             </div>
         </section>
 
@@ -2181,6 +2186,7 @@
             document.getElementById('stat-units').textContent = '450 units';
         });
     </script>
+    <script src="../../theme-redesign.js"></script>
 </body>
 
 </html>

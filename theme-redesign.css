@@ -1,0 +1,330 @@
+:root {
+    --ui-ink: #1a2135;
+    --ui-accent: #005f73;
+    --ui-highlight: #ee9b00;
+    --ui-border: rgba(26, 33, 53, 0.16);
+    --ui-shadow: 0 8px 20px rgba(31, 35, 46, 0.08);
+    --ui-shadow-lg: 0 18px 40px rgba(31, 35, 46, 0.1);
+}
+
+body.course-redesign {
+    font-family: 'Manrope', sans-serif;
+    color: var(--ui-ink);
+    background:
+        radial-gradient(circle at 12% 8%, rgba(238, 155, 0, 0.08), transparent 30%),
+        radial-gradient(circle at 89% 18%, rgba(0, 95, 115, 0.1), transparent 28%),
+        linear-gradient(180deg, #fcfaf4 0%, #f7f3e8 56%, #f1ebdd 100%);
+}
+
+body.course-redesign::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    background-image:
+        linear-gradient(rgba(0, 0, 0, 0.015) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0, 0, 0, 0.015) 1px, transparent 1px);
+    background-size: 26px 26px;
+    z-index: -1;
+}
+
+body.course-redesign .skip-link {
+    position: absolute;
+    left: 1rem;
+    top: -48px;
+    z-index: 2000;
+    padding: 0.65rem 0.9rem;
+    border-radius: 8px;
+    background: #0b6f84;
+    color: #fff;
+    font-weight: 700;
+}
+
+body.course-redesign .skip-link:focus {
+    top: 0.75rem;
+}
+
+body.course-redesign header {
+    background: rgba(252, 250, 244, 0.92);
+    border-bottom: 1px solid rgba(31, 35, 46, 0.1);
+    box-shadow: 0 8px 24px rgba(35, 41, 60, 0.08);
+}
+
+body.course-redesign .logo {
+    font-family: 'Fraunces', serif;
+    letter-spacing: 0.01em;
+}
+
+body.course-redesign .logo span {
+    color: var(--ui-highlight);
+}
+
+body.course-redesign .breadcrumbs {
+    margin-top: 2rem;
+    margin-bottom: 1.2rem;
+    padding: 0.65rem 1rem;
+    background: rgba(255, 255, 255, 0.56);
+    border: 1px solid var(--ui-border);
+    border-radius: 999px;
+    width: fit-content;
+    font-weight: 600;
+    box-shadow: var(--ui-shadow);
+    backdrop-filter: blur(8px);
+}
+
+body.course-redesign .kp-header {
+    margin-bottom: 1.3rem;
+    padding: 2rem;
+    background: linear-gradient(145deg, #fffdf7 0%, #f0ece0 100%);
+    border: 1px solid rgba(0, 95, 115, 0.24);
+    border-radius: 24px;
+    box-shadow: var(--ui-shadow-lg);
+}
+
+body.course-redesign .hero-title,
+body.course-redesign .kp-header h1 {
+    font-family: 'Fraunces', serif;
+    font-size: clamp(2rem, 5vw, 3.2rem);
+    line-height: 1.08;
+    margin: 0;
+    border-left: 8px solid var(--ui-highlight);
+    padding-left: 1rem;
+    color: var(--ui-ink);
+}
+
+body.course-redesign .kp-section,
+body.course-redesign .interactive-section,
+body.course-redesign .accounting-factory {
+    margin: 1.4rem 0;
+    background: linear-gradient(160deg, rgba(255, 255, 255, 0.92), rgba(247, 244, 234, 0.94));
+    border: 1px solid var(--ui-border);
+    border-radius: 18px;
+    padding: 2rem;
+    box-shadow: var(--ui-shadow);
+    position: relative;
+    overflow: hidden;
+}
+
+body.course-redesign .kp-section::before,
+body.course-redesign .interactive-section::before,
+body.course-redesign .accounting-factory::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 6px;
+    background: linear-gradient(90deg, var(--ui-accent), var(--ui-highlight));
+}
+
+body.course-redesign h2 {
+    font-family: 'Fraunces', serif;
+    color: var(--ui-ink);
+}
+
+body.course-redesign h3,
+body.course-redesign h4,
+body.course-redesign p,
+body.course-redesign li {
+    color: rgba(26, 33, 53, 0.88);
+}
+
+body.course-redesign .learning-objectives ul {
+    display: grid;
+    gap: 0.75rem;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+body.course-redesign .learning-objectives li {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.45rem;
+    padding: 0.8rem 1rem;
+    border-radius: 12px;
+    border: 1px solid rgba(0, 95, 115, 0.2);
+    background: linear-gradient(135deg, #d9eef0, rgba(255, 255, 255, 0.9));
+    font-weight: 600;
+}
+
+body.course-redesign .learning-objectives li::before {
+    content: "✓";
+    position: static;
+    display: inline-flex;
+    flex: 0 0 auto;
+    margin-right: 0;
+    color: var(--ui-accent);
+    font-weight: 800;
+}
+
+body.course-redesign .key-concepts-grid,
+body.course-redesign .card-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 1rem;
+}
+
+body.course-redesign .concept-card,
+body.course-redesign .content-card,
+body.course-redesign .worked-example,
+body.course-redesign .professional-tip,
+body.course-redesign .misconception-alert,
+body.course-redesign .memory-aid-card {
+    background: #fffeff;
+    border: 1px solid rgba(0, 95, 115, 0.22);
+    border-radius: 14px;
+    box-shadow: 0 8px 22px rgba(22, 30, 40, 0.08);
+    padding: 1rem 1.1rem;
+    min-width: 0;
+}
+
+body.course-redesign .content-card > div:last-child {
+    display: block;
+    gap: 0;
+    font-weight: inherit;
+    color: inherit;
+    font-size: inherit;
+}
+
+body.course-redesign .professional-tip::before,
+body.course-redesign .misconception-alert::before,
+body.course-redesign .example-step::before {
+    content: none;
+}
+
+body.course-redesign .professional-tip,
+body.course-redesign .misconception-alert {
+    line-height: 1.55;
+    overflow-wrap: anywhere;
+}
+
+body.course-redesign .professional-tip strong,
+body.course-redesign .misconception-alert strong {
+    display: block;
+    margin-bottom: 0.3rem;
+}
+
+body.course-redesign .memory-aid-card,
+body.course-redesign .memory-aid-card strong,
+body.course-redesign .memory-aid-card p {
+    color: var(--ui-ink) !important;
+}
+
+body.course-redesign .comparison-table {
+    width: 100%;
+    border-collapse: collapse;
+    border-radius: 14px;
+    overflow: hidden;
+    border: 1px solid rgba(0, 95, 115, 0.2);
+}
+
+body.course-redesign .comparison-table th {
+    background: linear-gradient(120deg, #0b6f84, #005f73);
+    color: #fff;
+    padding: 0.85rem;
+    text-align: left;
+}
+
+body.course-redesign .comparison-table td {
+    padding: 0.75rem;
+    border-bottom: 1px solid rgba(0, 95, 115, 0.12);
+    background: rgba(255, 255, 255, 0.8);
+}
+
+body.course-redesign .quiz-container label {
+    display: block;
+    background: #fff;
+    border: 1px solid rgba(0, 95, 115, 0.24);
+    padding: 0.75rem;
+    border-radius: 10px;
+    margin-bottom: 0.5rem;
+    cursor: pointer;
+}
+
+body.course-redesign .quiz-container label:hover {
+    border-color: var(--ui-highlight);
+    background: #fff8ea;
+}
+
+body.course-redesign .quiz-retry {
+    margin-top: 0.6rem;
+    border: 1px solid rgba(0, 95, 115, 0.3);
+    background: #fff;
+    border-radius: 999px;
+    padding: 0.45rem 0.9rem;
+    cursor: pointer;
+    font-weight: 700;
+    color: var(--ui-accent);
+}
+
+body.course-redesign .quiz-retry:hover {
+    background: #d9eef0;
+}
+
+body.course-redesign .kp-navigation,
+body.course-redesign .page-nav {
+    display: flex;
+    justify-content: space-between;
+    gap: 0.9rem;
+    margin-top: 2.4rem;
+    padding-bottom: 1rem;
+    flex-wrap: wrap;
+}
+
+body.course-redesign .kp-navigation .btn,
+body.course-redesign .page-nav .btn {
+    border-radius: 999px;
+    font-weight: 700;
+    border: 1px solid rgba(0, 95, 115, 0.25);
+    background: rgba(255, 255, 255, 0.95);
+    color: var(--ui-accent);
+}
+
+body.course-redesign .kp-navigation .btn.btn-primary,
+body.course-redesign .page-nav .btn.btn-primary {
+    background: linear-gradient(120deg, #0b6f84, #005f73);
+    border-color: transparent;
+    color: #fff;
+}
+
+body.course-redesign footer,
+body.course-redesign .page-footer {
+    margin-top: 3rem;
+    padding: 1.6rem 0 2rem;
+    border-top: 1px solid var(--ui-border);
+    text-align: center;
+    color: rgba(26, 33, 53, 0.68);
+    font-weight: 600;
+}
+
+body.course-redesign :is(.depth-btn,.factory-tab,.quiz-retry,.btn,a,[role="button"]):focus-visible {
+    outline: 3px solid var(--ui-highlight);
+    outline-offset: 3px;
+}
+
+@media (max-width: 900px) {
+    body.course-redesign .kp-header,
+    body.course-redesign .kp-section,
+    body.course-redesign .interactive-section,
+    body.course-redesign .accounting-factory {
+        padding: 1.3rem;
+    }
+}
+
+@media (max-width: 768px) {
+    body.course-redesign .kp-navigation .btn,
+    body.course-redesign .page-nav .btn {
+        width: 100%;
+        text-align: center;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+    }
+}

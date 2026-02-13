@@ -4,6 +4,9 @@
 <meta charset="UTF-8">  
 <meta name="viewport" content="width=device-width, initial-scale=1.0">  
 <title>Alibaba Accounting Simulation - Chapters 5 & 6</title>  
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght,SOFT@9..144,600,0&amp;family=Manrope:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet">
 <style>  
   * { margin: 0; padding: 0; box-sizing: border-box; }  
     
@@ -132,7 +135,7 @@
     font-weight: 500;  
     white-space: nowrap;  
     border-bottom: 3px solid transparent;  
-    transition: all 0.3s;  
+    transition: transform 0.3s, opacity 0.3s, box-shadow 0.3s, background-color 0.3s, color 0.3s, border-color 0.3s, filter 0.3s;  
     opacity: 0.7;  
     position: relative;  
   }  
@@ -315,7 +318,7 @@
     font-size: 14px;  
     font-weight: 600;  
     cursor: pointer;  
-    transition: all 0.3s;  
+    transition: transform 0.3s, opacity 0.3s, box-shadow 0.3s, background-color 0.3s, color 0.3s, border-color 0.3s, filter 0.3s;  
     font-family: inherit;  
     display: inline-flex;  
     align-items: center;  
@@ -406,7 +409,7 @@
     cursor: pointer;  
     font-size: 12px;  
     font-weight: 700;  
-    transition: all 0.2s;  
+    transition: transform 0.2s, opacity 0.2s, box-shadow 0.2s, background-color 0.2s, color 0.2s, border-color 0.2s, filter 0.2s;  
   }  
   
   .dr-cr-toggle button.active-dr {  
@@ -728,7 +731,7 @@
     background: var(--border);  
     color: var(--text-light);  
     cursor: pointer;  
-    transition: all 0.3s;  
+    transition: transform 0.3s, opacity 0.3s, box-shadow 0.3s, background-color 0.3s, color 0.3s, border-color 0.3s, filter 0.3s;  
   }  
   
   .step-dot.active { background: var(--primary); color: white; transform: scale(1.1); }  
@@ -749,7 +752,7 @@
     display: inline-flex;  
     align-items: center;  
     justify-content: center;  
-    transition: all 0.2s;  
+    transition: transform 0.2s, opacity 0.2s, box-shadow 0.2s, background-color 0.2s, color 0.2s, border-color 0.2s, filter 0.2s;  
   }  
   
   .hint-btn:hover { background: var(--warning); color: white; }  
@@ -815,7 +818,7 @@
     padding: 24px;  
     border: 2px solid var(--border);  
     cursor: pointer;  
-    transition: all 0.3s;  
+    transition: transform 0.3s, opacity 0.3s, box-shadow 0.3s, background-color 0.3s, color 0.3s, border-color 0.3s, filter 0.3s;  
     text-align: left;  
   }  
   
@@ -876,7 +879,7 @@
     border-radius: 10px;  
     padding: 16px;  
     margin-bottom: 12px;  
-    transition: all 0.3s;  
+    transition: transform 0.3s, opacity 0.3s, box-shadow 0.3s, background-color 0.3s, color 0.3s, border-color 0.3s, filter 0.3s;  
   }  
   
   .transaction-card.active-transaction {  
@@ -1110,9 +1113,11 @@
   ::-webkit-scrollbar-thumb { background: #ccc; border-radius: 4px; }  
   ::-webkit-scrollbar-thumb:hover { background: #aaa; }  
 </style>  
+    <link rel="stylesheet" href="../theme-redesign.css">
 </head>  
-<body>  
+<body class="course-redesign">  
   
+    <a href="#main-content" class="skip-link">Skip to main content</a>
 <!-- HEADER -->  
 <div class="header">  
   <div class="header-top">  
@@ -1130,19 +1135,19 @@
     </div>  
   </div>  
   <div class="nav-tabs" id="navTabs">  
-    <div class="nav-tab active" onclick="switchModule(0)">🏠 Dashboard<span class="tab-badge"></span></div>  
-    <div class="nav-tab" onclick="switchModule(1)">📦 M1: Purchases<span class="tab-badge"></span></div>  
-    <div class="nav-tab" onclick="switchModule(2)">💰 M2: Sales<span class="tab-badge"></span></div>  
-    <div class="nav-tab" onclick="switchModule(3)">📊 M3: Income Stmt<span class="tab-badge"></span></div>  
-    <div class="nav-tab" onclick="switchModule(4)">📋 M4: Inventory Costing<span class="tab-badge"></span></div>  
-    <div class="nav-tab" onclick="switchModule(5)">⚖️ M5: LCM & Errors<span class="tab-badge"></span></div>  
-    <div class="nav-tab" onclick="switchModule(6)">📈 M6: Ratios<span class="tab-badge"></span></div>  
-    <div class="nav-tab" onclick="switchModule(7)">🔒 M7: Closing<span class="tab-badge"></span></div>  
+    <div class="nav-tab active" onclick="switchModule(0)" role="button" tabindex="0" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();this.click();}">🏠 Dashboard<span class="tab-badge"></span></div>  
+    <div class="nav-tab" onclick="switchModule(1)" role="button" tabindex="0" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();this.click();}">📦 M1: Purchases<span class="tab-badge"></span></div>  
+    <div class="nav-tab" onclick="switchModule(2)" role="button" tabindex="0" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();this.click();}">💰 M2: Sales<span class="tab-badge"></span></div>  
+    <div class="nav-tab" onclick="switchModule(3)" role="button" tabindex="0" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();this.click();}">📊 M3: Income Stmt<span class="tab-badge"></span></div>  
+    <div class="nav-tab" onclick="switchModule(4)" role="button" tabindex="0" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();this.click();}">📋 M4: Inventory Costing<span class="tab-badge"></span></div>  
+    <div class="nav-tab" onclick="switchModule(5)" role="button" tabindex="0" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();this.click();}">⚖️ M5: LCM & Errors<span class="tab-badge"></span></div>  
+    <div class="nav-tab" onclick="switchModule(6)" role="button" tabindex="0" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();this.click();}">📈 M6: Ratios<span class="tab-badge"></span></div>  
+    <div class="nav-tab" onclick="switchModule(7)" role="button" tabindex="0" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();this.click();}">🔒 M7: Closing<span class="tab-badge"></span></div>  
   </div>  
 </div>  
   
 <!-- MAIN CONTENT -->  
-<div class="main-content">  
+<div class="main-content" id="main-content">  
   
 <!-- ====== MODULE 0: DASHBOARD ====== -->  
 <div class="module-panel active" id="module0">  
@@ -1173,7 +1178,7 @@
   
   <h3 style="margin: 25px 0 15px; font-size:18px;">📚 Learning Modules</h3>  
   <div class="module-cards-grid">  
-    <div class="module-card" onclick="switchModule(1)">  
+    <div class="module-card" onclick="switchModule(1)" role="button" tabindex="0" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();this.click();}">  
       <div class="mc-chapter">Chapter 5</div>  
       <h4>Module 1: Purchase Transactions</h4>  
       <p>Record merchandise purchases, returns, discounts, and freight using the perpetual inventory system.</p>  
@@ -1182,7 +1187,7 @@
       </div>  
       <div class="mc-status not-started" id="mc-status-1">○ Not Started</div>  
     </div>  
-    <div class="module-card" onclick="switchModule(2)">  
+    <div class="module-card" onclick="switchModule(2)" role="button" tabindex="0" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();this.click();}">  
       <div class="mc-chapter">Chapter 5</div>  
       <h4>Module 2: Sales Transactions</h4>  
       <p>Record merchandise sales, customer returns, sales discounts, and recognize revenue properly.</p>  
@@ -1191,7 +1196,7 @@
       </div>  
       <div class="mc-status not-started" id="mc-status-2">○ Not Started</div>  
     </div>  
-    <div class="module-card" onclick="switchModule(3)">  
+    <div class="module-card" onclick="switchModule(3)" role="button" tabindex="0" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();this.click();}">  
       <div class="mc-chapter">Chapter 5</div>  
       <h4>Module 3: Income Statements</h4>  
       <p>Prepare both multi-step and single-step income statements from Alibaba's merchandising data.</p>  
@@ -1200,7 +1205,7 @@
       </div>  
       <div class="mc-status not-started" id="mc-status-3">○ Not Started</div>  
     </div>  
-    <div class="module-card" onclick="switchModule(4)">  
+    <div class="module-card" onclick="switchModule(4)" role="button" tabindex="0" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();this.click();}">  
       <div class="mc-chapter">Chapter 6</div>  
       <h4>Module 4: Inventory Costing</h4>  
       <p>Apply FIFO, LIFO, and Weighted Average methods to compute COGS and ending inventory.</p>  
@@ -1209,7 +1214,7 @@
       </div>  
       <div class="mc-status not-started" id="mc-status-4">○ Not Started</div>  
     </div>  
-    <div class="module-card" onclick="switchModule(5)">  
+    <div class="module-card" onclick="switchModule(5)" role="button" tabindex="0" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();this.click();}">  
       <div class="mc-chapter">Chapter 6</div>  
       <h4>Module 5: LCM & Inventory Errors</h4>  
       <p>Apply Lower of Cost or Market rule and analyze effects of inventory errors on financial statements.</p>  
@@ -1218,7 +1223,7 @@
       </div>  
       <div class="mc-status not-started" id="mc-status-5">○ Not Started</div>  
     </div>  
-    <div class="module-card" onclick="switchModule(6)">  
+    <div class="module-card" onclick="switchModule(6)" role="button" tabindex="0" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();this.click();}">  
       <div class="mc-chapter">Chapters 5 & 6</div>  
       <h4>Module 6: Financial Ratios</h4>  
       <p>Calculate acid-test ratio, gross margin ratio, inventory turnover, and days' sales in inventory.</p>  
@@ -1227,7 +1232,7 @@
       </div>  
       <div class="mc-status not-started" id="mc-status-6">○ Not Started</div>  
     </div>  
-    <div class="module-card" onclick="switchModule(7)">  
+    <div class="module-card" onclick="switchModule(7)" role="button" tabindex="0" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();this.click();}">  
       <div class="mc-chapter">Chapter 5</div>  
       <h4>Module 7: Adjusting & Closing</h4>  
       <p>Prepare adjusting entries and closing entries for Alibaba's merchandising accounts at year-end.</p>  
@@ -1253,11 +1258,11 @@
       </div>  
   
       <div class="step-indicator" id="m1Steps">  
-        <div class="step-dot active" onclick="showM1Step(0)">1</div><div class="step-connector"></div>  
-        <div class="step-dot" onclick="showM1Step(1)">2</div><div class="step-connector"></div>  
-        <div class="step-dot" onclick="showM1Step(2)">3</div><div class="step-connector"></div>  
-        <div class="step-dot" onclick="showM1Step(3)">4</div><div class="step-connector"></div>  
-        <div class="step-dot" onclick="showM1Step(4)">5</div>  
+        <div class="step-dot active" onclick="showM1Step(0)" role="button" tabindex="0" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();this.click();}">1</div><div class="step-connector"></div>  
+        <div class="step-dot" onclick="showM1Step(1)" role="button" tabindex="0" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();this.click();}">2</div><div class="step-connector"></div>  
+        <div class="step-dot" onclick="showM1Step(2)" role="button" tabindex="0" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();this.click();}">3</div><div class="step-connector"></div>  
+        <div class="step-dot" onclick="showM1Step(3)" role="button" tabindex="0" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();this.click();}">4</div><div class="step-connector"></div>  
+        <div class="step-dot" onclick="showM1Step(4)" role="button" tabindex="0" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();this.click();}">5</div>  
       </div>  
   
       <!-- Step 1: Basic Purchase -->  
@@ -1324,7 +1329,7 @@
           </div>  
         </div>  
   
-        <div class="feedback" id="m1f1"></div>  
+        <div class="feedback" aria-live="polite" id="m1f1"></div>  
         <div class="btn-group">  
           <button class="btn btn-primary" onclick="checkM1Step1()">✓ Submit Entry</button>  
           <button class="btn btn-outline btn-sm" onclick="showAnswer('m1s0')">Show Answer</button>  
@@ -1379,7 +1384,7 @@
           </div>  
         </div>  
   
-        <div class="feedback" id="m1f2"></div>  
+        <div class="feedback" aria-live="polite" id="m1f2"></div>  
         <div class="btn-group">  
           <button class="btn btn-primary" onclick="checkM1Step2()">✓ Submit Entry</button>  
           <button class="btn btn-outline btn-sm" onclick="showAnswer('m1s1')">Show Answer</button>  
@@ -1432,7 +1437,7 @@
           </div>  
         </div>  
   
-        <div class="feedback" id="m1f3"></div>  
+        <div class="feedback" aria-live="polite" id="m1f3"></div>  
         <div class="btn-group">  
           <button class="btn btn-primary" onclick="checkM1Step3()">✓ Submit Entry</button>  
           <button class="btn btn-outline btn-sm" onclick="showAnswer('m1s2')">Show Answer</button>  
@@ -1498,7 +1503,7 @@
           </div>  
         </div>  
   
-        <div class="feedback" id="m1f4"></div>  
+        <div class="feedback" aria-live="polite" id="m1f4"></div>  
         <div class="btn-group">  
           <button class="btn btn-primary" onclick="checkM1Step4()">✓ Submit Entry</button>  
           <button class="btn btn-outline btn-sm" onclick="showAnswer('m1s3')">Show Answer</button>  
@@ -1535,7 +1540,7 @@
         <div style="margin-top:20px;">  
           <label style="font-size:14px; font-weight:600;">Ending Inventory Balance: ¥</label>  
           <input type="number" id="m1_final" placeholder="?" style="width:150px; margin-left:10px;">  
-          <div class="feedback" id="m1f5" style="margin-top:10px;"></div>  
+          <div class="feedback" aria-live="polite" id="m1f5" style="margin-top:10px;"></div>  
           <div class="btn-group">  
             <button class="btn btn-primary" onclick="checkM1Step5()">✓ Verify Balance</button>  
             <button class="btn btn-outline btn-sm" onclick="showAnswer('m1s4')">Show Answer</button>  
@@ -1563,9 +1568,9 @@
       </div>  
   
       <div class="step-indicator" id="m2Steps">  
-        <div class="step-dot active" onclick="showM2Step(0)">1</div><div class="step-connector"></div>  
-        <div class="step-dot" onclick="showM2Step(1)">2</div><div class="step-connector"></div>  
-        <div class="step-dot" onclick="showM2Step(2)">3</div>  
+        <div class="step-dot active" onclick="showM2Step(0)" role="button" tabindex="0" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();this.click();}">1</div><div class="step-connector"></div>  
+        <div class="step-dot" onclick="showM2Step(1)" role="button" tabindex="0" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();this.click();}">2</div><div class="step-connector"></div>  
+        <div class="step-dot" onclick="showM2Step(2)" role="button" tabindex="0" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();this.click();}">3</div>  
       </div>  
   
       <!-- Sale Transaction -->  
@@ -1639,7 +1644,7 @@
           </div>  
         </div>  
   
-        <div class="feedback" id="m2f1"></div>  
+        <div class="feedback" aria-live="polite" id="m2f1"></div>  
         <div class="btn-group">  
           <button class="btn btn-primary" onclick="checkM2Step1()">✓ Submit Both Entries</button>  
           <button class="btn btn-outline btn-sm" onclick="showAnswer('m2s0')">Show Answer</button>  
@@ -1712,7 +1717,7 @@
           </div>  
         </div>  
   
-        <div class="feedback" id="m2f2"></div>  
+        <div class="feedback" aria-live="polite" id="m2f2"></div>  
         <div class="btn-group">  
           <button class="btn btn-primary" onclick="checkM2Step2()">✓ Submit Both Entries</button>  
           <button class="btn btn-outline btn-sm" onclick="showAnswer('m2s1')">Show Answer</button>  
@@ -1772,7 +1777,7 @@
           </div>  
         </div>  
   
-        <div class="feedback" id="m2f3"></div>  
+        <div class="feedback" aria-live="polite" id="m2f3"></div>  
         <div class="btn-group">  
           <button class="btn btn-primary" onclick="checkM2Step3()">✓ Submit Entry</button>  
           <button class="btn btn-outline btn-sm" onclick="showAnswer('m2s2')">Show Answer</button>  
@@ -1831,7 +1836,7 @@
         </table>  
       </div>  
   
-      <div class="feedback" id="m3f1" style="margin-top:15px;"></div>  
+      <div class="feedback" aria-live="polite" id="m3f1" style="margin-top:15px;"></div>  
       <div class="btn-group">  
         <button class="btn btn-primary" onclick="checkM3()">✓ Check All Amounts</button>  
         <button class="btn btn-outline btn-sm" onclick="showAnswer('m3ans')">Show Answers</button>  
@@ -1926,7 +1931,7 @@
         </div>  
       </div>  
   
-      <div class="feedback" id="m4f1" style="margin-top:15px;"></div>  
+      <div class="feedback" aria-live="polite" id="m4f1" style="margin-top:15px;"></div>  
       <div class="btn-group">  
         <button class="btn btn-primary" onclick="checkM4()">✓ Check All Methods</button>  
         <button class="btn btn-outline btn-sm" onclick="toggleHint('m4hint')">💡 Show Calculation Guide</button>  
@@ -1989,7 +1994,7 @@
             </select>  
           </div>  
         </div>  
-        <div class="feedback" id="m4f2"></div>  
+        <div class="feedback" aria-live="polite" id="m4f2"></div>  
         <button class="btn btn-secondary btn-sm" onclick="checkM4Analysis()">✓ Check Analysis</button>  
       </div>  
     </div>  
@@ -2041,7 +2046,7 @@
         </tbody>  
       </table>  
   
-      <div class="feedback" id="m5f1" style="margin-top:10px;"></div>  
+      <div class="feedback" aria-live="polite" id="m5f1" style="margin-top:10px;"></div>  
       <div class="btn-group">  
         <button class="btn btn-primary" onclick="checkLCM()">✓ Check LCM</button>  
         <button class="btn btn-outline btn-sm" onclick="showAnswer('m5lcm')">Show Answers</button>  
@@ -2095,7 +2100,7 @@
         </tbody>  
       </table>  
   
-      <div class="feedback" id="m5f2" style="margin-top:10px;"></div>  
+      <div class="feedback" aria-live="polite" id="m5f2" style="margin-top:10px;"></div>  
       <div class="btn-group">  
         <button class="btn btn-primary" onclick="checkErrors()">✓ Check Error Analysis</button>  
         <button class="btn btn-outline btn-sm" onclick="showAnswer('m5err')">Show Answers</button>  
@@ -2182,7 +2187,7 @@
         </div>  
       </div>  
   
-      <div class="feedback" id="m6f1" style="margin-top:15px;"></div>  
+      <div class="feedback" aria-live="polite" id="m6f1" style="margin-top:15px;"></div>  
       <div class="btn-group">  
         <button class="btn btn-primary" onclick="checkRatios()">✓ Check All Ratios</button>  
         <button class="btn btn-outline btn-sm" onclick="showAnswer('m6ans')">Show Answers</button>  
@@ -2315,7 +2320,7 @@
         </div>  
       </div>  
   
-      <div class="feedback" id="m7f1"></div>  
+      <div class="feedback" aria-live="polite" id="m7f1"></div>  
       <div class="btn-group">  
         <button class="btn btn-primary" onclick="checkM7()">✓ Check All Closing Entries</button>  
         <button class="btn btn-outline btn-sm" onclick="showAnswer('m7ans')">Show Answers</button>  
@@ -2812,5 +2817,6 @@ function checkM7() {
 // Initialize
 updateProgress();
 </script>
+    <script src="../theme-redesign.js"></script>
 </body>
 </html>

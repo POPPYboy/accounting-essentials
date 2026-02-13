@@ -5,7 +5,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>P3: Reversing Entries | ACCOUNTING ESSENTIALS</title>
-    <link rel="stylesheet" href="../../styles.css">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght,SOFT@9..144,600,0&amp;family=Manrope:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../styles.css">
     <style>
         /* Additional styles for comprehensive knowledge point */
         .reversing-diagram {
@@ -526,10 +529,12 @@
   gtag('config', 'G-50MTQPVR7D');
 </script>
 
+    <link rel="stylesheet" href="../../theme-redesign.css">
 </head>
 
-<body>
-    <canvas id="global-bg-canvas"
+<body class="course-redesign">
+        <a href="#main-content" class="skip-link">Skip to main content</a>
+<canvas id="global-bg-canvas"
         style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; background: var(--bg-light); pointer-events: none;"></canvas>
 
     <header>
@@ -544,7 +549,7 @@
         </div>
     </header>
 
-    <main class="container">
+    <main class="container" id="main-content">
         <div class="breadcrumbs">
             <a href="../../index.html">Home</a> <span>/</span> <a href="../../Part1/part1.html">Part 1</a>
             <span>/</span> <a href="ch04.html">Chapter 4</a> <span>/</span> P3
@@ -1230,7 +1235,7 @@
                         color: white;
                         font-size: 1rem;
                         font-weight: 600;
-                        transition: all 0.3s ease;
+                        transition: transform 0.3s ease, opacity 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease, filter 0.3s ease;
                     }
 
                     .simulator-input-wrap input:focus {
@@ -1853,7 +1858,7 @@
                     </div>
 
                     <button class="btn btn-primary quiz-submit">Submit All Answers</button>
-                    <div class="feedback"></div>
+                    <div class="feedback" aria-live="polite"></div>
                     <button class="quiz-retry">Try Again</button>
                 </div>
             </section>
@@ -1926,6 +1931,7 @@
             updateReversing();
         });
     </script>
+    <script src="../../theme-redesign.js"></script>
 </body>
 
 </html>

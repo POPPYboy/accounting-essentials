@@ -5,7 +5,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>P4: Specific Identification | ACCOUNTING ESSENTIALS</title>
-    <link rel="stylesheet" href="../../styles.css">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght,SOFT@9..144,600,0&amp;family=Manrope:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../styles.css">
     <style>
         .item-showcase {
             display: grid;
@@ -114,10 +117,12 @@
   gtag('config', 'G-50MTQPVR7D');
 </script>
 
+    <link rel="stylesheet" href="../../theme-redesign.css">
 </head>
 
-<body>
-    <canvas id="global-bg-canvas"
+<body class="course-redesign">
+        <a href="#main-content" class="skip-link">Skip to main content</a>
+<canvas id="global-bg-canvas"
         style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; background: var(--bg-light); pointer-events: none;"></canvas>
 
     <header>
@@ -132,7 +137,7 @@
         </div>
     </header>
 
-    <main class="container">
+    <main class="container" id="main-content">
         <div class="breadcrumbs">
             <a href="../../index.html">Home</a> <span>/</span> <a href="../../part2/part2.html">Part 2</a> <span>/</span> <a href="ch06.html">Chapter 6</a> <span>/</span> P4
         </div>
@@ -552,7 +557,7 @@
                     </div>
 
                     <button class="btn btn-primary quiz-submit">Submit Answers</button>
-                    <div class="feedback"></div>
+                    <div class="feedback" aria-live="polite"></div>
                     <button class="quiz-retry">Try Again</button>
                 </div>
             </section>
@@ -580,7 +585,7 @@
             document.getElementById(`depth-${depth}`).classList.add('active');
         }
     </script>
-    <script src="../../components.js"></script>
+    <script src="../../theme-redesign.js"></script>
 </body>
 
 </html>

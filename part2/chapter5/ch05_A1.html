@@ -5,7 +5,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>A1: Acid-Test & Gross Margin Ratios | ACCOUNTING ESSENTIALS</title>
-    <link rel="stylesheet" href="../../styles.css">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght,SOFT@9..144,600,0&amp;family=Manrope:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../styles.css">
     <style>
         /* Additional styles for comprehensive knowledge point */
         .ratio-cards {
@@ -377,7 +380,7 @@
             background: var(--bg-light);
             border-radius: var(--radius-sm);
             cursor: pointer;
-            transition: all var(--transition-fast);
+            transition: transform var(--transition-fast), opacity var(--transition-fast), box-shadow var(--transition-fast), background-color var(--transition-fast), color var(--transition-fast), border-color var(--transition-fast), filter var(--transition-fast);
         }
         
         .quiz-container .input-group label:hover {
@@ -446,10 +449,12 @@
   gtag('config', 'G-50MTQPVR7D');
 </script>
 
+    <link rel="stylesheet" href="../../theme-redesign.css">
 </head>
 
-<body>
-    <canvas id="global-bg-canvas"
+<body class="course-redesign">
+        <a href="#main-content" class="skip-link">Skip to main content</a>
+<canvas id="global-bg-canvas"
         style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; background: var(--bg-light); pointer-events: none;"></canvas>
 
     <header>
@@ -464,7 +469,7 @@
         </div>
     </header>
 
-    <main class="container">
+    <main class="container" id="main-content">
         <div class="breadcrumbs">
             <a href="../../index.html">Home</a> <span>/</span> <a href="../../part2/part2.html">Part 2</a>
             <span>/</span> <a href="ch05.html">Chapter 5</a> <span>/</span> A1
@@ -862,7 +867,7 @@
                         <p>Ratios are most useful when tracked over time and compared to benchmarks:</p>
 
                         <div class="decision-tree">
-                            <div class="decision-node-ratio" onclick="this.classList.toggle('expanded')">
+                            <div class="decision-node-ratio" onclick="this.classList.toggle('expanded')" role="button" tabindex="0" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();this.click();}">
                                 <div class="decision-question-ratio">Problem: Acid-test ratio declining over 3 quarters</div>
                                 <div class="decision-answer-ratio">
                                     <strong>Possible Causes:</strong> Inventory building up (slowing sales), receivables growing (customers paying slower), or cash being used for capital expenditures.<br>
@@ -870,7 +875,7 @@
                                 </div>
                             </div>
 
-                            <div class="decision-node-ratio" onclick="this.classList.toggle('expanded')">
+                            <div class="decision-node-ratio" onclick="this.classList.toggle('expanded')" role="button" tabindex="0" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();this.click();}">
                                 <div class="decision-question-ratio">Problem: Gross margin declining while sales increasing</div>
                                 <div class="decision-answer-ratio">
                                     <strong>Possible Causes:</strong> Rising purchase costs, excessive discounting, inefficient purchasing, or shift toward lower-margin products.<br>
@@ -878,7 +883,7 @@
                                 </div>
                             </div>
 
-                            <div class="decision-node-ratio" onclick="this.classList.toggle('expanded')">
+                            <div class="decision-node-ratio" onclick="this.classList.toggle('expanded')" role="button" tabindex="0" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();this.click();}">
                                 <div class="decision-question-ratio">Problem: Acid-test good but current ratio high</div>
                                 <div class="decision-answer-ratio">
                                     <strong>Analysis:</strong> High inventory is boosting current ratio. Acid-test shows true liquidity without inventory. The company may have slow-moving or obsolete inventory.<br>
@@ -1206,7 +1211,7 @@
                     </div>
 
                     <button class="btn btn-primary quiz-submit">Submit All Answers</button>
-                    <div class="feedback"></div>
+                    <div class="feedback" aria-live="polite"></div>
                     <button class="quiz-retry">Try Again</button>
                 </div>
             </section>
@@ -1313,7 +1318,7 @@
         // Initialize calculations
         window.onload = calcRatios;
     </script>
-    <script src="../../components.js"></script>
+    <script src="../../theme-redesign.js"></script>
 </body>
 
 </html>

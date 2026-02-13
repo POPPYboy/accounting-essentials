@@ -5,7 +5,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Year-End Closing Simulation: Metro Retail Inc. | ACCOUNTING ESSENTIALS</title>
-    <link rel="stylesheet" href="../../styles.css">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght,SOFT@9..144,600,0&amp;family=Manrope:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../styles.css">
     <style>
         /* 模拟容器 */
         .sim-container {
@@ -52,7 +55,7 @@
             position: relative;
             z-index: 2;
             cursor: pointer;
-            transition: all 0.3s ease;
+            transition: transform 0.3s ease, opacity 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease, filter 0.3s ease;
         }
 
         .step-circle {
@@ -66,7 +69,7 @@
             justify-content: center;
             font-weight: 700;
             font-size: 1.1rem;
-            transition: all 0.3s ease;
+            transition: transform 0.3s ease, opacity 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease, filter 0.3s ease;
         }
 
         .step-item.active .step-circle {
@@ -186,7 +189,7 @@
             padding: 20px;
             margin: 15px 0;
             cursor: pointer;
-            transition: all 0.3s ease;
+            transition: transform 0.3s ease, opacity 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease, filter 0.3s ease;
         }
 
         .adjustment-card:hover {
@@ -423,7 +426,7 @@
             border-radius: var(--radius-md);
             font-weight: 600;
             cursor: pointer;
-            transition: all 0.3s ease;
+            transition: transform 0.3s ease, opacity 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease, filter 0.3s ease;
             border: none;
         }
 
@@ -546,7 +549,7 @@
             padding: 30px;
             text-align: center;
             margin: 20px 0;
-            transition: all 0.3s ease;
+            transition: transform 0.3s ease, opacity 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease, filter 0.3s ease;
         }
 
         .drag-zone.drag-over {
@@ -573,10 +576,12 @@
         gtag('js', new Date());
         gtag('config', 'G-50MTQPVR7D');
     </script>
+    <link rel="stylesheet" href="../../theme-redesign.css">
 </head>
 
-<body>
-    <canvas id="global-bg-canvas"
+<body class="course-redesign">
+        <a href="#main-content" class="skip-link">Skip to main content</a>
+<canvas id="global-bg-canvas"
         style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; background: var(--bg-light); pointer-events: none;"></canvas>
 
     <header>
@@ -590,7 +595,7 @@
         </div>
     </header>
 
-    <main class="container">
+    <main class="container" id="main-content">
         <div class="breadcrumbs">
             <a href="../../index.html">Home</a> <span>/</span> <a href="../part1.html">Part 1</a> <span>/</span> <a href="ch03.html">Chapter 3</a> <span>/</span> Year-End Closing Simulation
         </div>
@@ -614,23 +619,23 @@
                 <div class="progress-tracker">
                     <div class="progress-fill" id="progress-bar" style="width: 0%;"></div>
                     
-                    <div class="step-item active" data-step="1" onclick="goToStep(1)">
+                    <div class="step-item active" data-step="1" onclick="goToStep(1)" role="button" tabindex="0" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();this.click();}">
                         <div class="step-circle">1</div>
                         <div class="step-label">Review Documents</div>
                     </div>
-                    <div class="step-item" data-step="2" onclick="goToStep(2)">
+                    <div class="step-item" data-step="2" onclick="goToStep(2)" role="button" tabindex="0" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();this.click();}">
                         <div class="step-circle">2</div>
                         <div class="step-label">Identify Adjustments</div>
                     </div>
-                    <div class="step-item" data-step="3" onclick="goToStep(3)">
+                    <div class="step-item" data-step="3" onclick="goToStep(3)" role="button" tabindex="0" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();this.click();}">
                         <div class="step-circle">3</div>
                         <div class="step-label">Prepare Entries</div>
                     </div>
-                    <div class="step-item" data-step="4" onclick="goToStep(4)">
+                    <div class="step-item" data-step="4" onclick="goToStep(4)" role="button" tabindex="0" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();this.click();}">
                         <div class="step-circle">4</div>
                         <div class="step-label">Update Worksheet</div>
                     </div>
-                    <div class="step-item" data-step="5" onclick="goToStep(5)">
+                    <div class="step-item" data-step="5" onclick="goToStep(5)" role="button" tabindex="0" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();this.click();}">
                         <div class="step-circle">5</div>
                         <div class="step-label">Financial Statements</div>
                     </div>
@@ -648,7 +653,7 @@
 
                         <p style="margin-bottom: 20px;">Review the following documents to identify items requiring year-end adjustments. Click on each document to examine details.</p>
 
-                        <div class="document-card" onclick="showDocumentDetail('insurance')">
+                        <div class="document-card" onclick="showDocumentDetail('insurance')" role="button" tabindex="0" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();this.click();}">
                             <div class="document-header">
                                 <span class="document-type">Insurance Policy Document</span>
                                 <span class="document-date">Dec 31, 2026</span>
@@ -663,7 +668,7 @@
                             </div>
                         </div>
 
-                        <div class="document-card" onclick="showDocumentDetail('rent')">
+                        <div class="document-card" onclick="showDocumentDetail('rent')" role="button" tabindex="0" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();this.click();}">
                             <div class="document-header">
                                 <span class="document-type">Lease Agreement</span>
                                 <span class="document-date">Dec 31, 2026</span>
@@ -679,7 +684,7 @@
                             </div>
                         </div>
 
-                        <div class="document-card" onclick="showDocumentDetail('salaries')">
+                        <div class="document-card" onclick="showDocumentDetail('salaries')" role="button" tabindex="0" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();this.click();}">
                             <div class="document-header">
                                 <span class="document-type">Payroll Summary</span>
                                 <span class="document-date">Dec 31, 2026</span>
@@ -694,7 +699,7 @@
                             </div>
                         </div>
 
-                        <div class="document-card" onclick="showDocumentDetail('supplies')">
+                        <div class="document-card" onclick="showDocumentDetail('supplies')" role="button" tabindex="0" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();this.click();}">
                             <div class="document-header">
                                 <span class="document-type">Supplies Inventory Count</span>
                                 <span class="document-date">Dec 31, 2026</span>
@@ -708,7 +713,7 @@
                             </div>
                         </div>
 
-                        <div class="document-card" onclick="showDocumentDetail('depreciation')">
+                        <div class="document-card" onclick="showDocumentDetail('depreciation')" role="button" tabindex="0" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();this.click();}">
                             <div class="document-header">
                                 <span class="document-type">Fixed Assets Schedule</span>
                                 <span class="document-date">Dec 31, 2026</span>
@@ -723,7 +728,7 @@
                             </div>
                         </div>
 
-                        <div class="document-card" onclick="showDocumentDetail('revenue')">
+                        <div class="document-card" onclick="showDocumentDetail('revenue')" role="button" tabindex="0" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();this.click();}">
                             <div class="document-header">
                                 <span class="document-type">Customer Contract</span>
                                 <span class="document-date">Dec 31, 2026</span>
@@ -739,7 +744,7 @@
                             </div>
                         </div>
 
-                        <div class="feedback-message" id="step1-feedback"></div>
+                        <div class="feedback-message" aria-live="polite" id="step1-feedback"></div>
 
                         <div class="action-buttons">
                             <button class="nav-btn prev" disabled>← Previous</button>
@@ -769,46 +774,46 @@
 
                         <h4 style="color: var(--primary); margin: 25px 0 15px 0;">Adjustment Scenarios - Click to Identify Type:</h4>
 
-                        <div class="adjustment-card" data-scenario="1" onclick="identifyAdjustment(1)">
+                        <div class="adjustment-card" data-scenario="1" onclick="identifyAdjustment(1)" role="button" tabindex="0" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();this.click();}">
                             <span class="adjustment-type type-prepaid">Prepaid Expense</span>
                             <h4>Insurance Policy - $6,000 expired</h4>
                             <p>Paid $12,000 on July 1 for 12-month coverage. 6 months have now expired (July-Dec).</p>
-                            <div class="feedback" id="scenario1-feedback"></div>
+                            <div class="feedback" aria-live="polite" id="scenario1-feedback"></div>
                         </div>
 
-                        <div class="adjustment-card" data-scenario="2" onclick="identifyAdjustment(2)">
+                        <div class="adjustment-card" data-scenario="2" onclick="identifyAdjustment(2)" role="button" tabindex="0" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();this.click();}">
                             <span class="adjustment-type type-accrued-exp">Accrued Expense</span>
                             <h4>Rent Expense - $6,000 for December</h4>
                             <p>Quarterly rent of $18,000 paid Nov 1 covers Nov-Jan. December portion needs to be recorded.</p>
-                            <div class="feedback" id="scenario2-feedback"></div>
+                            <div class="feedback" aria-live="polite" id="scenario2-feedback"></div>
                         </div>
 
-                        <div class="adjustment-card" data-scenario="3" onclick="identifyAdjustment(3)">
+                        <div class="adjustment-card" data-scenario="3" onclick="identifyAdjustment(3)" role="button" tabindex="0" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();this.click();}">
                             <span class="adjustment-type type-accrued-exp">Accrued Expense</span>
                             <h4>Salaries - $8,500 for Dec 27-31</h4>
                             <p>Employees worked the last 5 days of December but will be paid on January 5, 2027.</p>
-                            <div class="feedback" id="scenario3-feedback"></div>
+                            <div class="feedback" aria-live="polite" id="scenario3-feedback"></div>
                         </div>
 
-                        <div class="adjustment-card" data-scenario="4" onclick="identifyAdjustment(4)">
+                        <div class="adjustment-card" data-scenario="4" onclick="identifyAdjustment(4)" role="button" tabindex="0" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();this.click();}">
                             <span class="adjustment-type type-prepaid">Prepaid Expense</span>
                             <h4>Supplies - $5,600 used</h4>
                             <p>Supplies account shows $8,000, but physical count reveals only $2,400 on hand.</p>
-                            <div class="feedback" id="scenario4-feedback"></div>
+                            <div class="feedback" aria-live="polite" id="scenario4-feedback"></div>
                         </div>
 
-                        <div class="adjustment-card" data-scenario="5" onclick="identifyAdjustment(5)">
+                        <div class="adjustment-card" data-scenario="5" onclick="identifyAdjustment(5)" role="button" tabindex="0" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();this.click();}">
                             <span class="adjustment-type type-depreciation">Depreciation</span>
                             <h4>Equipment Depreciation - $9,000</h4>
                             <p>Annual depreciation on store equipment using straight-line method.</p>
-                            <div class="feedback" id="scenario5-feedback"></div>
+                            <div class="feedback" aria-live="polite" id="scenario5-feedback"></div>
                         </div>
 
-                        <div class="adjustment-card" data-scenario="6" onclick="identifyAdjustment(6)">
+                        <div class="adjustment-card" data-scenario="6" onclick="identifyAdjustment(6)" role="button" tabindex="0" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();this.click();}">
                             <span class="adjustment-type type-unearned">Unearned Revenue</span>
                             <h4>Service Revenue - $8,000 earned</h4>
                             <p>Received $24,000 for 6-month contract starting Nov 1. Two months of service now completed.</p>
-                            <div class="feedback" id="scenario6-feedback"></div>
+                            <div class="feedback" aria-live="polite" id="scenario6-feedback"></div>
                         </div>
 
                         <div class="metrics-grid" style="margin-top: 30px;">
@@ -870,7 +875,7 @@
                                 <input type="number" id="entry1-credit-amt" placeholder="0" oninput="checkEntry(1)">
                                 <span id="entry1-credit-feedback"></span>
                             </div>
-                            <div class="feedback-message" id="entry1-feedback" style="margin-top: 10px;"></div>
+                            <div class="feedback-message" aria-live="polite" id="entry1-feedback" style="margin-top: 10px;"></div>
                         </div>
 
                         <!-- 调整分录 2: 租金费用 -->
@@ -906,7 +911,7 @@
                                 <input type="number" id="entry2-credit-amt" placeholder="0" oninput="checkEntry(2)">
                                 <span id="entry2-credit-feedback"></span>
                             </div>
-                            <div class="feedback-message" id="entry2-feedback" style="margin-top: 10px;"></div>
+                            <div class="feedback-message" aria-live="polite" id="entry2-feedback" style="margin-top: 10px;"></div>
                         </div>
 
                         <!-- 调整分录 3: 应付工资 -->
@@ -942,7 +947,7 @@
                                 <input type="number" id="entry3-credit-amt" placeholder="0" oninput="checkEntry(3)">
                                 <span id="entry3-credit-feedback"></span>
                             </div>
-                            <div class="feedback-message" id="entry3-feedback" style="margin-top: 10px;"></div>
+                            <div class="feedback-message" aria-live="polite" id="entry3-feedback" style="margin-top: 10px;"></div>
                         </div>
 
                         <!-- 调整分录 4: 办公用品 -->
@@ -978,7 +983,7 @@
                                 <input type="number" id="entry4-credit-amt" placeholder="0" oninput="checkEntry(4)">
                                 <span id="entry4-credit-feedback"></span>
                             </div>
-                            <div class="feedback-message" id="entry4-feedback" style="margin-top: 10px;"></div>
+                            <div class="feedback-message" aria-live="polite" id="entry4-feedback" style="margin-top: 10px;"></div>
                         </div>
 
                         <!-- 调整分录 5: 折旧 -->
@@ -1014,7 +1019,7 @@
                                 <input type="number" id="entry5-credit-amt" placeholder="0" oninput="checkEntry(5)">
                                 <span id="entry5-credit-feedback"></span>
                             </div>
-                            <div class="feedback-message" id="entry5-feedback" style="margin-top: 10px;"></div>
+                            <div class="feedback-message" aria-live="polite" id="entry5-feedback" style="margin-top: 10px;"></div>
                         </div>
 
                         <!-- 调整分录 6: 预收收入 -->
@@ -1050,7 +1055,7 @@
                                 <input type="number" id="entry6-credit-amt" placeholder="0" oninput="checkEntry(6)">
                                 <span id="entry6-credit-feedback"></span>
                             </div>
-                            <div class="feedback-message" id="entry6-feedback" style="margin-top: 10px;"></div>
+                            <div class="feedback-message" aria-live="polite" id="entry6-feedback" style="margin-top: 10px;"></div>
                         </div>
 
                         <div class="metrics-grid">
@@ -1564,6 +1569,7 @@
             goToStep(1);
         });
     </script>
+    <script src="../../theme-redesign.js"></script>
 </body>
 
 </html>

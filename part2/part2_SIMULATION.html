@@ -22,6 +22,35 @@
  --border: #E0E0E0;
  --highlight: #FFF3E0;
  }
+
+ .skip-link {
+ color: white;
+ background: var(--primary);
+ text-decoration: none;
+ position: absolute;
+ left: 1rem;
+ top: -48px;
+ z-index: 2000;
+ padding: 0.55rem 0.85rem;
+ border-radius: 8px;
+ font-weight: 700;
+ }
+
+ .skip-link:focus-visible {
+ top: 0.75rem;
+ }
+
+ .sr-only {
+ position: absolute;
+ width: 1px;
+ height: 1px;
+ padding: 0;
+ margin: -1px;
+ overflow: hidden;
+ clip: rect(0, 0, 0, 0);
+ white-space: nowrap;
+ border: 0;
+ }
  
  body {
  font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
@@ -68,7 +97,7 @@
   text-decoration: none;
   font-size: 14px;
   font-weight: 500;
-  transition: all 0.3s;
+  transition: background-color 0.3s, color 0.3s;
   padding: 5px 10px;
   border-radius: 4px;
   }
@@ -143,6 +172,7 @@
  }
  
   .phase-item {
+    border: 2px solid transparent;
     display: flex;
     align-items: center;
     gap: 8px;
@@ -153,7 +183,7 @@
     font-weight: 600;
     box-shadow: 0 2px 8px rgba(0,0,0,0.06);
     opacity: 0.5;
-    transition: all 0.3s;
+    transition: opacity 0.3s, transform 0.3s, box-shadow 0.3s, background-color 0.3s, color 0.3s, border-color 0.3s;
     cursor: pointer;
   }
   
@@ -267,12 +297,16 @@
  }
  
  .transaction-item {
+ display: block;
+ width: 100%;
+ text-align: left;
+ font: inherit;
  background: white;
  border: 2px solid var(--border);
  border-radius: 10px;
  padding: 20px;
  cursor: pointer;
- transition: all 0.3s;
+ transition: transform 0.3s, border-color 0.3s, background-color 0.3s, box-shadow 0.3s;
  position: relative;
  }
  
@@ -399,8 +433,12 @@
  }
  
  select:focus, input:focus {
- outline: none;
  border-color: var(--primary);
+ }
+
+ select:focus-visible, input:focus-visible {
+ outline: 3px solid rgba(255, 106, 0, 0.28);
+ outline-offset: 2px;
  }
  
  input[type="number"] {
@@ -418,7 +456,7 @@
  font-size: 14px;
  font-weight: 600;
  cursor: pointer;
- transition: all 0.3s;
+ transition: transform 0.3s, background-color 0.3s, color 0.3s, border-color 0.3s;
  font-family: inherit;
  }
  
@@ -476,7 +514,7 @@
   cursor: pointer;
   font-size: 13px;
   font-weight: 600;
-  transition: all 0.3s;
+  transition: background-color 0.3s, color 0.3s, border-color 0.3s;
   }
   
   .phase-filter-btn:hover {
@@ -637,7 +675,7 @@
  border-radius: 8px;
  cursor: pointer;
  font-weight: 600;
- transition: all 0.3s;
+ transition: background-color 0.3s, color 0.3s, border-color 0.3s;
  }
  
  .method-btn:hover {
@@ -648,6 +686,16 @@
  background: var(--primary);
  color: white;
  border-color: var(--primary);
+ }
+
+ .top-nav-links a:focus-visible,
+ .phase-item:focus-visible,
+ .transaction-item:focus-visible,
+ .btn:focus-visible,
+ .method-btn:focus-visible,
+ .phase-filter-btn:focus-visible {
+ outline: 3px solid rgba(255, 106, 0, 0.35);
+ outline-offset: 2px;
  }
  
  /* Hint Box */
@@ -765,9 +813,19 @@
  .hidden {
  display: none !important;
  }
+
+ @media (prefers-reduced-motion: reduce) {
+ *, *::before, *::after {
+ animation-duration: 0.01ms !important;
+ animation-iteration-count: 1 !important;
+ transition-duration: 0.01ms !important;
+ scroll-behavior: auto !important;
+ }
+ }
 </style>
 </head>
 <body>
+<a href="#main-content" class="skip-link">Skip to main content</a>
 
 <!-- Top Navigation Bar -->
 <div class="top-nav">
@@ -799,23 +857,24 @@
  </div>
 </div>
 
+<main id="main-content">
 <!-- Phase Indicator -->
 <div class="phase-indicator">
-  <div class="phase-item active" id="phase1" onclick="jumpToPhase(1)" style="cursor: pointer;">
+  <button type="button" class="phase-item active" id="phase1" onclick="jumpToPhase(1)">
     <span>📦</span> Purchase Transactions
-  </div>
-  <div class="phase-item" id="phase2" onclick="jumpToPhase(2)" style="cursor: pointer;">
+  </button>
+  <button type="button" class="phase-item" id="phase2" onclick="jumpToPhase(2)">
     <span>💰</span> Sales Transactions
-  </div>
-  <div class="phase-item" id="phase3" onclick="jumpToPhase(3)" style="cursor: pointer;">
+  </button>
+  <button type="button" class="phase-item" id="phase3" onclick="jumpToPhase(3)">
     <span>📊</span> Cost Calculation
-  </div>
-  <div class="phase-item" id="phase4" onclick="jumpToPhase(4)" style="cursor: pointer;">
+  </button>
+  <button type="button" class="phase-item" id="phase4" onclick="jumpToPhase(4)">
     <span>⚖️</span> Period-End Adjustments
-  </div>
-  <div class="phase-item" id="phase5" onclick="jumpToPhase(5)" style="cursor: pointer;">
+  </button>
+  <button type="button" class="phase-item" id="phase5" onclick="jumpToPhase(5)">
     <span>📈</span> Financial Statements
-  </div>
+  </button>
 </div>
 
 <!-- Main Content -->
@@ -893,7 +952,7 @@
  <button class="btn btn-outline" onclick="toggleAnswer()">👁️ View Answer</button>
  </div>
  
- <div class="feedback" id="feedback"></div>
+ <div class="feedback" id="feedback" aria-live="polite"></div>
  </div>
  </div>
 
@@ -913,7 +972,7 @@
  <button class="btn btn-primary" onclick="checkStatements()">✓ Verify Statement</button>
  </div>
  
- <div class="feedback" id="stmtFeedback"></div>
+ <div class="feedback" id="stmtFeedback" aria-live="polite"></div>
  
  <div class="completion-banner" id="completionBanner">
  <h3>🎉 Congratulations on Completing All Practices！</h3>
@@ -921,6 +980,7 @@
  <p>Final Score: <strong id="finalScore">0</strong> / 100</p>
  <button class="btn btn-secondary" onclick="location.reload()" style="margin-top: 15px;">Restart</button>
  </div>
+</main>
  </div>
  </div>
 
@@ -1312,9 +1372,11 @@ function renderTransactionList() {
   list.appendChild(phaseHeader);
   }
   
-  const item = document.createElement('div');
+  const item = document.createElement('button');
+  item.type = 'button';
   item.className = 'transaction-item';
   item.id = 'tx-' + index;
+  item.setAttribute('aria-label', `${tx.date} ${tx.title} amount ${tx.amount} yuan`);
   
   if (completedTransactions.includes(index)) {
   item.classList.add('completed');
@@ -1325,7 +1387,6 @@ function renderTransactionList() {
   
   // All transactions are clickable
   item.onclick = () => showTransaction(index);
-  item.style.cursor = 'pointer';
   
   const statusText = completedTransactions.includes(index) ? '✓ Completed' : 
     (index === currentTransaction ? 'Current' : 'Available');
@@ -1393,22 +1454,22 @@ function generateEntryForm(tx) {
  html += `
  <div class="form-row">
  <div class="form-group" style="flex: 2;">
- <label>Account</label>
- <select id="acc-${i}">
- <option value="">-- Select Account --</option>
- ${accounts.map(acc => `<option value="${acc}">${acc}</option>`).join('')}
- </select>
- </div>
- <div class="form-group">
- <label>Debit (¥)</label>
- <input type="number" id="dr-${i}" placeholder="0">
- </div>
- <div class="form-group">
- <label>Credit (¥)</label>
- <input type="number" id="cr-${i}" placeholder="0">
- </div>
- </div>
- `;
+  <label for="acc-${i}">Account</label>
+  <select id="acc-${i}" name="acc_${i}" aria-label="Account line ${i + 1}" autocomplete="off">
+  <option value="">-- Select Account --</option>
+  ${accounts.map(acc => `<option value="${acc}">${acc}</option>`).join('')}
+  </select>
+  </div>
+  <div class="form-group">
+  <label for="dr-${i}">Debit (¥)</label>
+  <input type="number" id="dr-${i}" name="dr_${i}" aria-label="Debit amount line ${i + 1}" inputmode="numeric" autocomplete="off" placeholder="0…">
+  </div>
+  <div class="form-group">
+  <label for="cr-${i}">Credit (¥)</label>
+  <input type="number" id="cr-${i}" name="cr_${i}" aria-label="Credit amount line ${i + 1}" inputmode="numeric" autocomplete="off" placeholder="0…">
+  </div>
+  </div>
+  `;
  }
  
  form.innerHTML = html;
@@ -1789,28 +1850,28 @@ function showStatements() {
   const form = document.getElementById('statementForm');
  form.innerHTML = `
  <div class="statement-row">
- <span>Sales Revenue (Sales Revenue)</span>
- <input type="number" class="statement-input" id="stmt-revenue" placeholder="?">
+ <span><label for="stmt-revenue">Sales Revenue (Sales Revenue)</label></span>
+ <input type="number" class="statement-input" id="stmt-revenue" name="stmt_revenue" aria-label="Sales Revenue" inputmode="numeric" autocomplete="off" placeholder="0…">
  </div>
  <div class="statement-row">
- <span style="padding-left: 20px;">Less: Sales Returns (Sales Returns)</span>
- <input type="number" class="statement-input" id="stmt-returns" placeholder="?">
+ <span style="padding-left: 20px;"><label for="stmt-returns">Less: Sales Returns (Sales Returns)</label></span>
+ <input type="number" class="statement-input" id="stmt-returns" name="stmt_returns" aria-label="Sales Returns" inputmode="numeric" autocomplete="off" placeholder="0…">
  </div>
  <div class="statement-row">
- <span style="padding-left: 20px;">Less: Sales Discounts (SalesDiscount)</span>
- <input type="number" class="statement-input" id="stmt-discounts" placeholder="?">
+ <span style="padding-left: 20px;"><label for="stmt-discounts">Less: Sales Discounts (SalesDiscount)</label></span>
+ <input type="number" class="statement-input" id="stmt-discounts" name="stmt_discounts" aria-label="Sales Discounts" inputmode="numeric" autocomplete="off" placeholder="0…">
  </div>
  <div class="statement-row total">
- <span>Net Sales (Net Sales)</span>
- <input type="number" class="statement-input" id="stmt-net-sales" placeholder="?">
+ <span><label for="stmt-net-sales">Net Sales (Net Sales)</label></span>
+ <input type="number" class="statement-input" id="stmt-net-sales" name="stmt_net_sales" aria-label="Net Sales" inputmode="numeric" autocomplete="off" placeholder="0…">
  </div>
  <div class="statement-row">
- <span>Cost of Goods Sold (Cost of Goods Sold)</span>
- <input type="number" class="statement-input" id="stmt-cogs" placeholder="?">
+ <span><label for="stmt-cogs">Cost of Goods Sold (Cost of Goods Sold)</label></span>
+ <input type="number" class="statement-input" id="stmt-cogs" name="stmt_cogs" aria-label="Cost of Goods Sold" inputmode="numeric" autocomplete="off" placeholder="0…">
  </div>
  <div class="statement-row total">
- <span>Gross Profit (Gross Profit)</span>
- <input type="number" class="statement-input" id="stmt-gross-profit" placeholder="?">
+ <span><label for="stmt-gross-profit">Gross Profit (Gross Profit)</label></span>
+ <input type="number" class="statement-input" id="stmt-gross-profit" name="stmt_gross_profit" aria-label="Gross Profit" inputmode="numeric" autocomplete="off" placeholder="0…">
  </div>
  `;
 }

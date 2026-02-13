@@ -14,13 +14,26 @@
             --info: #2196F3;
         }
         * { margin: 0; padding: 0; box-sizing: border-box; }
+        .skip-link {
+            position: absolute;
+            left: 1rem;
+            top: -48px;
+            z-index: 2000;
+            padding: 0.55rem 0.85rem;
+            border-radius: 8px;
+            background: var(--nvidia-green);
+            color: var(--nvidia-dark);
+            font-weight: 700;
+            text-decoration: none;
+        }
+        .skip-link:focus-visible { top: 0.75rem; }
         body { font-family: 'Segoe UI', sans-serif; background: #f5f5f5; line-height: 1.6; }
         
         /* Navigation */
         .nav-top { background: var(--nvidia-dark); padding: 15px 30px; border-bottom: 3px solid var(--nvidia-green); }
         .nav-content { max-width: 1400px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; }
         .nav-links { display: flex; gap: 20px; }
-        .nav-links a { color: white; text-decoration: none; padding: 8px 16px; border-radius: 4px; transition: 0.3s; }
+        .nav-links a { color: white; text-decoration: none; padding: 8px 16px; border-radius: 4px; transition: background-color 0.3s, color 0.3s; }
         .nav-links a:hover, .nav-links a.active { background: var(--nvidia-green); color: var(--nvidia-dark); }
         
         /* Header */
@@ -34,7 +47,7 @@
         
         /* Phase Nav */
         .phase-nav { display: flex; justify-content: center; gap: 10px; padding: 20px; background: white; flex-wrap: wrap; }
-        .phase-btn { padding: 12px 20px; border: 2px solid #ddd; background: white; border-radius: 25px; cursor: pointer; font-weight: 600; transition: all 0.3s; }
+        .phase-btn { padding: 12px 20px; border: 2px solid #ddd; background: white; border-radius: 25px; cursor: pointer; font-weight: 600; transition: transform 0.3s, background-color 0.3s, color 0.3s, border-color 0.3s; }
         .phase-btn:hover { border-color: var(--nvidia-green); transform: translateY(-2px); }
         .phase-btn.active { background: var(--nvidia-green); color: white; border-color: var(--nvidia-green); }
         .phase-btn.completed { background: var(--success); color: white; border-color: var(--success); }
@@ -59,7 +72,7 @@
         input.incorrect { border-color: var(--error); background: #FFEBEE; }
         
         /* Buttons */
-        .btn { padding: 12px 24px; border: none; border-radius: 8px; cursor: pointer; font-weight: 600; font-size: 14px; transition: all 0.3s; margin: 5px; }
+        .btn { padding: 12px 24px; border: none; border-radius: 8px; cursor: pointer; font-weight: 600; font-size: 14px; transition: transform 0.3s, background-color 0.3s, color 0.3s, border-color 0.3s; margin: 5px; }
         .btn-primary { background: var(--nvidia-green); color: white; }
         .btn-primary:hover { background: #5a8f00; }
         .btn-secondary { background: #6c757d; color: white; }
@@ -89,10 +102,20 @@
         .worksheet-row:last-child { border-bottom: 2px solid #333; font-weight: 700; font-size: 1.1rem; }
         
         /* Matrix */
-        .matrix-cell { cursor: pointer; text-align: center; transition: all 0.3s; }
-        .matrix-cell:hover { background: #e3f2fd; }
-        .matrix-cell.selected { background: var(--nvidia-green); color: white; }
-        .matrix-cell.conflict { background: #ffebee; color: #c62828; }
+        .matrix-cell-btn { width: 100%; border: none; background: transparent; cursor: pointer; text-align: center; padding: 8px 0; font: inherit; transition: background-color 0.3s, color 0.3s; }
+        .matrix-cell-btn:hover { background: #e3f2fd; }
+        .matrix-cell-btn.selected { background: var(--nvidia-green); color: white; }
+        .matrix-cell-btn.conflict { background: #ffebee; color: #c62828; }
+
+        .nav-links a:focus-visible,
+        .phase-btn:focus-visible,
+        .btn:focus-visible,
+        .matrix-cell-btn:focus-visible,
+        input:focus-visible,
+        select:focus-visible {
+            outline: 3px solid rgba(118, 185, 0, 0.4);
+            outline-offset: 2px;
+        }
         
         /* Bank Rec */
         .bank-statement { background: #fff; border: 2px solid #2196F3; border-radius: 8px; padding: 20px; }
@@ -100,9 +123,19 @@
         
         /* Voucher */
         .voucher { background: #fff8e1; border: 2px dashed #ffa000; border-radius: 8px; padding: 15px; margin: 10px 0; }
+
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+                scroll-behavior: auto !important;
+            }
+        }
     </style>
 </head>
 <body>
+    <a href="#main-content" class="skip-link">Skip to main content</a>
     <!-- Navigation -->
     <nav class="nav-top">
         <div class="nav-content">
@@ -117,6 +150,7 @@
         </div>
     </nav>
 
+    <main id="main-content">
     <!-- Header -->
     <header class="header">
         <h1>🖥️ NVIDIA Corporation</h1>
@@ -303,7 +337,7 @@
                 <div style="text-align: center;">
                     <button class="btn btn-primary" onclick="verifyLedgers()">Verify Balances</button>
                 </div>
-                <div class="feedback" id="ledger-feedback"></div>
+                <div class="feedback" id="ledger-feedback" aria-live="polite"></div>
             </div>
 
             <div id="phase2-complete" class="hidden" style="text-align: center; margin-top: 30px;">
@@ -449,7 +483,7 @@
                 <div style="text-align: center; margin-top: 20px;">
                     <button class="btn btn-primary" onclick="verifyBankRec()">Complete Reconciliation</button>
                 </div>
-                <div class="feedback" id="bank-rec-feedback"></div>
+                <div class="feedback" id="bank-rec-feedback" aria-live="polite"></div>
             </div>
 
             <div id="phase3-complete" class="hidden" style="text-align: center; margin-top: 30px;">
@@ -500,7 +534,7 @@
                 <div style="text-align: center;">
                     <button class="btn btn-primary" onclick="validateEstablishFund()">Record Entry</button>
                 </div>
-                <div class="feedback" id="feedback-establish"></div>
+                <div class="feedback" id="feedback-establish" aria-live="polite"></div>
             </div>
 
             <!-- Step 2: Petty Cash Vouchers -->
@@ -564,7 +598,7 @@
                 <div style="text-align: center;">
                     <button class="btn btn-primary" onclick="validateVouchers()">Verify Expenses</button>
                 </div>
-                <div class="feedback" id="feedback-vouchers"></div>
+                <div class="feedback" id="feedback-vouchers" aria-live="polite"></div>
             </div>
 
             <!-- Step 3: Replenish Fund -->
@@ -612,7 +646,7 @@
                 <div style="text-align: center;">
                     <button class="btn btn-primary" onclick="validateReplenish()">Record Replenishment</button>
                 </div>
-                <div class="feedback" id="feedback-replenish"></div>
+                <div class="feedback" id="feedback-replenish" aria-live="polite"></div>
             </div>
 
             <div id="phase4-complete" class="hidden" style="text-align: center; margin-top: 30px;">
@@ -645,23 +679,23 @@
                     <tbody>
                         <tr>
                             <td><strong>John (Manager)</strong></td>
-                            <td class="matrix-cell" onclick="toggleMatrixCell(this, 'auth')">✓</td>
-                            <td class="matrix-cell" onclick="toggleMatrixCell(this, 'rec')">-</td>
-                            <td class="matrix-cell" onclick="toggleMatrixCell(this, 'cust')">-</td>
+                            <td><button type="button" class="matrix-cell-btn" onclick="toggleMatrixCell(this, 'auth')" aria-label="John authorization duty">✓</button></td>
+                            <td><button type="button" class="matrix-cell-btn" onclick="toggleMatrixCell(this, 'rec')" aria-label="John recording duty">-</button></td>
+                            <td><button type="button" class="matrix-cell-btn" onclick="toggleMatrixCell(this, 'cust')" aria-label="John custody duty">-</button></td>
                             <td><span class="badge badge-completed">OK</span></td>
                         </tr>
                         <tr>
                             <td><strong>Mary (Accountant)</strong></td>
-                            <td class="matrix-cell" onclick="toggleMatrixCell(this, 'auth')">-</td>
-                            <td class="matrix-cell" onclick="toggleMatrixCell(this, 'rec')">✓</td>
-                            <td class="matrix-cell conflict" onclick="toggleMatrixCell(this, 'cust')">✓</td>
+                            <td><button type="button" class="matrix-cell-btn" onclick="toggleMatrixCell(this, 'auth')" aria-label="Mary authorization duty">-</button></td>
+                            <td><button type="button" class="matrix-cell-btn" onclick="toggleMatrixCell(this, 'rec')" aria-label="Mary recording duty">✓</button></td>
+                            <td><button type="button" class="matrix-cell-btn conflict" onclick="toggleMatrixCell(this, 'cust')" aria-label="Mary custody duty">✓</button></td>
                             <td><span class="badge badge-pending">ISSUE</span></td>
                         </tr>
                         <tr>
                             <td><strong>David (Cashier)</strong></td>
-                            <td class="matrix-cell" onclick="toggleMatrixCell(this, 'auth')">✓</td>
-                            <td class="matrix-cell" onclick="toggleMatrixCell(this, 'rec')">✓</td>
-                            <td class="matrix-cell" onclick="toggleMatrixCell(this, 'cust')">✓</td>
+                            <td><button type="button" class="matrix-cell-btn" onclick="toggleMatrixCell(this, 'auth')" aria-label="David authorization duty">✓</button></td>
+                            <td><button type="button" class="matrix-cell-btn" onclick="toggleMatrixCell(this, 'rec')" aria-label="David recording duty">✓</button></td>
+                            <td><button type="button" class="matrix-cell-btn" onclick="toggleMatrixCell(this, 'cust')" aria-label="David custody duty">✓</button></td>
                             <td><span class="badge badge-pending">CRITICAL</span></td>
                         </tr>
                     </tbody>
@@ -689,7 +723,7 @@
                 <div style="text-align: center;">
                     <button class="btn btn-primary" onclick="validateControls()">Check Answers</button>
                 </div>
-                <div class="feedback" id="feedback-controls"></div>
+                <div class="feedback" id="feedback-controls" aria-live="polite"></div>
             </div>
 
             <!-- Task 2: Ratio Calculations -->
@@ -710,7 +744,7 @@
                         </div>
                         <div class="worksheet-row">
                             <span>Calculate DPO:</span>
-                            <span><input type="number" id="dpo-result" style="width: 100px;" placeholder="?"> days</span>
+                            <span><input type="number" id="dpo-result" style="width: 100px;" placeholder="0…"> days</span>
                         </div>
                         <div style="margin-top: 10px; font-size: 0.85rem; color: #666;">
                             Formula: (Ending AP / COGS) × 365
@@ -730,7 +764,7 @@
                         </div>
                         <div class="worksheet-row">
                             <span>Calculate Days:</span>
-                            <span><input type="number" id="dsu-result" style="width: 100px;" placeholder="?"> days</span>
+                            <span><input type="number" id="dsu-result" style="width: 100px;" placeholder="0…"> days</span>
                         </div>
                         <div style="margin-top: 10px; font-size: 0.85rem; color: #666;">
                             Formula: (Ending AR / Net Sales) × 365
@@ -741,7 +775,7 @@
                 <div style="margin-top: 20px; text-align: center;">
                     <button class="btn btn-primary" onclick="validateRatios()">Calculate Ratios</button>
                 </div>
-                <div class="feedback" id="feedback-ratios"></div>
+                <div class="feedback" id="feedback-ratios" aria-live="polite"></div>
             </div>
 
             <!-- Final Complete -->
@@ -767,6 +801,7 @@
         </div>
     </div>
 
+    </main>
     <script>
         // COMPLETE DATA AND FUNCTIONS
         const documents = [
@@ -912,6 +947,7 @@
         function init() {
             renderDocument(0);
             updateMainProgress();
+            applyFormAccessibility(document);
         }
 
         function renderDocument(index) {
@@ -1077,7 +1113,7 @@
                             <option value="PJ">Purchases Journal (PJ)</option>
                             <option value="CP">Cash Payments Journal (CP)</option>
                         </select>
-                        <div class="feedback" id="journal-feedback-${doc.id}"></div>
+                        <div class="feedback" id="journal-feedback-${doc.id}" aria-live="polite"></div>
                     </div>
 
                     <div id="entry-form-${doc.id}" class="${completedDocs.includes(doc.id) ? '' : 'hidden'}" style="margin-top: 20px;">
@@ -1087,10 +1123,11 @@
                             <button class="btn btn-primary" onclick="submitEntry(${doc.id})" ${completedDocs.includes(doc.id) ? 'disabled' : ''}>Record Entry</button>
                             <button class="btn btn-outline" onclick="showDocHint(${doc.id})">Need Help?</button>
                         </div>
-                        <div class="feedback" id="entry-feedback-${doc.id}"></div>
+                        <div class="feedback" id="entry-feedback-${doc.id}" aria-live="polite"></div>
                     </div>
                 </div>
             `;
+            applyFormAccessibility(container);
 
             // Restore completed state
             if (completedDocs.includes(doc.id)) {
@@ -1402,6 +1439,31 @@
                 cell.textContent = '-';
                 cell.classList.remove('selected', 'conflict');
             }
+        }
+
+        function applyFormAccessibility(root = document) {
+            const controls = root.querySelectorAll('input, select, textarea');
+            controls.forEach((el, idx) => {
+                if (!el.name && el.id) {
+                    el.name = el.id.replace(/[^a-zA-Z0-9_:-]/g, '_');
+                }
+                if (!el.getAttribute('autocomplete')) {
+                    el.setAttribute('autocomplete', 'off');
+                }
+                if (!el.getAttribute('aria-label')) {
+                    const explicitLabel = el.id ? root.querySelector(`label[for="${el.id}"]`) : null;
+                    const labelText = explicitLabel?.textContent?.trim();
+                    const fallback = el.placeholder?.trim() || (el.id ? el.id.replace(/[-_]/g, ' ') : `field ${idx + 1}`);
+                    el.setAttribute('aria-label', labelText || fallback);
+                }
+            });
+
+            const feedbackBlocks = root.querySelectorAll('.feedback');
+            feedbackBlocks.forEach((el) => {
+                if (!el.getAttribute('aria-live')) {
+                    el.setAttribute('aria-live', 'polite');
+                }
+            });
         }
 
         function validateControls() {

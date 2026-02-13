@@ -48,10 +48,11 @@ class CourseMindMap {
     }
 
     resize() {
-        this.width = this.container.clientWidth;
-        this.height = this.container.clientHeight;
+        this.viewWidth = this.container.clientWidth;
+        this.viewHeight = this.container.clientHeight;
+        this.width = this.viewWidth;
+        this.height = this.viewHeight;
 
-        // Scale for DPR but don't exceed logical dimensions
         this.canvas.width = this.width;
         this.canvas.height = this.height;
         this.canvas.style.width = this.width + 'px';
@@ -60,12 +61,13 @@ class CourseMindMap {
 
     initParticles() {
         this.particles = [];
-        // Reduced particle count for better performance
-        const count = Math.min(60, (this.width * this.height) / 15000);
+        const pw = this.canvas.width || this.viewWidth;
+        const ph = this.canvas.height || this.viewHeight;
+        const count = Math.min(60, (pw * ph) / 15000);
         for (let i = 0; i < count; i++) {
             this.particles.push({
-                x: Math.random() * this.width,
-                y: Math.random() * this.height,
+                x: Math.random() * pw,
+                y: Math.random() * ph,
                 vx: (Math.random() - 0.5) * 0.4,
                 vy: (Math.random() - 0.5) * 0.4,
                 size: Math.random() * 1.5 + 0.5,
@@ -78,32 +80,76 @@ class CourseMindMap {
         this.connections = [];
 
         const data = this.data;
-        const Y_ROOT = 70;
+        const Y_ROOT = 60;
         const Y_PART = 130;
-        const Y_CHAP = 190;
-        const Y_SEC_START = 240;
-        const Y_SEC_GAP = 40;
+        const Y_CHAP = 200;
+        const Y_SEC_START = 270;
+        const Y_SEC_GAP = 48;
+        const COL_GAP = 24;
 
-        const rootNode = this.createNode('root', 'COURSE START', 'root', this.width / 2, Y_ROOT, 'index.html');
+        // --- Pass 1: measure max node width per chapter column ---
+        this.ctx.font = 'bold 12px Inter, sans-serif';
+        const colWidths = [];
+        data.children.forEach((part) => {
+            (part.children || []).forEach((chap) => {
+                let maxW = this.ctx.measureText(chap.title).width + 36;
+                (chap.children || []).forEach((sec) => {
+                    const label = sec.code + ': ' + sec.title;
+                    const w = this.ctx.measureText(label).width + 36;
+                    if (w > maxW) maxW = w;
+                });
+                colWidths.push(maxW);
+            });
+        });
 
-        const totalChapters = data.children.reduce((acc, part) => acc + (part.children ? part.children.length : 0), 0);
-        const marginX = this.width * 0.18;
-        const usableWidth = this.width - (marginX * 2);
-        const chapStep = usableWidth / (totalChapters - 1 || 1);
+        // --- Compute column X positions based on actual widths ---
+        const marginX = 40;
+        const colCenters = [];
+        let curX = marginX;
+        for (let i = 0; i < colWidths.length; i++) {
+            const halfW = colWidths[i] / 2;
+            curX += halfW;
+            colCenters.push(curX);
+            curX += halfW + COL_GAP;
+        }
+        const totalContentWidth = curX + marginX;
+
+        // --- Compute max vertical extent ---
+        let maxChildren = 0;
+        data.children.forEach((part) => {
+            (part.children || []).forEach((chap) => {
+                const n = (chap.children || []).length;
+                if (n > maxChildren) maxChildren = n;
+            });
+        });
+        const totalContentHeight = Y_SEC_START + maxChildren * Y_SEC_GAP + 60;
+
+        // --- Resize canvas to fit content (allow scrolling) ---
+        this.contentWidth = Math.max(totalContentWidth, this.viewWidth);
+        this.contentHeight = Math.max(totalContentHeight, this.viewHeight);
+        this.canvas.width = this.contentWidth;
+        this.canvas.height = this.contentHeight;
+        this.canvas.style.width = this.contentWidth + 'px';
+        this.canvas.style.height = this.contentHeight + 'px';
+        this.width = this.contentWidth;
+        this.height = this.contentHeight;
+
+        // --- Pass 2: create nodes at computed positions ---
+        const rootNode = this.createNode('root', 'COURSE START', 'root', this.contentWidth / 2, Y_ROOT, 'index.html');
 
         let globalChapIndex = 0;
 
         data.children.forEach((part) => {
             const partChapters = part.children || [];
-            const startX = marginX + globalChapIndex * chapStep;
-            const endX = marginX + (globalChapIndex + partChapters.length - 1) * chapStep;
+            const startX = colCenters[globalChapIndex];
+            const endX = colCenters[globalChapIndex + partChapters.length - 1];
             const partX = (startX + endX) / 2;
 
             const partNode = this.createNode(part.id, part.title, 'part', partX, Y_PART, part.url);
             this.connect(rootNode, partNode);
 
             partChapters.forEach((chap) => {
-                const chapX = marginX + globalChapIndex * chapStep;
+                const chapX = colCenters[globalChapIndex];
                 const chapNode = this.createNode(chap.id, chap.title, 'chapter', chapX, Y_CHAP, chap.url);
                 this.connect(partNode, chapNode);
 
@@ -153,9 +199,9 @@ class CourseMindMap {
 
         this.canvas.addEventListener('mousemove', (e) => {
             const rect = this.canvas.getBoundingClientRect();
-            this.mouse.x = e.clientX - rect.left;
-            this.mouse.y = e.clientY - rect.top;
-            this.isMouseOver = (this.mouse.x >= 0 && this.mouse.x <= this.width && this.mouse.y >= 0 && this.mouse.y <= this.height);
+            this.mouse.x = e.clientX - rect.left + this.container.scrollLeft;
+            this.mouse.y = e.clientY - rect.top + this.container.scrollTop;
+            this.isMouseOver = true;
         });
 
         this.canvas.addEventListener('mouseleave', () => {
@@ -172,14 +218,16 @@ class CourseMindMap {
     }
 
     updateParticles() {
+        const pw = this.canvas.width;
+        const ph = this.canvas.height;
         this.particles.forEach(p => {
             p.x += p.vx;
             p.y += p.vy;
 
-            if (p.x < 0) p.x = this.width;
-            if (p.x > this.width) p.x = 0;
-            if (p.y < 0) p.y = this.height;
-            if (p.y > this.height) p.y = 0;
+            if (p.x < 0) p.x = pw;
+            if (p.x > pw) p.x = 0;
+            if (p.y < 0) p.y = ph;
+            if (p.y > ph) p.y = 0;
 
             // Subtle mouse interaction
             if (this.isMouseOver) {
@@ -247,7 +295,7 @@ class CourseMindMap {
     draw() {
         // Clear with solid color (faster than clearRect)
         this.ctx.fillStyle = '#f8fafc';
-        this.ctx.fillRect(0, 0, this.width, this.height);
+        this.ctx.fillRect(0, 0, this.canvas.width, this.canvas.height);
 
         // Draw particles
         this.ctx.fillStyle = this.theme.particle;

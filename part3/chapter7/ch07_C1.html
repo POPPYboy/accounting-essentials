@@ -5,7 +5,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>C1: Fundamental System Principles | ACCOUNTING ESSENTIALS</title>
-    <link rel="stylesheet" href="../../styles.css">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght,SOFT@9..144,600,0&amp;family=Manrope:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../styles.css">
     <style>
         .comparison-table {
             width: 100%;
@@ -70,7 +73,7 @@
             height: 100px;
             background: radial-gradient(circle, var(--primary-light), var(--primary));
             border-radius: 50%;
-            transition: all 0.4s ease;
+            transition: transform 0.4s ease, opacity 0.4s ease, box-shadow 0.4s ease, background-color 0.4s ease, color 0.4s ease, border-color 0.4s ease, filter 0.4s ease;
             box-shadow: 0 0 20px var(--primary-light);
             display: flex;
             justify-content: center;
@@ -106,10 +109,12 @@
   gtag('config', 'G-50MTQPVR7D');
 </script>
 
+    <link rel="stylesheet" href="../../theme-redesign.css">
 </head>
 
-<body>
-    <canvas id="global-bg-canvas"
+<body class="course-redesign">
+        <a href="#main-content" class="skip-link">Skip to main content</a>
+<canvas id="global-bg-canvas"
         style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; background: var(--bg-light); pointer-events: none;"></canvas>
 
     <header>
@@ -124,7 +129,7 @@
         </div>
     </header>
 
-    <main class="container">
+    <main class="container" id="main-content">
         <div class="breadcrumbs">
             <a href="../../index.html">Home</a> <span>/</span> <a href="../../part3/part3.html">Part 3</a>
             <span>/</span> <a href="ch07.html">Chapter 7</a> <span>/</span> C1
@@ -516,7 +521,7 @@
                     </div>
 
                     <button class="btn btn-primary quiz-submit">Submit Answers</button>
-                    <div class="feedback"></div>
+                    <div class="feedback" aria-live="polite"></div>
                     <button class="quiz-retry">Try Again</button>
                 </div>
             </section>
@@ -634,6 +639,7 @@
         document.addEventListener('DOMContentLoaded', updateSystem);
     </script>
     <script src="../../components.js"></script>
+    <script src="../../theme-redesign.js"></script>
 </body>
 
 </html>
